@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `String` | Optional | - |
-| `item_type` | [`RestrictionTypeEnum`](../../doc/models/restriction-type-enum.md) | Optional | - |
+| `id` | `Integer` | Optional | - |
+| `item_type` | [`RestrictionType`](../../doc/models/restriction-type.md) | Optional | - |
 | `item_id` | `Integer` | Optional | - |
 | `name` | `String` | Optional | - |
 | `handle` | `String` | Optional | - |
@@ -19,7 +19,7 @@
 
 ```json
 {
-  "id": "id4",
+  "id": 180,
   "item_type": "Component",
   "item_id": 184,
   "name": "name4",

@@ -14,7 +14,7 @@
 | `amount` | String \| Float \| nil | Optional | This is a container for one-of cases. |
 | `description` | `String` | Optional | **Constraints**: *Maximum Length*: `255` |
 | `product_family_id` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
-| `compounding_strategy` | [Compounding Strategy](../../doc/models/compounding-strategy-enum.md) \| nil | Optional | This is a container for one-of cases. |
+| `compounding_strategy` | [Compounding Strategy](../../doc/models/compounding-strategy.md) \| nil | Optional | This is a container for one-of cases. |
 
 ## Example (as JSON)
 

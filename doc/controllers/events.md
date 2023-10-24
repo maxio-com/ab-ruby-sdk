@@ -85,7 +85,7 @@ def list_events(page: 1,
                 per_page: 20,
                 since_id: nil,
                 max_id: nil,
-                direction: DirectionEnum::DESC,
+                direction: Direction::DESC,
                 filter: nil,
                 date_field: nil,
                 start_date: nil,
@@ -100,11 +100,11 @@ def list_events(page: 1,
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `since_id` | `Integer` | Query, Optional | - |
-| `max_id` | `Integer` | Query, Optional | - |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | **Default**: `DirectionEnum::DESC` |
-| `filter` | [`Array<EventTypeEnum>`](../../doc/models/event-type-enum.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
-| `date_field` | [`ListEventsDateFieldEnum`](../../doc/models/list-events-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. |
+| `since_id` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `max_id` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction::DESC` |
+| `filter` | [`Array<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `date_field` | [`ListEventsDateField`](../../doc/models/list-events-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
 | `start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
@@ -121,14 +121,14 @@ page = 2
 
 per_page = 50
 
-direction = DirectionEnum::DESC
+direction = Direction::DESC
 
 filter = [
-  EventTypeEnum::CUSTOM_FIELD_VALUE_CHANGE,
-  EventTypeEnum::PAYMENT_SUCCESS
+  EventType::CUSTOM_FIELD_VALUE_CHANGE,
+  EventType::PAYMENT_SUCCESS
 ]
 
-date_field = ListEventsDateFieldEnum::CREATED_AT
+date_field = ListEventsDateField::CREATED_AT
 
 result = events_controller.list_events(
   page: page,
@@ -137,67 +137,6 @@ result = events_controller.list_events(
   filter: filter,
   date_field: date_field
 )
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "event": {
-      "id": 343087780,
-      "key": "subscription_state_change",
-      "message": "State changed on Test subscription to Monthly Product from active to past_due",
-      "subscription_id": 14950962,
-      "created_at": "2016-10-27T16:42:22-04:00",
-      "event_specific_data": {
-        "previous_subscription_state": "active",
-        "new_subscription_state": "past_due"
-      }
-    }
-  },
-  {
-    "event": {
-      "id": 343087742,
-      "key": "billing_date_change",
-      "message": "Billing date changed on Test's subscription to Monthly Product from 11/27/2016 to 10/27/2016",
-      "subscription_id": 14950962,
-      "created_at": "2016-10-27T16:42:19-04:00",
-      "event_specific_data": null
-    }
-  },
-  {
-    "event": {
-      "id": 343085267,
-      "key": "statement_closed",
-      "message": "Statement 79401838 closed (but not settled) for Test's subscription to ANNUAL product",
-      "subscription_id": 14950975,
-      "created_at": "2016-10-27T16:40:40-04:00",
-      "event_specific_data": null
-    }
-  },
-  {
-    "event": {
-      "id": 4481,
-      "key": "custom_field_value_change",
-      "message": "Custom field (Extra support included) changed for Subscription 117 from 'Yes' to 'No'.",
-      "subscription_id": 117,
-      "customer_id": null,
-      "created_at": "2022-03-24T07:55:06-04:00",
-      "event_specific_data": {
-        "event_type": "updated",
-        "metafield_name": "Extra support included",
-        "metafield_id": 2,
-        "old_value": "Yes",
-        "new_value": "No",
-        "resource_type": "Subscription",
-        "resource_id": 117,
-        "previous_subscription_state": "active",
-        "new_subscription_state": "past_due"
-      }
-    }
-  }
-]
 ```
 
 
@@ -213,7 +152,7 @@ def list_subscription_events(subscription_id,
                              per_page: 20,
                              since_id: nil,
                              max_id: nil,
-                             direction: DirectionEnum::DESC,
+                             direction: Direction::DESC,
                              filter: nil)
 ```
 
@@ -224,10 +163,10 @@ def list_subscription_events(subscription_id,
 | `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `since_id` | `Integer` | Query, Optional | - |
-| `max_id` | `Integer` | Query, Optional | - |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | **Default**: `DirectionEnum::DESC` |
-| `filter` | [`Array<EventTypeEnum>`](../../doc/models/event-type-enum.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `since_id` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `max_id` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction::DESC` |
+| `filter` | [`Array<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -242,11 +181,11 @@ page = 2
 
 per_page = 50
 
-direction = DirectionEnum::DESC
+direction = Direction::DESC
 
 filter = [
-  EventTypeEnum::CUSTOM_FIELD_VALUE_CHANGE,
-  EventTypeEnum::PAYMENT_SUCCESS
+  EventType::CUSTOM_FIELD_VALUE_CHANGE,
+  EventType::PAYMENT_SUCCESS
 ]
 
 result = events_controller.list_subscription_events(
@@ -256,48 +195,6 @@ result = events_controller.list_subscription_events(
   direction: direction,
   filter: filter
 )
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "event": {
-      "id": 344799837,
-      "key": "statement_settled",
-      "message": "Statement 79702531 settled successfully for Amelia Example's subscription to Basic Plan",
-      "subscription_id": 14900541,
-      "created_at": "2016-11-01T12:41:29-04:00",
-      "event_specific_data": null
-    }
-  },
-  {
-    "event": {
-      "id": 344799815,
-      "key": "renewal_success",
-      "message": "Successful renewal for Amelia Example's subscription to Basic Plan",
-      "subscription_id": 14900541,
-      "created_at": "2016-11-01T12:41:28-04:00",
-      "event_specific_data": {
-        "product_id": 3792003,
-        "account_transaction_id": null,
-        "previous_subscription_state": "active",
-        "new_subscription_state": "active"
-      }
-    }
-  },
-  {
-    "event": {
-      "id": 344799705,
-      "key": "billing_date_change",
-      "message": "Billing date changed on Amelia Example's subscription to Basic Plan from 11/26/2016 to 11/01/2016",
-      "subscription_id": 14900541,
-      "created_at": "2016-11-01T12:41:25-04:00",
-      "event_specific_data": null
-    }
-  }
-]
 ```
 
 
@@ -310,7 +207,7 @@ def read_events_count(page: 1,
                       per_page: 20,
                       since_id: nil,
                       max_id: nil,
-                      direction: DirectionEnum::DESC,
+                      direction: Direction::DESC,
                       filter: nil)
 ```
 
@@ -320,10 +217,10 @@ def read_events_count(page: 1,
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `since_id` | `Integer` | Query, Optional | - |
-| `max_id` | `Integer` | Query, Optional | - |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | **Default**: `DirectionEnum::DESC` |
-| `filter` | [`Array<EventTypeEnum>`](../../doc/models/event-type-enum.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `since_id` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `max_id` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction::DESC` |
+| `filter` | [`Array<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -336,11 +233,11 @@ page = 2
 
 per_page = 50
 
-direction = DirectionEnum::DESC
+direction = Direction::DESC
 
 filter = [
-  EventTypeEnum::CUSTOM_FIELD_VALUE_CHANGE,
-  EventTypeEnum::PAYMENT_SUCCESS
+  EventType::CUSTOM_FIELD_VALUE_CHANGE,
+  EventType::PAYMENT_SUCCESS
 ]
 
 result = events_controller.read_events_count(

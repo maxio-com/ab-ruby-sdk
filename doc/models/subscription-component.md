@@ -27,7 +27,7 @@
 | `archived_at` | `String` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |
 | `price_point_handle` | `String` | Optional | - |
-| `price_point_type` | [Price Point Type](../../doc/models/price-point-type-enum.md) \| nil | Optional | This is a container for one-of cases. |
+| `price_point_type` | [PricePointType_OneOf0](../../doc/models/price-point-type-one-of-0.md) \| [Price Point Type](../../doc/models/price-point-type.md) \| nil | Optional | This is a container for one-of cases. |
 | `price_point_name` | `String` | Optional | - |
 | `product_family_id` | `Integer` | Optional | - |
 | `product_family_handle` | `String` | Optional | - |
@@ -37,6 +37,7 @@
 | `description` | `String` | Optional | - |
 | `allow_fractional_quantities` | `TrueClass \| FalseClass` | Optional | - |
 | `subscription` | [`SubscriptionComponentSubscription`](../../doc/models/subscription-component-subscription.md) | Optional | An optional object, will be returned if provided `include=subscription` query param. |
+| `display_on_hosted_page` | `TrueClass \| FalseClass` | Optional | - |
 
 ## Example (as JSON)
 

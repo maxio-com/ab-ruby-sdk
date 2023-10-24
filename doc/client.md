@@ -5,11 +5,12 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Chargify site<br>*Default*: `'subdomain'` |
+| `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `'subdomain'` |
+| `domain` | `String` | The Chargify server domain.<br>*Default*: `'chargify.com'` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
-| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 60** |
+| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 30** |
 | `max_retries` | `Integer` | The number of times to retry an endpoint call if it fails. <br> **Default: 0** |
 | `retry_interval` | `Float` | Pause in seconds between retries. <br> **Default: 1** |
 | `backoff_factor` | `Float` | The amount to multiply each successive retry's interval amount by in order to provide backoff. <br> **Default: 2** |
@@ -22,15 +23,16 @@ The following parameters are configurable for the API Client:
 The API client can be initialized as follows:
 
 ```ruby
-client = MaxioAdvancedBillingFormerlyChargifyApi::Client.new(
+client = AdvancedBilling::Client.new(
   basic_auth_user_name: 'BasicAuthUserName',
   basic_auth_password: 'BasicAuthPassword',
   environment: Environment::PRODUCTION,
-  subdomain: 'subdomain'
+  subdomain: 'subdomain',
+  domain: 'chargify.com'
 )
 ```
 
-## Maxio Advanced Billing formerly Chargify API Client
+## Maxio Advanced Billing Client
 
 The gateway for the SDK. This class acts as a factory for the Controllers and also holds the configuration of the SDK.
 

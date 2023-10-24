@@ -3,12 +3,12 @@
 
 ## Data Type
 
-`Integer | String`
+`Float | String`
 
 ## Cases
 
 | Type |
 |  --- |
-| `Integer` |
+| `Float` |
 | `String` |
 

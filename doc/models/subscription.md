@@ -24,7 +24,7 @@
 | `created_at` | `String` | Optional | The creation date for this subscription |
 | `updated_at` | `String` | Optional | The date of last update for this subscription |
 | `cancellation_message` | `String` | Optional | Seller-provided reason for, or note about, the cancellation. |
-| `cancellation_method` | [Cancellation Method](../../doc/models/cancellation-method-enum.md) \| nil | Optional | This is a container for one-of cases. |
+| `cancellation_method` | [Cancellation Method](../../doc/models/cancellation-method.md) \| nil | Optional | This is a container for one-of cases. |
 | `cancel_at_end_of_period` | `TrueClass \| FalseClass` | Optional | Whether or not the subscription will (or has) canceled at the end of the period. |
 | `canceled_at` | `String` | Optional | The timestamp of the most recent cancellation |
 | `current_period_started_at` | `String` | Optional | Timestamp relating to the start of the current (recurring) period |
@@ -34,7 +34,7 @@
 | `delayed_cancel_at` | `String` | Optional | Timestamp for when the subscription is currently set to cancel. |
 | `coupon_code` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. |
 | `snap_day` | `String` | Optional | The day of the month that the subscription will charge according to calendar billing rules, if used. |
-| `payment_collection_method` | [Payment Collection Method for Subscription](../../doc/models/payment-collection-method-for-subscription-enum.md) \| nil | Optional | This is a container for one-of cases. |
+| `payment_collection_method` | [Payment Collection Method](../../doc/models/payment-collection-method.md) \| nil | Optional | This is a container for one-of cases. |
 | `customer` | [`Customer`](../../doc/models/customer.md) | Optional | - |
 | `product` | [`Product`](../../doc/models/product.md) | Optional | - |
 | `credit_card` | [`PaymentProfile`](../../doc/models/payment-profile.md) | Optional | - |
@@ -63,6 +63,12 @@
 | `coupons` | [`Array<SubscriptionIncludedCoupon>`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. |
 | `dunning_communication_delay_enabled` | `TrueClass \| FalseClass` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute.<br>**Default**: `false` |
 | `dunning_communication_delay_time_zone` | `String` | Optional | Time zone for the Dunning Communication Delay feature. |
+| `receives_invoice_emails` | `TrueClass \| FalseClass` | Optional | - |
+| `locale` | `String` | Optional | - |
+| `currency` | `String` | Optional | - |
+| `scheduled_cancellation_at` | `String` | Optional | - |
+| `credit_balance_in_cents` | `Integer` | Optional | - |
+| `prepayment_balance_in_cents` | `Integer` | Optional | - |
 
 ## Example (as JSON)
 

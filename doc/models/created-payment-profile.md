@@ -17,7 +17,7 @@
 | `expiration_month` | `Integer` | Optional | - |
 | `expiration_year` | `Integer` | Optional | - |
 | `customer_id` | `Integer` | Optional | - |
-| `current_vault` | `String` | Optional | - |
+| `current_vault` | [`CurrentVault`](../../doc/models/current-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. |
 | `vault_token` | `String` | Optional | - |
 | `billing_address` | `String` | Optional | - |
 | `billing_city` | `String` | Optional | - |

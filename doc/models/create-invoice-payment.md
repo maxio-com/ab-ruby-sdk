@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `amount` | String \| Float \| nil | Optional | This is a container for one-of cases. |
 | `memo` | `String` | Optional | A description to be attached to the payment. |
-| `method` | [`InvoicePaymentMethodTypeEnum`](../../doc/models/invoice-payment-method-type-enum.md) | Optional | The type of payment method used.<br>**Default**: `InvoicePaymentMethodTypeEnum::OTHER` |
+| `method` | [`InvoicePaymentMethodType`](../../doc/models/invoice-payment-method-type.md) | Optional | The type of payment method used.<br>**Default**: `InvoicePaymentMethodType::OTHER` |
 | `details` | `String` | Optional | Additional information related to the payment method (eg. Check #) |
 
 ## Example (as JSON)

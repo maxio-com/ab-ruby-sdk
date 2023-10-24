@@ -48,6 +48,9 @@ Style/RedundantAssignment:
 Style/MultilineTernaryOperator:
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
 AllCops:
   Exclude:
     - './test/**/*'

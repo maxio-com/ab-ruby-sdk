@@ -16,6 +16,8 @@ Information about the customer who is owner or recipient the invoiced subscripti
 | `last_name` | `String` | Optional | - |
 | `organization` | `String` | Optional | - |
 | `email` | `String` | Optional | - |
+| `vat_number` | `String` | Optional | - |
+| `reference` | `String` | Optional | - |
 
 ## Example (as JSON)
 

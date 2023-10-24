@@ -18,7 +18,7 @@
 | `end_date` | `String` | Optional | - |
 | `product_family_id` | `String` | Optional | - |
 | `stackable` | `String` | Optional | - |
-| `compounding_strategy` | [Compounding Strategy](../../doc/models/compounding-strategy-enum.md) \| nil | Optional | This is a container for one-of cases. |
+| `compounding_strategy` | [Compounding Strategy](../../doc/models/compounding-strategy.md) \| nil | Optional | This is a container for one-of cases. |
 | `exclude_mid_period_allocations` | `TrueClass \| FalseClass` | Optional | - |
 | `apply_on_cancel_at_end_of_period` | `TrueClass \| FalseClass` | Optional | - |
 

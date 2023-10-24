@@ -11,7 +11,7 @@ Used in place of `price_point_id` to define a custom price point unique to the s
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `pricing_scheme` | [Pricing Scheme](../../doc/models/pricing-scheme-enum.md) \| nil | Optional | This is a container for one-of cases. |
+| `pricing_scheme` | [Pricing Scheme](../../doc/models/pricing-scheme.md) \| nil | Optional | This is a container for one-of cases. |
 | `prices` | [`Array<Price>`](../../doc/models/price.md) | Optional | - |
 | `overage_pricing` | [`Array<ComponentCustomPrice>`](../../doc/models/component-custom-price.md) | Optional | - |
 
@@ -24,7 +24,7 @@ Used in place of `price_point_id` to define a custom price point unique to the s
     {
       "starting_quantity": 242,
       "ending_quantity": 40,
-      "unit_price": 10
+      "unit_price": 23.26
     }
   ],
   "overage_pricing": [
@@ -34,7 +34,7 @@ Used in place of `price_point_id` to define a custom price point unique to the s
         {
           "starting_quantity": 242,
           "ending_quantity": 40,
-          "unit_price": 10
+          "unit_price": 23.26
         }
       ]
     }

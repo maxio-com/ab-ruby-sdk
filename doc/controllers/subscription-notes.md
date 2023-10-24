@@ -39,7 +39,7 @@ def create_subscription_note(subscription_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
-| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | - |
+| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
 
@@ -228,7 +228,7 @@ def update_subscription_note(subscription_id,
 |  --- | --- | --- | --- |
 | `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
 | `note_id` | `String` | Template, Required | The Chargify id of the note |
-| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | - |
+| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
 

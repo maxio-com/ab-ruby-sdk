@@ -13,7 +13,7 @@
 | `first_name` | `String` | Optional | - |
 | `last_name` | `String` | Optional | - |
 | `customer_id` | `Integer` | Optional | - |
-| `current_vault` | `String` | Optional | - |
+| `current_vault` | [`BankAccountVault`](../../doc/models/bank-account-vault.md) | Optional | The vault that stores the payment profile with the provided vault_token. |
 | `vault_token` | `String` | Optional | - |
 | `billing_address` | `String` | Optional | - |
 | `billing_city` | `String` | Optional | - |
@@ -41,7 +41,7 @@
   "first_name": "first_name2",
   "last_name": "last_name0",
   "customer_id": 228,
-  "current_vault": "current_vault2"
+  "current_vault": "stripe_connect"
 }
 ```
 

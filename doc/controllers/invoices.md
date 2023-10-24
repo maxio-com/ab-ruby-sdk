@@ -90,7 +90,7 @@ def list_invoices(start_date: nil,
                   subscription_group_uid: nil,
                   page: 1,
                   per_page: 20,
-                  direction: DirectionEnum::DESC,
+                  direction: Direction::DESC,
                   line_items: false,
                   discounts: false,
                   taxes: false,
@@ -98,13 +98,13 @@ def list_invoices(start_date: nil,
                   payments: false,
                   custom_fields: false,
                   refunds: false,
-                  date_field: InvoiceDateFieldEnum::DUE_DATE,
+                  date_field: InvoiceDateField::DUE_DATE,
                   start_datetime: nil,
                   end_datetime: nil,
                   customer_ids: nil,
                   number: nil,
                   product_ids: nil,
-                  sort: InvoiceSortFieldEnum::NUMBER)
+                  sort: InvoiceSortField::NUMBER)
 ```
 
 ## Parameters
@@ -113,12 +113,12 @@ def list_invoices(start_date: nil,
 |  --- | --- | --- | --- |
 | `start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `status` | [`StatusEnum`](../../doc/models/status-enum.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
+| `status` | [`Status`](../../doc/models/status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
 | `subscription_id` | `Integer` | Query, Optional | The subscription's ID. |
 | `subscription_group_uid` | `String` | Query, Optional | The UID of the subscription group you want to fetch consolidated invoices for. This will return a paginated list of consolidated invoices for the specified group. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `DirectionEnum::DESC` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `Direction::DESC` |
 | `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data<br>**Default**: `false` |
 | `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data<br>**Default**: `false` |
 | `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data<br>**Default**: `false` |
@@ -126,13 +126,13 @@ def list_invoices(start_date: nil,
 | `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data<br>**Default**: `false` |
 | `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data<br>**Default**: `false` |
 | `refunds` | `TrueClass \| FalseClass` | Query, Optional | Include refunds data<br>**Default**: `false` |
-| `date_field` | [`InvoiceDateFieldEnum`](../../doc/models/invoice-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br>**Default**: `InvoiceDateFieldEnum::DUE_DATE` |
+| `date_field` | [`InvoiceDateField`](../../doc/models/invoice-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br>**Default**: `InvoiceDateField::DUE_DATE` |
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at. |
 | `end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at. |
-| `customer_ids` | `Array<Object>` | Query, Optional | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
+| `customer_ids` | `Array<Integer>` | Query, Optional | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
 | `number` | `Array<String>` | Query, Optional | Allows fetching invoices with matching invoice number based on provided values. Use in query `number=1234,1235`. |
 | `product_ids` | `Array<Integer>` | Query, Optional | Allows fetching invoices with matching line items product ids based on provided values. Use in query `product_ids=23,34`. |
-| `sort` | [`InvoiceSortFieldEnum`](../../doc/models/invoice-sort-field-enum.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`.<br>**Default**: `InvoiceSortFieldEnum::NUMBER` |
+| `sort` | [`InvoiceSortField`](../../doc/models/invoice-sort-field.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`.<br>**Default**: `InvoiceSortField::NUMBER` |
 
 ## Response Type
 
@@ -145,7 +145,7 @@ page = 2
 
 per_page = 50
 
-direction = DirectionEnum::DESC
+direction = Direction::DESC
 
 line_items = false
 
@@ -161,12 +161,12 @@ custom_fields = false
 
 refunds = false
 
-date_field = InvoiceDateFieldEnum::ISSUE_DATE
+date_field = InvoiceDateField::ISSUE_DATE
 
 customer_ids = [
-  JSON.parse('{"key1":"val1","key2":"val2"}'),
-  JSON.parse('{"key1":"val1","key2":"val2"}'),
-  JSON.parse('{"key1":"val1","key2":"val2"}')
+  1,
+  2,
+  3
 ]
 
 number = [
@@ -179,7 +179,7 @@ product_ids = [
   34
 ]
 
-sort = InvoiceSortFieldEnum::TOTAL_AMOUNT
+sort = InvoiceSortField::TOTAL_AMOUNT
 
 result = invoices_controller.list_invoices(
   page: page,
@@ -648,13 +648,13 @@ def list_invoice_events(since_date: nil,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `since_date` | `String` | Query, Optional | - |
-| `since_id` | `Integer` | Query, Optional | - |
+| `since_date` | `String` | Query, Optional | The timestamp in a format `YYYY-MM-DD T HH:MM:SS Z`, or `YYYY-MM-DD`(in this case, it returns data from the beginning of the day). of the event from which you want to start the search. All the events before the `since_date` timestamp are not returned in the response. |
+| `since_id` | `Integer` | Query, Optional | The ID of the event from which you want to start the search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more will be shown) This parameter is not used if since_date is defined. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `per_page` | `Integer` | Query, Optional | **Default**: `100` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: `100` |
 | `invoice_uid` | `String` | Query, Optional | Providing an invoice_uid allows for scoping of the invoice events to a single invoice or credit note. |
 | `with_change_invoice_status` | `String` | Query, Optional | Use this parameter if you want to fetch also invoice events with change_invoice_status type. |
-| `event_types` | [`Array<InvoiceEventTypeEnum>`](../../doc/models/invoice-event-type-enum.md) | Query, Optional | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
+| `event_types` | [`Array<InvoiceEventType>`](../../doc/models/invoice-event-type.md) | Query, Optional | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
 
 ## Response Type
 
@@ -1195,7 +1195,7 @@ body = CreateMultiInvoicePaymentRequest.new(
     ],
     'to pay the bills',
     'check number 8675309',
-    InvoicePaymentMethodTypeEnum::CHECK
+    InvoicePaymentMethodType::CHECK
   )
 )
 
@@ -2056,7 +2056,7 @@ Invoice segments returned on the index will only include totals, not detailed br
 def list_invoice_segments(invoice_uid,
                           page: 1,
                           per_page: 20,
-                          direction: DirectionEnum::ASC)
+                          direction: Direction::ASC)
 ```
 
 ## Parameters
@@ -2066,7 +2066,7 @@ def list_invoice_segments(invoice_uid,
 | `invoice_uid` | `String` | Template, Required | The unique identifier of the consolidated invoice |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | Sort direction of the returned segments.<br>**Default**: `DirectionEnum::ASC` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Sort direction of the returned segments.<br>**Default**: `Direction::ASC` |
 
 ## Response Type
 
@@ -2081,7 +2081,7 @@ page = 2
 
 per_page = 50
 
-direction = DirectionEnum::ASC
+direction = Direction::ASC
 
 result = invoices_controller.list_invoice_segments(
   invoice_uid,
@@ -2432,7 +2432,7 @@ When creating ad hoc invoice, new discounts can be applied in following way:
         "quantity": 1
       }
     ],
-    "coupons": [ 
+    "coupons": [
       {
         "code": "COUPONCODE",
         "percentage": 50.0
@@ -2446,7 +2446,7 @@ If You want to use existing coupon for discount creation, only `code` and option
 
 ```json
 ...
- "coupons": [ 
+ "coupons": [
       {
         "code": "FREESETUP",
         "product_family_id": 1
@@ -2679,7 +2679,7 @@ result = invoices_controller.create_invoice(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 401 | Unauthorized | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsInvoicesJson422ErrorException`](../../doc/models/subscriptions-invoices-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`NestedErrorResponseException`](../../doc/models/nested-error-response-exception.md) |
 
 
 # Send Invoice
@@ -3083,7 +3083,7 @@ def issue_invoice(uid,
 uid = 'uid0'
 
 body = IssueInvoiceRequest.new(
-  FailedPaymentActionEnum::LEAVE_OPEN_INVOICE
+  FailedPaymentAction::LEAVE_OPEN_INVOICE
 )
 
 result = invoices_controller.issue_invoice(

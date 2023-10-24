@@ -26,7 +26,7 @@
 | `product_family_name` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `role` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `seller` | [`InvoiceSeller`](../../doc/models/invoice-seller.md) | Optional | Information about the seller (merchant) listed on the masthead of the invoice. |
-| `customer` | [`ProformaCustomer`](../../doc/models/proforma-customer.md) | Optional | - |
+| `customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the invoiced subscription. |
 | `memo` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `billing_address` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - |
 | `shipping_address` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - |
@@ -38,7 +38,7 @@
 | `paid_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `refund_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `due_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
-| `line_items` | [`Array<ProformaInvoiceLineItem>`](../../doc/models/proforma-invoice-line-item.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
+| `line_items` | [`Array<InvoiceLineItem>`](../../doc/models/invoice-line-item.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
 | `discounts` | [`Array<ProformaInvoiceDiscount>`](../../doc/models/proforma-invoice-discount.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
 | `taxes` | [`Array<ProformaInvoiceTax>`](../../doc/models/proforma-invoice-tax.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
 | `credits` | [`Array<ProformaInvoiceCredit>`](../../doc/models/proforma-invoice-credit.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |

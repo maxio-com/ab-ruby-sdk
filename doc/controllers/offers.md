@@ -118,7 +118,7 @@ result = offers_controller.create_offer(body: body)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`OffersJson422ErrorException`](../../doc/models/offers-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorMapResponseException`](../../doc/models/error-map-response-exception.md) |
 
 
 # List Offers

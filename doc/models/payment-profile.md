@@ -9,28 +9,28 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Integer` | Optional | The Chargify-assigned ID of the stored card. This value can be used as an input to payment_profile_id when creating a subscription, in order to re-use a stored payment profile for the same customer |
-| `first_name` | `String` | Optional | The first name of the card holder |
-| `last_name` | `String` | Optional | The last name of the card holder |
-| `masked_card_number` | `String` | Optional | A string representation of the credit card number with all but the last 4 digits masked with X’s (i.e. ‘XXXX-XXXX-XXXX-1234’) |
-| `card_type` | [`CardTypeEnum`](../../doc/models/card-type-enum.md) | Optional | The type of card used. |
-| `expiration_month` | `Integer` | Optional | An integer representing the expiration month of the card(1 – 12) |
-| `expiration_year` | `Integer` | Optional | An integer representing the 4-digit expiration year of the card(i.e. ‘2012’) |
-| `customer_id` | `Integer` | Optional | The Chargify-assigned id for the customer record to which the card belongs |
-| `current_vault` | [`PaymentProfileVaultEnum`](../../doc/models/payment-profile-vault-enum.md) | Optional | The vault that stores the payment profile with the provided vault_token. |
-| `vault_token` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile |
-| `billing_address` | `String` | Optional | The current billing street address for the card |
-| `billing_city` | `String` | Optional | The current billing address city for the card |
-| `billing_state` | `String` | Optional | The current billing address state for the card |
-| `billing_zip` | `String` | Optional | The current billing address zip code for the card |
-| `billing_country` | `String` | Optional | The current billing address country for the card |
-| `customer_vault_token` | `String` | Optional | (only for Authorize.Net CIM storage): the customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token |
-| `billing_address_2` | `String` | Optional | The current billing street address, second line, for the card |
-| `payment_type` | `String` | Optional | - |
+| `id` | `Integer` | Optional | The Chargify-assigned ID of the stored card. This value can be used as an input to payment_profile_id when creating a subscription, in order to re-use a stored payment profile for the same customer. |
+| `first_name` | `String` | Optional | The first name of the card holder. |
+| `last_name` | `String` | Optional | The last name of the card holder. |
+| `masked_card_number` | `String` | Optional | A string representation of the credit card number with all but the last 4 digits masked with X’s (i.e. ‘XXXX-XXXX-XXXX-1234’). |
+| `card_type` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. |
+| `expiration_month` | `Integer` | Optional | An integer representing the expiration month of the card(1 – 12). |
+| `expiration_year` | `Integer` | Optional | An integer representing the 4-digit expiration year of the card(i.e. ‘2012’). |
+| `customer_id` | `Integer` | Optional | The Chargify-assigned id for the customer record to which the card belongs. |
+| `current_vault` | [`CurrentVault`](../../doc/models/current-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. |
+| `vault_token` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile. |
+| `billing_address` | `String` | Optional | The current billing street address for the card. |
+| `billing_city` | `String` | Optional | The current billing address city for the card. |
+| `billing_state` | `String` | Optional | The current billing address state for the card. |
+| `billing_zip` | `String` | Optional | The current billing address zip code for the card. |
+| `billing_country` | `String` | Optional | The current billing address country for the card. |
+| `customer_vault_token` | `String` | Optional | (only for Authorize.Net CIM storage): the customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token. |
+| `billing_address_2` | `String` | Optional | The current billing street address, second line, for the card. |
+| `payment_type` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | **Default**: `PaymentType::CREDIT_CARD` |
 | `disabled` | `TrueClass \| FalseClass` | Optional | - |
-| `chargify_token` | `String` | Optional | Token received after sending billing informations using chargify.js. This token will only be received if passed as a sole attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt) |
+| `chargify_token` | `String` | Optional | Token received after sending billing informations using chargify.js. |
 | `site_gateway_setting_id` | `Integer` | Optional | - |
-| `gateway_handle` | `String` | Optional | - |
+| `gateway_handle` | `String` | Optional | An identifier of connected gateway. |
 
 ## Example (as JSON)
 

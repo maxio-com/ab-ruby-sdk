@@ -11,6 +11,7 @@
 |  --- | --- | --- | --- |
 | `product_id` | `Integer` | Optional | - |
 | `component_id` | `Integer` | Optional | For Product (or "baseline") line items, this field will have a value of `0`. |
+| `price_point_id` | `Integer` | Optional | - |
 | `name` | `String` | Optional | - |
 | `mrr` | `Integer` | Optional | - |
 | `mrr_movements` | [`Array<MRRMovement>`](../../doc/models/mrr-movement.md) | Optional | - |
@@ -24,22 +25,9 @@
 {
   "product_id": 156,
   "component_id": 68,
+  "price_point_id": 164,
   "name": "name6",
-  "mrr": 154,
-  "mrr_movements": [
-    {
-      "amount": 90,
-      "category": "category4"
-    },
-    {
-      "amount": 90,
-      "category": "category4"
-    },
-    {
-      "amount": 90,
-      "category": "category4"
-    }
-  ]
+  "mrr": 154
 }
 ```
 

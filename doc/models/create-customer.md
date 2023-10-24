@@ -26,6 +26,7 @@
 | `vat_number` | `String` | Optional | - |
 | `tax_exempt` | `TrueClass \| FalseClass` | Optional | - |
 | `tax_exempt_reason` | `String` | Optional | - |
+| `parent_id` | `Integer` | Optional | The parent ID in Chargify if applicable. Parent is another Customer object. |
 
 ## Example (as JSON)
 

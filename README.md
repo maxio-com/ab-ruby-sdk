@@ -1,5 +1,5 @@
 
-# Getting Started with Maxio Advanced Billing formerly Chargify API
+# Getting Started with Maxio Advanced Billing
 
 ## Introduction
 
@@ -7,7 +7,7 @@
 
 #### API Integration
 
-Maxio Advanced Billing can be integrated with many environments and programming languages via our REST API. Some of our users have contributed their API wrappers in various programming languages. Check out the [API Code Overview](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI2-api-code-samples) doc for an introduction to the wrappers and available code samples.
+Maxio Advanced Billing (formerly Chargify API) can be integrated with many environments and programming languages via our REST API. Some of our users have contributed their API wrappers in various programming languages. Check out the [API Code Overview](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI2-api-code-samples) doc for an introduction to the wrappers and available code samples.
 
 #### Testing Guide
 
@@ -37,10 +37,6 @@ But don’t worry! There are quite a few options to help you get the answers you
 - Explore the endpoints of our API Documentation
 - [Watch our videos and tutorials](https://chargify.com/tutorials)
 - [Check out the Chargify tag on Stack Overflow](http://stackoverflow.com/questions/tagged/chargify)
-
-#### Available Consultants
-
-Check out the list of [Chargify Consultants](http://chargify.com/consultants) if you require deeper technical expertise for your integration.
 
 ### API Overview
 
@@ -165,7 +161,7 @@ Those scenarios are as follows:
 - The site you're making a request for has been deleted.
   - _Note: any API request for another site that is in a good state will NOT be blocked_
 
-Read more about your Chargify subscription [here](https://chargify.zendesk.com/hc/en-us/articles/4407747017115)
+Read more about your Chargify subscription [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405430043149-Advanced-Billing-Subscription#advanced-billing-subscription-0-0)
 
 #### What happens when an API request is blocked
 
@@ -237,7 +233,7 @@ This is an error message indicating that Cross-Origin Resource Sharing (CORS) is
 
 #### API Compatibility for Relationship Invoicing
 
-This section describes the API for the new, [Relationship Invoicing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) style of invoices introduced in January 2018.
+This section describes the API for the new, [Relationship Invoicing](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253) style of invoices introduced in January 2018.
 
 If you are an existing customer from prior to January 2018 or have not otherwise explicitly opted into this new style of invoices, you are probably looking for the legacy "Invoices" section that describes [invoice-billing legacy-style invoices](./b3A6MTQxMDgzNjQ-read-invoice).
 
@@ -282,60 +278,52 @@ The generated code depends on a few Ruby gems. The references to these gems are 
 Alternatively, you can build and install the gem manually:
 
 1. From terminal/cmd navigate to the root directory of the SDK.
-2. Run the build command: `gem build maxio_advanced_billing_formerly_chargify_api.gemspec`
-3. Run the install command: `gem install maxio_advanced_billing_formerly_chargify_api-1.0.0.gem`
+2. Run the build command: `gem build advanced_billing.gemspec`
+3. Run the install command: `gem install advanced_billing-1.0.0.gem`
 
-![Installing Gem](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&gemVer=1.0.0&gemName=maxio_advanced_billing_formerly_chargify_api&step=buildSDK)
+![Installing Gem](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&gemVer=1.0.0&gemName=advanced_billing&step=buildSDK)
 
 ## Installation
 
-The following section explains how to use the maxio_advanced_billing_formerly_chargify_api ruby gem in a new Rails project using RubyMine&trade;. The basic workflow presented here is also applicable if you prefer using a different editor or IDE.
+The following section explains how to use the advanced_billing ruby gem in a new Rails project using RubyMine&trade;. The basic workflow presented here is also applicable if you prefer using a different editor or IDE.
 
 ### 1. Starting a new project
 
 Close any existing projects in RubyMine&trade; by selecting `File -> Close Project`. Next, click on `Create New Project` to create a new project from scratch.
 
-![Create a new project in RubyMine - Step 1](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&step=createNewProject0)
+![Create a new project in RubyMine - Step 1](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&step=createNewProject0)
 
 Next, provide `TestApp` as the project name, choose `Rails Application` as the project type, and click `OK`.
 
-![Create a new Rails Application in RubyMine - Step 2](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&step=createNewProject1)
+![Create a new Rails Application in RubyMine - Step 2](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&step=createNewProject1)
 
 In the next dialog make sure that the correct Ruby SDK is being used (>= 2.6 and <= 3.2) and click `OK`.
 
-![Create a new Rails Application in RubyMine - Step 3](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&step=createNewProject2)
+![Create a new Rails Application in RubyMine - Step 3](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&step=createNewProject2)
 
 ### 2. Add reference of the gem
 
-In order to use the Tester gem in the new project we must add a gem reference. Locate the `Gemfile` in the Project Explorer window under the `TestApp` project node. The file contains references to all gems being used in the project. Here, add the reference to the library gem by adding the following line: `gem 'maxio_advanced_billing_formerly_chargify_api', '1.0.0'`
+In order to use the Tester gem in the new project we must add a gem reference. Locate the `Gemfile` in the Project Explorer window under the `TestApp` project node. The file contains references to all gems being used in the project. Here, add the reference to the library gem by adding the following line: `gem 'advanced_billing', '1.0.0'`
 
-![Add new reference to the Gemfile](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&gemVer=1.0.0&gemName=maxio_advanced_billing_formerly_chargify_api&step=addReference)
+![Add new reference to the Gemfile](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&gemVer=1.0.0&gemName=advanced_billing&step=addReference)
 
 ### 3. Adding a new Rails Controller
 
 Once the `TestApp` project is created, a folder named `controllers` will be visible in the *Project Explorer* under the following path: `TestApp > app > controllers`. Right click on this folder and select `New -> Run Rails Generator...`.
 
-![Run Rails Generator on Controllers Folder](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&gemVer=1.0.0&gemName=maxio_advanced_billing_formerly_chargify_api&step=addCode0)
+![Run Rails Generator on Controllers Folder](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&gemVer=1.0.0&gemName=advanced_billing&step=addCode0)
 
 Selecting the said option will popup a small window where the generator names are displayed. Here, select the `controller` template.
 
-![Create a new Controller](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&step=addCode1)
+![Create a new Controller](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&step=addCode1)
 
 Next, a popup window will ask you for a Controller name and included Actions. For controller name provide `Hello` and include an action named `Index` and click `OK`.
 
-![Add a new Controller](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&gemVer=1.0.0&gemName=maxio_advanced_billing_formerly_chargify_api&step=addCode2)
+![Add a new Controller](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&gemVer=1.0.0&gemName=advanced_billing&step=addCode2)
 
 A new controller class named `HelloController` will be created in a file named `hello_controller.rb` containing a method named `Index`. In this method, add code for initialization and a sample for its usage.
 
-![Initialize the library](https://apidocs.io/illustration/ruby?workspaceFolder=MaxioAdvancedBillingFormerlyChargifyApi&gemName=maxio_advanced_billing_formerly_chargify_api&step=addCode3)
-
-## Test the SDK
-
-To run the tests, navigate to the root directory of the SDK in your terminal and execute the following command:
-
-```
-rake
-```
+![Initialize the library](https://apidocs.io/illustration/ruby?workspaceFolder=AdvancedBilling&gemName=advanced_billing&step=addCode3)
 
 ## Initialize the API Client
 
@@ -345,11 +333,12 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Chargify site<br>*Default*: `'subdomain'` |
+| `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `'subdomain'` |
+| `domain` | `String` | The Chargify server domain.<br>*Default*: `'chargify.com'` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
-| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 60** |
+| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 30** |
 | `max_retries` | `Integer` | The number of times to retry an endpoint call if it fails. <br> **Default: 0** |
 | `retry_interval` | `Float` | Pause in seconds between retries. <br> **Default: 1** |
 | `backoff_factor` | `Float` | The amount to multiply each successive retry's interval amount by in order to provide backoff. <br> **Default: 2** |
@@ -362,11 +351,12 @@ The following parameters are configurable for the API Client:
 The API client can be initialized as follows:
 
 ```ruby
-client = MaxioAdvancedBillingFormerlyChargifyApi::Client.new(
+client = AdvancedBilling::Client.new(
   basic_auth_user_name: 'BasicAuthUserName',
   basic_auth_password: 'BasicAuthPassword',
   environment: Environment::PRODUCTION,
-  subdomain: 'subdomain'
+  subdomain: 'subdomain',
+  domain: 'chargify.com'
 )
 ```
 

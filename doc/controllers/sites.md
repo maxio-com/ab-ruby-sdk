@@ -101,14 +101,14 @@ This call is asynchronous and there may be a delay before the site data is fully
 **This functionality will only work on sites in TEST mode. Attempts to perform this on sites in “live” mode will result in a response of 403 FORBIDDEN.**
 
 ```ruby
-def clear_site(cleanup_scope: CleanupScopeEnum::ALL)
+def clear_site(cleanup_scope: CleanupScope::ALL)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cleanup_scope` | [`CleanupScopeEnum`](../../doc/models/cleanup-scope-enum.md) | Query, Optional | `all`: Will clear all products, customers, and related subscriptions from the site.<br>`customers`: Will clear only customers and related subscriptions (leaving the products untouched) for the site.<br>Revenue will also be reset to 0.<br>Use in query `cleanup_scope=all`.<br>**Default**: `CleanupScopeEnum::ALL` |
+| `cleanup_scope` | [`CleanupScope`](../../doc/models/cleanup-scope.md) | Query, Optional | `all`: Will clear all products, customers, and related subscriptions from the site.<br>`customers`: Will clear only customers and related subscriptions (leaving the products untouched) for the site.<br>Revenue will also be reset to 0.<br>Use in query `cleanup_scope=all`.<br>**Default**: `CleanupScope::ALL` |
 
 ## Response Type
 
@@ -117,7 +117,7 @@ def clear_site(cleanup_scope: CleanupScopeEnum::ALL)
 ## Example Usage
 
 ```ruby
-cleanup_scope = CleanupScopeEnum::ALL
+cleanup_scope = CleanupScope::ALL
 
 sites_controller.clear_site(cleanup_scope: cleanup_scope)
 ```

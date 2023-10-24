@@ -16,6 +16,7 @@
 | `discount_amount_in_cents` | `Integer` | Optional | - |
 | `taxable_amount_in_cents` | `Integer` | Optional | - |
 | `product_id` | `Integer` | Optional | - |
+| `product_name` | `String` | Optional | - |
 | `component_id` | `Integer` | Optional | - |
 | `component_handle` | `String` | Optional | - |
 | `component_name` | `String` | Optional | - |

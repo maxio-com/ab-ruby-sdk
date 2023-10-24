@@ -120,7 +120,7 @@ def list_product_price_points(product_id,
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: `10`<br>**Constraints**: `<= 200` |
 | `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
-| `filter_type` | [`Array<PricePointTypeEnum>`](../../doc/models/price-point-type-enum.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
 
 ## Response Type
 
@@ -623,17 +623,17 @@ body = CreateProductCurrencyPricesRequest.new(
     CreateProductCurrencyPrice.new(
       'EUR',
       60,
-      CurrencyPriceRoleEnum::BASELINE
+      CurrencyPriceRole::BASELINE
     ),
     CreateProductCurrencyPrice.new(
       'EUR',
       30,
-      CurrencyPriceRoleEnum::TRIAL
+      CurrencyPriceRole::TRIAL
     ),
     CreateProductCurrencyPrice.new(
       'EUR',
       100,
-      CurrencyPriceRoleEnum::INITIAL
+      CurrencyPriceRole::INITIAL
     )
   ]
 )
@@ -648,7 +648,7 @@ result = product_price_points_controller.create_product_currency_prices(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ProductPricePointsCurrencyPricesJson422ErrorException`](../../doc/models/product-price-points-currency-prices-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorMapResponseException`](../../doc/models/error-map-response-exception.md) |
 
 
 # Update Product Currency Prices
@@ -738,16 +738,16 @@ def list_all_product_price_points(direction: nil,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `direction` | [Sorting direction](../../doc/models/sorting-direction-enum.md) \| nil | Query, Optional | This is a container for one-of cases. |
-| `filter_archived_at` | [`IncludeNotNullEnum`](../../doc/models/include-not-null-enum.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
-| `filter_date_field` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
+| `direction` | [Sorting direction](../../doc/models/sorting-direction.md) \| nil | Query, Optional | This is a container for one-of cases. |
+| `filter_archived_at` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
+| `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
 | `filter_end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `filter_end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `filter_ids` | `Array<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
 | `filter_start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `filter_start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `filter_type` | [`Array<PricePointTypeEnum>`](../../doc/models/price-point-type-enum.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=catalog,custom`. |
-| `include` | [`ListProductsPricePointsIncludeEnum`](../../doc/models/list-products-price-points-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
+| `filter_type` | [`PricePointType`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=catalog,custom`. |
+| `include` | [`ListProductsPricePointsInclude`](../../doc/models/list-products-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 
@@ -758,7 +758,7 @@ def list_all_product_price_points(direction: nil,
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')include = ListProductsPricePointsIncludeEnum::CURRENCY_PRICES
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')include = ListProductsPricePointsInclude::CURRENCY_PRICES
 
 page = 2
 

@@ -60,5 +60,5 @@ result = referral_codes_controller.validate_referral_code(code)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | Not Found | [`ReferralCodesValidateJson404ErrorException`](../../doc/models/referral-codes-validate-json-404-error-exception.md) |
+| 404 | Not Found | [`SingleStringErrorResponseException`](../../doc/models/single-string-error-response-exception.md) |
 

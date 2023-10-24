@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `coupon` | [Create or Update Percentage Coupon](../../doc/models/create-or-update-percentage-coupon.md) \| [Create or Update Flat Amount Coupon](../../doc/models/create-or-update-flat-amount-coupon.md) \| nil | Optional | This is a container for one-of cases. |
-| `restricted_products` | Hash[String, Hash[String, TrueClass \| FalseClass]] \| nil | Optional | This is Hash of a container for one-of cases. |
-| `restricted_components` | Hash[String, Hash[String, TrueClass \| FalseClass]] \| nil | Optional | This is Hash of a container for one-of cases. |
+| `restricted_products` | `Hash[String, TrueClass \| FalseClass]` | Optional | An object where the keys are product_ids and the values are booleans indicating if the coupon should be applicable to the product |
+| `restricted_components` | `Hash[String, TrueClass \| FalseClass]` | Optional | An object where the keys are component_ids and the values are booleans indicating if the coupon should be applicable to the component |
 
 ## Example (as JSON)
 
@@ -28,16 +28,10 @@
     "product_family_id": "product_family_id6"
   },
   "restricted_products": {
-    "key0": {
-      "key0": true,
-      "key1": false
-    }
+    "key0": true
   },
   "restricted_components": {
-    "key0": {
-      "key0": true,
-      "key1": false
-    }
+    "key0": true
   }
 }
 ```

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `quantity` | Integer \| Float \| nil | Optional | This is a container for one-of cases. |
+| `quantity` | `Float` | Optional | integer by default or decimal number if fractional quantities are enabled for the component |
 | `price_point_id` | `String` | Optional | - |
 | `memo` | `String` | Optional | - |
 
@@ -17,7 +17,7 @@
 
 ```json
 {
-  "quantity": 218,
+  "quantity": 23.44,
   "price_point_id": "price_point_id0",
   "memo": "memo2"
 }

@@ -292,7 +292,7 @@ body = CreatePaymentProfileRequest.new(
   CreatePaymentProfile.new(
     nil,
     nil,
-    PaymentTypeEnum::BANK_ACCOUNT,
+    PaymentType::BANK_ACCOUNT,
     nil,
     nil,
     nil,
@@ -317,7 +317,10 @@ body = CreatePaymentProfileRequest.new(
     'Best Bank',
     nil,
     '021000089',
-    '111111111111'
+    '111111111111',
+    nil,
+    'checking',
+    'business'
   )
 )
 
@@ -331,7 +334,6 @@ result = payment_profiles_controller.create_payment_profile(body: body)
   "payment_profile": {
     "first_name": "Jessica",
     "last_name": "Test",
-    "last_four": "1111",
     "card_type": "visa",
     "expiration_month": 10,
     "expiration_year": 2018,
@@ -605,10 +607,10 @@ body = UpdatePaymentProfileRequest.new(
     'Graham',
     'Test',
     '4111111111111111',
-    'master',
+    CardType::MASTER,
     '04',
     '2030',
-    'bogus',
+    CurrentVault::BOGUS,
     '456 Juniper Court',
     'Boulder',
     'CO',
@@ -740,7 +742,7 @@ def verify_bank_account(bank_account_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bank_account_id` | `Integer` | Template, Required | - |
+| `bank_account_id` | `Integer` | Template, Required | Identifier of the bank account in the system. |
 | `body` | [`BankAccountVerificationRequest`](../../doc/models/bank-account-verification-request.md) | Body, Optional | - |
 
 ## Response Type

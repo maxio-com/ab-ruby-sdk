@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `component_id` | `Integer` | Optional | - |
 | `subscription_id` | `Integer` | Optional | - |
-| `quantity` | Float \| Integer \| nil | Optional | This is a container for one-of cases. |
+| `quantity` | `Float` | Optional | - |
 | `previous_quantity` | `Integer` | Optional | - |
 | `memo` | `String` | Optional | - |
 | `timestamp` | `String` | Optional | - |
@@ -20,6 +20,9 @@
 | `accrue_charge` | `TrueClass \| FalseClass` | Optional | - |
 | `upgrade_charge` | `String` | Optional | - |
 | `downgrade_credit` | `String` | Optional | - |
+| `price_point_id` | `Integer` | Optional | - |
+| `previous_price_point_id` | `Integer` | Optional | - |
+| `component_handle` | `String` | Optional | - |
 
 ## Example (as JSON)
 
@@ -27,7 +30,7 @@
 {
   "component_id": 54,
   "subscription_id": 54,
-  "quantity": 159.62,
+  "quantity": 173.08,
   "previous_quantity": 14,
   "memo": "memo6"
 }

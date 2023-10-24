@@ -64,7 +64,34 @@ def create_coupon(product_family_id,
 ```ruby
 product_family_id = 140
 
-result = coupons_controller.create_coupon(product_family_id)
+body = CreateOrUpdateCoupon.new(
+  CreateOrUpdatePercentageCoupon.new(
+    '15% off',
+    '15OFF',
+    '15',
+    '15% off for life',
+    'false',
+    'false',
+    '2012-08-29T12:00:00-04:00',
+    '2',
+    'true',
+    CompoundingStrategy::COMPOUND,
+    true,
+    true
+  ),
+  {
+    '1': true
+  },
+  {
+    '1': true,
+    '2': false
+  }
+)
+
+result = coupons_controller.create_coupon(
+  product_family_id,
+  body: body
+)
 ```
 
 ## Errors
@@ -102,7 +129,7 @@ def list_coupons_for_product_family(product_family_id,
 | `product_family_id` | `Integer` | Template, Required | The Chargify id of the product family to which the coupon belongs |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `30`<br>**Constraints**: `<= 200` |
-| `filter_date_field` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=created_at`. |
+| `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=created_at`. |
 | `filter_end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `filter[date_field]=2011-12-15`. |
 | `filter_end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`. |
 | `filter_start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-17`. |
@@ -114,7 +141,7 @@ def list_coupons_for_product_family(product_family_id,
 
 ## Response Type
 
-[`Array<Coupon>`](../../doc/models/coupon.md)
+[`Array<CouponResponse>`](../../doc/models/coupon-response.md)
 
 ## Example Usage
 
@@ -158,7 +185,7 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
       "duration_interval_unit": "day",
       "allow_negative_balance": true,
       "archived_at": null,
-      "conversion_limit": 100,
+      "conversion_limit": "100",
       "stackable": false,
       "compounding_strategy": "compound",
       "coupon_restrictions": [],
@@ -184,7 +211,7 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
       "duration_interval_unit": "day",
       "allow_negative_balance": true,
       "archived_at": null,
-      "conversion_limit": 100,
+      "conversion_limit": "100",
       "stackable": false,
       "compounding_strategy": "compound",
       "coupon_restrictions": [],
@@ -210,7 +237,7 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
       "duration_interval_unit": "day",
       "allow_negative_balance": true,
       "archived_at": null,
-      "conversion_limit": 100,
+      "conversion_limit": "100",
       "stackable": false,
       "compounding_strategy": "compound",
       "coupon_restrictions": [
@@ -245,7 +272,7 @@ def read_coupon_by_code(product_family_id: nil,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `product_family_id` | `Integer` | Query, Optional | The Chargify id of the product family to which the coupon belongs |
-| `code` | `String` | Query, Optional | - |
+| `code` | `String` | Query, Optional | The code of the coupon |
 
 ## Response Type
 
@@ -361,9 +388,32 @@ product_family_id = 140
 
 coupon_id = 162
 
+body = CreateOrUpdateCoupon.new(
+  CreateOrUpdatePercentageCoupon.new(
+    '15% off',
+    '15OFF',
+    '15',
+    '15% off for life',
+    'false',
+    'false',
+    '2012-08-29T12:00:00-04:00',
+    '2',
+    'true',
+    CompoundingStrategy::COMPOUND
+  ),
+  {
+    '1': true
+  },
+  {
+    '1': true,
+    '2': false
+  }
+)
+
 result = coupons_controller.update_coupon(
   product_family_id,
-  coupon_id
+  coupon_id,
+  body: body
 )
 ```
 
@@ -495,7 +545,7 @@ def list_coupons(page: 1,
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `30`<br>**Constraints**: `<= 200` |
-| `date_field` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[date_field] instead to achieve the same result. The type of filter you would like to apply to your search. |
+| `date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[date_field] instead to achieve the same result. The type of filter you would like to apply to your search. |
 | `start_date` | `String` | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[start_date] instead to achieve the same result. The start date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `end_date` | `String` | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[end_date] instead to achieve the same result. The end date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `start_datetime` | `String` | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[start_datetime] instead to achieve the same result. The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
@@ -507,7 +557,7 @@ def list_coupons(page: 1,
 | `filter_end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `filter[end_datetime]=2011-12-19T10:15:30+01:00`. |
 | `filter_start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-19`. |
 | `filter_start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`. |
-| `filter_date_field` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=updated_at`. |
+| `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=updated_at`. |
 | `filter_use_site_exchange_rate` | `TrueClass \| FalseClass` | Query, Optional | Allows fetching coupons with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 
 ## Response Type
@@ -521,7 +571,7 @@ page = 2
 
 per_page = 50
 
-date_field = BasicDateFieldEnum::UPDATED_AT
+date_field = BasicDateField::UPDATED_AT
 
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')currency_prices = true
 
@@ -566,10 +616,10 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
       "updated_at": "string",
       "discount_type": "amount",
       "exclude_mid_period_allocations": true,
-      "apply_on_cancel_at_end_of_period ": true,
+      "apply_on_cancel_at_end_of_period": true,
       "coupon_restrictions": [
         {
-          "id": "string",
+          "id": 0,
           "item_type": "Component",
           "item_id": 0,
           "name": "string",
@@ -732,7 +782,7 @@ result = coupons_controller.validate_coupon(code)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | Not Found | [`CouponsValidateJson404ErrorException`](../../doc/models/coupons-validate-json-404-error-exception.md) |
+| 404 | Not Found | [`SingleStringErrorResponseException`](../../doc/models/single-string-error-response-exception.md) |
 
 
 # Update Coupon Currency Prices
@@ -1028,7 +1078,7 @@ def delete_coupon_subcode(coupon_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `coupon_id` | `Integer` | Template, Required | The Chargify id of the coupon to which the subcode belongs |
-| `subcode` | `String` | Template, Required | - |
+| `subcode` | `String` | Template, Required | The subcode of the coupon |
 
 ## Response Type
 
