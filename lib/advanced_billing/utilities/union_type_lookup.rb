@@ -784,7 +784,7 @@ module AdvancedBilling
           )
         ),
 
-        :AllocationPayment => AnyOf.new(
+        :AllocationPayment => OneOf.new(
           [
             LeafType.new(AllocationPayment)
           ],

@@ -9,40 +9,18 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [Float]
-    attr_accessor :id
 
-    # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :amount_in_cents
-
-    # TODO: Write general description for this method
-    # @return [TrueClass | FalseClass]
-    attr_accessor :success
-
-    # TODO: Write general description for this method
-    # @return [String]
-    attr_accessor :memo
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['id'] = 'id'
-      @_hash['amount_in_cents'] = 'amount_in_cents'
-      @_hash['success'] = 'success'
-      @_hash['memo'] = 'memo'
+
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
-      %w[
-        id
-        amount_in_cents
-        success
-        memo
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -50,14 +28,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   amount_in_cents = SKIP,
-                   success = SKIP,
-                   memo = SKIP)
-      @id = id unless id == SKIP
-      @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
-      @success = success unless success == SKIP
-      @memo = memo unless memo == SKIP
+    def initialize()
+
     end
 
     # Creates an instance of the object from a hash.
@@ -65,17 +37,10 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      id = hash.key?('id') ? hash['id'] : SKIP
-      amount_in_cents =
-        hash.key?('amount_in_cents') ? hash['amount_in_cents'] : SKIP
-      success = hash.key?('success') ? hash['success'] : SKIP
-      memo = hash.key?('memo') ? hash['memo'] : SKIP
+
 
       # Create object from extracted values.
-      PaymentAllocation.new(id,
-                            amount_in_cents,
-                            success,
-                            memo)
+      PaymentAllocation.new()
     end
 
     # Validates an instance of the object from a given value.

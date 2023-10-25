@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `error` | `String` | Optional | - |
-| `new_link_available_at` | `DateTime` | Optional | - |
+| `error` | `String` | Required | - |
+| `new_link_available_at` | `DateTime` | Required | - |
 
 ## Example (as JSON)
 

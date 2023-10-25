@@ -28,10 +28,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        error
-        new_link_available_at
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -39,10 +36,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(error = SKIP,
-                   new_link_available_at = SKIP)
-      @error = error unless error == SKIP
-      @new_link_available_at = new_link_available_at unless new_link_available_at == SKIP
+    def initialize(error = nil,
+                   new_link_available_at = nil)
+      @error = error
+      @new_link_available_at = new_link_available_at
     end
 
     # Creates an instance of the object from a hash.
@@ -50,11 +47,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      error = hash.key?('error') ? hash['error'] : SKIP
+      error = hash.key?('error') ? hash['error'] : nil
       new_link_available_at = if hash.key?('new_link_available_at')
                                 (DateTimeHelper.from_rfc3339(hash['new_link_available_at']) if hash['new_link_available_at'])
-                              else
-                                SKIP
                               end
 
       # Create object from extracted values.
