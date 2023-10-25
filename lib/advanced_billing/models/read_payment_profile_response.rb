@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [PaymentProfileReadPaymentProfileResponse]
+    # @return [Object]
     attr_accessor :payment_profile
 
     # A mapping from model property names to API property names.

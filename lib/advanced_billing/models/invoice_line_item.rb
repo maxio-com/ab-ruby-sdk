@@ -99,6 +99,16 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :period_range_end
 
+    # End date for the period covered by this line. The format is
+    # `"YYYY-MM-DD"`.
+    # * For periodic charges paid in advance, this date will match the next
+    # (future) billing date.
+    # * For periodic charges paid in arrears (e.g. metered charges), this date
+    # will be the date of the current billing date.
+    # * For non-periodic charges, this date and the start date will match.
+    # @return [Integer]
+    attr_accessor :transaction_id
+
     # The ID of the product subscribed when the charge was made.
     # This may be set even for component charges, so true product-only
     # (non-component) charges will also have a nil `component_id`.
@@ -118,6 +128,16 @@ module AdvancedBilling
     # non-component charges.
     # @return [Integer]
     attr_accessor :price_point_id
+
+    # The price point ID of the component being billed. Will be `nil` for
+    # non-component charges.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :hide
+
+    # The price point ID of the component being billed. Will be `nil` for
+    # non-component charges.
+    # @return [InvoiceLineItemComponentCostData]
+    attr_accessor :component_cost_data
 
     # The price point ID of the line item's product
     # @return [Integer]
@@ -142,10 +162,13 @@ module AdvancedBilling
       @_hash['tiered_unit_price'] = 'tiered_unit_price'
       @_hash['period_range_start'] = 'period_range_start'
       @_hash['period_range_end'] = 'period_range_end'
+      @_hash['transaction_id'] = 'transaction_id'
       @_hash['product_id'] = 'product_id'
       @_hash['product_version'] = 'product_version'
       @_hash['component_id'] = 'component_id'
       @_hash['price_point_id'] = 'price_point_id'
+      @_hash['hide'] = 'hide'
+      @_hash['component_cost_data'] = 'component_cost_data'
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['custom_item'] = 'custom_item'
       @_hash
@@ -166,10 +189,13 @@ module AdvancedBilling
         tiered_unit_price
         period_range_start
         period_range_end
+        transaction_id
         product_id
         product_version
         component_id
         price_point_id
+        hide
+        component_cost_data
         product_price_point_id
         custom_item
       ]
@@ -182,6 +208,7 @@ module AdvancedBilling
         product_version
         component_id
         price_point_id
+        component_cost_data
         product_price_point_id
       ]
     end
@@ -198,10 +225,13 @@ module AdvancedBilling
                    tiered_unit_price = SKIP,
                    period_range_start = SKIP,
                    period_range_end = SKIP,
+                   transaction_id = SKIP,
                    product_id = SKIP,
                    product_version = SKIP,
                    component_id = SKIP,
                    price_point_id = SKIP,
+                   hide = SKIP,
+                   component_cost_data = SKIP,
                    product_price_point_id = SKIP,
                    custom_item = SKIP)
       @uid = uid unless uid == SKIP
@@ -216,10 +246,13 @@ module AdvancedBilling
       @tiered_unit_price = tiered_unit_price unless tiered_unit_price == SKIP
       @period_range_start = period_range_start unless period_range_start == SKIP
       @period_range_end = period_range_end unless period_range_end == SKIP
+      @transaction_id = transaction_id unless transaction_id == SKIP
       @product_id = product_id unless product_id == SKIP
       @product_version = product_version unless product_version == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+      @hide = hide unless hide == SKIP
+      @component_cost_data = component_cost_data unless component_cost_data == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
     end
@@ -246,12 +279,18 @@ module AdvancedBilling
         hash.key?('period_range_start') ? hash['period_range_start'] : SKIP
       period_range_end =
         hash.key?('period_range_end') ? hash['period_range_end'] : SKIP
+      transaction_id =
+        hash.key?('transaction_id') ? hash['transaction_id'] : SKIP
       product_id = hash.key?('product_id') ? hash['product_id'] : SKIP
       product_version =
         hash.key?('product_version') ? hash['product_version'] : SKIP
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
+      hide = hash.key?('hide') ? hash['hide'] : SKIP
+      component_cost_data = hash.key?('component_cost_data') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:InvoiceLineItemComponentCostData), hash['component_cost_data']
+      ) : SKIP
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
@@ -269,12 +308,25 @@ module AdvancedBilling
                           tiered_unit_price,
                           period_range_start,
                           period_range_end,
+                          transaction_id,
                           product_id,
                           product_version,
                           component_id,
                           price_point_id,
+                          hide,
+                          component_cost_data,
                           product_price_point_id,
                           custom_item)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [InvoiceLineItem | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

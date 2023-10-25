@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [ComponentIdCreateSubscriptionComponent]
+    # @return [Object]
     attr_accessor :component_id
 
     # Used for on/off components only.
@@ -30,7 +30,7 @@ module AdvancedBilling
     attr_accessor :quantity
 
     # Deprecated. Use `allocated_quantity` instead.
-    # @return [PricePointId]
+    # @return [Object]
     attr_accessor :price_point_id
 
     # Create or update custom pricing unique to the subscription. Used in place

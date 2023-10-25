@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Coupon]
+    # @return [Object]
     attr_accessor :coupon
 
     # An object where the keys are product_ids and the values are booleans

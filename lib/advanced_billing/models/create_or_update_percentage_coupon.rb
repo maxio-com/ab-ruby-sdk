@@ -28,7 +28,7 @@ module AdvancedBilling
     # may contain uppercase alphanumeric characters and these special characters
     # (which allow for email addresses to be used): “%”, “@”, “+”, “-”, “_”, and
     # “.”
-    # @return [Percentage]
+    # @return [Object]
     attr_accessor :percentage
 
     # may contain uppercase alphanumeric characters and these special characters
@@ -64,7 +64,7 @@ module AdvancedBilling
     # may contain uppercase alphanumeric characters and these special characters
     # (which allow for email addresses to be used): “%”, “@”, “+”, “-”, “_”, and
     # “.”
-    # @return [CompoundingStrategyCreateOrUpdatePercentageCoupon]
+    # @return [CompoundingStrategy]
     attr_accessor :compounding_strategy
 
     # may contain uppercase alphanumeric characters and these special characters

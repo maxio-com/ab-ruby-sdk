@@ -10,15 +10,15 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [FullNumber]
+    # @return [Object]
     attr_accessor :full_number
 
     # TODO: Write general description for this method
-    # @return [ExpirationMonth]
+    # @return [Object]
     attr_accessor :expiration_month
 
     # TODO: Write general description for this method
-    # @return [ExpirationYear]
+    # @return [Object]
     attr_accessor :expiration_year
 
     # TODO: Write general description for this method

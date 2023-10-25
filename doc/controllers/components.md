@@ -830,15 +830,20 @@ component_id = 222
 
 body = CreateComponentPricePointRequest.new(
   CreateComponentPricePoint.new(
-    'Special Pricing',
-    'per_unit',
+    'Wholesale',
+    'stairstep',
     [
       Price.new(
-        1,
-        5
+        '1',
+        '5.00',
+        '100'
+      ),
+      Price.new(
+        '101',
+        '4.00'
       )
     ],
-    'special'
+    'wholesale-handle'
   )
 )
 

@@ -26,7 +26,7 @@ module AdvancedBilling
     attr_accessor :price_point_id
 
     # TODO: Write general description for this method
-    # @return [Quantity]
+    # @return [Object]
     attr_accessor :quantity
 
     # TODO: Write general description for this method

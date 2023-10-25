@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [SubscriptionId]
+    # @return [Object]
     attr_accessor :subscription_id
 
     # TODO: Write general description for this method

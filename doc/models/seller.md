@@ -12,6 +12,7 @@
 | `name` | `String` | Optional | - |
 | `address` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - |
 | `phone` | `String` | Optional | - |
+| `logo_url` | `String` | Optional | - |
 
 ## Example (as JSON)
 
@@ -25,7 +26,8 @@
     "state": "state2",
     "zip": "zip0"
   },
-  "phone": "phone6"
+  "phone": "phone6",
+  "logo_url": "logo_url4"
 }
 ```
 

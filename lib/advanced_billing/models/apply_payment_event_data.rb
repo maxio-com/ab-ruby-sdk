@@ -36,7 +36,7 @@ module AdvancedBilling
     attr_accessor :transaction_time
 
     # A nested data structure detailing the method of payment
-    # @return [PaymentMethodNestedData]
+    # @return [Object]
     attr_accessor :payment_method
 
     # The Chargify id of the original payment

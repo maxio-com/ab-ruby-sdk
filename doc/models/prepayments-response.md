@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `prepayments` | [`Array<PrepaymentPrepaymentsResponse>`](../../doc/models/prepayment-prepayments-response.md) | Optional | **Constraints**: *Unique Items Required* |
+| `prepayments` | [`Array<Prepayment1>`](../../doc/models/prepayment-1.md) | Optional | **Constraints**: *Unique Items Required* |
 
 ## Example (as JSON)
 

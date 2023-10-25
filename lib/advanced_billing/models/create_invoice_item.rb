@@ -16,13 +16,13 @@ module AdvancedBilling
     # The quantity can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
     # 0.00000065. If you submit a value with more than 8 decimal places, we will
     # round it down to the 8th decimal place.
-    # @return [QuantityCreateInvoiceItem]
+    # @return [Object]
     attr_accessor :quantity
 
     # The unit_price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
     # 0.00000065. If you submit a value with more than 8 decimal places, we will
     # round it down to the 8th decimal place.
-    # @return [UnitPriceCreateInvoiceItem]
+    # @return [Object]
     attr_accessor :unit_price
 
     # Set to true to automatically calculate taxes. Site must be configured to
@@ -46,19 +46,19 @@ module AdvancedBilling
     attr_accessor :period_range_end
 
     # Product handle or product id.
-    # @return [ProductId]
+    # @return [Object]
     attr_accessor :product_id
 
     # Component handle or component id.
-    # @return [ComponentIdCreateInvoiceItem]
+    # @return [Object]
     attr_accessor :component_id
 
     # Price point handle or id. For component.
-    # @return [PricePointIdCreateInvoiceItem]
+    # @return [Object]
     attr_accessor :price_point_id
 
     # Price point handle or id. For component.
-    # @return [ProductPricePointId]
+    # @return [Object]
     attr_accessor :product_price_point_id
 
     # Price point handle or id. For component.

@@ -35,7 +35,7 @@ module AdvancedBilling
 
     # (Optional) If not passed, the allocation(s) will use the payment
     # collection method on the subscription
-    # @return [PaymentCollectionMethodAllocateComponents]
+    # @return [PaymentCollectionMethod1]
     attr_accessor :payment_collection_method
 
     # A mapping from model property names to API property names.
@@ -75,7 +75,7 @@ module AdvancedBilling
                    accrue_charge = SKIP,
                    upgrade_charge = SKIP,
                    downgrade_credit = SKIP,
-                   payment_collection_method = PaymentCollectionMethodAllocateComponents::AUTOMATIC)
+                   payment_collection_method = PaymentCollectionMethod1::AUTOMATIC)
       @proration_upgrade_scheme = proration_upgrade_scheme unless proration_upgrade_scheme == SKIP
       unless proration_downgrade_scheme == SKIP
         @proration_downgrade_scheme =
@@ -116,7 +116,7 @@ module AdvancedBilling
       downgrade_credit =
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= PaymentCollectionMethodAllocateComponents::AUTOMATIC
+        hash['payment_collection_method'] ||= PaymentCollectionMethod1::AUTOMATIC
 
       # Create object from extracted values.
       AllocateComponents.new(proration_upgrade_scheme,

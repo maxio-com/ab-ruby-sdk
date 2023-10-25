@@ -57,7 +57,7 @@ module AdvancedBilling
                                                  .validate(value)
                                 end))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .body_serializer(APIHelper.method(:json_serialize))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .is_nullify404(true)

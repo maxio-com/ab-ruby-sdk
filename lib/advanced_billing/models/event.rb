@@ -26,11 +26,15 @@ module AdvancedBilling
     attr_accessor :subscription_id
 
     # TODO: Write general description for this method
+    # @return [Float]
+    attr_accessor :customer_id
+
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :created_at
 
     # TODO: Write general description for this method
-    # @return [EventSpecificData]
+    # @return [Object]
     attr_accessor :event_specific_data
 
     # A mapping from model property names to API property names.
@@ -40,6 +44,7 @@ module AdvancedBilling
       @_hash['key'] = 'key'
       @_hash['message'] = 'message'
       @_hash['subscription_id'] = 'subscription_id'
+      @_hash['customer_id'] = 'customer_id'
       @_hash['created_at'] = 'created_at'
       @_hash['event_specific_data'] = 'event_specific_data'
       @_hash
@@ -52,19 +57,23 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        event_specific_data
+      ]
     end
 
     def initialize(id = nil,
                    key = nil,
                    message = nil,
                    subscription_id = nil,
+                   customer_id = nil,
                    created_at = nil,
                    event_specific_data = nil)
       @id = id
       @key = key
       @message = message
       @subscription_id = subscription_id
+      @customer_id = customer_id
       @created_at = created_at
       @event_specific_data = event_specific_data
     end
@@ -79,6 +88,7 @@ module AdvancedBilling
       message = hash.key?('message') ? hash['message'] : nil
       subscription_id =
         hash.key?('subscription_id') ? hash['subscription_id'] : nil
+      customer_id = hash.key?('customer_id') ? hash['customer_id'] : nil
       created_at = hash.key?('created_at') ? hash['created_at'] : nil
       event_specific_data = hash.key?('event_specific_data') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:EventEventSpecificData), hash['event_specific_data']
@@ -89,6 +99,7 @@ module AdvancedBilling
                 key,
                 message,
                 subscription_id,
+                customer_id,
                 created_at,
                 event_specific_data)
     end
@@ -105,6 +116,8 @@ module AdvancedBilling
             APIHelper.valid_type?(value.message,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.subscription_id,
+                                  ->(val) { val.instance_of? Float }) and
+            APIHelper.valid_type?(value.customer_id,
                                   ->(val) { val.instance_of? Float }) and
             APIHelper.valid_type?(value.created_at,
                                   ->(val) { val.instance_of? String }) and
@@ -123,6 +136,8 @@ module AdvancedBilling
           APIHelper.valid_type?(value['message'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['subscription_id'],
+                                ->(val) { val.instance_of? Float }) and
+          APIHelper.valid_type?(value['customer_id'],
                                 ->(val) { val.instance_of? Float }) and
           APIHelper.valid_type?(value['created_at'],
                                 ->(val) { val.instance_of? String }) and

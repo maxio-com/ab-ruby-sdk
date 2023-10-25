@@ -15,7 +15,7 @@
 | `accrue_charge` | `TrueClass \| FalseClass` | Optional | - |
 | `upgrade_charge` | `String` | Optional | - |
 | `downgrade_credit` | `String` | Optional | - |
-| `payment_collection_method` | [`PaymentCollectionMethodAllocateComponents`](../../doc/models/payment-collection-method-allocate-components.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription<br>**Default**: `PaymentCollectionMethodAllocateComponents::AUTOMATIC` |
+| `payment_collection_method` | [`PaymentCollectionMethod1`](../../doc/models/payment-collection-method-1.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription<br>**Default**: `PaymentCollectionMethod1::AUTOMATIC` |
 
 ## Example (as JSON)
 

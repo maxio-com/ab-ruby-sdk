@@ -78,7 +78,7 @@ module AdvancedBilling
     # The amount the customer will be charged per unit when the pricing scheme
     # is “per_unit”. The price can contain up to 8 decimal places. i.e. 1.00 or
     # 0.0012 or 0.00000065
-    # @return [UnitPriceEBBComponent]
+    # @return [Object]
     attr_accessor :unit_price
 
     # A string representing the tax code related to the component type. This is

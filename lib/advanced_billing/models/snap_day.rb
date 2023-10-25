@@ -4,54 +4,18 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # A day of month that subscription will be processed on. Can be 1 up to 28 or
-  # 'end'.
-  class SnapDay < BaseModel
-    SKIP = Object.new
-    private_constant :SKIP
+  # Use for subscriptions with product eligible for calendar billing only. Value
+  # can be 1-28 or 'end'.
+  class SnapDay
+    SNAP_DAY = [
+      # TODO: Write general description for ENUM_END
+      ENUM_END = 'end'.freeze
+    ].freeze
 
-
-
-    # A mapping from model property names to API property names.
-    def self.names
-      @_hash = {} if @_hash.nil?
-
-      @_hash
-    end
-
-    # An array for optional fields
-    def self.optionals
-      []
-    end
-
-    # An array for nullable fields
-    def self.nullables
-      []
-    end
-
-    def initialize()
-
-    end
-
-    # Creates an instance of the object from a hash.
-    def self.from_hash(hash)
-      return nil unless hash
-
-      # Extract variables from the hash.
-
-
-      # Create object from extracted values.
-      SnapDay.new()
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [SnapDay | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      return false if value.nil?
 
-      return false unless value.instance_of? Hash
-
-      true
+      SNAP_DAY.include?(value)
     end
   end
 end

@@ -26,7 +26,7 @@ module AdvancedBilling
     attr_accessor :masked_card_number
 
     # TODO: Write general description for this method
-    # @return [CardTypeCreditCardPaymentProfile]
+    # @return [CardType1]
     attr_accessor :card_type
 
     # TODO: Write general description for this method

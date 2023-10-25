@@ -10,19 +10,19 @@ module AdvancedBilling
     private_constant :SKIP
 
     # Required if passing any component to `components` attribute.
-    # @return [ComponentId]
+    # @return [Object]
     attr_accessor :component_id
 
     # Required if passing any component to `components` attribute.
-    # @return [AllocatedQuantity]
+    # @return [Object]
     attr_accessor :allocated_quantity
 
     # Required if passing any component to `components` attribute.
-    # @return [UnitBalance]
+    # @return [Object]
     attr_accessor :unit_balance
 
     # Required if passing any component to `components` attribute.
-    # @return [PricePointId]
+    # @return [Object]
     attr_accessor :price_point_id
 
     # Used in place of `price_point_id` to define a custom price point unique to

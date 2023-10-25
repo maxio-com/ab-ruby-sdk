@@ -85,7 +85,7 @@ module AdvancedBilling
 
     # The process used to cancel the subscription, if the subscription has been
     # canceled. It is nil if the subscription's state is not canceled.
-    # @return [CancellationMethodSubscription]
+    # @return [CancellationMethod]
     attr_accessor :cancellation_method
 
     # Whether or not the subscription will (or has) canceled at the end of the
@@ -133,7 +133,7 @@ module AdvancedBilling
 
     # The day of the month that the subscription will charge according to
     # calendar billing rules, if used.
-    # @return [PaymentCollectionMethodSubscription]
+    # @return [PaymentCollectionMethod]
     attr_accessor :payment_collection_method
 
     # The day of the month that the subscription will charge according to
@@ -153,7 +153,7 @@ module AdvancedBilling
 
     # The day of the month that the subscription will charge according to
     # calendar billing rules, if used.
-    # @return [Group]
+    # @return [SubscriptionGroupInlined]
     attr_accessor :group
 
     # The day of the month that the subscription will charge according to
@@ -251,7 +251,7 @@ module AdvancedBilling
     # Boolean representing whether the subscription is prepaid and currently in
     # dunning. Only returned for Relationship Invoicing sites with the feature
     # enabled
-    # @return [PrepaidDunning]
+    # @return [TrueClass | FalseClass]
     attr_accessor :prepaid_dunning
 
     # Additional coupon data. To use this data you also have to include the
@@ -437,11 +437,14 @@ module AdvancedBilling
         trial_ended_at
         expires_at
         cancellation_message
+        cancellation_method
         cancel_at_end_of_period
         canceled_at
         delayed_cancel_at
         coupon_code
         snap_day
+        payment_collection_method
+        group
         payment_type
         referral_code
         next_product_id

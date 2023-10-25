@@ -14,11 +14,11 @@ module AdvancedBilling
     attr_accessor :code
 
     # TODO: Write general description for this method
-    # @return [Percentage]
+    # @return [Object]
     attr_accessor :percentage
 
     # TODO: Write general description for this method
-    # @return [AmountCreateInvoiceCoupon]
+    # @return [Object]
     attr_accessor :amount
 
     # TODO: Write general description for this method
@@ -26,7 +26,7 @@ module AdvancedBilling
     attr_accessor :description
 
     # TODO: Write general description for this method
-    # @return [ProductFamilyId]
+    # @return [Object]
     attr_accessor :product_family_id
 
     # TODO: Write general description for this method

@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [CouponCouponResponse]
+    # @return [Coupon]
     attr_accessor :coupon
 
     # A mapping from model property names to API property names.
@@ -41,7 +41,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      coupon = CouponCouponResponse.from_hash(hash['coupon']) if hash['coupon']
+      coupon = Coupon.from_hash(hash['coupon']) if hash['coupon']
 
       # Create object from extracted values.
       CouponResponse.new(coupon)

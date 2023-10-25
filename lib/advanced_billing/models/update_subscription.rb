@@ -36,7 +36,7 @@ module AdvancedBilling
 
     # Use for subscriptions with product eligible for calendar billing only.
     # Value can be 1-28 or 'end'.
-    # @return [SnapDayUpdateSubscription]
+    # @return [Object]
     attr_accessor :snap_day
 
     # Use for subscriptions with product eligible for calendar billing only.
@@ -56,7 +56,7 @@ module AdvancedBilling
 
     # Use for subscriptions with product eligible for calendar billing only.
     # Value can be 1-28 or 'end'.
-    # @return [NetTermsUpdateSubscription]
+    # @return [Object]
     attr_accessor :net_terms
 
     # Use for subscriptions with product eligible for calendar billing only.

@@ -18,7 +18,7 @@
 | `billing_address` | [`CreateInvoiceAddress`](../../doc/models/create-invoice-address.md) | Optional | Overrides the default for the customer |
 | `shipping_address` | [`CreateInvoiceAddress`](../../doc/models/create-invoice-address.md) | Optional | Overrides the default for the customer |
 | `coupons` | [`Array<CreateInvoiceCoupon>`](../../doc/models/create-invoice-coupon.md) | Optional | - |
-| `status` | [`StatusCreateInvoice`](../../doc/models/status-create-invoice.md) | Optional | **Default**: `StatusCreateInvoice::OPEN` |
+| `status` | [`Status1`](../../doc/models/status-1.md) | Optional | **Default**: `Status1::OPEN` |
 
 ## Example (as JSON)
 

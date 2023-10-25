@@ -32,7 +32,7 @@ module AdvancedBilling
     attr_accessor :input_type
 
     # the amount of subscriptions this metafield has been applied to in Chargify
-    # @return [Enum]
+    # @return [Array[String]]
     attr_accessor :enum
 
     # A mapping from model property names to API property names.
@@ -61,7 +61,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        enum
+      ]
     end
 
     def initialize(id = SKIP,

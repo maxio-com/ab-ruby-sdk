@@ -13,7 +13,7 @@ module AdvancedBilling
     # The identifier for the pricing scheme. See [Product
     # Components](https://help.chargify.com/products/product-components.html)
     # for an overview of pricing schemes.
-    # @return [PricingSchemeSubscriptionGroupComponentCustomPrice]
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
     # The identifier for the pricing scheme. See [Product

@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [PrepaymentPrepaymentResponse]
+    # @return [Prepayment1]
     attr_accessor :prepayment
 
     # A mapping from model property names to API property names.
@@ -39,8 +39,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      prepayment = PrepaymentPrepaymentResponse.from_hash(hash['prepayment']) if
-        hash['prepayment']
+      prepayment = Prepayment1.from_hash(hash['prepayment']) if hash['prepayment']
 
       # Create object from extracted values.
       PrepaymentResponse.new(prepayment)

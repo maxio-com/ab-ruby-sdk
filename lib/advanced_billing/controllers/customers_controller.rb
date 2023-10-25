@@ -139,9 +139,7 @@ module AdvancedBilling
                    .query_param(new_parameter(end_datetime, key: 'end_datetime'))
                    .query_param(new_parameter(q, key: 'q'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))

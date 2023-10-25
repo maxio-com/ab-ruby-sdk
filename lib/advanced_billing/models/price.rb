@@ -10,16 +10,16 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [StartingQuantity]
+    # @return [Object]
     attr_accessor :starting_quantity
 
     # TODO: Write general description for this method
-    # @return [EndingQuantity]
+    # @return [Object]
     attr_accessor :ending_quantity
 
     # The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
     # 0.00000065
-    # @return [UnitPrice]
+    # @return [Object]
     attr_accessor :unit_price
 
     # A mapping from model property names to API property names.
@@ -40,7 +40,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        ending_quantity
+      ]
     end
 
     def initialize(starting_quantity = nil,

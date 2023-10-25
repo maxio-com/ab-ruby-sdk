@@ -19,31 +19,31 @@ module AdvancedBilling
     attr_accessor :handle
 
     # Required if using `custom_price` attribute.
-    # @return [PriceInCents]
+    # @return [Object]
     attr_accessor :price_in_cents
 
     # Required if using `custom_price` attribute.
-    # @return [Interval]
+    # @return [Object]
     attr_accessor :interval
 
     # Required if using `custom_price` attribute.
-    # @return [IntervalUnitCustomPriceUsedForSubscriptionCreateUpdate]
+    # @return [IntervalUnit]
     attr_accessor :interval_unit
 
     # (Optional)
-    # @return [TrialPriceInCents]
+    # @return [Object]
     attr_accessor :trial_price_in_cents
 
     # (Optional)
-    # @return [TrialInterval]
+    # @return [Object]
     attr_accessor :trial_interval
 
     # (Optional)
-    # @return [IntervalUnitCustomPriceUsedForSubscriptionCreateUpdate1]
+    # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
     # (Optional)
-    # @return [InitialChargeInCents]
+    # @return [Object]
     attr_accessor :initial_charge_in_cents
 
     # (Optional)
@@ -51,11 +51,11 @@ module AdvancedBilling
     attr_accessor :initial_charge_after_trial
 
     # (Optional)
-    # @return [ExpirationInterval]
+    # @return [Object]
     attr_accessor :expiration_interval
 
     # (Optional)
-    # @return [IntervalUnitCustomPriceUsedForSubscriptionCreateUpdate1]
+    # @return [IntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # (Optional)

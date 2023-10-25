@@ -147,7 +147,7 @@ module AdvancedBilling
     # subscription. See
     # [Components](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050206
     # 25677) for more information.
-    # @return [Array[CreateSubscriptionComponentCreateSubscription]]
+    # @return [Array[CreateSubscriptionComponent]]
     attr_accessor :components
 
     # (Optional). Cannot be used when also specifying next_billing_at
@@ -169,7 +169,7 @@ module AdvancedBilling
     # The reference value (provided by your app) of an existing customer within
     # Chargify. Required, unless a `customer_id` or a set of
     # `customer_attributes` is given.
-    # @return [Group]
+    # @return [Object]
     attr_accessor :group
 
     # A valid referral code. (optional, see
@@ -243,7 +243,7 @@ module AdvancedBilling
     # Use in place of passing product and component information to set up the
     # subscription with an existing offer. May be either the Chargify id of the
     # offer or its handle prefixed with `handle:`.er
-    # @return [OfferId]
+    # @return [Object]
     attr_accessor :offer_id
 
     # Use in place of passing product and component information to set up the

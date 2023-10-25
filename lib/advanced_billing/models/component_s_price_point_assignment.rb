@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :component_id
 
     # TODO: Write general description for this method
-    # @return [PricePointComponentSPricePointAssignment]
+    # @return [Object]
     attr_accessor :price_point
 
     # A mapping from model property names to API property names.

@@ -54,7 +54,7 @@ module AdvancedBilling
     # (only for prepaid usage components where rollover_prepaid_remainder is
     # true) The number of `expiration_interval_unit`s after which rollover
     # amounts should expire
-    # @return [IntervalUnitPricePoint]
+    # @return [IntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # A mapping from model property names to API property names.

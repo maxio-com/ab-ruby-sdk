@@ -128,7 +128,8 @@ module AdvancedBilling
             LeafType.new(CancellationMethod)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -137,7 +138,8 @@ module AdvancedBilling
             LeafType.new(PaymentCollectionMethod)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -146,7 +148,8 @@ module AdvancedBilling
             LeafType.new(SubscriptionGroupInlined)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -174,7 +177,8 @@ module AdvancedBilling
         )
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -202,7 +206,8 @@ module AdvancedBilling
         )
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -222,7 +227,9 @@ module AdvancedBilling
             ))
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_array: true,
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -273,6 +280,25 @@ module AdvancedBilling
           )
         ),
 
+        :CouponCompoundingStrategyCase0 => OneOf.new(
+          [
+            LeafType.new(CompoundingStrategy)
+          ]
+        ),
+
+        :CouponCompoundingStrategy => AnyOf.new(
+          [
+            OneOf.new(
+          [
+            LeafType.new(CompoundingStrategy)
+          ]
+        )
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :EventEventSpecificData => OneOf.new(
           [
             LeafType.new(SubscriptionProductChange),
@@ -294,7 +320,10 @@ module AdvancedBilling
             LeafType.new(PaymentCollectionMethodChanged),
             LeafType.new(ItemPricePointChanged),
             LeafType.new(CustomFieldValueChange)
-          ]
+          ],
+          UnionTypeContext.new(
+            is_nullable: true
+          )
         ),
 
         :SubscriptionGroupCreditCardFullNumber => OneOf.new(
@@ -389,7 +418,8 @@ module AdvancedBilling
             LeafType.new(String)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -694,6 +724,25 @@ module AdvancedBilling
           )
         ),
 
+        :InvoiceLineItemComponentCostData => OneOf.new(
+          [
+            LeafType.new(InvoiceLineItemComponentCostData)
+          ],
+          UnionTypeContext.new(
+            is_optional: true,
+            is_nullable: true
+          )
+        ),
+
+        :ComponentCostDataPricingScheme => OneOf.new(
+          [
+            LeafType.new(PricingScheme)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :InvoiceEventEventData => AnyOf.new(
           [
             LeafType.new(ApplyCreditNoteEventData),
@@ -704,7 +753,7 @@ module AdvancedBilling
             LeafType.new(RefundInvoiceEventData),
             LeafType.new(RemovePaymentEventData),
             LeafType.new(VoidInvoiceEventData),
-            LeafType.new(VoidInvoiceEventDataAnyOf8)
+            LeafType.new(VoidInvoiceEventData1)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -737,6 +786,19 @@ module AdvancedBilling
           )
         ),
 
+        :InvoiceEvent1PaymentMethod => OneOf.new(
+          [
+            LeafType.new(PaymentMethodApplePayType),
+            LeafType.new(PaymentMethodBankAccountType),
+            LeafType.new(PaymentMethodCreditCardType),
+            LeafType.new(PaymentMethodExternalType),
+            LeafType.new(PaymentMethodPaypalType)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :CreateInvoicePaymentAmount => OneOf.new(
           [
             LeafType.new(String),
@@ -756,7 +818,6 @@ module AdvancedBilling
 
         :SubscriptionComponentPricePointType => OneOf.new(
           [
-            LeafType.new(PricePointTypeOneOf0),
             LeafType.new(PricePointType)
           ],
           UnionTypeContext.new(
@@ -780,7 +841,8 @@ module AdvancedBilling
             LeafType.new(Integer)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -789,7 +851,8 @@ module AdvancedBilling
             LeafType.new(AllocationPayment)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -875,7 +938,7 @@ module AdvancedBilling
 
         :UpdateSubscriptionSnapDay => OneOf.new(
           [
-            LeafType.new(SnapDayOneOf0),
+            LeafType.new(SnapDay),
             LeafType.new(Integer)
           ],
           UnionTypeContext.new(
@@ -1161,38 +1224,6 @@ module AdvancedBilling
             LeafType.new(String),
             LeafType.new(Float)
           ]
-        ),
-
-        :CouponCouponResponseCompoundingStrategyCase0 => OneOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
-          ]
-        ),
-
-        :CouponCouponResponseCompoundingStrategy => AnyOf.new(
-          [
-            OneOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
-          ]
-        )
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :InvoiceEventInvoiceEventPaymentMethod => OneOf.new(
-          [
-            LeafType.new(PaymentMethodApplePayType),
-            LeafType.new(PaymentMethodBankAccountType),
-            LeafType.new(PaymentMethodCreditCardType),
-            LeafType.new(PaymentMethodExternalType),
-            LeafType.new(PaymentMethodPaypalType)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
         )
       }
     end

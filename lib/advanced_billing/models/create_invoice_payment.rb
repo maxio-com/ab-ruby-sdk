@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # A string of the dollar amount to be refunded (eg. "10.50" => $10.50)
-    # @return [Amount]
+    # @return [Object]
     attr_accessor :amount
 
     # A description to be attached to the payment.

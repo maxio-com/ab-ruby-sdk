@@ -52,7 +52,7 @@ module AdvancedBilling
     attr_accessor :coupons
 
     # Overrides the default for the customer
-    # @return [StatusCreateInvoice]
+    # @return [Status1]
     attr_accessor :status
 
     # A mapping from model property names to API property names.
@@ -101,7 +101,7 @@ module AdvancedBilling
                    billing_address = SKIP,
                    shipping_address = SKIP,
                    coupons = SKIP,
-                   status = StatusCreateInvoice::OPEN)
+                   status = Status1::OPEN)
       @line_items = line_items unless line_items == SKIP
       @issue_date = issue_date unless issue_date == SKIP
       @net_terms = net_terms unless net_terms == SKIP
@@ -150,7 +150,7 @@ module AdvancedBilling
       end
 
       coupons = SKIP unless hash.key?('coupons')
-      status = hash['status'] ||= StatusCreateInvoice::OPEN
+      status = hash['status'] ||= Status1::OPEN
 
       # Create object from extracted values.
       CreateInvoice.new(line_items,

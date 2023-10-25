@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [AmountDeductServiceCredit]
+    # @return [Object]
     attr_accessor :amount
 
     # TODO: Write general description for this method

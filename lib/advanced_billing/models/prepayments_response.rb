@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[PrepaymentPrepaymentsResponse]]
+    # @return [Array[Prepayment1]]
     attr_accessor :prepayments
 
     # A mapping from model property names to API property names.
@@ -46,7 +46,7 @@ module AdvancedBilling
       unless hash['prepayments'].nil?
         prepayments = []
         hash['prepayments'].each do |structure|
-          prepayments << (PrepaymentPrepaymentsResponse.from_hash(structure) if structure)
+          prepayments << (Prepayment1.from_hash(structure) if structure)
         end
       end
 

@@ -21,10 +21,13 @@
 | `tiered_unit_price` | `TrueClass \| FalseClass` | Optional | When `true`, indicates that the actual pricing scheme for the line was tiered, so the `unit_price` shown is the blended average for all units. |
 | `period_range_start` | `String` | Optional | Start date for the period covered by this line. The format is `"YYYY-MM-DD"`.<br><br>* For periodic charges paid in advance, this date will match the billing date, and the end date will be in the future.<br>* For periodic charges paid in arrears (e.g. metered charges), this date will be the date of the previous billing, and the end date will be the current billing date.<br>* For non-periodic charges, this date and the end date will match. |
 | `period_range_end` | `String` | Optional | End date for the period covered by this line. The format is `"YYYY-MM-DD"`.<br><br>* For periodic charges paid in advance, this date will match the next (future) billing date.<br>* For periodic charges paid in arrears (e.g. metered charges), this date will be the date of the current billing date.<br>* For non-periodic charges, this date and the start date will match. |
+| `transaction_id` | `Integer` | Optional | - |
 | `product_id` | `Integer` | Optional | The ID of the product subscribed when the charge was made.<br><br>This may be set even for component charges, so true product-only (non-component) charges will also have a nil `component_id`. |
 | `product_version` | `Integer` | Optional | The version of the product subscribed when the charge was made. |
 | `component_id` | `Integer` | Optional | The ID of the component being billed. Will be `nil` for non-component charges. |
 | `price_point_id` | `Integer` | Optional | The price point ID of the component being billed. Will be `nil` for non-component charges. |
+| `hide` | `TrueClass \| FalseClass` | Optional | - |
+| `component_cost_data` | [Invoice Line Item Component Cost Data](../../doc/models/invoice-line-item-component-cost-data.md) \| nil | Optional | This is a container for one-of cases. |
 | `product_price_point_id` | `Integer` | Optional | The price point ID of the line item's product |
 | `custom_item` | `TrueClass \| FalseClass` | Optional | - |
 

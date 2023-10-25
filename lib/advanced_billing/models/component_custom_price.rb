@@ -11,7 +11,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # Omit for On/Off components
-    # @return [PricingSchemeComponentCustomPrice]
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
     # On/off components only need one price bracket starting at 1

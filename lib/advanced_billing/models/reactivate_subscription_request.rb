@@ -37,7 +37,7 @@ module AdvancedBilling
     # period. if not resumable, the subscription will be reactivated with a new
     # billing period. If `false`: Chargify will only attempt to reactivate the
     # subscription.
-    # @return [Resume]
+    # @return [Object]
     attr_accessor :resume
 
     # A mapping from model property names to API property names.

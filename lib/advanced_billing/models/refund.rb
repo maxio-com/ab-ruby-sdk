@@ -40,7 +40,7 @@ module AdvancedBilling
 
     # An array of segment uids to refund or the string 'all' to indicate that
     # all segments should be refunded
-    # @return [SegmentUids]
+    # @return [Object]
     attr_accessor :segment_uids
 
     # A mapping from model property names to API property names.

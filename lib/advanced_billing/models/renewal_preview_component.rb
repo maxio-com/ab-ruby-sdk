@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # Either the component's Chargify id or its handle prefixed with `handle:`
-    # @return [ComponentIdRenewalPreviewComponent]
+    # @return [Object]
     attr_accessor :component_id
 
     # The quantity for which you wish to preview billing. This is useful if you
@@ -27,7 +27,7 @@ module AdvancedBilling
 
     # Either the component price point's Chargify id or its handle prefixed with
     # `handle:`
-    # @return [PricePointIdRenewalPreviewComponent]
+    # @return [Object]
     attr_accessor :price_point_id
 
     # A mapping from model property names to API property names.

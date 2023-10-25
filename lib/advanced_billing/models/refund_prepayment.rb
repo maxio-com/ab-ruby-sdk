@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :amount_in_cents
 
     # `amount_in_cents` is not required if you pass `amount`.
-    # @return [AmountRefundPrepayment]
+    # @return [Object]
     attr_accessor :amount
 
     # `amount_in_cents` is not required if you pass `amount`.

@@ -43,18 +43,18 @@ module AdvancedBilling
 
     # The type of credit to be created if the change in cost is a downgrade.
     # Defaults to the component and then site setting if one is not provided.
-    # @return [CreditTypeCreateAllocation]
+    # @return [CreditType1]
     attr_accessor :downgrade_credit
 
     # The type of charge to be created if the change in cost is an upgrade.
     # Defaults to the component and then site setting if one is not provided.
-    # @return [CreditTypeCreateAllocation]
+    # @return [CreditType1]
     attr_accessor :upgrade_charge
 
     # Price point that the allocation should be charged at. Accepts either the
     # price point's id (integer) or handle (string). When not specified, the
     # default price point will be used.
-    # @return [PricePointIdCreateAllocation]
+    # @return [Object]
     attr_accessor :price_point_id
 
     # A mapping from model property names to API property names.
@@ -88,7 +88,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        price_point_id
+      ]
     end
 
     def initialize(quantity = nil,

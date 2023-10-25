@@ -22,7 +22,7 @@ module AdvancedBilling
     attr_accessor :method
 
     # Dollar amount of the sum of the invoices payment (eg. "10.50" => $10.50).
-    # @return [AmountCreateMultiInvoicePayment]
+    # @return [Object]
     attr_accessor :amount
 
     # Date reflecting when the payment was received from a customer. Must be in

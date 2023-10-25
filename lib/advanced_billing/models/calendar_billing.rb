@@ -11,7 +11,7 @@ module AdvancedBilling
 
     # A day of month that subscription will be processed on. Can be 1 up to 28
     # or 'end'.
-    # @return [SnapDay]
+    # @return [Object]
     attr_accessor :snap_day
 
     # A day of month that subscription will be processed on. Can be 1 up to 28

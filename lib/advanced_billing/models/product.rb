@@ -44,7 +44,7 @@ module AdvancedBilling
 
     # A string representing the trial interval unit for this product, either
     # month or day
-    # @return [ExpirationIntervalUnit]
+    # @return [ExtendedIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # Timestamp indicating when this product was created
@@ -66,7 +66,7 @@ module AdvancedBilling
 
     # A string representing the interval unit for this product, either month or
     # day
-    # @return [IntervalUnitProduct]
+    # @return [IntervalUnit]
     attr_accessor :interval_unit
 
     # The up front charge you have specified.
@@ -86,7 +86,7 @@ module AdvancedBilling
 
     # A string representing the trial interval unit for this product, either
     # month or day
-    # @return [TrialIntervalUnit]
+    # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
     # Timestamp indicating when this product was archived
@@ -291,9 +291,11 @@ module AdvancedBilling
         handle
         accounting_code
         expiration_interval
+        expiration_interval_unit
         initial_charge_in_cents
         trial_price_in_cents
         trial_interval
+        trial_interval_unit
         archived_at
         return_params
         update_return_url

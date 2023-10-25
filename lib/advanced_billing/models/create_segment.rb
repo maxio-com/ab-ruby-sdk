@@ -12,25 +12,25 @@ module AdvancedBilling
     # A value that will occur in your events that you want to bill upon. The
     # type of the value depends on the property type in the related event based
     # billing metric.
-    # @return [SegmentProperty1Value]
+    # @return [Object]
     attr_accessor :segment_property_1_value
 
     # A value that will occur in your events that you want to bill upon. The
     # type of the value depends on the property type in the related event based
     # billing metric.
-    # @return [SegmentProperty2Value]
+    # @return [Object]
     attr_accessor :segment_property_2_value
 
     # A value that will occur in your events that you want to bill upon. The
     # type of the value depends on the property type in the related event based
     # billing metric.
-    # @return [SegmentProperty3Value]
+    # @return [Object]
     attr_accessor :segment_property_3_value
 
     # A value that will occur in your events that you want to bill upon. The
     # type of the value depends on the property type in the related event based
     # billing metric.
-    # @return [SegmentProperty4Value]
+    # @return [Object]
     attr_accessor :segment_property_4_value
 
     # The handle for the pricing scheme. Available options: per_unit, volume,

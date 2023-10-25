@@ -19,7 +19,7 @@ module AdvancedBilling
 
     # The event data is the data that, when combined with the command, results
     # in the output invoice found in the invoice field.
-    # @return [InvoiceEventInvoiceEvent]
+    # @return [InvoiceEvent1]
     attr_accessor :event_data
 
     # The event data is the data that, when combined with the command, results

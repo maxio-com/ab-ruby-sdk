@@ -81,7 +81,7 @@ module AdvancedBilling
     attr_accessor :downgrade_credit
 
     # The type of credit to be created if the change in cost is a downgrade.
-    # @return [PaymentAllocation]
+    # @return [AllocationPayment]
     attr_accessor :payment
 
     # A mapping from model property names to API property names.
@@ -132,6 +132,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         memo
+        payment
       ]
     end
 

@@ -30,19 +30,19 @@ module AdvancedBilling
     attr_accessor :pricing_scheme
 
     # TODO: Write general description for this method
-    # @return [SegmentProperty1ValueSegment]
+    # @return [Object]
     attr_accessor :segment_property_1_value
 
     # TODO: Write general description for this method
-    # @return [SegmentProperty2ValueSegment]
+    # @return [Object]
     attr_accessor :segment_property_2_value
 
     # TODO: Write general description for this method
-    # @return [SegmentProperty3ValueSegment]
+    # @return [Object]
     attr_accessor :segment_property_3_value
 
     # TODO: Write general description for this method
-    # @return [SegmentProperty4ValueSegment]
+    # @return [Object]
     attr_accessor :segment_property_4_value
 
     # TODO: Write general description for this method

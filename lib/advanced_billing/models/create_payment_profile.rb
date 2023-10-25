@@ -47,13 +47,13 @@ module AdvancedBilling
     # (Optional when performing an Import via vault_token, required otherwise)
     # The 1- or 2-digit credit card expiration month, as an integer or string,
     # i.e. 5
-    # @return [ExpirationMonthCreatePaymentProfile]
+    # @return [Object]
     attr_accessor :expiration_month
 
     # (Optional when performing a Import via vault_token, required otherwise)
     # The 4-digit credit card expiration year, as an integer or string, i.e.
     # 2012
-    # @return [ExpirationYearCreatePaymentProfile]
+    # @return [Object]
     attr_accessor :expiration_year
 
     # The credit card or bank account billing street address (i.e. 123 Main
