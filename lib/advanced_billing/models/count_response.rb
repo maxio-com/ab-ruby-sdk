@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Count Model.
-  class Count < BaseModel
+  # CountResponse Model.
+  class CountResponse < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -44,7 +44,7 @@ module AdvancedBilling
       count = hash.key?('count') ? hash['count'] : SKIP
 
       # Create object from extracted values.
-      Count.new(count)
+      CountResponse.new(count)
     end
   end
 end

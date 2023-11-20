@@ -1,19 +1,19 @@
 
-# Prepayment 1
+# Prepayment
 
 ## Structure
 
-`Prepayment1`
+`Prepayment`
 
 ## Fields
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Float` | Required | - |
-| `subscription_id` | `Float` | Required | - |
-| `amount_in_cents` | `Float` | Required | - |
-| `remaining_amount_in_cents` | `Float` | Required | - |
-| `refunded_amount_in_cents` | `Float` | Optional | - |
+| `id` | `Integer` | Required | - |
+| `subscription_id` | `Integer` | Required | - |
+| `amount_in_cents` | `Integer` | Required | - |
+| `remaining_amount_in_cents` | `Integer` | Required | - |
+| `refunded_amount_in_cents` | `Integer` | Optional | - |
 | `details` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `external` | `TrueClass \| FalseClass` | Required | - |
 | `memo` | `String` | Required | **Constraints**: *Minimum Length*: `1` |
@@ -24,15 +24,15 @@
 
 ```json
 {
-  "id": 52.0,
-  "subscription_id": 78.7,
-  "amount_in_cents": 32.38,
-  "remaining_amount_in_cents": 84.16,
-  "refunded_amount_in_cents": 109.26,
-  "details": "details0",
+  "id": 50,
+  "subscription_id": 160,
+  "amount_in_cents": 120,
+  "remaining_amount_in_cents": 194,
+  "refunded_amount_in_cents": 144,
+  "details": "details4",
   "external": false,
-  "memo": "memo4",
-  "payment_type": "ach",
+  "memo": "memo8",
+  "payment_type": "cash",
   "created_at": "created_at8"
 }
 ```

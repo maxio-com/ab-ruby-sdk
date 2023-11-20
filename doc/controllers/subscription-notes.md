@@ -102,9 +102,7 @@ subscription_notes_controller.delete_subscription_note(subscription_id)
 Use this method to retrieve a list of Notes associated with a Subscription. The response will be an array of Notes.
 
 ```ruby
-def list_subscription_notes(subscription_id,
-                            page: 1,
-                            per_page: 20)
+def list_subscription_notes(options = {})
 ```
 
 ## Parameters
@@ -122,17 +120,13 @@ def list_subscription_notes(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+collect = {
+  'subscription_id': 'subscription_id0',
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-result = subscription_notes_controller.list_subscription_notes(
-  subscription_id,
-  page: page,
-  per_page: per_page
-)
+result = subscription_notes_controller.list_subscription_notes(collect)
 ```
 
 ## Example Response *(as JSON)*

@@ -31,7 +31,10 @@ module AdvancedBilling
         .response(new_response_handler
                    .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash)))
+                   .deserialize_into(ProductPricePointResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ProductPricePointErrorResponseException))
         .execute
     end
 
@@ -59,22 +62,18 @@ module AdvancedBilling
     # @param [Array[PricePointType]] filter_type Optional parameter: Use in
     # query: `filter[type]=catalog,default`.
     # @return [ListProductPricePointsResponse] response from the API call
-    def list_product_price_points(product_id,
-                                  page: 1,
-                                  per_page: 10,
-                                  currency_prices: nil,
-                                  filter_type: nil)
+    def list_product_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products/{product_id}/price_points.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(product_id, key: 'product_id')
+                   .template_param(new_parameter(options['product_id'], key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
-                   .query_param(new_parameter(filter_type, key: 'filter[type]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
+                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -266,7 +265,10 @@ module AdvancedBilling
         .response(new_response_handler
                    .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BulkCreateProductPricePointsResponse.method(:from_hash)))
+                   .deserialize_into(BulkCreateProductPricePointsResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                APIException))
         .execute
     end
 
@@ -390,38 +392,27 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @return [ListProductPricePointsResponse] response from the API call
-    def list_all_product_price_points(direction: nil,
-                                      filter_archived_at: nil,
-                                      filter_date_field: nil,
-                                      filter_end_date: nil,
-                                      filter_end_datetime: nil,
-                                      filter_ids: nil,
-                                      filter_start_date: nil,
-                                      filter_start_datetime: nil,
-                                      filter_type: nil,
-                                      include: nil,
-                                      page: 1,
-                                      per_page: 20)
+    def list_all_product_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products_price_points.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListAllProductPricePointsDirection)
+                                   UnionTypeLookUp.get(:ListAllProductPricePointsInputDirection)
                                                   .validate(value)
                                  end))
-                   .query_param(new_parameter(filter_archived_at, key: 'filter[archived_at]'))
-                   .query_param(new_parameter(filter_date_field, key: 'filter[date_field]'))
-                   .query_param(new_parameter(filter_end_date, key: 'filter[end_date]'))
-                   .query_param(new_parameter(filter_end_datetime, key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(filter_ids, key: 'filter[ids]'))
-                   .query_param(new_parameter(filter_start_date, key: 'filter[start_date]'))
-                   .query_param(new_parameter(filter_start_datetime, key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(filter_type, key: 'filter[type]'))
-                   .query_param(new_parameter(include, key: 'include'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
+                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 

@@ -36,13 +36,7 @@ We recommend that you review Chargify's webhook documentation located in our hel
 This method allows you to fetch data about webhooks. You can pass query parameters if you want to filter webhooks.
 
 ```ruby
-def list_webhooks(status: nil,
-                  since_date: nil,
-                  until_date: nil,
-                  page: 1,
-                  per_page: 20,
-                  order: nil,
-                  subscription: nil)
+def list_webhooks(options = {})
 ```
 
 ## Parameters
@@ -64,14 +58,12 @@ def list_webhooks(status: nil,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50
+}
 
-per_page = 50
-
-result = webhooks_controller.list_webhooks(
-  page: page,
-  per_page: per_page
-)
+result = webhooks_controller.list_webhooks(collect)
 ```
 
 ## Example Response *(as JSON)*

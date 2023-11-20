@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :component_id
 
     # TODO: Write general description for this method
@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :message
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :price_point
 
     # A mapping from model property names to API property names.

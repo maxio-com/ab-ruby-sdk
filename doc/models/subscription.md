@@ -59,7 +59,7 @@
 | `stored_credential_transaction_id` | `Integer` | Optional | For European sites subject to PSD2 and using 3D Secure, this can be used to reference a previous transaction for the customer. This will ensure the card will be charged successfully at renewal. |
 | `reference` | `String` | Optional | The reference value (provided by your app) for the subscription itelf. |
 | `on_hold_at` | `String` | Optional | The timestamp of the most recent on hold action. |
-| `prepaid_dunning` | TrueClass \| FalseClass \| nil | Optional | This is a container for one-of cases. |
+| `prepaid_dunning` | `TrueClass \| FalseClass` | Optional | Boolean representing whether the subscription is prepaid and currently in dunning. Only returned for Relationship Invoicing sites with the feature enabled |
 | `coupons` | [`Array<SubscriptionIncludedCoupon>`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. |
 | `dunning_communication_delay_enabled` | `TrueClass \| FalseClass` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute.<br>**Default**: `false` |
 | `dunning_communication_delay_time_zone` | `String` | Optional | Time zone for the Dunning Communication Delay feature. |

@@ -11,7 +11,7 @@ Information for captured payment, if applicable
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Float` | Optional | - |
+| `id` | `Integer` | Optional | - |
 | `amount_in_cents` | `Integer` | Optional | - |
 | `success` | `TrueClass \| FalseClass` | Optional | - |
 | `memo` | `String` | Optional | - |
@@ -20,7 +20,7 @@ Information for captured payment, if applicable
 
 ```json
 {
-  "id": 108.98,
+  "id": 146,
   "amount_in_cents": 232,
   "success": false,
   "memo": "memo2"

@@ -66,24 +66,19 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @return [ListSubscriptionGroupPrepaymentResponse] response from the API call
-    def list_prepayments_for_subscription_group(uid,
-                                                filter_date_field: nil,
-                                                filter_end_date: nil,
-                                                filter_start_date: nil,
-                                                page: 1,
-                                                per_page: 20)
+    def list_prepayments_for_subscription_group(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}/prepayments.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
+                   .template_param(new_parameter(options['uid'], key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(filter_date_field, key: 'filter[date_field]'))
-                   .query_param(new_parameter(filter_end_date, key: 'filter[end_date]'))
-                   .query_param(new_parameter(filter_start_date, key: 'filter[start_date]'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

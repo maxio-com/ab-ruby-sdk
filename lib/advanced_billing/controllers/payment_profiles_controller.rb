@@ -335,16 +335,14 @@ module AdvancedBilling
     # @param [Integer] customer_id Optional parameter: The ID of the customer
     # for which you wish to list payment profiles
     # @return [Array[ListPaymentProfilesResponse]] response from the API call
-    def list_payment_profiles(page: 1,
-                              per_page: 20,
-                              customer_id: nil)
+    def list_payment_profiles(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/payment_profiles.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(customer_id, key: 'customer_id'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['customer_id'], key: 'customer_id'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

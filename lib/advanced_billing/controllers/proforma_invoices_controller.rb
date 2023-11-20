@@ -172,38 +172,26 @@ module AdvancedBilling
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
     # custom fields data
     # @return [Array[ProformaInvoice]] response from the API call
-    def list_proforma_invoices(subscription_id,
-                               start_date: nil,
-                               end_date: nil,
-                               status: nil,
-                               page: 1,
-                               per_page: 20,
-                               direction: Direction::DESC,
-                               line_items: false,
-                               discounts: false,
-                               taxes: false,
-                               credits: false,
-                               payments: false,
-                               custom_fields: false)
+    def list_proforma_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/proforma_invoices.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                   .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(status, key: 'status'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(direction, key: 'direction'))
-                   .query_param(new_parameter(line_items, key: 'line_items'))
-                   .query_param(new_parameter(discounts, key: 'discounts'))
-                   .query_param(new_parameter(taxes, key: 'taxes'))
-                   .query_param(new_parameter(credits, key: 'credits'))
-                   .query_param(new_parameter(payments, key: 'payments'))
-                   .query_param(new_parameter(custom_fields, key: 'custom_fields'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['status'], key: 'status'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['line_items'], key: 'line_items'))
+                   .query_param(new_parameter(options['discounts'], key: 'discounts'))
+                   .query_param(new_parameter(options['taxes'], key: 'taxes'))
+                   .query_param(new_parameter(options['credits'], key: 'credits'))
+                   .query_param(new_parameter(options['payments'], key: 'payments'))
+                   .query_param(new_parameter(options['custom_fields'], key: 'custom_fields'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

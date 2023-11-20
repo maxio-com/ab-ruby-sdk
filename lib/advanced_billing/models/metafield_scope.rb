@@ -36,6 +36,10 @@ module AdvancedBilling
     # @return [IncludeOption]
     attr_accessor :public_edit
 
+    # Include (1) or exclude (0) metafields from being edited by your ecosystem.
+    # @return [Array[String]]
+    attr_accessor :hosted
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -45,6 +49,7 @@ module AdvancedBilling
       @_hash['portal'] = 'portal'
       @_hash['public_show'] = 'public_show'
       @_hash['public_edit'] = 'public_edit'
+      @_hash['hosted'] = 'hosted'
       @_hash
     end
 
@@ -57,6 +62,7 @@ module AdvancedBilling
         portal
         public_show
         public_edit
+        hosted
       ]
     end
 
@@ -70,13 +76,15 @@ module AdvancedBilling
                    statements = SKIP,
                    portal = SKIP,
                    public_show = SKIP,
-                   public_edit = SKIP)
+                   public_edit = SKIP,
+                   hosted = SKIP)
       @csv = csv unless csv == SKIP
       @invoices = invoices unless invoices == SKIP
       @statements = statements unless statements == SKIP
       @portal = portal unless portal == SKIP
       @public_show = public_show unless public_show == SKIP
       @public_edit = public_edit unless public_edit == SKIP
+      @hosted = hosted unless hosted == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -90,6 +98,7 @@ module AdvancedBilling
       portal = hash.key?('portal') ? hash['portal'] : SKIP
       public_show = hash.key?('public_show') ? hash['public_show'] : SKIP
       public_edit = hash.key?('public_edit') ? hash['public_edit'] : SKIP
+      hosted = hash.key?('hosted') ? hash['hosted'] : SKIP
 
       # Create object from extracted values.
       MetafieldScope.new(csv,
@@ -97,7 +106,8 @@ module AdvancedBilling
                          statements,
                          portal,
                          public_show,
-                         public_edit)
+                         public_edit,
+                         hosted)
     end
   end
 end

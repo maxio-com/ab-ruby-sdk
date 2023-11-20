@@ -9,15 +9,15 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `plan_amount_in_cents` | `Float` | Required | - |
-| `usage_amount_in_cents` | `Float` | Required | - |
+| `plan_amount_in_cents` | `Integer` | Required | - |
+| `usage_amount_in_cents` | `Integer` | Required | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "plan_amount_in_cents": 109.6,
-  "usage_amount_in_cents": 207.96
+  "plan_amount_in_cents": 208,
+  "usage_amount_in_cents": 60
 }
 ```
 

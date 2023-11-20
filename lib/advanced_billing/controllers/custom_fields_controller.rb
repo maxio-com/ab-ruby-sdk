@@ -87,24 +87,20 @@ module AdvancedBilling
     # @param [SortingDirection | nil] direction Optional parameter: Controls the
     # order in which results are returned. Use in query `direction=asc`.
     # @return [ListMetafieldsResponse] response from the API call
-    def list_metafields(resource_type,
-                        name: nil,
-                        page: 1,
-                        per_page: 20,
-                        direction: nil)
+    def list_metafields(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metafields.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(resource_type, key: 'resource_type')
+                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(name, key: 'name'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['name'], key: 'name'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListMetafieldsDirection)
+                                   UnionTypeLookUp.get(:ListMetafieldsInputDirection)
                                                   .validate(value)
                                  end))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -267,22 +263,19 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @return [PaginatedMetadata] response from the API call
-    def read_metadata(resource_type,
-                      resource_id,
-                      page: 1,
-                      per_page: 20)
+    def read_metadata(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/{resource_id}/metadata.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(resource_type, key: 'resource_type')
+                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
-                   .template_param(new_parameter(resource_id, key: 'resource_id')
+                   .template_param(new_parameter(options['resource_id'], key: 'resource_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -438,36 +431,26 @@ module AdvancedBilling
     # @param [SortingDirection | nil] direction Optional parameter: Controls the
     # order in which results are returned. Use in query `direction=asc`.
     # @return [PaginatedMetadata] response from the API call
-    def list_metadata(resource_type,
-                      page: 1,
-                      per_page: 20,
-                      date_field: nil,
-                      start_date: nil,
-                      end_date: nil,
-                      start_datetime: nil,
-                      end_datetime: nil,
-                      with_deleted: nil,
-                      resource_ids: nil,
-                      direction: nil)
+    def list_metadata(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metadata.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(resource_type, key: 'resource_type')
+                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(with_deleted, key: 'with_deleted'))
-                   .query_param(new_parameter(resource_ids, key: 'resource_ids[]'))
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['with_deleted'], key: 'with_deleted'))
+                   .query_param(new_parameter(options['resource_ids'], key: 'resource_ids[]'))
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListMetadataDirection)
+                                   UnionTypeLookUp.get(:ListMetadataInputDirection)
                                                   .validate(value)
                                  end))
                    .header_param(new_parameter('application/json', key: 'accept'))

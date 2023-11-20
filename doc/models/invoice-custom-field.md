@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `name` | `String` | Optional | - |
 | `value` | `String` | Optional | - |
-| `owner_id` | `Float` | Optional | - |
+| `owner_id` | `Integer` | Optional | - |
 | `owner_type` | `String` | Optional | - |
 
 ## Example (as JSON)
@@ -20,7 +20,7 @@
 {
   "name": "name0",
   "value": "value2",
-  "owner_id": 236.94,
+  "owner_id": 142,
   "owner_type": "owner_type2"
 }
 ```

@@ -10,15 +10,15 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :default_net_terms
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :automatic_net_terms
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :remittance_net_terms
 
     # TODO: Write general description for this method

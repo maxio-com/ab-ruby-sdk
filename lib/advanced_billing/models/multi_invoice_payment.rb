@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # The numeric ID of the transaction.
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :transaction_id
 
     # Dollar amount of the sum of the paid invoices.

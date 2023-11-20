@@ -14,7 +14,7 @@
 | `resource_id` | `Integer` | Optional | - |
 | `name` | `String` | Optional | - |
 | `deleted_at` | `String` | Optional | - |
-| `metafield_id` | `Float` | Optional | - |
+| `metafield_id` | `Integer` | Optional | - |
 
 ## Example (as JSON)
 

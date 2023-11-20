@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :id
 
     # TODO: Write general description for this method

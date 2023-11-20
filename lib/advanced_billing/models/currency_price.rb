@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :currency
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Float]
     attr_accessor :price
 
     # TODO: Write general description for this method

@@ -179,19 +179,7 @@ result = proforma_invoices_controller.create_proforma_invoice(subscription_id)
 By default, proforma invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
 
 ```ruby
-def list_proforma_invoices(subscription_id,
-                           start_date: nil,
-                           end_date: nil,
-                           status: nil,
-                           page: 1,
-                           per_page: 20,
-                           direction: Direction::DESC,
-                           line_items: false,
-                           discounts: false,
-                           taxes: false,
-                           credits: false,
-                           payments: false,
-                           custom_fields: false)
+def list_proforma_invoices(options = {})
 ```
 
 ## Parameters
@@ -219,38 +207,20 @@ def list_proforma_invoices(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+collect = {
+  'subscription_id': 'subscription_id0',
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::DESC,
+  'line_items': false,
+  'discounts': false,
+  'taxes': false,
+  'credits': false,
+  'payments': false,
+  'custom_fields': false
+}
 
-page = 2
-
-per_page = 50
-
-direction = Direction::DESC
-
-line_items = false
-
-discounts = false
-
-taxes = false
-
-credits = false
-
-payments = false
-
-custom_fields = false
-
-result = proforma_invoices_controller.list_proforma_invoices(
-  subscription_id,
-  page: page,
-  per_page: per_page,
-  direction: direction,
-  line_items: line_items,
-  discounts: discounts,
-  taxes: taxes,
-  credits: credits,
-  payments: payments,
-  custom_fields: custom_fields
-)
+result = proforma_invoices_controller.list_proforma_invoices(collect)
 ```
 
 

@@ -191,32 +191,22 @@ module AdvancedBilling
     # based on provided value (refers to default price point). Use in query
     # `filter[use_site_exchange_rate]=true`.
     # @return [Array[ProductResponse]] response from the API call
-    def list_products(date_field: nil,
-                      end_date: nil,
-                      end_datetime: nil,
-                      start_date: nil,
-                      start_datetime: nil,
-                      page: 1,
-                      per_page: 20,
-                      include_archived: nil,
-                      include: nil,
-                      filter_prepaid_product_price_point_product_price_point_id: nil,
-                      filter_use_site_exchange_rate: nil)
+    def list_products(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(include_archived, key: 'include_archived'))
-                   .query_param(new_parameter(include, key: 'include'))
-                   .query_param(new_parameter(filter_prepaid_product_price_point_product_price_point_id, key: 'filter[prepaid_product_price_point][product_price_point_id]'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['filter_prepaid_product_price_point_product_price_point_id'], key: 'filter[prepaid_product_price_point][product_price_point_id]'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

@@ -10,11 +10,11 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :plan_amount_in_cents
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :usage_amount_in_cents
 
     # A mapping from model property names to API property names.

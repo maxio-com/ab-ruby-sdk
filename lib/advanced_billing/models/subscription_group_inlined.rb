@@ -25,7 +25,7 @@ module AdvancedBilling
 
     # A boolean indicating whether the subscription is the primary in the group.
     # Applicable to scheme 1.
-    # @return [String]
+    # @return [TrueClass | FalseClass]
     attr_accessor :primary
 
     # A mapping from model property names to API property names.

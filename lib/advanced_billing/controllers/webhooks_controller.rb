@@ -53,24 +53,18 @@ module AdvancedBilling
     # @param [Integer] subscription Optional parameter: The Chargify id of a
     # subscription you'd like to filter for
     # @return [Array[WebhookResponse]] response from the API call
-    def list_webhooks(status: nil,
-                      since_date: nil,
-                      until_date: nil,
-                      page: 1,
-                      per_page: 20,
-                      order: nil,
-                      subscription: nil)
+    def list_webhooks(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/webhooks.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(status, key: 'status'))
-                   .query_param(new_parameter(since_date, key: 'since_date'))
-                   .query_param(new_parameter(until_date, key: 'until_date'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(order, key: 'order'))
-                   .query_param(new_parameter(subscription, key: 'subscription'))
+                   .query_param(new_parameter(options['status'], key: 'status'))
+                   .query_param(new_parameter(options['since_date'], key: 'since_date'))
+                   .query_param(new_parameter(options['until_date'], key: 'until_date'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['order'], key: 'order'))
+                   .query_param(new_parameter(options['subscription'], key: 'subscription'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

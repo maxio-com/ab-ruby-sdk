@@ -30,7 +30,7 @@ module AdvancedBilling
     attr_accessor :deleted_at
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :metafield_id
 
     # A mapping from model property names to API property names.

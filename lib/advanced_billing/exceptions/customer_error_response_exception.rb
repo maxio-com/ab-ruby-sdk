@@ -4,13 +4,13 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # CustomersJson 422 Error class.
-  class CustomersJson422ErrorException < APIException
+  # Customer Error Response class.
+  class CustomerErrorResponseException < APIException
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [CustomerError]
+    # @return [Object]
     attr_accessor :errors
 
     # The constructor.
@@ -26,7 +26,9 @@ module AdvancedBilling
     # @param [Hash] The deserialized response sent by the server in the
     # response body.
     def unbox(hash)
-      @errors = CustomerError.from_hash(hash['errors']) if hash['errors']
+      @errors = hash.key?('errors') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:CustomerErrorResponseErrors), hash['errors']
+      ) : SKIP
     end
   end
 end

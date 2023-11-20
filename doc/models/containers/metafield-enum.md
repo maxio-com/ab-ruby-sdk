@@ -3,11 +3,12 @@
 
 ## Data Type
 
-`Array[String]`
+`String | Array[String]`
 
 ## Cases
 
 | Type |
 |  --- |
+| `String` |
 | `Array[String]` |
 

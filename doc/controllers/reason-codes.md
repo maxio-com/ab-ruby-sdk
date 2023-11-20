@@ -75,8 +75,7 @@ result = reason_codes_controller.create_reason_code(body: body)
 This method gives a merchant the option to retrieve a list of all of the current churn codes for a given site.
 
 ```ruby
-def list_reason_codes(page: 1,
-                      per_page: 20)
+def list_reason_codes(options = {})
 ```
 
 ## Parameters
@@ -93,14 +92,12 @@ def list_reason_codes(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50
+}
 
-per_page = 50
-
-result = reason_codes_controller.list_reason_codes(
-  page: page,
-  per_page: per_page
-)
+result = reason_codes_controller.list_reason_codes(collect)
 ```
 
 ## Example Response *(as JSON)*

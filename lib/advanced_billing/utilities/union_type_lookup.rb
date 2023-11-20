@@ -42,7 +42,7 @@ module AdvancedBilling
           )
         ),
 
-        :ListAllComponentPricePointsDirection => OneOf.new(
+        :ListAllComponentPricePointsInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -51,7 +51,7 @@ module AdvancedBilling
           )
         ),
 
-        :ListCustomersDirection => OneOf.new(
+        :ListCustomersInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -60,7 +60,7 @@ module AdvancedBilling
           )
         ),
 
-        :ListMetafieldsDirection => OneOf.new(
+        :ListMetafieldsInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -69,7 +69,7 @@ module AdvancedBilling
           )
         ),
 
-        :ListMetadataDirection => OneOf.new(
+        :ListMetadataInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -78,7 +78,7 @@ module AdvancedBilling
           )
         ),
 
-        :ReadMrrMovementsDirection => OneOf.new(
+        :ReadMrrMovementsInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -87,7 +87,7 @@ module AdvancedBilling
           )
         ),
 
-        :ListAllProductPricePointsDirection => OneOf.new(
+        :ListAllProductPricePointsInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -105,7 +105,7 @@ module AdvancedBilling
           )
         ),
 
-        :ListSubscriptionComponentsDirection => OneOf.new(
+        :ListSubscriptionComponentsInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
           ],
@@ -114,9 +114,21 @@ module AdvancedBilling
           )
         ),
 
-        :ListSubscriptionComponentsForSiteDirection => OneOf.new(
+        :ListSubscriptionComponentsForSiteInputDirection => OneOf.new(
           [
             LeafType.new(SortingDirection)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CustomerErrorResponseErrors => OneOf.new(
+          [
+            LeafType.new(CustomerError),
+            LeafType.new(String, UnionTypeContext.new(
+              is_array: true
+            ))
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -143,22 +155,13 @@ module AdvancedBilling
           )
         ),
 
-        :SubscriptionGroup => OneOf.new(
+        :SubscriptionGroup2 => OneOf.new(
           [
             LeafType.new(SubscriptionGroupInlined)
           ],
           UnionTypeContext.new(
             is_optional: true,
             is_nullable: true
-          )
-        ),
-
-        :SubscriptionPrepaidDunning => OneOf.new(
-          [
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
           )
         ),
 
@@ -222,12 +225,12 @@ module AdvancedBilling
 
         :MetafieldEnum => OneOf.new(
           [
+            LeafType.new(String),
             LeafType.new(String, UnionTypeContext.new(
               is_array: true
             ))
           ],
           UnionTypeContext.new(
-            is_array: true,
             is_optional: true,
             is_nullable: true
           )
@@ -724,7 +727,7 @@ module AdvancedBilling
           )
         ),
 
-        :InvoiceLineItemComponentCostData => OneOf.new(
+        :InvoiceLineItemComponentCostData2 => OneOf.new(
           [
             LeafType.new(InvoiceLineItemComponentCostData)
           ],
@@ -846,7 +849,7 @@ module AdvancedBilling
           )
         ),
 
-        :AllocationPayment => OneOf.new(
+        :AllocationPayment2 => OneOf.new(
           [
             LeafType.new(AllocationPayment)
           ],
@@ -876,7 +879,7 @@ module AdvancedBilling
           )
         ),
 
-        :CreateSubscriptionGroup => OneOf.new(
+        :CreateSubscriptionGroup2 => OneOf.new(
           [
             LeafType.new(GroupSettings),
             AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])

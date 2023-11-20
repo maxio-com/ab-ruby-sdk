@@ -114,36 +114,25 @@ module AdvancedBilling
     # based on provided value. Use in query
     # `filter[use_site_exchange_rate]=true`.
     # @return [Array[CouponResponse]] response from the API call
-    def list_coupons_for_product_family(product_family_id,
-                                        page: 1,
-                                        per_page: 30,
-                                        filter_date_field: nil,
-                                        filter_end_date: nil,
-                                        filter_end_datetime: nil,
-                                        filter_start_date: nil,
-                                        filter_start_datetime: nil,
-                                        filter_ids: nil,
-                                        filter_codes: nil,
-                                        currency_prices: nil,
-                                        filter_use_site_exchange_rate: nil)
+    def list_coupons_for_product_family(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                   .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(filter_date_field, key: 'filter[date_field]'))
-                   .query_param(new_parameter(filter_end_date, key: 'filter[end_date]'))
-                   .query_param(new_parameter(filter_end_datetime, key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(filter_start_date, key: 'filter[start_date]'))
-                   .query_param(new_parameter(filter_start_datetime, key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(filter_ids, key: 'filter[ids]'))
-                   .query_param(new_parameter(filter_codes, key: 'filter[codes]'))
-                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_codes'], key: 'filter[codes]'))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -377,42 +366,27 @@ module AdvancedBilling
     # based on provided value. Use in query
     # `filter[use_site_exchange_rate]=true`.
     # @return [Array[CouponResponse]] response from the API call
-    def list_coupons(page: 1,
-                     per_page: 30,
-                     date_field: nil,
-                     start_date: nil,
-                     end_date: nil,
-                     start_datetime: nil,
-                     end_datetime: nil,
-                     filter_ids: nil,
-                     filter_codes: nil,
-                     currency_prices: nil,
-                     filter_end_date: nil,
-                     filter_end_datetime: nil,
-                     filter_start_date: nil,
-                     filter_start_datetime: nil,
-                     filter_date_field: nil,
-                     filter_use_site_exchange_rate: nil)
+    def list_coupons(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(filter_ids, key: 'filter[ids]'))
-                   .query_param(new_parameter(filter_codes, key: 'filter[codes]'))
-                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
-                   .query_param(new_parameter(filter_end_date, key: 'filter[end_date]'))
-                   .query_param(new_parameter(filter_end_datetime, key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(filter_start_date, key: 'filter[start_date]'))
-                   .query_param(new_parameter(filter_start_datetime, key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(filter_date_field, key: 'filter[date_field]'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_codes'], key: 'filter[codes]'))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -617,18 +591,16 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @return [CouponSubcodes] response from the API call
-    def list_coupon_subcodes(coupon_id,
-                             page: 1,
-                             per_page: 20)
+    def list_coupon_subcodes(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/{coupon_id}/codes.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
+                   .template_param(new_parameter(options['coupon_id'], key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

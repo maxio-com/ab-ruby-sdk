@@ -14,15 +14,15 @@ module AdvancedBilling
     attr_accessor :uid
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :site_id
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :customer_id
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :subscription_id
 
     # TODO: Write general description for this method

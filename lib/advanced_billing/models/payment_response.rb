@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :paid_invoices
 
     # TODO: Write general description for this method
-    # @return [PrePayment]
+    # @return [InvoicePrePayment]
     attr_accessor :prepayment
 
     # A mapping from model property names to API property names.
@@ -59,7 +59,7 @@ module AdvancedBilling
       end
 
       paid_invoices = SKIP unless hash.key?('paid_invoices')
-      prepayment = PrePayment.from_hash(hash['prepayment']) if hash['prepayment']
+      prepayment = InvoicePrePayment.from_hash(hash['prepayment']) if hash['prepayment']
 
       # Create object from extracted values.
       PaymentResponse.new(paid_invoices,

@@ -233,30 +233,21 @@ module AdvancedBilling
     # based on provided value (refers to default price point). Use in query
     # `filter[use_site_exchange_rate]=true`.
     # @return [Array[ComponentResponse]] response from the API call
-    def list_components(date_field: nil,
-                        start_date: nil,
-                        end_date: nil,
-                        start_datetime: nil,
-                        end_datetime: nil,
-                        include_archived: nil,
-                        page: 1,
-                        per_page: 20,
-                        filter_ids: nil,
-                        filter_use_site_exchange_rate: nil)
+    def list_components(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(include_archived, key: 'include_archived'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(filter_ids, key: 'filter[ids]'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -375,34 +366,24 @@ module AdvancedBilling
     # based on provided value (refers to default price point). Use in query
     # `filter[use_site_exchange_rate]=true`.
     # @return [Array[ComponentResponse]] response from the API call
-    def list_components_for_product_family(product_family_id,
-                                           include_archived: nil,
-                                           filter_ids: nil,
-                                           page: 1,
-                                           per_page: 20,
-                                           date_field: nil,
-                                           end_date: nil,
-                                           end_datetime: nil,
-                                           start_date: nil,
-                                           start_datetime: nil,
-                                           filter_use_site_exchange_rate: nil)
+    def list_components_for_product_family(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/components.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                   .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(include_archived, key: 'include_archived'))
-                   .query_param(new_parameter(filter_ids, key: 'filter[ids]'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -472,22 +453,18 @@ module AdvancedBilling
     # @param [Array[PricePointType]] filter_type Optional parameter: Use in
     # query: `filter[type]=catalog,default`.
     # @return [ComponentPricePointsResponse] response from the API call
-    def list_component_price_points(component_id,
-                                    currency_prices: nil,
-                                    page: 1,
-                                    per_page: 20,
-                                    filter_type: nil)
+    def list_component_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/{component_id}/price_points.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
+                   .template_param(new_parameter(options['component_id'], key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(filter_type, key: 'filter[type]'))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -736,38 +713,27 @@ module AdvancedBilling
     # fetching price points only if archived_at is present or not. Use in query:
     # `filter[archived_at]=not_null`.
     # @return [ListComponentsPricePointsResponse] response from the API call
-    def list_all_component_price_points(filter_date_field: nil,
-                                        filter_end_date: nil,
-                                        filter_end_datetime: nil,
-                                        include: nil,
-                                        page: 1,
-                                        per_page: 20,
-                                        filter_start_date: nil,
-                                        filter_start_datetime: nil,
-                                        filter_type: nil,
-                                        direction: nil,
-                                        filter_ids: nil,
-                                        filter_archived_at: nil)
+    def list_all_component_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components_price_points.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(filter_date_field, key: 'filter[date_field]'))
-                   .query_param(new_parameter(filter_end_date, key: 'filter[end_date]'))
-                   .query_param(new_parameter(filter_end_datetime, key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(include, key: 'include'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(filter_start_date, key: 'filter[start_date]'))
-                   .query_param(new_parameter(filter_start_datetime, key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(filter_type, key: 'filter[type]'))
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
+                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListAllComponentPricePointsDirection)
+                                   UnionTypeLookUp.get(:ListAllComponentPricePointsInputDirection)
                                                   .validate(value)
                                  end))
-                   .query_param(new_parameter(filter_ids, key: 'filter[ids]'))
-                   .query_param(new_parameter(filter_archived_at, key: 'filter[archived_at]'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 

@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # `amount` is not required if you pass `amount_in_cents`.
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :amount_in_cents
 
     # `amount_in_cents` is not required if you pass `amount`.
@@ -85,7 +85,7 @@ module AdvancedBilling
       if value.instance_of? self
         return (
           APIHelper.valid_type?(value.amount_in_cents,
-                                ->(val) { val.instance_of? Float }) and
+                                ->(val) { val.instance_of? Integer }) and
             UnionTypeLookUp.get(:RefundPrepaymentAmount)
                            .validate(value.amount) and
             APIHelper.valid_type?(value.memo,
@@ -97,7 +97,7 @@ module AdvancedBilling
 
       (
         APIHelper.valid_type?(value['amount_in_cents'],
-                              ->(val) { val.instance_of? Float }) and
+                              ->(val) { val.instance_of? Integer }) and
           UnionTypeLookUp.get(:RefundPrepaymentAmount)
                          .validate(value['amount']) and
           APIHelper.valid_type?(value['memo'],

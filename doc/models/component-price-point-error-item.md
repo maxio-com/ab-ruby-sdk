@@ -9,17 +9,17 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `component_id` | `Float` | Optional | - |
+| `component_id` | `Integer` | Optional | - |
 | `message` | `String` | Optional | - |
-| `price_point` | `Float` | Optional | - |
+| `price_point` | `Integer` | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "component_id": 119.82,
+  "component_id": 206,
   "message": "message4",
-  "price_point": 88.56
+  "price_point": 152
 }
 ```
 

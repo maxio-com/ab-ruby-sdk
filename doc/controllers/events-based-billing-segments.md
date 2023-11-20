@@ -96,14 +96,7 @@ You can pass `page` and `per_page` parameters in order to access all of the segm
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```ruby
-def list_segments_for_price_point(component_id,
-                                  price_point_id,
-                                  page: 1,
-                                  per_page: 30,
-                                  filter_segment_property_1_value: nil,
-                                  filter_segment_property_2_value: nil,
-                                  filter_segment_property_3_value: nil,
-                                  filter_segment_property_4_value: nil)
+def list_segments_for_price_point(options = {})
 ```
 
 ## Parameters
@@ -126,20 +119,14 @@ def list_segments_for_price_point(component_id,
 ## Example Usage
 
 ```ruby
-component_id = 'component_id8'
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'component_id': 'component_id8',
+  'price_point_id': 'price_point_id8',
+  'page': 2,
+  'per_page': 50
+}
 
-price_point_id = 'price_point_id8'
-
-page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = events_based_billing_segments_controller.list_segments_for_price_point(
-  component_id,
-  price_point_id,
-  page: page,
-  per_page: per_page
-)
+result = events_based_billing_segments_controller.list_segments_for_price_point(collect)
 ```
 
 ## Errors

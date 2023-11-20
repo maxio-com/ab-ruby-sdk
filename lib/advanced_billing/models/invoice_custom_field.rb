@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :value
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :owner_id
 
     # TODO: Write general description for this method

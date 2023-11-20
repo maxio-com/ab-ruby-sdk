@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PrePayment Model.
-  class PrePayment < BaseModel
+  # InvoicePrePayment Model.
+  class InvoicePrePayment < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -67,9 +67,9 @@ module AdvancedBilling
         hash.key?('ending_balance_in_cents') ? hash['ending_balance_in_cents'] : SKIP
 
       # Create object from extracted values.
-      PrePayment.new(subscription_id,
-                     amount_in_cents,
-                     ending_balance_in_cents)
+      InvoicePrePayment.new(subscription_id,
+                            amount_in_cents,
+                            ending_balance_in_cents)
     end
   end
 end

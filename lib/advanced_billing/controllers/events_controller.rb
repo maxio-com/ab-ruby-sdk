@@ -106,32 +106,22 @@ module AdvancedBilling
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
     # @return [Array[EventResponse]] response from the API call
-    def list_events(page: 1,
-                    per_page: 20,
-                    since_id: nil,
-                    max_id: nil,
-                    direction: Direction::DESC,
-                    filter: nil,
-                    date_field: nil,
-                    start_date: nil,
-                    end_date: nil,
-                    start_datetime: nil,
-                    end_datetime: nil)
+    def list_events(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/events.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(since_id, key: 'since_id'))
-                   .query_param(new_parameter(max_id, key: 'max_id'))
-                   .query_param(new_parameter(direction, key: 'direction'))
-                   .query_param(new_parameter(filter, key: 'filter'))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['since_id'], key: 'since_id'))
+                   .query_param(new_parameter(options['max_id'], key: 'max_id'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -169,26 +159,20 @@ module AdvancedBilling
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
     # @return [Array[EventResponse]] response from the API call
-    def list_subscription_events(subscription_id,
-                                 page: 1,
-                                 per_page: 20,
-                                 since_id: nil,
-                                 max_id: nil,
-                                 direction: Direction::DESC,
-                                 filter: nil)
+    def list_subscription_events(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/events.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                   .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(since_id, key: 'since_id'))
-                   .query_param(new_parameter(max_id, key: 'max_id'))
-                   .query_param(new_parameter(direction, key: 'direction'))
-                   .query_param(new_parameter(filter, key: 'filter'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['since_id'], key: 'since_id'))
+                   .query_param(new_parameter(options['max_id'], key: 'max_id'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -222,23 +206,18 @@ module AdvancedBilling
     # @param [Array[EventType]] filter Optional parameter: You can pass multiple
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
-    # @return [Count] response from the API call
-    def read_events_count(page: 1,
-                          per_page: 20,
-                          since_id: nil,
-                          max_id: nil,
-                          direction: Direction::DESC,
-                          filter: nil)
+    # @return [CountResponse] response from the API call
+    def read_events_count(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/events/count.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(since_id, key: 'since_id'))
-                   .query_param(new_parameter(max_id, key: 'max_id'))
-                   .query_param(new_parameter(direction, key: 'direction'))
-                   .query_param(new_parameter(filter, key: 'filter'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['since_id'], key: 'since_id'))
+                   .query_param(new_parameter(options['max_id'], key: 'max_id'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -246,7 +225,7 @@ module AdvancedBilling
         .response(new_response_handler
                    .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Count.method(:from_hash)))
+                   .deserialize_into(CountResponse.method(:from_hash)))
         .execute
     end
   end

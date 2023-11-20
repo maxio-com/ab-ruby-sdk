@@ -141,10 +141,7 @@ Usage includes revenue from:
 * Prepaid Usage Components
 
 ```ruby
-def read_mrr_movements(subscription_id: nil,
-                       page: 1,
-                       per_page: 10,
-                       direction: nil)
+def read_mrr_movements(options = {})
 ```
 
 ## Parameters
@@ -163,14 +160,12 @@ def read_mrr_movements(subscription_id: nil,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 20
+}
 
-per_page = 20
-
-result = insights_controller.read_mrr_movements(
-  page: page,
-  per_page: per_page
-)
+result = insights_controller.read_mrr_movements(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -233,11 +228,7 @@ result = insights_controller.read_mrr_movements(
 This endpoint returns your site's current MRR, including plan and usage breakouts split per subscription.
 
 ```ruby
-def list_mrr_per_subscription(filter_subscription_ids: nil,
-                              at_time: nil,
-                              page: 1,
-                              per_page: 20,
-                              direction: nil)
+def list_mrr_per_subscription(options = {})
 ```
 
 ## Parameters
@@ -257,20 +248,14 @@ def list_mrr_per_subscription(filter_subscription_ids: nil,
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')at_time = 'at_time=2022-01-10T10:00:00-05:00'
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'at_time': 'at_time=2022-01-10T10:00:00-05:00',
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::DESC
+}
 
-page = 2
-
-per_page = 50
-
-direction = Direction::DESC
-
-Liquid error: Value cannot be null. (Parameter 'key')result = insights_controller.list_mrr_per_subscription(
-  at_time: at_time,
-  page: page,
-  per_page: per_page,
-  direction: direction
-)
+result = insights_controller.list_mrr_per_subscription(collect)
 ```
 
 ## Errors

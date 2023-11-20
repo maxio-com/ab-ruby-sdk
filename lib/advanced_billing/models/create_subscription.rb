@@ -610,7 +610,7 @@ module AdvancedBilling
       customer_reference =
         hash.key?('customer_reference') ? hash['customer_reference'] : SKIP
       group = hash.key?('group') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CreateSubscriptionGroup), hash['group']
+        UnionTypeLookUp.get(:CreateSubscriptionGroup2), hash['group']
       ) : SKIP
       ref = hash.key?('ref') ? hash['ref'] : SKIP
       cancellation_message =

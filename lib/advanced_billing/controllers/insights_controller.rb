@@ -94,21 +94,18 @@ module AdvancedBilling
     # @param [SortingDirection | nil] direction Optional parameter: Controls the
     # order in which results are returned. Use in query `direction=asc`.
     # @return [ListMRRResponse] response from the API call
-    def read_mrr_movements(subscription_id: nil,
-                           page: 1,
-                           per_page: 10,
-                           direction: nil)
+    def read_mrr_movements(options = {})
       warn 'Endpoint read_mrr_movements in InsightsController is deprecated'
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/mrr_movements.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(subscription_id, key: 'subscription_id'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ReadMrrMovementsDirection)
+                                   UnionTypeLookUp.get(:ReadMrrMovementsInputDirection)
                                                   .validate(value)
                                  end))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -143,22 +140,18 @@ module AdvancedBilling
     # which results are returned. Records are ordered by subscription_id in
     # ascending order by default. Use in query `direction=desc`.
     # @return [SubscriptionMRRResponse] response from the API call
-    def list_mrr_per_subscription(filter_subscription_ids: nil,
-                                  at_time: nil,
-                                  page: 1,
-                                  per_page: 20,
-                                  direction: nil)
+    def list_mrr_per_subscription(options = {})
       warn 'Endpoint list_mrr_per_subscription in InsightsController is deprec'\
            'ated'
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions_mrr.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(filter_subscription_ids, key: 'filter[subscription_ids]'))
-                   .query_param(new_parameter(at_time, key: 'at_time'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(direction, key: 'direction'))
+                   .query_param(new_parameter(options['filter_subscription_ids'], key: 'filter[subscription_ids]'))
+                   .query_param(new_parameter(options['at_time'], key: 'at_time'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 

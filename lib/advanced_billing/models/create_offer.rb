@@ -53,10 +53,7 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        name
-        handle
         description
-        product_id
         product_price_point_id
         components
         coupons
@@ -68,17 +65,17 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = SKIP,
-                   handle = SKIP,
+    def initialize(name = nil,
+                   handle = nil,
+                   product_id = nil,
                    description = SKIP,
-                   product_id = SKIP,
                    product_price_point_id = SKIP,
                    components = SKIP,
                    coupons = SKIP)
-      @name = name unless name == SKIP
-      @handle = handle unless handle == SKIP
+      @name = name
+      @handle = handle
       @description = description unless description == SKIP
-      @product_id = product_id unless product_id == SKIP
+      @product_id = product_id
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @components = components unless components == SKIP
       @coupons = coupons unless coupons == SKIP
@@ -89,10 +86,10 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      name = hash.key?('name') ? hash['name'] : SKIP
-      handle = hash.key?('handle') ? hash['handle'] : SKIP
+      name = hash.key?('name') ? hash['name'] : nil
+      handle = hash.key?('handle') ? hash['handle'] : nil
+      product_id = hash.key?('product_id') ? hash['product_id'] : nil
       description = hash.key?('description') ? hash['description'] : SKIP
-      product_id = hash.key?('product_id') ? hash['product_id'] : SKIP
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       # Parameter is an array, so we need to iterate through it
@@ -110,8 +107,8 @@ module AdvancedBilling
       # Create object from extracted values.
       CreateOffer.new(name,
                       handle,
-                      description,
                       product_id,
+                      description,
                       product_price_point_id,
                       components,
                       coupons)

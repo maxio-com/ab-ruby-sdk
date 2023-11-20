@@ -204,7 +204,7 @@ module AdvancedBilling
       downgrade_credit =
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       payment = hash.key?('payment') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:AllocationPayment), hash['payment']
+        UnionTypeLookUp.get(:AllocationPayment2), hash['payment']
       ) : SKIP
 
       # Create object from extracted values.

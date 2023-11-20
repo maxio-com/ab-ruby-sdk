@@ -159,9 +159,7 @@ Returns an array of subscription groups for the site. The response is paginated 
 Account balance information for the subscription groups is not returned by default. If this information is desired, the `include[]=account_balances` parameter must be provided with the request.
 
 ```ruby
-def list_subscription_groups(page: 1,
-                             per_page: 20,
-                             include: nil)
+def list_subscription_groups(options = {})
 ```
 
 ## Parameters
@@ -179,14 +177,12 @@ def list_subscription_groups(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50
+}
 
-per_page = 50
-
-result = subscription_groups_controller.list_subscription_groups(
-  page: page,
-  per_page: per_page
-)
+result = subscription_groups_controller.list_subscription_groups(collect)
 ```
 
 ## Example Response *(as JSON)*

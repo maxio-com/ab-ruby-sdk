@@ -83,28 +83,7 @@ result = invoices_controller.refund_invoice(
 By default, invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`, or `refunds`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
 
 ```ruby
-def list_invoices(start_date: nil,
-                  end_date: nil,
-                  status: nil,
-                  subscription_id: nil,
-                  subscription_group_uid: nil,
-                  page: 1,
-                  per_page: 20,
-                  direction: Direction::DESC,
-                  line_items: false,
-                  discounts: false,
-                  taxes: false,
-                  credits: false,
-                  payments: false,
-                  custom_fields: false,
-                  refunds: false,
-                  date_field: InvoiceDateField::DUE_DATE,
-                  start_datetime: nil,
-                  end_datetime: nil,
-                  customer_ids: nil,
-                  number: nil,
-                  product_ids: nil,
-                  sort: InvoiceSortField::NUMBER)
+def list_invoices(options = {})
 ```
 
 ## Parameters
@@ -141,63 +120,35 @@ def list_invoices(start_date: nil,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::DESC,
+  'line_items': false,
+  'discounts': false,
+  'taxes': false,
+  'credits': false,
+  'payments': false,
+  'custom_fields': false,
+  'refunds': false,
+  'date_field': InvoiceDateField::ISSUE_DATE,
+  'customer_ids': [
+    1,
+    2,
+    3
+  ],
+  'number': [
+    '1234',
+    '1235'
+  ],
+  'product_ids': [
+    23,
+    34
+  ],
+  'sort': InvoiceSortField::TOTAL_AMOUNT
+}
 
-per_page = 50
-
-direction = Direction::DESC
-
-line_items = false
-
-discounts = false
-
-taxes = false
-
-credits = false
-
-payments = false
-
-custom_fields = false
-
-refunds = false
-
-date_field = InvoiceDateField::ISSUE_DATE
-
-customer_ids = [
-  1,
-  2,
-  3
-]
-
-number = [
-  '1234',
-  '1235'
-]
-
-product_ids = [
-  23,
-  34
-]
-
-sort = InvoiceSortField::TOTAL_AMOUNT
-
-result = invoices_controller.list_invoices(
-  page: page,
-  per_page: per_page,
-  direction: direction,
-  line_items: line_items,
-  discounts: discounts,
-  taxes: taxes,
-  credits: credits,
-  payments: payments,
-  custom_fields: custom_fields,
-  refunds: refunds,
-  date_field: date_field,
-  customer_ids: customer_ids,
-  number: number,
-  product_ids: product_ids,
-  sort: sort
-)
+result = invoices_controller.list_invoices(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -638,13 +589,7 @@ If both a `since_date` and `since_id` are provided in request parameters, the `s
 Note - invoice events that occurred prior to 09/05/2018 __will not__ contain an `invoice` snapshot.
 
 ```ruby
-def list_invoice_events(since_date: nil,
-                        since_id: nil,
-                        page: 1,
-                        per_page: 100,
-                        invoice_uid: nil,
-                        with_change_invoice_status: nil,
-                        event_types: nil)
+def list_invoice_events(options = {})
 ```
 
 ## Parameters
@@ -666,14 +611,12 @@ def list_invoice_events(since_date: nil,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 100
+}
 
-per_page = 100
-
-result = invoices_controller.list_invoice_events(
-  page: page,
-  per_page: per_page
-)
+result = invoices_controller.list_invoice_events(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -1123,7 +1066,9 @@ uid = 'uid0'
 body = CreateInvoicePaymentRequest.new(
   CreateInvoicePayment.new(
     124.33,
-    'for John Smith'
+    'for John Smith',
+    InvoicePaymentMethodType::CHECK,
+    '#0102'
   )
 )
 
@@ -1240,14 +1185,7 @@ Credit Notes are like inverse invoices. They reduce the amount a customer owes.
 By default, the credit notes returned by this endpoint will exclude the arrays of `line_items`, `discounts`, `taxes`, `applications`, or `refunds`. To include these arrays, pass the specific field as a key in the query with a value set to `true`.
 
 ```ruby
-def list_credit_notes(subscription_id: nil,
-                      page: 1,
-                      per_page: 20,
-                      line_items: false,
-                      discounts: false,
-                      taxes: false,
-                      refunds: false,
-                      applications: false)
+def list_credit_notes(options = {})
 ```
 
 ## Parameters
@@ -1270,29 +1208,17 @@ def list_credit_notes(subscription_id: nil,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50,
+  'line_items': false,
+  'discounts': false,
+  'taxes': false,
+  'refunds': false,
+  'applications': false
+}
 
-per_page = 50
-
-line_items = false
-
-discounts = false
-
-taxes = false
-
-refunds = false
-
-applications = false
-
-result = invoices_controller.list_credit_notes(
-  page: page,
-  per_page: per_page,
-  line_items: line_items,
-  discounts: discounts,
-  taxes: taxes,
-  refunds: refunds,
-  applications: applications
-)
+result = invoices_controller.list_credit_notes(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -2053,10 +1979,7 @@ result = invoices_controller.void_invoice(
 Invoice segments returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
 
 ```ruby
-def list_invoice_segments(invoice_uid,
-                          page: 1,
-                          per_page: 20,
-                          direction: Direction::ASC)
+def list_invoice_segments(options = {})
 ```
 
 ## Parameters
@@ -2075,20 +1998,14 @@ def list_invoice_segments(invoice_uid,
 ## Example Usage
 
 ```ruby
-invoice_uid = 'invoice_uid0'
+collect = {
+  'invoice_uid': 'invoice_uid0',
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::ASC
+}
 
-page = 2
-
-per_page = 50
-
-direction = Direction::ASC
-
-result = invoices_controller.list_invoice_segments(
-  invoice_uid,
-  page: page,
-  per_page: per_page,
-  direction: direction
-)
+result = invoices_controller.list_invoice_segments(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -2720,6 +2637,9 @@ body = SendInvoiceRequest.new(
   ],
   [
     'user1@example.com'
+  ],
+  [
+    'user2@example.com'
   ]
 )
 

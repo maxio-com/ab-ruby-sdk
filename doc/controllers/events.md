@@ -81,17 +81,7 @@ Here’s an example event for the `subscription_state_change` event:
 ```
 
 ```ruby
-def list_events(page: 1,
-                per_page: 20,
-                since_id: nil,
-                max_id: nil,
-                direction: Direction::DESC,
-                filter: nil,
-                date_field: nil,
-                start_date: nil,
-                end_date: nil,
-                start_datetime: nil,
-                end_datetime: nil)
+def list_events(options = {})
 ```
 
 ## Parameters
@@ -117,26 +107,18 @@ def list_events(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::DESC,
+  'filter': [
+    EventType::CUSTOM_FIELD_VALUE_CHANGE,
+    EventType::PAYMENT_SUCCESS
+  ],
+  'date_field': ListEventsDateField::CREATED_AT
+}
 
-per_page = 50
-
-direction = Direction::DESC
-
-filter = [
-  EventType::CUSTOM_FIELD_VALUE_CHANGE,
-  EventType::PAYMENT_SUCCESS
-]
-
-date_field = ListEventsDateField::CREATED_AT
-
-result = events_controller.list_events(
-  page: page,
-  per_page: per_page,
-  direction: direction,
-  filter: filter,
-  date_field: date_field
-)
+result = events_controller.list_events(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -209,13 +191,7 @@ The following request will return a list of events for a subscription.
 Each event type has its own `event_specific_data` specified.
 
 ```ruby
-def list_subscription_events(subscription_id,
-                             page: 1,
-                             per_page: 20,
-                             since_id: nil,
-                             max_id: nil,
-                             direction: Direction::DESC,
-                             filter: nil)
+def list_subscription_events(options = {})
 ```
 
 ## Parameters
@@ -237,26 +213,18 @@ def list_subscription_events(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+collect = {
+  'subscription_id': 'subscription_id0',
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::DESC,
+  'filter': [
+    EventType::CUSTOM_FIELD_VALUE_CHANGE,
+    EventType::PAYMENT_SUCCESS
+  ]
+}
 
-page = 2
-
-per_page = 50
-
-direction = Direction::DESC
-
-filter = [
-  EventType::CUSTOM_FIELD_VALUE_CHANGE,
-  EventType::PAYMENT_SUCCESS
-]
-
-result = events_controller.list_subscription_events(
-  subscription_id,
-  page: page,
-  per_page: per_page,
-  direction: direction,
-  filter: filter
-)
+result = events_controller.list_subscription_events(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -308,12 +276,7 @@ result = events_controller.list_subscription_events(
 Get a count of all the events for a given site by using this method.
 
 ```ruby
-def read_events_count(page: 1,
-                      per_page: 20,
-                      since_id: nil,
-                      max_id: nil,
-                      direction: Direction::DESC,
-                      filter: nil)
+def read_events_count(options = {})
 ```
 
 ## Parameters
@@ -329,28 +292,22 @@ def read_events_count(page: 1,
 
 ## Response Type
 
-[`Count`](../../doc/models/count.md)
+[`CountResponse`](../../doc/models/count-response.md)
 
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50,
+  'direction': Direction::DESC,
+  'filter': [
+    EventType::CUSTOM_FIELD_VALUE_CHANGE,
+    EventType::PAYMENT_SUCCESS
+  ]
+}
 
-per_page = 50
-
-direction = Direction::DESC
-
-filter = [
-  EventType::CUSTOM_FIELD_VALUE_CHANGE,
-  EventType::PAYMENT_SUCCESS
-]
-
-result = events_controller.read_events_count(
-  page: page,
-  per_page: per_page,
-  direction: direction,
-  filter: filter
-)
+result = events_controller.read_events_count(collect)
 ```
 
 ## Example Response *(as JSON)*

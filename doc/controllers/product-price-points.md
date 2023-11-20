@@ -99,17 +99,19 @@ result = product_price_points_controller.create_product_price_point(
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ProductPricePointErrorResponseException`](../../doc/models/product-price-point-error-response-exception.md) |
+
 
 # List Product Price Points
 
 Use this endpoint to retrieve a list of product price points.
 
 ```ruby
-def list_product_price_points(product_id,
-                              page: 1,
-                              per_page: 10,
-                              currency_prices: nil,
-                              filter_type: nil)
+def list_product_price_points(options = {})
 ```
 
 ## Parameters
@@ -129,17 +131,13 @@ def list_product_price_points(product_id,
 ## Example Usage
 
 ```ruby
-product_id = 202
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'product_id': 202,
+  'page': 2,
+  'per_page': 10
+}
 
-page = 2
-
-per_page = 10
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = product_price_points_controller.list_product_price_points(
-  product_id,
-  page: page,
-  per_page: per_page
-)
+result = product_price_points_controller.list_product_price_points(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -588,6 +586,12 @@ result = product_price_points_controller.create_product_price_points(
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | `APIException` |
+
 
 # Create Product Currency Prices
 
@@ -720,18 +724,7 @@ result = product_price_points_controller.update_product_currency_prices(
 This method allows retrieval of a list of Products Price Points belonging to a Site.
 
 ```ruby
-def list_all_product_price_points(direction: nil,
-                                  filter_archived_at: nil,
-                                  filter_date_field: nil,
-                                  filter_end_date: nil,
-                                  filter_end_datetime: nil,
-                                  filter_ids: nil,
-                                  filter_start_date: nil,
-                                  filter_start_datetime: nil,
-                                  filter_type: nil,
-                                  include: nil,
-                                  page: 1,
-                                  per_page: 20)
+def list_all_product_price_points(options = {})
 ```
 
 ## Parameters
@@ -758,17 +751,13 @@ def list_all_product_price_points(direction: nil,
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')include = ListProductsPricePointsInclude::CURRENCY_PRICES
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'include': ListProductsPricePointsInclude::CURRENCY_PRICES,
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = product_price_points_controller.list_all_product_price_points(
-  include: include,
-  page: page,
-  per_page: per_page
-)
+result = product_price_points_controller.list_all_product_price_points(collect)
 ```
 
 ## Example Response *(as JSON)*

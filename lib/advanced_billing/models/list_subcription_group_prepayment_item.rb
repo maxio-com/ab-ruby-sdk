@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :id
 
     # TODO: Write general description for this method
@@ -18,11 +18,11 @@ module AdvancedBilling
     attr_accessor :subscription_group_uid
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :amount_in_cents
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :remaining_amount_in_cents
 
     # TODO: Write general description for this method

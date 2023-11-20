@@ -669,7 +669,7 @@ module AdvancedBilling
       product = Product.from_hash(hash['product']) if hash['product']
       credit_card = PaymentProfile.from_hash(hash['credit_card']) if hash['credit_card']
       group = hash.key?('group') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionGroup), hash['group']
+        UnionTypeLookUp.get(:SubscriptionGroup2), hash['group']
       ) : SKIP
       bank_account = SubscriptionBankAccount.from_hash(hash['bank_account']) if
         hash['bank_account']
@@ -702,9 +702,8 @@ module AdvancedBilling
         hash.key?('stored_credential_transaction_id') ? hash['stored_credential_transaction_id'] : SKIP
       reference = hash.key?('reference') ? hash['reference'] : SKIP
       on_hold_at = hash.key?('on_hold_at') ? hash['on_hold_at'] : SKIP
-      prepaid_dunning = hash.key?('prepaid_dunning') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionPrepaidDunning), hash['prepaid_dunning']
-      ) : SKIP
+      prepaid_dunning =
+        hash.key?('prepaid_dunning') ? hash['prepaid_dunning'] : SKIP
       # Parameter is an array, so we need to iterate through it
       coupons = nil
       unless hash['coupons'].nil?

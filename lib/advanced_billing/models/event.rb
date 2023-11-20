@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :id
 
     # TODO: Write general description for this method
@@ -22,11 +22,11 @@ module AdvancedBilling
     attr_accessor :message
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :subscription_id
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :customer_id
 
     # TODO: Write general description for this method
@@ -110,15 +110,15 @@ module AdvancedBilling
       if value.instance_of? self
         return (
           APIHelper.valid_type?(value.id,
-                                ->(val) { val.instance_of? Float }) and
+                                ->(val) { val.instance_of? Integer }) and
             APIHelper.valid_type?(value.key,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.message,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.subscription_id,
-                                  ->(val) { val.instance_of? Float }) and
+                                  ->(val) { val.instance_of? Integer }) and
             APIHelper.valid_type?(value.customer_id,
-                                  ->(val) { val.instance_of? Float }) and
+                                  ->(val) { val.instance_of? Integer }) and
             APIHelper.valid_type?(value.created_at,
                                   ->(val) { val.instance_of? String }) and
             UnionTypeLookUp.get(:EventEventSpecificData)
@@ -130,15 +130,15 @@ module AdvancedBilling
 
       (
         APIHelper.valid_type?(value['id'],
-                              ->(val) { val.instance_of? Float }) and
+                              ->(val) { val.instance_of? Integer }) and
           APIHelper.valid_type?(value['key'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['message'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['subscription_id'],
-                                ->(val) { val.instance_of? Float }) and
+                                ->(val) { val.instance_of? Integer }) and
           APIHelper.valid_type?(value['customer_id'],
-                                ->(val) { val.instance_of? Float }) and
+                                ->(val) { val.instance_of? Integer }) and
           APIHelper.valid_type?(value['created_at'],
                                 ->(val) { val.instance_of? String }) and
           UnionTypeLookUp.get(:EventEventSpecificData)

@@ -28,9 +28,7 @@ This API returns an array of exported proforma invoices for a provided `batch_id
 Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&page=1`.
 
 ```ruby
-def list_exported_proforma_invoices(batch_id,
-                                    per_page: 100,
-                                    page: 1)
+def list_exported_proforma_invoices(options = {})
 ```
 
 ## Parameters
@@ -48,17 +46,13 @@ def list_exported_proforma_invoices(batch_id,
 ## Example Usage
 
 ```ruby
-batch_id = 'batch_id8'
+collect = {
+  'batch_id': 'batch_id8',
+  'per_page': 100,
+  'page': 2
+}
 
-per_page = 100
-
-page = 2
-
-result = api_exports_controller.list_exported_proforma_invoices(
-  batch_id,
-  per_page: per_page,
-  page: page
-)
+result = api_exports_controller.list_exported_proforma_invoices(collect)
 ```
 
 ## Errors
@@ -75,9 +69,7 @@ This API returns an array of exported invoices for a provided `batch_id`. Pay cl
 Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&page=1`.
 
 ```ruby
-def list_exported_invoices(batch_id,
-                           per_page: 100,
-                           page: 1)
+def list_exported_invoices(options = {})
 ```
 
 ## Parameters
@@ -95,17 +87,13 @@ def list_exported_invoices(batch_id,
 ## Example Usage
 
 ```ruby
-batch_id = 'batch_id8'
+collect = {
+  'batch_id': 'batch_id8',
+  'per_page': 100,
+  'page': 2
+}
 
-per_page = 100
-
-page = 2
-
-result = api_exports_controller.list_exported_invoices(
-  batch_id,
-  per_page: per_page,
-  page: page
-)
+result = api_exports_controller.list_exported_invoices(collect)
 ```
 
 ## Errors
@@ -122,9 +110,7 @@ This API returns an array of exported subscriptions for a provided `batch_id`. P
 Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&page=1`.
 
 ```ruby
-def list_exported_subscriptions(batch_id,
-                                per_page: 100,
-                                page: 1)
+def list_exported_subscriptions(options = {})
 ```
 
 ## Parameters
@@ -142,17 +128,13 @@ def list_exported_subscriptions(batch_id,
 ## Example Usage
 
 ```ruby
-batch_id = 'batch_id8'
+collect = {
+  'batch_id': 'batch_id8',
+  'per_page': 100,
+  'page': 2
+}
 
-per_page = 100
-
-page = 2
-
-result = api_exports_controller.list_exported_subscriptions(
-  batch_id,
-  per_page: per_page,
-  page: page
-)
+result = api_exports_controller.list_exported_subscriptions(collect)
 ```
 
 ## Errors

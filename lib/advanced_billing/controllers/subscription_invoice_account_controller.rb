@@ -90,24 +90,19 @@ module AdvancedBilling
     # a timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified. Use in query `filter[end_date]=2011-12-15`.
     # @return [PrepaymentsResponse] response from the API call
-    def list_prepayments(subscription_id,
-                         page: 1,
-                         per_page: 20,
-                         filter_date_field: nil,
-                         filter_start_date: nil,
-                         filter_end_date: nil)
+    def list_prepayments(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/prepayments.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                   .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(filter_date_field, key: 'filter[date_field]'))
-                   .query_param(new_parameter(filter_start_date, key: 'filter[start_date]'))
-                   .query_param(new_parameter(filter_end_date, key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

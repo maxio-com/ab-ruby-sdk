@@ -134,11 +134,7 @@ result = custom_fields_controller.create_metafields(
 This endpoint lists metafields associated with a site. The metafield description and usage is contained in the response.
 
 ```ruby
-def list_metafields(resource_type,
-                    name: nil,
-                    page: 1,
-                    per_page: 20,
-                    direction: nil)
+def list_metafields(options = {})
 ```
 
 ## Parameters
@@ -158,17 +154,13 @@ def list_metafields(resource_type,
 ## Example Usage
 
 ```ruby
-resource_type = ResourceType::SUBSCRIPTIONS
+collect = {
+  'resource_type': ResourceType::SUBSCRIPTIONS,
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-result = custom_fields_controller.list_metafields(
-  resource_type,
-  page: page,
-  per_page: per_page
-)
+result = custom_fields_controller.list_metafields(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -357,10 +349,7 @@ This request will list all of the metadata belonging to a particular resource (i
 This endpoint will also display the current stats of your metadata to use as a tool for pagination.
 
 ```ruby
-def read_metadata(resource_type,
-                  resource_id,
-                  page: 1,
-                  per_page: 20)
+def read_metadata(options = {})
 ```
 
 ## Parameters
@@ -379,20 +368,14 @@ def read_metadata(resource_type,
 ## Example Usage
 
 ```ruby
-resource_type = ResourceType::SUBSCRIPTIONS
+collect = {
+  'resource_type': ResourceType::SUBSCRIPTIONS,
+  'resource_id': 'resource_id4',
+  'page': 2,
+  'per_page': 50
+}
 
-resource_id = 'resource_id4'
-
-page = 2
-
-per_page = 50
-
-result = custom_fields_controller.read_metadata(
-  resource_type,
-  resource_id,
-  page: page,
-  per_page: per_page
-)
+result = custom_fields_controller.read_metadata(collect)
 ```
 
 
@@ -517,17 +500,7 @@ This endpoint will also display the current stats of your metadata to use as a t
 This endpoint will list the number of pages of metadata information that are contained within a site.
 
 ```ruby
-def list_metadata(resource_type,
-                  page: 1,
-                  per_page: 20,
-                  date_field: nil,
-                  start_date: nil,
-                  end_date: nil,
-                  start_datetime: nil,
-                  end_datetime: nil,
-                  with_deleted: nil,
-                  resource_ids: nil,
-                  direction: nil)
+def list_metadata(options = {})
 ```
 
 ## Parameters
@@ -553,19 +526,13 @@ def list_metadata(resource_type,
 ## Example Usage
 
 ```ruby
-resource_type = ResourceType::SUBSCRIPTIONS
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'resource_type': ResourceType::SUBSCRIPTIONS,
+  'page': 2,
+  'per_page': 50,
+  'date_field': BasicDateField::UPDATED_AT
+}
 
-page = 2
-
-per_page = 50
-
-date_field = BasicDateField::UPDATED_AT
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = custom_fields_controller.list_metadata(
-  resource_type,
-  page: page,
-  per_page: per_page,
-  date_field: date_field
-)
+result = custom_fields_controller.list_metadata(collect)
 ```
 

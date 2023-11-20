@@ -124,7 +124,7 @@ result = customers_controller.create_customer(body: body)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`CustomersJson422ErrorException`](../../doc/models/customers-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`CustomerErrorResponseException`](../../doc/models/customer-error-response-exception.md) |
 
 
 # List Customers
@@ -146,15 +146,7 @@ Common use cases are:
 To retrieve a single, exact match by reference, please use the [lookup endpoint](https://developers.chargify.com/docs/api-docs/b710d8fbef104-read-customer-by-reference).
 
 ```ruby
-def list_customers(direction: nil,
-                   page: 1,
-                   per_page: 50,
-                   date_field: nil,
-                   start_date: nil,
-                   end_date: nil,
-                   start_datetime: nil,
-                   end_datetime: nil,
-                   q: nil)
+def list_customers(options = {})
 ```
 
 ## Parameters
@@ -178,17 +170,13 @@ def list_customers(direction: nil,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 30,
+  'date_field': BasicDateField::UPDATED_AT
+}
 
-per_page = 30
-
-date_field = BasicDateField::UPDATED_AT
-
-result = customers_controller.list_customers(
-  page: page,
-  per_page: per_page,
-  date_field: date_field
-)
+result = customers_controller.list_customers(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -378,7 +366,7 @@ result = customers_controller.update_customer(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`CustomerErrorResponseException`](../../doc/models/customer-error-response-exception.md) |
 
 
 # Delete Customer

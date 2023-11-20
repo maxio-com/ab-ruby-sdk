@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :id
 
     # TODO: Write general description for this method
@@ -32,7 +32,7 @@ module AdvancedBilling
     attr_accessor :input_type
 
     # the amount of subscriptions this metafield has been applied to in Chargify
-    # @return [Array[String]]
+    # @return [Object]
     attr_accessor :enum
 
     # A mapping from model property names to API property names.

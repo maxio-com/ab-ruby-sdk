@@ -4,9 +4,9 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # List Subscription Components Date Field.
-  class ListSubscriptionComponentsDateField
-    LIST_SUBSCRIPTION_COMPONENTS_DATE_FIELD = [
+  # Subscription List Date Field.
+  class SubscriptionListDateField
+    SUBSCRIPTION_LIST_DATE_FIELD = [
       # TODO: Write general description for UPDATED_AT
       UPDATED_AT = 'updated_at'.freeze
     ].freeze
@@ -14,7 +14,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      LIST_SUBSCRIPTION_COMPONENTS_DATE_FIELD.include?(value)
+      SUBSCRIPTION_LIST_DATE_FIELD.include?(value)
     end
   end
 end

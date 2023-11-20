@@ -108,18 +108,7 @@ List coupons for a specific Product Family in a Site.
 If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```ruby
-def list_coupons_for_product_family(product_family_id,
-                                    page: 1,
-                                    per_page: 30,
-                                    filter_date_field: nil,
-                                    filter_end_date: nil,
-                                    filter_end_datetime: nil,
-                                    filter_start_date: nil,
-                                    filter_start_datetime: nil,
-                                    filter_ids: nil,
-                                    filter_codes: nil,
-                                    currency_prices: nil,
-                                    filter_use_site_exchange_rate: nil)
+def list_coupons_for_product_family(options = {})
 ```
 
 ## Parameters
@@ -146,20 +135,14 @@ def list_coupons_for_product_family(product_family_id,
 ## Example Usage
 
 ```ruby
-product_family_id = 140
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'product_family_id': 140,
+  'page': 2,
+  'per_page': 50,
+  'currency_prices': true
+}
 
-page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')currency_prices = true
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = coupons_controller.list_coupons_for_product_family(
-  product_family_id,
-  page: page,
-  per_page: per_page,
-  currency_prices: currency_prices
-)
+result = coupons_controller.list_coupons_for_product_family(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -521,22 +504,7 @@ You can retrieve a list of coupons.
 If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```ruby
-def list_coupons(page: 1,
-                 per_page: 30,
-                 date_field: nil,
-                 start_date: nil,
-                 end_date: nil,
-                 start_datetime: nil,
-                 end_datetime: nil,
-                 filter_ids: nil,
-                 filter_codes: nil,
-                 currency_prices: nil,
-                 filter_end_date: nil,
-                 filter_end_datetime: nil,
-                 filter_start_date: nil,
-                 filter_start_datetime: nil,
-                 filter_date_field: nil,
-                 filter_use_site_exchange_rate: nil)
+def list_coupons(options = {})
 ```
 
 ## Parameters
@@ -567,20 +535,14 @@ def list_coupons(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'page': 2,
+  'per_page': 50,
+  'date_field': BasicDateField::UPDATED_AT,
+  'currency_prices': true
+}
 
-per_page = 50
-
-date_field = BasicDateField::UPDATED_AT
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')currency_prices = true
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = coupons_controller.list_coupons(
-  page: page,
-  per_page: per_page,
-  date_field: date_field,
-  currency_prices: currency_prices
-)
+result = coupons_controller.list_coupons(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -930,9 +892,7 @@ result = coupons_controller.create_coupon_subcodes(
 This request allows you to request the subcodes that are attached to a coupon.
 
 ```ruby
-def list_coupon_subcodes(coupon_id,
-                         page: 1,
-                         per_page: 20)
+def list_coupon_subcodes(options = {})
 ```
 
 ## Parameters
@@ -950,17 +910,13 @@ def list_coupon_subcodes(coupon_id,
 ## Example Usage
 
 ```ruby
-coupon_id = 162
+collect = {
+  'coupon_id': 162,
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-result = coupons_controller.list_coupon_subcodes(
-  coupon_id,
-  page: page,
-  per_page: per_page
-)
+result = coupons_controller.list_coupon_subcodes(collect)
 ```
 
 ## Example Response *(as JSON)*

@@ -134,8 +134,7 @@ sites_controller.clear_site(cleanup_scope: cleanup_scope)
 This endpoint returns public keys used for Chargify.js.
 
 ```ruby
-def list_chargify_js_public_keys(page: 1,
-                                 per_page: 20)
+def list_chargify_js_public_keys(options = {})
 ```
 
 ## Parameters
@@ -152,14 +151,12 @@ def list_chargify_js_public_keys(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50
+}
 
-per_page = 50
-
-result = sites_controller.list_chargify_js_public_keys(
-  page: page,
-  per_page: per_page
-)
+result = sites_controller.list_chargify_js_public_keys(collect)
 ```
 
 ## Example Response *(as JSON)*

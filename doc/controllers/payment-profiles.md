@@ -366,9 +366,7 @@ result = payment_profiles_controller.create_payment_profile(body: body)
 This method will return all of the active `payment_profiles` for a Site, or for one Customer within a site.  If no payment profiles are found, this endpoint will return an empty array, not a 404.
 
 ```ruby
-def list_payment_profiles(page: 1,
-                          per_page: 20,
-                          customer_id: nil)
+def list_payment_profiles(options = {})
 ```
 
 ## Parameters
@@ -386,14 +384,12 @@ def list_payment_profiles(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+collect = {
+  'page': 2,
+  'per_page': 50
+}
 
-per_page = 50
-
-result = payment_profiles_controller.list_payment_profiles(
-  page: page,
-  per_page: per_page
-)
+result = payment_profiles_controller.list_payment_profiles(collect)
 ```
 
 ## Example Response *(as JSON)*

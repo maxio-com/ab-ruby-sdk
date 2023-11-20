@@ -68,12 +68,7 @@ result = subscription_group_invoice_account_controller.create_subscription_group
 This request will list a subscription group's prepayments.
 
 ```ruby
-def list_prepayments_for_subscription_group(uid,
-                                            filter_date_field: nil,
-                                            filter_end_date: nil,
-                                            filter_start_date: nil,
-                                            page: 1,
-                                            per_page: 20)
+def list_prepayments_for_subscription_group(options = {})
 ```
 
 ## Parameters
@@ -94,17 +89,13 @@ def list_prepayments_for_subscription_group(uid,
 ## Example Usage
 
 ```ruby
-uid = 'uid0'
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'uid': 'uid0',
+  'page': 2,
+  'per_page': 50
+}
 
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_group_invoice_account_controller.list_prepayments_for_subscription_group(
-  uid,
-  page: page,
-  per_page: per_page
-)
+result = subscription_group_invoice_account_controller.list_prepayments_for_subscription_group(collect)
 ```
 
 ## Example Response *(as JSON)*

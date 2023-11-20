@@ -95,30 +95,23 @@ module AdvancedBilling
     # to `segment_property_4` on attached Metric. If empty string is passed,
     # this filter would be rejected.
     # @return [ListSegmentsResponse] response from the API call
-    def list_segments_for_price_point(component_id,
-                                      price_point_id,
-                                      page: 1,
-                                      per_page: 30,
-                                      filter_segment_property_1_value: nil,
-                                      filter_segment_property_2_value: nil,
-                                      filter_segment_property_3_value: nil,
-                                      filter_segment_property_4_value: nil)
+    def list_segments_for_price_point(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/{component_id}/price_points/{price_point_id}/segments.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
+                   .template_param(new_parameter(options['component_id'], key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                   .template_param(new_parameter(options['price_point_id'], key: 'price_point_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(filter_segment_property_1_value, key: 'filter[segment_property_1_value]'))
-                   .query_param(new_parameter(filter_segment_property_2_value, key: 'filter[segment_property_2_value]'))
-                   .query_param(new_parameter(filter_segment_property_3_value, key: 'filter[segment_property_3_value]'))
-                   .query_param(new_parameter(filter_segment_property_4_value, key: 'filter[segment_property_4_value]'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_segment_property_1_value'], key: 'filter[segment_property_1_value]'))
+                   .query_param(new_parameter(options['filter_segment_property_2_value'], key: 'filter[segment_property_2_value]'))
+                   .query_param(new_parameter(options['filter_segment_property_3_value'], key: 'filter[segment_property_3_value]'))
+                   .query_param(new_parameter(options['filter_segment_property_4_value'], key: 'filter[segment_property_4_value]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

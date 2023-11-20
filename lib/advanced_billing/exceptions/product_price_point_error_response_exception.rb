@@ -4,22 +4,14 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Subscriptions Add CouponJson 422 Error class.
-  class SubscriptionsAddCouponJson422ErrorException < APIException
+  # Product Price Point Error Response class.
+  class ProductPricePointErrorResponseException < APIException
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[String]]
-    attr_accessor :codes
-
-    # TODO: Write general description for this method
-    # @return [Array[String]]
-    attr_accessor :subscription
-
-    # TODO: Write general description for this method
-    # @return [Array[String]]
-    attr_accessor :coupon_codes
+    # @return [ProductPricePointErrors]
+    attr_accessor :errors
 
     # The constructor.
     # @param [String] The reason for raising an exception.
@@ -34,9 +26,7 @@ module AdvancedBilling
     # @param [Hash] The deserialized response sent by the server in the
     # response body.
     def unbox(hash)
-      @codes = hash.key?('codes') ? hash['codes'] : SKIP
-      @subscription = hash.key?('subscription') ? hash['subscription'] : SKIP
-      @coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
+      @errors = ProductPricePointErrors.from_hash(hash['errors']) if hash['errors']
     end
   end
 end

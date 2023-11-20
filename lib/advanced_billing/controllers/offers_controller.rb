@@ -43,12 +43,28 @@ module AdvancedBilling
     end
 
     # This endpoint will list offers for a site.
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [TrueClass | FalseClass] include_archived Optional parameter:
+    # Include archived products. Use in query: `include_archived=true`.
     # @return [ListOffersResponse] response from the API call
-    def list_offers
+    def list_offers(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/offers.json',
                                      Server::DEFAULT)
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

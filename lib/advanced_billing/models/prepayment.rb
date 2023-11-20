@@ -4,29 +4,29 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Prepayment1 Model.
-  class Prepayment1 < BaseModel
+  # Prepayment Model.
+  class Prepayment < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :id
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :subscription_id
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :amount_in_cents
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :remaining_amount_in_cents
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :refunded_amount_in_cents
 
     # TODO: Write general description for this method
@@ -122,16 +122,16 @@ module AdvancedBilling
       payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
 
       # Create object from extracted values.
-      Prepayment1.new(id,
-                      subscription_id,
-                      amount_in_cents,
-                      remaining_amount_in_cents,
-                      external,
-                      memo,
-                      created_at,
-                      refunded_amount_in_cents,
-                      details,
-                      payment_type)
+      Prepayment.new(id,
+                     subscription_id,
+                     amount_in_cents,
+                     remaining_amount_in_cents,
+                     external,
+                     memo,
+                     created_at,
+                     refunded_amount_in_cents,
+                     details,
+                     payment_type)
     end
   end
 end

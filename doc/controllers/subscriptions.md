@@ -1863,7 +1863,7 @@ result = subscriptions_controller.apply_coupon_to_subscription(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsAddCouponJson422ErrorException`](../../doc/models/subscriptions-add-coupon-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionAddCouponErrorException`](../../doc/models/subscription-add-coupon-error-exception.md) |
 
 
 # Delete Coupon From Subscription

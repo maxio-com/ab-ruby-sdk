@@ -1243,7 +1243,7 @@ module AdvancedBilling
                    .deserialize_into(SubscriptionResponse.method(:from_hash))
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
-                                SubscriptionsAddCouponJson422ErrorException))
+                                SubscriptionAddCouponErrorException))
         .execute
     end
 

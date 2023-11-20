@@ -21,18 +21,7 @@ product_families_controller = client.product_families
 This method allows to retrieve a list of Products belonging to a Product Family.
 
 ```ruby
-def list_products_for_product_family(product_family_id,
-                                     page: 1,
-                                     per_page: 20,
-                                     date_field: nil,
-                                     start_date: nil,
-                                     end_date: nil,
-                                     start_datetime: nil,
-                                     end_datetime: nil,
-                                     include_archived: nil,
-                                     include: nil,
-                                     filter_prepaid_product_price_point_product_price_point_id: nil,
-                                     filter_use_site_exchange_rate: nil)
+def list_products_for_product_family(options = {})
 ```
 
 ## Parameters
@@ -59,23 +48,15 @@ def list_products_for_product_family(product_family_id,
 ## Example Usage
 
 ```ruby
-product_family_id = 140
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'product_family_id': 140,
+  'page': 2,
+  'per_page': 50,
+  'date_field': BasicDateField::UPDATED_AT,
+  'include': ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
+}
 
-page = 2
-
-per_page = 50
-
-date_field = BasicDateField::UPDATED_AT
-
-include = ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = product_families_controller.list_products_for_product_family(
-  product_family_id,
-  page: page,
-  per_page: per_page,
-  date_field: date_field,
-  include: include
-)
+result = product_families_controller.list_products_for_product_family(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -237,11 +218,7 @@ result = product_families_controller.create_product_family(body: body)
 This method allows to retrieve a list of Product Families for a site.
 
 ```ruby
-def list_product_families(date_field: nil,
-                          start_date: nil,
-                          end_date: nil,
-                          start_datetime: nil,
-                          end_datetime: nil)
+def list_product_families(options = {})
 ```
 
 ## Parameters
@@ -261,9 +238,11 @@ def list_product_families(date_field: nil,
 ## Example Usage
 
 ```ruby
-date_field = BasicDateField::UPDATED_AT
+collect = {
+  'date_field': BasicDateField::UPDATED_AT
+}
 
-result = product_families_controller.list_product_families(date_field: date_field)
+result = product_families_controller.list_product_families(collect)
 ```
 
 ## Example Response *(as JSON)*

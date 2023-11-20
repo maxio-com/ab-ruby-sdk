@@ -42,22 +42,18 @@ module AdvancedBilling
     # @param [Integer] per_page Optional parameter: This parameter indicates how
     # many records to fetch in each request. Default value is 100.
     # @return [Array[SaleRepSettings]] response from the API call
-    def list_sales_commission_settings(seller_id,
-                                       authorization: 'Bearer <<apiKey>>',
-                                       live_mode: nil,
-                                       page: 1,
-                                       per_page: 100)
+    def list_sales_commission_settings(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/sellers/{seller_id}/sales_commission_settings.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(seller_id, key: 'seller_id')
+                   .template_param(new_parameter(options['seller_id'], key: 'seller_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .header_param(new_parameter(authorization, key: 'Authorization'))
-                   .query_param(new_parameter(live_mode, key: 'live_mode'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .header_param(new_parameter(options['authorization'], key: 'Authorization'))
+                   .query_param(new_parameter(options['live_mode'], key: 'live_mode'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -104,22 +100,18 @@ module AdvancedBilling
     # @param [Integer] per_page Optional parameter: This parameter indicates how
     # many records to fetch in each request. Default value is 100.
     # @return [Array[ListSaleRepItem]] response from the API call
-    def list_sales_reps(seller_id,
-                        authorization: 'Bearer <<apiKey>>',
-                        live_mode: nil,
-                        page: 1,
-                        per_page: 100)
+    def list_sales_reps(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/sellers/{seller_id}/sales_reps.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(seller_id, key: 'seller_id')
+                   .template_param(new_parameter(options['seller_id'], key: 'seller_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .header_param(new_parameter(authorization, key: 'Authorization'))
-                   .query_param(new_parameter(live_mode, key: 'live_mode'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .header_param(new_parameter(options['authorization'], key: 'Authorization'))
+                   .query_param(new_parameter(options['live_mode'], key: 'live_mode'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

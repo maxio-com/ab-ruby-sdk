@@ -86,16 +86,14 @@ module AdvancedBilling
     # supported:  - `account_balances`: Account balance information for the
     # subscription groups. Use in query: `include[]=account_balances`
     # @return [ListSubscriptionGroupsResponse] response from the API call
-    def list_subscription_groups(page: 1,
-                                 per_page: 20,
-                                 include: nil)
+    def list_subscription_groups(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(include, key: 'include'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

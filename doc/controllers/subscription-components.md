@@ -97,19 +97,7 @@ This request will list a subscription's applied components.
 When requesting to list components for a given subscription, if the subscription contains **archived** components they will be listed in the server response.
 
 ```ruby
-def list_subscription_components(subscription_id,
-                                 date_field: nil,
-                                 direction: nil,
-                                 end_date: nil,
-                                 end_datetime: nil,
-                                 price_point_ids: nil,
-                                 product_family_ids: nil,
-                                 sort: nil,
-                                 start_date: nil,
-                                 start_datetime: nil,
-                                 include: nil,
-                                 filter_use_site_exchange_rate: nil,
-                                 filter_currencies: nil)
+def list_subscription_components(options = {})
 ```
 
 ## Parameters
@@ -117,7 +105,7 @@ def list_subscription_components(subscription_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
-| `date_field` | [`ListSubscriptionComponentsDateField`](../../doc/models/list-subscription-components-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
+| `date_field` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
 | `direction` | [Sorting direction](../../doc/models/sorting-direction.md) \| nil | Query, Optional | This is a container for one-of cases. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
@@ -137,30 +125,20 @@ def list_subscription_components(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'subscription_id': 'subscription_id0',
+  'date_field': SubscriptionListDateField::UPDATED_AT,
+  'price_point_ids': IncludeNotNull::NOT_NULL,
+  'product_family_ids': [
+    1,
+    2,
+    3
+  ],
+  'sort': ListSubscriptionComponentsSort::UPDATED_AT,
+  'include': ListSubscriptionComponentsInclude::SUBSCRIPTION
+}
 
-date_field = ListSubscriptionComponentsDateField::UPDATED_AT
-
-price_point_ids = IncludeNotNull::NOT_NULL
-
-product_family_ids = [
-  1,
-  2,
-  3
-]
-
-sort = ListSubscriptionComponentsSort::UPDATED_AT
-
-include = ListSubscriptionComponentsInclude::SUBSCRIPTION
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_components_controller.list_subscription_components(
-  subscription_id,
-  date_field: date_field,
-  price_point_ids: price_point_ids,
-  product_family_ids: product_family_ids,
-  sort: sort,
-  include: include
-)
+result = subscription_components_controller.list_subscription_components(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -224,7 +202,22 @@ def update_subscription_components_price_points(subscription_id,
 ```ruby
 subscription_id = 'subscription_id0'
 
-body = Liquid error: KeyNotFound
+body = BulkComponentSPricePointAssignment.new(
+  [
+    ComponentSPricePointAssignment.new(
+      997,
+      1022
+    ),
+    ComponentSPricePointAssignment.new(
+      998,
+      'wholesale-handle'
+    ),
+    ComponentSPricePointAssignment.new(
+      999,
+      '_default'
+    )
+  ]
+)
 
 result = subscription_components_controller.update_subscription_components_price_points(
   subscription_id,
@@ -756,7 +749,8 @@ body = PreviewAllocationsRequest.new(
       nil,
       325826
     )
-  ]
+  ],
+  '2023-11-01'
 )
 
 result = subscription_components_controller.preview_allocations(
@@ -1141,14 +1135,7 @@ Note: The `since_date` and `until_date` attributes each default to midnight on t
 Use this endpoint to read the previously recorded components for a subscription.  You can now specify either the component id (integer) or the component handle prefixed by "handle:" to specify the unique identifier for the component you are working with.
 
 ```ruby
-def list_usages(subscription_id,
-                component_id,
-                since_id: nil,
-                max_id: nil,
-                since_date: nil,
-                until_date: nil,
-                page: 1,
-                per_page: 20)
+def list_usages(options = {})
 ```
 
 ## Parameters
@@ -1171,20 +1158,14 @@ def list_usages(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+collect = {
+  'subscription_id': 'subscription_id0',
+  'component_id': 222,
+  'page': 2,
+  'per_page': 50
+}
 
-component_id = 222
-
-page = 2
-
-per_page = 50
-
-result = subscription_components_controller.list_usages(
-  subscription_id,
-  component_id,
-  page: page,
-  per_page: per_page
-)
+result = subscription_components_controller.list_usages(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -1420,27 +1401,7 @@ subscription_components_controller.record_events(
 This request will list components applied to each subscription.
 
 ```ruby
-def list_subscription_components_for_site(page: 1,
-                                          per_page: 20,
-                                          sort: nil,
-                                          direction: nil,
-                                          date_field: nil,
-                                          start_date: nil,
-                                          start_datetime: nil,
-                                          end_date: nil,
-                                          end_datetime: nil,
-                                          subscription_ids: nil,
-                                          price_point_ids: nil,
-                                          product_family_ids: nil,
-                                          include: nil,
-                                          filter_use_site_exchange_rate: nil,
-                                          filter_currencies: nil,
-                                          filter_subscription_states: nil,
-                                          filter_subscription_date_field: nil,
-                                          filter_subscription_start_date: nil,
-                                          filter_subscription_start_datetime: nil,
-                                          filter_subscription_end_date: nil,
-                                          filter_subscription_end_datetime: nil)
+def list_subscription_components_for_site(options = {})
 ```
 
 ## Parameters
@@ -1451,7 +1412,7 @@ def list_subscription_components_for_site(page: 1,
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query: `sort=updated_at`. |
 | `direction` | [Sorting direction](../../doc/models/sorting-direction.md) \| nil | Query, Optional | This is a container for one-of cases. |
-| `date_field` | [`ListSubscriptionComponentsDateField`](../../doc/models/list-subscription-components-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
+| `date_field` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
 | `start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2011-12-15`. |
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2011-12-16`. |
@@ -1463,7 +1424,7 @@ def list_subscription_components_for_site(page: 1,
 | `filter_use_site_exchange_rate` | `TrueClass \| FalseClass` | Query, Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 | `filter_currencies` | `Array<String>` | Query, Optional | Allows fetching components allocation with matching currency based on provided values. Use in query `filter[currencies]=USD,EUR`. |
 | `filter_subscription_states` | [`Array<SubscriptionState>`](../../doc/models/subscription-state.md) | Query, Optional | Allows fetching components allocations that belong to the subscription with matching states based on provided values. To use this filter you also have to include the following param in the request `include=subscription`. Use in query `filter[subscription][states]=active,canceled&include=subscription`. |
-| `filter_subscription_date_field` | [`ListSubscriptionComponentsSubscriptionDateField`](../../doc/models/list-subscription-components-subscription-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
+| `filter_subscription_date_field` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filter_subscription_start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filter_subscription_start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filter_subscription_end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
@@ -1476,39 +1437,25 @@ def list_subscription_components_for_site(page: 1,
 ## Example Usage
 
 ```ruby
-page = 2
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'page': 2,
+  'per_page': 50,
+  'sort': ListSubscriptionComponentsSort::UPDATED_AT,
+  'date_field': SubscriptionListDateField::UPDATED_AT,
+  'subscription_ids': [
+    1,
+    2,
+    3
+  ],
+  'price_point_ids': IncludeNotNull::NOT_NULL,
+  'product_family_ids': [
+    1,
+    2,
+    3
+  ],
+  'include': ListSubscriptionComponentsInclude::SUBSCRIPTION
+}
 
-per_page = 50
-
-sort = ListSubscriptionComponentsSort::UPDATED_AT
-
-date_field = ListSubscriptionComponentsDateField::UPDATED_AT
-
-subscription_ids = [
-  1,
-  2,
-  3
-]
-
-price_point_ids = IncludeNotNull::NOT_NULL
-
-product_family_ids = [
-  1,
-  2,
-  3
-]
-
-include = ListSubscriptionComponentsInclude::SUBSCRIPTION
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_components_controller.list_subscription_components_for_site(
-  page: page,
-  per_page: per_page,
-  sort: sort,
-  date_field: date_field,
-  subscription_ids: subscription_ids,
-  price_point_ids: price_point_ids,
-  product_family_ids: product_family_ids,
-  include: include
-)
+result = subscription_components_controller.list_subscription_components_for_site(collect)
 ```
 

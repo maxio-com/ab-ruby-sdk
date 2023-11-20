@@ -11,7 +11,10 @@ module AdvancedBilling
       DO_NOT_RECUR = 'do_not_recur'.freeze,
 
       # TODO: Write general description for RECUR_INDEFINITELY
-      RECUR_INDEFINITELY = 'recur_indefinitely'.freeze
+      RECUR_INDEFINITELY = 'recur_indefinitely'.freeze,
+
+      # TODO: Write general description for RECUR_WITH_DURATION
+      RECUR_WITH_DURATION = 'recur_with_duration'.freeze
     ].freeze
 
     def self.validate(value)

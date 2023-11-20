@@ -28,11 +28,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 > Note: The request is at seller level, it means `<<subdomain>>` variable will be replaced by `app`
 
 ```ruby
-def list_sales_commission_settings(seller_id,
-                                   authorization: 'Bearer <<apiKey>>',
-                                   live_mode: nil,
-                                   page: 1,
-                                   per_page: 100)
+def list_sales_commission_settings(options = {})
 ```
 
 ## Parameters
@@ -52,20 +48,14 @@ def list_sales_commission_settings(seller_id,
 ## Example Usage
 
 ```ruby
-seller_id = 'seller_id8'
+collect = {
+  'seller_id': 'seller_id8',
+  'authorization': 'Bearer <<apiKey>>',
+  'page': 2,
+  'per_page': 100
+}
 
-authorization = 'Bearer <<apiKey>>'
-
-page = 2
-
-per_page = 100
-
-result = sales_commissions_controller.list_sales_commission_settings(
-  seller_id,
-  authorization: authorization,
-  page: page,
-  per_page: per_page
-)
+result = sales_commissions_controller.list_sales_commission_settings(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -116,11 +106,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 > Note: The request is at seller level, it means `<<subdomain>>` variable will be replaced by `app`
 
 ```ruby
-def list_sales_reps(seller_id,
-                    authorization: 'Bearer <<apiKey>>',
-                    live_mode: nil,
-                    page: 1,
-                    per_page: 100)
+def list_sales_reps(options = {})
 ```
 
 ## Parameters
@@ -140,20 +126,14 @@ def list_sales_reps(seller_id,
 ## Example Usage
 
 ```ruby
-seller_id = 'seller_id8'
+collect = {
+  'seller_id': 'seller_id8',
+  'authorization': 'Bearer <<apiKey>>',
+  'page': 2,
+  'per_page': 100
+}
 
-authorization = 'Bearer <<apiKey>>'
-
-page = 2
-
-per_page = 100
-
-result = sales_commissions_controller.list_sales_reps(
-  seller_id,
-  authorization: authorization,
-  page: page,
-  per_page: per_page
-)
+result = sales_commissions_controller.list_sales_reps(collect)
 ```
 
 ## Example Response *(as JSON)*

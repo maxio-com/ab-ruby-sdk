@@ -25,18 +25,16 @@ module AdvancedBilling
     # the query string. If there are no results to return, then an empty result
     # set will be returned. Use in query `page=1`.
     # @return [Array[ProformaInvoice]] response from the API call
-    def list_exported_proforma_invoices(batch_id,
-                                        per_page: 100,
-                                        page: 1)
+    def list_exported_proforma_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/proforma_invoices/{batch_id}/rows.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(batch_id, key: 'batch_id')
+                   .template_param(new_parameter(options['batch_id'], key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(page, key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -69,18 +67,16 @@ module AdvancedBilling
     # the query string. If there are no results to return, then an empty result
     # set will be returned. Use in query `page=1`.
     # @return [Array[Invoice]] response from the API call
-    def list_exported_invoices(batch_id,
-                               per_page: 100,
-                               page: 1)
+    def list_exported_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/invoices/{batch_id}/rows.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(batch_id, key: 'batch_id')
+                   .template_param(new_parameter(options['batch_id'], key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(page, key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -113,18 +109,16 @@ module AdvancedBilling
     # the query string. If there are no results to return, then an empty result
     # set will be returned. Use in query `page=1`.
     # @return [Array[Subscription]] response from the API call
-    def list_exported_subscriptions(batch_id,
-                                    per_page: 100,
-                                    page: 1)
+    def list_exported_subscriptions(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/subscriptions/{batch_id}/rows.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(batch_id, key: 'batch_id')
+                   .template_param(new_parameter(options['batch_id'], key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(page, key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

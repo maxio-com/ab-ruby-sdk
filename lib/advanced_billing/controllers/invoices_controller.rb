@@ -114,54 +114,33 @@ module AdvancedBilling
     # @param [InvoiceSortField] sort Optional parameter: Allows specification of
     # the order of the returned list. Use in query `sort=total_amount`.
     # @return [ListInvoicesResponse] response from the API call
-    def list_invoices(start_date: nil,
-                      end_date: nil,
-                      status: nil,
-                      subscription_id: nil,
-                      subscription_group_uid: nil,
-                      page: 1,
-                      per_page: 20,
-                      direction: Direction::DESC,
-                      line_items: false,
-                      discounts: false,
-                      taxes: false,
-                      credits: false,
-                      payments: false,
-                      custom_fields: false,
-                      refunds: false,
-                      date_field: InvoiceDateField::DUE_DATE,
-                      start_datetime: nil,
-                      end_datetime: nil,
-                      customer_ids: nil,
-                      number: nil,
-                      product_ids: nil,
-                      sort: InvoiceSortField::NUMBER)
+    def list_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/invoices.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(status, key: 'status'))
-                   .query_param(new_parameter(subscription_id, key: 'subscription_id'))
-                   .query_param(new_parameter(subscription_group_uid, key: 'subscription_group_uid'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(direction, key: 'direction'))
-                   .query_param(new_parameter(line_items, key: 'line_items'))
-                   .query_param(new_parameter(discounts, key: 'discounts'))
-                   .query_param(new_parameter(taxes, key: 'taxes'))
-                   .query_param(new_parameter(credits, key: 'credits'))
-                   .query_param(new_parameter(payments, key: 'payments'))
-                   .query_param(new_parameter(custom_fields, key: 'custom_fields'))
-                   .query_param(new_parameter(refunds, key: 'refunds'))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(customer_ids, key: 'customer_ids'))
-                   .query_param(new_parameter(number, key: 'number'))
-                   .query_param(new_parameter(product_ids, key: 'product_ids'))
-                   .query_param(new_parameter(sort, key: 'sort'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['status'], key: 'status'))
+                   .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
+                   .query_param(new_parameter(options['subscription_group_uid'], key: 'subscription_group_uid'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['line_items'], key: 'line_items'))
+                   .query_param(new_parameter(options['discounts'], key: 'discounts'))
+                   .query_param(new_parameter(options['taxes'], key: 'taxes'))
+                   .query_param(new_parameter(options['credits'], key: 'credits'))
+                   .query_param(new_parameter(options['payments'], key: 'payments'))
+                   .query_param(new_parameter(options['custom_fields'], key: 'custom_fields'))
+                   .query_param(new_parameter(options['refunds'], key: 'refunds'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['customer_ids'], key: 'customer_ids'))
+                   .query_param(new_parameter(options['number'], key: 'number'))
+                   .query_param(new_parameter(options['product_ids'], key: 'product_ids'))
+                   .query_param(new_parameter(options['sort'], key: 'sort'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -243,24 +222,18 @@ module AdvancedBilling
     # results by event_type. Supply a comma separated list of event types
     # (listed above). Use in query: `event_types=void_invoice,void_remainder`.
     # @return [ListInvoiceEventsResponse] response from the API call
-    def list_invoice_events(since_date: nil,
-                            since_id: nil,
-                            page: 1,
-                            per_page: 100,
-                            invoice_uid: nil,
-                            with_change_invoice_status: nil,
-                            event_types: nil)
+    def list_invoice_events(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/invoices/events.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(since_date, key: 'since_date'))
-                   .query_param(new_parameter(since_id, key: 'since_id'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(invoice_uid, key: 'invoice_uid'))
-                   .query_param(new_parameter(with_change_invoice_status, key: 'with_change_invoice_status'))
-                   .query_param(new_parameter(event_types, key: 'event_types'))
+                   .query_param(new_parameter(options['since_date'], key: 'since_date'))
+                   .query_param(new_parameter(options['since_id'], key: 'since_id'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['invoice_uid'], key: 'invoice_uid'))
+                   .query_param(new_parameter(options['with_change_invoice_status'], key: 'with_change_invoice_status'))
+                   .query_param(new_parameter(options['event_types'], key: 'event_types'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -423,26 +396,19 @@ module AdvancedBilling
     # @param [TrueClass | FalseClass] applications Optional parameter: Include
     # applications data
     # @return [ListCreditNotesResponse] response from the API call
-    def list_credit_notes(subscription_id: nil,
-                          page: 1,
-                          per_page: 20,
-                          line_items: false,
-                          discounts: false,
-                          taxes: false,
-                          refunds: false,
-                          applications: false)
+    def list_credit_notes(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/credit_notes.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(subscription_id, key: 'subscription_id'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(line_items, key: 'line_items'))
-                   .query_param(new_parameter(discounts, key: 'discounts'))
-                   .query_param(new_parameter(taxes, key: 'taxes'))
-                   .query_param(new_parameter(refunds, key: 'refunds'))
-                   .query_param(new_parameter(applications, key: 'applications'))
+                   .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['line_items'], key: 'line_items'))
+                   .query_param(new_parameter(options['discounts'], key: 'discounts'))
+                   .query_param(new_parameter(options['taxes'], key: 'taxes'))
+                   .query_param(new_parameter(options['refunds'], key: 'refunds'))
+                   .query_param(new_parameter(options['applications'], key: 'applications'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -606,20 +572,17 @@ module AdvancedBilling
     # @param [Direction] direction Optional parameter: Sort direction of the
     # returned segments.
     # @return [ConsolidatedInvoice] response from the API call
-    def list_invoice_segments(invoice_uid,
-                              page: 1,
-                              per_page: 20,
-                              direction: Direction::ASC)
+    def list_invoice_segments(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/invoices/{invoice_uid}/segments.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(invoice_uid, key: 'invoice_uid')
+                   .template_param(new_parameter(options['invoice_uid'], key: 'invoice_uid')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(direction, key: 'direction'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler

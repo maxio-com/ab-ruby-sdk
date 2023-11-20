@@ -44,9 +44,9 @@ module AdvancedBilling
     # server response.
     # @param [String] subscription_id Required parameter: The Chargify id of the
     # subscription
-    # @param [ListSubscriptionComponentsDateField] date_field Optional
-    # parameter: The type of filter you'd like to apply to your search. Use in
-    # query `date_field=updated_at`.
+    # @param [SubscriptionListDateField] date_field Optional parameter: The type
+    # of filter you'd like to apply to your search. Use in query
+    # `date_field=updated_at`.
     # @param [SortingDirection | nil] direction Optional parameter: Controls the
     # order in which results are returned. Use in query `direction=asc`.
     # @param [String] end_date Optional parameter: The end date (format
@@ -86,42 +86,30 @@ module AdvancedBilling
     # fetching components allocation with matching currency based on provided
     # values. Use in query `filter[currencies]=EUR,USD`.
     # @return [Array[SubscriptionComponentResponse]] response from the API call
-    def list_subscription_components(subscription_id,
-                                     date_field: nil,
-                                     direction: nil,
-                                     end_date: nil,
-                                     end_datetime: nil,
-                                     price_point_ids: nil,
-                                     product_family_ids: nil,
-                                     sort: nil,
-                                     start_date: nil,
-                                     start_datetime: nil,
-                                     include: nil,
-                                     filter_use_site_exchange_rate: nil,
-                                     filter_currencies: nil)
+    def list_subscription_components(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/components.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                   .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListSubscriptionComponentsDirection)
+                                   UnionTypeLookUp.get(:ListSubscriptionComponentsInputDirection)
                                                   .validate(value)
                                  end))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(price_point_ids, key: 'price_point_ids'))
-                   .query_param(new_parameter(product_family_ids, key: 'product_family_ids'))
-                   .query_param(new_parameter(sort, key: 'sort'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(include, key: 'include'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
-                   .query_param(new_parameter(filter_currencies, key: 'filter[currencies]'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['price_point_ids'], key: 'price_point_ids'))
+                   .query_param(new_parameter(options['product_family_ids'], key: 'product_family_ids'))
+                   .query_param(new_parameter(options['sort'], key: 'sort'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -685,30 +673,23 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @return [Array[UsageResponse]] response from the API call
-    def list_usages(subscription_id,
-                    component_id,
-                    since_id: nil,
-                    max_id: nil,
-                    since_date: nil,
-                    until_date: nil,
-                    page: 1,
-                    per_page: 20)
+    def list_usages(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/components/{component_id}/usages.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                   .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .template_param(new_parameter(component_id, key: 'component_id')
+                   .template_param(new_parameter(options['component_id'], key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(since_id, key: 'since_id'))
-                   .query_param(new_parameter(max_id, key: 'max_id'))
-                   .query_param(new_parameter(since_date, key: 'since_date'))
-                   .query_param(new_parameter(until_date, key: 'until_date'))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .query_param(new_parameter(options['since_id'], key: 'since_id'))
+                   .query_param(new_parameter(options['max_id'], key: 'max_id'))
+                   .query_param(new_parameter(options['since_date'], key: 'since_date'))
+                   .query_param(new_parameter(options['until_date'], key: 'until_date'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -888,9 +869,9 @@ module AdvancedBilling
     # attribute by which to sort. Use in query: `sort=updated_at`.
     # @param [SortingDirection | nil] direction Optional parameter: Controls the
     # order in which results are returned. Use in query `direction=asc`.
-    # @param [ListSubscriptionComponentsDateField] date_field Optional
-    # parameter: The type of filter you'd like to apply to your search. Use in
-    # query: `date_field=updated_at`.
+    # @param [SubscriptionListDateField] date_field Optional parameter: The type
+    # of filter you'd like to apply to your search. Use in query:
+    # `date_field=updated_at`.
     # @param [String] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns components with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
@@ -936,10 +917,10 @@ module AdvancedBilling
     # filter you also have to include the following param in the request
     # `include=subscription`. Use in query
     # `filter[subscription][states]=active,canceled&include=subscription`.
-    # @param [ListSubscriptionComponentsSubscriptionDateField]
-    # filter_subscription_date_field Optional parameter: The type of filter
-    # you'd like to apply to your search. To use this filter you also have to
-    # include the following param in the request `include=subscription`.
+    # @param [SubscriptionListDateField] filter_subscription_date_field Optional
+    # parameter: The type of filter you'd like to apply to your search. To use
+    # this filter you also have to include the following param in the request
+    # `include=subscription`.
     # @param [String] filter_subscription_start_date Optional parameter: The
     # start date (format YYYY-MM-DD) with which to filter the date_field.
     # Returns components that belong to the subscription with a timestamp at or
@@ -969,56 +950,36 @@ module AdvancedBilling
     # filter you also have to include the following param in the request
     # `include=subscription`.
     # @return [ListSubscriptionComponentsResponse] response from the API call
-    def list_subscription_components_for_site(page: 1,
-                                              per_page: 20,
-                                              sort: nil,
-                                              direction: nil,
-                                              date_field: nil,
-                                              start_date: nil,
-                                              start_datetime: nil,
-                                              end_date: nil,
-                                              end_datetime: nil,
-                                              subscription_ids: nil,
-                                              price_point_ids: nil,
-                                              product_family_ids: nil,
-                                              include: nil,
-                                              filter_use_site_exchange_rate: nil,
-                                              filter_currencies: nil,
-                                              filter_subscription_states: nil,
-                                              filter_subscription_date_field: nil,
-                                              filter_subscription_start_date: nil,
-                                              filter_subscription_start_datetime: nil,
-                                              filter_subscription_end_date: nil,
-                                              filter_subscription_end_datetime: nil)
+    def list_subscription_components_for_site(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions_components.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(sort, key: 'sort'))
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['sort'], key: 'sort'))
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListSubscriptionComponentsForSiteDirection)
+                                   UnionTypeLookUp.get(:ListSubscriptionComponentsForSiteInputDirection)
                                                   .validate(value)
                                  end))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(subscription_ids, key: 'subscription_ids'))
-                   .query_param(new_parameter(price_point_ids, key: 'price_point_ids'))
-                   .query_param(new_parameter(product_family_ids, key: 'product_family_ids'))
-                   .query_param(new_parameter(include, key: 'include'))
-                   .query_param(new_parameter(filter_use_site_exchange_rate, key: 'filter[use_site_exchange_rate]'))
-                   .query_param(new_parameter(filter_currencies, key: 'filter[currencies]'))
-                   .query_param(new_parameter(filter_subscription_states, key: 'filter[subscription][states]'))
-                   .query_param(new_parameter(filter_subscription_date_field, key: 'filter[subscription][date_field]'))
-                   .query_param(new_parameter(filter_subscription_start_date, key: 'filter[subscription][start_date]'))
-                   .query_param(new_parameter(filter_subscription_start_datetime, key: 'filter[subscription][start_datetime]'))
-                   .query_param(new_parameter(filter_subscription_end_date, key: 'filter[subscription][end_date]'))
-                   .query_param(new_parameter(filter_subscription_end_datetime, key: 'filter[subscription][end_datetime]'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['subscription_ids'], key: 'subscription_ids'))
+                   .query_param(new_parameter(options['price_point_ids'], key: 'price_point_ids'))
+                   .query_param(new_parameter(options['product_family_ids'], key: 'product_family_ids'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
+                   .query_param(new_parameter(options['filter_subscription_states'], key: 'filter[subscription][states]'))
+                   .query_param(new_parameter(options['filter_subscription_date_field'], key: 'filter[subscription][date_field]'))
+                   .query_param(new_parameter(options['filter_subscription_start_date'], key: 'filter[subscription][start_date]'))
+                   .query_param(new_parameter(options['filter_subscription_start_datetime'], key: 'filter[subscription][start_datetime]'))
+                   .query_param(new_parameter(options['filter_subscription_end_date'], key: 'filter[subscription][end_date]'))
+                   .query_param(new_parameter(options['filter_subscription_end_datetime'], key: 'filter[subscription][end_datetime]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 

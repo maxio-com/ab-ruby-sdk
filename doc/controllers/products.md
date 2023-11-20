@@ -452,17 +452,7 @@ result = products_controller.read_product_by_handle(api_handle)
 This method allows to retrieve a list of Products belonging to a Site.
 
 ```ruby
-def list_products(date_field: nil,
-                  end_date: nil,
-                  end_datetime: nil,
-                  start_date: nil,
-                  start_datetime: nil,
-                  page: 1,
-                  per_page: 20,
-                  include_archived: nil,
-                  include: nil,
-                  filter_prepaid_product_price_point_product_price_point_id: nil,
-                  filter_use_site_exchange_rate: nil)
+def list_products(options = {})
 ```
 
 ## Parameters
@@ -488,23 +478,15 @@ def list_products(date_field: nil,
 ## Example Usage
 
 ```ruby
-date_field = BasicDateField::UPDATED_AT
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'date_field': BasicDateField::UPDATED_AT,
+  'page': 2,
+  'per_page': 50,
+  'include_archived': true,
+  'include': ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
+}
 
-page = 2
-
-per_page = 50
-
-include_archived = true
-
-include = ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = products_controller.list_products(
-  date_field: date_field,
-  page: page,
-  per_page: per_page,
-  include_archived: include_archived,
-  include: include
-)
+result = products_controller.list_products(collect)
 ```
 
 ## Example Response *(as JSON)*

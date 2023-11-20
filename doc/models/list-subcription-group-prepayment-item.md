@@ -9,10 +9,10 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Float` | Optional | - |
+| `id` | `Integer` | Optional | - |
 | `subscription_group_uid` | `String` | Optional | - |
-| `amount_in_cents` | `Float` | Optional | - |
-| `remaining_amount_in_cents` | `Float` | Optional | - |
+| `amount_in_cents` | `Integer` | Optional | - |
+| `remaining_amount_in_cents` | `Integer` | Optional | - |
 | `details` | `String` | Optional | - |
 | `external` | `TrueClass \| FalseClass` | Optional | - |
 | `memo` | `String` | Optional | - |
@@ -23,10 +23,10 @@
 
 ```json
 {
-  "id": 138.22,
+  "id": 254,
   "subscription_group_uid": "subscription_group_uid6",
-  "amount_in_cents": 137.4,
-  "remaining_amount_in_cents": 170.38,
+  "amount_in_cents": 172,
+  "remaining_amount_in_cents": 142,
   "details": "details2"
 }
 ```

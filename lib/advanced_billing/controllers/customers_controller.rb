@@ -58,7 +58,7 @@ module AdvancedBilling
                    .deserialize_into(CustomerResponse.method(:from_hash))
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
-                                CustomersJson422ErrorException))
+                                CustomerErrorResponseException))
         .execute
     end
 
@@ -112,32 +112,24 @@ module AdvancedBilling
     # @param [String] q Optional parameter: A search query by which to filter
     # customers (can be an email, an ID, a reference, organization)
     # @return [Array[CustomerResponse]] response from the API call
-    def list_customers(direction: nil,
-                       page: 1,
-                       per_page: 50,
-                       date_field: nil,
-                       start_date: nil,
-                       end_date: nil,
-                       start_datetime: nil,
-                       end_datetime: nil,
-                       q: nil)
+    def list_customers(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/customers.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(direction, key: 'direction')
+                   .query_param(new_parameter(options['direction'], key: 'direction')
                                  .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListCustomersDirection)
+                                   UnionTypeLookUp.get(:ListCustomersInputDirection)
                                                   .validate(value)
                                  end))
-                   .query_param(new_parameter(page, key: 'page'))
-                   .query_param(new_parameter(per_page, key: 'per_page'))
-                   .query_param(new_parameter(date_field, key: 'date_field'))
-                   .query_param(new_parameter(start_date, key: 'start_date'))
-                   .query_param(new_parameter(end_date, key: 'end_date'))
-                   .query_param(new_parameter(start_datetime, key: 'start_datetime'))
-                   .query_param(new_parameter(end_datetime, key: 'end_datetime'))
-                   .query_param(new_parameter(q, key: 'q'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .query_param(new_parameter(options['q'], key: 'q'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
@@ -196,7 +188,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                                CustomerErrorResponseException))
         .execute
     end
 

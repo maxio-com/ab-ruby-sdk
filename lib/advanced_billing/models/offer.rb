@@ -138,6 +138,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        description
         archived_at
       ]
     end

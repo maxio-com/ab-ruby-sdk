@@ -421,16 +421,7 @@ result = components_controller.archive_component(
 This request will return a list of components for a site.
 
 ```ruby
-def list_components(date_field: nil,
-                    start_date: nil,
-                    end_date: nil,
-                    start_datetime: nil,
-                    end_datetime: nil,
-                    include_archived: nil,
-                    page: 1,
-                    per_page: 20,
-                    filter_ids: nil,
-                    filter_use_site_exchange_rate: nil)
+def list_components(options = {})
 ```
 
 ## Parameters
@@ -455,17 +446,13 @@ def list_components(date_field: nil,
 ## Example Usage
 
 ```ruby
-date_field = BasicDateField::UPDATED_AT
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'date_field': BasicDateField::UPDATED_AT,
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = components_controller.list_components(
-  date_field: date_field,
-  page: page,
-  per_page: per_page
-)
+result = components_controller.list_components(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -654,17 +641,7 @@ components_controller.update_default_price_point_for_component(
 This request will return a list of components for a particular product family.
 
 ```ruby
-def list_components_for_product_family(product_family_id,
-                                       include_archived: nil,
-                                       filter_ids: nil,
-                                       page: 1,
-                                       per_page: 20,
-                                       date_field: nil,
-                                       end_date: nil,
-                                       end_datetime: nil,
-                                       start_date: nil,
-                                       start_datetime: nil,
-                                       filter_use_site_exchange_rate: nil)
+def list_components_for_product_family(options = {})
 ```
 
 ## Parameters
@@ -690,20 +667,14 @@ def list_components_for_product_family(product_family_id,
 ## Example Usage
 
 ```ruby
-product_family_id = 140
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'product_family_id': 140,
+  'page': 2,
+  'per_page': 50,
+  'date_field': BasicDateField::UPDATED_AT
+}
 
-Liquid error: Value cannot be null. (Parameter 'key')page = 2
-
-per_page = 50
-
-date_field = BasicDateField::UPDATED_AT
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = components_controller.list_components_for_product_family(
-  product_family_id,
-  page: page,
-  per_page: per_page,
-  date_field: date_field
-)
+result = components_controller.list_components_for_product_family(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -865,11 +836,7 @@ When fetching a component's price points, if you have defined multiple currencie
 If the price point is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```ruby
-def list_component_price_points(component_id,
-                                currency_prices: nil,
-                                page: 1,
-                                per_page: 20,
-                                filter_type: nil)
+def list_component_price_points(options = {})
 ```
 
 ## Parameters
@@ -889,17 +856,13 @@ def list_component_price_points(component_id,
 ## Example Usage
 
 ```ruby
-component_id = 222
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'component_id': 222,
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = components_controller.list_component_price_points(
-  component_id,
-  page: page,
-  per_page: per_page
-)
+result = components_controller.list_component_price_points(collect)
 ```
 
 ## Example Response *(as JSON)*
@@ -1379,18 +1342,7 @@ result = components_controller.update_currency_prices(
 This method allows to retrieve a list of Components Price Points belonging to a Site.
 
 ```ruby
-def list_all_component_price_points(filter_date_field: nil,
-                                    filter_end_date: nil,
-                                    filter_end_datetime: nil,
-                                    include: nil,
-                                    page: 1,
-                                    per_page: 20,
-                                    filter_start_date: nil,
-                                    filter_start_datetime: nil,
-                                    filter_type: nil,
-                                    direction: nil,
-                                    filter_ids: nil,
-                                    filter_archived_at: nil)
+def list_all_component_price_points(options = {})
 ```
 
 ## Parameters
@@ -1417,17 +1369,13 @@ def list_all_component_price_points(filter_date_field: nil,
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')include = ListComponentsPricePointsInclude::CURRENCY_PRICES
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'include': ListComponentsPricePointsInclude::CURRENCY_PRICES,
+  'page': 2,
+  'per_page': 50
+}
 
-page = 2
-
-per_page = 50
-
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = components_controller.list_all_component_price_points(
-  include: include,
-  page: page,
-  per_page: per_page
-)
+result = components_controller.list_all_component_price_points(collect)
 ```
 
 ## Example Response *(as JSON)*
