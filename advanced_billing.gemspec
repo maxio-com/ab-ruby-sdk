@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.summary = 'SDK for Maxio Advanced Billing'
   s.description = "Ultimate billing and pricing flexibility for B2B SaaS.\nMaxio integrates directly into your product, so you can seamlessly manage your product catalog, bill customers, and collect payments."
   s.authors = ['APIMatic SDK Generator']
-  s.email = []
+  s.email = ['maxio-sdk@maxio.com']
   s.homepage = 'https://www.maxio.com/product/advanced-billing'
   s.licenses = ['MIT']
   s.metadata  = {
