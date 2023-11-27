@@ -32,7 +32,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash)))
         .execute
@@ -146,7 +145,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListInvoicesResponse.method(:from_hash)))
         .execute
@@ -167,7 +165,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash)))
         .execute
@@ -239,7 +236,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListInvoiceEventsResponse.method(:from_hash)))
         .execute
@@ -311,7 +307,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash)))
         .execute
@@ -357,7 +352,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(MultiInvoicePaymentResponse.method(:from_hash))
                    .local_error('422',
@@ -412,7 +406,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListCreditNotesResponse.method(:from_hash)))
         .execute
@@ -433,7 +426,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CreditNote.method(:from_hash)))
         .execute
@@ -466,7 +458,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaymentResponse.method(:from_hash))
                    .local_error('422',
@@ -507,7 +498,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
                    .local_error('404',
@@ -541,7 +531,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
                    .local_error('404',
@@ -586,7 +575,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ConsolidatedInvoice.method(:from_hash)))
         .execute
@@ -775,7 +763,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(InvoiceResponse.method(:from_hash))
                    .local_error('401',
@@ -819,7 +806,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
@@ -847,7 +833,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerChangesPreviewResponse.method(:from_hash))
                    .local_error('404',
@@ -879,7 +864,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
                    .local_error('404',
@@ -937,7 +921,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
                    .local_error('401',

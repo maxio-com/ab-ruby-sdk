@@ -18,7 +18,7 @@
 | `rollover_prepaid_remainder` | `TrueClass \| FalseClass` | Optional | Boolean which controls whether or not remaining units should be rolled over to the next period |
 | `renew_prepaid_allocation` | `TrueClass \| FalseClass` | Optional | Boolean which controls whether or not the allocated quantity should be renewed at the beginning of each period |
 | `expiration_interval` | `Float` | Optional | (only for prepaid usage components where rollover_prepaid_remainder is true) The number of `expiration_interval_unit`s after which rollover amounts should expire |
-| `expiration_interval_unit` | [Interval Unit](../../doc/models/interval-unit.md) \| nil | Optional | This is a container for one-of cases. |
+| `expiration_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | - |
 
 ## Example (as JSON)
 

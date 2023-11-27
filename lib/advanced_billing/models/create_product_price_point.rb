@@ -9,56 +9,66 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
+    # The product price point name
     # @return [String]
     attr_accessor :name
 
-    # TODO: Write general description for this method
+    # The product price point API handle
     # @return [String]
     attr_accessor :handle
 
-    # TODO: Write general description for this method
+    # The product price point price, in integer cents
     # @return [Integer]
     attr_accessor :price_in_cents
 
-    # TODO: Write general description for this method
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this product price point would renew every
+    # 30 days
     # @return [Integer]
     attr_accessor :interval
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # A string representing the interval unit for this product price point,
+    # either month or day
+    # @return [IntervalUnit]
     attr_accessor :interval_unit
 
-    # TODO: Write general description for this method
+    # The product price point trial price, in integer cents
     # @return [Integer]
     attr_accessor :trial_price_in_cents
 
-    # TODO: Write general description for this method
+    # The numerical trial interval. i.e. an interval of ‘30’ coupled with an
+    # trial_interval_unit of day would mean this product price point would renew
+    # every 30 days
     # @return [Integer]
     attr_accessor :trial_interval
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # A string representing the trial interval unit for this product price
+    # point, either month or day
+    # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
-    # TODO: Write general description for this method
+    # A string representing the trial interval unit for this product price
+    # point, either month or day
     # @return [String]
     attr_accessor :trial_type
 
-    # TODO: Write general description for this method
+    # The product price point initial charge, in integer cents
     # @return [Integer]
     attr_accessor :initial_charge_in_cents
 
-    # TODO: Write general description for this method
+    # The product price point initial charge, in integer cents
     # @return [TrueClass | FalseClass]
     attr_accessor :initial_charge_after_trial
 
-    # TODO: Write general description for this method
+    # The numerical expiration interval. i.e. an expiration_interval of ‘30’
+    # coupled with an expiration_interval_unit of day would mean this product
+    # price point would expire every 30 days
     # @return [Integer]
     attr_accessor :expiration_interval
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # A string representing the expiration interval unit for this product price
+    # point, either month or day
+    # @return [IntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # Whether or not to use the site's exchange rate or define your own pricing

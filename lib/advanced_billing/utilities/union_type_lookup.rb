@@ -42,87 +42,6 @@ module AdvancedBilling
           )
         ),
 
-        :ListAllComponentPricePointsInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListCustomersInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListMetafieldsInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListMetadataInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ReadMrrMovementsInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListAllProductPricePointsInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListSubscriptionsInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListSubscriptionComponentsInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ListSubscriptionComponentsForSiteInputDirection => OneOf.new(
-          [
-            LeafType.new(SortingDirection)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :CustomerErrorResponseErrors => OneOf.new(
           [
             LeafType.new(CustomerError),
@@ -165,19 +84,9 @@ module AdvancedBilling
           )
         ),
 
-        :ProductExpirationIntervalUnitCase0 => OneOf.new(
-          [
-            LeafType.new(ExtendedIntervalUnit)
-          ]
-        ),
-
         :ProductExpirationIntervalUnit => OneOf.new(
           [
-            OneOf.new(
-          [
             LeafType.new(ExtendedIntervalUnit)
-          ]
-        )
           ],
           UnionTypeContext.new(
             is_optional: true,
@@ -185,28 +94,9 @@ module AdvancedBilling
           )
         ),
 
-        :ProductIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ProductTrialIntervalUnitCase0 => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ]
-        ),
-
         :ProductTrialIntervalUnit => OneOf.new(
           [
-            OneOf.new(
-          [
             LeafType.new(IntervalUnit)
-          ]
-        )
           ],
           UnionTypeContext.new(
             is_optional: true,
@@ -265,37 +155,9 @@ module AdvancedBilling
           ]
         ),
 
-        :CreateOrUpdatePercentageCouponCompoundingStrategy => OneOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateOrUpdateFlatAmountCouponCompoundingStrategy => OneOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CouponCompoundingStrategyCase0 => OneOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
-          ]
-        ),
-
         :CouponCompoundingStrategy => AnyOf.new(
           [
-            OneOf.new(
-          [
             LeafType.new(CompoundingStrategy)
-          ]
-        )
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -399,15 +261,6 @@ module AdvancedBilling
           )
         ),
 
-        :SubscriptionGroupComponentCustomPricePricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :PriceStartingQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -433,15 +286,6 @@ module AdvancedBilling
           ]
         ),
 
-        :ComponentCustomPricePricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :CustomPriceUsedForSubscriptionCreateUpdatePriceInCents => OneOf.new(
           [
             LeafType.new(String),
@@ -456,15 +300,6 @@ module AdvancedBilling
           [
             LeafType.new(String),
             LeafType.new(Integer)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -491,15 +326,6 @@ module AdvancedBilling
           )
         ),
 
-        :CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents => OneOf.new(
           [
             LeafType.new(String),
@@ -520,15 +346,6 @@ module AdvancedBilling
           )
         ),
 
-        :CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :CalendarBillingSnapDay => OneOf.new(
           [
             LeafType.new(Integer),
@@ -537,12 +354,6 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
-        ),
-
-        :MeteredComponentPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ]
         ),
 
         :MeteredComponentUnitPrice => OneOf.new(
@@ -555,12 +366,6 @@ module AdvancedBilling
           )
         ),
 
-        :QuantityBasedComponentPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ]
-        ),
-
         :QuantityBasedComponentUnitPrice => OneOf.new(
           [
             LeafType.new(String),
@@ -571,25 +376,10 @@ module AdvancedBilling
           )
         ),
 
-        :OnOffComponentPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ]
-        ),
-
         :OnOffComponentUnitPrice => OneOf.new(
           [
             LeafType.new(String),
             LeafType.new(Float)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :PrepaidUsageComponentPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -604,27 +394,6 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
-        ),
-
-        :PrepaidUsageComponentExpirationIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :OveragePricingPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ]
-        ),
-
-        :EBBComponentPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ]
         ),
 
         :EBBComponentUnitPrice => OneOf.new(
@@ -642,24 +411,6 @@ module AdvancedBilling
             LeafType.new(CreateComponentPricePoint),
             LeafType.new(CreatePrepaidUsageComponentPricePoint)
           ]
-        ),
-
-        :CreatePrepaidUsageComponentPricePointExpirationIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :PricePointExpirationIntervalUnit => OneOf.new(
-          [
-            LeafType.new(IntervalUnit)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
         ),
 
         :CreateComponentPricePointsRequestPricePoints => AnyOf.new(
@@ -734,15 +485,6 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true,
             is_nullable: true
-          )
-        ),
-
-        :ComponentCostDataPricingScheme => OneOf.new(
-          [
-            LeafType.new(PricingScheme)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
           )
         ),
 
@@ -1073,15 +815,6 @@ module AdvancedBilling
           [
             LeafType.new(String),
             LeafType.new(Integer)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateInvoiceCouponCompoundingStrategy => OneOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
           ],
           UnionTypeContext.new(
             is_optional: true

@@ -102,9 +102,8 @@ module AdvancedBilling
       product_id = hash.key?('product_id') ? hash['product_id'] : SKIP
       quantity = hash.key?('quantity') ? hash['quantity'] : SKIP
       amount = hash.key?('amount') ? hash['amount'] : SKIP
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ComponentCostDataPricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       # Parameter is an array, so we need to iterate through it
       tiers = nil
       unless hash['tiers'].nil?
@@ -124,16 +123,6 @@ module AdvancedBilling
                             amount,
                             pricing_scheme,
                             tiers)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [ComponentCostData | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

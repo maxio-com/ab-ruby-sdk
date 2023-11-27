@@ -23,7 +23,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AccountBalances.method(:from_hash)))
         .execute
@@ -56,7 +55,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CreatePrepaymentResponse.method(:from_hash)))
         .execute
@@ -106,7 +104,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PrepaymentsResponse.method(:from_hash))
                    .local_error('401',
@@ -143,7 +140,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ServiceCredit.method(:from_hash)))
         .execute
@@ -170,7 +166,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
@@ -208,7 +203,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PrepaymentResponse.method(:from_hash))
                    .local_error('400',

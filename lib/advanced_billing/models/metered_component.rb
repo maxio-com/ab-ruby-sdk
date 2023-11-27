@@ -208,9 +208,8 @@ module AdvancedBilling
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : nil
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : nil
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:MeteredComponentPricingScheme), hash['pricing_scheme']
-      ) : nil
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : nil
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
@@ -282,8 +281,8 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.unit_name,
                                   ->(val) { val.instance_of? String }) and
-            UnionTypeLookUp.get(:MeteredComponentPricingScheme)
-                           .validate(value.pricing_scheme)
+            APIHelper.valid_type?(value.pricing_scheme,
+                                  ->(val) { PricingScheme.validate(val) })
         )
       end
 
@@ -294,8 +293,8 @@ module AdvancedBilling
                               ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['unit_name'],
                                 ->(val) { val.instance_of? String }) and
-          UnionTypeLookUp.get(:MeteredComponentPricingScheme)
-                         .validate(value['pricing_scheme'])
+          APIHelper.valid_type?(value['pricing_scheme'],
+                                ->(val) { PricingScheme.validate(val) })
       )
     end
   end

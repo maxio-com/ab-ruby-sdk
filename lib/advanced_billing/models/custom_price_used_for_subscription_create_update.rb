@@ -149,18 +149,15 @@ module AdvancedBilling
       interval = hash.key?('interval') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateInterval), hash['interval']
       ) : SKIP
-      interval_unit = hash.key?('interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit), hash['interval_unit']
-      ) : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       trial_price_in_cents = hash.key?('trial_price_in_cents') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents), hash['trial_price_in_cents']
       ) : SKIP
       trial_interval = hash.key?('trial_interval') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateTrialInterval), hash['trial_interval']
       ) : SKIP
-      trial_interval_unit = hash.key?('trial_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit), hash['trial_interval_unit']
-      ) : SKIP
+      trial_interval_unit =
+        hash.key?('trial_interval_unit') ? hash['trial_interval_unit'] : SKIP
       initial_charge_in_cents = hash.key?('initial_charge_in_cents') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents), hash['initial_charge_in_cents']
       ) : SKIP
@@ -169,9 +166,8 @@ module AdvancedBilling
       expiration_interval = hash.key?('expiration_interval') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval), hash['expiration_interval']
       ) : SKIP
-      expiration_interval_unit = hash.key?('expiration_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit), hash['expiration_interval_unit']
-      ) : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
 
       # Create object from extracted values.

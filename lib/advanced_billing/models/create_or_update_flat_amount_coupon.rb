@@ -168,9 +168,8 @@ module AdvancedBilling
       product_family_id =
         hash.key?('product_family_id') ? hash['product_family_id'] : SKIP
       stackable = hash.key?('stackable') ? hash['stackable'] : SKIP
-      compounding_strategy = hash.key?('compounding_strategy') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CreateOrUpdateFlatAmountCouponCompoundingStrategy), hash['compounding_strategy']
-      ) : SKIP
+      compounding_strategy =
+        hash.key?('compounding_strategy') ? hash['compounding_strategy'] : SKIP
       exclude_mid_period_allocations =
         hash.key?('exclude_mid_period_allocations') ? hash['exclude_mid_period_allocations'] : SKIP
       apply_on_cancel_at_end_of_period =

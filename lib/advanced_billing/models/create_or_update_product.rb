@@ -9,43 +9,50 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
+    # The product name
     # @return [String]
     attr_accessor :name
 
-    # TODO: Write general description for this method
+    # The product API handle
     # @return [String]
     attr_accessor :handle
 
-    # TODO: Write general description for this method
+    # The product description
     # @return [String]
     attr_accessor :description
 
-    # TODO: Write general description for this method
+    # E.g. Internal ID or SKU Number
     # @return [String]
     attr_accessor :accounting_code
 
-    # TODO: Write general description for this method
+    # Deprecated value that can be ignored unless you have legacy hosted pages.
+    # For Public Signup Page users, please read this attribute from under the
+    # signup page.
     # @return [TrueClass | FalseClass]
     attr_accessor :require_credit_card
 
-    # TODO: Write general description for this method
+    # The product price, in integer cents
     # @return [Integer]
     attr_accessor :price_in_cents
 
-    # TODO: Write general description for this method
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this product would renew every 30 days
     # @return [Integer]
     attr_accessor :interval
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # A string representing the interval unit for this product, either month or
+    # day
+    # @return [IntervalUnit]
     attr_accessor :interval_unit
 
-    # TODO: Write general description for this method
+    # A string representing the interval unit for this product, either month or
+    # day
     # @return [TrueClass | FalseClass]
     attr_accessor :auto_create_signup_page
 
-    # TODO: Write general description for this method
+    # A string representing the tax code related to the product type. This is
+    # especially important when using the Avalara service to tax based on
+    # locale. This attribute has a max length of 10 characters.
     # @return [String]
     attr_accessor :tax_code
 

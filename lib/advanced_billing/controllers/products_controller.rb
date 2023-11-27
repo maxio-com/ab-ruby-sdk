@@ -32,9 +32,11 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash)))
+                   .deserialize_into(ProductResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -54,7 +56,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductResponse.method(:from_hash)))
         .execute
@@ -87,7 +88,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductResponse.method(:from_hash))
                    .local_error('422',
@@ -115,9 +115,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash)))
+                   .deserialize_into(ProductResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -135,7 +137,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductResponse.method(:from_hash)))
         .execute
@@ -145,24 +146,25 @@ module AdvancedBilling
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query:
     # `date_field=created_at`.
-    # @param [String] end_date Optional parameter: The end date (format
+    # @param [Date] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [String] end_datetime Optional parameter: The end date and time
+    # @param [DateTime] end_datetime Optional parameter: The end date and time
     # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
     # products with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site''s time zone will be
     # used. If provided, this parameter will be used instead of end_date.
-    # @param [String] start_date Optional parameter: The start date (format
+    # @param [Date] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
     # the date specified.
-    # @param [String] start_datetime Optional parameter: The start date and time
-    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
-    # products with a timestamp at or after exact time provided in query. You
-    # can specify timezone in query - otherwise your site''s time zone will be
-    # used. If provided, this parameter will be used instead of start_date.
+    # @param [DateTime] start_datetime Optional parameter: The start date and
+    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns products with a timestamp at or after exact time provided in
+    # query. You can specify timezone in query - otherwise your site''s time
+    # zone will be used. If provided, this parameter will be used instead of
+    # start_date.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -210,7 +212,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductResponse.method(:from_hash))
                    .is_response_array(true))
