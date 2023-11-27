@@ -29,7 +29,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointResponse.method(:from_hash))
                    .local_error('422',
@@ -79,7 +78,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListProductPricePointsResponse.method(:from_hash)))
         .execute
@@ -114,7 +112,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
@@ -151,7 +148,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
@@ -179,7 +175,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
@@ -206,7 +201,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
@@ -236,7 +230,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
@@ -263,7 +256,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BulkCreateProductPricePointsResponse.method(:from_hash))
                    .local_error('422',
@@ -299,7 +291,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointCurrencyPrice.method(:from_hash))
                    .local_error('422',
@@ -334,7 +325,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointCurrencyPrice.method(:from_hash))
                    .is_response_array(true))
@@ -343,8 +333,8 @@ module AdvancedBilling
 
     # This method allows retrieval of a list of Products Price Points belonging
     # to a Site.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @param [IncludeNotNull] filter_archived_at Optional parameter: Allows
     # fetching price points only if archived_at is present or not. Use in query:
     # `filter[archived_at]=not_null`.
@@ -374,8 +364,8 @@ module AdvancedBilling
     # query. You can specify timezone in query - otherwise your site's time zone
     # will be used. If provided, this parameter will be used instead of
     # start_date.
-    # @param [PricePointType] filter_type Optional parameter: Allows fetching
-    # price points with matching type. Use in query:
+    # @param [Array[PricePointType]] filter_type Optional parameter: Allows
+    # fetching price points with matching type. Use in query:
     # `filter[type]=catalog,custom`.
     # @param [ListProductsPricePointsInclude] include Optional parameter: Allows
     # including additional data in the response. Use in query:
@@ -397,11 +387,7 @@ module AdvancedBilling
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products_price_points.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListAllProductPricePointsInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
                    .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
                    .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
@@ -418,7 +404,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListProductPricePointsResponse.method(:from_hash))
                    .local_error('422',

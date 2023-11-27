@@ -86,6 +86,7 @@ module AdvancedBilling
       %w[
         description
         tax_code
+        item_category
       ]
     end
 

@@ -236,6 +236,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        handle
         pricing_scheme
         unit_price
         price_per_unit_in_cents
@@ -245,6 +246,7 @@ module AdvancedBilling
         upgrade_charge
         downgrade_credit
         archived_at
+        item_category
         use_site_exchange_rate
         accounting_code
       ]

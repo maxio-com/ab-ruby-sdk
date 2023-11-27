@@ -28,7 +28,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
                    .local_error('404',
@@ -47,8 +46,8 @@ module AdvancedBilling
     # @param [SubscriptionListDateField] date_field Optional parameter: The type
     # of filter you'd like to apply to your search. Use in query
     # `date_field=updated_at`.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @param [String] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns components with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
@@ -95,11 +94,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListSubscriptionComponentsInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['price_point_ids'], key: 'price_point_ids'))
@@ -115,7 +110,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
                    .is_response_array(true))
@@ -148,7 +142,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BulkComponentSPricePointAssignment.method(:from_hash))
                    .local_error('422',
@@ -174,7 +167,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
         .execute
@@ -272,7 +264,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash)))
         .execute
@@ -325,7 +316,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
                    .is_response_array(true)
@@ -367,7 +357,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
                    .is_response_array(true)
@@ -414,7 +403,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationPreviewResponse.method(:from_hash))
                    .local_error('422',
@@ -468,7 +456,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
@@ -521,7 +508,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
@@ -622,7 +608,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
                    .local_error('422',
@@ -693,7 +678,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
                    .is_response_array(true))
@@ -732,7 +716,6 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -759,7 +742,6 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -809,7 +791,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -848,7 +829,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -867,8 +847,8 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListSubscriptionComponentsSort] sort Optional parameter: The
     # attribute by which to sort. Use in query: `sort=updated_at`.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @param [SubscriptionListDateField] date_field Optional parameter: The type
     # of filter you'd like to apply to your search. Use in query:
     # `date_field=updated_at`.
@@ -911,10 +891,10 @@ module AdvancedBilling
     # @param [Array[String]] filter_currencies Optional parameter: Allows
     # fetching components allocation with matching currency based on provided
     # values. Use in query `filter[currencies]=USD,EUR`.
-    # @param [Array[SubscriptionState]] filter_subscription_states Optional
-    # parameter: Allows fetching components allocations that belong to the
-    # subscription with matching states based on provided values. To use this
-    # filter you also have to include the following param in the request
+    # @param [Array[SubscriptionStateFilter]] filter_subscription_states
+    # Optional parameter: Allows fetching components allocations that belong to
+    # the subscription with matching states based on provided values. To use
+    # this filter you also have to include the following param in the request
     # `include=subscription`. Use in query
     # `filter[subscription][states]=active,canceled&include=subscription`.
     # @param [SubscriptionListDateField] filter_subscription_date_field Optional
@@ -958,11 +938,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['sort'], key: 'sort'))
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListSubscriptionComponentsForSiteInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
@@ -985,7 +961,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListSubscriptionComponentsResponse.method(:from_hash)))
         .execute

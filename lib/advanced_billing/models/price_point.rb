@@ -147,9 +147,8 @@ module AdvancedBilling
         hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
       expiration_interval =
         hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
-      expiration_interval_unit = hash.key?('expiration_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:PricePointExpirationIntervalUnit), hash['expiration_interval_unit']
-      ) : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
 
       # Create object from extracted values.
       PricePoint.new(name,
@@ -162,16 +161,6 @@ module AdvancedBilling
                      renew_prepaid_allocation,
                      expiration_interval,
                      expiration_interval_unit)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [PricePoint | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

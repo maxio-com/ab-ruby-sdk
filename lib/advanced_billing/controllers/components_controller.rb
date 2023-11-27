@@ -60,7 +60,6 @@ module AdvancedBilling
                    .body_serializer(APIHelper.method(:json_serialize))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash))
                    .local_error('422',
@@ -85,7 +84,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash)))
         .execute
@@ -115,7 +113,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash)))
         .execute
@@ -149,7 +146,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash))
                    .local_error('422',
@@ -181,7 +177,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash))
                    .local_error('422',
@@ -253,7 +248,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash))
                    .is_response_array(true))
@@ -281,7 +275,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -314,7 +307,6 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -389,7 +381,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash))
                    .is_response_array(true))
@@ -418,7 +409,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
@@ -470,7 +460,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
         .execute
@@ -498,7 +487,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
         .execute
@@ -538,7 +526,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
@@ -567,7 +554,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
@@ -594,7 +580,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
@@ -626,7 +611,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CurrencyPrice.method(:from_hash))
                    .is_response_array(true))
@@ -655,7 +639,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CurrencyPrice.method(:from_hash))
                    .is_response_array(true))
@@ -701,11 +684,11 @@ module AdvancedBilling
     # query. You can specify timezone in query - otherwise your site's time zone
     # will be used. If provided, this parameter will be used instead of
     # start_date.
-    # @param [PricePointType] filter_type Optional parameter: Allows fetching
-    # price points with matching type. Use in query:
+    # @param [Array[PricePointType]] filter_type Optional parameter: Allows
+    # fetching price points with matching type. Use in query:
     # `filter[type]=custom,catalog`.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
     # price points with matching id based on provided values. Use in query:
     # `filter[ids]=1,2,3`.
@@ -727,11 +710,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
                    .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
                    .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListAllComponentPricePointsInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
                    .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -739,7 +718,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListComponentsPricePointsResponse.method(:from_hash))
                    .local_error('422',

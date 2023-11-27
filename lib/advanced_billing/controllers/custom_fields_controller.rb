@@ -60,7 +60,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metafield.method(:from_hash))
                    .is_response_array(true))
@@ -84,8 +83,8 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @return [ListMetafieldsResponse] response from the API call
     def list_metafields(options = {})
       new_api_call_builder
@@ -98,15 +97,10 @@ module AdvancedBilling
                    .query_param(new_parameter(options['name'], key: 'name'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListMetafieldsInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMetafieldsResponse.method(:from_hash)))
         .execute
@@ -142,7 +136,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metafield.method(:from_hash))
                    .is_response_array(true))
@@ -170,7 +163,6 @@ module AdvancedBilling
                    .query_param(new_parameter(name, key: 'name'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('404',
                                 'Not Found',
@@ -235,7 +227,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metadata.method(:from_hash))
                    .is_response_array(true))
@@ -279,7 +270,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaginatedMetadata.method(:from_hash)))
         .execute
@@ -316,7 +306,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metadata.method(:from_hash))
                    .is_response_array(true))
@@ -371,7 +360,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('404',
                                 'Not Found',
@@ -428,8 +416,8 @@ module AdvancedBilling
     # @param [Array[Integer]] resource_ids Optional parameter: Allow to fetch
     # metadata for multiple records based on provided ids. Use in query:
     # `resource_ids[]=122&resource_ids[]=123&resource_ids[]=124`.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @return [PaginatedMetadata] response from the API call
     def list_metadata(options = {})
       new_api_call_builder
@@ -448,17 +436,12 @@ module AdvancedBilling
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['with_deleted'], key: 'with_deleted'))
                    .query_param(new_parameter(options['resource_ids'], key: 'resource_ids[]'))
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListMetadataInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaginatedMetadata.method(:from_hash)))
         .execute

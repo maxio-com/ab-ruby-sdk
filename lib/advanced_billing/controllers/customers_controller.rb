@@ -53,7 +53,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
                    .local_error('422',
@@ -75,8 +74,8 @@ module AdvancedBilling
     # To retrieve a single, exact match by reference, please use the [lookup
     # endpoint](https://developers.chargify.com/docs/api-docs/b710d8fbef104-read
     # -customer-by-reference).
-    # @param [SortingDirection | nil] direction Optional parameter: Direction to
-    # sort customers by time of creation
+    # @param [SortingDirection] direction Optional parameter: Direction to sort
+    # customers by time of creation
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -117,11 +116,7 @@ module AdvancedBilling
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/customers.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ListCustomersInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
@@ -133,7 +128,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
                    .is_response_array(true))
@@ -155,7 +149,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash)))
         .execute
@@ -180,7 +173,6 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
                    .local_error('404',
@@ -205,7 +197,6 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true))
         .execute
     end
@@ -224,7 +215,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash)))
         .execute
@@ -245,7 +235,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash))
                    .is_response_array(true))

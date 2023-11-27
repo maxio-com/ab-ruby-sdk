@@ -24,7 +24,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SiteSummary.method(:from_hash)))
         .execute
@@ -49,7 +48,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(MRRResponse.method(:from_hash)))
         .execute
@@ -91,8 +89,8 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 10. The maximum
     # allowed values is 50; any per_page value over 50 will be changed to 50.
     # Use in query `per_page=20`.
-    # @param [SortingDirection | nil] direction Optional parameter: Controls the
-    # order in which results are returned. Use in query `direction=asc`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @return [ListMRRResponse] response from the API call
     def read_mrr_movements(options = {})
       warn 'Endpoint read_mrr_movements in InsightsController is deprecated'
@@ -103,15 +101,10 @@ module AdvancedBilling
                    .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['direction'], key: 'direction')
-                                 .validator(proc do |value|
-                                   UnionTypeLookUp.get(:ReadMrrMovementsInputDirection)
-                                                  .validate(value)
-                                 end))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMRRResponse.method(:from_hash)))
         .execute
@@ -157,7 +150,6 @@ module AdvancedBilling
 
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionMRRResponse.method(:from_hash))
                    .local_error('400',

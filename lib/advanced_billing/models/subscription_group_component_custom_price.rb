@@ -64,9 +64,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionGroupComponentCustomPricePricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -92,16 +91,6 @@ module AdvancedBilling
       SubscriptionGroupComponentCustomPrice.new(pricing_scheme,
                                                 prices,
                                                 overage_pricing)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [SubscriptionGroupComponentCustomPrice | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end
