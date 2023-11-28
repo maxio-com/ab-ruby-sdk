@@ -92,9 +92,8 @@ module AdvancedBilling
       product_family_id = hash.key?('product_family_id') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateInvoiceCouponProductFamilyId), hash['product_family_id']
       ) : SKIP
-      compounding_strategy = hash.key?('compounding_strategy') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CreateInvoiceCouponCompoundingStrategy), hash['compounding_strategy']
-      ) : SKIP
+      compounding_strategy =
+        hash.key?('compounding_strategy') ? hash['compounding_strategy'] : SKIP
 
       # Create object from extracted values.
       CreateInvoiceCoupon.new(code,

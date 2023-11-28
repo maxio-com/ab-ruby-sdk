@@ -29,7 +29,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SiteResponse.method(:from_hash)))
         .execute
@@ -56,7 +55,6 @@ module AdvancedBilling
                    .query_param(new_parameter(cleanup_scope, key: 'cleanup_scope'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .is_response_void(true)
                    .local_error('403',
                                 'Forbidden',
@@ -87,7 +85,6 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_nullify404(true)
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListPublicKeysResponse.method(:from_hash)))
         .execute

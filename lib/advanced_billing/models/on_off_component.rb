@@ -208,9 +208,8 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : nil
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:OnOffComponentPricingScheme), hash['pricing_scheme']
-      ) : nil
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : nil
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
@@ -281,8 +280,8 @@ module AdvancedBilling
         return (
           APIHelper.valid_type?(value.name,
                                 ->(val) { val.instance_of? String }) and
-            UnionTypeLookUp.get(:OnOffComponentPricingScheme)
-                           .validate(value.pricing_scheme)
+            APIHelper.valid_type?(value.pricing_scheme,
+                                  ->(val) { PricingScheme.validate(val) })
         )
       end
 
@@ -291,8 +290,8 @@ module AdvancedBilling
       (
         APIHelper.valid_type?(value['name'],
                               ->(val) { val.instance_of? String }) and
-          UnionTypeLookUp.get(:OnOffComponentPricingScheme)
-                         .validate(value['pricing_scheme'])
+          APIHelper.valid_type?(value['pricing_scheme'],
+                                ->(val) { PricingScheme.validate(val) })
       )
     end
   end

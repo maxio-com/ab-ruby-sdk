@@ -142,9 +142,8 @@ module AdvancedBilling
         hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
       expiration_interval =
         hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
-      expiration_interval_unit = hash.key?('expiration_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CreatePrepaidUsageComponentPricePointExpirationIntervalUnit), hash['expiration_interval_unit']
-      ) : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
 
       # Create object from extracted values.
       CreatePrepaidUsageComponentPricePoint.new(name,

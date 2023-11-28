@@ -269,9 +269,8 @@ module AdvancedBilling
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:PrepaidUsageComponentPricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -312,9 +311,8 @@ module AdvancedBilling
         hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
       expiration_interval =
         hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
-      expiration_interval_unit = hash.key?('expiration_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:PrepaidUsageComponentExpirationIntervalUnit), hash['expiration_interval_unit']
-      ) : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
       display_on_hosted_page =
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
       allow_fractional_quantities =

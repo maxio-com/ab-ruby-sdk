@@ -52,9 +52,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:OveragePricingPricingScheme), hash['pricing_scheme']
-      ) : nil
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : nil
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -69,20 +68,6 @@ module AdvancedBilling
       # Create object from extracted values.
       OveragePricing.new(pricing_scheme,
                          prices)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [OveragePricing | Hash] The value against the validation is performed.
-    def self.validate(value)
-      if value.instance_of? self
-        return UnionTypeLookUp.get(:OveragePricingPricingScheme)
-                              .validate(value.pricing_scheme)
-      end
-
-      return false unless value.instance_of? Hash
-
-      UnionTypeLookUp.get(:OveragePricingPricingScheme)
-                     .validate(value['pricing_scheme'])
     end
   end
 end

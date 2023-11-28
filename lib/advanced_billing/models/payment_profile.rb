@@ -172,6 +172,7 @@ module AdvancedBilling
         billing_country
         customer_vault_token
         billing_address_2
+        site_gateway_setting_id
         gateway_handle
       ]
     end

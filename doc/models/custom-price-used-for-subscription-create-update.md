@@ -15,14 +15,14 @@
 | `handle` | `String` | Optional | (Optional) |
 | `price_in_cents` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `interval` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
-| `interval_unit` | [Interval Unit](../../doc/models/interval-unit.md) \| nil | Optional | This is a container for one-of cases. |
+| `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | Required if using `custom_price` attribute. |
 | `trial_price_in_cents` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `trial_interval` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
-| `trial_interval_unit` | [Interval Unit](../../doc/models/interval-unit.md) \| nil | Optional | This is a container for one-of cases. |
+| `trial_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | (Optional) |
 | `initial_charge_in_cents` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `initial_charge_after_trial` | `TrueClass \| FalseClass` | Optional | (Optional) |
 | `expiration_interval` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
-| `expiration_interval_unit` | [Interval Unit](../../doc/models/interval-unit.md) \| nil | Optional | This is a container for one-of cases. |
+| `expiration_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | (Optional) |
 | `tax_included` | `TrueClass \| FalseClass` | Optional | (Optional) |
 
 ## Example (as JSON)

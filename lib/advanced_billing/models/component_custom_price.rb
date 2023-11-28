@@ -11,7 +11,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # Omit for On/Off components
-    # @return [PricingScheme]
+    # @return [PricingScheme1]
     attr_accessor :pricing_scheme
 
     # On/off components only need one price bracket starting at 1
@@ -50,9 +50,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ComponentCustomPricePricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -67,16 +66,6 @@ module AdvancedBilling
       # Create object from extracted values.
       ComponentCustomPrice.new(pricing_scheme,
                                prices)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [ComponentCustomPrice | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end
