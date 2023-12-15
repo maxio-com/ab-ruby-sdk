@@ -33,17 +33,15 @@ module AdvancedBilling
     # @return [Object]
     attr_accessor :segment_property_4_value
 
-    # The handle for the pricing scheme. Available options: per_unit, volume,
-    # tiered, stairstep. See [Price Bracket
-    # Rules](https://help.chargify.com/products/product-components.html#price-br
-    # acket-rules) for an overview of pricing schemes.
-    # @return [String]
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # The handle for the pricing scheme. Available options: per_unit, volume,
-    # tiered, stairstep. See [Price Bracket
-    # Rules](https://help.chargify.com/products/product-components.html#price-br
-    # acket-rules) for an overview of pricing schemes.
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Array[CreateOrUpdateSegmentPrice]]
     attr_accessor :prices
 
@@ -133,13 +131,13 @@ module AdvancedBilling
     def self.validate(value)
       if value.instance_of? self
         return APIHelper.valid_type?(value.pricing_scheme,
-                                     ->(val) { val.instance_of? String })
+                                     ->(val) { PricingScheme.validate(val) })
       end
 
       return false unless value.instance_of? Hash
 
       APIHelper.valid_type?(value['pricing_scheme'],
-                            ->(val) { val.instance_of? String })
+                            ->(val) { PricingScheme.validate(val) })
     end
   end
 end

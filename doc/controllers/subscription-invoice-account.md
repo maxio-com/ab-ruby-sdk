@@ -30,7 +30,7 @@ def read_account_balances(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -39,7 +39,7 @@ def read_account_balances(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_invoice_account_controller.read_account_balances(subscription_id)
 ```
@@ -64,7 +64,7 @@ def create_prepayment(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CreatePrepaymentRequest`](../../doc/models/create-prepayment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -74,7 +74,7 @@ def create_prepayment(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = CreatePrepaymentRequest.new(
   CreatePrepayment.new(
@@ -120,12 +120,12 @@ def list_prepayments(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. created_at - Time when prepayment was created. application_at - Time when prepayment was applied to invoice. Use in query `filter[date_field]=created_at`. |
-| `filter_start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-15`. |
-| `filter_end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `filter[end_date]=2011-12-15`. |
+| `filter_start_date` | `Date` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-15`. |
+| `filter_end_date` | `Date` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `filter[end_date]=2011-12-15`. |
 
 ## Response Type
 
@@ -135,7 +135,7 @@ def list_prepayments(options = {})
 
 ```ruby
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'subscription_id': 'subscription_id0',
+  'subscription_id': 222,
   'page': 2,
   'per_page': 50
 }
@@ -186,7 +186,7 @@ def issue_service_credit(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`IssueServiceCreditRequest`](../../doc/models/issue-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -196,7 +196,7 @@ def issue_service_credit(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = IssueServiceCreditRequest.new(
   IssueServiceCredit.new(
@@ -237,7 +237,7 @@ def deduct_service_credit(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`DeductServiceCreditRequest`](../../doc/models/deduct-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -247,7 +247,7 @@ def deduct_service_credit(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = DeductServiceCreditRequest.new(
   DeductServiceCredit.new(
@@ -285,7 +285,7 @@ def refund_prepayment(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `prepayment_id` | `String` | Template, Required | id of prepayment |
 | `body` | [`RefundPrepaymentRequest`](../../doc/models/refund-prepayment-request.md) | Body, Optional | - |
 
@@ -296,7 +296,7 @@ def refund_prepayment(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 prepayment_id = 'prepayment_id8'
 

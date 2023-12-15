@@ -1,5 +1,5 @@
 
-# Custom Price Used for Subscription Create Update Trial Interval
+# Subscription Custom Price Trial Price in Cents
 
 ## Data Type
 

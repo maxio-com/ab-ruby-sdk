@@ -105,7 +105,7 @@ module AdvancedBilling
     # ## Prepaid Subscription
     # A prepaid subscription can be created with the usual subscription creation
     # parameters, specifying `prepaid` as the `payment_collection_method` and
-    # including a nested `prepaid_subscription_configuration`.
+    # including a nested `prepaid_configuration`.
     # After a prepaid subscription has been created, additional funds can be
     # manually added to the prepayment account through the [Create Prepayment
     # Endpoint](https://developers.chargify.com/docs/api-docs/7ec482de77ba7-crea
@@ -839,6 +839,9 @@ module AdvancedBilling
     # in which results are returned. Use in query `direction=asc`.
     # @param [SubscriptionSort] sort Optional parameter: The attribute by which
     # to sort
+    # @param [Array[SubscriptionListInclude]] include Optional parameter: Allows
+    # including additional data in the response. Use in query:
+    # `include[]=self_service_page_token`.
     # @return [Array[SubscriptionResponse]] response from the API call
     def list_subscriptions(options = {})
       new_api_call_builder
@@ -859,6 +862,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['metadata'], key: 'metadata'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['sort'], key: 'sort'))
+                   .query_param(new_parameter(options['include'], key: 'include[]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
 
@@ -932,8 +936,8 @@ module AdvancedBilling
     # `null.` Another way of looking at this is that you willl have to wait for
     # the next billing cycle to arrive before the `snap_date` will reset to
     # `null`.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [UpdateSubscriptionRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
     def update_subscription(subscription_id,
@@ -964,8 +968,8 @@ module AdvancedBilling
     # Self-Service Page token for the subscription is not returned by default.
     # If this information is desired, the include[]=self_service_page_token
     # parameter must be provided with the request.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Array[SubscriptionInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=coupons&include[]=self_service_page_token`.
@@ -1022,8 +1026,8 @@ module AdvancedBilling
     # 3. The value passed must be before the current date/time.
     # If unpermitted parameters are sent, a 400 HTTP response is sent along with
     # a string giving the reason for the problem.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [OverrideSubscriptionRequest] body Optional parameter: Only these
     # fields are available to be set.
     # @return [void] response from the API call
@@ -1047,7 +1051,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
-                                APIException))
+                                SingleErrorResponseErrorException))
         .execute
     end
 
@@ -1079,8 +1083,8 @@ module AdvancedBilling
     # ### Delete customer and payment profile
     # The query params will be:
     # `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] ack Required parameter: id of the customer.
     # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
     # are "customer" or "payment_profile". Use in query:
@@ -1111,8 +1115,8 @@ module AdvancedBilling
     end
 
     # Use this endpoint to update a subscription's prepaid configuration.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [UpsertPrepaidConfigurationRequest] body Optional parameter:
     # Example:
     # @return [PrepaidConfigurationResponse] response from the API call
@@ -1202,8 +1206,8 @@ module AdvancedBilling
     # deprecated in favor of using the request body parameters as described
     # below. When passing in request body parameters, the list of coupon codes
     # will simply be added to any existing list of codes on the subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [String] code Optional parameter: A code for the coupon that would
     # be applied to a subscription
     # @param [AddCouponsRequest] body Optional parameter: Example:
@@ -1238,8 +1242,8 @@ module AdvancedBilling
     # subscription, please see our documentation
     # [here.](https://chargify.zendesk.com/hc/en-us/articles/4407896488987#remov
     # ing-a-coupon)
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [String] coupon_code Optional parameter: The coupon code
     # @return [String] response from the API call
     def delete_coupon_from_subscription(subscription_id,
@@ -1314,8 +1318,8 @@ module AdvancedBilling
     # subscription's state will remain as Trialing, we will void the invoice
     # from activation and return any prepayments and credits applied to the
     # invoice back to the subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [ActivateSubscriptionRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
     def activate_subscription(subscription_id,

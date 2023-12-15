@@ -42,7 +42,7 @@ def read_subscription_component(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `component_id` | `Integer` | Template, Required | The Chargify id of the component. Alternatively, the component's handle prefixed by `handle:` |
 
 ## Response Type
@@ -52,7 +52,7 @@ def read_subscription_component(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 component_id = 222
 
@@ -104,7 +104,7 @@ def list_subscription_components(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `date_field` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
@@ -126,7 +126,7 @@ def list_subscription_components(options = {})
 
 ```ruby
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'subscription_id': 'subscription_id0',
+  'subscription_id': 222,
   'date_field': SubscriptionListDateField::UPDATED_AT,
   'price_point_ids': IncludeNotNull::NOT_NULL,
   'product_family_ids': [
@@ -150,9 +150,9 @@ result = subscription_components_controller.list_subscription_components(collect
       "component_id": 0,
       "subscription_id": 0,
       "allocated_quantity": 0,
-      "pricing_scheme": "string",
+      "pricing_scheme": "per_unit",
       "name": "string",
-      "kind": "string",
+      "kind": "quantity_based_component",
       "unit_name": "string",
       "price_point_id": 0,
       "price_point_handle": "string",
@@ -161,8 +161,8 @@ result = subscription_components_controller.list_subscription_components(collect
       "enabled": true,
       "unit_balance": 0,
       "id": 0,
-      "created_at": "string",
-      "updated_at": "string",
+      "created_at": "2022-02-22T14:07:00-05:00",
+      "updated_at": "2022-02-22T14:07:00-05:00",
       "component_handle": "string",
       "archived_at": "string"
     }
@@ -190,7 +190,7 @@ def update_subscription_components_price_points(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`BulkComponentSPricePointAssignment`](../../doc/models/bulk-component-s-price-point-assignment.md) | Body, Optional | - |
 
 ## Response Type
@@ -200,7 +200,7 @@ def update_subscription_components_price_points(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = BulkComponentSPricePointAssignment.new(
   [
@@ -263,7 +263,7 @@ def reset_subscription_components_price_points(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -272,7 +272,7 @@ def reset_subscription_components_price_points(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_components_controller.reset_subscription_components_price_points(subscription_id)
 ```
@@ -301,7 +301,7 @@ result = subscription_components_controller.reset_subscription_components_price_
     "snap_day": null,
     "cancellation_method": "dunning",
     "current_period_started_at": "2023-11-23T10:28:34-05:00",
-    "previous_state": "occaecat proident sunt cillum ",
+    "previous_state": "active",
     "signup_payment_id": -45156092,
     "signup_revenue": "do aliquip ea",
     "delayed_cancel_at": null,
@@ -441,7 +441,7 @@ def allocate_component(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `component_id` | `Integer` | Template, Required | The Chargify id of the component |
 | `body` | [`CreateAllocationRequest`](../../doc/models/create-allocation-request.md) | Body, Optional | - |
 
@@ -452,7 +452,7 @@ def allocate_component(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 component_id = 222
 
@@ -533,7 +533,7 @@ def list_allocations(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `component_id` | `Integer` | Template, Required | The Chargify id of the component |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 
@@ -544,7 +544,7 @@ def list_allocations(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 component_id = 222
 
@@ -614,7 +614,7 @@ def allocate_components(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`AllocateComponents`](../../doc/models/allocate-components.md) | Body, Optional | - |
 
 ## Response Type
@@ -624,7 +624,7 @@ def allocate_components(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = AllocateComponents.new(
   'prorate-attempt-capture',
@@ -724,7 +724,7 @@ def preview_allocations(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`PreviewAllocationsRequest`](../../doc/models/preview-allocations-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -734,7 +734,7 @@ def preview_allocations(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = PreviewAllocationsRequest.new(
   [
@@ -894,7 +894,7 @@ def update_prepaid_usage_allocation(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `component_id` | `Integer` | Template, Required | The Chargify id of the component |
 | `allocation_id` | `Integer` | Template, Required | The Chargify id of the allocation |
 | `body` | [`UpdateAllocationExpirationDate`](../../doc/models/update-allocation-expiration-date.md) | Body, Optional | - |
@@ -906,7 +906,7 @@ def update_prepaid_usage_allocation(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 component_id = 222
 
@@ -956,7 +956,7 @@ def delete_prepaid_usage_allocation(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `component_id` | `Integer` | Template, Required | The Chargify id of the component |
 | `allocation_id` | `Integer` | Template, Required | The Chargify id of the allocation |
 | `body` | [`CreditSchemeRequest`](../../doc/models/credit-scheme-request.md) | Body, Optional | - |
@@ -968,7 +968,7 @@ def delete_prepaid_usage_allocation(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 component_id = 222
 
@@ -1062,8 +1062,8 @@ def create_usage(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
-| `component_id` | `Integer` | Template, Required | Either the Chargify id for the component or the component's handle prefixed by `handle:` |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `component_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
 | `body` | [`CreateUsageRequest`](../../doc/models/create-usage-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1073,9 +1073,9 @@ def create_usage(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
-component_id = 222
+component_id = 144
 
 body = CreateUsageRequest.new(
   CreateUsage.new(
@@ -1142,12 +1142,12 @@ def list_usages(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
-| `component_id` | `Integer` | Template, Required | Either the Chargify id for the component or the component's handle prefixed by `handle:` |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `component_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
 | `since_id` | `Integer` | Query, Optional | Returns usages with an id greater than or equal to the one specified |
 | `max_id` | `Integer` | Query, Optional | Returns usages with an id less than or equal to the one specified |
-| `since_date` | `String` | Query, Optional | Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified. |
-| `until_date` | `String` | Query, Optional | Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified. |
+| `since_date` | `Date` | Query, Optional | Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified. |
+| `until_date` | `Date` | Query, Optional | Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 
@@ -1159,8 +1159,8 @@ def list_usages(options = {})
 
 ```ruby
 collect = {
-  'subscription_id': 'subscription_id0',
-  'component_id': 222,
+  'subscription_id': 222,
+  'component_id': 144,
   'page': 2,
   'per_page': 50
 }

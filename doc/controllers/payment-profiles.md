@@ -704,7 +704,7 @@ def delete_subscriptions_payment_profile(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -714,7 +714,7 @@ def delete_subscriptions_payment_profile(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 payment_profile_id = 'payment_profile_id2'
 
@@ -850,7 +850,7 @@ def update_subscription_default_payment_profile(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -860,7 +860,7 @@ def update_subscription_default_payment_profile(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 payment_profile_id = 198
 
@@ -1034,7 +1034,7 @@ def send_request_update_payment_email(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -1043,7 +1043,7 @@ def send_request_update_payment_email(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 payment_profiles_controller.send_request_update_payment_email(subscription_id)
 ```

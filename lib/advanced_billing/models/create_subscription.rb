@@ -31,7 +31,7 @@ module AdvancedBilling
 
     # (Optional) Used in place of `product_price_point_id` to define a custom
     # price point unique to the subscription
-    # @return [CustomPriceUsedForSubscriptionCreateUpdate]
+    # @return [SubscriptionCustomPrice]
     attr_accessor :custom_price
 
     # (deprecated) The coupon code of the single coupon currently applied to the
@@ -170,7 +170,7 @@ module AdvancedBilling
     # The reference value (provided by your app) of an existing customer within
     # Chargify. Required, unless a `customer_id` or a set of
     # `customer_attributes` is given.
-    # @return [Object]
+    # @return [GroupSettings]
     attr_accessor :group
 
     # A valid referral code. (optional, see
@@ -251,7 +251,7 @@ module AdvancedBilling
     # subscription with an existing offer. May be either the Chargify id of the
     # offer or its handle prefixed with `handle:`.er
     # @return [UpsertPrepaidConfiguration]
-    attr_accessor :prepaid_subscription_configuration
+    attr_accessor :prepaid_configuration
 
     # Providing a previous_billing_at that is in the past will set the
     # current_period_starts_at when the subscription is created. It will also
@@ -352,8 +352,7 @@ module AdvancedBilling
       @_hash['reason_code'] = 'reason_code'
       @_hash['product_change_delayed'] = 'product_change_delayed'
       @_hash['offer_id'] = 'offer_id'
-      @_hash['prepaid_subscription_configuration'] =
-        'prepaid_subscription_configuration'
+      @_hash['prepaid_configuration'] = 'prepaid_configuration'
       @_hash['previous_billing_at'] = 'previous_billing_at'
       @_hash['import_mrr'] = 'import_mrr'
       @_hash['canceled_at'] = 'canceled_at'
@@ -410,7 +409,7 @@ module AdvancedBilling
         reason_code
         product_change_delayed
         offer_id
-        prepaid_subscription_configuration
+        prepaid_configuration
         previous_billing_at
         import_mrr
         canceled_at
@@ -470,7 +469,7 @@ module AdvancedBilling
                    reason_code = SKIP,
                    product_change_delayed = SKIP,
                    offer_id = SKIP,
-                   prepaid_subscription_configuration = SKIP,
+                   prepaid_configuration = SKIP,
                    previous_billing_at = SKIP,
                    import_mrr = SKIP,
                    canceled_at = SKIP,
@@ -537,10 +536,7 @@ module AdvancedBilling
       @reason_code = reason_code unless reason_code == SKIP
       @product_change_delayed = product_change_delayed unless product_change_delayed == SKIP
       @offer_id = offer_id unless offer_id == SKIP
-      unless prepaid_subscription_configuration == SKIP
-        @prepaid_subscription_configuration =
-          prepaid_subscription_configuration
-      end
+      @prepaid_configuration = prepaid_configuration unless prepaid_configuration == SKIP
       @previous_billing_at = previous_billing_at unless previous_billing_at == SKIP
       @import_mrr = import_mrr unless import_mrr == SKIP
       @canceled_at = canceled_at unless canceled_at == SKIP
@@ -573,7 +569,7 @@ module AdvancedBilling
         hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
-      custom_price = CustomPriceUsedForSubscriptionCreateUpdate.from_hash(hash['custom_price']) if
+      custom_price = SubscriptionCustomPrice.from_hash(hash['custom_price']) if
         hash['custom_price']
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
       coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
@@ -608,17 +604,22 @@ module AdvancedBilling
         hash['credit_card_attributes']
       bank_account_attributes = BankAccountAttributes.from_hash(hash['bank_account_attributes']) if
         hash['bank_account_attributes']
-      components = hash.key?('components') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CreateSubscriptionComponents), hash['components']
-      ) : SKIP
+      # Parameter is an array, so we need to iterate through it
+      components = nil
+      unless hash['components'].nil?
+        components = []
+        hash['components'].each do |structure|
+          components << (CreateSubscriptionComponent.from_hash(structure) if structure)
+        end
+      end
+
+      components = SKIP unless hash.key?('components')
       calendar_billing = CalendarBilling.from_hash(hash['calendar_billing']) if
         hash['calendar_billing']
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
       customer_reference =
         hash.key?('customer_reference') ? hash['customer_reference'] : SKIP
-      group = hash.key?('group') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CreateSubscriptionGroup2), hash['group']
-      ) : SKIP
+      group = GroupSettings.from_hash(hash['group']) if hash['group']
       ref = hash.key?('ref') ? hash['ref'] : SKIP
       cancellation_message =
         hash.key?('cancellation_message') ? hash['cancellation_message'] : SKIP
@@ -646,9 +647,8 @@ module AdvancedBilling
       offer_id = hash.key?('offer_id') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateSubscriptionOfferId), hash['offer_id']
       ) : SKIP
-      if hash['prepaid_subscription_configuration']
-        prepaid_subscription_configuration = UpsertPrepaidConfiguration.from_hash(hash['prepaid_subscription_configuration'])
-      end
+      prepaid_configuration = UpsertPrepaidConfiguration.from_hash(hash['prepaid_configuration']) if
+        hash['prepaid_configuration']
       previous_billing_at = if hash.key?('previous_billing_at')
                               (DateTimeHelper.from_rfc3339(hash['previous_billing_at']) if hash['previous_billing_at'])
                             else
@@ -711,7 +711,7 @@ module AdvancedBilling
                              reason_code,
                              product_change_delayed,
                              offer_id,
-                             prepaid_subscription_configuration,
+                             prepaid_configuration,
                              previous_billing_at,
                              import_mrr,
                              canceled_at,

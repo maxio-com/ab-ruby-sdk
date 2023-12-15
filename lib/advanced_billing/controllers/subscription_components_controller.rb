@@ -8,8 +8,8 @@ module AdvancedBilling
   class SubscriptionComponentsController < BaseController
     # This request will list information regarding a specific component owned by
     # a subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] component_id Required parameter: The Chargify id of the
     # component. Alternatively, the component's handle prefixed by `handle:`
     # @return [SubscriptionComponentResponse] response from the API call
@@ -41,8 +41,8 @@ module AdvancedBilling
     # When requesting to list components for a given subscription, if the
     # subscription contains **archived** components they will be listed in the
     # server response.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [SubscriptionListDateField] date_field Optional parameter: The type
     # of filter you'd like to apply to your search. Use in query
     # `date_field=updated_at`.
@@ -122,8 +122,8 @@ module AdvancedBilling
     # 2. Price point handle (string)
     # 3. `"_default"` string, which will reset the price point to the
     # component's current default price point.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [BulkComponentSPricePointAssignment] body Optional parameter:
     # Example:
     # @return [BulkComponentSPricePointAssignment] response from the API call
@@ -153,8 +153,8 @@ module AdvancedBilling
     # Resets all of a subscription's components to use the current default.
     # **Note**: this will update the price point for all of the subscription's
     # components, even ones that have not been allocated yet.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [SubscriptionResponse] response from the API call
     def reset_subscription_components_price_points(subscription_id)
       new_api_call_builder
@@ -239,8 +239,8 @@ module AdvancedBilling
     # **NOTE: Proration uses the current price of the component as well as the
     # current tax rates. Changes to either may cause the prorated charge/credit
     # to be wrong.**
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] component_id Required parameter: The Chargify id of the
     # component
     # @param [CreateAllocationRequest] body Optional parameter: Example:
@@ -287,8 +287,8 @@ module AdvancedBilling
     # puts component.allocated_quantity
     # # => 23
     # ```
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] component_id Required parameter: The Chargify id of the
     # component
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -338,8 +338,8 @@ module AdvancedBilling
     # of Resolutions explained below in determining the proration scheme.
     # A `component_id` is required for each allocation.
     # This endpoint only responds to JSON. It is not available for XML.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [AllocateComponents] body Optional parameter: Example:
     # @return [Array[AllocationResponse]] response from the API call
     def allocate_components(subscription_id,
@@ -384,8 +384,8 @@ module AdvancedBilling
     # include `direction` and `proration` within the `allocation_preview` at the
     # `line_items` and `allocations` level respectfully.
     # See example below for Fine-Grained Component Control response.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [PreviewAllocationsRequest] body Optional parameter: Example:
     # @return [AllocationPreviewResponse] response from the API call
     def preview_allocations(subscription_id,
@@ -425,8 +425,8 @@ module AdvancedBilling
     # limitations.
     # - An expiration date can be changed towards the past (essentially expiring
     # it) up to the subscription's current period beginning date.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] component_id Required parameter: The Chargify id of the
     # component
     # @param [Integer] allocation_id Required parameter: The Chargify id of the
@@ -478,8 +478,8 @@ module AdvancedBilling
     # behavior if the `credit_scheme` param is not passed.
     # 3. `refund`: The allocation will be destroyed and the balances will be
     # updated and a refund will be issued along with a Credit Note.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] component_id Required parameter: The Chargify id of the
     # component
     # @param [Integer] allocation_id Required parameter: The Chargify id of the
@@ -583,10 +583,11 @@ module AdvancedBilling
     # A. No. Usage should be reported as one API call per component on a single
     # subscription. For example, to record that a subscriber has sent both an
     # SMS Message and an Email, send an API call for each.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
-    # @param [Integer] component_id Required parameter: Either the Chargify id
-    # for the component or the component's handle prefixed by `handle:`
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer | String] component_id Required parameter: Either the
+    # Chargify id for the component or the component's handle prefixed by
+    # `handle:`
     # @param [CreateUsageRequest] body Optional parameter: Example:
     # @return [UsageResponse] response from the API call
     def create_usage(subscription_id,
@@ -601,7 +602,11 @@ module AdvancedBilling
                                     .should_encode(true))
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:CreateUsageComponentId)
+                                                     .validate(value)
+                                    end))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -632,18 +637,19 @@ module AdvancedBilling
     # subscription.  You can now specify either the component id (integer) or
     # the component handle prefixed by "handle:" to specify the unique
     # identifier for the component you are working with.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
-    # @param [Integer] component_id Required parameter: Either the Chargify id
-    # for the component or the component's handle prefixed by `handle:`
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer | String] component_id Required parameter: Either the
+    # Chargify id for the component or the component's handle prefixed by
+    # `handle:`
     # @param [Integer] since_id Optional parameter: Returns usages with an id
     # greater than or equal to the one specified
     # @param [Integer] max_id Optional parameter: Returns usages with an id less
     # than or equal to the one specified
-    # @param [String] since_date Optional parameter: Returns usages with a
+    # @param [Date] since_date Optional parameter: Returns usages with a
     # created_at date greater than or equal to midnight (12:00 AM) on the date
     # specified.
-    # @param [String] until_date Optional parameter: Returns usages with a
+    # @param [Date] until_date Optional parameter: Returns usages with a
     # created_at date less than or equal to midnight (12:00 AM) on the date
     # specified.
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -668,7 +674,11 @@ module AdvancedBilling
                                     .should_encode(true))
                    .template_param(new_parameter(options['component_id'], key: 'component_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ListUsagesInputComponentId)
+                                                     .validate(value)
+                                    end))
                    .query_param(new_parameter(options['since_id'], key: 'since_id'))
                    .query_param(new_parameter(options['max_id'], key: 'max_id'))
                    .query_param(new_parameter(options['since_date'], key: 'since_date'))

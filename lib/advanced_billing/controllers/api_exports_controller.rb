@@ -147,7 +147,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('409',
                                 'Conflict',
-                                SingleErrorResponseException))
+                                SingleErrorResponseErrorException))
         .execute
     end
 
@@ -168,7 +168,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('409',
                                 'Conflict',
-                                SingleErrorResponseException))
+                                SingleErrorResponseErrorException))
         .execute
     end
 
@@ -186,7 +186,7 @@ module AdvancedBilling
                    .deserialize_into(BatchJobResponse.method(:from_hash))
                    .local_error('409',
                                 'Conflict',
-                                SingleErrorResponseException))
+                                SingleErrorResponseErrorException))
         .execute
     end
 

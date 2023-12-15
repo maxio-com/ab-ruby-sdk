@@ -86,7 +86,7 @@ On Relationship Invoicing Architecture use the `remittance` collection method.
 
 ## Prepaid Subscription
 
-A prepaid subscription can be created with the usual subscription creation parameters, specifying `prepaid` as the `payment_collection_method` and including a nested `prepaid_subscription_configuration`.
+A prepaid subscription can be created with the usual subscription creation parameters, specifying `prepaid` as the `payment_collection_method` and including a nested `prepaid_configuration`.
 
 After a prepaid subscription has been created, additional funds can be manually added to the prepayment account through the [Create Prepayment Endpoint](https://developers.chargify.com/docs/api-docs/7ec482de77ba7-create-prepayment).
 
@@ -893,6 +893,7 @@ def list_subscriptions(options = {})
 | `metadata` | `Hash[String, String]` | Query, Optional | The value of the metadata field specified in the parameter. Use in query `metadata[my-field]=value&metadata[other-field]=another_value`. |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 | `sort` | [`SubscriptionSort`](../../doc/models/subscription-sort.md) | Query, Optional | The attribute by which to sort<br>**Default**: `SubscriptionSort::SIGNUP_DATE` |
+| `include` | [`Array<SubscriptionListInclude>`](../../doc/models/subscription-list-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=self_service_page_token`. |
 
 ## Response Type
 
@@ -901,7 +902,7 @@ def list_subscriptions(options = {})
 ## Example Usage
 
 ```ruby
-collect = {
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
   'page': 2,
   'per_page': 50,
   'start_date': Date.iso8601('2022-07-01'),
@@ -968,7 +969,7 @@ def update_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`UpdateSubscriptionRequest`](../../doc/models/update-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -978,7 +979,7 @@ def update_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = UpdateSubscriptionRequest.new(
   UpdateSubscription.new(
@@ -1137,7 +1138,7 @@ def read_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `include` | [`Array<SubscriptionInclude>`](../../doc/models/subscription-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
 
 ## Response Type
@@ -1147,7 +1148,7 @@ def read_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscriptions_controller.read_subscription(subscription_id)
 ```
@@ -1323,7 +1324,7 @@ def override_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`OverrideSubscriptionRequest`](../../doc/models/override-subscription-request.md) | Body, Optional | Only these fields are available to be set. |
 
 ## Response Type
@@ -1333,14 +1334,14 @@ def override_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = OverrideSubscriptionRequest.new(
   OverrideSubscription.new(
-    '1999-12-01',
-    '2000-12-31',
+    DateTimeHelper.from_rfc3339('1999-12-01T10:28:34-05:00'),
+    DateTimeHelper.from_rfc3339('2000-12-31T10:28:34-05:00'),
     'Original cancellation in 2000',
-    '2001-07-15'
+    DateTimeHelper.from_rfc3339('2001-07-15T10:28:34-05:00')
   )
 )
 
@@ -1355,7 +1356,7 @@ subscriptions_controller.override_subscription(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Bad Request | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | `APIException` |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
 
 
 # Read Subscription by Reference
@@ -1405,7 +1406,7 @@ def purge_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `ack` | `Integer` | Query, Required | id of the customer. |
 | `cascade` | [`Array<SubscriptionPurgeType>`](../../doc/models/subscription-purge-type.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
 
@@ -1416,7 +1417,7 @@ def purge_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 ack = 252
 
@@ -1446,7 +1447,7 @@ def create_prepaid_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`UpsertPrepaidConfigurationRequest`](../../doc/models/upsert-prepaid-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1456,7 +1457,7 @@ def create_prepaid_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = UpsertPrepaidConfigurationRequest.new(
   UpsertPrepaidConfiguration.new(
@@ -1683,7 +1684,7 @@ def apply_coupon_to_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `code` | `String` | Query, Optional | A code for the coupon that would be applied to a subscription |
 | `body` | [`AddCouponsRequest`](../../doc/models/add-coupons-request.md) | Body, Optional | - |
 
@@ -1694,7 +1695,7 @@ def apply_coupon_to_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = AddCouponsRequest.new(
   [
@@ -1881,7 +1882,7 @@ def delete_coupon_from_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `coupon_code` | `String` | Query, Optional | The coupon code |
 
 ## Response Type
@@ -1891,7 +1892,7 @@ def delete_coupon_from_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscriptions_controller.delete_coupon_from_subscription(subscription_id)
 ```
@@ -1964,7 +1965,7 @@ def activate_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`ActivateSubscriptionRequest`](../../doc/models/activate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1974,7 +1975,7 @@ def activate_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscriptions_controller.activate_subscription(subscription_id)
 ```

@@ -46,8 +46,9 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :display_on_hosted_page
 
-    # The type of charge to be applied when a component is upgraded. Valid
-    # values are: `prorated`, `full`, `none`.
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
     # @return [CreditType]
     attr_accessor :upgrade_charge
 
@@ -85,8 +86,10 @@ module AdvancedBilling
     def self.nullables
       %w[
         description
+        accounting_code
         tax_code
         item_category
+        upgrade_charge
       ]
     end
 

@@ -13,6 +13,9 @@ module AdvancedBilling
       # TODO: Write general description for APPLY_CREDIT_NOTE
       APPLY_CREDIT_NOTE = 'apply_credit_note'.freeze,
 
+      # TODO: Write general description for CREATE_CREDIT_NOTE
+      CREATE_CREDIT_NOTE = 'create_credit_note'.freeze,
+
       # TODO: Write general description for APPLY_PAYMENT
       APPLY_PAYMENT = 'apply_payment'.freeze,
 
@@ -38,7 +41,13 @@ module AdvancedBilling
       CHANGE_INVOICE_COLLECTION_METHOD = 'change_invoice_collection_method'.freeze,
 
       # TODO: Write general description for REMOVE_PAYMENT
-      REMOVE_PAYMENT = 'remove_payment'.freeze
+      REMOVE_PAYMENT = 'remove_payment'.freeze,
+
+      # TODO: Write general description for FAILED_PAYMENT
+      FAILED_PAYMENT = 'failed_payment'.freeze,
+
+      # TODO: Write general description for CHANGE_CHARGEBACK_STATUS
+      CHANGE_CHARGEBACK_STATUS = 'change_chargeback_status'.freeze
     ].freeze
 
     def self.validate(value)

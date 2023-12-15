@@ -22,8 +22,8 @@ module AdvancedBilling
     # We recommend using either the create or preview endpoints for proforma
     # invoices to preview this advance invoice before using this endpoint to
     # generate it.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [IssueAdvanceInvoiceRequest] body Optional parameter: Example:
     # @return [Invoice] response from the API call
     def issue_advance_invoice(subscription_id,
@@ -58,8 +58,8 @@ module AdvancedBilling
     # Once an advance invoice has been generated for a subscription's upcoming
     # renewal, it can be viewed through this endpoint. There can only be one
     # advance invoice per subscription per billing cycle.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [Invoice] response from the API call
     def read_advance_invoice(subscription_id)
       new_api_call_builder
@@ -90,8 +90,8 @@ module AdvancedBilling
     # to the invoice to be returned to the subscription. For a full overview of
     # the impact of voiding, please [see our help
     # docs](reference/Chargify-API.v1.yaml/components/schemas/Invoice).
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [VoidInvoiceRequest] body Optional parameter: Example:
     # @return [Invoice] response from the API call
     def void_advance_invoice(subscription_id,

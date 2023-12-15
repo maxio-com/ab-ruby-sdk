@@ -44,15 +44,14 @@ module AdvancedBilling
     # @param [ListSubscriptionGroupPrepaymentDateField] filter_date_field
     # Optional parameter: The type of filter you would like to apply to your
     # search. Use in query: `filter[date_field]=created_at`.
-    # @param [String] filter_end_date Optional parameter: The end date (format
+    # @param [Date] filter_end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns prepayments with
     # a timestamp up to and including 11:59:59PM in your site's time zone on the
     # date specified. Use in query: `filter[end_date]=2011-12-15`.
-    # @param [String] filter_start_date Optional parameter: The start date
-    # (format YYYY-MM-DD) with which to filter the date_field. Returns
-    # prepayments with a timestamp at or after midnight (12:00:00 AM) in your
-    # site's time zone on the date specified. Use in query:
-    # `filter[start_date]=2011-12-15`.
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns prepayments with
+    # a timestamp at or after midnight (12:00:00 AM) in your site's time zone on
+    # the date specified. Use in query: `filter[start_date]=2011-12-15`.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start

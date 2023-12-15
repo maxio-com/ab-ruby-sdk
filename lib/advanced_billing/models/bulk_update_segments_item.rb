@@ -13,17 +13,15 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :id
 
-    # The handle for the pricing scheme. Available options: per_unit, volume,
-    # tiered, stairstep. See [Price Bracket
-    # Rules](https://help.chargify.com/products/product-components.html#price-br
-    # acket-rules) for an overview of pricing schemes.
-    # @return [String]
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # The handle for the pricing scheme. Available options: per_unit, volume,
-    # tiered, stairstep. See [Price Bracket
-    # Rules](https://help.chargify.com/products/product-components.html#price-br
-    # acket-rules) for an overview of pricing schemes.
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Array[CreateOrUpdateSegmentPrice]]
     attr_accessor :prices
 

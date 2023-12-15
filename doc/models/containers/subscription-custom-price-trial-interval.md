@@ -1,5 +1,5 @@
 
-# Custom Price Used for Subscription Create Update Expiration Interval
+# Subscription Custom Price Trial Interval
 
 ## Data Type
 

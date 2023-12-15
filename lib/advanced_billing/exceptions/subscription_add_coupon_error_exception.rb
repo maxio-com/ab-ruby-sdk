@@ -15,6 +15,10 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [Array[String]]
+    attr_accessor :coupon_code
+
+    # TODO: Write general description for this method
+    # @return [Array[String]]
     attr_accessor :coupon_codes
 
     # TODO: Write general description for this method
@@ -35,6 +39,7 @@ module AdvancedBilling
     # response body.
     def unbox(hash)
       @codes = hash.key?('codes') ? hash['codes'] : SKIP
+      @coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
       @coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
       @subscription = hash.key?('subscription') ? hash['subscription'] : SKIP
     end

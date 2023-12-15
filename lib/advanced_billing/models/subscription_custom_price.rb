@@ -6,7 +6,7 @@
 module AdvancedBilling
   # (Optional) Used in place of `product_price_point_id` to define a custom
   # price point unique to the subscription
-  class CustomPriceUsedForSubscriptionCreateUpdate < BaseModel
+  class SubscriptionCustomPrice < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -86,9 +86,6 @@ module AdvancedBilling
       %w[
         name
         handle
-        price_in_cents
-        interval
-        interval_unit
         trial_price_in_cents
         trial_interval
         trial_interval_unit
@@ -105,11 +102,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = SKIP,
+    def initialize(price_in_cents = nil,
+                   interval = nil,
+                   interval_unit = nil,
+                   name = SKIP,
                    handle = SKIP,
-                   price_in_cents = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
                    trial_price_in_cents = SKIP,
                    trial_interval = SKIP,
                    trial_interval_unit = SKIP,
@@ -120,9 +117,9 @@ module AdvancedBilling
                    tax_included = SKIP)
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
-      @price_in_cents = price_in_cents unless price_in_cents == SKIP
-      @interval = interval unless interval == SKIP
-      @interval_unit = interval_unit unless interval_unit == SKIP
+      @price_in_cents = price_in_cents
+      @interval = interval
+      @interval_unit = interval_unit
       @trial_price_in_cents = trial_price_in_cents unless trial_price_in_cents == SKIP
       @trial_interval = trial_interval unless trial_interval == SKIP
       @trial_interval_unit = trial_interval_unit unless trial_interval_unit == SKIP
@@ -141,59 +138,75 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
+      price_in_cents = hash.key?('price_in_cents') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:SubscriptionCustomPricePriceInCents), hash['price_in_cents']
+      ) : nil
+      interval = hash.key?('interval') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:SubscriptionCustomPriceInterval), hash['interval']
+      ) : nil
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : nil
       name = hash.key?('name') ? hash['name'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
-      price_in_cents = hash.key?('price_in_cents') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdatePriceInCents), hash['price_in_cents']
-      ) : SKIP
-      interval = hash.key?('interval') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateInterval), hash['interval']
-      ) : SKIP
-      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       trial_price_in_cents = hash.key?('trial_price_in_cents') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents), hash['trial_price_in_cents']
+        UnionTypeLookUp.get(:SubscriptionCustomPriceTrialPriceInCents), hash['trial_price_in_cents']
       ) : SKIP
       trial_interval = hash.key?('trial_interval') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateTrialInterval), hash['trial_interval']
+        UnionTypeLookUp.get(:SubscriptionCustomPriceTrialInterval), hash['trial_interval']
       ) : SKIP
       trial_interval_unit =
         hash.key?('trial_interval_unit') ? hash['trial_interval_unit'] : SKIP
       initial_charge_in_cents = hash.key?('initial_charge_in_cents') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents), hash['initial_charge_in_cents']
+        UnionTypeLookUp.get(:SubscriptionCustomPriceInitialChargeInCents), hash['initial_charge_in_cents']
       ) : SKIP
       initial_charge_after_trial =
         hash.key?('initial_charge_after_trial') ? hash['initial_charge_after_trial'] : SKIP
       expiration_interval = hash.key?('expiration_interval') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval), hash['expiration_interval']
+        UnionTypeLookUp.get(:SubscriptionCustomPriceExpirationInterval), hash['expiration_interval']
       ) : SKIP
       expiration_interval_unit =
         hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
 
       # Create object from extracted values.
-      CustomPriceUsedForSubscriptionCreateUpdate.new(name,
-                                                     handle,
-                                                     price_in_cents,
-                                                     interval,
-                                                     interval_unit,
-                                                     trial_price_in_cents,
-                                                     trial_interval,
-                                                     trial_interval_unit,
-                                                     initial_charge_in_cents,
-                                                     initial_charge_after_trial,
-                                                     expiration_interval,
-                                                     expiration_interval_unit,
-                                                     tax_included)
+      SubscriptionCustomPrice.new(price_in_cents,
+                                  interval,
+                                  interval_unit,
+                                  name,
+                                  handle,
+                                  trial_price_in_cents,
+                                  trial_interval,
+                                  trial_interval_unit,
+                                  initial_charge_in_cents,
+                                  initial_charge_after_trial,
+                                  expiration_interval,
+                                  expiration_interval_unit,
+                                  tax_included)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [CustomPriceUsedForSubscriptionCreateUpdate | Hash] The value against the validation is performed.
+    # @param [SubscriptionCustomPrice | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          UnionTypeLookUp.get(:SubscriptionCustomPricePriceInCents)
+                         .validate(value.price_in_cents) and
+            UnionTypeLookUp.get(:SubscriptionCustomPriceInterval)
+                           .validate(value.interval) and
+            APIHelper.valid_type?(value.interval_unit,
+                                  ->(val) { IntervalUnit.validate(val) })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        UnionTypeLookUp.get(:SubscriptionCustomPricePriceInCents)
+                       .validate(value['price_in_cents']) and
+          UnionTypeLookUp.get(:SubscriptionCustomPriceInterval)
+                         .validate(value['interval']) and
+          APIHelper.valid_type?(value['interval_unit'],
+                                ->(val) { IntervalUnit.validate(val) })
+      )
     end
   end
 end

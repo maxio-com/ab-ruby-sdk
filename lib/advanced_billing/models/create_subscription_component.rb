@@ -22,7 +22,7 @@ module AdvancedBilling
     attr_accessor :unit_balance
 
     # Used for quantity based components.
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :allocated_quantity
 
     # Deprecated. Use `allocated_quantity` instead.
@@ -95,8 +95,9 @@ module AdvancedBilling
       ) : SKIP
       enabled = hash.key?('enabled') ? hash['enabled'] : SKIP
       unit_balance = hash.key?('unit_balance') ? hash['unit_balance'] : SKIP
-      allocated_quantity =
-        hash.key?('allocated_quantity') ? hash['allocated_quantity'] : SKIP
+      allocated_quantity = hash.key?('allocated_quantity') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:CreateSubscriptionComponentAllocatedQuantity), hash['allocated_quantity']
+      ) : SKIP
       quantity = hash.key?('quantity') ? hash['quantity'] : SKIP
       price_point_id = hash.key?('price_point_id') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateSubscriptionComponentPricePointId), hash['price_point_id']

@@ -202,11 +202,13 @@ module AdvancedBilling
       %w[
         amount
         amount_in_cents
+        product_family_name
         end_date
         percentage
         duration_period_count
         duration_interval
         duration_interval_unit
+        duration_interval_span
         archived_at
         conversion_limit
       ]

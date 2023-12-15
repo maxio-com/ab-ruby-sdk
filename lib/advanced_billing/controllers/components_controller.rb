@@ -161,7 +161,7 @@ module AdvancedBilling
     # the product family to which the component belongs
     # @param [String] component_id Required parameter: Either the Chargify id of
     # the component or the handle for the component prefixed with `handle:`
-    # @return [ComponentResponse] response from the API call
+    # @return [Component] response from the API call
     def archive_component(product_family_id,
                           component_id)
       new_api_call_builder
@@ -178,7 +178,7 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
+                   .deserialize_into(Component.method(:from_hash))
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
                                 ErrorListResponseException))
@@ -260,7 +260,7 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: The id or handle of the
     # component
     # @param [UpdateComponentRequest] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [ComponentResponse] response from the API call
     def update_component(component_id,
                          body: nil)
       new_api_call_builder
@@ -272,10 +272,15 @@ module AdvancedBilling
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_response_void(true))
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -292,7 +297,7 @@ module AdvancedBilling
     # component to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Chargify id of the
     # price point
-    # @return [void] response from the API call
+    # @return [ComponentResponse] response from the API call
     def update_default_price_point_for_component(component_id,
                                                  price_point_id)
       new_api_call_builder
@@ -305,9 +310,11 @@ module AdvancedBilling
                    .template_param(new_parameter(price_point_id, key: 'price_point_id')
                                     .is_required(true)
                                     .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_response_void(true))
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentResponse.method(:from_hash)))
         .execute
     end
 
@@ -650,11 +657,11 @@ module AdvancedBilling
     # @param [BasicDateField] filter_date_field Optional parameter: The type of
     # filter you would like to apply to your search. Use in query:
     # `filter[date_field]=created_at`.
-    # @param [String] filter_end_date Optional parameter: The end date (format
+    # @param [Date] filter_end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns price points with
     # a timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [String] filter_end_datetime Optional parameter: The end date and
+    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
     # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns price points with a timestamp at or before exact time provided in
     # query. You can specify timezone in query - otherwise your site's time zone
@@ -674,11 +681,11 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [String] filter_start_date Optional parameter: The start date
-    # (format YYYY-MM-DD) with which to filter the date_field. Returns price
-    # points with a timestamp at or after midnight (12:00:00 AM) in your site’s
-    # time zone on the date specified.
-    # @param [String] filter_start_datetime Optional parameter: The start date
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
+    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified.
+    # @param [DateTime] filter_start_datetime Optional parameter: The start date
     # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns price points with a timestamp at or after exact time provided in
     # query. You can specify timezone in query - otherwise your site's time zone

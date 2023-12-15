@@ -11,19 +11,19 @@
 |  --- | --- | --- | --- |
 | `id` | `Integer` | Optional | - |
 | `name` | `String` | Optional | - |
-| `kind` | `String` | Optional | - |
+| `kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type |
 | `unit_name` | `String` | Optional | - |
 | `enabled` | `TrueClass \| FalseClass` | Optional | (for on/off components) indicates if the component is enabled for the subscription |
 | `unit_balance` | `Integer` | Optional | - |
 | `currency` | `String` | Optional | - |
-| `allocated_quantity` | `Integer` | Optional | For Quantity-based components: The current allocation for the component on the given subscription. For On/Off components: Use 1 for on. Use 0 for off. |
-| `pricing_scheme` | `String` | Optional | - |
+| `allocated_quantity` | Integer \| String \| nil | Optional | This is a container for one-of cases. |
+| `pricing_scheme` | [Pricing Scheme](../../doc/models/pricing-scheme.md) \| nil | Optional | This is a container for one-of cases. |
 | `component_id` | `Integer` | Optional | - |
 | `component_handle` | `String` | Optional | - |
 | `subscription_id` | `Integer` | Optional | - |
 | `recurring` | `TrueClass \| FalseClass` | Optional | - |
-| `upgrade_charge` | `String` | Optional | - |
-| `downgrade_credit` | `String` | Optional | - |
+| `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
+| `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
 | `archived_at` | `String` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |
 | `price_point_handle` | `String` | Optional | - |
@@ -31,8 +31,8 @@
 | `price_point_name` | `String` | Optional | - |
 | `product_family_id` | `Integer` | Optional | - |
 | `product_family_handle` | `String` | Optional | - |
-| `created_at` | `String` | Optional | - |
-| `updated_at` | `String` | Optional | - |
+| `created_at` | `DateTime` | Optional | - |
+| `updated_at` | `DateTime` | Optional | - |
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | - |
 | `description` | `String` | Optional | - |
 | `allow_fractional_quantities` | `TrueClass \| FalseClass` | Optional | - |
@@ -45,7 +45,7 @@
 {
   "id": 20,
   "name": "name8",
-  "kind": "kind6",
+  "kind": "quantity_based_component",
   "unit_name": "unit_name0",
   "enabled": false
 }

@@ -49,8 +49,8 @@ module AdvancedBilling
     # YYYY-MM-DD) with which to filter the date_field. Returns invoices with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [Status] status Optional parameter: The current status of the
-    # invoice.  Allowed Values: draft, open, paid, pending, voided
+    # @param [InvoiceStatus] status Optional parameter: The current status of
+    # the invoice.  Allowed Values: draft, open, paid, pending, voided
     # @param [Integer] subscription_id Optional parameter: The subscription's
     # ID.
     # @param [String] subscription_group_uid Optional parameter: The UID of the
@@ -184,6 +184,10 @@ module AdvancedBilling
     # + change_invoice_status
     # + change_invoice_collection_method
     # + remove_payment
+    # + failed_payment
+    # + apply_debit_note
+    # + create_debit_note
+    # + change_chargeback_status
     # Invoice events are returned in ascending order.
     # If both a `since_date` and `since_id` are provided in request parameters,
     # the `since_date` will be used.
@@ -439,8 +443,8 @@ module AdvancedBilling
     # Account.
     # Only ungrouped or primary subscriptions may be paid using the "bulk"
     # payment request.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [RecordPaymentRequest] body Optional parameter: Example:
     # @return [PaymentResponse] response from the API call
     def record_payment_for_subscription(subscription_id,
@@ -744,8 +748,8 @@ module AdvancedBilling
     # #### Status
     # By default, invoices will be created with open status. Possible
     # alternative is `draft`.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [CreateInvoiceRequest] body Optional parameter: Example:
     # @return [InvoiceResponse] response from the API call
     def create_invoice(subscription_id,

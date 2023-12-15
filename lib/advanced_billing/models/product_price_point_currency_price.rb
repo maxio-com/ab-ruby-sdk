@@ -4,57 +4,25 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # object Product Price Point Currency Price:
+  # ProductPricePointCurrencyPrice Model.
   class ProductPricePointCurrencyPrice < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :id
-
-    # TODO: Write general description for this method
-    # @return [String]
-    attr_accessor :currency
-
-    # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :price
-
-    # TODO: Write general description for this method
-    # @return [String]
-    attr_accessor :formatted_price
-
-    # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :product_price_point_id
-
-    # Role for the price.
-    # @return [CurrencyPriceRole]
-    attr_accessor :role
+    # @return [Array[CurrencyPrice]]
+    attr_accessor :currency_prices
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['id'] = 'id'
-      @_hash['currency'] = 'currency'
-      @_hash['price'] = 'price'
-      @_hash['formatted_price'] = 'formatted_price'
-      @_hash['product_price_point_id'] = 'product_price_point_id'
-      @_hash['role'] = 'role'
+      @_hash['currency_prices'] = 'currency_prices'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
-      %w[
-        id
-        currency
-        price
-        formatted_price
-        product_price_point_id
-        role
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -62,18 +30,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   currency = SKIP,
-                   price = SKIP,
-                   formatted_price = SKIP,
-                   product_price_point_id = SKIP,
-                   role = SKIP)
-      @id = id unless id == SKIP
-      @currency = currency unless currency == SKIP
-      @price = price unless price == SKIP
-      @formatted_price = formatted_price unless formatted_price == SKIP
-      @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
-      @role = role unless role == SKIP
+    def initialize(currency_prices = nil)
+      @currency_prices = currency_prices
     end
 
     # Creates an instance of the object from a hash.
@@ -81,22 +39,19 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      id = hash.key?('id') ? hash['id'] : SKIP
-      currency = hash.key?('currency') ? hash['currency'] : SKIP
-      price = hash.key?('price') ? hash['price'] : SKIP
-      formatted_price =
-        hash.key?('formatted_price') ? hash['formatted_price'] : SKIP
-      product_price_point_id =
-        hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
-      role = hash.key?('role') ? hash['role'] : SKIP
+      # Parameter is an array, so we need to iterate through it
+      currency_prices = nil
+      unless hash['currency_prices'].nil?
+        currency_prices = []
+        hash['currency_prices'].each do |structure|
+          currency_prices << (CurrencyPrice.from_hash(structure) if structure)
+        end
+      end
+
+      currency_prices = nil unless hash.key?('currency_prices')
 
       # Create object from extracted values.
-      ProductPricePointCurrencyPrice.new(id,
-                                         currency,
-                                         price,
-                                         formatted_price,
-                                         product_price_point_id,
-                                         role)
+      ProductPricePointCurrencyPrice.new(currency_prices)
     end
   end
 end

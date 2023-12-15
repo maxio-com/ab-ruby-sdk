@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Single Error Response class.
-  class SingleErrorResponseException < APIException
+  # Single Error Response_Error class.
+  class SingleErrorResponseErrorException < APIException
     SKIP = Object.new
     private_constant :SKIP
 
@@ -26,7 +26,7 @@ module AdvancedBilling
     # @param [Hash] The deserialized response sent by the server in the
     # response body.
     def unbox(hash)
-      @error = hash.key?('error') ? hash['error'] : SKIP
+      @error = hash.key?('error') ? hash['error'] : nil
     end
   end
 end

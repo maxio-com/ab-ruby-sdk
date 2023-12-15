@@ -27,7 +27,7 @@ module AdvancedBilling
     # `{ "<product/component_id>": boolean_value }`
     # @param [Integer] product_family_id Required parameter: The Chargify id of
     # the product family to which the coupon belongs
-    # @param [CreateOrUpdateCoupon | nil] body Optional parameter: Example:
+    # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
     # @return [CouponResponse] response from the API call
     def create_coupon(product_family_id,
                       body: nil)
@@ -39,11 +39,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body)
-                                .validator(proc do |value|
-                                  UnionTypeLookUp.get(:CreateCouponBody)
-                                                 .validate(value)
-                                end))
+                   .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
@@ -76,22 +72,21 @@ module AdvancedBilling
     # @param [BasicDateField] filter_date_field Optional parameter: The type of
     # filter you would like to apply to your search. Use in query
     # `filter[date_field]=created_at`.
-    # @param [String] filter_end_date Optional parameter: The end date (format
+    # @param [Date] filter_end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified. Use in query `filter[date_field]=2011-12-15`.
-    # @param [String] filter_end_datetime Optional parameter: The end date and
+    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
     # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns coupons with a timestamp at or before exact time provided in
     # query. You can specify timezone in query - otherwise your site's time zone
     # will be used. If provided, this parameter will be used instead of
     # end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`.
-    # @param [String] filter_start_date Optional parameter: The start date
-    # (format YYYY-MM-DD) with which to filter the date_field. Returns coupons
-    # with a timestamp at or after midnight (12:00:00 AM) in your site’s time
-    # zone on the date specified. Use in query
-    # `filter[start_date]=2011-12-17`.
-    # @param [String] filter_start_datetime Optional parameter: The start date
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
+    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified. Use in query `filter[start_date]=2011-12-17`.
+    # @param [DateTime] filter_start_datetime Optional parameter: The start date
     # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns coupons with a timestamp at or after exact time provided in query.
     # You can specify timezone in query - otherwise your site's time zone will
@@ -217,7 +212,7 @@ module AdvancedBilling
     # the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Chargify id of the
     # coupon
-    # @param [CreateOrUpdateCoupon | nil] body Optional parameter: Example:
+    # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
     # @return [CouponResponse] response from the API call
     def update_coupon(product_family_id,
                       coupon_id,
@@ -233,11 +228,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body)
-                                .validator(proc do |value|
-                                  UnionTypeLookUp.get(:UpdateCouponBody)
-                                                 .validate(value)
-                                end))
+                   .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
@@ -296,30 +287,30 @@ module AdvancedBilling
     # deprecated: on January 20, 2022. We recommend using filter[date_field]
     # instead to achieve the same result. The type of filter you would like to
     # apply to your search.
-    # @param [String] start_date Optional parameter: The field was deprecated:
-    # on January 20, 2022. We recommend using filter[start_date] instead to
-    # achieve the same result. The start date (format YYYY-MM-DD) with which to
-    # filter the date_field. Returns coupons with a timestamp at or after
-    # midnight (12:00:00 AM) in your site’s time zone on the date specified.
-    # @param [String] end_date Optional parameter: The field was deprecated: on
+    # @param [Date] start_date Optional parameter: The field was deprecated: on
+    # January 20, 2022. We recommend using filter[start_date] instead to achieve
+    # the same result. The start date (format YYYY-MM-DD) with which to filter
+    # the date_field. Returns coupons with a timestamp at or after midnight
+    # (12:00:00 AM) in your site’s time zone on the date specified.
+    # @param [Date] end_date Optional parameter: The field was deprecated: on
     # January 20, 2022. We recommend using filter[end_date] instead to achieve
     # the same result. The end date (format YYYY-MM-DD) with which to filter the
     # date_field. Returns coupons with a timestamp up to and including
     # 11:59:59PM in your site’s time zone on the date specified.
-    # @param [String] start_datetime Optional parameter: The field was
+    # @param [DateTime] start_datetime Optional parameter: The field was
     # deprecated: on January 20, 2022. We recommend using filter[start_datetime]
     # instead to achieve the same result. The start date and time (format
     # YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons
     # with a timestamp at or after exact time provided in query. You can specify
     # timezone in query - otherwise your site's time zone will be used. If
     # provided, this parameter will be used instead of start_date.
-    # @param [String] end_datetime Optional parameter: The field was deprecated:
-    # on January 20, 2022. We recommend using filter[end_datetime] instead to
-    # achieve the same result. The end date and time (format YYYY-MM-DD
-    # HH:MM:SS) with which to filter the date_field. Returns coupons with a
-    # timestamp at or before exact time provided in query. You can specify
-    # timezone in query - otherwise your site's time zone will be used. If
-    # provided, this parameter will be used instead of end_date.
+    # @param [DateTime] end_datetime Optional parameter: The field was
+    # deprecated: on January 20, 2022. We recommend using filter[end_datetime]
+    # instead to achieve the same result. The end date and time (format
+    # YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons
+    # with a timestamp at or before exact time provided in query. You can
+    # specify timezone in query - otherwise your site's time zone will be used.
+    # If provided, this parameter will be used instead of end_date.
     # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
     # coupons with matching id based on provided values. Use in query
     # `filter[ids]=1,2,3`.
@@ -331,22 +322,21 @@ module AdvancedBilling
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @param [String] filter_end_date Optional parameter: The end date (format
+    # @param [Date] filter_end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified. Use in query `filter[end_date]=2011-12-17`.
-    # @param [String] filter_end_datetime Optional parameter: The end date and
+    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
     # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns coupons with a timestamp at or before exact time provided in
     # query. You can specify timezone in query - otherwise your site's time zone
     # will be used. If provided, this parameter will be used instead of
     # end_date. Use in query `filter[end_datetime]=2011-12-19T10:15:30+01:00`.
-    # @param [String] filter_start_date Optional parameter: The start date
-    # (format YYYY-MM-DD) with which to filter the date_field. Returns coupons
-    # with a timestamp at or after midnight (12:00:00 AM) in your site’s time
-    # zone on the date specified. Use in query
-    # `filter[start_date]=2011-12-19`.
-    # @param [String] filter_start_datetime Optional parameter: The start date
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
+    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified. Use in query `filter[start_date]=2011-12-19`.
+    # @param [DateTime] filter_start_datetime Optional parameter: The start date
     # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns coupons with a timestamp at or after exact time provided in query.
     # You can specify timezone in query - otherwise your site's time zone will

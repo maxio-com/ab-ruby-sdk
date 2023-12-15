@@ -25,35 +25,51 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :event_based_billing_metric_id
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Object]
     attr_accessor :segment_property_1_value
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Object]
     attr_accessor :segment_property_2_value
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Object]
     attr_accessor :segment_property_3_value
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Object]
     attr_accessor :segment_property_4_value
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [String]
     attr_accessor :created_at
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [String]
     attr_accessor :updated_at
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Array[SegmentPrice]]
     attr_accessor :prices
 

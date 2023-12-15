@@ -169,7 +169,7 @@ result = api_exports_controller.export_proforma_invoices
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
-| 409 | Conflict | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
+| 409 | Conflict | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
 
 
 # Export Invoices
@@ -195,7 +195,7 @@ result = api_exports_controller.export_invoices
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
-| 409 | Conflict | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
+| 409 | Conflict | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
 
 
 # Export Subscriptions
@@ -220,7 +220,7 @@ result = api_exports_controller.export_subscriptions
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 409 | Conflict | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
+| 409 | Conflict | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
 
 
 # Read Proforma Invoices Export

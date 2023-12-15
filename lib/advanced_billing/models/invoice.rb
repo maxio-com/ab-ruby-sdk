@@ -65,25 +65,25 @@ module AdvancedBilling
     # Date the invoice was issued to the customer.  This is the date that the
     # invoice was made available for payment.
     # The format is `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :issue_date
 
     # Date the invoice is due.
     # The format is `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :due_date
 
     # Date the invoice became fully paid.
     # If partial payments are applied to the invoice, this date will not be
     # present until payment has been made in full.
     # The format is `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :paid_date
 
     # The current status of the invoice. See [Invoice
     # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
     # e-item-breakdowns) for more.
-    # @return [Status]
+    # @return [InvoiceStatus]
     attr_accessor :status
 
     # The current status of the invoice. See [Invoice

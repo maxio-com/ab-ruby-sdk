@@ -12,8 +12,8 @@ module AdvancedBilling
     # The response will be `200 OK` with the updated Subscription.
     # ## Failed Reactivation
     # The response will be `422 "Unprocessable Entity`.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [SubscriptionResponse] response from the API call
     def retry_subscription(subscription_id)
       new_api_call_builder
@@ -36,8 +36,8 @@ module AdvancedBilling
 
     # The DELETE action causes the cancellation of the Subscription. This means,
     # the method sets the Subscription state to "canceled".
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [CancellationRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
     def cancel_subscription(subscription_id,
@@ -62,7 +62,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                                APIException))
         .execute
     end
 
@@ -70,8 +70,8 @@ module AdvancedBilling
     # has not passed, the subscription will return to active and will renew on
     # that date.  Otherwise, it will behave like a reactivation, setting the
     # billing date to 'now' and charging the subscriber.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [ResumptionCharge] calendar_billing_resumption_charge Optional
     # parameter: (For calendar billing subscriptions only) The way that the
     # resumed subscription's charge should be handled
@@ -90,7 +90,10 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -99,8 +102,8 @@ module AdvancedBilling
     # ## Limitations
     # You may not place a subscription on hold if the `next_billing` date is
     # within 24 hours.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [PauseRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
     def pause_subscription(subscription_id,
@@ -133,8 +136,8 @@ module AdvancedBilling
     # ### Remove the resume date
     # Alternately, you can change the `automatically_resume_at` to `null` if you
     # would like the subscription to not have a resume date.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [PauseRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
     def update_automatic_subscription_resumption(subscription_id,
@@ -153,7 +156,10 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -295,8 +301,8 @@ module AdvancedBilling
     # + The subscription will transition to active
     # + The next billing date should not have changed
     # + Any product-related charges should have been collected
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [ReactivateSubscriptionRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
     def reactivate_subscription(subscription_id,
@@ -328,8 +334,8 @@ module AdvancedBilling
     # `cancel_at_end_of_period` flag to true.
     # Note that you cannot set `cancel_at_end_of_period` at subscription
     # creation, or if the subscription is past due.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [CancellationRequest] body Optional parameter: Example:
     # @return [DelayedCancellationResponse] response from the API call
     def initiate_delayed_cancellation(subscription_id,
@@ -361,8 +367,8 @@ module AdvancedBilling
     # This endpoint is idempotent. If the subscription was not set to cancel in
     # the future, removing the delayed cancellation has no effect and the call
     # will be successful.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [DelayedCancellationResponse] response from the API call
     def stop_delayed_cancellation(subscription_id)
       new_api_call_builder
@@ -385,8 +391,8 @@ module AdvancedBilling
 
     # If a subscription is currently in dunning, the subscription will be set to
     # active and the active Dunner will be resolved.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [SubscriptionResponse] response from the API call
     def cancel_dunning(subscription_id)
       new_api_call_builder
@@ -436,8 +442,8 @@ module AdvancedBilling
     # You can request a `POST` to obtain this data from the endpoint without any
     # side effects. Plain and simple, this will preview data, not log any
     # changes against a subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [RenewalPreviewRequest] body Optional parameter: Example:
     # @return [RenewalPreviewResponse] response from the API call
     def preview_renewal(subscription_id,
@@ -456,7 +462,10 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RenewalPreviewResponse.method(:from_hash)))
+                   .deserialize_into(RenewalPreviewResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
   end

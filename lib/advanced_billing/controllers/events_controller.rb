@@ -135,8 +135,8 @@ module AdvancedBilling
 
     # The following request will return a list of events for a subscription.
     # Each event type has its own `event_specific_data` specified.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start

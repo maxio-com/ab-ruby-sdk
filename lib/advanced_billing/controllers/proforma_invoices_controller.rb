@@ -105,8 +105,8 @@ module AdvancedBilling
     # Proforma invoices are only available on Relationship Invoicing sites. To
     # create a proforma invoice, the subscription must not be in a group, must
     # not be prepaid, and must be in a live state.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [ProformaInvoice] response from the API call
     def create_proforma_invoice(subscription_id)
       new_api_call_builder
@@ -134,14 +134,14 @@ module AdvancedBilling
     # totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`,
     # `credits`, `payments`, or `custom_fields`. To include breakdowns, pass the
     # specific field as a key in the query with a value set to `true`.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [String] start_date Optional parameter: The beginning date range
     # for the invoice's Due Date, in the YYYY-MM-DD format.
     # @param [String] end_date Optional parameter: The ending date range for the
     # invoice's Due Date, in the YYYY-MM-DD format.
-    # @param [Status] status Optional parameter: The current status of the
-    # invoice.  Allowed Values: draft, open, paid, pending, voided
+    # @param [InvoiceStatus] status Optional parameter: The current status of
+    # the invoice.  Allowed Values: draft, open, paid, pending, voided
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -256,8 +256,8 @@ module AdvancedBilling
     # Alternatively, if you have some proforma invoices already, you may make a
     # preview call to determine whether any billing information for the
     # subscription's upcoming renewal has changed.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [ProformaInvoicePreview] response from the API call
     def preview_proforma_invoice(subscription_id)
       new_api_call_builder

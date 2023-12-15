@@ -27,13 +27,13 @@ module AdvancedBilling
     # The status of the invoice before event occurence. See [Invoice
     # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
     # e-item-breakdowns) for more.
-    # @return [Status]
+    # @return [InvoiceStatus]
     attr_accessor :from_status
 
     # The status of the invoice after event occurence. See [Invoice
     # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
     # e-item-breakdowns) for more.
-    # @return [Status]
+    # @return [InvoiceStatus]
     attr_accessor :to_status
 
     # Amount due on the invoice, which is `total_amount - credit_amount -

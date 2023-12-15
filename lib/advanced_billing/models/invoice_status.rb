@@ -7,8 +7,8 @@ module AdvancedBilling
   # The current status of the invoice. See [Invoice
   # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-
   # item-breakdowns) for more.
-  class Status
-    STATUS = [
+  class InvoiceStatus
+    INVOICE_STATUS = [
       # TODO: Write general description for DRAFT
       DRAFT = 'draft'.freeze,
 
@@ -31,7 +31,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      STATUS.include?(value)
+      INVOICE_STATUS.include?(value)
     end
   end
 end
