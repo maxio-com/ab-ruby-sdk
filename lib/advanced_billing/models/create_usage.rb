@@ -24,12 +24,20 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :memo
 
+    # This attribute is particularly useful when you need to align billing
+    # events for different components on distinct schedules within a
+    # subscription. Please note this only works for site with Multifrequency
+    # enabled
+    # @return [BillingSchedule]
+    attr_accessor :billing_schedule
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['quantity'] = 'quantity'
       @_hash['price_point_id'] = 'price_point_id'
       @_hash['memo'] = 'memo'
+      @_hash['billing_schedule'] = 'billing_schedule'
       @_hash
     end
 
@@ -39,6 +47,7 @@ module AdvancedBilling
         quantity
         price_point_id
         memo
+        billing_schedule
       ]
     end
 
@@ -49,10 +58,12 @@ module AdvancedBilling
 
     def initialize(quantity = SKIP,
                    price_point_id = SKIP,
-                   memo = SKIP)
+                   memo = SKIP,
+                   billing_schedule = SKIP)
       @quantity = quantity unless quantity == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @memo = memo unless memo == SKIP
+      @billing_schedule = billing_schedule unless billing_schedule == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -64,11 +75,14 @@ module AdvancedBilling
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       memo = hash.key?('memo') ? hash['memo'] : SKIP
+      billing_schedule = BillingSchedule.from_hash(hash['billing_schedule']) if
+        hash['billing_schedule']
 
       # Create object from extracted values.
       CreateUsage.new(quantity,
                       price_point_id,
-                      memo)
+                      memo,
+                      billing_schedule)
     end
   end
 end

@@ -51,7 +51,7 @@ price_point_id = 'price_point_id8'
 
 body = CreateSegmentRequest.new(
   CreateSegment.new(
-    'volume',
+    PricingScheme::VOLUME,
     'France',
     'Spain',
     nil,

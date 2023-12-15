@@ -23,11 +23,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :handle
 
-    # The handle for the pricing scheme. Available options: per_unit, volume,
-    # tiered, stairstep. See [Price Bracket
-    # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-
-    # bracket-rules) for an overview of pricing schemes.
-    # @return [String]
+    # The component API handle
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
     # The name of the unit that the component’s usage is measured in. i.e.
@@ -103,16 +100,16 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :recurring
 
-    # A string representing the tax code related to the component type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
-    # A string representing the tax code related to the component type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
     # Timestamp indicating when this component was created
@@ -333,8 +330,9 @@ module AdvancedBilling
       id = hash.key?('id') ? hash['id'] : SKIP
       name = hash.key?('name') ? hash['name'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
-      pricing_scheme =
-        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
+      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:ComponentPricingScheme), hash['pricing_scheme']
+      ) : SKIP
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       unit_price = hash.key?('unit_price') ? hash['unit_price'] : SKIP
       product_family_id =
@@ -418,6 +416,16 @@ module AdvancedBilling
                     use_site_exchange_rate,
                     accounting_code,
                     event_based_billing_metric_id)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [Component | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

@@ -290,6 +290,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         handle
+        description
         accounting_code
         expiration_interval
         expiration_interval_unit

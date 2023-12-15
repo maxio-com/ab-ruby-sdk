@@ -16,7 +16,7 @@ module AdvancedBilling
     # The current status of the invoice. See [Invoice
     # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
     # e-item-breakdowns) for more.
-    # @return [Status]
+    # @return [InvoiceStatus]
     attr_accessor :status
 
     # The remaining due amount on the invoice

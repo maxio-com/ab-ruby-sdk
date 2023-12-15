@@ -37,12 +37,6 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :taxable
 
-    # The identifier for the pricing scheme. See [Product
-    # Components](https://help.chargify.com/products/product-components.html)
-    # for an overview of pricing schemes.
-    # @return [PricingScheme]
-    attr_accessor :pricing_scheme
-
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
     # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-
@@ -51,27 +45,21 @@ module AdvancedBilling
     # @return [Array[Price]]
     attr_accessor :prices
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-
-    # bracket-rules) for an overview of how price brackets work for different
-    # pricing schemes.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-
-    # bracket-rules) for an overview of how price brackets work for different
-    # pricing schemes.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-
-    # bracket-rules) for an overview of how price brackets work for different
-    # pricing schemes.
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
     # @return [Array[ComponentPricePointItem]]
     attr_accessor :price_points
 
@@ -119,7 +107,6 @@ module AdvancedBilling
       @_hash['description'] = 'description'
       @_hash['handle'] = 'handle'
       @_hash['taxable'] = 'taxable'
-      @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['prices'] = 'prices'
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
@@ -157,11 +144,13 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        upgrade_charge
+        downgrade_credit
+      ]
     end
 
     def initialize(name = nil,
-                   pricing_scheme = nil,
                    unit_name = SKIP,
                    description = SKIP,
                    handle = SKIP,
@@ -182,7 +171,6 @@ module AdvancedBilling
       @description = description unless description == SKIP
       @handle = handle unless handle == SKIP
       @taxable = taxable unless taxable == SKIP
-      @pricing_scheme = pricing_scheme
       @prices = prices unless prices == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
@@ -208,8 +196,6 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : nil
-      pricing_scheme =
-        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : nil
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
@@ -255,7 +241,6 @@ module AdvancedBilling
 
       # Create object from extracted values.
       OnOffComponent.new(name,
-                         pricing_scheme,
                          unit_name,
                          description,
                          handle,
@@ -277,22 +262,14 @@ module AdvancedBilling
     # @param [OnOffComponent | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
-        return (
-          APIHelper.valid_type?(value.name,
-                                ->(val) { val.instance_of? String }) and
-            APIHelper.valid_type?(value.pricing_scheme,
-                                  ->(val) { PricingScheme.validate(val) })
-        )
+        return APIHelper.valid_type?(value.name,
+                                     ->(val) { val.instance_of? String })
       end
 
       return false unless value.instance_of? Hash
 
-      (
-        APIHelper.valid_type?(value['name'],
-                              ->(val) { val.instance_of? String }) and
-          APIHelper.valid_type?(value['pricing_scheme'],
-                                ->(val) { PricingScheme.validate(val) })
-      )
+      APIHelper.valid_type?(value['name'],
+                            ->(val) { val.instance_of? String })
     end
   end
 end

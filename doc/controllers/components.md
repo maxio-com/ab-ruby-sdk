@@ -366,7 +366,7 @@ def archive_component(product_family_id,
 
 ## Response Type
 
-[`ComponentResponse`](../../doc/models/component-response.md)
+[`Component`](../../doc/models/component.md)
 
 ## Example Usage
 
@@ -385,27 +385,25 @@ result = components_controller.archive_component(
 
 ```json
 {
-  "component": {
-    "id": 25407138,
-    "name": "cillum aute",
-    "pricing_scheme": "in incididu",
-    "unit_name": "nulla in",
-    "unit_price": "Excepteur veniam",
-    "product_family_id": -56705047,
-    "kind": "prepaid_usage_component",
-    "archived": true,
-    "taxable": false,
-    "description": "reprehenderit laborum qui fugiat",
-    "default_price_point_id": -64328176,
-    "price_point_count": 15252407,
-    "price_points_url": "dolor mollit consequat",
-    "tax_code": "ea nisi",
-    "recurring": false,
-    "created_at": "dolor qui deserunt tempor",
-    "default_price_point_name": "cupidatat Lorem non aliqua",
-    "product_family_name": "do elit",
-    "hide_date_range_on_invoice": false
-  }
+  "id": 25407138,
+  "name": "cillum aute",
+  "pricing_scheme": "stairstep",
+  "unit_name": "nulla in",
+  "unit_price": "Excepteur veniam",
+  "product_family_id": -56705047,
+  "kind": "prepaid_usage_component",
+  "archived": true,
+  "taxable": false,
+  "description": "reprehenderit laborum qui fugiat",
+  "default_price_point_id": -64328176,
+  "price_point_count": 15252407,
+  "price_points_url": "dolor mollit consequat",
+  "tax_code": "ea nisi",
+  "recurring": false,
+  "created_at": "dolor qui deserunt tempor",
+  "default_price_point_name": "cupidatat Lorem non aliqua",
+  "product_family_name": "do elit",
+  "hide_date_range_on_invoice": false
 }
 ```
 
@@ -572,7 +570,7 @@ def update_component(component_id,
 
 ## Response Type
 
-`void`
+[`ComponentResponse`](../../doc/models/component-response.md)
 
 ## Example Usage
 
@@ -591,11 +589,47 @@ body = UpdateComponentRequest.new(
   )
 )
 
-components_controller.update_component(
+result = components_controller.update_component(
   component_id,
   body: body
 )
 ```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 399853,
+    "name": "Annual Support Services",
+    "pricing_scheme": null,
+    "unit_name": "on/off",
+    "unit_price": "100.0",
+    "product_family_id": 997233,
+    "price_per_unit_in_cents": null,
+    "kind": "on_off_component",
+    "archived": false,
+    "taxable": true,
+    "description": "Prepay for support services",
+    "default_price_point_id": 121003,
+    "price_point_count": 4,
+    "price_points_url": "https://general-goods.chargify.com/components/399853/price_points",
+    "tax_code": "D0000000",
+    "recurring": true,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2019-08-02T05:54:53-04:00",
+    "default_price_point_name": "Original",
+    "product_family_name": "Chargify"
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Update Default Price Point for Component
@@ -620,7 +654,7 @@ def update_default_price_point_for_component(component_id,
 
 ## Response Type
 
-`void`
+[`ComponentResponse`](../../doc/models/component-response.md)
 
 ## Example Usage
 
@@ -629,10 +663,43 @@ component_id = 222
 
 price_point_id = 10
 
-components_controller.update_default_price_point_for_component(
+result = components_controller.update_default_price_point_for_component(
   component_id,
   price_point_id
 )
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 292609,
+    "name": "Text messages",
+    "pricing_scheme": "stairstep",
+    "unit_name": "text message",
+    "unit_price": null,
+    "product_family_id": 528484,
+    "price_per_unit_in_cents": null,
+    "kind": "metered_component",
+    "archived": false,
+    "taxable": false,
+    "description": null,
+    "created_at": "2019-08-02T05:54:53-04:00",
+    "prices": [
+      {
+        "id": 47,
+        "component_id": 292609,
+        "starting_quantity": 1,
+        "ending_quantity": null,
+        "unit_price": "1.0",
+        "price_point_id": 173,
+        "formatted_unit_price": "$1.00"
+      }
+    ],
+    "default_price_point_name": "Original"
+  }
+}
 ```
 
 
@@ -802,7 +869,7 @@ component_id = 222
 body = CreateComponentPricePointRequest.new(
   CreateComponentPricePoint.new(
     'Wholesale',
-    'stairstep',
+    PricingScheme::STAIRSTEP,
     [
       Price.new(
         '1',
@@ -944,7 +1011,7 @@ body = CreateComponentPricePointsRequest.new(
   [
     CreateComponentPricePoint.new(
       'Wholesale',
-      'per_unit',
+      PricingScheme::PER_UNIT,
       [
         Price.new(
           1,
@@ -955,7 +1022,7 @@ body = CreateComponentPricePointsRequest.new(
     ),
     CreateComponentPricePoint.new(
       'MSRP',
-      'per_unit',
+      PricingScheme::PER_UNIT,
       [
         Price.new(
           1,
@@ -966,7 +1033,7 @@ body = CreateComponentPricePointsRequest.new(
     ),
     CreateComponentPricePoint.new(
       'Special Pricing',
-      'per_unit',
+      PricingScheme::PER_UNIT,
       [
         Price.new(
           1,
@@ -1350,13 +1417,13 @@ def list_all_component_price_points(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
-| `filter_end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `filter_end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
+| `filter_end_date` | `Date` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
+| `filter_end_datetime` | `DateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `include` | [`ListComponentsPricePointsInclude`](../../doc/models/list-components-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `filter_start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `filter_start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
+| `filter_start_date` | `Date` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
+| `filter_start_datetime` | `DateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
 | `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`. |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 | `filter_ids` | `Array<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |

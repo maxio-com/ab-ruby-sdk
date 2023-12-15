@@ -27,11 +27,11 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [Integer]
-    attr_accessor :price_id
+    attr_accessor :product_price_point_id
 
-    # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :price_point_id
+    # Role for the price.
+    # @return [CurrencyPriceRole]
+    attr_accessor :role
 
     # A mapping from model property names to API property names.
     def self.names
@@ -40,8 +40,8 @@ module AdvancedBilling
       @_hash['currency'] = 'currency'
       @_hash['price'] = 'price'
       @_hash['formatted_price'] = 'formatted_price'
-      @_hash['price_id'] = 'price_id'
-      @_hash['price_point_id'] = 'price_point_id'
+      @_hash['product_price_point_id'] = 'product_price_point_id'
+      @_hash['role'] = 'role'
       @_hash
     end
 
@@ -52,8 +52,8 @@ module AdvancedBilling
         currency
         price
         formatted_price
-        price_id
-        price_point_id
+        product_price_point_id
+        role
       ]
     end
 
@@ -66,14 +66,14 @@ module AdvancedBilling
                    currency = SKIP,
                    price = SKIP,
                    formatted_price = SKIP,
-                   price_id = SKIP,
-                   price_point_id = SKIP)
+                   product_price_point_id = SKIP,
+                   role = SKIP)
       @id = id unless id == SKIP
       @currency = currency unless currency == SKIP
       @price = price unless price == SKIP
       @formatted_price = formatted_price unless formatted_price == SKIP
-      @price_id = price_id unless price_id == SKIP
-      @price_point_id = price_point_id unless price_point_id == SKIP
+      @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
+      @role = role unless role == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -86,17 +86,17 @@ module AdvancedBilling
       price = hash.key?('price') ? hash['price'] : SKIP
       formatted_price =
         hash.key?('formatted_price') ? hash['formatted_price'] : SKIP
-      price_id = hash.key?('price_id') ? hash['price_id'] : SKIP
-      price_point_id =
-        hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
+      product_price_point_id =
+        hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
+      role = hash.key?('role') ? hash['role'] : SKIP
 
       # Create object from extracted values.
       CurrencyPrice.new(id,
                         currency,
                         price,
                         formatted_price,
-                        price_id,
-                        price_point_id)
+                        product_price_point_id,
+                        role)
     end
   end
 end

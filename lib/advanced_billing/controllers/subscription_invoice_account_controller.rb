@@ -9,8 +9,8 @@ module AdvancedBilling
     # Returns the `balance_in_cents` of the Subscription's Pending Discount,
     # Service Credit, and Prepayment accounts, as well as the sum of the
     # Subscription's open, payable invoices.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [AccountBalances] response from the API call
     def read_account_balances(subscription_id)
       new_api_call_builder
@@ -36,8 +36,8 @@ module AdvancedBilling
     # applied to the prepayment account balance.  This is especially useful for
     # manual replenishment of prepaid subscriptions.
     # Please note that you **can't** pass `amount_in_cents`.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [CreatePrepaymentRequest] body Optional parameter: Example:
     # @return [CreatePrepaymentResponse] response from the API call
     def create_prepayment(subscription_id,
@@ -61,8 +61,8 @@ module AdvancedBilling
     end
 
     # This request will list a subscription's prepayments.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -78,12 +78,11 @@ module AdvancedBilling
     # filter you would like to apply to your search. created_at - Time when
     # prepayment was created. application_at - Time when prepayment was applied
     # to invoice. Use in query `filter[date_field]=created_at`.
-    # @param [String] filter_start_date Optional parameter: The start date
-    # (format YYYY-MM-DD) with which to filter the date_field. Returns
-    # prepayments with a timestamp at or after midnight (12:00:00 AM) in your
-    # site’s time zone on the date specified. Use in query
-    # `filter[start_date]=2011-12-15`.
-    # @param [String] filter_end_date Optional parameter: The end date (format
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns prepayments with
+    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified. Use in query `filter[start_date]=2011-12-15`.
+    # @param [Date] filter_end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns prepayments with
     # a timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified. Use in query `filter[end_date]=2011-12-15`.
@@ -121,8 +120,8 @@ module AdvancedBilling
     # Credit will be added to the subscription in the amount specified in the
     # request body. The credit is subsequently applied to the next generated
     # invoice.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [IssueServiceCreditRequest] body Optional parameter: Example:
     # @return [ServiceCredit] response from the API call
     def issue_service_credit(subscription_id,
@@ -148,8 +147,8 @@ module AdvancedBilling
     # Credit will be removed from the subscription in the amount specified in
     # the request body. The credit amount being deducted must be equal to or
     # less than the current credit balance.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [DeductServiceCreditRequest] body Optional parameter: Example:
     # @return [void] response from the API call
     def deduct_service_credit(subscription_id,
@@ -179,8 +178,8 @@ module AdvancedBilling
     # some amount remaining in order to be refunded.
     # The amount may be passed either as a decimal, with `amount`, or an integer
     # in cents, with `amount_in_cents`.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [String] prepayment_id Required parameter: id of prepayment
     # @param [RefundPrepaymentRequest] body Optional parameter: Example:
     # @return [PrepaymentResponse] response from the API call

@@ -502,8 +502,8 @@ module AdvancedBilling
     # self-service page, or visit the Payment Details tab on the subscription in
     # the Admin UI and use the “Add New Credit Card” or “Make Active Payment
     # Method” link, (depending on whether there are other cards present).
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [String] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [void] response from the API call
@@ -588,8 +588,8 @@ module AdvancedBilling
     # existing payment profile with the id specified.
     # You must elect to change the existing payment profile to a new payment
     # profile ID in order to receive a satisfactory response from this endpoint.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [PaymentProfileResponse] response from the API call
@@ -694,8 +694,8 @@ module AdvancedBilling
     # These error responses are designed to prevent excessive or invalid
     # requests, and to provide clear and helpful information to users who
     # encounter errors during the request process.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [void] response from the API call
     def send_request_update_payment_email(subscription_id)
       new_api_call_builder

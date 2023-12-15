@@ -57,6 +57,14 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :product_handle
 
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :period_range_start
+
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :period_range_end
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -72,6 +80,8 @@ module AdvancedBilling
       @_hash['component_handle'] = 'component_handle'
       @_hash['component_name'] = 'component_name'
       @_hash['product_handle'] = 'product_handle'
+      @_hash['period_range_start'] = 'period_range_start'
+      @_hash['period_range_end'] = 'period_range_end'
       @_hash
     end
 
@@ -90,6 +100,8 @@ module AdvancedBilling
         component_handle
         component_name
         product_handle
+        period_range_start
+        period_range_end
       ]
     end
 
@@ -109,7 +121,9 @@ module AdvancedBilling
                    component_id = SKIP,
                    component_handle = SKIP,
                    component_name = SKIP,
-                   product_handle = SKIP)
+                   product_handle = SKIP,
+                   period_range_start = SKIP,
+                   period_range_end = SKIP)
       @transaction_type = transaction_type unless transaction_type == SKIP
       @kind = kind unless kind == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -122,6 +136,8 @@ module AdvancedBilling
       @component_handle = component_handle unless component_handle == SKIP
       @component_name = component_name unless component_name == SKIP
       @product_handle = product_handle unless product_handle == SKIP
+      @period_range_start = period_range_start unless period_range_start == SKIP
+      @period_range_end = period_range_end unless period_range_end == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -148,6 +164,10 @@ module AdvancedBilling
         hash.key?('component_name') ? hash['component_name'] : SKIP
       product_handle =
         hash.key?('product_handle') ? hash['product_handle'] : SKIP
+      period_range_start =
+        hash.key?('period_range_start') ? hash['period_range_start'] : SKIP
+      period_range_end =
+        hash.key?('period_range_end') ? hash['period_range_end'] : SKIP
 
       # Create object from extracted values.
       RenewalPreviewLineItem.new(transaction_type,
@@ -161,7 +181,9 @@ module AdvancedBilling
                                  component_id,
                                  component_handle,
                                  component_name,
-                                 product_handle)
+                                 product_handle,
+                                 period_range_start,
+                                 period_range_end)
     end
   end
 end

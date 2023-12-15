@@ -31,7 +31,7 @@ def issue_advance_invoice(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`IssueAdvanceInvoiceRequest`](../../doc/models/issue-advance-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -41,7 +41,7 @@ def issue_advance_invoice(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = IssueAdvanceInvoiceRequest.new(
   true
@@ -74,7 +74,7 @@ def read_advance_invoice(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -83,7 +83,7 @@ def read_advance_invoice(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = advance_invoice_controller.read_advance_invoice(subscription_id)
 ```
@@ -110,7 +110,7 @@ def void_advance_invoice(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -120,7 +120,7 @@ def void_advance_invoice(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = advance_invoice_controller.void_advance_invoice(subscription_id)
 ```

@@ -9,8 +9,9 @@ module AdvancedBilling
     # [Product Price Point
     # Documentation](https://chargify.zendesk.com/hc/en-us/articles/440775582415
     # 5)
-    # @param [Integer] product_id Required parameter: The id or handle of the
-    # product. When using the handle, it must be prefixed with `handle:`
+    # @param [Integer | String] product_id Required parameter: The id or handle
+    # of the product. When using the handle, it must be prefixed with
+    # `handle:`
     # @param [CreateProductPricePointRequest] body Optional parameter:
     # Example:
     # @return [ProductPricePointResponse] response from the API call
@@ -22,7 +23,11 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:CreateProductPricePointProductId)
+                                                     .validate(value)
+                                    end))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -38,8 +43,9 @@ module AdvancedBilling
     end
 
     # Use this endpoint to retrieve a list of product price points.
-    # @param [Integer] product_id Required parameter: The id or handle of the
-    # product. When using the handle, it must be prefixed with `handle:`
+    # @param [Integer | String] product_id Required parameter: The id or handle
+    # of the product. When using the handle, it must be prefixed with
+    # `handle:`
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -68,7 +74,11 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .template_param(new_parameter(options['product_id'], key: 'product_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ListProductPricePointsInputProductId)
+                                                     .validate(value)
+                                    end))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
@@ -85,10 +95,11 @@ module AdvancedBilling
 
     # Use this endpoint to update a product price point.
     # Note: Custom product price points are not able to be updated.
-    # @param [Integer] product_id Required parameter: The id or handle of the
-    # product. When using the handle, it must be prefixed with `handle:`
-    # @param [Integer] price_point_id Required parameter: The id or handle of
-    # the price point. When using the handle, it must be prefixed with
+    # @param [Integer | String] product_id Required parameter: The id or handle
+    # of the product. When using the handle, it must be prefixed with
+    # `handle:`
+    # @param [Integer | String] price_point_id Required parameter: The id or
+    # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`
     # @param [UpdateProductPricePointRequest] body Optional parameter:
     # Example:
@@ -102,10 +113,18 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:UpdateProductPricePointProductId)
+                                                     .validate(value)
+                                    end))
                    .template_param(new_parameter(price_point_id, key: 'price_point_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:UpdateProductPricePointPricePointId)
+                                                     .validate(value)
+                                    end))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -118,10 +137,11 @@ module AdvancedBilling
     end
 
     # Use this endpoint to retrieve details for a specific product price point.
-    # @param [Integer] product_id Required parameter: The id or handle of the
-    # product. When using the handle, it must be prefixed with `handle:`
-    # @param [Integer] price_point_id Required parameter: The id or handle of
-    # the price point. When using the handle, it must be prefixed with
+    # @param [Integer | String] product_id Required parameter: The id or handle
+    # of the product. When using the handle, it must be prefixed with
+    # `handle:`
+    # @param [Integer | String] price_point_id Required parameter: The id or
+    # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`
     # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
     # fetching a product's price points, if you have defined multiple currencies
@@ -140,10 +160,18 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ReadProductPricePointProductId)
+                                                     .validate(value)
+                                    end))
                    .template_param(new_parameter(price_point_id, key: 'price_point_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ReadProductPricePointPricePointId)
+                                                     .validate(value)
+                                    end))
                    .query_param(new_parameter(currency_prices, key: 'currency_prices'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
@@ -154,10 +182,11 @@ module AdvancedBilling
     end
 
     # Use this endpoint to archive a product price point.
-    # @param [Integer] product_id Required parameter: The id or handle of the
-    # product. When using the handle, it must be prefixed with `handle:`
-    # @param [Integer] price_point_id Required parameter: The id or handle of
-    # the price point. When using the handle, it must be prefixed with
+    # @param [Integer | String] product_id Required parameter: The id or handle
+    # of the product. When using the handle, it must be prefixed with
+    # `handle:`
+    # @param [Integer | String] price_point_id Required parameter: The id or
+    # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`
     # @return [ProductPricePointResponse] response from the API call
     def archive_product_price_point(product_id,
@@ -168,15 +197,26 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ArchiveProductPricePointProductId)
+                                                     .validate(value)
+                                    end))
                    .template_param(new_parameter(price_point_id, key: 'price_point_id')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ArchiveProductPricePointPricePointId)
+                                                     .validate(value)
+                                    end))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash)))
+                   .deserialize_into(ProductPricePointResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -214,9 +254,9 @@ module AdvancedBilling
     # product to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Chargify id of the
     # product price point
-    # @return [ProductPricePointResponse] response from the API call
-    def set_default_price_point_for_product(product_id,
-                                            price_point_id)
+    # @return [ProductResponse] response from the API call
+    def promote_product_price_point_to_default(product_id,
+                                               price_point_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PATCH,
                                      '/products/{product_id}/price_points/{price_point_id}/default.json',
@@ -231,7 +271,7 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash)))
+                   .deserialize_into(ProductResponse.method(:from_hash)))
         .execute
     end
 
@@ -309,7 +349,7 @@ module AdvancedBilling
     # @param [Integer] product_price_point_id Required parameter: The Chargify
     # id of the product price point
     # @param [UpdateCurrencyPricesRequest] body Optional parameter: Example:
-    # @return [Array[ProductPricePointCurrencyPrice]] response from the API call
+    # @return [ProductPricePointCurrencyPrice] response from the API call
     def update_product_currency_prices(product_price_point_id,
                                        body: nil)
       new_api_call_builder
@@ -327,7 +367,9 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductPricePointCurrencyPrice.method(:from_hash))
-                   .is_response_array(true))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorMapResponseException))
         .execute
     end
 
@@ -341,11 +383,11 @@ module AdvancedBilling
     # @param [BasicDateField] filter_date_field Optional parameter: The type of
     # filter you would like to apply to your search. Use in query:
     # `filter[date_field]=created_at`.
-    # @param [String] filter_end_date Optional parameter: The end date (format
+    # @param [Date] filter_end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns price points with
     # a timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [String] filter_end_datetime Optional parameter: The end date and
+    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
     # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns price points with a timestamp at or before exact time provided in
     # query. You can specify timezone in query - otherwise your site's time zone
@@ -354,11 +396,11 @@ module AdvancedBilling
     # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
     # price points with matching id based on provided values. Use in query:
     # `filter[ids]=1,2,3`.
-    # @param [String] filter_start_date Optional parameter: The start date
-    # (format YYYY-MM-DD) with which to filter the date_field. Returns price
-    # points with a timestamp at or after midnight (12:00:00 AM) in your site’s
-    # time zone on the date specified.
-    # @param [String] filter_start_datetime Optional parameter: The start date
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
+    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified.
+    # @param [DateTime] filter_start_datetime Optional parameter: The start date
     # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
     # Returns price points with a timestamp at or after exact time provided in
     # query. You can specify timezone in query - otherwise your site's time zone

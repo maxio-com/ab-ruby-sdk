@@ -71,7 +71,7 @@ module AdvancedBilling
 
     # (Optional) Used in place of `product_price_point_id` to define a custom
     # price point unique to the subscription
-    # @return [CustomPriceUsedForSubscriptionCreateUpdate]
+    # @return [SubscriptionCustomPrice]
     attr_accessor :custom_price
 
     # (Optional) An array of component ids and custom prices to be added to the
@@ -227,7 +227,7 @@ module AdvancedBilling
       stored_credential_transaction_id =
         hash.key?('stored_credential_transaction_id') ? hash['stored_credential_transaction_id'] : SKIP
       reference = hash.key?('reference') ? hash['reference'] : SKIP
-      custom_price = CustomPriceUsedForSubscriptionCreateUpdate.from_hash(hash['custom_price']) if
+      custom_price = SubscriptionCustomPrice.from_hash(hash['custom_price']) if
         hash['custom_price']
       # Parameter is an array, so we need to iterate through it
       components = nil

@@ -58,7 +58,7 @@ module AdvancedBilling
 
     # (Optional) Used in place of `product_price_point_id` to define a custom
     # price point unique to the subscription
-    # @return [CustomPriceUsedForSubscriptionCreateUpdate]
+    # @return [SubscriptionCustomPrice]
     attr_accessor :custom_price
 
     # (Optional). Cannot be used when also specifying next_billing_at
@@ -172,7 +172,7 @@ module AdvancedBilling
       end
 
       components = SKIP unless hash.key?('components')
-      custom_price = CustomPriceUsedForSubscriptionCreateUpdate.from_hash(hash['custom_price']) if
+      custom_price = SubscriptionCustomPrice.from_hash(hash['custom_price']) if
         hash['custom_price']
       calendar_billing = CalendarBilling.from_hash(hash['calendar_billing']) if
         hash['calendar_billing']

@@ -171,7 +171,7 @@ module AdvancedBilling
     # Only valid for webhook payloads The previous state for webhooks that have
     # indicated a change in state. For normal API calls, this will always be the
     # same as the state (current state)
-    # @return [String]
+    # @return [SubscriptionState]
     attr_accessor :previous_state
 
     # The ID of the transaction that generated the revenue
@@ -198,33 +198,45 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :snap_day
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [PaymentCollectionMethod]
     attr_accessor :payment_collection_method
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [Customer]
     attr_accessor :customer
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [Product]
     attr_accessor :product
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [PaymentProfile]
     attr_accessor :credit_card
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
-    # @return [SubscriptionGroupInlined]
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
+    # @return [NestedSubscriptionGroup]
     attr_accessor :group
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [SubscriptionBankAccount]
     attr_accessor :bank_account
 
@@ -262,7 +274,7 @@ module AdvancedBilling
 
     # The date the subscription is scheduled to automatically resume from the
     # on_hold state.
-    # @return [String]
+    # @return [DateTime]
     attr_accessor :automatically_resume_at
 
     # An array for all the coupons attached to the subscription.
@@ -287,8 +299,13 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :product_price_point_id
 
-    # One of the following: custom, default, catalog.
-    # @return [String]
+    # Price point type. We expose the following types:
+    # 1. **default**: a price point that is marked as a default price for a
+    # certain product.
+    # 2. **custom**: a custom price point.
+    # 3. **catalog**: a price point that is **not** marked as a default price
+    # for a certain product and is **not** a custom one.
+    # @return [PricePointType]
     attr_accessor :product_price_point_type
 
     # If a delayed product change is scheduled, the ID of the product price
@@ -312,7 +329,7 @@ module AdvancedBilling
     attr_accessor :reference
 
     # The timestamp of the most recent on hold action.
-    # @return [String]
+    # @return [DateTime]
     attr_accessor :on_hold_at
 
     # Boolean representing whether the subscription is prepaid and currently in
@@ -360,6 +377,15 @@ module AdvancedBilling
     # Time zone for the Dunning Communication Delay feature.
     # @return [Integer]
     attr_accessor :prepayment_balance_in_cents
+
+    # Time zone for the Dunning Communication Delay feature.
+    # @return [PrepaidConfiguration]
+    attr_accessor :prepaid_configuration
+
+    # Returned only for list/read Subscription operation when
+    # `include[]=self_service_page_token` parameter is provided.
+    # @return [String]
+    attr_accessor :self_service_page_token
 
     # A mapping from model property names to API property names.
     def self.names
@@ -428,6 +454,8 @@ module AdvancedBilling
       @_hash['scheduled_cancellation_at'] = 'scheduled_cancellation_at'
       @_hash['credit_balance_in_cents'] = 'credit_balance_in_cents'
       @_hash['prepayment_balance_in_cents'] = 'prepayment_balance_in_cents'
+      @_hash['prepaid_configuration'] = 'prepaid_configuration'
+      @_hash['self_service_page_token'] = 'self_service_page_token'
       @_hash
     end
 
@@ -494,6 +522,8 @@ module AdvancedBilling
         scheduled_cancellation_at
         credit_balance_in_cents
         prepayment_balance_in_cents
+        prepaid_configuration
+        self_service_page_token
       ]
     end
 
@@ -510,7 +540,6 @@ module AdvancedBilling
         delayed_cancel_at
         coupon_code
         snap_day
-        payment_collection_method
         group
         payment_type
         referral_code
@@ -559,7 +588,7 @@ module AdvancedBilling
                    delayed_cancel_at = SKIP,
                    coupon_code = SKIP,
                    snap_day = SKIP,
-                   payment_collection_method = SKIP,
+                   payment_collection_method = PaymentCollectionMethod::AUTOMATIC,
                    customer = SKIP,
                    product = SKIP,
                    credit_card = SKIP,
@@ -593,7 +622,9 @@ module AdvancedBilling
                    currency = SKIP,
                    scheduled_cancellation_at = SKIP,
                    credit_balance_in_cents = SKIP,
-                   prepayment_balance_in_cents = SKIP)
+                   prepayment_balance_in_cents = SKIP,
+                   prepaid_configuration = SKIP,
+                   self_service_page_token = SKIP)
       @id = id unless id == SKIP
       @state = state unless state == SKIP
       @balance_in_cents = balance_in_cents unless balance_in_cents == SKIP
@@ -681,6 +712,8 @@ module AdvancedBilling
         @prepayment_balance_in_cents =
           prepayment_balance_in_cents
       end
+      @prepaid_configuration = prepaid_configuration unless prepaid_configuration == SKIP
+      @self_service_page_token = self_service_page_token unless self_service_page_token == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -740,9 +773,8 @@ module AdvancedBilling
                    end
       cancellation_message =
         hash.key?('cancellation_message') ? hash['cancellation_message'] : SKIP
-      cancellation_method = hash.key?('cancellation_method') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionCancellationMethod), hash['cancellation_method']
-      ) : SKIP
+      cancellation_method =
+        hash.key?('cancellation_method') ? hash['cancellation_method'] : SKIP
       cancel_at_end_of_period =
         hash.key?('cancel_at_end_of_period') ? hash['cancel_at_end_of_period'] : SKIP
       canceled_at = if hash.key?('canceled_at')
@@ -768,9 +800,8 @@ module AdvancedBilling
                           end
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
       snap_day = hash.key?('snap_day') ? hash['snap_day'] : SKIP
-      payment_collection_method = hash.key?('payment_collection_method') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionPaymentCollectionMethod), hash['payment_collection_method']
-      ) : SKIP
+      payment_collection_method =
+        hash['payment_collection_method'] ||= PaymentCollectionMethod::AUTOMATIC
       customer = Customer.from_hash(hash['customer']) if hash['customer']
       product = Product.from_hash(hash['product']) if hash['product']
       credit_card = PaymentProfile.from_hash(hash['credit_card']) if hash['credit_card']
@@ -790,8 +821,11 @@ module AdvancedBilling
       coupon_uses_allowed =
         hash.key?('coupon_uses_allowed') ? hash['coupon_uses_allowed'] : SKIP
       reason_code = hash.key?('reason_code') ? hash['reason_code'] : SKIP
-      automatically_resume_at =
-        hash.key?('automatically_resume_at') ? hash['automatically_resume_at'] : SKIP
+      automatically_resume_at = if hash.key?('automatically_resume_at')
+                                  (DateTimeHelper.from_rfc3339(hash['automatically_resume_at']) if hash['automatically_resume_at'])
+                                else
+                                  SKIP
+                                end
       coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
       offer_id = hash.key?('offer_id') ? hash['offer_id'] : SKIP
       payer_id = hash.key?('payer_id') ? hash['payer_id'] : SKIP
@@ -807,7 +841,11 @@ module AdvancedBilling
       stored_credential_transaction_id =
         hash.key?('stored_credential_transaction_id') ? hash['stored_credential_transaction_id'] : SKIP
       reference = hash.key?('reference') ? hash['reference'] : SKIP
-      on_hold_at = hash.key?('on_hold_at') ? hash['on_hold_at'] : SKIP
+      on_hold_at = if hash.key?('on_hold_at')
+                     (DateTimeHelper.from_rfc3339(hash['on_hold_at']) if hash['on_hold_at'])
+                   else
+                     SKIP
+                   end
       prepaid_dunning =
         hash.key?('prepaid_dunning') ? hash['prepaid_dunning'] : SKIP
       # Parameter is an array, so we need to iterate through it
@@ -837,6 +875,10 @@ module AdvancedBilling
         hash.key?('credit_balance_in_cents') ? hash['credit_balance_in_cents'] : SKIP
       prepayment_balance_in_cents =
         hash.key?('prepayment_balance_in_cents') ? hash['prepayment_balance_in_cents'] : SKIP
+      prepaid_configuration = PrepaidConfiguration.from_hash(hash['prepaid_configuration']) if
+        hash['prepaid_configuration']
+      self_service_page_token =
+        hash.key?('self_service_page_token') ? hash['self_service_page_token'] : SKIP
 
       # Create object from extracted values.
       Subscription.new(id,
@@ -898,7 +940,9 @@ module AdvancedBilling
                        currency,
                        scheduled_cancellation_at,
                        credit_balance_in_cents,
-                       prepayment_balance_in_cents)
+                       prepayment_balance_in_cents,
+                       prepaid_configuration,
+                       self_service_page_token)
     end
 
     def to_current_period_ends_at
@@ -943,6 +987,14 @@ module AdvancedBilling
 
     def to_delayed_cancel_at
       DateTimeHelper.to_rfc3339(delayed_cancel_at)
+    end
+
+    def to_automatically_resume_at
+      DateTimeHelper.to_rfc3339(automatically_resume_at)
+    end
+
+    def to_on_hold_at
+      DateTimeHelper.to_rfc3339(on_hold_at)
     end
 
     def to_scheduled_cancellation_at

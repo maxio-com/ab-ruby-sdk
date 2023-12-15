@@ -4,9 +4,9 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Status1.
-  class Status1
-    STATUS1 = [
+  # Create Invoice Status.
+  class CreateInvoiceStatus
+    CREATE_INVOICE_STATUS = [
       # TODO: Write general description for DRAFT
       DRAFT = 'draft'.freeze,
 
@@ -17,7 +17,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      STATUS1.include?(value)
+      CREATE_INVOICE_STATUS.include?(value)
     end
   end
 end

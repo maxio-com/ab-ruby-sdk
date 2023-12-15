@@ -30,31 +30,45 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :name
 
-    # Note: Refer to type attribute instead
-    # @return [String]
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # Note: Refer to type attribute instead
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Integer]
     attr_accessor :component_id
 
-    # Note: Refer to type attribute instead
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [String]
     attr_accessor :handle
 
-    # Note: Refer to type attribute instead
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [String]
     attr_accessor :archived_at
 
-    # Note: Refer to type attribute instead
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [String]
     attr_accessor :created_at
 
-    # Note: Refer to type attribute instead
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [String]
     attr_accessor :updated_at
 
-    # Note: Refer to type attribute instead
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Array[ComponentPricePointPrice]]
     attr_accessor :prices
 

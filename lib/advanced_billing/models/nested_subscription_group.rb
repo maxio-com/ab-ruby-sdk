@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # SubscriptionGroupInlined Model.
-  class SubscriptionGroupInlined < BaseModel
+  # NestedSubscriptionGroup Model.
+  class NestedSubscriptionGroup < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -15,12 +15,12 @@ module AdvancedBilling
 
     # Whether the group is configured to rely on a primary subscription for
     # billing. At this time, it will always be 1.
-    # @return [String]
+    # @return [Integer]
     attr_accessor :scheme
 
     # The subscription ID of the primary within the group. Applicable to scheme
     # 1.
-    # @return [String]
+    # @return [Integer]
     attr_accessor :primary_subscription_id
 
     # A boolean indicating whether the subscription is the primary in the group.
@@ -75,14 +75,14 @@ module AdvancedBilling
       primary = hash.key?('primary') ? hash['primary'] : SKIP
 
       # Create object from extracted values.
-      SubscriptionGroupInlined.new(uid,
-                                   scheme,
-                                   primary_subscription_id,
-                                   primary)
+      NestedSubscriptionGroup.new(uid,
+                                  scheme,
+                                  primary_subscription_id,
+                                  primary)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [SubscriptionGroupInlined | Hash] The value against the validation is performed.
+    # @param [NestedSubscriptionGroup | Hash] The value against the validation is performed.
     def self.validate(value)
       return true if value.instance_of? self
 

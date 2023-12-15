@@ -42,7 +42,7 @@ def retry_subscription(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -51,7 +51,7 @@ def retry_subscription(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_status_controller.retry_subscription(subscription_id)
 ```
@@ -213,7 +213,7 @@ def cancel_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CancellationRequest`](../../doc/models/cancellation-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -223,7 +223,7 @@ def cancel_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_status_controller.cancel_subscription(subscription_id)
 ```
@@ -369,7 +369,7 @@ result = subscription_status_controller.cancel_subscription(subscription_id)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | `APIException` |
 
 
 # Resume Subscription
@@ -385,7 +385,7 @@ def resume_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `calendar_billing_resumption_charge` | [`ResumptionCharge`](../../doc/models/resumption-charge.md) | Query, Optional | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled<br>**Default**: `ResumptionCharge::PRORATED` |
 
 ## Response Type
@@ -395,7 +395,7 @@ def resume_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_status_controller.resume_subscription(subscription_id)
 ```
@@ -509,6 +509,12 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
 
 # Pause Subscription
 
@@ -527,7 +533,7 @@ def pause_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
 
 ## Response Type
@@ -537,11 +543,11 @@ def pause_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = PauseRequest.new(
   AutoResume.new(
-    '2017-05-25T11:25:00Z'
+    DateTimeHelper.from_rfc3339('2017-05-25T11:25:00Z')
   )
 )
 
@@ -686,7 +692,7 @@ def update_automatic_subscription_resumption(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
 
 ## Response Type
@@ -696,11 +702,11 @@ def update_automatic_subscription_resumption(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = PauseRequest.new(
   AutoResume.new(
-    '2019-01-20'
+    DateTimeHelper.from_rfc3339('2019-01-20T00:00:00')
   )
 )
 
@@ -831,6 +837,12 @@ result = subscription_status_controller.update_automatic_subscription_resumption
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Reactivate Subscription
@@ -1004,7 +1016,7 @@ def reactivate_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`ReactivateSubscriptionRequest`](../../doc/models/reactivate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1014,7 +1026,7 @@ def reactivate_subscription(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = ReactivateSubscriptionRequest.new(
   ReactivationBilling.new(
@@ -1167,7 +1179,7 @@ def initiate_delayed_cancellation(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CancellationRequest`](../../doc/models/cancellation-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1177,7 +1189,7 @@ def initiate_delayed_cancellation(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_status_controller.initiate_delayed_cancellation(subscription_id)
 ```
@@ -1203,7 +1215,7 @@ def stop_delayed_cancellation(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -1212,7 +1224,7 @@ def stop_delayed_cancellation(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_status_controller.stop_delayed_cancellation(subscription_id)
 ```
@@ -1244,7 +1256,7 @@ def cancel_dunning(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -1253,7 +1265,7 @@ def cancel_dunning(subscription_id)
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 result = subscription_status_controller.cancel_dunning(subscription_id)
 ```
@@ -1293,7 +1305,7 @@ def preview_renewal(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `body` | [`RenewalPreviewRequest`](../../doc/models/renewal-preview-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1303,7 +1315,7 @@ def preview_renewal(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 'subscription_id0'
+subscription_id = 222
 
 body = RenewalPreviewRequest.new(
   [
@@ -1353,7 +1365,9 @@ result = subscription_status_controller.preview_renewal(
         "taxable_amount_in_cents": 0,
         "product_id": 1,
         "product_handle": "gold-product",
-        "product_name": "Gold Product"
+        "product_name": "Gold Product",
+        "period_range_start": "01/10/2024",
+        "period_range_end": "02/10/2024"
       },
       {
         "transaction_type": "charge",
@@ -1364,10 +1378,18 @@ result = subscription_status_controller.preview_renewal(
         "taxable_amount_in_cents": 0,
         "component_id": 104,
         "component_handle": "quantity-component",
-        "component_name": "Quantity Component"
+        "component_name": "Quantity Component",
+        "period_range_start": "01/10/2024",
+        "period_range_end": "02/10/2024"
       }
     ]
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 

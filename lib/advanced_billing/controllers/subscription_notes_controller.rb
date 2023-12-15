@@ -15,8 +15,8 @@ module AdvancedBilling
     # Full documentation on how to use Notes in the Chargify UI can be located
     # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404434903181-
     # Subscription-Summary#notes).
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: Example:
     # @return [SubscriptionNoteResponse] response from the API call
     def create_subscription_note(subscription_id,
@@ -39,31 +39,10 @@ module AdvancedBilling
         .execute
     end
 
-    # Use the following method to delete a note for a Subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
-    # @return [void] response from the API call
-    def delete_subscription_note(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/subscriptions/{subscription_id}/notes.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                APIException))
-        .execute
-    end
-
     # Use this method to retrieve a list of Notes associated with a
     # Subscription. The response will be an array of Notes.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -97,9 +76,9 @@ module AdvancedBilling
 
     # Once you have obtained the ID of the note you wish to read, use this
     # method to show a particular note attached to a subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
-    # @param [String] note_id Required parameter: The Chargify id of the note
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer] note_id Required parameter: The Chargify id of the note
     # @return [SubscriptionNoteResponse] response from the API call
     def read_subscription_note(subscription_id,
                                note_id)
@@ -122,9 +101,9 @@ module AdvancedBilling
     end
 
     # Use the following method to update a note for a Subscription.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
-    # @param [String] note_id Required parameter: The Chargify id of the note
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer] note_id Required parameter: The Chargify id of the note
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: Example:
     # @return [SubscriptionNoteResponse] response from the API call
     def update_subscription_note(subscription_id,
@@ -148,6 +127,32 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use the following method to delete a note for a Subscription.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer] note_id Required parameter: The Chargify id of the note
+    # @return [void] response from the API call
+    def delete_subscription_note(subscription_id,
+                                 note_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscriptions/{subscription_id}/notes/{note_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(note_id, key: 'note_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                APIException))
         .execute
     end
   end

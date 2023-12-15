@@ -72,15 +72,21 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :accrue_charge
 
-    # The type of charge to be created if the change in cost is an upgrade.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
-    # The type of credit to be created if the change in cost is a downgrade.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
-    # The type of credit to be created if the change in cost is a downgrade.
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
     # @return [AllocationPayment]
     attr_accessor :payment
 
@@ -132,6 +138,8 @@ module AdvancedBilling
     def self.nullables
       %w[
         memo
+        upgrade_charge
+        downgrade_credit
         payment
       ]
     end

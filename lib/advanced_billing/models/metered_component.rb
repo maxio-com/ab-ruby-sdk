@@ -51,27 +51,21 @@ module AdvancedBilling
     # @return [Array[Price]]
     attr_accessor :prices
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677#
-    # price-bracket-rules) for an overview of how price brackets work for
-    # different pricing schemes.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677#
-    # price-bracket-rules) for an overview of how price brackets work for
-    # different pricing schemes.
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677#
-    # price-bracket-rules) for an overview of how price brackets work for
-    # different pricing schemes.
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
     # @return [Array[ComponentPricePointItem]]
     attr_accessor :price_points
 
@@ -156,7 +150,10 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        upgrade_charge
+        downgrade_credit
+      ]
     end
 
     def initialize(name = nil,

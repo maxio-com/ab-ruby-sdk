@@ -9,15 +9,21 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
-    # TODO: Write general description for this method
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
     # @return [TrueClass | FalseClass]
     attr_accessor :accrue_charge
 

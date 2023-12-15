@@ -97,8 +97,8 @@ module AdvancedBilling
     # point the result of authentication is known
     # 8. Optionally, you can use the applied "msg" param in the `redirect_url`
     # to determine whether it was successful or not.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [SubscriptionProductMigrationRequest] body Optional parameter:
     # Example:
     # @return [SubscriptionResponse] response from the API call
@@ -133,8 +133,8 @@ module AdvancedBilling
     # This will calculate the prorated adjustment, charge, payment and credit
     # applied values assuming the migration is done at that date in the future
     # as opposed to right now.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [SubscriptionMigrationPreviewRequest] body Optional parameter:
     # Example:
     # @return [SubscriptionMigrationPreviewResponse] response from the API call

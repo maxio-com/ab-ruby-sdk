@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :line_items
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [Date]
     attr_accessor :issue_date
 
     # By default, invoices will be created with a due date matching the date of
@@ -52,7 +52,7 @@ module AdvancedBilling
     attr_accessor :coupons
 
     # Overrides the default for the customer
-    # @return [Status1]
+    # @return [CreateInvoiceStatus]
     attr_accessor :status
 
     # A mapping from model property names to API property names.
@@ -101,7 +101,7 @@ module AdvancedBilling
                    billing_address = SKIP,
                    shipping_address = SKIP,
                    coupons = SKIP,
-                   status = Status1::OPEN)
+                   status = CreateInvoiceStatus::OPEN)
       @line_items = line_items unless line_items == SKIP
       @issue_date = issue_date unless issue_date == SKIP
       @net_terms = net_terms unless net_terms == SKIP
@@ -150,7 +150,7 @@ module AdvancedBilling
       end
 
       coupons = SKIP unless hash.key?('coupons')
-      status = hash['status'] ||= Status1::OPEN
+      status = hash['status'] ||= CreateInvoiceStatus::OPEN
 
       # Create object from extracted values.
       CreateInvoice.new(line_items,

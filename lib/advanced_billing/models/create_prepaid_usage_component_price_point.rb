@@ -17,15 +17,21 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :handle
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [OveragePricing]
     attr_accessor :overage_pricing
 
@@ -166,7 +172,7 @@ module AdvancedBilling
           APIHelper.valid_type?(value.name,
                                 ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.pricing_scheme,
-                                  ->(val) { val.instance_of? String }) and
+                                  ->(val) { PricingScheme.validate(val) }) and
             APIHelper.valid_type?(value.prices,
                                   ->(val) { Price.validate(val) }) and
             APIHelper.valid_type?(value.overage_pricing,
@@ -180,7 +186,7 @@ module AdvancedBilling
         APIHelper.valid_type?(value['name'],
                               ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['pricing_scheme'],
-                                ->(val) { val.instance_of? String }) and
+                                ->(val) { PricingScheme.validate(val) }) and
           APIHelper.valid_type?(value['prices'],
                                 ->(val) { Price.validate(val) }) and
           APIHelper.valid_type?(value['overage_pricing'],

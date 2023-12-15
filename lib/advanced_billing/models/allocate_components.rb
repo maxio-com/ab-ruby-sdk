@@ -25,12 +25,16 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :accrue_charge
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
     # (Optional) If not passed, the allocation(s) will use the payment
@@ -66,7 +70,10 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        upgrade_charge
+        downgrade_credit
+      ]
     end
 
     def initialize(proration_upgrade_scheme = 'no-prorate',

@@ -41,14 +41,16 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :accrue_charge
 
-    # The type of credit to be created if the change in cost is a downgrade.
-    # Defaults to the component and then site setting if one is not provided.
-    # @return [CreditType1]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :downgrade_credit
 
-    # The type of charge to be created if the change in cost is an upgrade.
-    # Defaults to the component and then site setting if one is not provided.
-    # @return [CreditType1]
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
     attr_accessor :upgrade_charge
 
     # Price point that the allocation should be charged at. Accepts either the
@@ -56,6 +58,13 @@ module AdvancedBilling
     # default price point will be used.
     # @return [Object]
     attr_accessor :price_point_id
+
+    # This attribute is particularly useful when you need to align billing
+    # events for different components on distinct schedules within a
+    # subscription. Please note this only works for site with Multifrequency
+    # enabled
+    # @return [BillingSchedule]
+    attr_accessor :billing_schedule
 
     # A mapping from model property names to API property names.
     def self.names
@@ -69,6 +78,7 @@ module AdvancedBilling
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['price_point_id'] = 'price_point_id'
+      @_hash['billing_schedule'] = 'billing_schedule'
       @_hash
     end
 
@@ -83,12 +93,15 @@ module AdvancedBilling
         downgrade_credit
         upgrade_charge
         price_point_id
+        billing_schedule
       ]
     end
 
     # An array for nullable fields
     def self.nullables
       %w[
+        downgrade_credit
+        upgrade_charge
         price_point_id
       ]
     end
@@ -101,7 +114,8 @@ module AdvancedBilling
                    accrue_charge = SKIP,
                    downgrade_credit = SKIP,
                    upgrade_charge = SKIP,
-                   price_point_id = SKIP)
+                   price_point_id = SKIP,
+                   billing_schedule = SKIP)
       @quantity = quantity
       @component_id = component_id unless component_id == SKIP
       @memo = memo unless memo == SKIP
@@ -114,6 +128,7 @@ module AdvancedBilling
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+      @billing_schedule = billing_schedule unless billing_schedule == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -136,6 +151,8 @@ module AdvancedBilling
       price_point_id = hash.key?('price_point_id') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateAllocationPricePointId), hash['price_point_id']
       ) : SKIP
+      billing_schedule = BillingSchedule.from_hash(hash['billing_schedule']) if
+        hash['billing_schedule']
 
       # Create object from extracted values.
       CreateAllocation.new(quantity,
@@ -146,7 +163,8 @@ module AdvancedBilling
                            accrue_charge,
                            downgrade_credit,
                            upgrade_charge,
-                           price_point_id)
+                           price_point_id,
+                           billing_schedule)
     end
 
     # Validates an instance of the object from a given value.

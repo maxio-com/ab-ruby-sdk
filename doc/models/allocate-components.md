@@ -13,8 +13,8 @@
 | `proration_downgrade_scheme` | `String` | Optional | **Default**: `'no-prorate'` |
 | `allocations` | [`Array<CreateAllocationRequest>`](../../doc/models/create-allocation-request.md) | Optional | - |
 | `accrue_charge` | `TrueClass \| FalseClass` | Optional | - |
-| `upgrade_charge` | `String` | Optional | - |
-| `downgrade_credit` | `String` | Optional | - |
+| `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
+| `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
 | `payment_collection_method` | [`PaymentCollectionMethod1`](../../doc/models/payment-collection-method-1.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription<br>**Default**: `PaymentCollectionMethod1::AUTOMATIC` |
 
 ## Example (as JSON)
@@ -47,7 +47,7 @@
     }
   ],
   "accrue_charge": false,
-  "upgrade_charge": "upgrade_charge4"
+  "upgrade_charge": "full"
 }
 ```
 

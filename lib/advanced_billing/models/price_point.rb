@@ -17,11 +17,15 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :handle
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # TODO: Write general description for this method
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
 

@@ -34,7 +34,7 @@ module AdvancedBilling
     attr_accessor :allocation_id
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :allocated_quantity
 
     # A mapping from model property names to API property names.
@@ -92,8 +92,9 @@ module AdvancedBilling
         hash.key?('component_handle') ? hash['component_handle'] : nil
       memo = hash.key?('memo') ? hash['memo'] : nil
       allocation_id = hash.key?('allocation_id') ? hash['allocation_id'] : nil
-      allocated_quantity =
-        hash.key?('allocated_quantity') ? hash['allocated_quantity'] : SKIP
+      allocated_quantity = hash.key?('allocated_quantity') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:ComponentAllocationChangeAllocatedQuantity), hash['allocated_quantity']
+      ) : SKIP
 
       # Create object from extracted values.
       ComponentAllocationChange.new(previous_allocation,

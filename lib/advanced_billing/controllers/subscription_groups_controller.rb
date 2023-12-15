@@ -235,8 +235,8 @@ module AdvancedBilling
     # [Create Subscription in a Subscription
     # Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-
     # subscription#subscription-in-a-subscription-group)
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @param [AddSubscriptionToAGroup] body Optional parameter: Example:
     # @return [SubscriptionGroupResponse] response from the API call
     def create_subscription_group_hierarchy(subscription_id,
@@ -265,8 +265,8 @@ module AdvancedBilling
     # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
     # features, it is possible to remove existing subscription from subscription
     # group.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
     # @return [void] response from the API call
     def remove_subscription_from_group(subscription_id)
       new_api_call_builder
