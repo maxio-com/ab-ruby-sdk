@@ -1,0 +1,5 @@
+eval_gemfile "../Gemfile"
+
+group :test do
+  gem 'rspec'
+end
