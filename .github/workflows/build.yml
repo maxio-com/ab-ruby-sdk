@@ -9,9 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./spec
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,4 +18,7 @@ jobs:
           ruby-version: 3.3.0
           bundler-cache: true
       - name: Run tests
-        run: bundle exec rspec *_spec.rb
+        working-directory: ./spec
+        run: |
+          bundle install
+          bundle exec rspec *_spec.rb
