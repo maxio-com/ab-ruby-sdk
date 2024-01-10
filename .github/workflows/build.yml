@@ -1,6 +1,4 @@
 name: Build & run tests
-inputs:
-  working-directory: ./spec
 on:
   push:
     branches:
@@ -11,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./spec
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
