@@ -18,11 +18,11 @@ module AdvancedBilling
     attr_accessor :subscription_id
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Object]
     attr_accessor :quantity
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :previous_quantity
 
     # TODO: Write general description for this method
@@ -73,6 +73,18 @@ module AdvancedBilling
     # the component and then site setting if one is not provided.
     # Available values: `full`, `prorated`, `none`.
     # @return [String]
+    attr_accessor :price_point_handle
+
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [String]
+    attr_accessor :price_point_name
+
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [String]
     attr_accessor :component_handle
 
     # A mapping from model property names to API property names.
@@ -91,6 +103,8 @@ module AdvancedBilling
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['price_point_id'] = 'price_point_id'
       @_hash['previous_price_point_id'] = 'previous_price_point_id'
+      @_hash['price_point_handle'] = 'price_point_handle'
+      @_hash['price_point_name'] = 'price_point_name'
       @_hash['component_handle'] = 'component_handle'
       @_hash
     end
@@ -111,6 +125,8 @@ module AdvancedBilling
         downgrade_credit
         price_point_id
         previous_price_point_id
+        price_point_handle
+        price_point_name
         component_handle
       ]
     end
@@ -118,9 +134,11 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        memo
         timestamp
         upgrade_charge
         downgrade_credit
+        component_handle
       ]
     end
 
@@ -137,6 +155,8 @@ module AdvancedBilling
                    downgrade_credit = SKIP,
                    price_point_id = SKIP,
                    previous_price_point_id = SKIP,
+                   price_point_handle = SKIP,
+                   price_point_name = SKIP,
                    component_handle = SKIP)
       @component_id = component_id unless component_id == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
@@ -154,6 +174,8 @@ module AdvancedBilling
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @previous_price_point_id = previous_price_point_id unless previous_price_point_id == SKIP
+      @price_point_handle = price_point_handle unless price_point_handle == SKIP
+      @price_point_name = price_point_name unless price_point_name == SKIP
       @component_handle = component_handle unless component_handle == SKIP
     end
 
@@ -165,9 +187,12 @@ module AdvancedBilling
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       subscription_id =
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
-      quantity = hash.key?('quantity') ? hash['quantity'] : SKIP
-      previous_quantity =
-        hash.key?('previous_quantity') ? hash['previous_quantity'] : SKIP
+      quantity = hash.key?('quantity') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:AllocationPreviewItemQuantity), hash['quantity']
+      ) : SKIP
+      previous_quantity = hash.key?('previous_quantity') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:AllocationPreviewItemPreviousQuantity), hash['previous_quantity']
+      ) : SKIP
       memo = hash.key?('memo') ? hash['memo'] : SKIP
       timestamp = hash.key?('timestamp') ? hash['timestamp'] : SKIP
       proration_upgrade_scheme =
@@ -183,6 +208,10 @@ module AdvancedBilling
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       previous_price_point_id =
         hash.key?('previous_price_point_id') ? hash['previous_price_point_id'] : SKIP
+      price_point_handle =
+        hash.key?('price_point_handle') ? hash['price_point_handle'] : SKIP
+      price_point_name =
+        hash.key?('price_point_name') ? hash['price_point_name'] : SKIP
       component_handle =
         hash.key?('component_handle') ? hash['component_handle'] : SKIP
 
@@ -200,7 +229,19 @@ module AdvancedBilling
                                 downgrade_credit,
                                 price_point_id,
                                 previous_price_point_id,
+                                price_point_handle,
+                                price_point_name,
                                 component_handle)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [AllocationPreviewItem | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

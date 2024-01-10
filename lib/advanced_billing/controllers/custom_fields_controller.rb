@@ -58,11 +58,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metafield.method(:from_hash))
-                   .is_response_array(true))
+                   .is_response_array(true)
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                SingleErrorResponseException))
         .execute
     end
 
@@ -99,7 +102,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMetafieldsResponse.method(:from_hash)))
@@ -134,7 +137,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metafield.method(:from_hash))
@@ -161,7 +164,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .query_param(new_parameter(name, key: 'name'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error('404',
@@ -202,13 +205,10 @@ module AdvancedBilling
     # to which the metafields belong
     # @param [String] resource_id Required parameter: The Chargify id of the
     # customer or the subscription for which the metadata applies
-    # @param [String] value Optional parameter: Can be a single item or a list
-    # of metadata
     # @param [CreateMetadataRequest] body Optional parameter: Example:
     # @return [Array[Metadata]] response from the API call
     def create_metadata(resource_type,
                         resource_id,
-                        value: nil,
                         body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -221,15 +221,17 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .query_param(new_parameter(value, key: 'value'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metadata.method(:from_hash))
-                   .is_response_array(true))
+                   .is_response_array(true)
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                SingleErrorResponseException))
         .execute
     end
 
@@ -254,7 +256,7 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @return [PaginatedMetadata] response from the API call
-    def read_metadata(options = {})
+    def list_metadata(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/{resource_id}/metadata.json',
@@ -268,7 +270,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaginatedMetadata.method(:from_hash)))
@@ -281,13 +283,10 @@ module AdvancedBilling
     # to which the metafields belong
     # @param [String] resource_id Required parameter: The Chargify id of the
     # customer or the subscription for which the metadata applies
-    # @param [String] value Optional parameter: Can be a single item or a list
-    # of metadata
     # @param [UpdateMetadataRequest] body Optional parameter: Example:
     # @return [Array[Metadata]] response from the API call
     def update_metadata(resource_type,
                         resource_id,
-                        value: nil,
                         body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -300,11 +299,10 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .query_param(new_parameter(value, key: 'value'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metadata.method(:from_hash))
@@ -356,9 +354,8 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(name, key: 'name'))
                    .query_param(new_parameter(names, key: 'names[]'))
-                   .auth(Single.new('global'))
-
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .auth(Single.new('BasicAuth'))
+                   .array_serialization_format(ArraySerializationFormat::PLAIN))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error('404',
@@ -419,7 +416,7 @@ module AdvancedBilling
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
     # @return [PaginatedMetadata] response from the API call
-    def list_metadata(options = {})
+    def list_metadata_for_resource_type(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metadata.json',
@@ -438,8 +435,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['resource_ids'], key: 'resource_ids[]'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

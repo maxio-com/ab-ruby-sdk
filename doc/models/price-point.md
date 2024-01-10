@@ -14,6 +14,8 @@
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
 | `prices` | [`Array<Price>`](../../doc/models/price.md) | Optional | - |
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site.<br>**Default**: `true` |
+| `interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. |
+| `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this price point, either month or day. This property is only available for sites with Multifrequency enabled. |
 | `overage_pricing` | [`OveragePricing`](../../doc/models/overage-pricing.md) | Optional | - |
 | `rollover_prepaid_remainder` | `TrueClass \| FalseClass` | Optional | Boolean which controls whether or not remaining units should be rolled over to the next period |
 | `renew_prepaid_allocation` | `TrueClass \| FalseClass` | Optional | Boolean which controls whether or not the allocated quantity should be renewed at the beginning of each period |

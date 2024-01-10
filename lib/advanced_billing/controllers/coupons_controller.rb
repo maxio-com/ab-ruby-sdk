@@ -42,7 +42,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash))
@@ -128,8 +128,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -158,7 +157,7 @@ module AdvancedBilling
                    .query_param(new_parameter(product_family_id, key: 'product_family_id'))
                    .query_param(new_parameter(code, key: 'code'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -194,7 +193,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -231,7 +230,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -261,7 +260,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -372,8 +371,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -402,7 +400,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponUsage.method(:from_hash))
@@ -450,7 +448,7 @@ module AdvancedBilling
                                  .is_required(true))
                    .query_param(new_parameter(product_family_id, key: 'product_family_id'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash))
@@ -470,12 +468,12 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Chargify id of the
     # coupon
     # @param [CouponCurrencyRequest] body Optional parameter: Example:
-    # @return [Array[CouponCurrency]] response from the API call
+    # @return [CouponCurrencyResponse] response from the API call
     def update_coupon_currency_prices(coupon_id,
                                       body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/coupon/{coupon_id}/currency_prices.json',
+                                     '/coupons/{coupon_id}/currency_prices.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(coupon_id, key: 'coupon_id')
                                     .is_required(true)
@@ -484,11 +482,10 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponCurrency.method(:from_hash))
-                   .is_response_array(true))
+                   .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
         .execute
     end
 
@@ -547,7 +544,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
@@ -581,7 +578,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodes.method(:from_hash)))
@@ -614,7 +611,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
@@ -657,7 +654,7 @@ module AdvancedBilling
                    .template_param(new_parameter(subcode, key: 'subcode')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error('404',

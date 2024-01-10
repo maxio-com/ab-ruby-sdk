@@ -13,7 +13,22 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :name
 
-    # TODO: Write general description for this method
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component price point would renew
+    # every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
     # @return [Array[UpdatePrice]]
     attr_accessor :prices
 
@@ -21,6 +36,8 @@ module AdvancedBilling
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['name'] = 'name'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash['prices'] = 'prices'
       @_hash
     end
@@ -29,6 +46,8 @@ module AdvancedBilling
     def self.optionals
       %w[
         name
+        interval
+        interval_unit
         prices
       ]
     end
@@ -39,8 +58,12 @@ module AdvancedBilling
     end
 
     def initialize(name = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP,
                    prices = SKIP)
       @name = name unless name == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
       @prices = prices unless prices == SKIP
     end
 
@@ -50,6 +73,8 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -63,6 +88,8 @@ module AdvancedBilling
 
       # Create object from extracted values.
       UpdateComponentPricePoint.new(name,
+                                    interval,
+                                    interval_unit,
                                     prices)
     end
   end

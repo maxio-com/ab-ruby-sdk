@@ -15,14 +15,28 @@ module AdvancedBilling
 
     # To calculate proration amounts for a future time. Only within a current
     # subscription period. Only ISO8601 format is supported.
-    # @return [String]
+    # @return [Date]
     attr_accessor :effective_proration_date
+
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
+    attr_accessor :upgrade_charge
+
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [CreditType]
+    attr_accessor :downgrade_credit
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['allocations'] = 'allocations'
       @_hash['effective_proration_date'] = 'effective_proration_date'
+      @_hash['upgrade_charge'] = 'upgrade_charge'
+      @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash
     end
 
@@ -30,18 +44,27 @@ module AdvancedBilling
     def self.optionals
       %w[
         effective_proration_date
+        upgrade_charge
+        downgrade_credit
       ]
     end
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        upgrade_charge
+        downgrade_credit
+      ]
     end
 
     def initialize(allocations = nil,
-                   effective_proration_date = SKIP)
+                   effective_proration_date = SKIP,
+                   upgrade_charge = SKIP,
+                   downgrade_credit = SKIP)
       @allocations = allocations
       @effective_proration_date = effective_proration_date unless effective_proration_date == SKIP
+      @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
+      @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -61,10 +84,16 @@ module AdvancedBilling
       allocations = nil unless hash.key?('allocations')
       effective_proration_date =
         hash.key?('effective_proration_date') ? hash['effective_proration_date'] : SKIP
+      upgrade_charge =
+        hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
+      downgrade_credit =
+        hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
 
       # Create object from extracted values.
       PreviewAllocationsRequest.new(allocations,
-                                    effective_proration_date)
+                                    effective_proration_date,
+                                    upgrade_charge,
+                                    downgrade_credit)
     end
   end
 end

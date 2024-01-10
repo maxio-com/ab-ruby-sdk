@@ -146,9 +146,12 @@ module AdvancedBilling
       %w[
         quantity_delta
         pricing_details_index
+        tax_code
+        product_price_point_id
         price_point_id
         component_id
         billing_schedule_item_id
+        custom_item
       ]
     end
 

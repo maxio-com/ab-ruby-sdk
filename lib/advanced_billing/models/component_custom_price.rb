@@ -14,6 +14,19 @@ module AdvancedBilling
     # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component price point would renew
+    # every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # On/off components only need one price bracket starting at 1
     # @return [Array[Price]]
     attr_accessor :prices
@@ -22,6 +35,8 @@ module AdvancedBilling
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['pricing_scheme'] = 'pricing_scheme'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash['prices'] = 'prices'
       @_hash
     end
@@ -30,6 +45,8 @@ module AdvancedBilling
     def self.optionals
       %w[
         pricing_scheme
+        interval
+        interval_unit
         prices
       ]
     end
@@ -40,8 +57,12 @@ module AdvancedBilling
     end
 
     def initialize(pricing_scheme = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP,
                    prices = SKIP)
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
       @prices = prices unless prices == SKIP
     end
 
@@ -52,6 +73,8 @@ module AdvancedBilling
       # Extract variables from the hash.
       pricing_scheme =
         hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -65,6 +88,8 @@ module AdvancedBilling
 
       # Create object from extracted values.
       ComponentCustomPrice.new(pricing_scheme,
+                               interval,
+                               interval_unit,
                                prices)
     end
   end

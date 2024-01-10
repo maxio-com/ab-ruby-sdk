@@ -34,6 +34,19 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this price point would renew every 30
+    # days. This property is only available for sites with Multifrequency
+    # enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this price point, either month
+    # or day. This property is only available for sites with Multifrequency
+    # enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -42,6 +55,8 @@ module AdvancedBilling
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['prices'] = 'prices'
       @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash
     end
 
@@ -50,6 +65,8 @@ module AdvancedBilling
       %w[
         handle
         use_site_exchange_rate
+        interval
+        interval_unit
       ]
     end
 
@@ -62,12 +79,16 @@ module AdvancedBilling
                    pricing_scheme = nil,
                    prices = nil,
                    handle = SKIP,
-                   use_site_exchange_rate = true)
+                   use_site_exchange_rate = true,
+                   interval = SKIP,
+                   interval_unit = SKIP)
       @name = name
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
       @prices = prices
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -90,13 +111,17 @@ module AdvancedBilling
       prices = nil unless hash.key?('prices')
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Create object from extracted values.
       CreateComponentPricePoint.new(name,
                                     pricing_scheme,
                                     prices,
                                     handle,
-                                    use_site_exchange_rate)
+                                    use_site_exchange_rate,
+                                    interval,
+                                    interval_unit)
     end
 
     # Validates an instance of the object from a given value.

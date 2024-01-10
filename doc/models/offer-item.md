@@ -17,6 +17,8 @@
 | `component_name` | `String` | Optional | - |
 | `price_point_name` | `String` | Optional | - |
 | `currency_prices` | [`Array<CurrencyPrice>`](../../doc/models/currency-price.md) | Optional | - |
+| `interval` | `Integer` | Optional | The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. |
+| `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component price point, either month or day. This property is only available for sites with Multifrequency enabled. |
 
 ## Example (as JSON)
 

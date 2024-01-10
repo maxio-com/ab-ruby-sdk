@@ -40,6 +40,8 @@
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | - |
 | `accounting_code` | `String` | Optional | E.g. Internal ID or SKU Number |
 | `event_based_billing_metric_id` | `Integer` | Optional | (Only for Event Based Components) This is an ID of a metric attached to the component. This metric is used to bill upon collected events. |
+| `interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this component's default price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. |
+| `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component's default price point, either month or day. This property is only available for sites with Multifrequency enabled. |
 
 ## Example (as JSON)
 

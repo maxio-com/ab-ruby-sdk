@@ -34,7 +34,7 @@ module AdvancedBilling
     attr_accessor :total_in_cents
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [AllocationPreviewDirection]
     attr_accessor :direction
 
     # TODO: Write general description for this method

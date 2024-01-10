@@ -6,24 +6,44 @@
 module AdvancedBilling
   # Utility class for basic authorization.
   class BasicAuth < CoreLibrary::HeaderAuth
-    # Display error message on occurrence of authentication failure in CustomAuthentication.
+    # Display error message on occurrence of authentication failure.
     # @returns [String] The oAuth error message.
     def error_message
       'BasicAuth: basic_auth_user_name or basic_auth_password is undefined.'
     end
 
     # Initialization constructor.
-    def initialize(basic_auth_user_name, basic_auth_password)
+    def initialize(basic_auth_credentials)
       auth_params = {}
-      unless basic_auth_user_name.nil? || basic_auth_password.nil?
+      unless basic_auth_credentials.nil? ||
+             basic_auth_credentials.username.nil? ||
+             basic_auth_credentials.password.nil?
         auth_params['Authorization'] =
-          "Basic #{AuthHelper.get_base64_encoded_value(basic_auth_user_name, basic_auth_password)}"
+          "Basic #{AuthHelper.get_base64_encoded_value(basic_auth_credentials.username,
+                                                       basic_auth_credentials.password)}"
       end
 
       super auth_params
+    end
+  end
 
-      @_basic_auth_user_name = basic_auth_user_name
-      @_basic_auth_password = basic_auth_password
+  # Data class for BasicAuthCredentials.
+  class BasicAuthCredentials
+    attr_reader :username, :password
+
+    def initialize(username:, password:)
+      raise ArgumentError, 'username cannot be nil' if username.nil?
+      raise ArgumentError, 'password cannot be nil' if password.nil?
+
+      @username = username
+      @password = password
+    end
+
+    def clone_with(username: nil, password: nil)
+      username ||= self.username
+      password ||= self.password
+
+      BasicAuthCredentials.new(username: username, password: password)
     end
   end
 end

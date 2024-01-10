@@ -97,7 +97,7 @@ module AdvancedBilling
     # price point. If the payment is due at the initial_billing_at and it fails
     # the subscription will be immediately canceled. See further notes in the
     # section on Delayed Signups.
-    # @return [DateTime]
+    # @return [String]
     attr_accessor :initial_billing_at
 
     # For European sites subject to PSD2 and using 3D Secure, this can be used
@@ -584,11 +584,8 @@ module AdvancedBilling
                         else
                           SKIP
                         end
-      initial_billing_at = if hash.key?('initial_billing_at')
-                             (DateTimeHelper.from_rfc3339(hash['initial_billing_at']) if hash['initial_billing_at'])
-                           else
-                             SKIP
-                           end
+      initial_billing_at =
+        hash.key?('initial_billing_at') ? hash['initial_billing_at'] : SKIP
       stored_credential_transaction_id =
         hash.key?('stored_credential_transaction_id') ? hash['stored_credential_transaction_id'] : SKIP
       sales_rep_id = hash.key?('sales_rep_id') ? hash['sales_rep_id'] : SKIP
@@ -725,10 +722,6 @@ module AdvancedBilling
 
     def to_next_billing_at
       DateTimeHelper.to_rfc3339(next_billing_at)
-    end
-
-    def to_initial_billing_at
-      DateTimeHelper.to_rfc3339(initial_billing_at)
     end
 
     def to_expires_at

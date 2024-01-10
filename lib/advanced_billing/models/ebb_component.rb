@@ -96,6 +96,19 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :event_based_billing_metric_id
 
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component's default price point would
+    # renew every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component's default price
+    # point, either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -115,6 +128,8 @@ module AdvancedBilling
       @_hash['price_in_cents'] = 'price_in_cents'
       @_hash['event_based_billing_metric_id'] =
         'event_based_billing_metric_id'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash
     end
 
@@ -132,6 +147,8 @@ module AdvancedBilling
         tax_code
         hide_date_range_on_invoice
         price_in_cents
+        interval
+        interval_unit
       ]
     end
 
@@ -157,7 +174,9 @@ module AdvancedBilling
                    unit_price = SKIP,
                    tax_code = SKIP,
                    hide_date_range_on_invoice = SKIP,
-                   price_in_cents = SKIP)
+                   price_in_cents = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP)
       @name = name
       @unit_name = unit_name
       @description = description unless description == SKIP
@@ -176,6 +195,8 @@ module AdvancedBilling
       end
       @price_in_cents = price_in_cents unless price_in_cents == SKIP
       @event_based_billing_metric_id = event_based_billing_metric_id
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -224,6 +245,8 @@ module AdvancedBilling
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
       price_in_cents =
         hash.key?('price_in_cents') ? hash['price_in_cents'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Create object from extracted values.
       EBBComponent.new(name,
@@ -240,7 +263,9 @@ module AdvancedBilling
                        unit_price,
                        tax_code,
                        hide_date_range_on_invoice,
-                       price_in_cents)
+                       price_in_cents,
+                       interval,
+                       interval_unit)
     end
 
     # Validates an instance of the object from a given value.
