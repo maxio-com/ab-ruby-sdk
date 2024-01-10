@@ -1,4 +1,6 @@
 name: Build & run tests
+inputs:
+  working-directory: ./spec
 on:
   push:
     branches:
@@ -13,11 +15,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install Ruby and gems
-        working-directory: ./spec
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3.0
           bundler-cache: true
       - name: Run tests
-        working-directory: ./spec
         run: bundle exec rspec *_spec.rb
