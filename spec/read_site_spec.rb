@@ -21,7 +21,7 @@ RSpec.describe AdvancedBilling::SitesController do
 
         allocation_settings = site.allocation_settings
         expect(allocation_settings.upgrade_charge).to eq(AdvancedBilling::CreditType::PRORATED)
-        expect(allocation_settings.accrue_charge).to eq(true)
+        expect(allocation_settings.accrue_charge).to eq('true')
         expect(allocation_settings.downgrade_credit).to eq(AdvancedBilling::CreditType::NONE)
 
         organization_address = site.organization_address
