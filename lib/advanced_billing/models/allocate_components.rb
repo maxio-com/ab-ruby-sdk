@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :proration_downgrade_scheme
 
     # TODO: Write general description for this method
-    # @return [Array[CreateAllocationRequest]]
+    # @return [Array[CreateAllocation]]
     attr_accessor :allocations
 
     # TODO: Write general description for this method
@@ -42,6 +42,12 @@ module AdvancedBilling
     # @return [PaymentCollectionMethod1]
     attr_accessor :payment_collection_method
 
+    # If true, if the immediate component payment fails, initiate dunning for
+    # the subscription. 
+    # Otherwise, leave the charges on the subscription to pay for at renewal.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :initiate_dunning
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -52,6 +58,7 @@ module AdvancedBilling
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['payment_collection_method'] = 'payment_collection_method'
+      @_hash['initiate_dunning'] = 'initiate_dunning'
       @_hash
     end
 
@@ -65,6 +72,7 @@ module AdvancedBilling
         upgrade_charge
         downgrade_credit
         payment_collection_method
+        initiate_dunning
       ]
     end
 
@@ -76,13 +84,14 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(proration_upgrade_scheme = 'no-prorate',
-                   proration_downgrade_scheme = 'no-prorate',
+    def initialize(proration_upgrade_scheme = SKIP,
+                   proration_downgrade_scheme = SKIP,
                    allocations = SKIP,
                    accrue_charge = SKIP,
                    upgrade_charge = SKIP,
                    downgrade_credit = SKIP,
-                   payment_collection_method = PaymentCollectionMethod1::AUTOMATIC)
+                   payment_collection_method = PaymentCollectionMethod1::AUTOMATIC,
+                   initiate_dunning = SKIP)
       @proration_upgrade_scheme = proration_upgrade_scheme unless proration_upgrade_scheme == SKIP
       unless proration_downgrade_scheme == SKIP
         @proration_downgrade_scheme =
@@ -96,6 +105,7 @@ module AdvancedBilling
         @payment_collection_method =
           payment_collection_method
       end
+      @initiate_dunning = initiate_dunning unless initiate_dunning == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -104,15 +114,15 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       proration_upgrade_scheme =
-        hash['proration_upgrade_scheme'] ||= 'no-prorate'
+        hash.key?('proration_upgrade_scheme') ? hash['proration_upgrade_scheme'] : SKIP
       proration_downgrade_scheme =
-        hash['proration_downgrade_scheme'] ||= 'no-prorate'
+        hash.key?('proration_downgrade_scheme') ? hash['proration_downgrade_scheme'] : SKIP
       # Parameter is an array, so we need to iterate through it
       allocations = nil
       unless hash['allocations'].nil?
         allocations = []
         hash['allocations'].each do |structure|
-          allocations << (CreateAllocationRequest.from_hash(structure) if structure)
+          allocations << (CreateAllocation.from_hash(structure) if structure)
         end
       end
 
@@ -124,6 +134,8 @@ module AdvancedBilling
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       payment_collection_method =
         hash['payment_collection_method'] ||= PaymentCollectionMethod1::AUTOMATIC
+      initiate_dunning =
+        hash.key?('initiate_dunning') ? hash['initiate_dunning'] : SKIP
 
       # Create object from extracted values.
       AllocateComponents.new(proration_upgrade_scheme,
@@ -132,7 +144,8 @@ module AdvancedBilling
                              accrue_charge,
                              upgrade_charge,
                              downgrade_credit,
-                             payment_collection_method)
+                             payment_collection_method,
+                             initiate_dunning)
     end
   end
 end

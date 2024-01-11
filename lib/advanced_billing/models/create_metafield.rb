@@ -10,10 +10,6 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :id
-
-    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :name
 
@@ -38,7 +34,6 @@ module AdvancedBilling
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['id'] = 'id'
       @_hash['name'] = 'name'
       @_hash['scope'] = 'scope'
       @_hash['input_type'] = 'input_type'
@@ -49,7 +44,6 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        id
         name
         scope
         input_type
@@ -62,12 +56,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   name = SKIP,
+    def initialize(name = SKIP,
                    scope = SKIP,
                    input_type = MetafieldInput::TEXT,
                    enum = SKIP)
-      @id = id unless id == SKIP
       @name = name unless name == SKIP
       @scope = scope unless scope == SKIP
       @input_type = input_type unless input_type == SKIP
@@ -79,15 +71,13 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      id = hash.key?('id') ? hash['id'] : SKIP
       name = hash.key?('name') ? hash['name'] : SKIP
       scope = MetafieldScope.from_hash(hash['scope']) if hash['scope']
       input_type = hash['input_type'] ||= MetafieldInput::TEXT
       enum = hash.key?('enum') ? hash['enum'] : SKIP
 
       # Create object from extracted values.
-      CreateMetafield.new(id,
-                          name,
+      CreateMetafield.new(name,
                           scope,
                           input_type,
                           enum)

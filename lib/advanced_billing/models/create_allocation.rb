@@ -53,6 +53,13 @@ module AdvancedBilling
     # @return [CreditType]
     attr_accessor :upgrade_charge
 
+    # If set to true, if the immediate component payment fails, initiate dunning
+    # for the subscription. 
+    # Otherwise, leave the charges on the subscription to pay for at renewal.
+    # Defaults to false.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :initiate_dunning
+
     # Price point that the allocation should be charged at. Accepts either the
     # price point's id (integer) or handle (string). When not specified, the
     # default price point will be used.
@@ -77,6 +84,7 @@ module AdvancedBilling
       @_hash['accrue_charge'] = 'accrue_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['upgrade_charge'] = 'upgrade_charge'
+      @_hash['initiate_dunning'] = 'initiate_dunning'
       @_hash['price_point_id'] = 'price_point_id'
       @_hash['billing_schedule'] = 'billing_schedule'
       @_hash
@@ -92,6 +100,7 @@ module AdvancedBilling
         accrue_charge
         downgrade_credit
         upgrade_charge
+        initiate_dunning
         price_point_id
         billing_schedule
       ]
@@ -114,6 +123,7 @@ module AdvancedBilling
                    accrue_charge = SKIP,
                    downgrade_credit = SKIP,
                    upgrade_charge = SKIP,
+                   initiate_dunning = SKIP,
                    price_point_id = SKIP,
                    billing_schedule = SKIP)
       @quantity = quantity
@@ -127,6 +137,7 @@ module AdvancedBilling
       @accrue_charge = accrue_charge unless accrue_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
+      @initiate_dunning = initiate_dunning unless initiate_dunning == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @billing_schedule = billing_schedule unless billing_schedule == SKIP
     end
@@ -148,6 +159,8 @@ module AdvancedBilling
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       upgrade_charge =
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
+      initiate_dunning =
+        hash.key?('initiate_dunning') ? hash['initiate_dunning'] : SKIP
       price_point_id = hash.key?('price_point_id') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateAllocationPricePointId), hash['price_point_id']
       ) : SKIP
@@ -163,6 +176,7 @@ module AdvancedBilling
                            accrue_charge,
                            downgrade_credit,
                            upgrade_charge,
+                           initiate_dunning,
                            price_point_id,
                            billing_schedule)
     end

@@ -105,6 +105,19 @@ module AdvancedBilling
     # @return [Array[Integer]]
     attr_accessor :public_signup_page_ids
 
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component's default price point would
+    # renew every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component's default price
+    # point, either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -125,6 +138,8 @@ module AdvancedBilling
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['allow_fractional_quantities'] = 'allow_fractional_quantities'
       @_hash['public_signup_page_ids'] = 'public_signup_page_ids'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash
     end
 
@@ -145,6 +160,8 @@ module AdvancedBilling
         display_on_hosted_page
         allow_fractional_quantities
         public_signup_page_ids
+        interval
+        interval_unit
       ]
     end
 
@@ -172,7 +189,9 @@ module AdvancedBilling
                    price_in_cents = SKIP,
                    display_on_hosted_page = SKIP,
                    allow_fractional_quantities = SKIP,
-                   public_signup_page_ids = SKIP)
+                   public_signup_page_ids = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP)
       @name = name
       @unit_name = unit_name
       @description = description unless description == SKIP
@@ -196,6 +215,8 @@ module AdvancedBilling
           allow_fractional_quantities
       end
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -248,6 +269,8 @@ module AdvancedBilling
         hash.key?('allow_fractional_quantities') ? hash['allow_fractional_quantities'] : SKIP
       public_signup_page_ids =
         hash.key?('public_signup_page_ids') ? hash['public_signup_page_ids'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Create object from extracted values.
       MeteredComponent.new(name,
@@ -266,7 +289,9 @@ module AdvancedBilling
                            price_in_cents,
                            display_on_hosted_page,
                            allow_fractional_quantities,
-                           public_signup_page_ids)
+                           public_signup_page_ids,
+                           interval,
+                           interval_unit)
     end
 
     # Validates an instance of the object from a given value.

@@ -657,13 +657,53 @@ module AdvancedBilling
           )
         ),
 
-        :AllocationPayment2 => OneOf.new(
+        :AllocationQuantity => OneOf.new(
           [
-            LeafType.new(AllocationPayment)
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :AllocationPreviousQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :AllocationPayment => OneOf.new(
+          [
+            LeafType.new(PaymentForAllocation)
           ],
           UnionTypeContext.new(
             is_optional: true,
             is_nullable: true
+          )
+        ),
+
+        :AllocationPreviewItemQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :AllocationPreviewItemPreviousQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
           )
         ),
 

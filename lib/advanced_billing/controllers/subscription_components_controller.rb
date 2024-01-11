@@ -26,7 +26,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
@@ -106,8 +106,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -140,7 +139,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BulkComponentSPricePointAssignment.method(:from_hash))
@@ -165,7 +164,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
@@ -262,10 +261,13 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AllocationResponse.method(:from_hash)))
+                   .deserialize_into(AllocationResponse.method(:from_hash))
+                   .local_error('422',
+                                'Unprocessable Entity (WebDAV)',
+                                ErrorListResponseException))
         .execute
     end
 
@@ -314,7 +316,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(page, key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
@@ -327,7 +329,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
-                                APIException))
+                                ErrorListResponseException))
         .execute
     end
 
@@ -355,7 +357,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
@@ -381,8 +383,8 @@ module AdvancedBilling
     # When the allocation uses multiple different types of `upgrade_charge`s or
     # `downgrade_credit`s, the Allocation is viewed as an Allocation which uses
     # "Fine-Grained Component Control". As a result, the response will not
-    # include `direction` and `proration` within the `allocation_preview` at the
-    # `line_items` and `allocations` level respectfully.
+    # include `direction` and `proration` within the `allocation_preview`, but
+    # at the `line_items` and `allocations` level respectfully.
     # See example below for Fine-Grained Component Control response.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
@@ -401,7 +403,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationPreviewResponse.method(:from_hash))
@@ -454,7 +456,7 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error('422',
@@ -506,7 +508,7 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error('422',
@@ -611,7 +613,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
@@ -686,7 +688,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
@@ -724,7 +726,7 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -750,7 +752,7 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -799,7 +801,7 @@ module AdvancedBilling
                    .query_param(new_parameter(store_uid, key: 'store_uid'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -837,7 +839,7 @@ module AdvancedBilling
                    .query_param(new_parameter(store_uid, key: 'store_uid'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -967,8 +969,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_subscription_end_date'], key: 'filter[subscription][end_date]'))
                    .query_param(new_parameter(options['filter_subscription_end_datetime'], key: 'filter[subscription][end_datetime]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

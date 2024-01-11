@@ -18,7 +18,10 @@ module AdvancedBilling
       DUNNING = 'dunning'.freeze,
 
       # TODO: Write general description for BILLING_PORTAL
-      BILLING_PORTAL = 'billing_portal'.freeze
+      BILLING_PORTAL = 'billing_portal'.freeze,
+
+      # TODO: Write general description for UNKNOWN
+      UNKNOWN = 'unknown'.freeze
     ].freeze
 
     def self.validate(value)

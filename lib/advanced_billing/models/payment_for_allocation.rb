@@ -5,7 +5,7 @@
 
 module AdvancedBilling
   # Information for captured payment, if applicable
-  class AllocationPayment < BaseModel
+  class PaymentForAllocation < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -72,14 +72,14 @@ module AdvancedBilling
       memo = hash.key?('memo') ? hash['memo'] : SKIP
 
       # Create object from extracted values.
-      AllocationPayment.new(id,
-                            amount_in_cents,
-                            success,
-                            memo)
+      PaymentForAllocation.new(id,
+                               amount_in_cents,
+                               success,
+                               memo)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [AllocationPayment | Hash] The value against the validation is performed.
+    # @param [PaymentForAllocation | Hash] The value against the validation is performed.
     def self.validate(value)
       return true if value.instance_of? self
 

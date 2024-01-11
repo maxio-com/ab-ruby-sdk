@@ -41,6 +41,19 @@ module AdvancedBilling
     # @return [Array[CurrencyPrice]]
     attr_accessor :currency_prices
 
+    # The numerical interval. i.e. an interval of '30' coupled with an
+    # interval_unit of day would mean this component price point would renew
+    # every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -52,6 +65,8 @@ module AdvancedBilling
       @_hash['component_name'] = 'component_name'
       @_hash['price_point_name'] = 'price_point_name'
       @_hash['currency_prices'] = 'currency_prices'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash
     end
 
@@ -66,6 +81,8 @@ module AdvancedBilling
         component_name
         price_point_name
         currency_prices
+        interval
+        interval_unit
       ]
     end
 
@@ -81,7 +98,9 @@ module AdvancedBilling
                    component_unit_price = SKIP,
                    component_name = SKIP,
                    price_point_name = SKIP,
-                   currency_prices = SKIP)
+                   currency_prices = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP)
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
@@ -90,6 +109,8 @@ module AdvancedBilling
       @component_name = component_name unless component_name == SKIP
       @price_point_name = price_point_name unless price_point_name == SKIP
       @currency_prices = currency_prices unless currency_prices == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -119,6 +140,8 @@ module AdvancedBilling
       end
 
       currency_prices = SKIP unless hash.key?('currency_prices')
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Create object from extracted values.
       OfferItem.new(component_id,
@@ -128,7 +151,9 @@ module AdvancedBilling
                     component_unit_price,
                     component_name,
                     price_point_name,
-                    currency_prices)
+                    currency_prices,
+                    interval,
+                    interval_unit)
     end
   end
 end

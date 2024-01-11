@@ -15,7 +15,7 @@
 | `total_tax_in_cents` | `Integer` | Optional | - |
 | `total_discount_in_cents` | `Integer` | Optional | - |
 | `total_in_cents` | `Integer` | Optional | - |
-| `direction` | `String` | Optional | - |
+| `direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | - |
 | `proration_scheme` | `String` | Optional | - |
 | `line_items` | [`Array<AllocationPreviewLineItem>`](../../doc/models/allocation-preview-line-item.md) | Optional | - |
 | `accrue_charge` | `TrueClass \| FalseClass` | Optional | - |

@@ -87,6 +87,19 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_included
 
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component price point would renew
+    # every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -104,6 +117,8 @@ module AdvancedBilling
       @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
       @_hash['subscription_id'] = 'subscription_id'
       @_hash['tax_included'] = 'tax_included'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash
     end
 
@@ -124,6 +139,8 @@ module AdvancedBilling
         use_site_exchange_rate
         subscription_id
         tax_included
+        interval
+        interval_unit
       ]
     end
 
@@ -147,7 +164,9 @@ module AdvancedBilling
                    prices = SKIP,
                    use_site_exchange_rate = true,
                    subscription_id = SKIP,
-                   tax_included = SKIP)
+                   tax_included = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP)
       @id = id unless id == SKIP
       @type = type unless type == SKIP
       @default = default unless default == SKIP
@@ -162,6 +181,8 @@ module AdvancedBilling
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @tax_included = tax_included unless tax_included == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -194,6 +215,8 @@ module AdvancedBilling
       subscription_id =
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Create object from extracted values.
       ComponentPricePoint.new(id,
@@ -209,7 +232,9 @@ module AdvancedBilling
                               prices,
                               use_site_exchange_rate,
                               subscription_id,
-                              tax_included)
+                              tax_included,
+                              interval,
+                              interval_unit)
     end
   end
 end

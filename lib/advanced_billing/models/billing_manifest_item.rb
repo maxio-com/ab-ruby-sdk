@@ -9,59 +9,59 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # A handle for the line item transaction type
+    # @return [LineItemTransactionType]
     attr_accessor :transaction_type
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # A handle for the billing manifest line item kind
+    # @return [BillingManifestLineItemKind]
     attr_accessor :kind
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [Integer]
     attr_accessor :amount_in_cents
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :memo
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [Integer]
     attr_accessor :discount_amount_in_cents
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [Integer]
     attr_accessor :taxable_amount_in_cents
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [Integer]
     attr_accessor :component_id
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :component_handle
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :component_name
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [Integer]
     attr_accessor :product_id
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :product_handle
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :product_name
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :period_range_start
 
-    # TODO: Write general description for this method
+    # A handle for the billing manifest line item kind
     # @return [String]
     attr_accessor :period_range_end
 

@@ -36,7 +36,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProformaInvoice.method(:from_hash))
@@ -77,7 +77,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
@@ -118,7 +118,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Subscription.method(:from_hash))
@@ -138,7 +138,7 @@ module AdvancedBilling
                                      '/api_exports/proforma_invoices.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BatchJobResponse.method(:from_hash))
@@ -147,7 +147,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('409',
                                 'Conflict',
-                                SingleErrorResponseErrorException))
+                                SingleErrorResponseException))
         .execute
     end
 
@@ -159,7 +159,7 @@ module AdvancedBilling
                                      '/api_exports/invoices.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BatchJobResponse.method(:from_hash))
@@ -168,7 +168,7 @@ module AdvancedBilling
                                 APIException)
                    .local_error('409',
                                 'Conflict',
-                                SingleErrorResponseErrorException))
+                                SingleErrorResponseException))
         .execute
     end
 
@@ -180,13 +180,13 @@ module AdvancedBilling
                                      '/api_exports/subscriptions.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BatchJobResponse.method(:from_hash))
                    .local_error('409',
                                 'Conflict',
-                                SingleErrorResponseErrorException))
+                                SingleErrorResponseException))
         .execute
     end
 
@@ -202,7 +202,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BatchJobResponse.method(:from_hash))
@@ -224,7 +224,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BatchJobResponse.method(:from_hash))
@@ -246,7 +246,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BatchJobResponse.method(:from_hash))

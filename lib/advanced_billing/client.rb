@@ -194,26 +194,27 @@ module AdvancedBilling
       @webhooks ||= WebhooksController.new @global_configuration
     end
 
-    def initialize(connection: nil, adapter: :net_http_persistent, timeout: 30,
-                   max_retries: 0, retry_interval: 1, backoff_factor: 2,
-                   retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-                   retry_methods: %i[get put], http_callback: nil,
-                   environment: Environment::PRODUCTION, subdomain: 'subdomain',
-                   domain: 'chargify.com',
-                   basic_auth_user_name: 'TODO: Replace',
-                   basic_auth_password: 'TODO: Replace', config: nil)
+    def initialize(
+      connection: nil, adapter: :net_http_persistent, timeout: 30,
+      max_retries: 0, retry_interval: 1, backoff_factor: 2,
+      retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
+      retry_methods: %i[get put], http_callback: nil,
+      environment: Environment::PRODUCTION, subdomain: 'subdomain',
+      domain: 'chargify.com', basic_auth_user_name: nil,
+      basic_auth_password: nil, basic_auth_credentials: nil, config: nil
+    )
       @config = if config.nil?
-                  Configuration.new(connection: connection, adapter: adapter,
-                                    timeout: timeout, max_retries: max_retries,
-                                    retry_interval: retry_interval,
-                                    backoff_factor: backoff_factor,
-                                    retry_statuses: retry_statuses,
-                                    retry_methods: retry_methods,
-                                    http_callback: http_callback,
-                                    environment: environment,
-                                    subdomain: subdomain, domain: domain,
-                                    basic_auth_user_name: basic_auth_user_name,
-                                    basic_auth_password: basic_auth_password)
+                  Configuration.new(
+                    connection: connection, adapter: adapter, timeout: timeout,
+                    max_retries: max_retries, retry_interval: retry_interval,
+                    backoff_factor: backoff_factor,
+                    retry_statuses: retry_statuses,
+                    retry_methods: retry_methods, http_callback: http_callback,
+                    environment: environment, subdomain: subdomain,
+                    domain: domain, basic_auth_user_name: basic_auth_user_name,
+                    basic_auth_password: basic_auth_password,
+                    basic_auth_credentials: basic_auth_credentials
+                  )
                 else
                   config
                 end
@@ -234,9 +235,8 @@ module AdvancedBilling
     def initialize_auth_managers(global_config)
       @auth_managers = {}
       http_client_config = global_config.client_configuration
-      ['global'].each { |auth| @auth_managers[auth] = nil }
-      @auth_managers['global'] = BasicAuth.new(http_client_config.basic_auth_user_name,
-                                               http_client_config.basic_auth_password)
+      %w[BasicAuth].each { |auth| @auth_managers[auth] = nil }
+      @auth_managers['BasicAuth'] = BasicAuth.new(http_client_config.basic_auth_credentials)
     end
   end
 end

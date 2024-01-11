@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Single Error Response_Error class.
-  class SingleErrorResponseErrorException < APIException
+  # Single Error Response class.
+  class SingleErrorResponseException < APIException
     SKIP = Object.new
     private_constant :SKIP
 

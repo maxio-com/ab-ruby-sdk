@@ -155,6 +155,19 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :event_based_billing_metric_id
 
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component's default price point would
+    # renew every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component's default price
+    # point, either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -190,6 +203,8 @@ module AdvancedBilling
       @_hash['accounting_code'] = 'accounting_code'
       @_hash['event_based_billing_metric_id'] =
         'event_based_billing_metric_id'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash
     end
 
@@ -227,6 +242,8 @@ module AdvancedBilling
         use_site_exchange_rate
         accounting_code
         event_based_billing_metric_id
+        interval
+        interval_unit
       ]
     end
 
@@ -279,7 +296,9 @@ module AdvancedBilling
                    item_category = SKIP,
                    use_site_exchange_rate = SKIP,
                    accounting_code = SKIP,
-                   event_based_billing_metric_id = SKIP)
+                   event_based_billing_metric_id = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP)
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
@@ -320,6 +339,8 @@ module AdvancedBilling
         @event_based_billing_metric_id =
           event_based_billing_metric_id
       end
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -383,6 +404,8 @@ module AdvancedBilling
         hash.key?('accounting_code') ? hash['accounting_code'] : SKIP
       event_based_billing_metric_id =
         hash.key?('event_based_billing_metric_id') ? hash['event_based_billing_metric_id'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Create object from extracted values.
       Component.new(id,
@@ -415,7 +438,9 @@ module AdvancedBilling
                     item_category,
                     use_site_exchange_rate,
                     accounting_code,
-                    event_based_billing_metric_id)
+                    event_based_billing_metric_id,
+                    interval,
+                    interval_unit)
     end
 
     # Validates an instance of the object from a given value.
