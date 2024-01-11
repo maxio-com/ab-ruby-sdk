@@ -17,6 +17,7 @@ RSpec.describe AdvancedBilling::SitesController do
         expect(site.customer_hierarchy_enabled).to eq(false)
         expect(site.whopays_enabled).to eq(false)
         expect(site.whopays_default_payer).to eq('self-ungrouped')
+        expect(site.default_payment_collection_method).to eq(AdvancedBilling::PaymentCollectionMethod::AUTOMATIC)
 
         allocation_settings = site.allocation_settings
         expect(allocation_settings.upgrade_charge).to eq(AdvancedBilling::CreditType::PRORATED)
