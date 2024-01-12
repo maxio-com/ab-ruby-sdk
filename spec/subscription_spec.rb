@@ -86,8 +86,12 @@ RSpec.describe 'Awaiting sign up subscription' do
   end
 
   it 'does not create subscription with invalid credentials' do
+    coupon = Factories::Coupon.create(
+      @client, product_family: @product_family, product: @product, component: @metered_component
+    )
+
     expect {
-      Factories::Subscription.create(build_client(api_key: 'invalid'), product: @product, coupon_code: 'abc', customer: @customer, component: @metered_component)
+      Factories::Subscription.create(build_client(api_key: 'invalid'), product: @product, coupon_code: coupon.code, customer: @customer, component: @metered_component)
     }.to raise_error do |error|
       expect(error).to be_a(AdvancedBilling::APIException)
       expect(error.response.status_code).to eq(401)
