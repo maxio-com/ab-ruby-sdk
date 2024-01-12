@@ -2,4 +2,6 @@ eval_gemfile "../Gemfile"
 
 group :test do
   gem 'rspec'
+  gem 'dotenv'
+  gem 'ffaker'
 end
