@@ -219,9 +219,3 @@ result = billing_portal_controller.revoke_billing_portal_access(customer_id)
 }
 ```
 
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | `APIException` |
-

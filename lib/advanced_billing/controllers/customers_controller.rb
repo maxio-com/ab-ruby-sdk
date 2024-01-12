@@ -51,13 +51,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                CustomerErrorResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         CustomerErrorResponseException))
         .execute
     end
 
@@ -126,7 +127,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['q'], key: 'q'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
@@ -147,7 +148,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash)))
@@ -171,16 +172,17 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                CustomerErrorResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         CustomerErrorResponseException))
         .execute
     end
 
@@ -195,7 +197,7 @@ module AdvancedBilling
                    .template_param(new_parameter(id, key: 'id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -213,7 +215,7 @@ module AdvancedBilling
                    .query_param(new_parameter(reference, key: 'reference')
                                  .is_required(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash)))
@@ -233,7 +235,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash))

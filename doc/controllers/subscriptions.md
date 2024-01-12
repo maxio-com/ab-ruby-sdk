@@ -1355,7 +1355,6 @@ subscriptions_controller.override_subscription(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
@@ -1426,12 +1425,6 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
   ack
 )
 ```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Bad Request | `APIException` |
 
 
 # Create Prepaid Subscription

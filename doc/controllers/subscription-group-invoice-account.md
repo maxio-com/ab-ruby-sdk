@@ -124,8 +124,6 @@ result = subscription_group_invoice_account_controller.list_prepayments_for_subs
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 
 

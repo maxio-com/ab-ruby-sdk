@@ -48,13 +48,14 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(auto_invite, key: 'auto_invite'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -82,16 +83,18 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PortalManagementLink.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException)
-                   .local_error('429',
-                                'Too Many Requests',
-                                TooManyManagementLinkRequestsErrorException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException)
+                   .local_error_template('429',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         TooManyManagementLinkRequestsErrorException))
         .execute
     end
 
@@ -118,16 +121,17 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ResentInvitation.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -148,13 +152,10 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RevokedInvitation.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                APIException))
+                   .deserialize_into(RevokedInvitation.method(:from_hash)))
         .execute
     end
   end

@@ -302,16 +302,15 @@ The following parameters are configurable for the API Client:
 | `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `basic_auth_credentials` | [`BasicAuthCredentials`](https://www.github.com/maxio-com/ab-ruby-sdk/tree/0.0.4/doc/$a/https://www.github.com/maxio-com/ab-ruby-sdk/tree/0.0.4/basic-authentication.md) | The credential object for Basic Authentication |
+| `basic_auth_user_name` | `String` | The username to use with basic authentication |
+| `basic_auth_password` | `String` | The password to use with basic authentication |
 
 The API client can be initialized as follows:
 
 ```ruby
 client = AdvancedBilling::Client.new(
-  basic_auth_credentials: BasicAuthCredentials.new(
-    username: 'BasicAuthUserName',
-    password: 'BasicAuthPassword'
-  ),
+  basic_auth_user_name: 'BasicAuthUserName',
+  basic_auth_password: 'BasicAuthPassword',
   environment: Environment::PRODUCTION,
   subdomain: 'subdomain',
   domain: 'chargify.com'
@@ -331,9 +330,7 @@ The SDK can be configured to use a different environment for making API calls. A
 
 ## Authorization
 
-This API uses the following authentication schemes.
-
-* [`BasicAuth (Basic Authentication)`](https://www.github.com/maxio-com/ab-ruby-sdk/tree/0.0.4/doc/$a/https://www.github.com/maxio-com/ab-ruby-sdk/tree/0.0.4/basic-authentication.md)
+This API uses `Basic Authentication`.
 
 ## List of APIs
 

@@ -42,13 +42,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -128,7 +129,8 @@ module AdvancedBilling
                    .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth'))
+                   .auth(Single.new('global'))
+
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -157,7 +159,7 @@ module AdvancedBilling
                    .query_param(new_parameter(product_family_id, key: 'product_family_id'))
                    .query_param(new_parameter(code, key: 'code'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -193,7 +195,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -230,7 +232,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -260,7 +262,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash)))
@@ -371,7 +373,8 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth'))
+                   .auth(Single.new('global'))
+
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -400,7 +403,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponUsage.method(:from_hash))
@@ -448,7 +451,7 @@ module AdvancedBilling
                                  .is_required(true))
                    .query_param(new_parameter(product_family_id, key: 'product_family_id'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponResponse.method(:from_hash))
@@ -482,7 +485,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
@@ -544,7 +547,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
@@ -578,7 +581,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodes.method(:from_hash)))
@@ -611,7 +614,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
@@ -654,12 +657,12 @@ module AdvancedBilling
                    .template_param(new_parameter(subcode, key: 'subcode')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true)
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
         .execute
     end
   end

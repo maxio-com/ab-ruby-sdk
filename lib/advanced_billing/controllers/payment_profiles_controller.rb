@@ -307,13 +307,17 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CreatePaymentProfileResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -343,7 +347,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['customer_id'], key: 'customer_id'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListPaymentProfilesResponse.method(:from_hash))
@@ -396,7 +400,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ReadPaymentProfileResponse.method(:from_hash)))
@@ -462,7 +466,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UpdatePaymentProfileResponse.method(:from_hash)))
@@ -483,12 +487,13 @@ module AdvancedBilling
                    .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -519,7 +524,7 @@ module AdvancedBilling
                    .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -545,16 +550,17 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BankAccountResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -578,7 +584,7 @@ module AdvancedBilling
                    .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -606,13 +612,14 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -640,13 +647,14 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -669,13 +677,13 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(GetOneTimeTokenRequest.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -705,15 +713,16 @@ module AdvancedBilling
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true)
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
   end
