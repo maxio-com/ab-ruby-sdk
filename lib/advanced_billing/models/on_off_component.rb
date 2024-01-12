@@ -14,13 +14,6 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :name
 
-    # The name of the unit of measurement for the component. It should be
-    # singular since it will be automatically pluralized when necessary. i.e.
-    # “message”, which may then be shown as “5 messages” on a subscription’s
-    # component line-item
-    # @return [String]
-    attr_accessor :unit_name
-
     # A description for the component that will be displayed to the user on the
     # hosted signup page.
     # @return [String]
@@ -116,7 +109,6 @@ module AdvancedBilling
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['name'] = 'name'
-      @_hash['unit_name'] = 'unit_name'
       @_hash['description'] = 'description'
       @_hash['handle'] = 'handle'
       @_hash['taxable'] = 'taxable'
@@ -139,7 +131,6 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        unit_name
         description
         handle
         taxable
@@ -168,7 +159,6 @@ module AdvancedBilling
     end
 
     def initialize(name = nil,
-                   unit_name = SKIP,
                    description = SKIP,
                    handle = SKIP,
                    taxable = SKIP,
@@ -186,7 +176,6 @@ module AdvancedBilling
                    interval = SKIP,
                    interval_unit = SKIP)
       @name = name
-      @unit_name = unit_name unless unit_name == SKIP
       @description = description unless description == SKIP
       @handle = handle unless handle == SKIP
       @taxable = taxable unless taxable == SKIP
@@ -217,7 +206,6 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : nil
-      unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
@@ -264,7 +252,6 @@ module AdvancedBilling
 
       # Create object from extracted values.
       OnOffComponent.new(name,
-                         unit_name,
                          description,
                          handle,
                          taxable,

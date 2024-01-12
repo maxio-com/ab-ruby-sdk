@@ -27,7 +27,7 @@ module AdvancedBilling
                                      '/site.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SiteResponse.method(:from_hash)))
@@ -53,12 +53,9 @@ module AdvancedBilling
                                      '/sites/clear_data.json',
                                      Server::DEFAULT)
                    .query_param(new_parameter(cleanup_scope, key: 'cleanup_scope'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('403',
-                                'Forbidden',
-                                APIException))
+                   .is_response_void(true))
         .execute
     end
 
@@ -83,7 +80,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListPublicKeysResponse.method(:from_hash)))

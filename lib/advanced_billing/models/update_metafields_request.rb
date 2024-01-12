@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Metafields1]
+    # @return [Object]
     attr_accessor :metafields
 
     # A mapping from model property names to API property names.

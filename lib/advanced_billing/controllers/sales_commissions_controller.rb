@@ -55,7 +55,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SaleRepSettings.method(:from_hash))
@@ -112,7 +112,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListSaleRepItem.method(:from_hash))
@@ -179,7 +179,7 @@ module AdvancedBilling
                    .query_param(new_parameter(page, key: 'page'))
                    .query_param(new_parameter(per_page, key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SaleRep.method(:from_hash)))

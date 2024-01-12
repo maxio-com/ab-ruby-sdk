@@ -28,13 +28,13 @@ module AdvancedBilling
                    .query_param(new_parameter(code, key: 'code')
                                  .is_required(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ReferralValidationResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                SingleStringErrorResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         SingleStringErrorResponseException))
         .execute
     end
   end

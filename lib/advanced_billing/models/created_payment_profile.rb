@@ -131,6 +131,11 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :gateway_handle
 
+    # The vault that stores the payment profile with the provided `vault_token`.
+    # Use `bogus` for testing.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :disabled
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -160,6 +165,7 @@ module AdvancedBilling
       @_hash['verified'] = 'verified'
       @_hash['site_gateway_setting_id'] = 'site_gateway_setting_id'
       @_hash['gateway_handle'] = 'gateway_handle'
+      @_hash['disabled'] = 'disabled'
       @_hash
     end
 
@@ -192,6 +198,7 @@ module AdvancedBilling
         verified
         site_gateway_setting_id
         gateway_handle
+        disabled
       ]
     end
 
@@ -229,7 +236,8 @@ module AdvancedBilling
                    bank_account_holder_type = SKIP,
                    verified = SKIP,
                    site_gateway_setting_id = SKIP,
-                   gateway_handle = SKIP)
+                   gateway_handle = SKIP,
+                   disabled = SKIP)
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -262,6 +270,7 @@ module AdvancedBilling
       @verified = verified unless verified == SKIP
       @site_gateway_setting_id = site_gateway_setting_id unless site_gateway_setting_id == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
+      @disabled = disabled unless disabled == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -308,6 +317,7 @@ module AdvancedBilling
         hash.key?('site_gateway_setting_id') ? hash['site_gateway_setting_id'] : SKIP
       gateway_handle =
         hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
+      disabled = hash.key?('disabled') ? hash['disabled'] : SKIP
 
       # Create object from extracted values.
       CreatedPaymentProfile.new(id,
@@ -335,7 +345,8 @@ module AdvancedBilling
                                 bank_account_holder_type,
                                 verified,
                                 site_gateway_setting_id,
-                                gateway_handle)
+                                gateway_handle,
+                                disabled)
     end
   end
 end

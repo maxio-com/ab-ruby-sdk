@@ -81,8 +81,6 @@ result = events_based_billing_segments_controller.create_segment(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentErrorsException`](../../doc/models/event-based-billing-segment-errors-exception.md) |
 
@@ -133,8 +131,6 @@ result = events_based_billing_segments_controller.list_segments_for_price_point(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingListSegmentsErrorsException`](../../doc/models/event-based-billing-list-segments-errors-exception.md) |
 
@@ -185,8 +181,6 @@ result = events_based_billing_segments_controller.update_segment(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentErrorsException`](../../doc/models/event-based-billing-segment-errors-exception.md) |
 
@@ -235,8 +229,6 @@ events_based_billing_segments_controller.delete_segment(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | `APIException` |
 
@@ -284,8 +276,6 @@ result = events_based_billing_segments_controller.create_segments(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 
@@ -333,8 +323,6 @@ result = events_based_billing_segments_controller.update_segments(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 

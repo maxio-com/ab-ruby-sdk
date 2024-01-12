@@ -26,13 +26,13 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
         .execute
     end
 
@@ -106,7 +106,8 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth'))
+                   .auth(Single.new('global'))
+
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -139,13 +140,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BulkComponentSPricePointAssignment.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ComponentPricePointErrorException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ComponentPricePointErrorException))
         .execute
     end
 
@@ -164,7 +166,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
@@ -261,13 +263,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -316,20 +319,18 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(page, key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
                    .is_response_array(true)
-                   .local_error('401',
-                                'Unauthorized',
-                                APIException)
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -357,20 +358,18 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
                    .is_response_array(true)
-                   .local_error('401',
-                                'Unauthorized',
-                                APIException)
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -403,13 +402,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationPreviewResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ComponentAllocationErrorException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ComponentAllocationErrorException))
         .execute
     end
 
@@ -456,12 +456,13 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                SubscriptionComponentAllocationErrorException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SubscriptionComponentAllocationErrorException))
         .execute
     end
 
@@ -508,12 +509,13 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                SubscriptionComponentAllocationErrorException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SubscriptionComponentAllocationErrorException))
         .execute
     end
 
@@ -613,13 +615,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -688,7 +691,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
@@ -726,7 +729,7 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -752,7 +755,7 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -801,7 +804,7 @@ module AdvancedBilling
                    .query_param(new_parameter(store_uid, key: 'store_uid'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -839,7 +842,7 @@ module AdvancedBilling
                    .query_param(new_parameter(store_uid, key: 'store_uid'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -969,7 +972,8 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_subscription_end_date'], key: 'filter[subscription][end_date]'))
                    .query_param(new_parameter(options['filter_subscription_end_datetime'], key: 'filter[subscription][end_datetime]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth'))
+                   .auth(Single.new('global'))
+
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

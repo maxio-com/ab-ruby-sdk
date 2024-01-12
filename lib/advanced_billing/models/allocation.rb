@@ -77,8 +77,22 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :price_point_handle
 
-    # The scheme used if the proration was a downgrade. This is only present
-    # when the allocation was created mid-period.
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component price point would renew
+    # every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
     # @return [Integer]
     attr_accessor :previous_price_point_id
 
@@ -128,6 +142,8 @@ module AdvancedBilling
       @_hash['price_point_id'] = 'price_point_id'
       @_hash['price_point_name'] = 'price_point_name'
       @_hash['price_point_handle'] = 'price_point_handle'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash['previous_price_point_id'] = 'previous_price_point_id'
       @_hash['accrue_charge'] = 'accrue_charge'
       @_hash['initiate_dunning'] = 'initiate_dunning'
@@ -154,6 +170,8 @@ module AdvancedBilling
         price_point_id
         price_point_name
         price_point_handle
+        interval
+        interval_unit
         previous_price_point_id
         accrue_charge
         initiate_dunning
@@ -188,6 +206,8 @@ module AdvancedBilling
                    price_point_id = SKIP,
                    price_point_name = SKIP,
                    price_point_handle = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP,
                    previous_price_point_id = SKIP,
                    accrue_charge = SKIP,
                    initiate_dunning = SKIP,
@@ -211,6 +231,8 @@ module AdvancedBilling
       @price_point_id = price_point_id unless price_point_id == SKIP
       @price_point_name = price_point_name unless price_point_name == SKIP
       @price_point_handle = price_point_handle unless price_point_handle == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
       @previous_price_point_id = previous_price_point_id unless previous_price_point_id == SKIP
       @accrue_charge = accrue_charge unless accrue_charge == SKIP
       @initiate_dunning = initiate_dunning unless initiate_dunning == SKIP
@@ -257,6 +279,8 @@ module AdvancedBilling
         hash.key?('price_point_name') ? hash['price_point_name'] : SKIP
       price_point_handle =
         hash.key?('price_point_handle') ? hash['price_point_handle'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       previous_price_point_id =
         hash.key?('previous_price_point_id') ? hash['previous_price_point_id'] : SKIP
       accrue_charge = hash.key?('accrue_charge') ? hash['accrue_charge'] : SKIP
@@ -285,6 +309,8 @@ module AdvancedBilling
                      price_point_id,
                      price_point_name,
                      price_point_handle,
+                     interval,
+                     interval_unit,
                      previous_price_point_id,
                      accrue_charge,
                      initiate_dunning,

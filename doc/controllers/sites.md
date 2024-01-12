@@ -88,7 +88,12 @@ result = sites_controller.read_site
       "net_terms_on_remittance_signups_enabled": false,
       "custom_net_terms_enabled": false
     },
-    "test": true
+    "test": true,
+    "allocation_settings": {
+      "upgrade_charge": "prorated",
+      "downgrade_credit": "none",
+      "accrue_charge": "true"
+    }
   }
 }
 ```
@@ -121,12 +126,6 @@ cleanup_scope = CleanupScope::ALL
 
 sites_controller.clear_site(cleanup_scope: cleanup_scope)
 ```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 403 | Forbidden | `APIException` |
 
 
 # List Chargify Js Public Keys

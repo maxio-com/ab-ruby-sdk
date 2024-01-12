@@ -35,6 +35,7 @@
 | `verified` | `TrueClass \| FalseClass` | Optional | - |
 | `site_gateway_setting_id` | `Integer` | Optional | - |
 | `gateway_handle` | `String` | Optional | - |
+| `disabled` | `TrueClass \| FalseClass` | Optional | - |
 
 ## Example (as JSON)
 

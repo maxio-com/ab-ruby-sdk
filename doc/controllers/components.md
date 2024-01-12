@@ -881,7 +881,8 @@ body = CreateComponentPricePointRequest.new(
         '4.00'
       )
     ],
-    'wholesale-handle'
+    'wholesale-handle',
+    false
   )
 )
 
