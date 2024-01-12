@@ -136,7 +136,7 @@ module AdvancedBilling
           )
         ),
 
-        :CreateMetafieldsRequestMetafields => AnyOf.new(
+        :CreateMetafieldsRequestMetafields => OneOf.new(
           [
             LeafType.new(CreateMetafield),
             LeafType.new(CreateMetafield, UnionTypeContext.new(
@@ -158,7 +158,7 @@ module AdvancedBilling
           )
         ),
 
-        :UpdateMetafieldsRequestMetafields => AnyOf.new(
+        :UpdateMetafieldsRequestMetafields => OneOf.new(
           [
             LeafType.new(UpdateMetafield),
             LeafType.new(UpdateMetafield, UnionTypeContext.new(

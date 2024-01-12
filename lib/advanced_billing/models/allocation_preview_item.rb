@@ -63,27 +63,40 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_point_id
 
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
+    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this component price point would renew
+    # every 30 days. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [Integer]
+    attr_accessor :interval
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
+    # @return [IntervalUnit]
+    attr_accessor :interval_unit
+
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
     # @return [Integer]
     attr_accessor :previous_price_point_id
 
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
     # @return [String]
     attr_accessor :price_point_handle
 
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
     # @return [String]
     attr_accessor :price_point_name
 
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
+    # A string representing the interval unit for this component price point,
+    # either month or day. This property is only available for sites with
+    # Multifrequency enabled.
     # @return [String]
     attr_accessor :component_handle
 
@@ -102,6 +115,8 @@ module AdvancedBilling
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['price_point_id'] = 'price_point_id'
+      @_hash['interval'] = 'interval'
+      @_hash['interval_unit'] = 'interval_unit'
       @_hash['previous_price_point_id'] = 'previous_price_point_id'
       @_hash['price_point_handle'] = 'price_point_handle'
       @_hash['price_point_name'] = 'price_point_name'
@@ -124,6 +139,8 @@ module AdvancedBilling
         upgrade_charge
         downgrade_credit
         price_point_id
+        interval
+        interval_unit
         previous_price_point_id
         price_point_handle
         price_point_name
@@ -154,6 +171,8 @@ module AdvancedBilling
                    upgrade_charge = SKIP,
                    downgrade_credit = SKIP,
                    price_point_id = SKIP,
+                   interval = SKIP,
+                   interval_unit = SKIP,
                    previous_price_point_id = SKIP,
                    price_point_handle = SKIP,
                    price_point_name = SKIP,
@@ -173,6 +192,8 @@ module AdvancedBilling
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+      @interval = interval unless interval == SKIP
+      @interval_unit = interval_unit unless interval_unit == SKIP
       @previous_price_point_id = previous_price_point_id unless previous_price_point_id == SKIP
       @price_point_handle = price_point_handle unless price_point_handle == SKIP
       @price_point_name = price_point_name unless price_point_name == SKIP
@@ -206,6 +227,8 @@ module AdvancedBilling
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       previous_price_point_id =
         hash.key?('previous_price_point_id') ? hash['previous_price_point_id'] : SKIP
       price_point_handle =
@@ -228,6 +251,8 @@ module AdvancedBilling
                                 upgrade_charge,
                                 downgrade_credit,
                                 price_point_id,
+                                interval,
+                                interval_unit,
                                 previous_price_point_id,
                                 price_point_handle,
                                 price_point_name,

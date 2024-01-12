@@ -57,7 +57,6 @@ result = advance_invoice_controller.issue_advance_invoice(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
@@ -92,7 +91,6 @@ result = advance_invoice_controller.read_advance_invoice(subscription_id)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 
 
@@ -129,6 +127,5 @@ result = advance_invoice_controller.void_advance_invoice(subscription_id)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 403 | Forbidden | `APIException` |
 | 404 | Not Found | `APIException` |
 

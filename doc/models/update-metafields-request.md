@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `metafields` | [Update Metafield](../../doc/models/update-metafield.md) \| Array[[Update Metafield](../../doc/models/update-metafield.md)] \| nil | Optional | This is a container for any-of cases. |
+| `metafields` | [Update Metafield](../../doc/models/update-metafield.md) \| Array[[Update Metafield](../../doc/models/update-metafield.md)] \| nil | Optional | This is a container for one-of cases. |
 
 ## Example (as JSON)
 

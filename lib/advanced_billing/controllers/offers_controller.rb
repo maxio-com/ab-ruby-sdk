@@ -31,13 +31,14 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(OfferResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorMapResponseException))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorMapResponseException))
         .execute
     end
 
@@ -65,7 +66,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListOffersResponse.method(:from_hash)))
@@ -86,13 +87,10 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(OfferResponse.method(:from_hash))
-                   .local_error('401',
-                                'Unauthorized',
-                                APIException))
+                   .deserialize_into(OfferResponse.method(:from_hash)))
         .execute
     end
 
@@ -109,12 +107,9 @@ module AdvancedBilling
                    .template_param(new_parameter(offer_id, key: 'offer_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('401',
-                                'Unauthorized',
-                                APIException))
+                   .is_response_void(true))
         .execute
     end
 
@@ -131,12 +126,9 @@ module AdvancedBilling
                    .template_param(new_parameter(offer_id, key: 'offer_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('401',
-                                'Unauthorized',
-                                APIException))
+                   .is_response_void(true))
         .execute
     end
   end

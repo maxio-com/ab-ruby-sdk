@@ -22,7 +22,7 @@ module AdvancedBilling
                                      '/stats.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SiteSummary.method(:from_hash)))
@@ -46,7 +46,7 @@ module AdvancedBilling
                    .query_param(new_parameter(at_time, key: 'at_time'))
                    .query_param(new_parameter(subscription_id, key: 'subscription_id'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(MRRResponse.method(:from_hash)))
@@ -103,7 +103,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMRRResponse.method(:from_hash)))
@@ -146,14 +146,16 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth'))
+                   .auth(Single.new('global'))
+
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionMRRResponse.method(:from_hash))
-                   .local_error('400',
-                                'Bad Request',
-                                SubscriptionsMrrErrorResponseException))
+                   .local_error_template('400',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SubscriptionsMrrErrorResponseException))
         .execute
     end
   end

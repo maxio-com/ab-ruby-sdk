@@ -21,10 +21,8 @@ module AdvancedBilling
     # @return [CreditType]
     attr_accessor :downgrade_credit
 
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
-    # @return [TrueClass | FalseClass]
+    # Either "true" or "false".
+    # @return [String]
     attr_accessor :accrue_charge
 
     # A mapping from model property names to API property names.

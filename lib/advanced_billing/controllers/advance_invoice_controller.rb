@@ -39,19 +39,17 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
-                   .local_error('403',
-                                'Forbidden',
-                                APIException)
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorListResponseException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
 
@@ -70,16 +68,13 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
-                   .local_error('403',
-                                'Forbidden',
-                                APIException)
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
         .execute
     end
 
@@ -107,16 +102,13 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Invoice.method(:from_hash))
-                   .local_error('403',
-                                'Forbidden',
-                                APIException)
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
         .execute
     end
   end

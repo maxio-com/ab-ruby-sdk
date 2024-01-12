@@ -598,7 +598,6 @@ result = subscription_components_controller.list_allocations(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
@@ -702,7 +701,6 @@ result = subscription_components_controller.allocate_components(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 

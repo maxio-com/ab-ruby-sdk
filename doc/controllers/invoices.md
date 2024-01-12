@@ -2602,7 +2602,6 @@ result = invoices_controller.create_invoice(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`NestedErrorResponseException`](../../doc/models/nested-error-response-exception.md) |
 
 
@@ -3023,7 +3022,6 @@ result = invoices_controller.issue_invoice(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `APIException` |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 

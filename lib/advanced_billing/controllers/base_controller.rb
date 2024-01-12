@@ -20,8 +20,13 @@ module AdvancedBilling
 
     GLOBAL_ERRORS = {
       'default' => ErrorCase.new
-                            .error_message('HTTP response not OK.')
-                            .exception_type(APIException)
+                            .error_message_template('HTTP Response Not OK. Status code:'\
+                                                    ' {$statusCode}. Response: \'{$response.body}'\
+                                                    '\'.')
+                            .exception_type(APIException),
+      '404' => ErrorCase.new
+                        .error_message_template('Not Found:\'{$response.body}\'')
+                        .exception_type(APIException)
     }.freeze
 
     # Initialization constructor.
