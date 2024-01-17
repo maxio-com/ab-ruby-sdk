@@ -720,19 +720,19 @@ module AdvancedBilling
                              skip_billing_manifest_taxes)
     end
 
-    def to_next_billing_at
+    def to_custom_next_billing_at
       DateTimeHelper.to_rfc3339(next_billing_at)
     end
 
-    def to_expires_at
+    def to_custom_expires_at
       DateTimeHelper.to_rfc3339(expires_at)
     end
 
-    def to_previous_billing_at
+    def to_custom_previous_billing_at
       DateTimeHelper.to_rfc3339(previous_billing_at)
     end
 
-    def to_activated_at
+    def to_custom_activated_at
       DateTimeHelper.to_rfc3339(activated_at)
     end
 

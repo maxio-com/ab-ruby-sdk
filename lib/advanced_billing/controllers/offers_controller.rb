@@ -38,7 +38,7 @@ module AdvancedBilling
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
-                                         ErrorMapResponseException))
+                                         ErrorArrayMapResponseException))
         .execute
     end
 

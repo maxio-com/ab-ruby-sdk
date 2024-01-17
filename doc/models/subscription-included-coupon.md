@@ -14,7 +14,7 @@
 | `uses_allowed` | `Integer` | Optional | - |
 | `expires_at` | `String` | Optional | - |
 | `recurring` | `TrueClass \| FalseClass` | Optional | - |
-| `amount_in_cents` | `Integer` | Optional | - |
+| `amount_in_cents` | `Integer` | Optional | **Constraints**: `>= 0` |
 | `percentage` | `String` | Optional | - |
 
 ## Example (as JSON)

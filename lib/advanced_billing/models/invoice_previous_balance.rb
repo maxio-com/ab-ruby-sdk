@@ -71,7 +71,7 @@ module AdvancedBilling
                                  invoices)
     end
 
-    def to_captured_at
+    def to_custom_captured_at
       DateTimeHelper.to_rfc3339(captured_at)
     end
   end

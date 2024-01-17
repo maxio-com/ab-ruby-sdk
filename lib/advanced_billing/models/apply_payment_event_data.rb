@@ -116,7 +116,7 @@ module AdvancedBilling
                                 transaction_id)
     end
 
-    def to_transaction_time
+    def to_custom_transaction_time
       DateTimeHelper.to_rfc3339(transaction_time)
     end
 

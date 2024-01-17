@@ -86,7 +86,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -339,7 +338,7 @@ module AdvancedBilling
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
-                                         ErrorMapResponseException))
+                                         ErrorArrayMapResponseException))
         .execute
     end
 
@@ -374,7 +373,7 @@ module AdvancedBilling
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
-                                         ErrorMapResponseException))
+                                         ErrorArrayMapResponseException))
         .execute
     end
 
@@ -448,7 +447,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

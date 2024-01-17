@@ -115,19 +115,19 @@ module AdvancedBilling
                                current_period_starts_at)
     end
 
-    def to_activated_at
+    def to_custom_activated_at
       DateTimeHelper.to_rfc3339(activated_at)
     end
 
-    def to_canceled_at
+    def to_custom_canceled_at
       DateTimeHelper.to_rfc3339(canceled_at)
     end
 
-    def to_expires_at
+    def to_custom_expires_at
       DateTimeHelper.to_rfc3339(expires_at)
     end
 
-    def to_current_period_starts_at
+    def to_custom_current_period_starts_at
       DateTimeHelper.to_rfc3339(current_period_starts_at)
     end
   end

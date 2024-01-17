@@ -142,7 +142,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['sort'], key: 'sort'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -237,7 +236,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['event_types'], key: 'event_types'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -776,7 +774,7 @@ module AdvancedBilling
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
-                                         NestedErrorResponseException))
+                                         ErrorArrayMapResponseException))
         .execute
     end
 
