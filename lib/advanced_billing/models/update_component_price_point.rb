@@ -13,6 +13,25 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :name
 
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :handle
+
+    # The identifier for the pricing scheme. See [Product
+    # Components](https://help.chargify.com/products/product-components.html)
+    # for an overview of pricing schemes.
+    # @return [PricingScheme]
+    attr_accessor :pricing_scheme
+
+    # Whether to use the site level exchange rate or define your own prices for
+    # each currency if you have multiple currencies defined on the site.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :use_site_exchange_rate
+
+    # Whether or not the price point includes tax
+    # @return [TrueClass | FalseClass]
+    attr_accessor :tax_included
+
     # The numerical interval. i.e. an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
@@ -36,6 +55,10 @@ module AdvancedBilling
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['name'] = 'name'
+      @_hash['handle'] = 'handle'
+      @_hash['pricing_scheme'] = 'pricing_scheme'
+      @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
+      @_hash['tax_included'] = 'tax_included'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['prices'] = 'prices'
@@ -46,6 +69,10 @@ module AdvancedBilling
     def self.optionals
       %w[
         name
+        handle
+        pricing_scheme
+        use_site_exchange_rate
+        tax_included
         interval
         interval_unit
         prices
@@ -58,10 +85,18 @@ module AdvancedBilling
     end
 
     def initialize(name = SKIP,
+                   handle = SKIP,
+                   pricing_scheme = SKIP,
+                   use_site_exchange_rate = true,
+                   tax_included = SKIP,
                    interval = SKIP,
                    interval_unit = SKIP,
                    prices = SKIP)
       @name = name unless name == SKIP
+      @handle = handle unless handle == SKIP
+      @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
+      @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
+      @tax_included = tax_included unless tax_included == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @prices = prices unless prices == SKIP
@@ -73,6 +108,11 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : SKIP
+      handle = hash.key?('handle') ? hash['handle'] : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
+      use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
+      tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       # Parameter is an array, so we need to iterate through it
@@ -88,6 +128,10 @@ module AdvancedBilling
 
       # Create object from extracted values.
       UpdateComponentPricePoint.new(name,
+                                    handle,
+                                    pricing_scheme,
+                                    use_site_exchange_rate,
+                                    tax_included,
                                     interval,
                                     interval_unit,
                                     prices)

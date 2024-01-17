@@ -866,7 +866,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['include'], key: 'include[]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -988,8 +987,7 @@ module AdvancedBilling
                    .query_param(new_parameter(include, key: 'include[]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::PLAIN))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
@@ -1104,8 +1102,7 @@ module AdvancedBilling
                                  .is_required(true))
                    .query_param(new_parameter(cascade, key: 'cascade[]'))
                    .auth(Single.new('global'))
-
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::PLAIN))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -1341,7 +1338,7 @@ module AdvancedBilling
                    .local_error_template('400',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
-                                         NestedErrorResponseException))
+                                         ErrorArrayMapResponseException))
         .execute
     end
   end

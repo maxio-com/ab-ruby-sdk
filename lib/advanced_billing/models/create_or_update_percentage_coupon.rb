@@ -196,7 +196,7 @@ module AdvancedBilling
                                          apply_on_cancel_at_end_of_period)
     end
 
-    def to_end_date
+    def to_custom_end_date
       DateTimeHelper.to_rfc3339(end_date)
     end
 

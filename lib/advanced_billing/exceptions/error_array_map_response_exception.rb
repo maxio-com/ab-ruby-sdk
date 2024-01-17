@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Error Map Response class.
-  class ErrorMapResponseException < APIException
+  # Error Array Map Response class.
+  class ErrorArrayMapResponseException < APIException
     SKIP = Object.new
     private_constant :SKIP
 

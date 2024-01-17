@@ -4,13 +4,13 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Nested Error Response class.
-  class NestedErrorResponseException < APIException
+  # Error String Map Response class.
+  class ErrorStringMapResponseException < APIException
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Hash[String, Object]]
+    # @return [Hash[String, String]]
     attr_accessor :errors
 
     # The constructor.

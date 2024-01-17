@@ -381,7 +381,7 @@ def list_payment_profiles(options = {})
 
 ## Response Type
 
-[`Array<ListPaymentProfilesResponse>`](../../doc/models/list-payment-profiles-response.md)
+[`Array<ReadPaymentProfileResponse>`](../../doc/models/read-payment-profile-response.md)
 
 ## Example Usage
 
@@ -419,6 +419,7 @@ result = payment_profiles_controller.list_payment_profiles(collect)
       "bank_account_type": "checking",
       "bank_account_holder_type": "personal",
       "payment_type": "bank_account",
+      "verified": true,
       "site_gateway_setting_id": 1,
       "gateway_handle": "handle"
     }
@@ -444,6 +445,7 @@ result = payment_profiles_controller.list_payment_profiles(collect)
       "bank_account_type": "checking",
       "bank_account_holder_type": "personal",
       "payment_type": "bank_account",
+      "verified": true,
       "site_gateway_setting_id": 1,
       "gateway_handle": "handle"
     }
@@ -498,7 +500,7 @@ def read_payment_profile(payment_profile_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
+| `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -507,7 +509,7 @@ def read_payment_profile(payment_profile_id)
 ## Example Usage
 
 ```ruby
-payment_profile_id = 'payment_profile_id2'
+payment_profile_id = 198
 
 result = payment_profiles_controller.read_payment_profile(payment_profile_id)
 ```
@@ -540,6 +542,12 @@ result = payment_profiles_controller.read_payment_profile(payment_profile_id)
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `APIException` |
 
 
 # Update Payment Profile
@@ -588,7 +596,7 @@ def update_payment_profile(payment_profile_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
+| `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 | `body` | [`UpdatePaymentProfileRequest`](../../doc/models/update-payment-profile-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -598,7 +606,7 @@ def update_payment_profile(payment_profile_id,
 ## Example Usage
 
 ```ruby
-payment_profile_id = 'payment_profile_id2'
+payment_profile_id = 198
 
 body = UpdatePaymentProfileRequest.new(
   UpdatePaymentProfile.new(
@@ -653,6 +661,13 @@ result = payment_profiles_controller.update_payment_profile(
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `APIException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorStringMapResponseException`](../../doc/models/error-string-map-response-exception.md) |
+
 
 # Delete Unused Payment Profile
 
@@ -668,7 +683,7 @@ def delete_unused_payment_profile(payment_profile_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
+| `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -677,7 +692,7 @@ def delete_unused_payment_profile(payment_profile_id)
 ## Example Usage
 
 ```ruby
-payment_profile_id = 'payment_profile_id2'
+payment_profile_id = 198
 
 payment_profiles_controller.delete_unused_payment_profile(payment_profile_id)
 ```
@@ -707,7 +722,7 @@ def delete_subscriptions_payment_profile(subscription_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
-| `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
+| `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -718,7 +733,7 @@ def delete_subscriptions_payment_profile(subscription_id,
 ```ruby
 subscription_id = 222
 
-payment_profile_id = 'payment_profile_id2'
+payment_profile_id = 198
 
 payment_profiles_controller.delete_subscriptions_payment_profile(
   subscription_id,
@@ -817,7 +832,7 @@ def delete_subscription_group_payment_profile(uid,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
+| `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -828,7 +843,7 @@ def delete_subscription_group_payment_profile(uid,
 ```ruby
 uid = 'uid0'
 
-payment_profile_id = 'payment_profile_id2'
+payment_profile_id = 198
 
 payment_profiles_controller.delete_subscription_group_payment_profile(
   uid,
@@ -926,7 +941,7 @@ def update_subscription_group_default_payment_profile(uid,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `payment_profile_id` | `String` | Template, Required | The Chargify id of the payment profile |
+| `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -937,7 +952,7 @@ def update_subscription_group_default_payment_profile(uid,
 ```ruby
 uid = 'uid0'
 
-payment_profile_id = 'payment_profile_id2'
+payment_profile_id = 198
 
 result = payment_profiles_controller.update_subscription_group_default_payment_profile(
   uid,

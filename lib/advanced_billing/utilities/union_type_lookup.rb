@@ -459,6 +459,16 @@ module AdvancedBilling
           ]
         ),
 
+        :ComponentPricePointIntervalUnit => OneOf.new(
+          [
+            LeafType.new(IntervalUnit)
+          ],
+          UnionTypeContext.new(
+            is_optional: true,
+            is_nullable: true
+          )
+        ),
+
         :CreateComponentPricePointsRequestPricePoints => AnyOf.new(
           [
             LeafType.new(CreateComponentPricePoint),
