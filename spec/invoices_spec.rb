@@ -89,17 +89,7 @@ RSpec.describe 'Invoices' do
 
     expect(result.status).to eq('voided')
 
-    puts "#{Date.iso8601((Date.today - 1).strftime('%Y-%m-%d'))}"
-
-    res2 = @client.invoices.list_invoice_events(
-      'event_types' => [
-        AdvancedBilling::InvoiceEventType::VOID_INVOICE
-      ],
-      'per_page' => 2,
-      'invoice_uid' => invoice.uid
-    ).events
-
-    puts "#{res2.inspect}"
+    sleep(2) # wait for the indexing
 
     events = @client.invoices.list_invoice_events(
       'since_date' => Date.iso8601((Date.today - 1).strftime('%Y-%m-%d')),
