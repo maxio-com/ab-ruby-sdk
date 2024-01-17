@@ -109,10 +109,11 @@ RSpec.describe 'Invoices' do
         AdvancedBilling::InvoiceEventType::ISSUE_INVOICE,
         AdvancedBilling::InvoiceEventType::VOID_INVOICE
       ],
-      'per_page' => 4
+      'per_page' => 4,
+      'invoice_uid' => invoice.uid
     ).events
 
-    expect(events.size).to eq(4)
+    expect(events.size).to eq(2)
   end
 
   it 'raises error on attempt to create invalid invoice' do
