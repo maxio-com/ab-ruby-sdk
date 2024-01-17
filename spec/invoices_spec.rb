@@ -164,7 +164,7 @@ RSpec.describe 'Invoices' do
         )
       )
     }.to raise_error do |error|
-      expect(error).to be_a(AdvancedBilling::NestedErrorResponseException)
+      expect(error).to be_a(AdvancedBilling::ErrorArrayMapResponseException)
       expect(error.response.status_code).to eq(422)
       expect(JSON.parse(error.response.raw_body)).to eq({
         "errors" => {
