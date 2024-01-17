@@ -100,6 +100,14 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :interval_unit
 
+    # An array of currency pricing data is available when multiple currencies
+    # are defined for the site. It varies based on the use_site_exchange_rate
+    # setting for the price point. This parameter is present only in the
+    # response of read endpoints, after including the appropriate query
+    # parameter.
+    # @return [Array[ComponentCurrencyPrice]]
+    attr_accessor :currency_prices
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -119,6 +127,7 @@ module AdvancedBilling
       @_hash['tax_included'] = 'tax_included'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
+      @_hash['currency_prices'] = 'currency_prices'
       @_hash
     end
 
@@ -141,6 +150,7 @@ module AdvancedBilling
         tax_included
         interval
         interval_unit
+        currency_prices
       ]
     end
 
@@ -148,6 +158,8 @@ module AdvancedBilling
     def self.nullables
       %w[
         archived_at
+        interval
+        interval_unit
       ]
     end
 
@@ -166,7 +178,8 @@ module AdvancedBilling
                    subscription_id = SKIP,
                    tax_included = SKIP,
                    interval = SKIP,
-                   interval_unit = SKIP)
+                   interval_unit = SKIP,
+                   currency_prices = SKIP)
       @id = id unless id == SKIP
       @type = type unless type == SKIP
       @default = default unless default == SKIP
@@ -183,6 +196,7 @@ module AdvancedBilling
       @tax_included = tax_included unless tax_included == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
+      @currency_prices = currency_prices unless currency_prices == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -216,7 +230,19 @@ module AdvancedBilling
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
-      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:ComponentPricePointIntervalUnit), hash['interval_unit']
+      ) : SKIP
+      # Parameter is an array, so we need to iterate through it
+      currency_prices = nil
+      unless hash['currency_prices'].nil?
+        currency_prices = []
+        hash['currency_prices'].each do |structure|
+          currency_prices << (ComponentCurrencyPrice.from_hash(structure) if structure)
+        end
+      end
+
+      currency_prices = SKIP unless hash.key?('currency_prices')
 
       # Create object from extracted values.
       ComponentPricePoint.new(id,
@@ -234,7 +260,18 @@ module AdvancedBilling
                               subscription_id,
                               tax_included,
                               interval,
-                              interval_unit)
+                              interval_unit,
+                              currency_prices)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [ComponentPricePoint | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

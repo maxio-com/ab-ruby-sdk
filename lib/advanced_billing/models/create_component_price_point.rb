@@ -34,6 +34,10 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
+    # Whether or not the price point includes tax
+    # @return [TrueClass | FalseClass]
+    attr_accessor :tax_included
+
     # The numerical interval. i.e. an interval of ‘30’ coupled with an
     # interval_unit of day would mean this price point would renew every 30
     # days. This property is only available for sites with Multifrequency
@@ -55,6 +59,7 @@ module AdvancedBilling
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['prices'] = 'prices'
       @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
+      @_hash['tax_included'] = 'tax_included'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash
@@ -65,6 +70,7 @@ module AdvancedBilling
       %w[
         handle
         use_site_exchange_rate
+        tax_included
         interval
         interval_unit
       ]
@@ -80,6 +86,7 @@ module AdvancedBilling
                    prices = nil,
                    handle = SKIP,
                    use_site_exchange_rate = true,
+                   tax_included = SKIP,
                    interval = SKIP,
                    interval_unit = SKIP)
       @name = name
@@ -87,6 +94,7 @@ module AdvancedBilling
       @pricing_scheme = pricing_scheme
       @prices = prices
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
+      @tax_included = tax_included unless tax_included == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
     end
@@ -111,6 +119,7 @@ module AdvancedBilling
       prices = nil unless hash.key?('prices')
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
+      tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
@@ -120,6 +129,7 @@ module AdvancedBilling
                                     prices,
                                     handle,
                                     use_site_exchange_rate,
+                                    tax_included,
                                     interval,
                                     interval_unit)
     end

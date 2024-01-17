@@ -203,8 +203,6 @@ Use the following method to update metafields for your Site. Metafields can be p
 
 ```ruby
 def update_metafield(resource_type,
-                     name,
-                     current_name: nil,
                      body: nil)
 ```
 
@@ -213,8 +211,6 @@ def update_metafield(resource_type,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `name` | `String` | Query, Required | Name of the custom field. |
-| `current_name` | `String` | Query, Optional | This only applies when you are updating an existing record and you wish to rename the field. Note you must supply name and current_name to rename the field |
 | `body` | [`UpdateMetafieldsRequest`](../../doc/models/update-metafields-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -226,12 +222,7 @@ def update_metafield(resource_type,
 ```ruby
 resource_type = ResourceType::SUBSCRIPTIONS
 
-name = 'name0'
-
-result = custom_fields_controller.update_metafield(
-  resource_type,
-  name
-)
+result = custom_fields_controller.update_metafield(resource_type)
 ```
 
 
