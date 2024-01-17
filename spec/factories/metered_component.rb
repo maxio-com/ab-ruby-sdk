@@ -7,7 +7,7 @@ module Factories
         body: AdvancedBilling::CreateMeteredComponent.new(
           AdvancedBilling::MeteredComponent.new(
             FFaker::Product.product_name,
-            FFaker::Lorem.paragraph,
+            FFaker::Lorem.word,
             AdvancedBilling::PricingScheme::STAIRSTEP,
             nil,
             nil,
