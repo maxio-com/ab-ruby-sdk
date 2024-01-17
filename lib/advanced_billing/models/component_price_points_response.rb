@@ -13,10 +13,15 @@ module AdvancedBilling
     # @return [Array[ComponentPricePoint]]
     attr_accessor :price_points
 
+    # TODO: Write general description for this method
+    # @return [ListPublicKeysMeta]
+    attr_accessor :meta
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['price_points'] = 'price_points'
+      @_hash['meta'] = 'meta'
       @_hash
     end
 
@@ -24,6 +29,7 @@ module AdvancedBilling
     def self.optionals
       %w[
         price_points
+        meta
       ]
     end
 
@@ -32,8 +38,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_points = SKIP)
+    def initialize(price_points = SKIP,
+                   meta = SKIP)
       @price_points = price_points unless price_points == SKIP
+      @meta = meta unless meta == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -51,9 +59,11 @@ module AdvancedBilling
       end
 
       price_points = SKIP unless hash.key?('price_points')
+      meta = ListPublicKeysMeta.from_hash(hash['meta']) if hash['meta']
 
       # Create object from extracted values.
-      ComponentPricePointsResponse.new(price_points)
+      ComponentPricePointsResponse.new(price_points,
+                                       meta)
     end
   end
 end

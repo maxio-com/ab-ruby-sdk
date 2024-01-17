@@ -54,7 +54,7 @@ module AdvancedBilling
       AutoResume.new(automatically_resume_at)
     end
 
-    def to_automatically_resume_at
+    def to_custom_automatically_resume_at
       DateTimeHelper.to_rfc3339(automatically_resume_at)
     end
   end

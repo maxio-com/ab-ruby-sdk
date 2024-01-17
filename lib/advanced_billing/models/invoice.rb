@@ -718,15 +718,15 @@ module AdvancedBilling
                   previous_balance_data)
     end
 
-    def to_transaction_time
+    def to_custom_transaction_time
       DateTimeHelper.to_rfc3339(transaction_time)
     end
 
-    def to_created_at
+    def to_custom_created_at
       DateTimeHelper.to_rfc3339(created_at)
     end
 
-    def to_updated_at
+    def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
     end
   end

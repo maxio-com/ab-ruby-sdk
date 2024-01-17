@@ -13,7 +13,7 @@
 | `first_name` | `String` | Optional | - |
 | `last_name` | `String` | Optional | - |
 | `masked_card_number` | `String` | Required | - |
-| `card_type` | [`CardType1`](../../doc/models/card-type-1.md) | Optional | - |
+| `card_type` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. |
 | `expiration_month` | `Integer` | Optional | - |
 | `expiration_year` | `Integer` | Optional | - |
 | `customer_id` | `Integer` | Optional | - |
@@ -39,7 +39,7 @@
   "first_name": "first_name0",
   "last_name": "last_name8",
   "masked_card_number": "masked_card_number8",
-  "card_type": "synchrony",
+  "card_type": "bogus",
   "expiration_month": 170
 }
 ```

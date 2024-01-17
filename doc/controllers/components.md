@@ -1142,6 +1142,10 @@ body = UpdateComponentPricePointRequest.new(
     'Default',
     nil,
     nil,
+    nil,
+    nil,
+    nil,
+    nil,
     [
       UpdatePrice.new(
         1,
@@ -1171,6 +1175,12 @@ result = components_controller.update_component_price_point(
   body: body
 )
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
 
 # Archive Component Price Point
@@ -1239,6 +1249,12 @@ result = components_controller.archive_component_price_point(
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Unarchive Component Price Point

@@ -114,15 +114,9 @@ module AdvancedBilling
     # can be populated with metadata after the fact.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [String] name Required parameter: Name of the custom field.
-    # @param [String] current_name Optional parameter: This only applies when
-    # you are updating an existing record and you wish to rename the field. Note
-    # you must supply name and current_name to rename the field
     # @param [UpdateMetafieldsRequest] body Optional parameter: Example:
     # @return [Array[Metafield]] response from the API call
     def update_metafield(resource_type,
-                         name,
-                         current_name: nil,
                          body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -131,10 +125,7 @@ module AdvancedBilling
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(name, key: 'name')
-                                 .is_required(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .query_param(new_parameter(current_name, key: 'current_name'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
@@ -356,8 +347,7 @@ module AdvancedBilling
                    .query_param(new_parameter(name, key: 'name'))
                    .query_param(new_parameter(names, key: 'names[]'))
                    .auth(Single.new('global'))
-
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::PLAIN))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error_template('404',
@@ -438,7 +428,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
