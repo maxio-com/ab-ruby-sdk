@@ -12,6 +12,7 @@ require_relative 'factories/quantity_based_component'
 require_relative 'factories/product'
 require_relative 'factories/customer'
 require_relative 'factories/subscription'
+require_relative 'factories/coupon'
 
 def build_client(api_key: nil, subdomain: nil, domain: nil)
   local_conf = Dotenv.parse('.env.test')
