@@ -945,59 +945,59 @@ module AdvancedBilling
                        self_service_page_token)
     end
 
-    def to_current_period_ends_at
+    def to_custom_current_period_ends_at
       DateTimeHelper.to_rfc3339(current_period_ends_at)
     end
 
-    def to_next_assessment_at
+    def to_custom_next_assessment_at
       DateTimeHelper.to_rfc3339(next_assessment_at)
     end
 
-    def to_trial_started_at
+    def to_custom_trial_started_at
       DateTimeHelper.to_rfc3339(trial_started_at)
     end
 
-    def to_trial_ended_at
+    def to_custom_trial_ended_at
       DateTimeHelper.to_rfc3339(trial_ended_at)
     end
 
-    def to_activated_at
+    def to_custom_activated_at
       DateTimeHelper.to_rfc3339(activated_at)
     end
 
-    def to_expires_at
+    def to_custom_expires_at
       DateTimeHelper.to_rfc3339(expires_at)
     end
 
-    def to_created_at
+    def to_custom_created_at
       DateTimeHelper.to_rfc3339(created_at)
     end
 
-    def to_updated_at
+    def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
     end
 
-    def to_canceled_at
+    def to_custom_canceled_at
       DateTimeHelper.to_rfc3339(canceled_at)
     end
 
-    def to_current_period_started_at
+    def to_custom_current_period_started_at
       DateTimeHelper.to_rfc3339(current_period_started_at)
     end
 
-    def to_delayed_cancel_at
+    def to_custom_delayed_cancel_at
       DateTimeHelper.to_rfc3339(delayed_cancel_at)
     end
 
-    def to_automatically_resume_at
+    def to_custom_automatically_resume_at
       DateTimeHelper.to_rfc3339(automatically_resume_at)
     end
 
-    def to_on_hold_at
+    def to_custom_on_hold_at
       DateTimeHelper.to_rfc3339(on_hold_at)
     end
 
-    def to_scheduled_cancellation_at
+    def to_custom_scheduled_cancellation_at
       DateTimeHelper.to_rfc3339(scheduled_cancellation_at)
     end
 

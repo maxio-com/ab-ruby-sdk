@@ -57,7 +57,7 @@ module AdvancedBilling
                                         new_link_available_at)
     end
 
-    def to_new_link_available_at
+    def to_custom_new_link_available_at
       DateTimeHelper.to_rfc3339(new_link_available_at)
     end
   end

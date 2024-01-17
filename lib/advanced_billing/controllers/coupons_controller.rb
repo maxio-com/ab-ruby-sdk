@@ -130,7 +130,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -374,7 +373,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global'))
-
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

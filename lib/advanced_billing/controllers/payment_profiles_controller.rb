@@ -337,7 +337,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [Integer] customer_id Optional parameter: The ID of the customer
     # for which you wish to list payment profiles
-    # @return [Array[ListPaymentProfilesResponse]] response from the API call
+    # @return [Array[ReadPaymentProfileResponse]] response from the API call
     def list_payment_profiles(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -350,7 +350,7 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListPaymentProfilesResponse.method(:from_hash))
+                   .deserialize_into(ReadPaymentProfileResponse.method(:from_hash))
                    .is_response_array(true))
         .execute
     end
@@ -388,7 +388,7 @@ module AdvancedBilling
     #   }
     # }
     # ```
-    # @param [String] payment_profile_id Required parameter: The Chargify id of
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [ReadPaymentProfileResponse] response from the API call
     def read_payment_profile(payment_profile_id)
@@ -403,7 +403,10 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReadPaymentProfileResponse.method(:from_hash)))
+                   .deserialize_into(ReadPaymentProfileResponse.method(:from_hash))
+                   .local_error('404',
+                                'Not Found',
+                                APIException))
         .execute
     end
 
@@ -449,7 +452,7 @@ module AdvancedBilling
     # via the Subscription instead.
     # - If you are using Authorize.net or Stripe, you may elect to manually
     # trigger a retry for a past due subscription after a partial update.
-    # @param [String] payment_profile_id Required parameter: The Chargify id of
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @param [UpdatePaymentProfileRequest] body Optional parameter: Example:
     # @return [UpdatePaymentProfileResponse] response from the API call
@@ -469,14 +472,21 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UpdatePaymentProfileResponse.method(:from_hash)))
+                   .deserialize_into(UpdatePaymentProfileResponse.method(:from_hash))
+                   .local_error('404',
+                                'Not Found',
+                                APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorStringMapResponseException))
         .execute
     end
 
     # Deletes an unused payment profile.
     # If the payment profile is in use by one or more subscriptions or groups, a
     # 422 and error message will be returned.
-    # @param [String] payment_profile_id Required parameter: The Chargify id of
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [void] response from the API call
     def delete_unused_payment_profile(payment_profile_id)
@@ -509,7 +519,7 @@ module AdvancedBilling
     # Method” link, (depending on whether there are other cards present).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [String] payment_profile_id Required parameter: The Chargify id of
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [void] response from the API call
     def delete_subscriptions_payment_profile(subscription_id,
@@ -569,7 +579,7 @@ module AdvancedBilling
     # and/or Subscriptions, it will be removed from all of them.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [String] payment_profile_id Required parameter: The Chargify id of
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [void] response from the API call
     def delete_subscription_group_payment_profile(uid,
@@ -631,7 +641,7 @@ module AdvancedBilling
     # otherwise you will receive an error.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [String] payment_profile_id Required parameter: The Chargify id of
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [PaymentProfileResponse] response from the API call
     def update_subscription_group_default_payment_profile(uid,

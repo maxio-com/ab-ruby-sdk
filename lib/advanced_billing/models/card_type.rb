@@ -7,14 +7,20 @@ module AdvancedBilling
   # The type of card used.
   class CardType
     CARD_TYPE = [
-      # TODO: Write general description for BOGUS
-      BOGUS = 'bogus'.freeze,
-
       # TODO: Write general description for VISA
       VISA = 'visa'.freeze,
 
       # TODO: Write general description for MASTER
       MASTER = 'master'.freeze,
+
+      # TODO: Write general description for ELO
+      ELO = 'elo'.freeze,
+
+      # TODO: Write general description for CABAL
+      CABAL = 'cabal'.freeze,
+
+      # TODO: Write general description for ALELO
+      ALELO = 'alelo'.freeze,
 
       # TODO: Write general description for DISCOVER
       DISCOVER = 'discover'.freeze,
@@ -22,17 +28,14 @@ module AdvancedBilling
       # TODO: Write general description for AMERICAN_EXPRESS
       AMERICAN_EXPRESS = 'american_express'.freeze,
 
+      # TODO: Write general description for NARANJA
+      NARANJA = 'naranja'.freeze,
+
       # TODO: Write general description for DINERS_CLUB
       DINERS_CLUB = 'diners_club'.freeze,
 
       # TODO: Write general description for JCB
       JCB = 'jcb'.freeze,
-
-      # TODO: Write general description for SWITCH
-      SWITCH = 'switch'.freeze,
-
-      # TODO: Write general description for SOLO
-      SOLO = 'solo'.freeze,
 
       # TODO: Write general description for DANKORT
       DANKORT = 'dankort'.freeze,
@@ -40,11 +43,77 @@ module AdvancedBilling
       # TODO: Write general description for MAESTRO
       MAESTRO = 'maestro'.freeze,
 
-      # TODO: Write general description for LASER
-      LASER = 'laser'.freeze,
+      # TODO: Write general description for MAESTRO_NO_LUHN
+      MAESTRO_NO_LUHN = 'maestro_no_luhn'.freeze,
 
       # TODO: Write general description for FORBRUGSFORENINGEN
-      FORBRUGSFORENINGEN = 'forbrugsforeningen'.freeze
+      FORBRUGSFORENINGEN = 'forbrugsforeningen'.freeze,
+
+      # TODO: Write general description for SODEXO
+      SODEXO = 'sodexo'.freeze,
+
+      # TODO: Write general description for ALIA
+      ALIA = 'alia'.freeze,
+
+      # TODO: Write general description for VR
+      VR = 'vr'.freeze,
+
+      # TODO: Write general description for UNIONPAY
+      UNIONPAY = 'unionpay'.freeze,
+
+      # TODO: Write general description for CARNET
+      CARNET = 'carnet'.freeze,
+
+      # TODO: Write general description for CARTES_BANCAIRES
+      CARTES_BANCAIRES = 'cartes_bancaires'.freeze,
+
+      # TODO: Write general description for OLIMPICA
+      OLIMPICA = 'olimpica'.freeze,
+
+      # TODO: Write general description for CREDITEL
+      CREDITEL = 'creditel'.freeze,
+
+      # TODO: Write general description for CONFIABLE
+      CONFIABLE = 'confiable'.freeze,
+
+      # TODO: Write general description for SYNCHRONY
+      SYNCHRONY = 'synchrony'.freeze,
+
+      # TODO: Write general description for ROUTEX
+      ROUTEX = 'routex'.freeze,
+
+      # TODO: Write general description for MADA
+      MADA = 'mada'.freeze,
+
+      # TODO: Write general description for BP_PLUS
+      BP_PLUS = 'bp_plus'.freeze,
+
+      # TODO: Write general description for PASSCARD
+      PASSCARD = 'passcard'.freeze,
+
+      # TODO: Write general description for EDENRED
+      EDENRED = 'edenred'.freeze,
+
+      # TODO: Write general description for ANDA
+      ANDA = 'anda'.freeze,
+
+      # TODO: Write general description for TARJETAD
+      TARJETAD = 'tarjeta-d'.freeze,
+
+      # TODO: Write general description for HIPERCARD
+      HIPERCARD = 'hipercard'.freeze,
+
+      # TODO: Write general description for BOGUS
+      BOGUS = 'bogus'.freeze,
+
+      # TODO: Write general description for SWITCH
+      SWITCH = 'switch'.freeze,
+
+      # TODO: Write general description for SOLO
+      SOLO = 'solo'.freeze,
+
+      # TODO: Write general description for LASER
+      LASER = 'laser'.freeze
     ].freeze
 
     def self.validate(value)

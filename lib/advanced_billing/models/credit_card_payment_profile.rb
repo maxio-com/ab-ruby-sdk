@@ -25,19 +25,19 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :masked_card_number
 
-    # TODO: Write general description for this method
-    # @return [CardType1]
+    # The type of card used.
+    # @return [CardType]
     attr_accessor :card_type
 
-    # TODO: Write general description for this method
+    # The type of card used.
     # @return [Integer]
     attr_accessor :expiration_month
 
-    # TODO: Write general description for this method
+    # The type of card used.
     # @return [Integer]
     attr_accessor :expiration_year
 
-    # TODO: Write general description for this method
+    # The type of card used.
     # @return [Integer]
     attr_accessor :customer_id
 
@@ -162,7 +162,14 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        billing_address
+        billing_city
+        billing_state
+        billing_zip
+        billing_country
         customer_vault_token
+        billing_address_2
+        site_gateway_setting_id
         gateway_handle
       ]
     end

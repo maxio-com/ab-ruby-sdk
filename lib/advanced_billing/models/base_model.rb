@@ -29,12 +29,12 @@ module AdvancedBilling
 
         hash[key] = nil
         unless value.nil?
-          if respond_to?("to_#{name}")
+          if respond_to?("to_custom_#{name}")
             if (value.instance_of? Array) || (value.instance_of? Hash)
               params = [hash, key]
-              hash[key] = send("to_#{name}", *params)
+              hash[key] = send("to_custom_#{name}", *params)
             else
-              hash[key] = send("to_#{name}")
+              hash[key] = send("to_custom_#{name}")
             end
           elsif respond_to?("to_union_type_#{name}")
             hash[key] = send("to_union_type_#{name}")
