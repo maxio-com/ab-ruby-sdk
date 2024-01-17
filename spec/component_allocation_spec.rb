@@ -95,6 +95,15 @@ RSpec.describe 'Component allocations' do
     }.to raise_error do |error|
       expect(error).to be_a(AdvancedBilling::ComponentAllocationErrorException)
       expect(error.response.status_code).to eq(422)
+      expect(error.errors.size).to eq(1)
+      
+      allocation_error_item = error.errors.first
+
+      expect(allocation_error_item.kind).to eq('allocation')
+      expect(allocation_error_item.component_id).to eq(@on_off_component.id)
+      expect(allocation_error_item.on).to eq('quantity')
+      expect(allocation_error_item.message).to eq('Quantity: must be either 1 (on) or 0 (off).')
+
       expect(JSON.parse(error.response.raw_body)).to eq(
         {
           "errors" => [
