@@ -133,6 +133,8 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
     expect(text_metafield.resource_id).to eq(subscription.id)
     expect(text_metafield.name).to eq(text_field_name)
 
+    sleep(2) # wait for indexing
+
     results = client.subscriptions.list_subscriptions(
       'metadata' => {
         dropdown_name => 'option 1'
