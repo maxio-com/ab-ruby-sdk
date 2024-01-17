@@ -34,7 +34,7 @@ RSpec.describe 'Component allocations' do
     expect(allocation_preview.period_type).to eq('prorated')
     expect(
       allocation_preview.allocations.find { |ac| ac.component_id == @on_off_component.id }.quantity
-    ).to eq('1.0')
+    ).to eq(1)
     expect(
       allocation_preview.allocations.find { |ac| ac.component_id == @quantity_based_component.id }.quantity
     ).to eq('10.3')
@@ -62,7 +62,7 @@ RSpec.describe 'Component allocations' do
     on_off_allocation = response.find { |ac| ac.allocation.component_id == @on_off_component.id }.allocation
 
     expect(on_off_allocation.memo).to eq('foo')
-    expect(on_off_allocation.quantity).to eq('1.0')
+    expect(on_off_allocation.quantity).to eq(1)
     expect(on_off_allocation.subscription_id).to eq(@subscription.id)
 
     quantity_based_allocation = response.find { |ac| ac.allocation.component_id == @quantity_based_component.id }.allocation
