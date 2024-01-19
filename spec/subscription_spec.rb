@@ -11,7 +11,7 @@ RSpec.describe 'Awaiting sign up subscription' do
 
   it 'creates subscription with coupon and metered component' do
     coupon = Factories::Coupon.create(
-      @client, product_family: @product_family, product: @product, component: @metered_component
+      @client, product_family: @product_family, product: @product, component: @metered_component, percentage: '100'
     )
 
     subscription = Factories::Subscription.create(
@@ -87,7 +87,7 @@ RSpec.describe 'Awaiting sign up subscription' do
 
   it 'does not create subscription with invalid credentials' do
     coupon = Factories::Coupon.create(
-      @client, product_family: @product_family, product: @product, component: @metered_component
+      @client, product_family: @product_family, product: @product, component: @metered_component, percentage: '100'
     )
 
     expect {
