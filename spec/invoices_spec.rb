@@ -7,7 +7,7 @@ RSpec.describe 'Invoices' do
     @customer = Factories::Customer.create(@client)
     @product = Factories::Product.create(@client, product_family: @product_family)
     @subscription = Factories::Subscription.create(@client, customer: @customer, product: @product)
-    @coupon = Factories::Coupon.create(@client, product_family: @product_family, product: @product)
+    @coupon = Factories::Coupon.create(@client, product_family: @product_family, product: @product, percentage: '50')
   end
 
   it 'creates and voids the invoice, then lists invoice events' do

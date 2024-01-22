@@ -6,6 +6,11 @@ require 'ffaker'
 require 'pry'
 
 require_relative '../lib/advanced_billing'
+require_relative 'factories/customer'
+require_relative 'factories/product'
+require_relative 'factories/metered_component'
+require_relative 'factories/coupon'
+require_relative 'factories/subscription'
 
 require_relative 'factories/on_off_component'
 require_relative 'factories/quantity_based_component'
