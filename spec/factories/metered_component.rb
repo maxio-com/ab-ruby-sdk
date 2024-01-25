@@ -3,9 +3,8 @@ module Factories
     def self.create(client, product_family:)
       token = SecureRandom.hex(6)
 
-      client.components.create_component(
+      client.components.create_metered_component(
         product_family.id,
-        AdvancedBilling::ComponentKindPath::METERED_COMPONENTS,
         body: AdvancedBilling::CreateMeteredComponent.new(
           AdvancedBilling::MeteredComponent.new(
             "#{FFaker::Product.product_name}#{token}",

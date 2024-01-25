@@ -1,9 +1,8 @@
 module Factories
   class QuantityBasedComponent
     def self.create(client, product_family:)
-      client.components.create_component(
+      client.components.create_quantity_based_component(
         product_family.id,
-        AdvancedBilling::ComponentKindPath::QUANTITY_BASED_COMPONENTS,
         body: AdvancedBilling::CreateQuantityBasedComponent.new(
           AdvancedBilling::QuantityBasedComponent.new(
             "Component #{SecureRandom.hex(4)}",
