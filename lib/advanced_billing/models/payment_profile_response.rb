@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [PaymentProfile]
+    # @return [Object]
     attr_accessor :payment_profile
 
     # A mapping from model property names to API property names.
@@ -39,11 +39,26 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      payment_profile = PaymentProfile.from_hash(hash['payment_profile']) if
-        hash['payment_profile']
+      payment_profile = hash.key?('payment_profile') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:PaymentProfileResponsePaymentProfile), hash['payment_profile']
+      ) : nil
 
       # Create object from extracted values.
       PaymentProfileResponse.new(payment_profile)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [PaymentProfileResponse | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return UnionTypeLookUp.get(:PaymentProfileResponsePaymentProfile)
+                              .validate(value.payment_profile)
+      end
+
+      return false unless value.instance_of? Hash
+
+      UnionTypeLookUp.get(:PaymentProfileResponsePaymentProfile)
+                     .validate(value['payment_profile'])
     end
   end
 end

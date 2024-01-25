@@ -86,7 +86,7 @@ module AdvancedBilling
     # will be the date of the previous billing, and the end date will be the
     # current billing date.
     # * For non-periodic charges, this date and the end date will match.
-    # @return [String]
+    # @return [Date]
     attr_accessor :period_range_start
 
     # End date for the period covered by this line. The format is
@@ -96,7 +96,7 @@ module AdvancedBilling
     # * For periodic charges paid in arrears (e.g. metered charges), this date
     # will be the date of the current billing date.
     # * For non-periodic charges, this date and the start date will match.
-    # @return [String]
+    # @return [Date]
     attr_accessor :period_range_end
 
     # End date for the period covered by this line. The format is

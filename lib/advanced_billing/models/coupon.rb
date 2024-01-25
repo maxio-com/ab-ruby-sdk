@@ -50,7 +50,7 @@ module AdvancedBilling
     attr_accessor :end_date
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [String]
     attr_accessor :percentage
 
     # TODO: Write general description for this method

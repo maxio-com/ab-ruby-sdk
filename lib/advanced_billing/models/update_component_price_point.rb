@@ -87,7 +87,7 @@ module AdvancedBilling
     def initialize(name = SKIP,
                    handle = SKIP,
                    pricing_scheme = SKIP,
-                   use_site_exchange_rate = true,
+                   use_site_exchange_rate = SKIP,
                    tax_included = SKIP,
                    interval = SKIP,
                    interval_unit = SKIP,
@@ -111,7 +111,8 @@ module AdvancedBilling
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       pricing_scheme =
         hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
-      use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
+      use_site_exchange_rate =
+        hash.key?('use_site_exchange_rate') ? hash['use_site_exchange_rate'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP

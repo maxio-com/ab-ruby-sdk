@@ -12,7 +12,7 @@
 | `uid` | `String` | Optional | - |
 | `credit_note_number` | `String` | Optional | - |
 | `credit_note_uid` | `String` | Optional | - |
-| `transaction_time` | `String` | Optional | - |
+| `transaction_time` | `DateTime` | Optional | - |
 | `memo` | `String` | Optional | - |
 | `original_amount` | `String` | Optional | - |
 | `applied_amount` | `String` | Optional | - |
@@ -24,7 +24,7 @@
   "uid": "uid6",
   "credit_note_number": "credit_note_number0",
   "credit_note_uid": "credit_note_uid0",
-  "transaction_time": "transaction_time8",
+  "transaction_time": "2016-03-13T12:52:32.123Z",
   "memo": "memo0"
 }
 ```

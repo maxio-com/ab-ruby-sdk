@@ -40,27 +40,26 @@ module AdvancedBilling
         .execute
     end
 
-    # Creates a subscription group with given members.
-    # @param [CreateSubscriptionGroupRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionGroupResponse] response from the API call
-    def create_subscription_group(body: nil)
+    # Use this endpoint to find subscription group associated with subscription.
+    # If the subscription is not in a group endpoint will return 404 code.
+    # @param [String] subscription_id Required parameter: The Chargify id of the
+    # subscription associated with the subscription group
+    # @return [FullSubscriptionGroupResponse] response from the API call
+    def read_subscription_group_by_subscription_id(subscription_id)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscription_groups.json',
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscription_groups/lookup.json',
                                      Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
+                   .query_param(new_parameter(subscription_id, key: 'subscription_id')
+                                 .is_required(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SingleStringErrorResponseException))
+                   .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
         .execute
     end
 
@@ -99,6 +98,108 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListSubscriptionGroupsResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use this endpoint to delete subscription group.
+    # Only groups without members can be deleted
+    # @param [String] uid Required parameter: The uid of the subscription
+    # group
+    # @return [DeleteSubscriptionGroupResponse] response from the API call
+    def delete_subscription_group(uid)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscription_groups/{uid}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeleteSubscriptionGroupResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
+        .execute
+    end
+
+    # For sites making use of the [Relationship
+    # Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and
+    # [Customer
+    # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
+    # features, it is possible to add existing subscriptions to subscription
+    # groups.
+    # Passing `group` parameters with a `target` containing a `type` and
+    # optional `id` is all that's needed. When the `target` parameter specifies
+    # a `"customer"` or `"subscription"` that is already part of a hierarchy,
+    # the subscription will become a member of the customer's subscription
+    # group.  If the target customer or subscription is not part of a
+    # subscription group, a new group will be created and the subscription will
+    # become part of the group with the specified target customer set as the
+    # responsible payer for the group's subscriptions.
+    # **Please Note:** In order to add an existing subscription to a
+    # subscription group, it must belong to either the same customer record as
+    # the target, or be within the same customer hierarchy.
+    # Rather than specifying a customer, the `target` parameter could instead
+    # simply have a value of
+    # * `"self"` which indicates the subscription will be paid for not by some
+    # other customer, but by the subscribing customer,
+    # * `"parent"` which indicates the subscription will be paid for by the
+    # subscribing customer's parent within a customer hierarchy, or
+    # * `"eldest"` which indicates the subscription will be paid for by the
+    # root-level customer in the subscribing customer's hierarchy.
+    # To create a new subscription into a subscription group, please reference
+    # the following:
+    # [Create Subscription in a Subscription
+    # Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-
+    # subscription#subscription-in-a-subscription-group)
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [AddSubscriptionToAGroup] body Optional parameter: Example:
+    # @return [SubscriptionGroupResponse] response from the API call
+    def create_subscription_group_hierarchy(subscription_id,
+                                            body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/group.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Creates a subscription group with given members.
+    # @param [CreateSubscriptionGroupRequest] body Optional parameter:
+    # Example:
+    # @return [SubscriptionGroupResponse] response from the API call
+    def create_subscription_group(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscription_groups.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SingleStringErrorResponseException))
         .execute
     end
 
@@ -158,107 +259,6 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          SubscriptionGroupUpdateErrorResponseException))
-        .execute
-    end
-
-    # Use this endpoint to delete subscription group.
-    # Only groups without members can be deleted
-    # @param [String] uid Required parameter: The uid of the subscription
-    # group
-    # @return [DeleteSubscriptionGroupResponse] response from the API call
-    def delete_subscription_group(uid)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/subscription_groups/{uid}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeleteSubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
-    # Use this endpoint to find subscription group associated with subscription.
-    # If the subscription is not in a group endpoint will return 404 code.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription associated with the subscription group
-    # @return [FullSubscriptionGroupResponse] response from the API call
-    def read_subscription_group_by_subscription_id(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscription_groups/lookup.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(subscription_id, key: 'subscription_id')
-                                 .is_required(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
-    # For sites making use of the [Relationship
-    # Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and
-    # [Customer
-    # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
-    # features, it is possible to add existing subscriptions to subscription
-    # groups.
-    # Passing `group` parameters with a `target` containing a `type` and
-    # optional `id` is all that's needed. When the `target` parameter specifies
-    # a `"customer"` or `"subscription"` that is already part of a hierarchy,
-    # the subscription will become a member of the customer's subscription
-    # group.  If the target customer or subscription is not part of a
-    # subscription group, a new group will be created and the subscription will
-    # become part of the group with the specified target customer set as the
-    # responsible payer for the group's subscriptions.
-    # **Please Note:** In order to add an existing subscription to a
-    # subscription group, it must belong to either the same customer record as
-    # the target, or be within the same customer hierarchy.
-    # Rather than specifying a customer, the `target` parameter could instead
-    # simply have a value of
-    # * `"self"` which indicates the subscription will be paid for not by some
-    # other customer, but by the subscribing customer,
-    # * `"parent"` which indicates the subscription will be paid for by the
-    # subscribing customer's parent within a customer hierarchy, or
-    # * `"eldest"` which indicates the subscription will be paid for by the
-    # root-level customer in the subscribing customer's hierarchy.
-    # To create a new subscription into a subscription group, please reference
-    # the following:
-    # [Create Subscription in a Subscription
-    # Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-
-    # subscription#subscription-in-a-subscription-group)
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [AddSubscriptionToAGroup] body Optional parameter: Example:
-    # @return [SubscriptionGroupResponse] response from the API call
-    def create_subscription_group_hierarchy(subscription_id,
-                                            body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/group.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash)))
         .execute
     end
 

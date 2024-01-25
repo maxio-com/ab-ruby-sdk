@@ -23,6 +23,7 @@
 | `taxable` | `TrueClass \| FalseClass` | Optional | Boolean flag describing whether a component is taxable or not. |
 | `description` | `String` | Optional | The description of the component. |
 | `default_price_point_id` | `Integer` | Optional | - |
+| `overage_prices` | [`Array<ComponentPrice>`](../../doc/models/component-price.md) | Optional | An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array will be empty. |
 | `prices` | [`Array<ComponentPrice>`](../../doc/models/component-price.md) | Optional | An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array will be empty. |
 | `price_point_count` | `Integer` | Optional | Count for the number of price points associated with the component |
 | `price_points_url` | `String` | Optional | URL that points to the location to read the existing price points via GET request |
@@ -31,8 +32,8 @@
 | `recurring` | `TrueClass \| FalseClass` | Optional | - |
 | `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
 | `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
-| `created_at` | `String` | Optional | Timestamp indicating when this component was created |
-| `updated_at` | `String` | Optional | Timestamp indicating when this component was updated |
+| `created_at` | `DateTime` | Optional | Timestamp indicating when this component was created |
+| `updated_at` | `DateTime` | Optional | Timestamp indicating when this component was updated |
 | `archived_at` | `String` | Optional | Timestamp indicating when this component was archived |
 | `hide_date_range_on_invoice` | `TrueClass \| FalseClass` | Optional | (Only available on Relationship Invoicing sites) Boolean flag describing if the service date range should show for the component on generated invoices. |
 | `allow_fractional_quantities` | `TrueClass \| FalseClass` | Optional | - |

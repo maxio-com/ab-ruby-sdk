@@ -6,39 +6,6 @@
 module AdvancedBilling
   # SubscriptionGroupInvoiceAccountController
   class SubscriptionGroupInvoiceAccountController < BaseController
-    # A prepayment can be added for a subscription group identified by the
-    # group's `uid`. This endpoint requires a `amount`, `details`, `method`, and
-    # `memo`. On success, the prepayment will be added to the group's prepayment
-    # balance.
-    # @param [String] uid Required parameter: The uid of the subscription
-    # group
-    # @param [SubscriptionGroupPrepaymentRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionGroupPrepaymentResponse] response from the API call
-    def create_subscription_group_prepayment(uid,
-                                             body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscription_groups/{uid}/prepayments.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupPrepaymentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
     # This request will list a subscription group's prepayments.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
@@ -89,19 +56,20 @@ module AdvancedBilling
         .execute
     end
 
-    # Credit can be issued for a subscription group identified by the group's
-    # `uid`. Credit will be added to the group in the amount specified in the
-    # request body. The credit will be applied to group member invoices as they
-    # are generated.
+    # A prepayment can be added for a subscription group identified by the
+    # group's `uid`. This endpoint requires a `amount`, `details`, `method`, and
+    # `memo`. On success, the prepayment will be added to the group's prepayment
+    # balance.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [IssueServiceCreditRequest] body Optional parameter: Example:
-    # @return [ServiceCreditResponse] response from the API call
-    def issue_subscription_group_service_credits(uid,
-                                                 body: nil)
+    # @param [SubscriptionGroupPrepaymentRequest] body Optional parameter:
+    # Example:
+    # @return [SubscriptionGroupPrepaymentResponse] response from the API call
+    def create_subscription_group_prepayment(uid,
+                                             body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscription_groups/{uid}/service_credits.json',
+                                     '/subscription_groups/{uid}/prepayments.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(uid, key: 'uid')
                                     .is_required(true)
@@ -113,7 +81,7 @@ module AdvancedBilling
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServiceCreditResponse.method(:from_hash))
+                   .deserialize_into(SubscriptionGroupPrepaymentResponse.method(:from_hash))
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -145,6 +113,38 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ServiceCredit.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # Credit can be issued for a subscription group identified by the group's
+    # `uid`. Credit will be added to the group in the amount specified in the
+    # request body. The credit will be applied to group member invoices as they
+    # are generated.
+    # @param [String] uid Required parameter: The uid of the subscription
+    # group
+    # @param [IssueServiceCreditRequest] body Optional parameter: Example:
+    # @return [ServiceCreditResponse] response from the API call
+    def issue_subscription_group_service_credits(uid,
+                                                 body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscription_groups/{uid}/service_credits.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ServiceCreditResponse.method(:from_hash))
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',

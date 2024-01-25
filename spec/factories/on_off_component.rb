@@ -1,9 +1,8 @@
 module Factories
   class OnOffComponent
     def self.create(client, product_family:)
-      client.components.create_component(
+      client.components.create_on_off_component(
         product_family.id,
-        AdvancedBilling::ComponentKindPath::ON_OFF_COMPONENTS,
         body: AdvancedBilling::CreateOnOffComponent.new(
           AdvancedBilling::OnOffComponent.new(
             "Component #{SecureRandom.hex(4)}",

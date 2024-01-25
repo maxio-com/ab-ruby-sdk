@@ -25,7 +25,7 @@
 | `billing_zip` | `String` | Optional | - |
 | `billing_country` | `String` | Optional | - |
 | `last_four` | `String` | Optional | - |
-| `card_type` | `String` | Optional | - |
+| `card_type` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. |
 | `customer_vault_token` | `String` | Optional | - |
 | `cvv` | `String` | Optional | - |
 | `payment_type` | `String` | Optional | - |
@@ -36,7 +36,6 @@
 {
   "full_number": 4111111111111111,
   "chargify_token": "tok_592nf92ng0sjd4300p",
-  "card_type": "visa",
   "expiration_month": "String1",
   "expiration_year": "String5",
   "vault_token": "vault_token6"

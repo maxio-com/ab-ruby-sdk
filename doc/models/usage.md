@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Integer` | Optional | - |
+| `id` | `Integer` | Optional | **Constraints**: `>= 0` |
 | `memo` | `String` | Optional | - |
 | `created_at` | `DateTime` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |

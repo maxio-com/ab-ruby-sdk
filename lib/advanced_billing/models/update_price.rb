@@ -14,19 +14,22 @@ module AdvancedBilling
     attr_accessor :id
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :ending_quantity
 
-    # TODO: Write general description for this method
-    # @return [Integer]
+    # The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # 0.00000065
+    # @return [Object]
     attr_accessor :unit_price
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # 0.00000065
+    # @return [TrueClass | FalseClass]
     attr_accessor :destroy
 
-    # TODO: Write general description for this method
-    # @return [Integer]
+    # The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # 0.00000065
+    # @return [Object]
     attr_accessor :starting_quantity
 
     # A mapping from model property names to API property names.
@@ -74,12 +77,16 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       id = hash.key?('id') ? hash['id'] : SKIP
-      ending_quantity =
-        hash.key?('ending_quantity') ? hash['ending_quantity'] : SKIP
-      unit_price = hash.key?('unit_price') ? hash['unit_price'] : SKIP
+      ending_quantity = hash.key?('ending_quantity') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:UpdatePriceEndingQuantity), hash['ending_quantity']
+      ) : SKIP
+      unit_price = hash.key?('unit_price') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:UpdatePriceUnitPrice), hash['unit_price']
+      ) : SKIP
       destroy = hash.key?('_destroy') ? hash['_destroy'] : SKIP
-      starting_quantity =
-        hash.key?('starting_quantity') ? hash['starting_quantity'] : SKIP
+      starting_quantity = hash.key?('starting_quantity') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:UpdatePriceStartingQuantity), hash['starting_quantity']
+      ) : SKIP
 
       # Create object from extracted values.
       UpdatePrice.new(id,
@@ -87,6 +94,16 @@ module AdvancedBilling
                       unit_price,
                       destroy,
                       starting_quantity)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [UpdatePrice | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

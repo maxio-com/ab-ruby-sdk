@@ -16,10 +16,10 @@
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
 | `component_id` | `Integer` | Optional | - |
 | `handle` | `String` | Optional | - |
-| `archived_at` | `String` | Optional | - |
-| `created_at` | `String` | Optional | - |
-| `updated_at` | `String` | Optional | - |
-| `prices` | [`Array<ComponentPricePointPrice>`](../../doc/models/component-price-point-price.md) | Optional | - |
+| `archived_at` | `DateTime` | Optional | - |
+| `created_at` | `DateTime` | Optional | - |
+| `updated_at` | `DateTime` | Optional | - |
+| `prices` | [`Array<ComponentPrice>`](../../doc/models/component-price.md) | Optional | - |
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site.<br>**Default**: `true` |
 | `subscription_id` | `Integer` | Optional | (only used for Custom Pricing - ie. when the price point's type is `custom`) The id of the subscription that the custom price point is for. |
 | `tax_included` | `TrueClass \| FalseClass` | Optional | - |

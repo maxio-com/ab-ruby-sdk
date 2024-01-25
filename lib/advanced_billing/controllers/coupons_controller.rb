@@ -53,154 +53,6 @@ module AdvancedBilling
         .execute
     end
 
-    # List coupons for a specific Product Family in a Site.
-    # If the coupon is set to `use_site_exchange_rate: true`, it will return
-    # pricing based on the current exchange rate. If the flag is set to false,
-    # it will return all of the defined prices for each currency.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 30. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @param [BasicDateField] filter_date_field Optional parameter: The type of
-    # filter you would like to apply to your search. Use in query
-    # `filter[date_field]=created_at`.
-    # @param [Date] filter_end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
-    # timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified. Use in query `filter[date_field]=2011-12-15`.
-    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
-    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns coupons with a timestamp at or before exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`.
-    # @param [Date] filter_start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
-    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified. Use in query `filter[start_date]=2011-12-17`.
-    # @param [DateTime] filter_start_datetime Optional parameter: The start date
-    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns coupons with a timestamp at or after exact time provided in query.
-    # You can specify timezone in query - otherwise your site's time zone will
-    # be used. If provided, this parameter will be used instead of start_date.
-    # Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # coupons with matching id based on provided values. Use in query
-    # `filter[ids]=1,2,3`.
-    # @param [Array[String]] filter_codes Optional parameter: Allows fetching
-    # coupons with matching codes based on provided values. Use in query
-    # `filter[codes]=free,free_trial`.
-    # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
-    # fetching coupons, if you have defined multiple currencies at the site
-    # level, you can optionally pass the `?currency_prices=true` query param to
-    # include an array of currency price data in the response. Use in query
-    # `currency_prices=true`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching coupons with matching use_site_exchange_rate
-    # based on provided value. Use in query
-    # `filter[use_site_exchange_rate]=true`.
-    # @return [Array[CouponResponse]] response from the API call
-    def list_coupons_for_product_family(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/product_families/{product_family_id}/coupons.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
-                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
-                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
-                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_codes'], key: 'filter[codes]'))
-                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash))
-                   .is_response_array(true))
-        .execute
-    end
-
-    # You can search for a coupon via the API with the find method. By passing a
-    # code parameter, the find will attempt to locate a coupon that matches that
-    # code. If no coupon is found, a 404 is returned.
-    # If you have more than one product family and if the coupon you are trying
-    # to find does not belong to the default product family in your site, then
-    # you will need to specify (either in the url or as a query string param)
-    # the product family id.
-    # @param [Integer] product_family_id Optional parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [String] code Optional parameter: The code of the coupon
-    # @return [CouponResponse] response from the API call
-    def read_coupon_by_code(product_family_id: nil,
-                            code: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/coupons/find.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(product_family_id, key: 'product_family_id'))
-                   .query_param(new_parameter(code, key: 'code'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
-        .execute
-    end
-
-    # You can retrieve the Coupon via the API with the Show method. You must
-    # identify the Coupon in this call by the ID parameter that Chargify
-    # assigns.
-    # If instead you would like to find a Coupon using a Coupon code, see the
-    # Coupon Find method.
-    # When fetching a coupon, if you have defined multiple currencies at the
-    # site level, you can optionally pass the `?currency_prices=true` query
-    # param to include an array of currency price data in the response.
-    # If the coupon is set to `use_site_exchange_rate: true`, it will return
-    # pricing based on the current exchange rate. If the flag is set to false,
-    # it will return all of the defined prices for each currency.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
-    # @return [CouponResponse] response from the API call
-    def read_coupon(product_family_id,
-                    coupon_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/product_families/{product_family_id}/coupons/{coupon_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
-        .execute
-    end
-
     # ## Update Coupon
     # You can update a Coupon via the API with a PUT request to the resource
     # endpoint.
@@ -231,36 +83,6 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
-        .execute
-    end
-
-    # You can archive a Coupon via the API with the archive method.
-    # Archiving makes that Coupon unavailable for future use, but allows it to
-    # remain attached and functional on existing Subscriptions that are using
-    # it.
-    # The `archived_at` date and time will be assigned.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
-    # @return [CouponResponse] response from the API call
-    def archive_coupon(product_family_id,
-                       coupon_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/product_families/{product_family_id}/coupons/{coupon_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -409,87 +231,6 @@ module AdvancedBilling
         .execute
     end
 
-    # You can verify if a specific coupon code is valid using the `validate`
-    # method. This method is useful for validating coupon codes that are entered
-    # by a customer. If the coupon is found and is valid, the coupon will be
-    # returned with a 200 status code.
-    # If the coupon is invalid, the status code will be 404 and the response
-    # will say why it is invalid. If the coupon is valid, the status code will
-    # be 200 and the coupon will be returned. The following reasons for
-    # invalidity are supported:
-    # + Coupon not found
-    # + Coupon is invalid
-    # + Coupon expired
-    # If you have more than one product family and if the coupon you are
-    # validating does not belong to the first product family in your site, then
-    # you will need to specify the product family, either in the url or as a
-    # query string param. This can be done by supplying the id or the handle in
-    # the `handle:my-family` format.
-    # Eg.
-    # ```
-    # https://<subdomain>.chargify.com/product_families/handle:<product_family_h
-    # andle>/coupons/validate.<format>?code=<coupon_code>
-    # ```
-    # Or:
-    # ```
-    # https://<subdomain>.chargify.com/coupons/validate.<format>?code=<coupon_co
-    # de>&product_family_id=<id>
-    # ```
-    # @param [String] code Required parameter: The code of the coupon
-    # @param [Integer] product_family_id Optional parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @return [CouponResponse] response from the API call
-    def validate_coupon(code,
-                        product_family_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/coupons/validate.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(code, key: 'code')
-                                 .is_required(true))
-                   .query_param(new_parameter(product_family_id, key: 'product_family_id'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                SingleStringErrorResponseException))
-        .execute
-    end
-
-    # This endpoint allows you to create and/or update currency prices for an
-    # existing coupon. Multiple prices can be created or updated in a single
-    # request but each of the currencies must be defined on the site level
-    # already and the coupon must be an amount-based coupon, not percentage.
-    # Currency pricing for coupons must mirror the setup of the primary coupon
-    # pricing - if the primary coupon is percentage based, you will not be able
-    # to define pricing in non-primary currencies.
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
-    # @param [CouponCurrencyRequest] body Optional parameter: Example:
-    # @return [CouponCurrencyResponse] response from the API call
-    def update_coupon_currency_prices(coupon_id,
-                                      body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/coupons/{coupon_id}/currency_prices.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
-        .execute
-    end
-
     # ## Coupon Subcodes Intro
     # Coupon Subcodes allow you to create a set of unique codes that allow you
     # to expand the use of one coupon.
@@ -552,6 +293,63 @@ module AdvancedBilling
         .execute
     end
 
+    # You can search for a coupon via the API with the find method. By passing a
+    # code parameter, the find will attempt to locate a coupon that matches that
+    # code. If no coupon is found, a 404 is returned.
+    # If you have more than one product family and if the coupon you are trying
+    # to find does not belong to the default product family in your site, then
+    # you will need to specify (either in the url or as a query string param)
+    # the product family id.
+    # @param [Integer] product_family_id Optional parameter: The Chargify id of
+    # the product family to which the coupon belongs
+    # @param [String] code Optional parameter: The code of the coupon
+    # @return [CouponResponse] response from the API call
+    def read_coupon_by_code(product_family_id: nil,
+                            code: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/coupons/find.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(product_family_id, key: 'product_family_id'))
+                   .query_param(new_parameter(code, key: 'code'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CouponResponse.method(:from_hash)))
+        .execute
+    end
+
+    # You can archive a Coupon via the API with the archive method.
+    # Archiving makes that Coupon unavailable for future use, but allows it to
+    # remain attached and functional on existing Subscriptions that are using
+    # it.
+    # The `archived_at` date and time will be assigned.
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the coupon belongs
+    # @param [Integer] coupon_id Required parameter: The Chargify id of the
+    # coupon
+    # @return [CouponResponse] response from the API call
+    def archive_coupon(product_family_id,
+                       coupon_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/product_families/{product_family_id}/coupons/{coupon_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CouponResponse.method(:from_hash)))
+        .execute
+    end
+
     # This request allows you to request the subcodes that are attached to a
     # coupon.
     # @param [Integer] coupon_id Required parameter: The Chargify id of the
@@ -586,6 +384,92 @@ module AdvancedBilling
         .execute
     end
 
+    # You can retrieve the Coupon via the API with the Show method. You must
+    # identify the Coupon in this call by the ID parameter that Chargify
+    # assigns.
+    # If instead you would like to find a Coupon using a Coupon code, see the
+    # Coupon Find method.
+    # When fetching a coupon, if you have defined multiple currencies at the
+    # site level, you can optionally pass the `?currency_prices=true` query
+    # param to include an array of currency price data in the response.
+    # If the coupon is set to `use_site_exchange_rate: true`, it will return
+    # pricing based on the current exchange rate. If the flag is set to false,
+    # it will return all of the defined prices for each currency.
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the coupon belongs
+    # @param [Integer] coupon_id Required parameter: The Chargify id of the
+    # coupon
+    # @return [CouponResponse] response from the API call
+    def read_coupon(product_family_id,
+                    coupon_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/product_families/{product_family_id}/coupons/{coupon_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CouponResponse.method(:from_hash)))
+        .execute
+    end
+
+    # You can verify if a specific coupon code is valid using the `validate`
+    # method. This method is useful for validating coupon codes that are entered
+    # by a customer. If the coupon is found and is valid, the coupon will be
+    # returned with a 200 status code.
+    # If the coupon is invalid, the status code will be 404 and the response
+    # will say why it is invalid. If the coupon is valid, the status code will
+    # be 200 and the coupon will be returned. The following reasons for
+    # invalidity are supported:
+    # + Coupon not found
+    # + Coupon is invalid
+    # + Coupon expired
+    # If you have more than one product family and if the coupon you are
+    # validating does not belong to the first product family in your site, then
+    # you will need to specify the product family, either in the url or as a
+    # query string param. This can be done by supplying the id or the handle in
+    # the `handle:my-family` format.
+    # Eg.
+    # ```
+    # https://<subdomain>.chargify.com/product_families/handle:<product_family_h
+    # andle>/coupons/validate.<format>?code=<coupon_code>
+    # ```
+    # Or:
+    # ```
+    # https://<subdomain>.chargify.com/coupons/validate.<format>?code=<coupon_co
+    # de>&product_family_id=<id>
+    # ```
+    # @param [String] code Required parameter: The code of the coupon
+    # @param [Integer] product_family_id Optional parameter: The Chargify id of
+    # the product family to which the coupon belongs
+    # @return [CouponResponse] response from the API call
+    def validate_coupon(code,
+                        product_family_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/coupons/validate.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(code, key: 'code')
+                                 .is_required(true))
+                   .query_param(new_parameter(product_family_id, key: 'product_family_id'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CouponResponse.method(:from_hash))
+                   .local_error('404',
+                                'Not Found',
+                                SingleStringErrorResponseException))
+        .execute
+    end
+
     # You can update the subcodes for the given Coupon via the API with a PUT
     # request to the resource endpoint.
     # Send an array of new coupon subcodes.
@@ -616,6 +500,122 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
+        .execute
+    end
+
+    # List coupons for a specific Product Family in a Site.
+    # If the coupon is set to `use_site_exchange_rate: true`, it will return
+    # pricing based on the current exchange rate. If the flag is set to false,
+    # it will return all of the defined prices for each currency.
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the coupon belongs
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 30. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [BasicDateField] filter_date_field Optional parameter: The type of
+    # filter you would like to apply to your search. Use in query
+    # `filter[date_field]=created_at`.
+    # @param [Date] filter_end_date Optional parameter: The end date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
+    # timestamp up to and including 11:59:59PM in your site’s time zone on the
+    # date specified. Use in query `filter[date_field]=2011-12-15`.
+    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
+    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns coupons with a timestamp at or before exact time provided in
+    # query. You can specify timezone in query - otherwise your site's time zone
+    # will be used. If provided, this parameter will be used instead of
+    # end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`.
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
+    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified. Use in query `filter[start_date]=2011-12-17`.
+    # @param [DateTime] filter_start_datetime Optional parameter: The start date
+    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns coupons with a timestamp at or after exact time provided in query.
+    # You can specify timezone in query - otherwise your site's time zone will
+    # be used. If provided, this parameter will be used instead of start_date.
+    # Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`.
+    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
+    # coupons with matching id based on provided values. Use in query
+    # `filter[ids]=1,2,3`.
+    # @param [Array[String]] filter_codes Optional parameter: Allows fetching
+    # coupons with matching codes based on provided values. Use in query
+    # `filter[codes]=free,free_trial`.
+    # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
+    # fetching coupons, if you have defined multiple currencies at the site
+    # level, you can optionally pass the `?currency_prices=true` query param to
+    # include an array of currency price data in the response. Use in query
+    # `currency_prices=true`.
+    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
+    # parameter: Allows fetching coupons with matching use_site_exchange_rate
+    # based on provided value. Use in query
+    # `filter[use_site_exchange_rate]=true`.
+    # @return [Array[CouponResponse]] response from the API call
+    def list_coupons_for_product_family(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/product_families/{product_family_id}/coupons.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_codes'], key: 'filter[codes]'))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
+                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CouponResponse.method(:from_hash))
+                   .is_response_array(true))
+        .execute
+    end
+
+    # This endpoint allows you to create and/or update currency prices for an
+    # existing coupon. Multiple prices can be created or updated in a single
+    # request but each of the currencies must be defined on the site level
+    # already and the coupon must be an amount-based coupon, not percentage.
+    # Currency pricing for coupons must mirror the setup of the primary coupon
+    # pricing - if the primary coupon is percentage based, you will not be able
+    # to define pricing in non-primary currencies.
+    # @param [Integer] coupon_id Required parameter: The Chargify id of the
+    # coupon
+    # @param [CouponCurrencyRequest] body Optional parameter: Example:
+    # @return [CouponCurrencyResponse] response from the API call
+    def update_coupon_currency_prices(coupon_id,
+                                      body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/coupons/{coupon_id}/currency_prices.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(coupon_id, key: 'coupon_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
         .execute
     end
 

@@ -6,6 +6,176 @@
 module AdvancedBilling
   # CustomFieldsController
   class CustomFieldsController < BaseController
+    # Use the following method to update metafields for your Site. Metafields
+    # can be populated with metadata after the fact.
+    # @param [ResourceType] resource_type Required parameter: the resource type
+    # to which the metafields belong
+    # @param [UpdateMetafieldsRequest] body Optional parameter: Example:
+    # @return [Array[Metafield]] response from the API call
+    def update_metafield(resource_type,
+                         body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/{resource_type}/metafields.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(resource_type, key: 'resource_type')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Metafield.method(:from_hash))
+                   .is_response_array(true))
+        .execute
+    end
+
+    # This method allows you to update the existing metadata associated with a
+    # subscription or customer.
+    # @param [ResourceType] resource_type Required parameter: the resource type
+    # to which the metafields belong
+    # @param [String] resource_id Required parameter: The Chargify id of the
+    # customer or the subscription for which the metadata applies
+    # @param [UpdateMetadataRequest] body Optional parameter: Example:
+    # @return [Array[Metadata]] response from the API call
+    def update_metadata(resource_type,
+                        resource_id,
+                        body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/{resource_type}/{resource_id}/metadata.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(resource_type, key: 'resource_type')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(resource_id, key: 'resource_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Metadata.method(:from_hash))
+                   .is_response_array(true))
+        .execute
+    end
+
+    # This endpoint lists metafields associated with a site. The metafield
+    # description and usage is contained in the response.
+    # @param [ResourceType] resource_type Required parameter: the resource type
+    # to which the metafields belong
+    # @param [String] name Optional parameter: filter by the name of the
+    # metafield
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
+    # @return [ListMetafieldsResponse] response from the API call
+    def list_metafields(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/{resource_type}/metafields.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(options['name'], key: 'name'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ListMetafieldsResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use the following method to delete a metafield. This will remove the
+    # metafield from the Site.
+    # Additionally, this will remove the metafield and associated metadata with
+    # all Subscriptions on the Site.
+    # @param [ResourceType] resource_type Required parameter: the resource type
+    # to which the metafields belong
+    # @param [String] name Optional parameter: The name of the metafield to be
+    # deleted
+    # @return [void] response from the API call
+    def delete_metafield(resource_type,
+                         name: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/{resource_type}/metafields.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(resource_type, key: 'resource_type')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(name, key: 'name'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
+        .execute
+    end
+
+    # This request will list all of the metadata belonging to a particular
+    # resource (ie. subscription, customer) that is specified.
+    # ## Metadata Data
+    # This endpoint will also display the current stats of your metadata to use
+    # as a tool for pagination.
+    # @param [ResourceType] resource_type Required parameter: the resource type
+    # to which the metafields belong
+    # @param [String] resource_id Required parameter: The Chargify id of the
+    # customer or the subscription for which the metadata applies
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @return [PaginatedMetadata] response from the API call
+    def list_metadata(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/{resource_type}/{resource_id}/metadata.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(options['resource_id'], key: 'resource_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(PaginatedMetadata.method(:from_hash)))
+        .execute
+    end
+
     # ## Custom Fields: Metafield Intro
     # **Chargify refers to Custom Fields in the API documentation as metafields
     # and metadata.** Within the Chargify UI, metadata and metafields are
@@ -70,101 +240,6 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint lists metafields associated with a site. The metafield
-    # description and usage is contained in the response.
-    # @param [ResourceType] resource_type Required parameter: the resource type
-    # to which the metafields belong
-    # @param [String] name Optional parameter: filter by the name of the
-    # metafield
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @param [SortingDirection] direction Optional parameter: Controls the order
-    # in which results are returned. Use in query `direction=asc`.
-    # @return [ListMetafieldsResponse] response from the API call
-    def list_metafields(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(options['name'], key: 'name'))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['direction'], key: 'direction'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListMetafieldsResponse.method(:from_hash)))
-        .execute
-    end
-
-    # Use the following method to update metafields for your Site. Metafields
-    # can be populated with metadata after the fact.
-    # @param [ResourceType] resource_type Required parameter: the resource type
-    # to which the metafields belong
-    # @param [UpdateMetafieldsRequest] body Optional parameter: Example:
-    # @return [Array[Metafield]] response from the API call
-    def update_metafield(resource_type,
-                         body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(resource_type, key: 'resource_type')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Metafield.method(:from_hash))
-                   .is_response_array(true))
-        .execute
-    end
-
-    # Use the following method to delete a metafield. This will remove the
-    # metafield from the Site.
-    # Additionally, this will remove the metafield and associated metadata with
-    # all Subscriptions on the Site.
-    # @param [ResourceType] resource_type Required parameter: the resource type
-    # to which the metafields belong
-    # @param [String] name Optional parameter: The name of the metafield to be
-    # deleted
-    # @return [void] response from the API call
-    def delete_metafield(resource_type,
-                         name: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(resource_type, key: 'resource_type')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(name, key: 'name'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
     # ## Custom Fields: Metadata Intro
     # **Chargify refers to Custom Fields in the API documentation as metafields
     # and metadata.** Within the Chargify UI, metadata and metafields are
@@ -221,84 +296,10 @@ module AdvancedBilling
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metadata.method(:from_hash))
                    .is_response_array(true)
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                SingleErrorResponseException))
-        .execute
-    end
-
-    # This request will list all of the metadata belonging to a particular
-    # resource (ie. subscription, customer) that is specified.
-    # ## Metadata Data
-    # This endpoint will also display the current stats of your metadata to use
-    # as a tool for pagination.
-    # @param [ResourceType] resource_type Required parameter: the resource type
-    # to which the metafields belong
-    # @param [String] resource_id Required parameter: The Chargify id of the
-    # customer or the subscription for which the metadata applies
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @return [PaginatedMetadata] response from the API call
-    def list_metadata(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/{resource_type}/{resource_id}/metadata.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(options['resource_type'], key: 'resource_type')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(options['resource_id'], key: 'resource_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaginatedMetadata.method(:from_hash)))
-        .execute
-    end
-
-    # This method allows you to update the existing metadata associated with a
-    # subscription or customer.
-    # @param [ResourceType] resource_type Required parameter: the resource type
-    # to which the metafields belong
-    # @param [String] resource_id Required parameter: The Chargify id of the
-    # customer or the subscription for which the metadata applies
-    # @param [UpdateMetadataRequest] body Optional parameter: Example:
-    # @return [Array[Metadata]] response from the API call
-    def update_metadata(resource_type,
-                        resource_id,
-                        body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/{resource_type}/{resource_id}/metadata.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(resource_type, key: 'resource_type')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(resource_id, key: 'resource_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Metadata.method(:from_hash))
-                   .is_response_array(true))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SingleErrorResponseException))
         .execute
     end
 

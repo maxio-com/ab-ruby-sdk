@@ -25,19 +25,19 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :masked_card_number
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of card used.
+    # @return [CardType]
     attr_accessor :card_type
 
-    # TODO: Write general description for this method
+    # The type of card used.
     # @return [Float]
     attr_accessor :expiration_month
 
-    # TODO: Write general description for this method
+    # The type of card used.
     # @return [Float]
     attr_accessor :expiration_year
 
-    # TODO: Write general description for this method
+    # The type of card used.
     # @return [String]
     attr_accessor :customer_id
 

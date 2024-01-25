@@ -30,6 +30,54 @@ module AdvancedBilling
     end
 
     # This endpoint returns your site's current MRR, including plan and usage
+    # breakouts split per subscription.
+    # @param [Array[Integer]] filter_subscription_ids Optional parameter: Submit
+    # ids in order to limit results. Use in query:
+    # `filter[subscription_ids]=1,2,3`.
+    # @param [String] at_time Optional parameter: Submit a timestamp in ISO8601
+    # format to request MRR for a historic time. Use in query:
+    # `at_time=2022-01-10T10:00:00-05:00`.
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [Direction] direction Optional parameter: Controls the order in
+    # which results are returned. Records are ordered by subscription_id in
+    # ascending order by default. Use in query `direction=desc`.
+    # @return [SubscriptionMRRResponse] response from the API call
+    def list_mrr_per_subscription(options = {})
+      warn 'Endpoint list_mrr_per_subscription in InsightsController is deprec'\
+           'ated'
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions_mrr.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(options['filter_subscription_ids'], key: 'filter[subscription_ids]'))
+                   .query_param(new_parameter(options['at_time'], key: 'at_time'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionMRRResponse.method(:from_hash))
+                   .local_error_template('400',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SubscriptionsMrrErrorResponseException))
+        .execute
+    end
+
+    # This endpoint returns your site's current MRR, including plan and usage
     # breakouts.
     # @param [DateTime] at_time Optional parameter: submit a timestamp in
     # ISO8601 format to request MRR for a historic time
@@ -107,54 +155,6 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMRRResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This endpoint returns your site's current MRR, including plan and usage
-    # breakouts split per subscription.
-    # @param [Array[Integer]] filter_subscription_ids Optional parameter: Submit
-    # ids in order to limit results. Use in query:
-    # `filter[subscription_ids]=1,2,3`.
-    # @param [String] at_time Optional parameter: Submit a timestamp in ISO8601
-    # format to request MRR for a historic time. Use in query:
-    # `at_time=2022-01-10T10:00:00-05:00`.
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @param [Direction] direction Optional parameter: Controls the order in
-    # which results are returned. Records are ordered by subscription_id in
-    # ascending order by default. Use in query `direction=desc`.
-    # @return [SubscriptionMRRResponse] response from the API call
-    def list_mrr_per_subscription(options = {})
-      warn 'Endpoint list_mrr_per_subscription in InsightsController is deprec'\
-           'ated'
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions_mrr.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(options['filter_subscription_ids'], key: 'filter[subscription_ids]'))
-                   .query_param(new_parameter(options['at_time'], key: 'at_time'))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['direction'], key: 'direction'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionMRRResponse.method(:from_hash))
-                   .local_error_template('400',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionsMrrErrorResponseException))
         .execute
     end
   end

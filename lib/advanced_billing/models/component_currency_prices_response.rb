@@ -4,13 +4,13 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # ProductPricePointCurrencyPrice Model.
-  class ProductPricePointCurrencyPrice < BaseModel
+  # ComponentCurrencyPricesResponse Model.
+  class ComponentCurrencyPricesResponse < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[CurrencyPrice]]
+    # @return [Array[ComponentCurrencyPrice]]
     attr_accessor :currency_prices
 
     # A mapping from model property names to API property names.
@@ -44,14 +44,14 @@ module AdvancedBilling
       unless hash['currency_prices'].nil?
         currency_prices = []
         hash['currency_prices'].each do |structure|
-          currency_prices << (CurrencyPrice.from_hash(structure) if structure)
+          currency_prices << (ComponentCurrencyPrice.from_hash(structure) if structure)
         end
       end
 
       currency_prices = nil unless hash.key?('currency_prices')
 
       # Create object from extracted values.
-      ProductPricePointCurrencyPrice.new(currency_prices)
+      ComponentCurrencyPricesResponse.new(currency_prices)
     end
   end
 end

@@ -45,19 +45,5 @@ module AdvancedBilling
       # Create object from extracted values.
       CreatePrepaidComponent.new(prepaid_usage_component)
     end
-
-    # Validates an instance of the object from a given value.
-    # @param [CreatePrepaidComponent | Hash] The value against the validation is performed.
-    def self.validate(value)
-      if value.instance_of? self
-        return APIHelper.valid_type?(value.prepaid_usage_component,
-                                     ->(val) { PrepaidUsageComponent.validate(val) })
-      end
-
-      return false unless value.instance_of? Hash
-
-      APIHelper.valid_type?(value['prepaid_usage_component'],
-                            ->(val) { PrepaidUsageComponent.validate(val) })
-    end
   end
 end

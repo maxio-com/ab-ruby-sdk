@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `transaction_time` | `String` | Optional | - |
+| `transaction_time` | `DateTime` | Optional | - |
 | `memo` | `String` | Optional | - |
 | `original_amount` | `String` | Optional | - |
 | `applied_amount` | `String` | Optional | - |
@@ -24,7 +24,7 @@
 
 ```json
 {
-  "transaction_time": "transaction_time4",
+  "transaction_time": "2016-03-13T12:52:32.123Z",
   "memo": "memo6",
   "original_amount": "original_amount6",
   "applied_amount": "applied_amount6",

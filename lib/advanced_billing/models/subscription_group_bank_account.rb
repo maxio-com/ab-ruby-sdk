@@ -36,48 +36,39 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :bank_branch_code
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to checking
     # @return [BankAccountType]
     attr_accessor :bank_account_type
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
-    # @return [HolderType]
+    # Defaults to personal
+    # @return [BankAccountHolderType]
     attr_accessor :bank_account_holder_type
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
-    # @return [String]
+    # Defaults to personal
+    # @return [PaymentType]
     attr_accessor :payment_type
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to personal
     # @return [String]
     attr_accessor :billing_address
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to personal
     # @return [String]
     attr_accessor :billing_city
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to personal
     # @return [String]
     attr_accessor :billing_state
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to personal
     # @return [String]
     attr_accessor :billing_zip
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to personal
     # @return [String]
     attr_accessor :billing_country
 
-    # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Defaults to personal
     # @return [String]
     attr_accessor :chargify_token
 
@@ -145,7 +136,7 @@ module AdvancedBilling
                    bank_branch_code = SKIP,
                    bank_account_type = BankAccountType::CHECKING,
                    bank_account_holder_type = SKIP,
-                   payment_type = SKIP,
+                   payment_type = PaymentType::CREDIT_CARD,
                    billing_address = SKIP,
                    billing_city = SKIP,
                    billing_state = SKIP,
@@ -189,7 +180,7 @@ module AdvancedBilling
         hash['bank_account_type'] ||= BankAccountType::CHECKING
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
+      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
       billing_address =
         hash.key?('billing_address') ? hash['billing_address'] : SKIP
       billing_city = hash.key?('billing_city') ? hash['billing_city'] : SKIP

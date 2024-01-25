@@ -4,7 +4,7 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Bank Account Type.
+  # Defaults to checking
   class BankAccountType
     BANK_ACCOUNT_TYPE = [
       # TODO: Write general description for CHECKING
