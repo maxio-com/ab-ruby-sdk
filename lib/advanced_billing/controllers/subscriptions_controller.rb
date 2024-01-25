@@ -6,6 +6,364 @@
 module AdvancedBilling
   # SubscriptionsController
   class SubscriptionsController < BaseController
+    # Use this endpoint to find a subscription by its reference.
+    # @param [String] reference Optional parameter: Subscription reference
+    # @return [SubscriptionResponse] response from the API call
+    def read_subscription_by_reference(reference: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions/lookup.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(reference, key: 'reference'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
+        .execute
+    end
+
+    # An existing subscription can accommodate multiple discounts/coupon codes.
+    # This is only applicable if each coupon is stackable. For more information
+    # on stackable coupons, we recommend reviewing our [coupon
+    # documentation.](https://chargify.zendesk.com/hc/en-us/articles/44077559095
+    # 31#stackable-coupons)
+    # ## Query Parameters vs Request Body Parameters
+    # Passing in a coupon code as a query parameter will add the code to the
+    # subscription, completely replacing all existing coupon codes on the
+    # subscription.
+    # For this reason, using this query parameter on this endpoint has been
+    # deprecated in favor of using the request body parameters as described
+    # below. When passing in request body parameters, the list of coupon codes
+    # will simply be added to any existing list of codes on the subscription.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [String] code Optional parameter: A code for the coupon that would
+    # be applied to a subscription
+    # @param [AddCouponsRequest] body Optional parameter: Example:
+    # @return [SubscriptionResponse] response from the API call
+    def apply_coupon_to_subscription(subscription_id,
+                                     code: nil,
+                                     body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/add_coupon.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .query_param(new_parameter(code, key: 'code'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SubscriptionAddCouponErrorException))
+        .execute
+    end
+
+    # The subscription endpoint allows you to instantly update one or many
+    # attributes about a subscription in a single call.
+    # ## Update Subscription Payment Method
+    # Change the card that your Subscriber uses for their subscription. You can
+    # also use this method to simply change the expiration date of the card **if
+    # your gateway allows**.
+    # Note that partial card updates for **Authorize.Net** are not allowed via
+    # this endpoint. The existing Payment Profile must be directly updated
+    # instead.
+    # You also use this method to change the subscription to a different product
+    # by setting a new value for product_handle. A product change can be done in
+    # two different ways, **product change** or **delayed product change**.
+    # ## Product Change
+    # This endpoint may be used to change a subscription's product. The new
+    # payment amount is calculated and charged at the normal start of the next
+    # period. If you desire complex product changes or prorated upgrades and
+    # downgrades instead, please see the documentation on Migrating Subscription
+    # Products.
+    # To perform a product change, simply set either the `product_handle` or
+    # `product_id` attribute to that of a different product from the same site
+    # as the subscription. You can also change the price point by passing in
+    # either `product_price_point_id` or `product_price_point_handle` -
+    # otherwise the new product's default price point will be used.
+    # ### Delayed Product Change
+    # This method also changes the product and/or price point, and the new
+    # payment amount is calculated and charged at the normal start of the next
+    # period.
+    # This method schedules the product change to happen automatically at the
+    # subscription’s next renewal date. To perform a Delayed Product Change, set
+    # the `product_handle` attribute as you would in a regular product change,
+    # but also set the `product_change_delayed` attribute to `true`. No
+    # proration applies in this case.
+    # You can also perform a delayed change to the price point by passing in
+    # either `product_price_point_id` or `product_price_point_handle`
+    # **Note: To cancel a delayed product change, set `next_product_id` to an
+    # empty string.**
+    # ## Billing Date Changes
+    # ### Regular Billing Date Changes
+    # Send the `next_billing_at` to set the next billing date for the
+    # subscription. After that date passes and the subscription is processed,
+    # the following billing date will be set according to the subscription's
+    # product period.
+    # Note that if you pass an invalid date, we will automatically interpret and
+    # set the correct date. For example, when February 30 is entered, the next
+    # billing will be set to March 2nd in a non-leap year.
+    # The server response will not return data under the key/value pair of
+    # `next_billing`. Please view the key/value pair of `current_period_ends_at`
+    # to verify that the `next_billing` date has been changed successfully.
+    # ### Snap Day Changes
+    # For a subscription using Calendar Billing, setting the next billing date
+    # is a bit different. Send the `snap_day` attribute to change the calendar
+    # billing date for **a subscription using a product eligible for calendar
+    # billing**.
+    # Note: If you change the product associated with a subscription that
+    # contains a `snap_date` and immediately `READ/GET` the subscription data,
+    # it will still contain evidence of the existing `snap_date`. This is due to
+    # the fact that a product change is instantanous and only affects the
+    # product associated with a subscription. After the `next_billing` date
+    # arrives, the `snap_day` associated with the subscription will return to
+    # `null.` Another way of looking at this is that you willl have to wait for
+    # the next billing cycle to arrive before the `snap_date` will reset to
+    # `null`.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [UpdateSubscriptionRequest] body Optional parameter: Example:
+    # @return [SubscriptionResponse] response from the API call
+    def update_subscription(subscription_id,
+                            body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/subscriptions/{subscription_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # For sites in test mode, you may purge individual subscriptions.
+    # Provide the subscription ID in the url.  To confirm, supply the customer
+    # ID in the query string `ack` parameter. You may also delete the customer
+    # record and/or payment profiles by passing `cascade` parameters. For
+    # example, to delete just the customer record, the query params would be:
+    # `?ack={customer_id}&cascade[]=customer`
+    # If you need to remove subscriptions from a live site, please contact
+    # support to discuss your use case.
+    # ### Delete customer and payment profile
+    # The query params will be:
+    # `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer] ack Required parameter: id of the customer.
+    # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
+    # are "customer" or "payment_profile". Use in query:
+    # `cascade[]=customer&cascade[]=payment_profile`.
+    # @return [void] response from the API call
+    def purge_subscription(subscription_id,
+                           ack,
+                           cascade: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/purge.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(ack, key: 'ack')
+                                 .is_required(true))
+                   .query_param(new_parameter(cascade, key: 'cascade[]'))
+                   .auth(Single.new('global'))
+                   .array_serialization_format(ArraySerializationFormat::PLAIN))
+        .response(new_response_handler
+                   .is_response_void(true))
+        .execute
+    end
+
+    # The Chargify API allows you to preview a subscription by POSTing the same
+    # JSON or XML as for a subscription creation.
+    # The "Next Billing" amount and "Next Billing" date are represented in each
+    # Subscriber's Summary. For more information, please see our documentation
+    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#next-b
+    # illing).
+    # ## Side effects
+    # A subscription will not be created by sending a POST to this endpoint. It
+    # is meant to serve as a prediction.
+    # ## Taxable Subscriptions
+    # This endpoint will preview taxes applicable to a purchase. In order for
+    # taxes to be previewed, the following conditions must be met:
+    # + Taxes must be configured on the subscription
+    # + The preview must be for the purchase of a taxable product or component,
+    # or combination of the two.
+    # + The subscription payload must contain a full billing or shipping address
+    # in order to calculate tax
+    # For more information about creating taxable previews, please see our
+    # documentation guide on how to create [taxable
+    # subscriptions.](https://chargify.zendesk.com/hc/en-us/articles/44079042177
+    # 55#creating-taxable-subscriptions)
+    # You do **not** need to include a card number to generate tax information
+    # when you are previewing a subscription. However, please note that when you
+    # actually want to create the subscription, you must include the credit card
+    # information if you want the billing address to be stored in Chargify. The
+    # billing address and the credit card information are stored together within
+    # the payment profile object. Also, you may not send a billing address to
+    # Chargify without payment profile information, as the address is stored on
+    # the card.
+    # You can pass shipping and billing addresses and still decide not to
+    # calculate taxes. To do that, pass `skip_billing_manifest_taxes: true`
+    # attribute.
+    # ## Non-taxable Subscriptions
+    # If you'd like to calculate subscriptions that do not include tax, please
+    # feel free to leave off the billing information.
+    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
+    # @return [SubscriptionPreviewResponse] response from the API call
+    def preview_subscription(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/preview.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionPreviewResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use this endpoint to find subscription details.
+    # ## Self-Service Page token
+    # Self-Service Page token for the subscription is not returned by default.
+    # If this information is desired, the include[]=self_service_page_token
+    # parameter must be provided with the request.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Array[SubscriptionInclude]] include Optional parameter: Allows
+    # including additional data in the response. Use in query:
+    # `include[]=coupons&include[]=self_service_page_token`.
+    # @return [SubscriptionResponse] response from the API call
+    def read_subscription(subscription_id,
+                          include: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions/{subscription_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(include, key: 'include[]'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global'))
+                   .array_serialization_format(ArraySerializationFormat::PLAIN))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
+        .execute
+    end
+
+    # This API endpoint allows you to set certain subscription fields that are
+    # usually managed for you automatically. Some of the fields can be set via
+    # the normal Subscriptions Update API, but others can only be set using this
+    # endpoint.
+    # This endpoint is provided for cases where you need to “align” Chargify
+    # data with data that happened in your system, perhaps before you started
+    # using Chargify. For example, you may choose to import your historical
+    # subscription data, and would like the activation and cancellation dates in
+    # Chargify to match your existing historical dates. Chargify does not
+    # backfill historical events (i.e. from the Events API), but some static
+    # data can be changed via this API.
+    # Why are some fields only settable from this endpoint, and not the normal
+    # subscription create and update endpoints? Because we want users of this
+    # endpoint to be aware that these fields are usually managed by Chargify,
+    # and using this API means **you are stepping out on your own.**
+    # Changing these fields will not affect any other attributes. For example,
+    # adding an expiration date will not affect the next assessment date on the
+    # subscription.
+    # If you regularly need to override the current_period_starts_at for new
+    # subscriptions, this can also be accomplished by setting both
+    # `previous_billing_at` and `next_billing_at` at subscription creation. See
+    # the documentation on [Importing
+    # Subscriptions](./b3A6MTQxMDgzODg-create-subscription#subscriptions-import)
+    # for more information.
+    # ## Limitations
+    # When passing `current_period_starts_at` some validations are made:
+    # 1. The subscription needs to be unbilled (no statements or invoices).
+    # 2. The value passed must be a valid date/time. We recommend using the iso
+    # 8601 format.
+    # 3. The value passed must be before the current date/time.
+    # If unpermitted parameters are sent, a 400 HTTP response is sent along with
+    # a string giving the reason for the problem.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [OverrideSubscriptionRequest] body Optional parameter: Only these
+    # fields are available to be set.
+    # @return [void] response from the API call
+    def override_subscription(subscription_id,
+                              body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/subscriptions/{subscription_id}/override.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SingleErrorResponseException))
+        .execute
+    end
+
+    # Use this endpoint to update a subscription's prepaid configuration.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [UpsertPrepaidConfigurationRequest] body Optional parameter:
+    # Example:
+    # @return [PrepaidConfigurationResponse] response from the API call
+    def create_prepaid_subscription(subscription_id,
+                                    body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/prepaid_configurations.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(PrepaidConfigurationResponse.method(:from_hash)))
+        .execute
+    end
+
     # Full documentation on how subscriptions operate within Chargify can be
     # located under the following topics:
     # + [Subscriptions
@@ -874,395 +1232,6 @@ module AdvancedBilling
         .execute
     end
 
-    # The subscription endpoint allows you to instantly update one or many
-    # attributes about a subscription in a single call.
-    # ## Update Subscription Payment Method
-    # Change the card that your Subscriber uses for their subscription. You can
-    # also use this method to simply change the expiration date of the card **if
-    # your gateway allows**.
-    # Note that partial card updates for **Authorize.Net** are not allowed via
-    # this endpoint. The existing Payment Profile must be directly updated
-    # instead.
-    # You also use this method to change the subscription to a different product
-    # by setting a new value for product_handle. A product change can be done in
-    # two different ways, **product change** or **delayed product change**.
-    # ## Product Change
-    # This endpoint may be used to change a subscription's product. The new
-    # payment amount is calculated and charged at the normal start of the next
-    # period. If you desire complex product changes or prorated upgrades and
-    # downgrades instead, please see the documentation on Migrating Subscription
-    # Products.
-    # To perform a product change, simply set either the `product_handle` or
-    # `product_id` attribute to that of a different product from the same site
-    # as the subscription. You can also change the price point by passing in
-    # either `product_price_point_id` or `product_price_point_handle` -
-    # otherwise the new product's default price point will be used.
-    # ### Delayed Product Change
-    # This method also changes the product and/or price point, and the new
-    # payment amount is calculated and charged at the normal start of the next
-    # period.
-    # This method schedules the product change to happen automatically at the
-    # subscription’s next renewal date. To perform a Delayed Product Change, set
-    # the `product_handle` attribute as you would in a regular product change,
-    # but also set the `product_change_delayed` attribute to `true`. No
-    # proration applies in this case.
-    # You can also perform a delayed change to the price point by passing in
-    # either `product_price_point_id` or `product_price_point_handle`
-    # **Note: To cancel a delayed product change, set `next_product_id` to an
-    # empty string.**
-    # ## Billing Date Changes
-    # ### Regular Billing Date Changes
-    # Send the `next_billing_at` to set the next billing date for the
-    # subscription. After that date passes and the subscription is processed,
-    # the following billing date will be set according to the subscription's
-    # product period.
-    # Note that if you pass an invalid date, we will automatically interpret and
-    # set the correct date. For example, when February 30 is entered, the next
-    # billing will be set to March 2nd in a non-leap year.
-    # The server response will not return data under the key/value pair of
-    # `next_billing`. Please view the key/value pair of `current_period_ends_at`
-    # to verify that the `next_billing` date has been changed successfully.
-    # ### Snap Day Changes
-    # For a subscription using Calendar Billing, setting the next billing date
-    # is a bit different. Send the `snap_day` attribute to change the calendar
-    # billing date for **a subscription using a product eligible for calendar
-    # billing**.
-    # Note: If you change the product associated with a subscription that
-    # contains a `snap_date` and immediately `READ/GET` the subscription data,
-    # it will still contain evidence of the existing `snap_date`. This is due to
-    # the fact that a product change is instantanous and only affects the
-    # product associated with a subscription. After the `next_billing` date
-    # arrives, the `snap_day` associated with the subscription will return to
-    # `null.` Another way of looking at this is that you willl have to wait for
-    # the next billing cycle to arrive before the `snap_date` will reset to
-    # `null`.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [UpdateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
-    def update_subscription(subscription_id,
-                            body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/subscriptions/{subscription_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Use this endpoint to find subscription details.
-    # ## Self-Service Page token
-    # Self-Service Page token for the subscription is not returned by default.
-    # If this information is desired, the include[]=self_service_page_token
-    # parameter must be provided with the request.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [Array[SubscriptionInclude]] include Optional parameter: Allows
-    # including additional data in the response. Use in query:
-    # `include[]=coupons&include[]=self_service_page_token`.
-    # @return [SubscriptionResponse] response from the API call
-    def read_subscription(subscription_id,
-                          include: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/{subscription_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(include, key: 'include[]'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-                   .array_serialization_format(ArraySerializationFormat::PLAIN))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This API endpoint allows you to set certain subscription fields that are
-    # usually managed for you automatically. Some of the fields can be set via
-    # the normal Subscriptions Update API, but others can only be set using this
-    # endpoint.
-    # This endpoint is provided for cases where you need to “align” Chargify
-    # data with data that happened in your system, perhaps before you started
-    # using Chargify. For example, you may choose to import your historical
-    # subscription data, and would like the activation and cancellation dates in
-    # Chargify to match your existing historical dates. Chargify does not
-    # backfill historical events (i.e. from the Events API), but some static
-    # data can be changed via this API.
-    # Why are some fields only settable from this endpoint, and not the normal
-    # subscription create and update endpoints? Because we want users of this
-    # endpoint to be aware that these fields are usually managed by Chargify,
-    # and using this API means **you are stepping out on your own.**
-    # Changing these fields will not affect any other attributes. For example,
-    # adding an expiration date will not affect the next assessment date on the
-    # subscription.
-    # If you regularly need to override the current_period_starts_at for new
-    # subscriptions, this can also be accomplished by setting both
-    # `previous_billing_at` and `next_billing_at` at subscription creation. See
-    # the documentation on [Importing
-    # Subscriptions](./b3A6MTQxMDgzODg-create-subscription#subscriptions-import)
-    # for more information.
-    # ## Limitations
-    # When passing `current_period_starts_at` some validations are made:
-    # 1. The subscription needs to be unbilled (no statements or invoices).
-    # 2. The value passed must be a valid date/time. We recommend using the iso
-    # 8601 format.
-    # 3. The value passed must be before the current date/time.
-    # If unpermitted parameters are sent, a 400 HTTP response is sent along with
-    # a string giving the reason for the problem.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [OverrideSubscriptionRequest] body Optional parameter: Only these
-    # fields are available to be set.
-    # @return [void] response from the API call
-    def override_subscription(subscription_id,
-                              body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/subscriptions/{subscription_id}/override.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SingleErrorResponseException))
-        .execute
-    end
-
-    # Use this endpoint to find a subscription by its reference.
-    # @param [String] reference Optional parameter: Subscription reference
-    # @return [SubscriptionResponse] response from the API call
-    def read_subscription_by_reference(reference: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/lookup.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(reference, key: 'reference'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
-        .execute
-    end
-
-    # For sites in test mode, you may purge individual subscriptions.
-    # Provide the subscription ID in the url.  To confirm, supply the customer
-    # ID in the query string `ack` parameter. You may also delete the customer
-    # record and/or payment profiles by passing `cascade` parameters. For
-    # example, to delete just the customer record, the query params would be:
-    # `?ack={customer_id}&cascade[]=customer`
-    # If you need to remove subscriptions from a live site, please contact
-    # support to discuss your use case.
-    # ### Delete customer and payment profile
-    # The query params will be:
-    # `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [Integer] ack Required parameter: id of the customer.
-    # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
-    # are "customer" or "payment_profile". Use in query:
-    # `cascade[]=customer&cascade[]=payment_profile`.
-    # @return [void] response from the API call
-    def purge_subscription(subscription_id,
-                           ack,
-                           cascade: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/purge.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(ack, key: 'ack')
-                                 .is_required(true))
-                   .query_param(new_parameter(cascade, key: 'cascade[]'))
-                   .auth(Single.new('global'))
-                   .array_serialization_format(ArraySerializationFormat::PLAIN))
-        .response(new_response_handler
-                   .is_response_void(true))
-        .execute
-    end
-
-    # Use this endpoint to update a subscription's prepaid configuration.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [UpsertPrepaidConfigurationRequest] body Optional parameter:
-    # Example:
-    # @return [PrepaidConfigurationResponse] response from the API call
-    def create_prepaid_subscription(subscription_id,
-                                    body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/prepaid_configurations.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PrepaidConfigurationResponse.method(:from_hash)))
-        .execute
-    end
-
-    # The Chargify API allows you to preview a subscription by POSTing the same
-    # JSON or XML as for a subscription creation.
-    # The "Next Billing" amount and "Next Billing" date are represented in each
-    # Subscriber's Summary. For more information, please see our documentation
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#next-b
-    # illing).
-    # ## Side effects
-    # A subscription will not be created by sending a POST to this endpoint. It
-    # is meant to serve as a prediction.
-    # ## Taxable Subscriptions
-    # This endpoint will preview taxes applicable to a purchase. In order for
-    # taxes to be previewed, the following conditions must be met:
-    # + Taxes must be configured on the subscription
-    # + The preview must be for the purchase of a taxable product or component,
-    # or combination of the two.
-    # + The subscription payload must contain a full billing or shipping address
-    # in order to calculate tax
-    # For more information about creating taxable previews, please see our
-    # documentation guide on how to create [taxable
-    # subscriptions.](https://chargify.zendesk.com/hc/en-us/articles/44079042177
-    # 55#creating-taxable-subscriptions)
-    # You do **not** need to include a card number to generate tax information
-    # when you are previewing a subscription. However, please note that when you
-    # actually want to create the subscription, you must include the credit card
-    # information if you want the billing address to be stored in Chargify. The
-    # billing address and the credit card information are stored together within
-    # the payment profile object. Also, you may not send a billing address to
-    # Chargify without payment profile information, as the address is stored on
-    # the card.
-    # You can pass shipping and billing addresses and still decide not to
-    # calculate taxes. To do that, pass `skip_billing_manifest_taxes: true`
-    # attribute.
-    # ## Non-taxable Subscriptions
-    # If you'd like to calculate subscriptions that do not include tax, please
-    # feel free to leave off the billing information.
-    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionPreviewResponse] response from the API call
-    def preview_subscription(body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/preview.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionPreviewResponse.method(:from_hash)))
-        .execute
-    end
-
-    # An existing subscription can accommodate multiple discounts/coupon codes.
-    # This is only applicable if each coupon is stackable. For more information
-    # on stackable coupons, we recommend reviewing our [coupon
-    # documentation.](https://chargify.zendesk.com/hc/en-us/articles/44077559095
-    # 31#stackable-coupons)
-    # ## Query Parameters vs Request Body Parameters
-    # Passing in a coupon code as a query parameter will add the code to the
-    # subscription, completely replacing all existing coupon codes on the
-    # subscription.
-    # For this reason, using this query parameter on this endpoint has been
-    # deprecated in favor of using the request body parameters as described
-    # below. When passing in request body parameters, the list of coupon codes
-    # will simply be added to any existing list of codes on the subscription.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [String] code Optional parameter: A code for the coupon that would
-    # be applied to a subscription
-    # @param [AddCouponsRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
-    def apply_coupon_to_subscription(subscription_id,
-                                     code: nil,
-                                     body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/add_coupon.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .query_param(new_parameter(code, key: 'code'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionAddCouponErrorException))
-        .execute
-    end
-
-    # Use this endpoint to remove a coupon from an existing subscription.
-    # For more information on the expected behaviour of removing a coupon from a
-    # subscription, please see our documentation
-    # [here.](https://chargify.zendesk.com/hc/en-us/articles/4407896488987#remov
-    # ing-a-coupon)
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [String] coupon_code Optional parameter: The coupon code
-    # @return [String] response from the API call
-    def delete_coupon_from_subscription(subscription_id,
-                                        coupon_code: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/subscriptions/{subscription_id}/remove_coupon.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(coupon_code, key: 'coupon_code'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:deserialize_primitive_types))
-                   .deserialize_into(proc do |response| response.to_s end)
-                   .is_primitive_response(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionRemoveCouponErrorsException))
-        .execute
-    end
-
     # Chargify offers the ability to activate awaiting signup and trialing
     # subscriptions. This feature is only available on the Relationship
     # Invoicing architecture. Subscriptions in a group may not be activated
@@ -1339,6 +1308,37 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorArrayMapResponseException))
+        .execute
+    end
+
+    # Use this endpoint to remove a coupon from an existing subscription.
+    # For more information on the expected behaviour of removing a coupon from a
+    # subscription, please see our documentation
+    # [here.](https://chargify.zendesk.com/hc/en-us/articles/4407896488987#remov
+    # ing-a-coupon)
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [String] coupon_code Optional parameter: The coupon code
+    # @return [String] response from the API call
+    def delete_coupon_from_subscription(subscription_id,
+                                        coupon_code: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscriptions/{subscription_id}/remove_coupon.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(coupon_code, key: 'coupon_code'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:deserialize_primitive_types))
+                   .deserialize_into(proc do |response| response.to_s end)
+                   .is_primitive_response(true)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SubscriptionRemoveCouponErrorsException))
         .execute
     end
   end

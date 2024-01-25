@@ -53,31 +53,6 @@ module AdvancedBilling
         .execute
     end
 
-    # Once an advance invoice has been generated for a subscription's upcoming
-    # renewal, it can be viewed through this endpoint. There can only be one
-    # advance invoice per subscription per billing cycle.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @return [Invoice] response from the API call
-    def read_advance_invoice(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/{subscription_id}/advance_invoice.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
     # Void a subscription's existing advance invoice. Once voided, it can later
     # be regenerated if desired.
     # A `reason` is required in order to void, and the invoice must have an open
@@ -102,6 +77,31 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Invoice.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
+        .execute
+    end
+
+    # Once an advance invoice has been generated for a subscription's upcoming
+    # renewal, it can be viewed through this endpoint. There can only be one
+    # advance invoice per subscription per billing cycle.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @return [Invoice] response from the API call
+    def read_advance_invoice(subscription_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions/{subscription_id}/advance_invoice.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

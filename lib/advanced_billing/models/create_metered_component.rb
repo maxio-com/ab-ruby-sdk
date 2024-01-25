@@ -45,19 +45,5 @@ module AdvancedBilling
       # Create object from extracted values.
       CreateMeteredComponent.new(metered_component)
     end
-
-    # Validates an instance of the object from a given value.
-    # @param [CreateMeteredComponent | Hash] The value against the validation is performed.
-    def self.validate(value)
-      if value.instance_of? self
-        return APIHelper.valid_type?(value.metered_component,
-                                     ->(val) { MeteredComponent.validate(val) })
-      end
-
-      return false unless value.instance_of? Hash
-
-      APIHelper.valid_type?(value['metered_component'],
-                            ->(val) { MeteredComponent.validate(val) })
-    end
   end
 end

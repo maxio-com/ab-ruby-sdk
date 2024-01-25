@@ -5,8 +5,8 @@
 
 require 'date'
 module AdvancedBilling
-  # Example schema for an `void_invoice` event
-  class VoidInvoiceEventData1 < BaseModel
+  # Example schema for an `void_remainder` event
+  class VoidRemainderEventData < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -79,10 +79,10 @@ module AdvancedBilling
                          end
 
       # Create object from extracted values.
-      VoidInvoiceEventData1.new(credit_note_attributes,
-                                memo,
-                                applied_amount,
-                                transaction_time)
+      VoidRemainderEventData.new(credit_note_attributes,
+                                 memo,
+                                 applied_amount,
+                                 transaction_time)
     end
 
     def to_custom_transaction_time
@@ -90,7 +90,7 @@ module AdvancedBilling
     end
 
     # Validates an instance of the object from a given value.
-    # @param [VoidInvoiceEventData1 | Hash] The value against the validation is performed.
+    # @param [VoidRemainderEventData | Hash] The value against the validation is performed.
     def self.validate(value)
       return true if value.instance_of? self
 

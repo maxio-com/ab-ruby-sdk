@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [BankAccount]
+    # @return [BankAccountPaymentProfile]
     attr_accessor :payment_profile
 
     # A mapping from model property names to API property names.
@@ -39,7 +39,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      payment_profile = BankAccount.from_hash(hash['payment_profile']) if hash['payment_profile']
+      payment_profile = BankAccountPaymentProfile.from_hash(hash['payment_profile']) if
+        hash['payment_profile']
 
       # Create object from extracted values.
       BankAccountResponse.new(payment_profile)

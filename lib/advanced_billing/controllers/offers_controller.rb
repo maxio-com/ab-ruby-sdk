@@ -6,6 +6,65 @@
 module AdvancedBilling
   # OffersController
   class OffersController < BaseController
+    # This method allows you to list a specific offer's attributes. This is
+    # different than list all offers for a site, as it requires an `offer_id`.
+    # @param [Integer] offer_id Required parameter: The Chargify id of the
+    # offer
+    # @return [OfferResponse] response from the API call
+    def read_offers(offer_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/offers/{offer_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(offer_id, key: 'offer_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(OfferResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Unarchive a previously archived offer. Please provide an `offer_id` in
+    # order to un-archive the correct item.
+    # @param [Integer] offer_id Required parameter: The Chargify id of the
+    # offer
+    # @return [void] response from the API call
+    def unarchive_offer(offer_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/offers/{offer_id}/unarchive.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(offer_id, key: 'offer_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true))
+        .execute
+    end
+
+    # Archive an existing offer. Please provide an `offer_id` in order to
+    # archive the correct item.
+    # @param [Integer] offer_id Required parameter: The Chargify id of the
+    # offer
+    # @return [void] response from the API call
+    def archive_offer(offer_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/offers/{offer_id}/archive.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(offer_id, key: 'offer_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true))
+        .execute
+    end
+
     # Create an offer within your Chargify site by sending a POST request.
     # ## Documentation
     # Offers allow you to package complicated combinations of products,
@@ -70,65 +129,6 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListOffersResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This method allows you to list a specific offer's attributes. This is
-    # different than list all offers for a site, as it requires an `offer_id`.
-    # @param [Integer] offer_id Required parameter: The Chargify id of the
-    # offer
-    # @return [OfferResponse] response from the API call
-    def read_offers(offer_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/offers/{offer_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(offer_id, key: 'offer_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(OfferResponse.method(:from_hash)))
-        .execute
-    end
-
-    # Archive an existing offer. Please provide an `offer_id` in order to
-    # archive the correct item.
-    # @param [Integer] offer_id Required parameter: The Chargify id of the
-    # offer
-    # @return [void] response from the API call
-    def archive_offer(offer_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/offers/{offer_id}/archive.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(offer_id, key: 'offer_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true))
-        .execute
-    end
-
-    # Unarchive a previously archived offer. Please provide an `offer_id` in
-    # order to un-archive the correct item.
-    # @param [Integer] offer_id Required parameter: The Chargify id of the
-    # offer
-    # @return [void] response from the API call
-    def unarchive_offer(offer_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/offers/{offer_id}/unarchive.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(offer_id, key: 'offer_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true))
         .execute
     end
   end

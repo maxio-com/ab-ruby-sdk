@@ -9,38 +9,53 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Integer` | Optional | - |
-| `first_name` | `String` | Optional | - |
-| `last_name` | `String` | Optional | - |
-| `masked_card_number` | `String` | Required | - |
+| `id` | `Integer` | Optional | The Chargify-assigned ID of the stored card. This value can be used as an input to payment_profile_id when creating a subscription, in order to re-use a stored payment profile for the same customer. |
+| `first_name` | `String` | Optional | The first name of the card holder. |
+| `last_name` | `String` | Optional | The last name of the card holder. |
+| `masked_card_number` | `String` | Required | A string representation of the credit card number with all but the last 4 digits masked with X’s (i.e. ‘XXXX-XXXX-XXXX-1234’). |
 | `card_type` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. |
-| `expiration_month` | `Integer` | Optional | - |
-| `expiration_year` | `Integer` | Optional | - |
-| `customer_id` | `Integer` | Optional | - |
+| `expiration_month` | `Integer` | Optional | An integer representing the expiration month of the card(1 – 12). |
+| `expiration_year` | `Integer` | Optional | An integer representing the 4-digit expiration year of the card(i.e. ‘2012’). |
+| `customer_id` | `Integer` | Optional | The Chargify-assigned id for the customer record to which the card belongs. |
 | `current_vault` | [`CurrentVault`](../../doc/models/current-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. |
-| `vault_token` | `String` | Optional | - |
-| `billing_address` | `String` | Optional | - |
-| `billing_city` | `String` | Optional | - |
-| `billing_state` | `String` | Optional | - |
-| `billing_zip` | `String` | Optional | - |
-| `billing_country` | `String` | Optional | - |
-| `customer_vault_token` | `String` | Optional | - |
-| `billing_address_2` | `String` | Optional | - |
-| `payment_type` | `String` | Optional | - |
+| `vault_token` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile. |
+| `billing_address` | `String` | Optional | The current billing street address for the card. |
+| `billing_city` | `String` | Optional | The current billing address city for the card. |
+| `billing_state` | `String` | Optional | The current billing address state for the card. |
+| `billing_zip` | `String` | Optional | The current billing address zip code for the card. |
+| `billing_country` | `String` | Optional | The current billing address country for the card. |
+| `customer_vault_token` | `String` | Optional | (only for Authorize.Net CIM storage): the customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token. |
+| `billing_address_2` | `String` | Optional | The current billing street address, second line, for the card. |
+| `payment_type` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | **Default**: `PaymentType::CREDIT_CARD` |
 | `disabled` | `TrueClass \| FalseClass` | Optional | - |
+| `chargify_token` | `String` | Optional | Token received after sending billing information using chargify.js. This token will only be received if passed as a sole attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt) |
 | `site_gateway_setting_id` | `Integer` | Optional | - |
-| `gateway_handle` | `String` | Optional | - |
+| `gateway_handle` | `String` | Optional | An identifier of connected gateway. |
 
 ## Example (as JSON)
 
 ```json
 {
-  "id": 252,
-  "first_name": "first_name0",
-  "last_name": "last_name8",
-  "masked_card_number": "masked_card_number8",
+  "id": 10088716,
+  "first_name": "Test",
+  "last_name": "Subscription",
+  "masked_card_number": "XXXX-XXXX-XXXX-1",
   "card_type": "bogus",
-  "expiration_month": 170
+  "expiration_month": 1,
+  "expiration_year": 2022,
+  "customer_id": 14543792,
+  "current_vault": "bogus",
+  "vault_token": "1",
+  "billing_address": "123 Montana Way",
+  "billing_city": "Billings",
+  "billing_state": "MT",
+  "billing_zip": "59101",
+  "billing_country": "US",
+  "customer_vault_token": null,
+  "billing_address_2": "",
+  "payment_type": "credit_card",
+  "site_gateway_setting_id": 1,
+  "gateway_handle": null
 }
 ```
 

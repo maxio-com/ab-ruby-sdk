@@ -74,48 +74,6 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows you to enable webhooks via API for your site
-    # @param [EnableWebhooksRequest] body Optional parameter: Example:
-    # @return [EnableWebhooksResponse] response from the API call
-    def enable_webhooks(body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/webhooks/settings.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EnableWebhooksResponse.method(:from_hash)))
-        .execute
-    end
-
-    # Posting to the replay endpoint does not immediately resend the webhooks.
-    # They are added to a queue and will be sent as soon as possible, depending
-    # on available system resources.
-    # You may submit an array of up to 1000 webhook IDs to replay in the
-    # request.
-    # @param [ReplayWebhooksRequest] body Optional parameter: Example:
-    # @return [ReplayWebhooksResponse] response from the API call
-    def replay_webhooks(body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/webhooks/replay.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReplayWebhooksResponse.method(:from_hash)))
-        .execute
-    end
-
     # The Chargify API allows you to create an endpoint and assign a list of
     # webhooks subscriptions (events) to it.
     # You can check available events here.
@@ -141,22 +99,6 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
-        .execute
-    end
-
-    # This method returns created endpoints for site.
-    # @return [Array[Endpoint]] response from the API call
-    def list_endpoints
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/endpoints.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Endpoint.method(:from_hash))
-                   .is_response_array(true))
         .execute
     end
 
@@ -200,6 +142,64 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
+        .execute
+    end
+
+    # This method returns created endpoints for site.
+    # @return [Array[Endpoint]] response from the API call
+    def list_endpoints
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/endpoints.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Endpoint.method(:from_hash))
+                   .is_response_array(true))
+        .execute
+    end
+
+    # This method allows you to enable webhooks via API for your site
+    # @param [EnableWebhooksRequest] body Optional parameter: Example:
+    # @return [EnableWebhooksResponse] response from the API call
+    def enable_webhooks(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/webhooks/settings.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(EnableWebhooksResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Posting to the replay endpoint does not immediately resend the webhooks.
+    # They are added to a queue and will be sent as soon as possible, depending
+    # on available system resources.
+    # You may submit an array of up to 1000 webhook IDs to replay in the
+    # request.
+    # @param [ReplayWebhooksRequest] body Optional parameter: Example:
+    # @return [ReplayWebhooksResponse] response from the API call
+    def replay_webhooks(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/webhooks/replay.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ReplayWebhooksResponse.method(:from_hash)))
         .execute
     end
   end

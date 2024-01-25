@@ -84,23 +84,19 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :last_four
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
-    # @return [String]
+    # The type of card used.
+    # @return [CardType]
     attr_accessor :card_type
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The type of card used.
     # @return [String]
     attr_accessor :customer_vault_token
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The type of card used.
     # @return [String]
     attr_accessor :cvv
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The type of card used.
     # @return [String]
     attr_accessor :payment_type
 

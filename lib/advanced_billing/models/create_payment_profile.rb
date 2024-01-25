@@ -165,14 +165,12 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :bank_branch_code
 
-    # (Optional when creating with GoCardless, required with Stripe BECS Direct
-    # Debit) Branch code. Alternatively, an IBAN can be provided
-    # @return [String]
+    # Defaults to checking
+    # @return [BankAccountType]
     attr_accessor :bank_account_type
 
-    # (Optional when creating with GoCardless, required with Stripe BECS Direct
-    # Debit) Branch code. Alternatively, an IBAN can be provided
-    # @return [String]
+    # Defaults to personal
+    # @return [BankAccountHolderType]
     attr_accessor :bank_account_holder_type
 
     # (Optional) Used for creating subscription with payment profile imported
@@ -292,7 +290,7 @@ module AdvancedBilling
                    bank_routing_number = SKIP,
                    bank_account_number = SKIP,
                    bank_branch_code = SKIP,
-                   bank_account_type = SKIP,
+                   bank_account_type = BankAccountType::CHECKING,
                    bank_account_holder_type = SKIP,
                    last_four = SKIP)
       @chargify_token = chargify_token unless chargify_token == SKIP
@@ -379,7 +377,7 @@ module AdvancedBilling
       bank_branch_code =
         hash.key?('bank_branch_code') ? hash['bank_branch_code'] : SKIP
       bank_account_type =
-        hash.key?('bank_account_type') ? hash['bank_account_type'] : SKIP
+        hash['bank_account_type'] ||= BankAccountType::CHECKING
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP

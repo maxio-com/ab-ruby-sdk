@@ -46,19 +46,5 @@ module AdvancedBilling
       # Create object from extracted values.
       CreateQuantityBasedComponent.new(quantity_based_component)
     end
-
-    # Validates an instance of the object from a given value.
-    # @param [CreateQuantityBasedComponent | Hash] The value against the validation is performed.
-    def self.validate(value)
-      if value.instance_of? self
-        return APIHelper.valid_type?(value.quantity_based_component,
-                                     ->(val) { QuantityBasedComponent.validate(val) })
-      end
-
-      return false unless value.instance_of? Hash
-
-      APIHelper.valid_type?(value['quantity_based_component'],
-                            ->(val) { QuantityBasedComponent.validate(val) })
-    end
   end
 end

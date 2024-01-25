@@ -6,28 +6,6 @@
 module AdvancedBilling
   # SubscriptionInvoiceAccountController
   class SubscriptionInvoiceAccountController < BaseController
-    # Returns the `balance_in_cents` of the Subscription's Pending Discount,
-    # Service Credit, and Prepayment accounts, as well as the sum of the
-    # Subscription's open, payable invoices.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @return [AccountBalances] response from the API call
-    def read_account_balances(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/{subscription_id}/account_balances.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountBalances.method(:from_hash)))
-        .execute
-    end
-
     # ## Create Prepayment
     # In order to specify a prepayment made against a subscription, specify the
     # `amount, memo, details, method`.
@@ -57,6 +35,28 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CreatePrepaymentResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Returns the `balance_in_cents` of the Subscription's Pending Discount,
+    # Service Credit, and Prepayment accounts, as well as the sum of the
+    # Subscription's open, payable invoices.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @return [AccountBalances] response from the API call
+    def read_account_balances(subscription_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions/{subscription_id}/account_balances.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AccountBalances.method(:from_hash)))
         .execute
     end
 

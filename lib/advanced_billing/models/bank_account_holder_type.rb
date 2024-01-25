@@ -4,9 +4,9 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Holder Type.
-  class HolderType
-    HOLDER_TYPE = [
+  # Defaults to personal
+  class BankAccountHolderType
+    BANK_ACCOUNT_HOLDER_TYPE = [
       # TODO: Write general description for PERSONAL
       PERSONAL = 'personal'.freeze,
 
@@ -17,7 +17,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      HOLDER_TYPE.include?(value)
+      BANK_ACCOUNT_HOLDER_TYPE.include?(value)
     end
   end
 end

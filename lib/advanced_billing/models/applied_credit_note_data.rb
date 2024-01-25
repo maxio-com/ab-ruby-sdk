@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # AppliedCreditNote Model.
-  class AppliedCreditNote < BaseModel
+  # AppliedCreditNoteData Model.
+  class AppliedCreditNoteData < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -53,8 +53,8 @@ module AdvancedBilling
       number = hash.key?('number') ? hash['number'] : SKIP
 
       # Create object from extracted values.
-      AppliedCreditNote.new(uid,
-                            number)
+      AppliedCreditNoteData.new(uid,
+                                number)
     end
   end
 end

@@ -9,19 +9,22 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
+    # The Chargify-assigned ID of the stored card. This value can be used as an
+    # input to payment_profile_id when creating a subscription, in order to
+    # re-use a stored payment profile for the same customer.
     # @return [Integer]
     attr_accessor :id
 
-    # TODO: Write general description for this method
+    # The first name of the card holder.
     # @return [String]
     attr_accessor :first_name
 
-    # TODO: Write general description for this method
+    # The last name of the card holder.
     # @return [String]
     attr_accessor :last_name
 
-    # TODO: Write general description for this method
+    # A string representation of the credit card number with all but the last 4
+    # digits masked with X’s (i.e. ‘XXXX-XXXX-XXXX-1234’).
     # @return [String]
     attr_accessor :masked_card_number
 
@@ -29,15 +32,17 @@ module AdvancedBilling
     # @return [CardType]
     attr_accessor :card_type
 
-    # The type of card used.
+    # An integer representing the expiration month of the card(1 – 12).
     # @return [Integer]
     attr_accessor :expiration_month
 
-    # The type of card used.
+    # An integer representing the 4-digit expiration year of the card(i.e.
+    # ‘2012’).
     # @return [Integer]
     attr_accessor :expiration_year
 
-    # The type of card used.
+    # The Chargify-assigned id for the customer record to which the card
+    # belongs.
     # @return [Integer]
     attr_accessor :customer_id
 
@@ -46,63 +51,61 @@ module AdvancedBilling
     # @return [CurrentVault]
     attr_accessor :current_vault
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The “token” provided by your vault storage for an already stored payment
+    # profile.
     # @return [String]
     attr_accessor :vault_token
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing street address for the card.
     # @return [String]
     attr_accessor :billing_address
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing address city for the card.
     # @return [String]
     attr_accessor :billing_city
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing address state for the card.
     # @return [String]
     attr_accessor :billing_state
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing address zip code for the card.
     # @return [String]
     attr_accessor :billing_zip
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing address country for the card.
     # @return [String]
     attr_accessor :billing_country
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # (only for Authorize.Net CIM storage): the customerProfileId for the owner
+    # of the customerPaymentProfileId provided as the vault_token.
     # @return [String]
     attr_accessor :customer_vault_token
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing street address, second line, for the card.
     # @return [String]
     attr_accessor :billing_address_2
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
-    # @return [String]
+    # The current billing street address, second line, for the card.
+    # @return [PaymentType]
     attr_accessor :payment_type
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # The current billing street address, second line, for the card.
     # @return [TrueClass | FalseClass]
     attr_accessor :disabled
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # Token received after sending billing information using chargify.js. This
+    # token will only be received if passed as a sole attribute of
+    # credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+    # @return [String]
+    attr_accessor :chargify_token
+
+    # Token received after sending billing information using chargify.js. This
+    # token will only be received if passed as a sole attribute of
+    # credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [Integer]
     attr_accessor :site_gateway_setting_id
 
-    # The vault that stores the payment profile with the provided `vault_token`.
-    # Use `bogus` for testing.
+    # An identifier of connected gateway.
     # @return [String]
     attr_accessor :gateway_handle
 
@@ -128,6 +131,7 @@ module AdvancedBilling
       @_hash['billing_address_2'] = 'billing_address_2'
       @_hash['payment_type'] = 'payment_type'
       @_hash['disabled'] = 'disabled'
+      @_hash['chargify_token'] = 'chargify_token'
       @_hash['site_gateway_setting_id'] = 'site_gateway_setting_id'
       @_hash['gateway_handle'] = 'gateway_handle'
       @_hash
@@ -154,6 +158,7 @@ module AdvancedBilling
         billing_address_2
         payment_type
         disabled
+        chargify_token
         site_gateway_setting_id
         gateway_handle
       ]
@@ -162,6 +167,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        vault_token
         billing_address
         billing_city
         billing_state
@@ -191,8 +197,9 @@ module AdvancedBilling
                    billing_country = SKIP,
                    customer_vault_token = SKIP,
                    billing_address_2 = SKIP,
-                   payment_type = SKIP,
+                   payment_type = PaymentType::CREDIT_CARD,
                    disabled = SKIP,
+                   chargify_token = SKIP,
                    site_gateway_setting_id = SKIP,
                    gateway_handle = SKIP)
       @id = id unless id == SKIP
@@ -214,6 +221,7 @@ module AdvancedBilling
       @billing_address_2 = billing_address_2 unless billing_address_2 == SKIP
       @payment_type = payment_type unless payment_type == SKIP
       @disabled = disabled unless disabled == SKIP
+      @chargify_token = chargify_token unless chargify_token == SKIP
       @site_gateway_setting_id = site_gateway_setting_id unless site_gateway_setting_id == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
     end
@@ -247,8 +255,10 @@ module AdvancedBilling
         hash.key?('customer_vault_token') ? hash['customer_vault_token'] : SKIP
       billing_address_2 =
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
-      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
+      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
       disabled = hash.key?('disabled') ? hash['disabled'] : SKIP
+      chargify_token =
+        hash.key?('chargify_token') ? hash['chargify_token'] : SKIP
       site_gateway_setting_id =
         hash.key?('site_gateway_setting_id') ? hash['site_gateway_setting_id'] : SKIP
       gateway_handle =
@@ -274,6 +284,7 @@ module AdvancedBilling
                                    billing_address_2,
                                    payment_type,
                                    disabled,
+                                   chargify_token,
                                    site_gateway_setting_id,
                                    gateway_handle)
     end

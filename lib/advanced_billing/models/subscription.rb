@@ -223,7 +223,7 @@ module AdvancedBilling
     # Statements Architecture valid options are - `invoice`, `automatic`. For
     # current Relationship Invoicing Architecture valid options are -
     # `remittance`, `automatic`, `prepaid`.
-    # @return [PaymentProfile]
+    # @return [CreditCardPaymentProfile]
     attr_accessor :credit_card
 
     # The type of payment collection to be used in the subscription. For legacy
@@ -237,7 +237,7 @@ module AdvancedBilling
     # Statements Architecture valid options are - `invoice`, `automatic`. For
     # current Relationship Invoicing Architecture valid options are -
     # `remittance`, `automatic`, `prepaid`.
-    # @return [SubscriptionBankAccount]
+    # @return [BankAccountPaymentProfile]
     attr_accessor :bank_account
 
     # The payment profile type for the active profile on file.
@@ -804,11 +804,11 @@ module AdvancedBilling
         hash['payment_collection_method'] ||= PaymentCollectionMethod::AUTOMATIC
       customer = Customer.from_hash(hash['customer']) if hash['customer']
       product = Product.from_hash(hash['product']) if hash['product']
-      credit_card = PaymentProfile.from_hash(hash['credit_card']) if hash['credit_card']
+      credit_card = CreditCardPaymentProfile.from_hash(hash['credit_card']) if hash['credit_card']
       group = hash.key?('group') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:SubscriptionGroup2), hash['group']
       ) : SKIP
-      bank_account = SubscriptionBankAccount.from_hash(hash['bank_account']) if
+      bank_account = BankAccountPaymentProfile.from_hash(hash['bank_account']) if
         hash['bank_account']
       payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       referral_code = hash.key?('referral_code') ? hash['referral_code'] : SKIP

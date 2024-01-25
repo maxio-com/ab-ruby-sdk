@@ -19,7 +19,7 @@
 | `product_family_name` | `String` | Optional | - |
 | `start_date` | `String` | Optional | - |
 | `end_date` | `String` | Optional | - |
-| `percentage` | `Float` | Optional | - |
+| `percentage` | `String` | Optional | - |
 | `recurring` | `TrueClass \| FalseClass` | Optional | - |
 | `recurring_scheme` | [`RecurringScheme`](../../doc/models/recurring-scheme.md) | Optional | - |
 | `duration_period_count` | `Integer` | Optional | - |

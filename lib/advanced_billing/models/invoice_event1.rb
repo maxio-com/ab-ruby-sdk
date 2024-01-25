@@ -54,7 +54,7 @@ module AdvancedBilling
 
     # List of credit notes applied to children invoices (if consolidated
     # invoice)
-    # @return [Array[AppliedCreditNote]]
+    # @return [Array[AppliedCreditNoteData]]
     attr_accessor :applied_credit_notes
 
     # A unique, identifying string that appears on the debit note and in places
@@ -307,7 +307,7 @@ module AdvancedBilling
       unless hash['applied_credit_notes'].nil?
         applied_credit_notes = []
         hash['applied_credit_notes'].each do |structure|
-          applied_credit_notes << (AppliedCreditNote.from_hash(structure) if structure)
+          applied_credit_notes << (AppliedCreditNoteData.from_hash(structure) if structure)
         end
       end
 

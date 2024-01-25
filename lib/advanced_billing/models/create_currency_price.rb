@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :currency
 
     # Price for the price level in this currency
-    # @return [Integer]
+    # @return [Float]
     attr_accessor :price
 
     # ID of the price that this corresponds with

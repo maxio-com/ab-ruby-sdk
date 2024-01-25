@@ -30,10 +30,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :bank_account_number
 
-    # (Required when creating a subscription with ACH. Required when creating a
-    # subscription with GoCardless and bank_iban is blank) The customerʼs bank
-    # account number
-    # @return [String]
+    # Defaults to checking
+    # @return [BankAccountType]
     attr_accessor :bank_account_type
 
     # (Optional when creating a subscription with GoCardless) Branch code.
@@ -46,14 +44,12 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :bank_iban
 
-    # (Optional when creating a subscription with GoCardless). International
-    # Bank Account Number. Alternatively, local bank details can be provided
-    # @return [String]
+    # Defaults to personal
+    # @return [BankAccountHolderType]
     attr_accessor :bank_account_holder_type
 
-    # (Optional when creating a subscription with GoCardless). International
-    # Bank Account Number. Alternatively, local bank details can be provided
-    # @return [String]
+    # Defaults to personal
+    # @return [PaymentType]
     attr_accessor :payment_type
 
     # The vault that stores the payment profile with the provided vault_token.
@@ -114,11 +110,11 @@ module AdvancedBilling
                    bank_name = SKIP,
                    bank_routing_number = SKIP,
                    bank_account_number = SKIP,
-                   bank_account_type = SKIP,
+                   bank_account_type = BankAccountType::CHECKING,
                    bank_branch_code = SKIP,
                    bank_iban = SKIP,
                    bank_account_holder_type = SKIP,
-                   payment_type = SKIP,
+                   payment_type = PaymentType::CREDIT_CARD,
                    current_vault = SKIP,
                    vault_token = SKIP,
                    customer_vault_token = SKIP)
@@ -149,13 +145,13 @@ module AdvancedBilling
       bank_account_number =
         hash.key?('bank_account_number') ? hash['bank_account_number'] : SKIP
       bank_account_type =
-        hash.key?('bank_account_type') ? hash['bank_account_type'] : SKIP
+        hash['bank_account_type'] ||= BankAccountType::CHECKING
       bank_branch_code =
         hash.key?('bank_branch_code') ? hash['bank_branch_code'] : SKIP
       bank_iban = hash.key?('bank_iban') ? hash['bank_iban'] : SKIP
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
+      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
       current_vault = hash.key?('current_vault') ? hash['current_vault'] : SKIP
       vault_token = hash.key?('vault_token') ? hash['vault_token'] : SKIP
       customer_vault_token =

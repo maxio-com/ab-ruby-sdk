@@ -9,19 +9,22 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
+    # The Chargify-assigned ID of the stored bank account. This value can be
+    # used as an input to payment_profile_id when creating a subscription, in
+    # order to re-use a stored payment profile for the same customer
     # @return [Integer]
     attr_accessor :id
 
-    # TODO: Write general description for this method
+    # The first name of the bank account holder
     # @return [String]
     attr_accessor :first_name
 
-    # TODO: Write general description for this method
+    # The last name of the bank account holder
     # @return [String]
     attr_accessor :last_name
 
-    # TODO: Write general description for this method
+    # The Chargify-assigned id for the customer record to which the bank account
+    # belongs
     # @return [Integer]
     attr_accessor :customer_id
 
@@ -29,60 +32,65 @@ module AdvancedBilling
     # @return [BankAccountVault]
     attr_accessor :current_vault
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The “token” provided by your vault storage for an already stored payment
+    # profile
     # @return [String]
     attr_accessor :vault_token
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The current billing street address for the bank account
     # @return [String]
     attr_accessor :billing_address
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The current billing address city for the bank account
     # @return [String]
     attr_accessor :billing_city
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The current billing address state for the bank account
     # @return [String]
     attr_accessor :billing_state
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The current billing address zip code for the bank account
     # @return [String]
     attr_accessor :billing_zip
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The current billing address country for the bank account
     # @return [String]
     attr_accessor :billing_country
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # (only for Authorize.Net CIM storage): the customerProfileId for the owner
+    # of the customerPaymentProfileId provided as the vault_token.
     # @return [String]
     attr_accessor :customer_vault_token
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The current billing street address, second line, for the bank account
     # @return [String]
     attr_accessor :billing_address_2
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # The bank where the account resides
     # @return [String]
     attr_accessor :bank_name
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # A string representation of the stored bank routing number with all but the
+    # last 4 digits marked with X’s (i.e. ‘XXXXXXX1111’). payment_type will be
+    # bank_account
     # @return [String]
     attr_accessor :masked_bank_routing_number
 
-    # The vault that stores the payment profile with the provided vault_token.
+    # A string representation of the stored bank account number with all but the
+    # last 4 digits marked with X’s (i.e. ‘XXXXXXX1111’)
     # @return [String]
     attr_accessor :masked_bank_account_number
 
-    # The vault that stores the payment profile with the provided vault_token.
-    # @return [String]
+    # Defaults to checking
+    # @return [BankAccountType]
     attr_accessor :bank_account_type
 
-    # The vault that stores the payment profile with the provided vault_token.
-    # @return [String]
+    # Defaults to personal
+    # @return [BankAccountHolderType]
     attr_accessor :bank_account_holder_type
 
-    # The vault that stores the payment profile with the provided vault_token.
-    # @return [String]
+    # Defaults to personal
+    # @return [PaymentType]
     attr_accessor :payment_type
 
     # denotes whether a bank account has been verified by providing the amounts
@@ -157,7 +165,13 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        billing_address
+        billing_city
+        billing_state
+        billing_zip
+        billing_country
         customer_vault_token
+        billing_address_2
         gateway_handle
       ]
     end
@@ -178,9 +192,9 @@ module AdvancedBilling
                    customer_vault_token = SKIP,
                    billing_address_2 = SKIP,
                    bank_name = SKIP,
-                   bank_account_type = SKIP,
+                   bank_account_type = BankAccountType::CHECKING,
                    bank_account_holder_type = SKIP,
-                   payment_type = SKIP,
+                   payment_type = PaymentType::CREDIT_CARD,
                    verified = false,
                    site_gateway_setting_id = SKIP,
                    gateway_handle = SKIP)
@@ -236,10 +250,10 @@ module AdvancedBilling
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
       bank_name = hash.key?('bank_name') ? hash['bank_name'] : SKIP
       bank_account_type =
-        hash.key?('bank_account_type') ? hash['bank_account_type'] : SKIP
+        hash['bank_account_type'] ||= BankAccountType::CHECKING
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
+      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
       verified = hash['verified'] ||= false
       site_gateway_setting_id =
         hash.key?('site_gateway_setting_id') ? hash['site_gateway_setting_id'] : SKIP

@@ -168,7 +168,6 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        name
         unit_name
         description
         handle
@@ -201,7 +200,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name = SKIP,
+    def initialize(name = nil,
                    unit_name = SKIP,
                    description = SKIP,
                    handle = SKIP,
@@ -223,7 +222,7 @@ module AdvancedBilling
                    display_on_hosted_page = SKIP,
                    allow_fractional_quantities = SKIP,
                    public_signup_page_ids = SKIP)
-      @name = name unless name == SKIP
+      @name = name
       @unit_name = unit_name unless unit_name == SKIP
       @description = description unless description == SKIP
       @handle = handle unless handle == SKIP
@@ -261,7 +260,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      name = hash.key?('name') ? hash['name'] : SKIP
+      name = hash.key?('name') ? hash['name'] : nil
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
@@ -345,11 +344,15 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [PrepaidUsageComponent | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return APIHelper.valid_type?(value.name,
+                                     ->(val) { val.instance_of? String })
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      APIHelper.valid_type?(value['name'],
+                            ->(val) { val.instance_of? String })
     end
   end
 end

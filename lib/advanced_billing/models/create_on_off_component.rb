@@ -45,19 +45,5 @@ module AdvancedBilling
       # Create object from extracted values.
       CreateOnOffComponent.new(on_off_component)
     end
-
-    # Validates an instance of the object from a given value.
-    # @param [CreateOnOffComponent | Hash] The value against the validation is performed.
-    def self.validate(value)
-      if value.instance_of? self
-        return APIHelper.valid_type?(value.on_off_component,
-                                     ->(val) { OnOffComponent.validate(val) })
-      end
-
-      return false unless value.instance_of? Hash
-
-      APIHelper.valid_type?(value['on_off_component'],
-                            ->(val) { OnOffComponent.validate(val) })
-    end
   end
 end

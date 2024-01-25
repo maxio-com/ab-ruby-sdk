@@ -4,19 +4,19 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # CreatePaymentProfileResponse Model.
-  class CreatePaymentProfileResponse < BaseModel
+  # CurrencyPricesResponse Model.
+  class CurrencyPricesResponse < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [CreatedPaymentProfile]
-    attr_accessor :payment_profile
+    # @return [Array[CurrencyPrice]]
+    attr_accessor :currency_prices
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['payment_profile'] = 'payment_profile'
+      @_hash['currency_prices'] = 'currency_prices'
       @_hash
     end
 
@@ -30,8 +30,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(payment_profile = nil)
-      @payment_profile = payment_profile
+    def initialize(currency_prices = nil)
+      @currency_prices = currency_prices
     end
 
     # Creates an instance of the object from a hash.
@@ -39,11 +39,19 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      payment_profile = CreatedPaymentProfile.from_hash(hash['payment_profile']) if
-        hash['payment_profile']
+      # Parameter is an array, so we need to iterate through it
+      currency_prices = nil
+      unless hash['currency_prices'].nil?
+        currency_prices = []
+        hash['currency_prices'].each do |structure|
+          currency_prices << (CurrencyPrice.from_hash(structure) if structure)
+        end
+      end
+
+      currency_prices = nil unless hash.key?('currency_prices')
 
       # Create object from extracted values.
-      CreatePaymentProfileResponse.new(payment_profile)
+      CurrencyPricesResponse.new(currency_prices)
     end
   end
 end

@@ -6,6 +6,30 @@
 module AdvancedBilling
   # BillingPortalController
   class BillingPortalController < BaseController
+    # You can revoke a customer's Billing Portal invitation.
+    # If you attempt to revoke an invitation when the Billing Portal is already
+    # disabled for a Customer, you will receive a 422 error response.
+    # ## Limitations
+    # This endpoint will only return a JSON response.
+    # @param [Integer] customer_id Required parameter: The Chargify id of the
+    # customer
+    # @return [RevokedInvitation] response from the API call
+    def revoke_billing_portal_access(customer_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/portal/customers/{customer_id}/invitations/revoke.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(customer_id, key: 'customer_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(RevokedInvitation.method(:from_hash)))
+        .execute
+    end
+
     # ## Billing Portal Documentation
     # Full documentation on how the Billing Portal operates within the Chargify
     # UI can be located
@@ -132,30 +156,6 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
-        .execute
-    end
-
-    # You can revoke a customer's Billing Portal invitation.
-    # If you attempt to revoke an invitation when the Billing Portal is already
-    # disabled for a Customer, you will receive a 422 error response.
-    # ## Limitations
-    # This endpoint will only return a JSON response.
-    # @param [Integer] customer_id Required parameter: The Chargify id of the
-    # customer
-    # @return [RevokedInvitation] response from the API call
-    def revoke_billing_portal_access(customer_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/portal/customers/{customer_id}/invitations/revoke.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(customer_id, key: 'customer_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RevokedInvitation.method(:from_hash)))
         .execute
     end
   end

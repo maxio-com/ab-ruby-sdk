@@ -12,7 +12,7 @@
 | `name` | `String` | Optional | - |
 | `handle` | `String` | Optional | - |
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
-| `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site.<br>**Default**: `true` |
+| `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site. |
 | `tax_included` | `TrueClass \| FalseClass` | Optional | Whether or not the price point includes tax |
 | `interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. |
 | `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component price point, either month or day. This property is only available for sites with Multifrequency enabled. |
@@ -22,10 +22,10 @@
 
 ```json
 {
-  "use_site_exchange_rate": true,
   "name": "name2",
   "handle": "handle8",
   "pricing_scheme": "per_unit",
+  "use_site_exchange_rate": false,
   "tax_included": false
 }
 ```
