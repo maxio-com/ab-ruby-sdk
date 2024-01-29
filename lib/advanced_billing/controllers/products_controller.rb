@@ -6,6 +6,98 @@
 module AdvancedBilling
   # ProductsController
   class ProductsController < BaseController
+    # Use this method to create a product within your Chargify site.
+    # + [Products
+    # Documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/540556
+    # 1405709)
+    # + [Changing a Subscription's
+    # Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/540422533466
+    # 9-Product-Changes-Migrations)
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the product belongs
+    # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
+    # @return [ProductResponse] response from the API call
+    def create_product(product_family_id,
+                       body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/product_families/{product_family_id}/products.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProductResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This endpoint allows you to read the current details of a product that
+    # you've created in Chargify.
+    # @param [Integer] product_id Required parameter: The Chargify id of the
+    # product
+    # @return [ProductResponse] response from the API call
+    def read_product(product_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/products/{product_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_id, key: 'product_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProductResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use this method to change aspects of an existing product.
+    # ### Input Attributes Update Notes
+    # + `update_return_params` The parameters we will append to your
+    # `update_return_url`. See Return URLs and Parameters
+    # ### Product Price Point
+    # Updating a product using this endpoint will create a new price point and
+    # set it as the default price point for this product. If you should like to
+    # update an existing product price point, that must be done separately.
+    # @param [Integer] product_id Required parameter: The Chargify id of the
+    # product
+    # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
+    # @return [ProductResponse] response from the API call
+    def update_product(product_id,
+                       body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/products/{product_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_id, key: 'product_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProductResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
     # Sending a DELETE request to this endpoint will archive the product. All
     # current subscribers will be unffected; their subscription/purchase will
     # continue to be charged monthly.
@@ -126,98 +218,6 @@ module AdvancedBilling
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductResponse.method(:from_hash))
                    .is_response_array(true))
-        .execute
-    end
-
-    # This endpoint allows you to read the current details of a product that
-    # you've created in Chargify.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product
-    # @return [ProductResponse] response from the API call
-    def read_product(product_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/products/{product_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_id, key: 'product_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash)))
-        .execute
-    end
-
-    # Use this method to change aspects of an existing product.
-    # ### Input Attributes Update Notes
-    # + `update_return_params` The parameters we will append to your
-    # `update_return_url`. See Return URLs and Parameters
-    # ### Product Price Point
-    # Updating a product using this endpoint will create a new price point and
-    # set it as the default price point for this product. If you should like to
-    # update an existing product price point, that must be done separately.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product
-    # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
-    # @return [ProductResponse] response from the API call
-    def update_product(product_id,
-                       body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/products/{product_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_id, key: 'product_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Use this method to create a product within your Chargify site.
-    # + [Products
-    # Documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/540556
-    # 1405709)
-    # + [Changing a Subscription's
-    # Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/540422533466
-    # 9-Product-Changes-Migrations)
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the product belongs
-    # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
-    # @return [ProductResponse] response from the API call
-    def create_product(product_family_id,
-                       body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/product_families/{product_family_id}/products.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
         .execute
     end
   end

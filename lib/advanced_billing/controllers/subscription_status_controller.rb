@@ -6,6 +6,35 @@
 module AdvancedBilling
   # SubscriptionStatusController
   class SubscriptionStatusController < BaseController
+    # Chargify offers the ability to retry collecting the balance due on a past
+    # due Subscription without waiting for the next scheduled attempt.
+    # ## Successful Reactivation
+    # The response will be `200 OK` with the updated Subscription.
+    # ## Failed Reactivation
+    # The response will be `422 "Unprocessable Entity`.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @return [SubscriptionResponse] response from the API call
+    def retry_subscription(subscription_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/subscriptions/{subscription_id}/retry.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SubscriptionResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
     # The DELETE action causes the cancellation of the Subscription. This means,
     # the method sets the Subscription state to "canceled".
     # @param [Integer] subscription_id Required parameter: The Chargify id of
@@ -93,96 +122,6 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Chargify offers the ability to cancel a subscription at the end of the
-    # current billing period. This period is set by its current product.
-    # Requesting to cancel the subscription at the end of the period sets the
-    # `cancel_at_end_of_period` flag to true.
-    # Note that you cannot set `cancel_at_end_of_period` at subscription
-    # creation, or if the subscription is past due.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [CancellationRequest] body Optional parameter: Example:
-    # @return [DelayedCancellationResponse] response from the API call
-    def initiate_delayed_cancellation(subscription_id,
-                                      body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/delayed_cancel.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DelayedCancellationResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
-    # Removing the delayed cancellation on a subscription will ensure that it
-    # doesn't get canceled at the end of the period that it is in. The request
-    # will reset the `cancel_at_end_of_period` flag to `false`.
-    # This endpoint is idempotent. If the subscription was not set to cancel in
-    # the future, removing the delayed cancellation has no effect and the call
-    # will be successful.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @return [DelayedCancellationResponse] response from the API call
-    def stop_delayed_cancellation(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/subscriptions/{subscription_id}/delayed_cancel.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DelayedCancellationResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
-    # Chargify offers the ability to retry collecting the balance due on a past
-    # due Subscription without waiting for the next scheduled attempt.
-    # ## Successful Reactivation
-    # The response will be `200 OK` with the updated Subscription.
-    # ## Failed Reactivation
-    # The response will be `422 "Unprocessable Entity`.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @return [SubscriptionResponse] response from the API call
-    def retry_subscription(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/subscriptions/{subscription_id}/retry.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -392,6 +331,67 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
+        .execute
+    end
+
+    # Chargify offers the ability to cancel a subscription at the end of the
+    # current billing period. This period is set by its current product.
+    # Requesting to cancel the subscription at the end of the period sets the
+    # `cancel_at_end_of_period` flag to true.
+    # Note that you cannot set `cancel_at_end_of_period` at subscription
+    # creation, or if the subscription is past due.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [CancellationRequest] body Optional parameter: Example:
+    # @return [DelayedCancellationResponse] response from the API call
+    def initiate_delayed_cancellation(subscription_id,
+                                      body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/delayed_cancel.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DelayedCancellationResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
+        .execute
+    end
+
+    # Removing the delayed cancellation on a subscription will ensure that it
+    # doesn't get canceled at the end of the period that it is in. The request
+    # will reset the `cancel_at_end_of_period` flag to `false`.
+    # This endpoint is idempotent. If the subscription was not set to cancel in
+    # the future, removing the delayed cancellation has no effect and the call
+    # will be successful.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @return [DelayedCancellationResponse] response from the API call
+    def stop_delayed_cancellation(subscription_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscriptions/{subscription_id}/delayed_cancel.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DelayedCancellationResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
         .execute
     end
 

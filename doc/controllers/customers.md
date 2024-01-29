@@ -11,11 +11,11 @@ customers_controller = client.customers
 ## Methods
 
 * [Create Customer](../../doc/controllers/customers.md#create-customer)
-* [Update Customer](../../doc/controllers/customers.md#update-customer)
-* [Read Customer by Reference](../../doc/controllers/customers.md#read-customer-by-reference)
-* [Read Customer](../../doc/controllers/customers.md#read-customer)
-* [Delete Customer](../../doc/controllers/customers.md#delete-customer)
 * [List Customers](../../doc/controllers/customers.md#list-customers)
+* [Read Customer](../../doc/controllers/customers.md#read-customer)
+* [Update Customer](../../doc/controllers/customers.md#update-customer)
+* [Delete Customer](../../doc/controllers/customers.md#delete-customer)
+* [Read Customer by Reference](../../doc/controllers/customers.md#read-customer-by-reference)
 * [List Customer Subscriptions](../../doc/controllers/customers.md#list-customer-subscriptions)
 
 
@@ -125,165 +125,6 @@ result = customers_controller.create_customer(body: body)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 422 | Unprocessable Entity (WebDAV) | [`CustomerErrorResponseException`](../../doc/models/customer-error-response-exception.md) |
-
-
-# Update Customer
-
-This method allows to update the Customer.
-
-```ruby
-def update_customer(id,
-                    body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `id` | `Integer` | Template, Required | The Chargify id of the customer |
-| `body` | [`UpdateCustomerRequest`](../../doc/models/update-customer-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`CustomerResponse`](../../doc/models/customer-response.md)
-
-## Example Usage
-
-```ruby
-id = 112
-
-body = UpdateCustomerRequest.new(
-  UpdateCustomer.new(
-    'Martha',
-    'Washington',
-    'martha.washington@example.com'
-  )
-)
-
-result = customers_controller.update_customer(
-  id,
-  body: body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "customer": {
-    "first_name": "Martha",
-    "last_name": "Washington",
-    "email": "martha.washington@example.com",
-    "cc_emails": "george.washington@example.com",
-    "organization": null,
-    "reference": null,
-    "id": 14967442,
-    "created_at": "2016-12-05T10:33:07-05:00",
-    "updated_at": "2016-12-05T10:38:00-05:00",
-    "address": null,
-    "address_2": null,
-    "city": null,
-    "state": null,
-    "zip": null,
-    "country": null,
-    "phone": null,
-    "verified": false,
-    "portal_customer_created_at": null,
-    "portal_invite_last_sent_at": null,
-    "portal_invite_last_accepted_at": null,
-    "tax_exempt": false,
-    "vat_number": "012345678"
-  }
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 404 | Not Found | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | [`CustomerErrorResponseException`](../../doc/models/customer-error-response-exception.md) |
-
-
-# Read Customer by Reference
-
-Use this method to return the customer object if you have the unique **Reference ID (Your App)** value handy. It will return a single match.
-
-```ruby
-def read_customer_by_reference(reference)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `reference` | `String` | Query, Required | Customer reference |
-
-## Response Type
-
-[`CustomerResponse`](../../doc/models/customer-response.md)
-
-## Example Usage
-
-```ruby
-reference = 'reference4'
-
-result = customers_controller.read_customer_by_reference(reference)
-```
-
-
-# Read Customer
-
-This method allows to retrieve the Customer properties by Chargify-generated Customer ID.
-
-```ruby
-def read_customer(id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `id` | `Integer` | Template, Required | The Chargify id of the customer |
-
-## Response Type
-
-[`CustomerResponse`](../../doc/models/customer-response.md)
-
-## Example Usage
-
-```ruby
-id = 112
-
-result = customers_controller.read_customer(id)
-```
-
-
-# Delete Customer
-
-This method allows you to delete the Customer.
-
-```ruby
-def delete_customer(id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `id` | `Integer` | Template, Required | The Chargify id of the customer |
-
-## Response Type
-
-`void`
-
-## Example Usage
-
-```ruby
-id = 112
-
-customers_controller.delete_customer(id)
-```
 
 
 # List Customers
@@ -420,6 +261,165 @@ result = customers_controller.list_customers(collect)
     }
   }
 ]
+```
+
+
+# Read Customer
+
+This method allows to retrieve the Customer properties by Chargify-generated Customer ID.
+
+```ruby
+def read_customer(id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `Integer` | Template, Required | The Chargify id of the customer |
+
+## Response Type
+
+[`CustomerResponse`](../../doc/models/customer-response.md)
+
+## Example Usage
+
+```ruby
+id = 112
+
+result = customers_controller.read_customer(id)
+```
+
+
+# Update Customer
+
+This method allows to update the Customer.
+
+```ruby
+def update_customer(id,
+                    body: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `Integer` | Template, Required | The Chargify id of the customer |
+| `body` | [`UpdateCustomerRequest`](../../doc/models/update-customer-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`CustomerResponse`](../../doc/models/customer-response.md)
+
+## Example Usage
+
+```ruby
+id = 112
+
+body = UpdateCustomerRequest.new(
+  UpdateCustomer.new(
+    'Martha',
+    'Washington',
+    'martha.washington@example.com'
+  )
+)
+
+result = customers_controller.update_customer(
+  id,
+  body: body
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "customer": {
+    "first_name": "Martha",
+    "last_name": "Washington",
+    "email": "martha.washington@example.com",
+    "cc_emails": "george.washington@example.com",
+    "organization": null,
+    "reference": null,
+    "id": 14967442,
+    "created_at": "2016-12-05T10:33:07-05:00",
+    "updated_at": "2016-12-05T10:38:00-05:00",
+    "address": null,
+    "address_2": null,
+    "city": null,
+    "state": null,
+    "zip": null,
+    "country": null,
+    "phone": null,
+    "verified": false,
+    "portal_customer_created_at": null,
+    "portal_invite_last_sent_at": null,
+    "portal_invite_last_accepted_at": null,
+    "tax_exempt": false,
+    "vat_number": "012345678"
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `APIException` |
+| 422 | Unprocessable Entity (WebDAV) | [`CustomerErrorResponseException`](../../doc/models/customer-error-response-exception.md) |
+
+
+# Delete Customer
+
+This method allows you to delete the Customer.
+
+```ruby
+def delete_customer(id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `Integer` | Template, Required | The Chargify id of the customer |
+
+## Response Type
+
+`void`
+
+## Example Usage
+
+```ruby
+id = 112
+
+customers_controller.delete_customer(id)
+```
+
+
+# Read Customer by Reference
+
+Use this method to return the customer object if you have the unique **Reference ID (Your App)** value handy. It will return a single match.
+
+```ruby
+def read_customer_by_reference(reference)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `reference` | `String` | Query, Required | Customer reference |
+
+## Response Type
+
+[`CustomerResponse`](../../doc/models/customer-response.md)
+
+## Example Usage
+
+```ruby
+reference = 'reference4'
+
+result = customers_controller.read_customer_by_reference(reference)
 ```
 
 

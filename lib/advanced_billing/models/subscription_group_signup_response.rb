@@ -53,7 +53,7 @@ module AdvancedBilling
     # Statements Architecture valid options are - `invoice`, `automatic`. For
     # current Relationship Invoicing Architecture valid options are -
     # `remittance`, `automatic`, `prepaid`.
-    # @return [PaymentCollectionMethod]
+    # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 
     # A mapping from model property names to API property names.
@@ -105,7 +105,7 @@ module AdvancedBilling
                    state = SKIP,
                    cancel_at_end_of_period = SKIP,
                    subscriptions = SKIP,
-                   payment_collection_method = PaymentCollectionMethod::AUTOMATIC)
+                   payment_collection_method = CollectionMethod::AUTOMATIC)
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -152,7 +152,7 @@ module AdvancedBilling
 
       subscriptions = SKIP unless hash.key?('subscriptions')
       payment_collection_method =
-        hash['payment_collection_method'] ||= PaymentCollectionMethod::AUTOMATIC
+        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
 
       # Create object from extracted values.
       SubscriptionGroupSignupResponse.new(uid,

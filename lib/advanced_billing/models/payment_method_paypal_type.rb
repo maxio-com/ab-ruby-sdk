@@ -27,10 +27,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        email
-        type
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -38,10 +35,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(email = SKIP,
+    def initialize(email = nil,
                    type = 'paypal_account')
-      @email = email unless email == SKIP
-      @type = type unless type == SKIP
+      @email = email
+      @type = type
     end
 
     # Creates an instance of the object from a hash.
@@ -49,7 +46,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      email = hash.key?('email') ? hash['email'] : SKIP
+      email = hash.key?('email') ? hash['email'] : nil
       type = hash['type'] ||= 'paypal_account'
 
       # Create object from extracted values.
@@ -60,11 +57,23 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [PaymentMethodPaypalType | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.email,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.type,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['email'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['type'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

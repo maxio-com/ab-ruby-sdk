@@ -136,7 +136,7 @@ module AdvancedBilling
                    bank_branch_code = SKIP,
                    bank_account_type = BankAccountType::CHECKING,
                    bank_account_holder_type = SKIP,
-                   payment_type = PaymentType::CREDIT_CARD,
+                   payment_type = SKIP,
                    billing_address = SKIP,
                    billing_city = SKIP,
                    billing_state = SKIP,
@@ -180,7 +180,7 @@ module AdvancedBilling
         hash['bank_account_type'] ||= BankAccountType::CHECKING
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
+      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       billing_address =
         hash.key?('billing_address') ? hash['billing_address'] : SKIP
       billing_city = hash.key?('billing_city') ? hash['billing_city'] : SKIP

@@ -11,16 +11,16 @@ product_price_points_controller = client.product_price_points
 ## Methods
 
 * [Create Product Price Point](../../doc/controllers/product-price-points.md#create-product-price-point)
-* [Archive Product Price Point](../../doc/controllers/product-price-points.md#archive-product-price-point)
-* [Unarchive Product Price Point](../../doc/controllers/product-price-points.md#unarchive-product-price-point)
-* [List All Product Price Points](../../doc/controllers/product-price-points.md#list-all-product-price-points)
-* [Update Product Currency Prices](../../doc/controllers/product-price-points.md#update-product-currency-prices)
-* [Promote Product Price Point to Default](../../doc/controllers/product-price-points.md#promote-product-price-point-to-default)
-* [Create Product Price Points](../../doc/controllers/product-price-points.md#create-product-price-points)
-* [Create Product Currency Prices](../../doc/controllers/product-price-points.md#create-product-currency-prices)
 * [List Product Price Points](../../doc/controllers/product-price-points.md#list-product-price-points)
 * [Update Product Price Point](../../doc/controllers/product-price-points.md#update-product-price-point)
 * [Read Product Price Point](../../doc/controllers/product-price-points.md#read-product-price-point)
+* [Archive Product Price Point](../../doc/controllers/product-price-points.md#archive-product-price-point)
+* [Unarchive Product Price Point](../../doc/controllers/product-price-points.md#unarchive-product-price-point)
+* [Promote Product Price Point to Default](../../doc/controllers/product-price-points.md#promote-product-price-point-to-default)
+* [Create Product Price Points](../../doc/controllers/product-price-points.md#create-product-price-points)
+* [Create Product Currency Prices](../../doc/controllers/product-price-points.md#create-product-currency-prices)
+* [Update Product Currency Prices](../../doc/controllers/product-price-points.md#update-product-currency-prices)
+* [List All Product Price Points](../../doc/controllers/product-price-points.md#list-all-product-price-points)
 
 
 # Create Product Price Point
@@ -104,6 +104,206 @@ result = product_price_points_controller.create_product_price_point(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 422 | Unprocessable Entity (WebDAV) | [`ProductPricePointErrorResponseException`](../../doc/models/product-price-point-error-response-exception.md) |
+
+
+# List Product Price Points
+
+Use this endpoint to retrieve a list of product price points.
+
+```ruby
+def list_product_price_points(options = {})
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `product_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. |
+| `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
+| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+
+## Response Type
+
+[`ListProductPricePointsResponse`](../../doc/models/list-product-price-points-response.md)
+
+## Example Usage
+
+```ruby
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'product_id': 124,
+  'page': 2,
+  'per_page': 10
+}
+
+result = product_price_points_controller.list_product_price_points(collect)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "price_points": [
+    {
+      "id": 283,
+      "name": "Educational",
+      "handle": "educational",
+      "price_in_cents": 1000,
+      "interval": 1,
+      "interval_unit": "month",
+      "trial_price_in_cents": 4900,
+      "trial_interval": 1,
+      "trial_interval_unit": "month",
+      "trial_type": "payment_expected",
+      "initial_charge_in_cents": 120000,
+      "initial_charge_after_trial": false,
+      "expiration_interval": 12,
+      "expiration_interval_unit": "month",
+      "product_id": 901,
+      "archived_at": "2023-11-30T06:37:20-05:00",
+      "created_at": "2023-11-27T06:37:20-05:00",
+      "updated_at": "2023-11-27T06:37:20-05:00"
+    }
+  ]
+}
+```
+
+
+# Update Product Price Point
+
+Use this endpoint to update a product price point.
+
+Note: Custom product price points are not able to be updated.
+
+```ruby
+def update_product_price_point(product_id,
+                               price_point_id,
+                               body: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `product_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
+| `price_point_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
+| `body` | [`UpdateProductPricePointRequest`](../../doc/models/update-product-price-point-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
+
+## Example Usage
+
+```ruby
+product_id = 124
+
+price_point_id = 188
+
+body = UpdateProductPricePointRequest.new(
+  UpdateProductPricePoint.new(
+    'educational',
+    1250
+  )
+)
+
+result = product_price_points_controller.update_product_price_point(
+  product_id,
+  price_point_id,
+  body: body
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "price_point": {
+    "id": 283,
+    "name": "Educational",
+    "handle": "educational",
+    "price_in_cents": 1000,
+    "interval": 1,
+    "interval_unit": "month",
+    "trial_price_in_cents": 4900,
+    "trial_interval": 1,
+    "trial_interval_unit": "month",
+    "trial_type": "payment_expected",
+    "initial_charge_in_cents": 120000,
+    "initial_charge_after_trial": false,
+    "expiration_interval": 12,
+    "expiration_interval_unit": "month",
+    "product_id": 901,
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
+  }
+}
+```
+
+
+# Read Product Price Point
+
+Use this endpoint to retrieve details for a specific product price point.
+
+```ruby
+def read_product_price_point(product_id,
+                             price_point_id,
+                             currency_prices: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `product_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
+| `price_point_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
+| `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
+
+## Response Type
+
+[`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
+
+## Example Usage
+
+```ruby
+product_id = 124
+
+price_point_id = 188
+
+result = product_price_points_controller.read_product_price_point(
+  product_id,
+  price_point_id
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "price_point": {
+    "id": 283,
+    "name": "Educational",
+    "handle": "educational",
+    "price_in_cents": 1000,
+    "interval": 1,
+    "interval_unit": "month",
+    "trial_price_in_cents": 4900,
+    "trial_interval": 1,
+    "trial_interval_unit": "month",
+    "trial_type": "payment_expected",
+    "initial_charge_in_cents": 120000,
+    "initial_charge_after_trial": false,
+    "expiration_interval": 12,
+    "expiration_interval_unit": "month",
+    "product_id": 901,
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
+  }
+}
+```
 
 
 # Archive Product Price Point
@@ -232,156 +432,6 @@ result = product_price_points_controller.unarchive_product_price_point(
   }
 }
 ```
-
-
-# List All Product Price Points
-
-This method allows retrieval of a list of Products Price Points belonging to a Site.
-
-```ruby
-def list_all_product_price_points(options = {})
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `filter_archived_at` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
-| `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
-| `filter_end_date` | `Date` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `filter_end_datetime` | `DateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `filter_ids` | `Array<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
-| `filter_start_date` | `Date` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `filter_start_datetime` | `DateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=catalog,custom`. |
-| `include` | [`ListProductsPricePointsInclude`](../../doc/models/list-products-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-
-## Response Type
-
-[`ListProductPricePointsResponse`](../../doc/models/list-product-price-points-response.md)
-
-## Example Usage
-
-```ruby
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'include': ListProductsPricePointsInclude::CURRENCY_PRICES,
-  'page': 2,
-  'per_page': 50
-}
-
-result = product_price_points_controller.list_all_product_price_points(collect)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_points": [
-    {
-      "id": 0,
-      "name": "My pricepoint",
-      "handle": "handle",
-      "price_in_cents": 10,
-      "interval": 5,
-      "interval_unit": "month",
-      "trial_price_in_cents": 10,
-      "trial_interval": 1,
-      "trial_interval_unit": "month",
-      "trial_type": "payment_expected",
-      "introductory_offer": true,
-      "initial_charge_in_cents": 0,
-      "initial_charge_after_trial": true,
-      "expiration_interval": 0,
-      "expiration_interval_unit": "month",
-      "product_id": 1230,
-      "created_at": "2021-04-02T17:52:09-04:00",
-      "updated_at": "2021-04-02T17:52:09-04:00",
-      "use_site_exchange_rate": true
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
-
-
-# Update Product Currency Prices
-
-This endpoint allows you to update the `price`s of currency prices for a given currency that exists on the product price point.
-
-When updating the pricing, it needs to mirror the structure of your primary pricing. If the product price point defines a trial and/or setup fee, each currency must also define a trial and/or setup fee.
-
-Note: Currency Prices are not able to be updated for custom product price points.
-
-```ruby
-def update_product_currency_prices(product_price_point_id,
-                                   body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `product_price_point_id` | `Integer` | Template, Required | The Chargify id of the product price point |
-| `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
-
-## Example Usage
-
-```ruby
-product_price_point_id = 234
-
-body = UpdateCurrencyPricesRequest.new(
-  [
-    UpdateCurrencyPrice.new(
-      200,
-      15
-    ),
-    UpdateCurrencyPrice.new(
-      201,
-      5
-    )
-  ]
-)
-
-result = product_price_points_controller.update_product_currency_prices(
-  product_price_point_id,
-  body: body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "currency_prices": [
-    {
-      "id": 123,
-      "currency": "EUR",
-      "price": 100,
-      "formatted_price": "€123,00",
-      "product_price_point_id": 32669,
-      "role": "baseline"
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
 
 # Promote Product Price Point to Default
@@ -655,111 +705,50 @@ result = product_price_points_controller.create_product_currency_prices(
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
 
-# List Product Price Points
+# Update Product Currency Prices
 
-Use this endpoint to retrieve a list of product price points.
+This endpoint allows you to update the `price`s of currency prices for a given currency that exists on the product price point.
+
+When updating the pricing, it needs to mirror the structure of your primary pricing. If the product price point defines a trial and/or setup fee, each currency must also define a trial and/or setup fee.
+
+Note: Currency Prices are not able to be updated for custom product price points.
 
 ```ruby
-def list_product_price_points(options = {})
+def update_product_currency_prices(product_price_point_id,
+                                   body: nil)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. |
-| `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
-| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+| `product_price_point_id` | `Integer` | Template, Required | The Chargify id of the product price point |
+| `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
 
-[`ListProductPricePointsResponse`](../../doc/models/list-product-price-points-response.md)
+[`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
 
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'product_id': 124,
-  'page': 2,
-  'per_page': 10
-}
+product_price_point_id = 234
 
-result = product_price_points_controller.list_product_price_points(collect)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_points": [
-    {
-      "id": 283,
-      "name": "Educational",
-      "handle": "educational",
-      "price_in_cents": 1000,
-      "interval": 1,
-      "interval_unit": "month",
-      "trial_price_in_cents": 4900,
-      "trial_interval": 1,
-      "trial_interval_unit": "month",
-      "trial_type": "payment_expected",
-      "initial_charge_in_cents": 120000,
-      "initial_charge_after_trial": false,
-      "expiration_interval": 12,
-      "expiration_interval_unit": "month",
-      "product_id": 901,
-      "archived_at": "2023-11-30T06:37:20-05:00",
-      "created_at": "2023-11-27T06:37:20-05:00",
-      "updated_at": "2023-11-27T06:37:20-05:00"
-    }
+body = UpdateCurrencyPricesRequest.new(
+  [
+    UpdateCurrencyPrice.new(
+      200,
+      15
+    ),
+    UpdateCurrencyPrice.new(
+      201,
+      5
+    )
   ]
-}
-```
-
-
-# Update Product Price Point
-
-Use this endpoint to update a product price point.
-
-Note: Custom product price points are not able to be updated.
-
-```ruby
-def update_product_price_point(product_id,
-                               price_point_id,
-                               body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `product_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
-| `price_point_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
-| `body` | [`UpdateProductPricePointRequest`](../../doc/models/update-product-price-point-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
-
-## Example Usage
-
-```ruby
-product_id = 124
-
-price_point_id = 188
-
-body = UpdateProductPricePointRequest.new(
-  UpdateProductPricePoint.new(
-    'educational',
-    1250
-  )
 )
 
-result = product_price_points_controller.update_product_price_point(
-  product_id,
-  price_point_id,
+result = product_price_points_controller.update_product_currency_prices(
+  product_price_point_id,
   body: body
 )
 ```
@@ -768,89 +757,100 @@ result = product_price_points_controller.update_product_price_point(
 
 ```json
 {
-  "price_point": {
-    "id": 283,
-    "name": "Educational",
-    "handle": "educational",
-    "price_in_cents": 1000,
-    "interval": 1,
-    "interval_unit": "month",
-    "trial_price_in_cents": 4900,
-    "trial_interval": 1,
-    "trial_interval_unit": "month",
-    "trial_type": "payment_expected",
-    "initial_charge_in_cents": 120000,
-    "initial_charge_after_trial": false,
-    "expiration_interval": 12,
-    "expiration_interval_unit": "month",
-    "product_id": 901,
-    "archived_at": "2023-11-30T06:37:20-05:00",
-    "created_at": "2023-11-27T06:37:20-05:00",
-    "updated_at": "2023-11-27T06:37:20-05:00"
-  }
+  "currency_prices": [
+    {
+      "id": 123,
+      "currency": "EUR",
+      "price": 100,
+      "formatted_price": "€123,00",
+      "product_price_point_id": 32669,
+      "role": "baseline"
+    }
+  ]
 }
 ```
 
+## Errors
 
-# Read Product Price Point
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
-Use this endpoint to retrieve details for a specific product price point.
+
+# List All Product Price Points
+
+This method allows retrieval of a list of Products Price Points belonging to a Site.
 
 ```ruby
-def read_product_price_point(product_id,
-                             price_point_id,
-                             currency_prices: nil)
+def list_all_product_price_points(options = {})
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
-| `price_point_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
-| `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
+| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
+| `filter_archived_at` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
+| `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
+| `filter_end_date` | `Date` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
+| `filter_end_datetime` | `DateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
+| `filter_ids` | `Array<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
+| `filter_start_date` | `Date` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
+| `filter_start_datetime` | `DateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
+| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=catalog,custom`. |
+| `include` | [`ListProductsPricePointsInclude`](../../doc/models/list-products-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
 
 ## Response Type
 
-[`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
+[`ListProductPricePointsResponse`](../../doc/models/list-product-price-points-response.md)
 
 ## Example Usage
 
 ```ruby
-product_id = 124
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+  'include': ListProductsPricePointsInclude::CURRENCY_PRICES,
+  'page': 2,
+  'per_page': 50
+}
 
-price_point_id = 188
-
-result = product_price_points_controller.read_product_price_point(
-  product_id,
-  price_point_id
-)
+result = product_price_points_controller.list_all_product_price_points(collect)
 ```
 
 ## Example Response *(as JSON)*
 
 ```json
 {
-  "price_point": {
-    "id": 283,
-    "name": "Educational",
-    "handle": "educational",
-    "price_in_cents": 1000,
-    "interval": 1,
-    "interval_unit": "month",
-    "trial_price_in_cents": 4900,
-    "trial_interval": 1,
-    "trial_interval_unit": "month",
-    "trial_type": "payment_expected",
-    "initial_charge_in_cents": 120000,
-    "initial_charge_after_trial": false,
-    "expiration_interval": 12,
-    "expiration_interval_unit": "month",
-    "product_id": 901,
-    "archived_at": "2023-11-30T06:37:20-05:00",
-    "created_at": "2023-11-27T06:37:20-05:00",
-    "updated_at": "2023-11-27T06:37:20-05:00"
-  }
+  "price_points": [
+    {
+      "id": 0,
+      "name": "My pricepoint",
+      "handle": "handle",
+      "price_in_cents": 10,
+      "interval": 5,
+      "interval_unit": "month",
+      "trial_price_in_cents": 10,
+      "trial_interval": 1,
+      "trial_interval_unit": "month",
+      "trial_type": "payment_expected",
+      "introductory_offer": true,
+      "initial_charge_in_cents": 0,
+      "initial_charge_after_trial": true,
+      "expiration_interval": 0,
+      "expiration_interval_unit": "month",
+      "product_id": 1230,
+      "created_at": "2021-04-02T17:52:09-04:00",
+      "updated_at": "2021-04-02T17:52:09-04:00",
+      "use_site_exchange_rate": true
+    }
+  ]
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 

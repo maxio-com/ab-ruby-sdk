@@ -48,7 +48,7 @@ module AdvancedBilling
     # Statements Architecture valid options are - `invoice`, `automatic`. For
     # current Relationship Invoicing Architecture valid options are -
     # `remittance`, `automatic`, `prepaid`.
-    # @return [PaymentCollectionMethod]
+    # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 
     # (Optional) Default: True - Whether or not this subscription is set to
@@ -437,7 +437,7 @@ module AdvancedBilling
                    custom_price = SKIP,
                    coupon_code = SKIP,
                    coupon_codes = SKIP,
-                   payment_collection_method = PaymentCollectionMethod::AUTOMATIC,
+                   payment_collection_method = CollectionMethod::AUTOMATIC,
                    receives_invoice_emails = SKIP,
                    net_terms = SKIP,
                    customer_id = SKIP,
@@ -574,7 +574,7 @@ module AdvancedBilling
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
       coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= PaymentCollectionMethod::AUTOMATIC
+        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
       receives_invoice_emails =
         hash.key?('receives_invoice_emails') ? hash['receives_invoice_emails'] : SKIP
       net_terms = hash.key?('net_terms') ? hash['net_terms'] : SKIP

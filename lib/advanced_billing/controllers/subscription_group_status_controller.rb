@@ -41,16 +41,17 @@ module AdvancedBilling
         .execute
     end
 
-    # Removing the delayed cancellation on a subscription group will ensure that
-    # the subscriptions do not get canceled at the end of the period. The
-    # request will reset the `cancel_at_end_of_period` flag to false on each
-    # member in the group.
+    # This endpoint will schedule all subscriptions within the specified group
+    # to be canceled at the end of their billing period. The group is identified
+    # by it's uid passed in the URL.
+    # All subscriptions in the group must be on automatic billing in order to
+    # successfully cancel them, and the group must not be in a "past_due" state.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
     # @return [void] response from the API call
-    def stop_delayed_cancellation_for_group(uid)
+    def initiate_delayed_cancellation_for_group(uid)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
+        .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/delayed_cancel.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(uid, key: 'uid')
@@ -66,17 +67,16 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint will schedule all subscriptions within the specified group
-    # to be canceled at the end of their billing period. The group is identified
-    # by it's uid passed in the URL.
-    # All subscriptions in the group must be on automatic billing in order to
-    # successfully cancel them, and the group must not be in a "past_due" state.
+    # Removing the delayed cancellation on a subscription group will ensure that
+    # the subscriptions do not get canceled at the end of the period. The
+    # request will reset the `cancel_at_end_of_period` flag to false on each
+    # member in the group.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
     # @return [void] response from the API call
-    def initiate_delayed_cancellation_for_group(uid)
+    def stop_delayed_cancellation_for_group(uid)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
+        .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscription_groups/{uid}/delayed_cancel.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(uid, key: 'uid')

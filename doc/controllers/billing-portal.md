@@ -10,53 +10,10 @@ billing_portal_controller = client.billing_portal
 
 ## Methods
 
-* [Revoke Billing Portal Access](../../doc/controllers/billing-portal.md#revoke-billing-portal-access)
 * [Enable Billing Portal for Customer](../../doc/controllers/billing-portal.md#enable-billing-portal-for-customer)
 * [Read Billing Portal Link](../../doc/controllers/billing-portal.md#read-billing-portal-link)
 * [Resend Billing Portal Invitation](../../doc/controllers/billing-portal.md#resend-billing-portal-invitation)
-
-
-# Revoke Billing Portal Access
-
-You can revoke a customer's Billing Portal invitation.
-
-If you attempt to revoke an invitation when the Billing Portal is already disabled for a Customer, you will receive a 422 error response.
-
-## Limitations
-
-This endpoint will only return a JSON response.
-
-```ruby
-def revoke_billing_portal_access(customer_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `customer_id` | `Integer` | Template, Required | The Chargify id of the customer |
-
-## Response Type
-
-[`RevokedInvitation`](../../doc/models/revoked-invitation.md)
-
-## Example Usage
-
-```ruby
-customer_id = 150
-
-result = billing_portal_controller.revoke_billing_portal_access(customer_id)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "last_sent_at": "Not Invited",
-  "last_accepted_at": "Invite Revoked",
-  "uninvited_count": 8
-}
-```
+* [Revoke Billing Portal Access](../../doc/controllers/billing-portal.md#revoke-billing-portal-access)
 
 
 # Enable Billing Portal for Customer
@@ -218,4 +175,47 @@ result = billing_portal_controller.resend_billing_portal_invitation(customer_id)
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
+# Revoke Billing Portal Access
+
+You can revoke a customer's Billing Portal invitation.
+
+If you attempt to revoke an invitation when the Billing Portal is already disabled for a Customer, you will receive a 422 error response.
+
+## Limitations
+
+This endpoint will only return a JSON response.
+
+```ruby
+def revoke_billing_portal_access(customer_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `customer_id` | `Integer` | Template, Required | The Chargify id of the customer |
+
+## Response Type
+
+[`RevokedInvitation`](../../doc/models/revoked-invitation.md)
+
+## Example Usage
+
+```ruby
+customer_id = 150
+
+result = billing_portal_controller.revoke_billing_portal_access(customer_id)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "last_sent_at": "Not Invited",
+  "last_accepted_at": "Invite Revoked",
+  "uninvited_count": 8
+}
+```
 

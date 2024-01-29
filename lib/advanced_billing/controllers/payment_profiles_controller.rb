@@ -6,144 +6,6 @@
 module AdvancedBilling
   # PaymentProfilesController
   class PaymentProfilesController < BaseController
-    # ## Partial Card Updates
-    # In the event that you are using the Authorize.net, Stripe, Cybersource,
-    # Forte or Braintree Blue payment gateways, you can update just the billing
-    # and contact information for a payment method. Note the lack of credit-card
-    # related data contained in the JSON payload.
-    # In this case, the following JSON is acceptable:
-    # ```
-    # {
-    #   "payment_profile": {
-    #     "first_name": "Kelly",
-    #     "last_name": "Test",
-    #     "billing_address": "789 Juniper Court",
-    #     "billing_city": "Boulder",
-    #     "billing_state": "CO",
-    #     "billing_zip": "80302",
-    #     "billing_country": "US",
-    #     "billing_address_2": null
-    #   }
-    # }
-    # ```
-    # The result will be that you have updated the billing information for the
-    # card, yet retained the original card number data.
-    # ## Specific notes on updating payment profiles
-    # - Merchants with **Authorize.net**, **Cybersource**, **Forte**,
-    # **Braintree Blue** or **Stripe** as their payment gateway can update their
-    # Customer’s credit cards without passing in the full credit card number and
-    # CVV.
-    # - If you are using **Authorize.net**, **Cybersource**, **Forte**,
-    # **Braintree Blue** or **Stripe**, Chargify will ignore the credit card
-    # number and CVV when processing an update via the API, and attempt a
-    # partial update instead. If you wish to change the card number on a payment
-    # profile, you will need to create a new payment profile for the given
-    # customer.
-    # - A Payment Profile cannot be updated with the attributes of another type
-    # of Payment Profile. For example, if the payment profile you are attempting
-    # to update is a credit card, you cannot pass in bank account attributes
-    # (like `bank_account_number`), and vice versa.
-    # - Updating a payment profile directly will not trigger an attempt to
-    # capture a past-due balance. If this is the intent, update the card details
-    # via the Subscription instead.
-    # - If you are using Authorize.net or Stripe, you may elect to manually
-    # trigger a retry for a past due subscription after a partial update.
-    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
-    # the payment profile
-    # @param [UpdatePaymentProfileRequest] body Optional parameter: Example:
-    # @return [PaymentProfileResponse] response from the API call
-    def update_payment_profile(payment_profile_id,
-                               body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/payment_profiles/{payment_profile_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorStringMapResponseException))
-        .execute
-    end
-
-    # This will delete a Payment Profile belonging to a Subscription Group.
-    # **Note**: If the Payment Profile belongs to multiple Subscription Groups
-    # and/or Subscriptions, it will be removed from all of them.
-    # @param [String] uid Required parameter: The uid of the subscription
-    # group
-    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
-    # the payment profile
-    # @return [void] response from the API call
-    def delete_subscription_group_payment_profile(uid,
-                                                  payment_profile_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true))
-        .execute
-    end
-
-    # You can send a "request payment update" email to the customer associated
-    # with the subscription.
-    # If you attempt to send a "request payment update" email more than five
-    # times within a 30-minute period, you will receive a `422` response with an
-    # error message in the body. This error message will indicate that the
-    # request has been rejected due to excessive attempts, and will provide
-    # instructions on how to resubmit the request.
-    # Additionally, if you attempt to send a "request payment update" email for
-    # a subscription that does not exist, you will receive a `404` error
-    # response. This error message will indicate that the subscription could not
-    # be found, and will provide instructions on how to correct the error and
-    # resubmit the request.
-    # These error responses are designed to prevent excessive or invalid
-    # requests, and to provide clear and helpful information to users who
-    # encounter errors during the request process.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @return [void] response from the API call
-    def send_request_update_payment_email(subscription_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/request_payment_profiles_update.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
     # Use this endpoint to create a payment profile for a customer.
     # Payment Profiles house the credit card, ACH (Authorize.Net or Stripe
     # only,) or PayPal (Braintree only,) data for a customer. The payment
@@ -548,6 +410,106 @@ module AdvancedBilling
         .execute
     end
 
+    # ## Partial Card Updates
+    # In the event that you are using the Authorize.net, Stripe, Cybersource,
+    # Forte or Braintree Blue payment gateways, you can update just the billing
+    # and contact information for a payment method. Note the lack of credit-card
+    # related data contained in the JSON payload.
+    # In this case, the following JSON is acceptable:
+    # ```
+    # {
+    #   "payment_profile": {
+    #     "first_name": "Kelly",
+    #     "last_name": "Test",
+    #     "billing_address": "789 Juniper Court",
+    #     "billing_city": "Boulder",
+    #     "billing_state": "CO",
+    #     "billing_zip": "80302",
+    #     "billing_country": "US",
+    #     "billing_address_2": null
+    #   }
+    # }
+    # ```
+    # The result will be that you have updated the billing information for the
+    # card, yet retained the original card number data.
+    # ## Specific notes on updating payment profiles
+    # - Merchants with **Authorize.net**, **Cybersource**, **Forte**,
+    # **Braintree Blue** or **Stripe** as their payment gateway can update their
+    # Customer’s credit cards without passing in the full credit card number and
+    # CVV.
+    # - If you are using **Authorize.net**, **Cybersource**, **Forte**,
+    # **Braintree Blue** or **Stripe**, Chargify will ignore the credit card
+    # number and CVV when processing an update via the API, and attempt a
+    # partial update instead. If you wish to change the card number on a payment
+    # profile, you will need to create a new payment profile for the given
+    # customer.
+    # - A Payment Profile cannot be updated with the attributes of another type
+    # of Payment Profile. For example, if the payment profile you are attempting
+    # to update is a credit card, you cannot pass in bank account attributes
+    # (like `bank_account_number`), and vice versa.
+    # - Updating a payment profile directly will not trigger an attempt to
+    # capture a past-due balance. If this is the intent, update the card details
+    # via the Subscription instead.
+    # - If you are using Authorize.net or Stripe, you may elect to manually
+    # trigger a retry for a past due subscription after a partial update.
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
+    # the payment profile
+    # @param [UpdatePaymentProfileRequest] body Optional parameter: Example:
+    # @return [PaymentProfileResponse] response from the API call
+    def update_payment_profile(payment_profile_id,
+                               body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/payment_profiles/{payment_profile_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                   .local_error('404',
+                                'Not Found',
+                                APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorStringMapResponseException))
+        .execute
+    end
+
+    # Deletes an unused payment profile.
+    # If the payment profile is in use by one or more subscriptions or groups, a
+    # 422 and error message will be returned.
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
+    # the payment profile
+    # @return [void] response from the API call
+    def delete_unused_payment_profile(payment_profile_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/payment_profiles/{payment_profile_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error('404',
+                                'Not Found',
+                                APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
     # This will delete a payment profile belonging to the customer on the
     # subscription.
     # + If the customer has multiple subscriptions, the payment profile will be
@@ -570,6 +532,66 @@ module AdvancedBilling
                                      '/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true))
+        .execute
+    end
+
+    # Submit the two small deposit amounts the customer received in their bank
+    # account in order to verify the bank account. (Stripe only)
+    # @param [Integer] bank_account_id Required parameter: Identifier of the
+    # bank account in the system.
+    # @param [BankAccountVerificationRequest] body Optional parameter:
+    # Example:
+    # @return [BankAccountResponse] response from the API call
+    def verify_bank_account(bank_account_id,
+                            body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/bank_accounts/{bank_account_id}/verification.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(bank_account_id, key: 'bank_account_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(BankAccountResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This will delete a Payment Profile belonging to a Subscription Group.
+    # **Note**: If the Payment Profile belongs to multiple Subscription Groups
+    # and/or Subscriptions, it will be removed from all of them.
+    # @param [String] uid Required parameter: The uid of the subscription
+    # group
+    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
+    # the payment profile
+    # @return [void] response from the API call
+    def delete_subscription_group_payment_profile(uid,
+                                                  payment_profile_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
                    .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
@@ -610,67 +632,6 @@ module AdvancedBilling
                    .local_error('404',
                                 'Not Found',
                                 APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Deletes an unused payment profile.
-    # If the payment profile is in use by one or more subscriptions or groups, a
-    # 422 and error message will be returned.
-    # @param [Integer] payment_profile_id Required parameter: The Chargify id of
-    # the payment profile
-    # @return [void] response from the API call
-    def delete_unused_payment_profile(payment_profile_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/payment_profiles/{payment_profile_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(payment_profile_id, key: 'payment_profile_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Submit the two small deposit amounts the customer received in their bank
-    # account in order to verify the bank account. (Stripe only)
-    # @param [Integer] bank_account_id Required parameter: Identifier of the
-    # bank account in the system.
-    # @param [BankAccountVerificationRequest] body Optional parameter:
-    # Example:
-    # @return [BankAccountResponse] response from the API call
-    def verify_bank_account(bank_account_id,
-                            body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/bank_accounts/{bank_account_id}/verification.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(bank_account_id, key: 'bank_account_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BankAccountResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -738,6 +699,45 @@ module AdvancedBilling
                    .deserialize_into(GetOneTimeTokenRequest.method(:from_hash))
                    .local_error_template('404',
                                          'Not Found:\'{$response.body}\'',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # You can send a "request payment update" email to the customer associated
+    # with the subscription.
+    # If you attempt to send a "request payment update" email more than five
+    # times within a 30-minute period, you will receive a `422` response with an
+    # error message in the body. This error message will indicate that the
+    # request has been rejected due to excessive attempts, and will provide
+    # instructions on how to resubmit the request.
+    # Additionally, if you attempt to send a "request payment update" email for
+    # a subscription that does not exist, you will receive a `404` error
+    # response. This error message will indicate that the subscription could not
+    # be found, and will provide instructions on how to correct the error and
+    # resubmit the request.
+    # These error responses are designed to prevent excessive or invalid
+    # requests, and to provide clear and helpful information to users who
+    # encounter errors during the request process.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @return [void] response from the API call
+    def send_request_update_payment_email(subscription_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/request_payment_profiles_update.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
         .execute
     end

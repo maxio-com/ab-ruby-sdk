@@ -39,7 +39,7 @@ module AdvancedBilling
 
     # (Optional) If not passed, the allocation(s) will use the payment
     # collection method on the subscription
-    # @return [PaymentCollectionMethod1]
+    # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 
     # If true, if the immediate component payment fails, initiate dunning for
@@ -90,7 +90,7 @@ module AdvancedBilling
                    accrue_charge = SKIP,
                    upgrade_charge = SKIP,
                    downgrade_credit = SKIP,
-                   payment_collection_method = PaymentCollectionMethod1::AUTOMATIC,
+                   payment_collection_method = SKIP,
                    initiate_dunning = SKIP)
       @proration_upgrade_scheme = proration_upgrade_scheme unless proration_upgrade_scheme == SKIP
       unless proration_downgrade_scheme == SKIP
@@ -133,7 +133,7 @@ module AdvancedBilling
       downgrade_credit =
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= PaymentCollectionMethod1::AUTOMATIC
+        hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       initiate_dunning =
         hash.key?('initiate_dunning') ? hash['initiate_dunning'] : SKIP
 

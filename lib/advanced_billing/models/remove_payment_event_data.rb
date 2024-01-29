@@ -32,7 +32,7 @@ module AdvancedBilling
     attr_accessor :transaction_time
 
     # A nested data structure detailing the method of payment
-    # @return [Object]
+    # @return [PaymentMethodNestedData]
     attr_accessor :payment_method
 
     # The flag that shows whether the original payment was a prepayment or not
@@ -55,13 +55,7 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        transaction_id
-        memo
         original_amount
-        applied_amount
-        transaction_time
-        payment_method
-        prepayment
       ]
     end
 
@@ -70,20 +64,20 @@ module AdvancedBilling
       []
     end
 
-    def initialize(transaction_id = SKIP,
-                   memo = SKIP,
-                   original_amount = SKIP,
-                   applied_amount = SKIP,
-                   transaction_time = SKIP,
-                   payment_method = SKIP,
-                   prepayment = SKIP)
-      @transaction_id = transaction_id unless transaction_id == SKIP
-      @memo = memo unless memo == SKIP
+    def initialize(transaction_id = nil,
+                   memo = nil,
+                   applied_amount = nil,
+                   transaction_time = nil,
+                   payment_method = nil,
+                   prepayment = nil,
+                   original_amount = SKIP)
+      @transaction_id = transaction_id
+      @memo = memo
       @original_amount = original_amount unless original_amount == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
-      @transaction_time = transaction_time unless transaction_time == SKIP
-      @payment_method = payment_method unless payment_method == SKIP
-      @prepayment = prepayment unless prepayment == SKIP
+      @applied_amount = applied_amount
+      @transaction_time = transaction_time
+      @payment_method = payment_method
+      @prepayment = prepayment
     end
 
     # Creates an instance of the object from a hash.
@@ -92,30 +86,28 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       transaction_id =
-        hash.key?('transaction_id') ? hash['transaction_id'] : SKIP
-      memo = hash.key?('memo') ? hash['memo'] : SKIP
-      original_amount =
-        hash.key?('original_amount') ? hash['original_amount'] : SKIP
+        hash.key?('transaction_id') ? hash['transaction_id'] : nil
+      memo = hash.key?('memo') ? hash['memo'] : nil
       applied_amount =
-        hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
+        hash.key?('applied_amount') ? hash['applied_amount'] : nil
       transaction_time = if hash.key?('transaction_time')
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
-                         else
-                           SKIP
                          end
       payment_method = hash.key?('payment_method') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:RemovePaymentEventDataPaymentMethod), hash['payment_method']
-      ) : SKIP
-      prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
+      ) : nil
+      prepayment = hash.key?('prepayment') ? hash['prepayment'] : nil
+      original_amount =
+        hash.key?('original_amount') ? hash['original_amount'] : SKIP
 
       # Create object from extracted values.
       RemovePaymentEventData.new(transaction_id,
                                  memo,
-                                 original_amount,
                                  applied_amount,
                                  transaction_time,
                                  payment_method,
-                                 prepayment)
+                                 prepayment,
+                                 original_amount)
     end
 
     def to_custom_transaction_time
@@ -125,11 +117,39 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [RemovePaymentEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.transaction_id,
+                                ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.memo,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.applied_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.transaction_time,
+                                  ->(val) { val.instance_of? DateTime }) and
+            UnionTypeLookUp.get(:RemovePaymentEventDataPaymentMethod)
+                           .validate(value.payment_method) and
+            APIHelper.valid_type?(value.prepayment,
+                                  ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['transaction_id'],
+                              ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['memo'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['applied_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['transaction_time'],
+                                ->(val) { val.instance_of? String }) and
+          UnionTypeLookUp.get(:RemovePaymentEventDataPaymentMethod)
+                         .validate(value['payment_method']) and
+          APIHelper.valid_type?(value['prepayment'],
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
+      )
     end
   end
 end

@@ -39,12 +39,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        credit_note_attributes
-        memo
-        applied_amount
-        transaction_time
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -52,14 +47,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(credit_note_attributes = SKIP,
-                   memo = SKIP,
-                   applied_amount = SKIP,
-                   transaction_time = SKIP)
-      @credit_note_attributes = credit_note_attributes unless credit_note_attributes == SKIP
-      @memo = memo unless memo == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
-      @transaction_time = transaction_time unless transaction_time == SKIP
+    def initialize(credit_note_attributes = nil,
+                   memo = nil,
+                   applied_amount = nil,
+                   transaction_time = nil)
+      @credit_note_attributes = credit_note_attributes
+      @memo = memo
+      @applied_amount = applied_amount
+      @transaction_time = transaction_time
     end
 
     # Creates an instance of the object from a hash.
@@ -69,13 +64,11 @@ module AdvancedBilling
       # Extract variables from the hash.
       credit_note_attributes = CreditNote.from_hash(hash['credit_note_attributes']) if
         hash['credit_note_attributes']
-      memo = hash.key?('memo') ? hash['memo'] : SKIP
+      memo = hash.key?('memo') ? hash['memo'] : nil
       applied_amount =
-        hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
+        hash.key?('applied_amount') ? hash['applied_amount'] : nil
       transaction_time = if hash.key?('transaction_time')
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
-                         else
-                           SKIP
                          end
 
       # Create object from extracted values.
@@ -92,11 +85,31 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [VoidRemainderEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.credit_note_attributes,
+                                ->(val) { CreditNote.validate(val) }) and
+            APIHelper.valid_type?(value.memo,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.applied_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.transaction_time,
+                                  ->(val) { val.instance_of? DateTime })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['credit_note_attributes'],
+                              ->(val) { CreditNote.validate(val) }) and
+          APIHelper.valid_type?(value['memo'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['applied_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['transaction_time'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

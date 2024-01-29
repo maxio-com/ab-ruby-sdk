@@ -31,6 +31,10 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :is_advance_invoice
 
+    # The reason for the void.
+    # @return [String]
+    attr_accessor :reason
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -39,35 +43,37 @@ module AdvancedBilling
       @_hash['applied_amount'] = 'applied_amount'
       @_hash['transaction_time'] = 'transaction_time'
       @_hash['is_advance_invoice'] = 'is_advance_invoice'
+      @_hash['reason'] = 'reason'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
+      []
+    end
+
+    # An array for nullable fields
+    def self.nullables
       %w[
         credit_note_attributes
         memo
         applied_amount
         transaction_time
-        is_advance_invoice
       ]
     end
 
-    # An array for nullable fields
-    def self.nullables
-      []
-    end
-
-    def initialize(credit_note_attributes = SKIP,
-                   memo = SKIP,
-                   applied_amount = SKIP,
-                   transaction_time = SKIP,
-                   is_advance_invoice = SKIP)
-      @credit_note_attributes = credit_note_attributes unless credit_note_attributes == SKIP
-      @memo = memo unless memo == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
-      @transaction_time = transaction_time unless transaction_time == SKIP
-      @is_advance_invoice = is_advance_invoice unless is_advance_invoice == SKIP
+    def initialize(credit_note_attributes = nil,
+                   memo = nil,
+                   applied_amount = nil,
+                   transaction_time = nil,
+                   is_advance_invoice = nil,
+                   reason = nil)
+      @credit_note_attributes = credit_note_attributes
+      @memo = memo
+      @applied_amount = applied_amount
+      @transaction_time = transaction_time
+      @is_advance_invoice = is_advance_invoice
+      @reason = reason
     end
 
     # Creates an instance of the object from a hash.
@@ -75,25 +81,26 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      credit_note_attributes = CreditNote.from_hash(hash['credit_note_attributes']) if
-        hash['credit_note_attributes']
-      memo = hash.key?('memo') ? hash['memo'] : SKIP
+      credit_note_attributes = hash.key?('credit_note_attributes') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:VoidInvoiceEventDataCreditNoteAttributes), hash['credit_note_attributes']
+      ) : nil
+      memo = hash.key?('memo') ? hash['memo'] : nil
       applied_amount =
-        hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
+        hash.key?('applied_amount') ? hash['applied_amount'] : nil
       transaction_time = if hash.key?('transaction_time')
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
-                         else
-                           SKIP
                          end
       is_advance_invoice =
-        hash.key?('is_advance_invoice') ? hash['is_advance_invoice'] : SKIP
+        hash.key?('is_advance_invoice') ? hash['is_advance_invoice'] : nil
+      reason = hash.key?('reason') ? hash['reason'] : nil
 
       # Create object from extracted values.
       VoidInvoiceEventData.new(credit_note_attributes,
                                memo,
                                applied_amount,
                                transaction_time,
-                               is_advance_invoice)
+                               is_advance_invoice,
+                               reason)
     end
 
     def to_custom_transaction_time
@@ -103,11 +110,39 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [VoidInvoiceEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          UnionTypeLookUp.get(:VoidInvoiceEventDataCreditNoteAttributes)
+                         .validate(value.credit_note_attributes) and
+            APIHelper.valid_type?(value.memo,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.applied_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.transaction_time,
+                                  ->(val) { val.instance_of? DateTime }) and
+            APIHelper.valid_type?(value.is_advance_invoice,
+                                  ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+            APIHelper.valid_type?(value.reason,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        UnionTypeLookUp.get(:VoidInvoiceEventDataCreditNoteAttributes)
+                       .validate(value['credit_note_attributes']) and
+          APIHelper.valid_type?(value['memo'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['applied_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['transaction_time'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['is_advance_invoice'],
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+          APIHelper.valid_type?(value['reason'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

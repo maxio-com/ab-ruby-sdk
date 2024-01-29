@@ -6,31 +6,31 @@
 module AdvancedBilling
   # SitesController
   class SitesController < BaseController
-    # This endpoint returns public keys used for Chargify.js.
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @return [ListPublicKeysResponse] response from the API call
-    def list_chargify_js_public_keys(options = {})
+    # This endpoint allows you to fetch some site data.
+    # Full documentation on Sites in the Chargify UI can be located
+    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407870738587).
+    # Specifically, the [Clearing Site
+    # Data](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405428327309)
+    # section is extremely relevant to this endpoint documentation.
+    # #### Relationship invoicing enabled
+    # If site has RI enabled then you will see more settings like:
+    #     "customer_hierarchy_enabled": true,
+    #     "whopays_enabled": true,
+    #     "whopays_default_payer": "self"
+    # You can read more about these settings here:
+    #  [Who Pays & Customer
+    # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
+    # @return [SiteResponse] response from the API call
+    def read_site
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/chargify_js_keys.json',
+                                     '/site.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListPublicKeysResponse.method(:from_hash)))
+                   .deserialize_into(SiteResponse.method(:from_hash)))
         .execute
     end
 
@@ -59,31 +59,31 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows you to fetch some site data.
-    # Full documentation on Sites in the Chargify UI can be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407870738587).
-    # Specifically, the [Clearing Site
-    # Data](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405428327309)
-    # section is extremely relevant to this endpoint documentation.
-    # #### Relationship invoicing enabled
-    # If site has RI enabled then you will see more settings like:
-    #     "customer_hierarchy_enabled": true,
-    #     "whopays_enabled": true,
-    #     "whopays_default_payer": "self"
-    # You can read more about these settings here:
-    #  [Who Pays & Customer
-    # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
-    # @return [SiteResponse] response from the API call
-    def read_site
+    # This endpoint returns public keys used for Chargify.js.
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @return [ListPublicKeysResponse] response from the API call
+    def list_chargify_js_public_keys(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/site.json',
+                                     '/chargify_js_keys.json',
                                      Server::DEFAULT)
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SiteResponse.method(:from_hash)))
+                   .deserialize_into(ListPublicKeysResponse.method(:from_hash)))
         .execute
     end
   end

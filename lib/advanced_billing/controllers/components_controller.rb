@@ -7,6 +7,100 @@ module AdvancedBilling
   # ComponentsController
   class ComponentsController < BaseController
     # This request will create a component definition of kind
+    # **metered_component** under the specified product family. Metered
+    # component can then be added and “allocated” for a subscription.
+    # Metered components are used to bill for any type of unit that resets to 0
+    # at the end of the billing period (think daily Google Adwords clicks or
+    # monthly cell phone minutes). This is most commonly associated with
+    # usage-based billing and many other pricing schemes.
+    # Note that this is different from recurring quantity-based components,
+    # which DO NOT reset to zero at the start of every billing period. If you
+    # want to bill for a quantity of something that does not change unless you
+    # change it, then you want quantity components, instead.
+    # For more information on components, please see our documentation
+    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
+    # .
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the component belongs
+    # @param [CreateMeteredComponent] body Optional parameter: Example:
+    # @return [ComponentResponse] response from the API call
+    def create_metered_component(product_family_id,
+                                 body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/product_families/{product_family_id}/metered_components.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This request will create a component definition of kind
+    # **quantity_based_component** under the specified product family. Quantity
+    # Based component can then be added and “allocated” for a subscription.
+    # When defining Quantity Based component, You can choose one of 2 types:
+    # #### Recurring
+    # Recurring quantity-based components are used to bill for the number of
+    # some unit (think monthly software user licenses or the number of pairs of
+    # socks in a box-a-month club). This is most commonly associated with
+    # billing for user licenses, number of users, number of employees, etc.
+    # #### One-time
+    # One-time quantity-based components are used to create ad hoc usage charges
+    # that do not recur. For example, at the time of signup, you might want to
+    # charge your customer a one-time fee for onboarding or other services.
+    # The allocated quantity for one-time quantity-based components immediately
+    # gets reset back to zero after the allocation is made.
+    # For more information on components, please see our documentation
+    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
+    # .
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the component belongs
+    # @param [CreateQuantityBasedComponent] body Optional parameter: Example:
+    # @return [ComponentResponse] response from the API call
+    def create_quantity_based_component(product_family_id,
+                                        body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/product_families/{product_family_id}/quantity_based_components.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This request will create a component definition of kind
     # **on_off_component** under the specified product family. On/Off component
     # can then be added and “allocated” for a subscription.
     # On/off components are used for any flat fee, recurring add on (think
@@ -134,35 +228,76 @@ module AdvancedBilling
         .execute
     end
 
-    # This request will create a component definition of kind
-    # **quantity_based_component** under the specified product family. Quantity
-    # Based component can then be added and “allocated” for a subscription.
-    # When defining Quantity Based component, You can choose one of 2 types:
-    # #### Recurring
-    # Recurring quantity-based components are used to bill for the number of
-    # some unit (think monthly software user licenses or the number of pairs of
-    # socks in a box-a-month club). This is most commonly associated with
-    # billing for user licenses, number of users, number of employees, etc.
-    # #### One-time
-    # One-time quantity-based components are used to create ad hoc usage charges
-    # that do not recur. For example, at the time of signup, you might want to
-    # charge your customer a one-time fee for onboarding or other services.
-    # The allocated quantity for one-time quantity-based components immediately
-    # gets reset back to zero after the allocation is made.
-    # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
+    # This request will return information regarding a component having the
+    # handle you provide. You can identify your components with a handle so you
+    # don't have to save or reference the IDs we generate.
+    # @param [String] handle Required parameter: The handle of the component to
+    # find
+    # @return [ComponentResponse] response from the API call
+    def read_component_by_handle(handle)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/components/lookup.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(handle, key: 'handle')
+                                 .is_required(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentResponse.method(:from_hash)))
+        .execute
+    end
+
+    # This request will return information regarding a component from a specific
+    # product family.
+    # You may read the component by either the component's id or handle. When
+    # using the handle, it must be prefixed with `handle:`.
     # @param [Integer] product_family_id Required parameter: The Chargify id of
     # the product family to which the component belongs
-    # @param [CreateQuantityBasedComponent] body Optional parameter: Example:
+    # @param [String] component_id Required parameter: Either the Chargify id of
+    # the component or the handle for the component prefixed with `handle:`
     # @return [ComponentResponse] response from the API call
-    def create_quantity_based_component(product_family_id,
-                                        body: nil)
+    def read_component_by_id(product_family_id,
+                             component_id)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/product_families/{product_family_id}/quantity_based_components.json',
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/product_families/{product_family_id}/components/{component_id}.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentResponse.method(:from_hash)))
+        .execute
+    end
+
+    # This request will update a component from a specific product family.
+    # You may read the component by either the component's id or handle. When
+    # using the handle, it must be prefixed with `handle:`.
+    # @param [Integer] product_family_id Required parameter: The Chargify id of
+    # the product family to which the component belongs
+    # @param [String] component_id Required parameter: Either the Chargify id of
+    # the component or the handle for the component prefixed with `handle:`
+    # @param [UpdateComponentRequest] body Optional parameter: Example:
+    # @return [ComponentResponse] response from the API call
+    def update_product_family_component(product_family_id,
+                                        component_id,
+                                        body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/product_families/{product_family_id}/components/{component_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
@@ -173,9 +308,6 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -183,44 +315,31 @@ module AdvancedBilling
         .execute
     end
 
-    # This request will create a component definition of kind
-    # **metered_component** under the specified product family. Metered
-    # component can then be added and “allocated” for a subscription.
-    # Metered components are used to bill for any type of unit that resets to 0
-    # at the end of the billing period (think daily Google Adwords clicks or
-    # monthly cell phone minutes). This is most commonly associated with
-    # usage-based billing and many other pricing schemes.
-    # Note that this is different from recurring quantity-based components,
-    # which DO NOT reset to zero at the start of every billing period. If you
-    # want to bill for a quantity of something that does not change unless you
-    # change it, then you want quantity components, instead.
-    # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
+    # Sending a DELETE request to this endpoint will archive the component. All
+    # current subscribers will be unffected; their subscription/purchase will
+    # continue to be charged as usual.
     # @param [Integer] product_family_id Required parameter: The Chargify id of
     # the product family to which the component belongs
-    # @param [CreateMeteredComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
-    def create_metered_component(product_family_id,
-                                 body: nil)
+    # @param [String] component_id Required parameter: Either the Chargify id of
+    # the component or the handle for the component prefixed with `handle:`
+    # @return [Component] response from the API call
+    def archive_component(product_family_id,
+                          component_id)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/product_families/{product_family_id}/metered_components.json',
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/product_families/{product_family_id}/components/{component_id}.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
+                   .deserialize_into(Component.method(:from_hash))
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -296,190 +415,6 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to read current price points that are associated with a
-    # component.
-    # You may specify the component by using either the numeric id or the
-    # `handle:gold` syntax.
-    # When fetching a component's price points, if you have defined multiple
-    # currencies at the site level, you can optionally pass the
-    # `?currency_prices=true` query param to include an array of currency price
-    # data in the response.
-    # If the price point is set to `use_site_exchange_rate: true`, it will
-    # return pricing based on the current exchange rate. If the flag is set to
-    # false, it will return all of the defined prices for each currency.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
-    # @param [TrueClass | FalseClass] currency_prices Optional parameter:
-    # Include an array of currency price data
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @param [Array[PricePointType]] filter_type Optional parameter: Use in
-    # query: `filter[type]=catalog,default`.
-    # @return [ComponentPricePointsResponse] response from the API call
-    def list_component_price_points(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/components/{component_id}/price_points.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(options['component_id'], key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This method allows to retrieve a list of Components Price Points belonging
-    # to a Site.
-    # @param [BasicDateField] filter_date_field Optional parameter: The type of
-    # filter you would like to apply to your search. Use in query:
-    # `filter[date_field]=created_at`.
-    # @param [Date] filter_end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
-    # a timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified.
-    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
-    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns price points with a timestamp at or before exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # end_date.
-    # @param [ListComponentsPricePointsInclude] include Optional parameter:
-    # Allows including additional data in the response. Use in query:
-    # `include=currency_prices`.
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @param [Date] filter_start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
-    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified.
-    # @param [DateTime] filter_start_datetime Optional parameter: The start date
-    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns price points with a timestamp at or after exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # start_date.
-    # @param [Array[PricePointType]] filter_type Optional parameter: Allows
-    # fetching price points with matching type. Use in query:
-    # `filter[type]=custom,catalog`.
-    # @param [SortingDirection] direction Optional parameter: Controls the order
-    # in which results are returned. Use in query `direction=asc`.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # price points with matching id based on provided values. Use in query:
-    # `filter[ids]=1,2,3`.
-    # @param [IncludeNotNull] filter_archived_at Optional parameter: Allows
-    # fetching price points only if archived_at is present or not. Use in query:
-    # `filter[archived_at]=not_null`.
-    # @return [ListComponentsPricePointsResponse] response from the API call
-    def list_all_component_price_points(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/components_price_points.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
-                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
-                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(options['include'], key: 'include'))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
-                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
-                   .query_param(new_parameter(options['direction'], key: 'direction'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListComponentsPricePointsResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # This request will return information regarding a component having the
-    # handle you provide. You can identify your components with a handle so you
-    # don't have to save or reference the IDs we generate.
-    # @param [String] handle Required parameter: The handle of the component to
-    # find
-    # @return [ComponentResponse] response from the API call
-    def read_component_by_handle(handle)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/components/lookup.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(handle, key: 'handle')
-                                 .is_required(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash)))
-        .execute
-    end
-
-    # Sending a DELETE request to this endpoint will archive the component. All
-    # current subscribers will be unffected; their subscription/purchase will
-    # continue to be charged as usual.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
-    # @param [String] component_id Required parameter: Either the Chargify id of
-    # the component or the handle for the component prefixed with `handle:`
-    # @return [Component] response from the API call
-    def archive_component(product_family_id,
-                          component_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/product_families/{product_family_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Component.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
     # This request will update a component.
     # You may read the component by either the component's id or handle. When
     # using the handle, it must be prefixed with `handle:`.
@@ -493,173 +428,6 @@ module AdvancedBilling
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # When updating a price point, it's prices can be updated as well by
-    # creating new prices or editing / removing existing ones.
-    # Passing in a price bracket without an `id` will attempt to create a new
-    # price.
-    # Including an `id` will update the corresponding price, and including the
-    # `_destroy` flag set to true along with the `id` will remove that price.
-    # Note: Custom price points cannot be updated directly. They must be edited
-    # through the Subscription.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
-    # @param [UpdateComponentPricePointRequest] body Optional parameter:
-    # Example:
-    # @return [ComponentPricePointResponse] response from the API call
-    def update_component_price_point(component_id,
-                                     price_point_id,
-                                     body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/components/{component_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorArrayMapResponseException))
-        .execute
-    end
-
-    # A price point can be archived at any time. Subscriptions using a price
-    # point that has been archived will continue using it until they're moved to
-    # another price point.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
-    # @return [ComponentPricePointResponse] response from the API call
-    def archive_component_price_point(component_id,
-                                      price_point_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/components/{component_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Use this endpoint to unarchive a component price point.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
-    # @return [ComponentPricePointResponse] response from the API call
-    def unarchive_component_price_point(component_id,
-                                        price_point_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/components/{component_id}/price_points/{price_point_id}/unarchive.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This request will return information regarding a component from a specific
-    # product family.
-    # You may read the component by either the component's id or handle. When
-    # using the handle, it must be prefixed with `handle:`.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
-    # @param [String] component_id Required parameter: Either the Chargify id of
-    # the component or the handle for the component prefixed with `handle:`
-    # @return [ComponentResponse] response from the API call
-    def read_component_by_id(product_family_id,
-                             component_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/product_families/{product_family_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This request will update a component from a specific product family.
-    # You may read the component by either the component's id or handle. When
-    # using the handle, it must be prefixed with `handle:`.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
-    # @param [String] component_id Required parameter: Either the Chargify id of
-    # the component or the handle for the component prefixed with `handle:`
-    # @param [UpdateComponentRequest] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
-    def update_product_family_component(product_family_id,
-                                        component_id,
-                                        body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/product_families/{product_family_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(product_family_id, key: 'product_family_id')
-                                    .is_required(true)
-                                    .should_encode(true))
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -814,6 +582,56 @@ module AdvancedBilling
         .execute
     end
 
+    # Use this endpoint to read current price points that are associated with a
+    # component.
+    # You may specify the component by using either the numeric id or the
+    # `handle:gold` syntax.
+    # When fetching a component's price points, if you have defined multiple
+    # currencies at the site level, you can optionally pass the
+    # `?currency_prices=true` query param to include an array of currency price
+    # data in the response.
+    # If the price point is set to `use_site_exchange_rate: true`, it will
+    # return pricing based on the current exchange rate. If the flag is set to
+    # false, it will return all of the defined prices for each currency.
+    # @param [Integer] component_id Required parameter: The Chargify id of the
+    # component
+    # @param [TrueClass | FalseClass] currency_prices Optional parameter:
+    # Include an array of currency price data
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [Array[PricePointType]] filter_type Optional parameter: Use in
+    # query: `filter[type]=catalog,default`.
+    # @return [ComponentPricePointsResponse] response from the API call
+    def list_component_price_points(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/components/{component_id}/price_points.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(options['component_id'], key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
+        .execute
+    end
+
     # Use this endpoint to create multiple component price points in one
     # request.
     # @param [String] component_id Required parameter: The Chargify id of the
@@ -838,6 +656,107 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
+        .execute
+    end
+
+    # When updating a price point, it's prices can be updated as well by
+    # creating new prices or editing / removing existing ones.
+    # Passing in a price bracket without an `id` will attempt to create a new
+    # price.
+    # Including an `id` will update the corresponding price, and including the
+    # `_destroy` flag set to true along with the `id` will remove that price.
+    # Note: Custom price points cannot be updated directly. They must be edited
+    # through the Subscription.
+    # @param [Integer] component_id Required parameter: The Chargify id of the
+    # component to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Chargify id of the
+    # price point
+    # @param [UpdateComponentPricePointRequest] body Optional parameter:
+    # Example:
+    # @return [ComponentPricePointResponse] response from the API call
+    def update_component_price_point(component_id,
+                                     price_point_id,
+                                     body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/components/{component_id}/price_points/{price_point_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentPricePointResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorArrayMapResponseException))
+        .execute
+    end
+
+    # A price point can be archived at any time. Subscriptions using a price
+    # point that has been archived will continue using it until they're moved to
+    # another price point.
+    # @param [Integer] component_id Required parameter: The Chargify id of the
+    # component to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Chargify id of the
+    # price point
+    # @return [ComponentPricePointResponse] response from the API call
+    def archive_component_price_point(component_id,
+                                      price_point_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/components/{component_id}/price_points/{price_point_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentPricePointResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # Use this endpoint to unarchive a component price point.
+    # @param [Integer] component_id Required parameter: The Chargify id of the
+    # component to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Chargify id of the
+    # price point
+    # @return [ComponentPricePointResponse] response from the API call
+    def unarchive_component_price_point(component_id,
+                                        price_point_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/components/{component_id}/price_points/{price_point_id}/unarchive.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -902,6 +821,87 @@ module AdvancedBilling
                    .local_error('422',
                                 'Unprocessable Entity (WebDAV)',
                                 ErrorArrayMapResponseException))
+        .execute
+    end
+
+    # This method allows to retrieve a list of Components Price Points belonging
+    # to a Site.
+    # @param [BasicDateField] filter_date_field Optional parameter: The type of
+    # filter you would like to apply to your search. Use in query:
+    # `filter[date_field]=created_at`.
+    # @param [Date] filter_end_date Optional parameter: The end date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
+    # a timestamp up to and including 11:59:59PM in your site’s time zone on the
+    # date specified.
+    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
+    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns price points with a timestamp at or before exact time provided in
+    # query. You can specify timezone in query - otherwise your site's time zone
+    # will be used. If provided, this parameter will be used instead of
+    # end_date.
+    # @param [ListComponentsPricePointsInclude] include Optional parameter:
+    # Allows including additional data in the response. Use in query:
+    # `include=currency_prices`.
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [Date] filter_start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
+    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified.
+    # @param [DateTime] filter_start_datetime Optional parameter: The start date
+    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns price points with a timestamp at or after exact time provided in
+    # query. You can specify timezone in query - otherwise your site's time zone
+    # will be used. If provided, this parameter will be used instead of
+    # start_date.
+    # @param [Array[PricePointType]] filter_type Optional parameter: Allows
+    # fetching price points with matching type. Use in query:
+    # `filter[type]=custom,catalog`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
+    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
+    # price points with matching id based on provided values. Use in query:
+    # `filter[ids]=1,2,3`.
+    # @param [IncludeNotNull] filter_archived_at Optional parameter: Allows
+    # fetching price points only if archived_at is present or not. Use in query:
+    # `filter[archived_at]=not_null`.
+    # @return [ListComponentsPricePointsResponse] response from the API call
+    def list_all_component_price_points(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/components_price_points.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
+                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
+                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
+                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
+                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
+                   .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ListComponentsPricePointsResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
         .execute
     end
   end

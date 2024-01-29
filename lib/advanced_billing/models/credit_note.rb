@@ -55,10 +55,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :applied_date
 
-    # Current status of the credit note. Valid values:
-    # * open
-    # * applied
-    # @return [String]
+    # Current status of the credit note.
+    # @return [CreditNoteStatus]
     attr_accessor :status
 
     # The ISO 4217 currency code (3 character string) representing the currency
@@ -404,6 +402,16 @@ module AdvancedBilling
                      applications,
                      refunds,
                      origin_invoices)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [CreditNote | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

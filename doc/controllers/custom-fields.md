@@ -10,219 +10,15 @@ custom_fields_controller = client.custom_fields
 
 ## Methods
 
-* [Update Metafield](../../doc/controllers/custom-fields.md#update-metafield)
-* [Update Metadata](../../doc/controllers/custom-fields.md#update-metadata)
-* [List Metafields](../../doc/controllers/custom-fields.md#list-metafields)
-* [Delete Metafield](../../doc/controllers/custom-fields.md#delete-metafield)
-* [List Metadata](../../doc/controllers/custom-fields.md#list-metadata)
 * [Create Metafields](../../doc/controllers/custom-fields.md#create-metafields)
+* [List Metafields](../../doc/controllers/custom-fields.md#list-metafields)
+* [Update Metafield](../../doc/controllers/custom-fields.md#update-metafield)
+* [Delete Metafield](../../doc/controllers/custom-fields.md#delete-metafield)
 * [Create Metadata](../../doc/controllers/custom-fields.md#create-metadata)
+* [List Metadata](../../doc/controllers/custom-fields.md#list-metadata)
+* [Update Metadata](../../doc/controllers/custom-fields.md#update-metadata)
 * [Delete Metadata](../../doc/controllers/custom-fields.md#delete-metadata)
 * [List Metadata for Resource Type](../../doc/controllers/custom-fields.md#list-metadata-for-resource-type)
-
-
-# Update Metafield
-
-Use the following method to update metafields for your Site. Metafields can be populated with metadata after the fact.
-
-```ruby
-def update_metafield(resource_type,
-                     body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `body` | [`UpdateMetafieldsRequest`](../../doc/models/update-metafields-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`Array<Metafield>`](../../doc/models/metafield.md)
-
-## Example Usage
-
-```ruby
-resource_type = ResourceType::SUBSCRIPTIONS
-
-result = custom_fields_controller.update_metafield(resource_type)
-```
-
-
-# Update Metadata
-
-This method allows you to update the existing metadata associated with a subscription or customer.
-
-```ruby
-def update_metadata(resource_type,
-                    resource_id,
-                    body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resource_id` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
-| `body` | [`UpdateMetadataRequest`](../../doc/models/update-metadata-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`Array<Metadata>`](../../doc/models/metadata.md)
-
-## Example Usage
-
-```ruby
-resource_type = ResourceType::SUBSCRIPTIONS
-
-resource_id = 'resource_id4'
-
-result = custom_fields_controller.update_metadata(
-  resource_type,
-  resource_id
-)
-```
-
-
-# List Metafields
-
-This endpoint lists metafields associated with a site. The metafield description and usage is contained in the response.
-
-```ruby
-def list_metafields(options = {})
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `name` | `String` | Query, Optional | filter by the name of the metafield |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-
-## Response Type
-
-[`ListMetafieldsResponse`](../../doc/models/list-metafields-response.md)
-
-## Example Usage
-
-```ruby
-collect = {
-  'resource_type': ResourceType::SUBSCRIPTIONS,
-  'page': 2,
-  'per_page': 50
-}
-
-result = custom_fields_controller.list_metafields(collect)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "total_count": 0,
-  "current_page": 0,
-  "total_pages": 0,
-  "per_page": 0,
-  "metafields": [
-    {
-      "id": 0,
-      "name": "string",
-      "scope": {
-        "csv": "0",
-        "statements": "0",
-        "invoices": "0",
-        "portal": "0",
-        "public_show": "0",
-        "public_edit": "0"
-      },
-      "data_count": 0,
-      "input_type": "string",
-      "enum": null
-    }
-  ]
-}
-```
-
-
-# Delete Metafield
-
-Use the following method to delete a metafield. This will remove the metafield from the Site.
-
-Additionally, this will remove the metafield and associated metadata with all Subscriptions on the Site.
-
-```ruby
-def delete_metafield(resource_type,
-                     name: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `name` | `String` | Query, Optional | The name of the metafield to be deleted |
-
-## Response Type
-
-`void`
-
-## Example Usage
-
-```ruby
-resource_type = ResourceType::SUBSCRIPTIONS
-
-custom_fields_controller.delete_metafield(resource_type)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 404 | Not Found | `APIException` |
-
-
-# List Metadata
-
-This request will list all of the metadata belonging to a particular resource (ie. subscription, customer) that is specified.
-
-## Metadata Data
-
-This endpoint will also display the current stats of your metadata to use as a tool for pagination.
-
-```ruby
-def list_metadata(options = {})
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resource_id` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-
-## Response Type
-
-[`PaginatedMetadata`](../../doc/models/paginated-metadata.md)
-
-## Example Usage
-
-```ruby
-collect = {
-  'resource_type': ResourceType::SUBSCRIPTIONS,
-  'resource_id': 'resource_id4',
-  'page': 2,
-  'per_page': 50
-}
-
-result = custom_fields_controller.list_metadata(collect)
-```
 
 
 # Create Metafields
@@ -338,6 +134,141 @@ result = custom_fields_controller.create_metafields(
 | 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
+# List Metafields
+
+This endpoint lists metafields associated with a site. The metafield description and usage is contained in the response.
+
+```ruby
+def list_metafields(options = {})
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
+| `name` | `String` | Query, Optional | filter by the name of the metafield |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
+| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
+
+## Response Type
+
+[`ListMetafieldsResponse`](../../doc/models/list-metafields-response.md)
+
+## Example Usage
+
+```ruby
+collect = {
+  'resource_type': ResourceType::SUBSCRIPTIONS,
+  'page': 2,
+  'per_page': 50
+}
+
+result = custom_fields_controller.list_metafields(collect)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "total_count": 0,
+  "current_page": 0,
+  "total_pages": 0,
+  "per_page": 0,
+  "metafields": [
+    {
+      "id": 0,
+      "name": "string",
+      "scope": {
+        "csv": "0",
+        "statements": "0",
+        "invoices": "0",
+        "portal": "0",
+        "public_show": "0",
+        "public_edit": "0"
+      },
+      "data_count": 0,
+      "input_type": "text",
+      "enum": null
+    }
+  ]
+}
+```
+
+
+# Update Metafield
+
+Use the following method to update metafields for your Site. Metafields can be populated with metadata after the fact.
+
+```ruby
+def update_metafield(resource_type,
+                     body: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
+| `body` | [`UpdateMetafieldsRequest`](../../doc/models/update-metafields-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`Array<Metafield>`](../../doc/models/metafield.md)
+
+## Example Usage
+
+```ruby
+resource_type = ResourceType::SUBSCRIPTIONS
+
+result = custom_fields_controller.update_metafield(resource_type)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
+
+
+# Delete Metafield
+
+Use the following method to delete a metafield. This will remove the metafield from the Site.
+
+Additionally, this will remove the metafield and associated metadata with all Subscriptions on the Site.
+
+```ruby
+def delete_metafield(resource_type,
+                     name: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
+| `name` | `String` | Query, Optional | The name of the metafield to be deleted |
+
+## Response Type
+
+`void`
+
+## Example Usage
+
+```ruby
+resource_type = ResourceType::SUBSCRIPTIONS
+
+custom_fields_controller.delete_metafield(resource_type)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `APIException` |
+
+
 # Create Metadata
 
 ## Custom Fields: Metadata Intro
@@ -374,7 +305,7 @@ def create_metadata(resource_type,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resource_id` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `resource_id` | `Integer` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
 | `body` | [`CreateMetadataRequest`](../../doc/models/create-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -386,7 +317,7 @@ def create_metadata(resource_type,
 ```ruby
 resource_type = ResourceType::SUBSCRIPTIONS
 
-resource_id = 'resource_id4'
+resource_id = 60
 
 body = CreateMetadataRequest.new(
   [
@@ -413,6 +344,81 @@ result = custom_fields_controller.create_metadata(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
+
+
+# List Metadata
+
+This request will list all of the metadata belonging to a particular resource (ie. subscription, customer) that is specified.
+
+## Metadata Data
+
+This endpoint will also display the current stats of your metadata to use as a tool for pagination.
+
+```ruby
+def list_metadata(options = {})
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
+| `resource_id` | `Integer` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
+
+## Response Type
+
+[`PaginatedMetadata`](../../doc/models/paginated-metadata.md)
+
+## Example Usage
+
+```ruby
+collect = {
+  'resource_type': ResourceType::SUBSCRIPTIONS,
+  'resource_id': 60,
+  'page': 2,
+  'per_page': 50
+}
+
+result = custom_fields_controller.list_metadata(collect)
+```
+
+
+# Update Metadata
+
+This method allows you to update the existing metadata associated with a subscription or customer.
+
+```ruby
+def update_metadata(resource_type,
+                    resource_id,
+                    body: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
+| `resource_id` | `Integer` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `body` | [`UpdateMetadataRequest`](../../doc/models/update-metadata-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`Array<Metadata>`](../../doc/models/metadata.md)
+
+## Example Usage
+
+```ruby
+resource_type = ResourceType::SUBSCRIPTIONS
+
+resource_id = 60
+
+result = custom_fields_controller.update_metadata(
+  resource_type,
+  resource_id
+)
+```
 
 
 # Delete Metadata
@@ -453,7 +459,7 @@ def delete_metadata(resource_type,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resource_type` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resource_id` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `resource_id` | `Integer` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
 | `name` | `String` | Query, Optional | Name of field to be removed. |
 | `names` | `Array<String>` | Query, Optional | Names of fields to be removed. Use in query: `names[]=field1&names[]=my-field&names[]=another-field`. |
 
@@ -466,7 +472,7 @@ def delete_metadata(resource_type,
 ```ruby
 resource_type = ResourceType::SUBSCRIPTIONS
 
-resource_id = 'resource_id4'
+resource_id = 60
 
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')custom_fields_controller.delete_metadata(
   resource_type,

@@ -37,12 +37,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        details
-        kind
-        memo
-        type
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -50,14 +45,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(details = SKIP,
-                   kind = SKIP,
-                   memo = SKIP,
+    def initialize(details = nil,
+                   kind = nil,
+                   memo = nil,
                    type = 'external')
-      @details = details unless details == SKIP
-      @kind = kind unless kind == SKIP
-      @memo = memo unless memo == SKIP
-      @type = type unless type == SKIP
+      @details = details
+      @kind = kind
+      @memo = memo
+      @type = type
     end
 
     # Creates an instance of the object from a hash.
@@ -65,9 +60,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      details = hash.key?('details') ? hash['details'] : SKIP
-      kind = hash.key?('kind') ? hash['kind'] : SKIP
-      memo = hash.key?('memo') ? hash['memo'] : SKIP
+      details = hash.key?('details') ? hash['details'] : nil
+      kind = hash.key?('kind') ? hash['kind'] : nil
+      memo = hash.key?('memo') ? hash['memo'] : nil
       type = hash['type'] ||= 'external'
 
       # Create object from extracted values.
@@ -80,11 +75,31 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [PaymentMethodExternalType | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.details,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.kind,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.memo,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.type,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['details'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['kind'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['memo'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['type'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

@@ -6,83 +6,35 @@
 module AdvancedBilling
   # ProformaInvoicesController
   class ProformaInvoicesController < BaseController
-    # This endpoint will void a proforma invoice that has the status "draft".
+    # This endpoint will trigger the creation of a consolidated proforma invoice
+    # asynchronously. It will return a 201 with no message, or a 422 with any
+    # errors. To find and view the new consolidated proforma invoice, you may
+    # poll the subscription group listing for proforma invoices; only one
+    # consolidated proforma invoice may be created per group at a time.
+    # If the information becomes outdated, simply void the old consolidated
+    # proforma invoice and generate a new one.
     # ## Restrictions
-    # Proforma invoices are only available on Relationship Invoicing sites.
-    # Only proforma invoices that have the appropriate status may be reopened.
-    # If the invoice identified by {uid} does not have the appropriate status,
-    # the response will have HTTP status code 422 and an error message.
-    # A reason for the void operation is required to be included in the request
-    # body. If one is not provided, the response will have HTTP status code 422
-    # and an error message.
-    # @param [String] proforma_invoice_uid Required parameter: The uid of the
-    # proforma invoice
-    # @param [VoidInvoiceRequest] body Optional parameter: Example:
-    # @return [ProformaInvoice] response from the API call
-    def void_proforma_invoice(proforma_invoice_uid,
-                              body: nil)
+    # Proforma invoices are only available on Relationship Invoicing sites. To
+    # create a proforma invoice, the subscription must not be prepaid, and must
+    # be in a live state.
+    # @param [String] uid Required parameter: The uid of the subscription
+    # group
+    # @return [void] response from the API call
+    def create_consolidated_proforma_invoice(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/proforma_invoices/{proforma_invoice_uid}/void.json',
+                                     '/subscription_groups/{uid}/proforma_invoices.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
+                   .template_param(new_parameter(uid, key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProformaInvoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
+                   .is_response_void(true)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
-        .execute
-    end
-
-    # This endpoint is only available for Relationship Invoicing sites. It
-    # cannot be used to create consolidated proforma invoices or preview prepaid
-    # subscriptions.
-    # Create a proforma invoice to preview costs before a subscription's signup.
-    # Like other proforma invoices, it can be emailed to the customer, voided,
-    # and publicly viewed on the chargifypay domain.
-    # Pass a payload that resembles a subscription create or signup preview
-    # request. For example, you can specify components, coupons/a referral,
-    # offers, custom pricing, and an existing customer or payment profile to
-    # populate a shipping or billing address.
-    # A product and customer first name, last name, and email are the minimum
-    # requirements. We recommend associating the proforma invoice with a
-    # customer_id to easily find their proforma invoices, since the
-    # subscription_id will always be blank.
-    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [ProformaInvoice] response from the API call
-    def create_signup_proforma_invoice(body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/proforma_invoices.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProformaInvoice.method(:from_hash))
-                   .local_error_template('400',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ProformaBadRequestErrorResponseException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorArrayMapResponseException))
         .execute
     end
 
@@ -101,6 +53,31 @@ module AdvancedBilling
                                      '/subscription_groups/{uid}/proforma_invoices.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProformaInvoice.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
+        .execute
+    end
+
+    # Use this endpoint to read the details of an existing proforma invoice.
+    # ## Restrictions
+    # Proforma invoices are only available on Relationship Invoicing sites.
+    # @param [Integer] proforma_invoice_uid Required parameter: The uid of the
+    # proforma invoice
+    # @return [ProformaInvoice] response from the API call
+    def read_proforma_invoice(proforma_invoice_uid)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/proforma_invoices/{proforma_invoice_uid}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -143,31 +120,6 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
-        .execute
-    end
-
-    # Use this endpoint to read the details of an existing proforma invoice.
-    # ## Restrictions
-    # Proforma invoices are only available on Relationship Invoicing sites.
-    # @param [Integer] proforma_invoice_uid Required parameter: The uid of the
-    # proforma invoice
-    # @return [ProformaInvoice] response from the API call
-    def read_proforma_invoice(proforma_invoice_uid)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/proforma_invoices/{proforma_invoice_uid}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProformaInvoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
         .execute
     end
 
@@ -238,31 +190,39 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint will trigger the creation of a consolidated proforma invoice
-    # asynchronously. It will return a 201 with no message, or a 422 with any
-    # errors. To find and view the new consolidated proforma invoice, you may
-    # poll the subscription group listing for proforma invoices; only one
-    # consolidated proforma invoice may be created per group at a time.
-    # If the information becomes outdated, simply void the old consolidated
-    # proforma invoice and generate a new one.
+    # This endpoint will void a proforma invoice that has the status "draft".
     # ## Restrictions
-    # Proforma invoices are only available on Relationship Invoicing sites. To
-    # create a proforma invoice, the subscription must not be prepaid, and must
-    # be in a live state.
-    # @param [String] uid Required parameter: The uid of the subscription
-    # group
-    # @return [void] response from the API call
-    def create_consolidated_proforma_invoice(uid)
+    # Proforma invoices are only available on Relationship Invoicing sites.
+    # Only proforma invoices that have the appropriate status may be reopened.
+    # If the invoice identified by {uid} does not have the appropriate status,
+    # the response will have HTTP status code 422 and an error message.
+    # A reason for the void operation is required to be included in the request
+    # body. If one is not provided, the response will have HTTP status code 422
+    # and an error message.
+    # @param [String] proforma_invoice_uid Required parameter: The uid of the
+    # proforma invoice
+    # @param [VoidInvoiceRequest] body Optional parameter: Example:
+    # @return [ProformaInvoice] response from the API call
+    def void_proforma_invoice(proforma_invoice_uid,
+                              body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscription_groups/{uid}/proforma_invoices.json',
+                                     '/proforma_invoices/{proforma_invoice_uid}/void.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
+                   .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
                                     .is_required(true)
                                     .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .is_response_void(true)
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProformaInvoice.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -310,6 +270,46 @@ module AdvancedBilling
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
                                          ErrorListResponseException))
+        .execute
+    end
+
+    # This endpoint is only available for Relationship Invoicing sites. It
+    # cannot be used to create consolidated proforma invoices or preview prepaid
+    # subscriptions.
+    # Create a proforma invoice to preview costs before a subscription's signup.
+    # Like other proforma invoices, it can be emailed to the customer, voided,
+    # and publicly viewed on the chargifypay domain.
+    # Pass a payload that resembles a subscription create or signup preview
+    # request. For example, you can specify components, coupons/a referral,
+    # offers, custom pricing, and an existing customer or payment profile to
+    # populate a shipping or billing address.
+    # A product and customer first name, last name, and email are the minimum
+    # requirements. We recommend associating the proforma invoice with a
+    # customer_id to easily find their proforma invoices, since the
+    # subscription_id will always be blank.
+    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
+    # @return [ProformaInvoice] response from the API call
+    def create_signup_proforma_invoice(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/proforma_invoices.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProformaInvoice.method(:from_hash))
+                   .local_error_template('400',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ProformaBadRequestErrorResponseException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorArrayMapResponseException))
         .execute
     end
 

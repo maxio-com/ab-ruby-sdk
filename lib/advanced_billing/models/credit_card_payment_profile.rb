@@ -197,7 +197,7 @@ module AdvancedBilling
                    billing_country = SKIP,
                    customer_vault_token = SKIP,
                    billing_address_2 = SKIP,
-                   payment_type = PaymentType::CREDIT_CARD,
+                   payment_type = SKIP,
                    disabled = SKIP,
                    chargify_token = SKIP,
                    site_gateway_setting_id = SKIP,
@@ -255,7 +255,7 @@ module AdvancedBilling
         hash.key?('customer_vault_token') ? hash['customer_vault_token'] : SKIP
       billing_address_2 =
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
-      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
+      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       disabled = hash.key?('disabled') ? hash['disabled'] : SKIP
       chargify_token =
         hash.key?('chargify_token') ? hash['chargify_token'] : SKIP

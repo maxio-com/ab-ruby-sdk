@@ -32,11 +32,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        masked_account_number
-        masked_routing_number
-        type
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -44,12 +40,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(masked_account_number = SKIP,
-                   masked_routing_number = SKIP,
+    def initialize(masked_account_number = nil,
+                   masked_routing_number = nil,
                    type = 'bank_account')
-      @masked_account_number = masked_account_number unless masked_account_number == SKIP
-      @masked_routing_number = masked_routing_number unless masked_routing_number == SKIP
-      @type = type unless type == SKIP
+      @masked_account_number = masked_account_number
+      @masked_routing_number = masked_routing_number
+      @type = type
     end
 
     # Creates an instance of the object from a hash.
@@ -58,9 +54,9 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       masked_account_number =
-        hash.key?('masked_account_number') ? hash['masked_account_number'] : SKIP
+        hash.key?('masked_account_number') ? hash['masked_account_number'] : nil
       masked_routing_number =
-        hash.key?('masked_routing_number') ? hash['masked_routing_number'] : SKIP
+        hash.key?('masked_routing_number') ? hash['masked_routing_number'] : nil
       type = hash['type'] ||= 'bank_account'
 
       # Create object from extracted values.
@@ -72,11 +68,27 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [PaymentMethodBankAccountType | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.masked_account_number,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.masked_routing_number,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.type,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['masked_account_number'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['masked_routing_number'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['type'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

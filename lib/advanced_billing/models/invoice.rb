@@ -89,7 +89,7 @@ module AdvancedBilling
     # The current status of the invoice. See [Invoice
     # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
     # e-item-breakdowns) for more.
-    # @return [String]
+    # @return [InvoiceRole]
     attr_accessor :role
 
     # The current status of the invoice. See [Invoice
@@ -98,10 +98,11 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :parent_invoice_id
 
-    # The collection method of the invoice, which is either "automatic" (tried
-    # and retried on an existing payment method by Chargify) or "remittance"
-    # (payment must be remitted by the customer or keyed in by the merchant).
-    # @return [String]
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
+    # @return [CollectionMethod]
     attr_accessor :collection_method
 
     # A message that is printed on the invoice when it is marked for remittance
@@ -419,7 +420,7 @@ module AdvancedBilling
                    status = SKIP,
                    role = SKIP,
                    parent_invoice_id = SKIP,
-                   collection_method = SKIP,
+                   collection_method = CollectionMethod::AUTOMATIC,
                    payment_instructions = SKIP,
                    currency = SKIP,
                    consolidation_level = SKIP,
@@ -549,7 +550,7 @@ module AdvancedBilling
       parent_invoice_id =
         hash.key?('parent_invoice_id') ? hash['parent_invoice_id'] : SKIP
       collection_method =
-        hash.key?('collection_method') ? hash['collection_method'] : SKIP
+        hash['collection_method'] ||= CollectionMethod::AUTOMATIC
       payment_instructions =
         hash.key?('payment_instructions') ? hash['payment_instructions'] : SKIP
       currency = hash.key?('currency') ? hash['currency'] : SKIP

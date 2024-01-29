@@ -11,7 +11,7 @@ A nested data structure detailing the method of payment
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `type` | `String` | Optional | **Default**: `'apple_pay'` |
+| `type` | `String` | Optional | - |
 | `masked_account_number` | `String` | Optional | - |
 | `masked_routing_number` | `String` | Optional | - |
 | `card_brand` | `String` | Optional | - |
@@ -27,7 +27,7 @@ A nested data structure detailing the method of payment
 
 ```json
 {
-  "type": "apple_pay",
+  "type": "Payment Method Nested Data",
   "masked_account_number": "masked_account_number8",
   "masked_routing_number": "masked_routing_number8",
   "card_brand": "card_brand4",

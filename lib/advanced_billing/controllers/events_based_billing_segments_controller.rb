@@ -6,6 +6,49 @@
 module AdvancedBilling
   # EventsBasedBillingSegmentsController
   class EventsBasedBillingSegmentsController < BaseController
+    # This endpoint creates a new Segment for a Component with segmented Metric.
+    # It allows you to specify properties to bill upon and prices for each
+    # Segment. You can only pass as many "property_values" as the related Metric
+    # has segmenting properties defined.
+    # You may specify component and/or price point by using either the numeric
+    # ID or the `handle:gold` syntax.
+    # @param [String] component_id Required parameter: ID or Handle for the
+    # Component
+    # @param [String] price_point_id Required parameter: ID or Handle for the
+    # Price Point belonging to the Component
+    # @param [CreateSegmentRequest] body Optional parameter: Example:
+    # @return [SegmentResponse] response from the API call
+    def create_segment(component_id,
+                       price_point_id,
+                       body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/components/{component_id}/price_points/{price_point_id}/segments.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SegmentResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         EventBasedBillingSegmentErrorsException))
+        .execute
+    end
+
     # This endpoint allows you to fetch Segments created for a given Price
     # Point. They will be returned in the order of creation.
     # You can pass `page` and `per_page` parameters in order to access all of
@@ -78,44 +121,6 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows you to delete a Segment with specified ID.
-    # You may specify component and/or price point by using either the numeric
-    # ID or the `handle:gold` syntax.
-    # @param [String] component_id Required parameter: ID or Handle of the
-    # Component
-    # @param [String] price_point_id Required parameter: ID or Handle of the
-    # Price Point belonging to the Component
-    # @param [Float] id Required parameter: The ID of the Segment
-    # @return [void] response from the API call
-    def delete_segment(component_id,
-                       price_point_id,
-                       id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/components/{component_id}/price_points/{price_point_id}/segments/{id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(id, key: 'id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         APIException))
-        .execute
-    end
-
     # This endpoint updates a single Segment for a Component with a segmented
     # Metric. It allows you to update the pricing for the segment.
     # You may specify component and/or price point by using either the numeric
@@ -162,10 +167,48 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows you to update multiple segments in one request. The
-    # array of segments can contain up to `1000` records.
+    # This endpoint allows you to delete a Segment with specified ID.
+    # You may specify component and/or price point by using either the numeric
+    # ID or the `handle:gold` syntax.
+    # @param [String] component_id Required parameter: ID or Handle of the
+    # Component
+    # @param [String] price_point_id Required parameter: ID or Handle of the
+    # Price Point belonging to the Component
+    # @param [Float] id Required parameter: The ID of the Segment
+    # @return [void] response from the API call
+    def delete_segment(component_id,
+                       price_point_id,
+                       id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/components/{component_id}/price_points/{price_point_id}/segments/{id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(id, key: 'id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         APIException))
+        .execute
+    end
+
+    # This endpoint allows you to create multiple segments in one request. The
+    # array of segments can contain up to `2000` records.
     # If any of the records contain an error the whole request would fail and
-    # none of the requested segments get updated. The error response contains a
+    # none of the requested segments get created. The error response contains a
     # message for only the one segment that failed validation, with the
     # corresponding index in the array.
     # You may specify component and/or price point by using either the numeric
@@ -174,13 +217,13 @@ module AdvancedBilling
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
-    # @param [BulkUpdateSegments] body Optional parameter: Example:
+    # @param [BulkCreateSegments] body Optional parameter: Example:
     # @return [ListSegmentsResponse] response from the API call
-    def update_segments(component_id,
+    def create_segments(component_id,
                         price_point_id,
                         body: nil)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
+        .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/bulk.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(component_id, key: 'component_id')
@@ -207,53 +250,10 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint creates a new Segment for a Component with segmented Metric.
-    # It allows you to specify properties to bill upon and prices for each
-    # Segment. You can only pass as many "property_values" as the related Metric
-    # has segmenting properties defined.
-    # You may specify component and/or price point by using either the numeric
-    # ID or the `handle:gold` syntax.
-    # @param [String] component_id Required parameter: ID or Handle for the
-    # Component
-    # @param [String] price_point_id Required parameter: ID or Handle for the
-    # Price Point belonging to the Component
-    # @param [CreateSegmentRequest] body Optional parameter: Example:
-    # @return [SegmentResponse] response from the API call
-    def create_segment(component_id,
-                       price_point_id,
-                       body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/components/{component_id}/price_points/{price_point_id}/segments.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(component_id, key: 'component_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SegmentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         EventBasedBillingSegmentErrorsException))
-        .execute
-    end
-
-    # This endpoint allows you to create multiple segments in one request. The
-    # array of segments can contain up to `2000` records.
+    # This endpoint allows you to update multiple segments in one request. The
+    # array of segments can contain up to `1000` records.
     # If any of the records contain an error the whole request would fail and
-    # none of the requested segments get created. The error response contains a
+    # none of the requested segments get updated. The error response contains a
     # message for only the one segment that failed validation, with the
     # corresponding index in the array.
     # You may specify component and/or price point by using either the numeric
@@ -262,13 +262,13 @@ module AdvancedBilling
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
-    # @param [BulkCreateSegments] body Optional parameter: Example:
+    # @param [BulkUpdateSegments] body Optional parameter: Example:
     # @return [ListSegmentsResponse] response from the API call
-    def create_segments(component_id,
+    def update_segments(component_id,
                         price_point_id,
                         body: nil)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
+        .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/bulk.json',
                                      Server::DEFAULT)
                    .template_param(new_parameter(component_id, key: 'component_id')

@@ -41,177 +41,6 @@ module AdvancedBilling
         .execute
     end
 
-    # Credit Notes are like inverse invoices. They reduce the amount a customer
-    # owes.
-    # By default, the credit notes returned by this endpoint will exclude the
-    # arrays of `line_items`, `discounts`, `taxes`, `applications`, or
-    # `refunds`. To include these arrays, pass the specific field as a key in
-    # the query with a value set to `true`.
-    # @param [Integer] subscription_id Optional parameter: The subscription's
-    # Chargify id
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @param [TrueClass | FalseClass] line_items Optional parameter: Include
-    # line items data
-    # @param [TrueClass | FalseClass] discounts Optional parameter: Include
-    # discounts data
-    # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
-    # data
-    # @param [TrueClass | FalseClass] refunds Optional parameter: Include
-    # refunds data
-    # @param [TrueClass | FalseClass] applications Optional parameter: Include
-    # applications data
-    # @return [ListCreditNotesResponse] response from the API call
-    def list_credit_notes(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/credit_notes.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['line_items'], key: 'line_items'))
-                   .query_param(new_parameter(options['discounts'], key: 'discounts'))
-                   .query_param(new_parameter(options['taxes'], key: 'taxes'))
-                   .query_param(new_parameter(options['refunds'], key: 'refunds'))
-                   .query_param(new_parameter(options['applications'], key: 'applications'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListCreditNotesResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This API call should be used when you want to record a payment of a given
-    # type against a specific invoice. If you would like to apply a payment
-    # across multiple invoices, you can use the Bulk Payment endpoint.
-    # ## Create a Payment from the existing payment profile
-    # In order to apply a payment to an invoice using an existing payment
-    # profile, specify `type` as `payment`, the amount less than the invoice
-    # total, and the customer's `payment_profile_id`. The ID of a payment
-    # profile might be retrieved via the Payment Profiles API endpoint.
-    # ```
-    # {
-    #   "type": "payment",
-    #   "payment": {
-    #     "amount": 10.00,
-    #     "payment_profile_id": 123
-    #   }
-    # }
-    # ```
-    # ## Create a Payment from the Subscription's Prepayment Account
-    # In order apply a prepayment to an invoice, specify the `type` as
-    # `prepayment`, and also the `amount`.
-    # ```
-    # {
-    #   "type": "prepayment",
-    #   "payment": {
-    #     "amount": 10.00
-    #   }
-    # }
-    # ```
-    # Note that the `amount` must be less than or equal to the Subscription's
-    # Prepayment account balance.
-    # ## Create a Payment from the Subscription's Service Credit Account
-    # In order to apply a service credit to an invoice, specify the `type` as
-    # `service_credit`, and also the `amount`:
-    # ```
-    # {
-    #   "type": "service_credit",
-    #   "payment": {
-    #     "amount": 10.00
-    #   }
-    # }
-    # ```
-    # Note that Chargify will attempt to fully pay the invoice's `due_amount`
-    # from the Subscription's Service Credit account. At this time, partial
-    # payments from a Service Credit Account are only allowed for consolidated
-    # invoices (subscription groups). Therefore, for normal invoices the Service
-    # Credit account balance must be greater than or equal to the invoice's
-    # `due_amount`.
-    # @param [String] uid Required parameter: The unique identifier for the
-    # invoice, this does not refer to the public facing invoice number.
-    # @param [CreateInvoicePaymentRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
-    def record_payment_for_invoice(uid,
-                                   body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/invoices/{uid}/payments.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash)))
-        .execute
-    end
-
-    # This API call should be used when you want to record an external payment
-    # against multiple invoices.
-    #  In order apply a payment to multiple invoices, at minimum, specify the
-    # `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
-    # ```
-    # {
-    #   "payment": {
-    #     "memo": "to pay the bills",
-    #     "details": "check number 8675309",
-    #     "method": "check",
-    #     "amount": "250.00",
-    #     "applications": [
-    #       {
-    #         "invoice_uid": "inv_8gk5bwkct3gqt",
-    #         "amount": "100.00"
-    #       },
-    #       {
-    #         "invoice_uid": "inv_7bc6bwkct3lyt",
-    #         "amount": "150.00"
-    #       }
-    #     ]
-    #   }
-    # }
-    # ```
-    # Note that the invoice payment amounts must be greater than 0. Total amount
-    # must be greater or equal to invoices payment amount sum.
-    # @param [CreateMultiInvoicePaymentRequest] body Optional parameter:
-    # Example:
-    # @return [MultiInvoicePaymentResponse] response from the API call
-    def record_external_payment_for_invoices(body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/invoices/payments.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(MultiInvoicePaymentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
     # By default, invoices returned on the index will only include totals, not
     # detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`,
     # `payments`, `custom_fields`, or `refunds`. To include breakdowns, pass the
@@ -418,6 +247,277 @@ module AdvancedBilling
         .execute
     end
 
+    # This API call should be used when you want to record a payment of a given
+    # type against a specific invoice. If you would like to apply a payment
+    # across multiple invoices, you can use the Bulk Payment endpoint.
+    # ## Create a Payment from the existing payment profile
+    # In order to apply a payment to an invoice using an existing payment
+    # profile, specify `type` as `payment`, the amount less than the invoice
+    # total, and the customer's `payment_profile_id`. The ID of a payment
+    # profile might be retrieved via the Payment Profiles API endpoint.
+    # ```
+    # {
+    #   "type": "payment",
+    #   "payment": {
+    #     "amount": 10.00,
+    #     "payment_profile_id": 123
+    #   }
+    # }
+    # ```
+    # ## Create a Payment from the Subscription's Prepayment Account
+    # In order apply a prepayment to an invoice, specify the `type` as
+    # `prepayment`, and also the `amount`.
+    # ```
+    # {
+    #   "type": "prepayment",
+    #   "payment": {
+    #     "amount": 10.00
+    #   }
+    # }
+    # ```
+    # Note that the `amount` must be less than or equal to the Subscription's
+    # Prepayment account balance.
+    # ## Create a Payment from the Subscription's Service Credit Account
+    # In order to apply a service credit to an invoice, specify the `type` as
+    # `service_credit`, and also the `amount`:
+    # ```
+    # {
+    #   "type": "service_credit",
+    #   "payment": {
+    #     "amount": 10.00
+    #   }
+    # }
+    # ```
+    # Note that Chargify will attempt to fully pay the invoice's `due_amount`
+    # from the Subscription's Service Credit account. At this time, partial
+    # payments from a Service Credit Account are only allowed for consolidated
+    # invoices (subscription groups). Therefore, for normal invoices the Service
+    # Credit account balance must be greater than or equal to the invoice's
+    # `due_amount`.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @param [CreateInvoicePaymentRequest] body Optional parameter: Example:
+    # @return [Invoice] response from the API call
+    def record_payment_for_invoice(uid,
+                                   body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/invoices/{uid}/payments.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Invoice.method(:from_hash)))
+        .execute
+    end
+
+    # This API call should be used when you want to record an external payment
+    # against multiple invoices.
+    #  In order apply a payment to multiple invoices, at minimum, specify the
+    # `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
+    # ```
+    # {
+    #   "payment": {
+    #     "memo": "to pay the bills",
+    #     "details": "check number 8675309",
+    #     "method": "check",
+    #     "amount": "250.00",
+    #     "applications": [
+    #       {
+    #         "invoice_uid": "inv_8gk5bwkct3gqt",
+    #         "amount": "100.00"
+    #       },
+    #       {
+    #         "invoice_uid": "inv_7bc6bwkct3lyt",
+    #         "amount": "150.00"
+    #       }
+    #     ]
+    #   }
+    # }
+    # ```
+    # Note that the invoice payment amounts must be greater than 0. Total amount
+    # must be greater or equal to invoices payment amount sum.
+    # @param [CreateMultiInvoicePaymentRequest] body Optional parameter:
+    # Example:
+    # @return [MultiInvoicePaymentResponse] response from the API call
+    def record_external_payment_for_invoices(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/invoices/payments.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(MultiInvoicePaymentResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # Credit Notes are like inverse invoices. They reduce the amount a customer
+    # owes.
+    # By default, the credit notes returned by this endpoint will exclude the
+    # arrays of `line_items`, `discounts`, `taxes`, `applications`, or
+    # `refunds`. To include these arrays, pass the specific field as a key in
+    # the query with a value set to `true`.
+    # @param [Integer] subscription_id Optional parameter: The subscription's
+    # Chargify id
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [TrueClass | FalseClass] line_items Optional parameter: Include
+    # line items data
+    # @param [TrueClass | FalseClass] discounts Optional parameter: Include
+    # discounts data
+    # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
+    # data
+    # @param [TrueClass | FalseClass] refunds Optional parameter: Include
+    # refunds data
+    # @param [TrueClass | FalseClass] applications Optional parameter: Include
+    # applications data
+    # @return [ListCreditNotesResponse] response from the API call
+    def list_credit_notes(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/credit_notes.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['line_items'], key: 'line_items'))
+                   .query_param(new_parameter(options['discounts'], key: 'discounts'))
+                   .query_param(new_parameter(options['taxes'], key: 'taxes'))
+                   .query_param(new_parameter(options['refunds'], key: 'refunds'))
+                   .query_param(new_parameter(options['applications'], key: 'applications'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ListCreditNotesResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use this endpoint to retrieve the details for a credit note.
+    # @param [String] uid Required parameter: The unique identifier of the
+    # credit note
+    # @return [CreditNote] response from the API call
+    def read_credit_note(uid)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/credit_notes/{uid}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CreditNote.method(:from_hash)))
+        .execute
+    end
+
+    # Record an external payment made against a subscription that will pay
+    # partially or in full one or more invoices.
+    # Payment will be applied starting with the oldest open invoice and then
+    # next oldest, and so on until the amount of the payment is fully consumed.
+    # Excess payment will result in the creation of a prepayment on the Invoice
+    # Account.
+    # Only ungrouped or primary subscriptions may be paid using the "bulk"
+    # payment request.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [RecordPaymentRequest] body Optional parameter: Example:
+    # @return [PaymentResponse] response from the API call
+    def record_payment_for_subscription(subscription_id,
+                                        body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/subscriptions/{subscription_id}/payments.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(PaymentResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This endpoint allows you to reopen any invoice with the "canceled" status.
+    # Invoices enter "canceled" status if they were open at the time the
+    # subscription was canceled (whether through dunning or an intentional
+    # cancellation).
+    # Invoices with "canceled" status are no longer considered to be due. Once
+    # reopened, they are considered due for payment. Payment may then be
+    # captured in one of the following ways:
+    # - Reactivating the subscription, which will capture all open invoices (See
+    # note below about automatic reopening of invoices.)
+    # - Recording a payment directly against the invoice
+    # A note about reactivations: any canceled invoices from the most recent
+    # active period are automatically opened as a part of the reactivation
+    # process. Reactivating via this endpoint prior to reactivation is only
+    # necessary when you wish to capture older invoices from previous periods
+    # during the reactivation.
+    # ### Reopening Consolidated Invoices
+    # When reopening a consolidated invoice, all of its canceled segments will
+    # also be reopened.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @return [Invoice] response from the API call
+    def reopen_invoice(uid)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/invoices/{uid}/reopen.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Invoice.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
     # This endpoint allows you to void any invoice with the "open" or "canceled"
     # status.  It will also allow voiding of an invoice with the "pending"
     # status if it is not a consolidated invoice.
@@ -445,38 +545,6 @@ module AdvancedBilling
                    .local_error_template('404',
                                          'Not Found:\'{$response.body}\'',
                                          APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Customer information may change after an invoice is issued which may lead
-    # to a mismatch between customer information that are present on an open
-    # invoice and actual customer information. This endpoint allows to preview
-    # these differences, if any.
-    # The endpoint doesn't accept a request body. Customer information
-    # differences are calculated on the application side.
-    # @param [String] uid Required parameter: The unique identifier for the
-    # invoice, this does not refer to the public facing invoice number.
-    # @return [CustomerChangesPreviewResponse] response from the API call
-    def preview_customer_information_changes(uid)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/invoices/{uid}/customer_information/preview.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerChangesPreviewResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         ErrorListResponseException)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -714,6 +782,110 @@ module AdvancedBilling
         .execute
     end
 
+    # This endpoint allows for invoices to be programmatically delivered via
+    # email. This endpoint supports the delivery of both ad-hoc and
+    # automatically generated invoices. Additionally, this endpoint supports
+    # email delivery to direct recipients, carbon-copy (cc) recipients, and
+    # blind carbon-copy (bcc) recipients.
+    # Please note that if no recipient email addresses are specified in the
+    # request, then the subscription's default email configuration will be used.
+    # For example, if `recipient_emails` is left blank, then the invoice will be
+    # delivered to the subscription's customer email address.
+    # On success, a 204 no-content response will be returned. Please note that
+    # this does not indicate that email(s) have been delivered, but instead
+    # indicates that emails have been successfully queued for delivery. If _any_
+    # invalid or malformed email address is found in the request body, the
+    # entire request will be rejected and a 422 response will be returned.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @param [SendInvoiceRequest] body Optional parameter: Example:
+    # @return [void] response from the API call
+    def send_invoice(uid,
+                     body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/invoices/{uid}/deliveries.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # Customer information may change after an invoice is issued which may lead
+    # to a mismatch between customer information that are present on an open
+    # invoice and actual customer information. This endpoint allows to preview
+    # these differences, if any.
+    # The endpoint doesn't accept a request body. Customer information
+    # differences are calculated on the application side.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @return [CustomerChangesPreviewResponse] response from the API call
+    def preview_customer_information_changes(uid)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/invoices/{uid}/customer_information/preview.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CustomerChangesPreviewResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         ErrorListResponseException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This endpoint updates customer information on an open invoice and returns
+    # the updated invoice. If you would like to preview changes that will be
+    # applied, use the `/invoices/{uid}/customer_information/preview.json`
+    # endpoint before.
+    # The endpoint doesn't accept a request body. Customer information
+    # differences are calculated on the application side.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @return [Invoice] response from the API call
+    def update_customer_information(uid)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/invoices/{uid}/customer_information.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Invoice.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         ErrorListResponseException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
     # This endpoint allows you to issue an invoice that is in "pending" status.
     # For example, you can issue an invoice that was created when allocating new
     # quantity on a component and using "accrue charges" option.
@@ -765,178 +937,6 @@ module AdvancedBilling
                    .local_error_template('404',
                                          'Not Found:\'{$response.body}\'',
                                          APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # Use this endpoint to retrieve the details for a credit note.
-    # @param [String] uid Required parameter: The unique identifier of the
-    # credit note
-    # @return [CreditNote] response from the API call
-    def read_credit_note(uid)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/credit_notes/{uid}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CreditNote.method(:from_hash)))
-        .execute
-    end
-
-    # Record an external payment made against a subscription that will pay
-    # partially or in full one or more invoices.
-    # Payment will be applied starting with the oldest open invoice and then
-    # next oldest, and so on until the amount of the payment is fully consumed.
-    # Excess payment will result in the creation of a prepayment on the Invoice
-    # Account.
-    # Only ungrouped or primary subscriptions may be paid using the "bulk"
-    # payment request.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [RecordPaymentRequest] body Optional parameter: Example:
-    # @return [PaymentResponse] response from the API call
-    def record_payment_for_subscription(subscription_id,
-                                        body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/payments.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # This endpoint allows you to reopen any invoice with the "canceled" status.
-    # Invoices enter "canceled" status if they were open at the time the
-    # subscription was canceled (whether through dunning or an intentional
-    # cancellation).
-    # Invoices with "canceled" status are no longer considered to be due. Once
-    # reopened, they are considered due for payment. Payment may then be
-    # captured in one of the following ways:
-    # - Reactivating the subscription, which will capture all open invoices (See
-    # note below about automatic reopening of invoices.)
-    # - Recording a payment directly against the invoice
-    # A note about reactivations: any canceled invoices from the most recent
-    # active period are automatically opened as a part of the reactivation
-    # process. Reactivating via this endpoint prior to reactivation is only
-    # necessary when you wish to capture older invoices from previous periods
-    # during the reactivation.
-    # ### Reopening Consolidated Invoices
-    # When reopening a consolidated invoice, all of its canceled segments will
-    # also be reopened.
-    # @param [String] uid Required parameter: The unique identifier for the
-    # invoice, this does not refer to the public facing invoice number.
-    # @return [Invoice] response from the API call
-    def reopen_invoice(uid)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/invoices/{uid}/reopen.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # This endpoint updates customer information on an open invoice and returns
-    # the updated invoice. If you would like to preview changes that will be
-    # applied, use the `/invoices/{uid}/customer_information/preview.json`
-    # endpoint before.
-    # The endpoint doesn't accept a request body. Customer information
-    # differences are calculated on the application side.
-    # @param [String] uid Required parameter: The unique identifier for the
-    # invoice, this does not refer to the public facing invoice number.
-    # @return [Invoice] response from the API call
-    def update_customer_information(uid)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/invoices/{uid}/customer_information.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         ErrorListResponseException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
-    # This endpoint allows for invoices to be programmatically delivered via
-    # email. This endpoint supports the delivery of both ad-hoc and
-    # automatically generated invoices. Additionally, this endpoint supports
-    # email delivery to direct recipients, carbon-copy (cc) recipients, and
-    # blind carbon-copy (bcc) recipients.
-    # Please note that if no recipient email addresses are specified in the
-    # request, then the subscription's default email configuration will be used.
-    # For example, if `recipient_emails` is left blank, then the invoice will be
-    # delivered to the subscription's customer email address.
-    # On success, a 204 no-content response will be returned. Please note that
-    # this does not indicate that email(s) have been delivered, but instead
-    # indicates that emails have been successfully queued for delivery. If _any_
-    # invalid or malformed email address is found in the request body, the
-    # entire request will be rejected and a 422 response will be returned.
-    # @param [String] uid Required parameter: The unique identifier for the
-    # invoice, this does not refer to the public facing invoice number.
-    # @param [SendInvoiceRequest] body Optional parameter: Example:
-    # @return [void] response from the API call
-    def send_invoice(uid,
-                     body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/invoices/{uid}/deliveries.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
