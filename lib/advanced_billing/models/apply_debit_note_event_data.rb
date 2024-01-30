@@ -39,12 +39,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        debit_note_number
-        debit_note_uid
-        original_amount
-        applied_amount
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -52,14 +47,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(debit_note_number = SKIP,
-                   debit_note_uid = SKIP,
-                   original_amount = SKIP,
-                   applied_amount = SKIP)
-      @debit_note_number = debit_note_number unless debit_note_number == SKIP
-      @debit_note_uid = debit_note_uid unless debit_note_uid == SKIP
-      @original_amount = original_amount unless original_amount == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
+    def initialize(debit_note_number = nil,
+                   debit_note_uid = nil,
+                   original_amount = nil,
+                   applied_amount = nil)
+      @debit_note_number = debit_note_number
+      @debit_note_uid = debit_note_uid
+      @original_amount = original_amount
+      @applied_amount = applied_amount
     end
 
     # Creates an instance of the object from a hash.
@@ -68,13 +63,13 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       debit_note_number =
-        hash.key?('debit_note_number') ? hash['debit_note_number'] : SKIP
+        hash.key?('debit_note_number') ? hash['debit_note_number'] : nil
       debit_note_uid =
-        hash.key?('debit_note_uid') ? hash['debit_note_uid'] : SKIP
+        hash.key?('debit_note_uid') ? hash['debit_note_uid'] : nil
       original_amount =
-        hash.key?('original_amount') ? hash['original_amount'] : SKIP
+        hash.key?('original_amount') ? hash['original_amount'] : nil
       applied_amount =
-        hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
+        hash.key?('applied_amount') ? hash['applied_amount'] : nil
 
       # Create object from extracted values.
       ApplyDebitNoteEventData.new(debit_note_number,
@@ -86,11 +81,31 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [ApplyDebitNoteEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.debit_note_number,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.debit_note_uid,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.original_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.applied_amount,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['debit_note_number'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['debit_note_uid'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['original_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['applied_amount'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

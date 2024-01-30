@@ -3,7 +3,7 @@ module Factories
     def self.create(client, product:, customer:, coupon_code: nil, component: nil)
       subscription_attributes = {
         'product_id' => product.id,
-        'payment_collection_method' => AdvancedBilling::PaymentCollectionMethod::AUTOMATIC,
+        'payment_collection_method' => 'automatic',
         'customer_id' => customer.id,
         'next_billing_at' => nil,
         'currency' => 'USD',

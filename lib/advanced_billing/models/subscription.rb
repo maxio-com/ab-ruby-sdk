@@ -202,7 +202,7 @@ module AdvancedBilling
     # Statements Architecture valid options are - `invoice`, `automatic`. For
     # current Relationship Invoicing Architecture valid options are -
     # `remittance`, `automatic`, `prepaid`.
-    # @return [PaymentCollectionMethod]
+    # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 
     # The type of payment collection to be used in the subscription. For legacy
@@ -588,7 +588,7 @@ module AdvancedBilling
                    delayed_cancel_at = SKIP,
                    coupon_code = SKIP,
                    snap_day = SKIP,
-                   payment_collection_method = PaymentCollectionMethod::AUTOMATIC,
+                   payment_collection_method = CollectionMethod::AUTOMATIC,
                    customer = SKIP,
                    product = SKIP,
                    credit_card = SKIP,
@@ -801,7 +801,7 @@ module AdvancedBilling
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
       snap_day = hash.key?('snap_day') ? hash['snap_day'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= PaymentCollectionMethod::AUTOMATIC
+        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
       customer = Customer.from_hash(hash['customer']) if hash['customer']
       product = Product.from_hash(hash['product']) if hash['product']
       credit_card = CreditCardPaymentProfile.from_hash(hash['credit_card']) if hash['credit_card']

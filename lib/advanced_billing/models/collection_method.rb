@@ -4,10 +4,12 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # (Optional) If not passed, the allocation(s) will use the payment collection
-  # method on the subscription
-  class PaymentCollectionMethod1
-    PAYMENT_COLLECTION_METHOD1 = [
+  # The type of payment collection to be used in the subscription. For legacy
+  # Statements Architecture valid options are - `invoice`, `automatic`. For
+  # current Relationship Invoicing Architecture valid options are -
+  # `remittance`, `automatic`, `prepaid`.
+  class CollectionMethod
+    COLLECTION_METHOD = [
       # TODO: Write general description for AUTOMATIC
       AUTOMATIC = 'automatic'.freeze,
 
@@ -24,7 +26,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      PAYMENT_COLLECTION_METHOD1.include?(value)
+      COLLECTION_METHOD.include?(value)
     end
   end
 end

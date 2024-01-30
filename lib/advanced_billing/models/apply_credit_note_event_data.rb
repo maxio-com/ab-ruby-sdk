@@ -75,11 +75,6 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        uid
-        credit_note_number
-        credit_note_uid
-        original_amount
-        applied_amount
         transaction_time
         memo
         role
@@ -93,21 +88,21 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   credit_note_number = SKIP,
-                   credit_note_uid = SKIP,
-                   original_amount = SKIP,
-                   applied_amount = SKIP,
+    def initialize(uid = nil,
+                   credit_note_number = nil,
+                   credit_note_uid = nil,
+                   original_amount = nil,
+                   applied_amount = nil,
                    transaction_time = SKIP,
                    memo = SKIP,
                    role = SKIP,
                    consolidated_invoice = SKIP,
                    applied_credit_notes = SKIP)
-      @uid = uid unless uid == SKIP
-      @credit_note_number = credit_note_number unless credit_note_number == SKIP
-      @credit_note_uid = credit_note_uid unless credit_note_uid == SKIP
-      @original_amount = original_amount unless original_amount == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
+      @uid = uid
+      @credit_note_number = credit_note_number
+      @credit_note_uid = credit_note_uid
+      @original_amount = original_amount
+      @applied_amount = applied_amount
       @transaction_time = transaction_time unless transaction_time == SKIP
       @memo = memo unless memo == SKIP
       @role = role unless role == SKIP
@@ -120,15 +115,15 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      uid = hash.key?('uid') ? hash['uid'] : SKIP
+      uid = hash.key?('uid') ? hash['uid'] : nil
       credit_note_number =
-        hash.key?('credit_note_number') ? hash['credit_note_number'] : SKIP
+        hash.key?('credit_note_number') ? hash['credit_note_number'] : nil
       credit_note_uid =
-        hash.key?('credit_note_uid') ? hash['credit_note_uid'] : SKIP
+        hash.key?('credit_note_uid') ? hash['credit_note_uid'] : nil
       original_amount =
-        hash.key?('original_amount') ? hash['original_amount'] : SKIP
+        hash.key?('original_amount') ? hash['original_amount'] : nil
       applied_amount =
-        hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
+        hash.key?('applied_amount') ? hash['applied_amount'] : nil
       transaction_time = if hash.key?('transaction_time')
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
                          else
@@ -169,11 +164,35 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [ApplyCreditNoteEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.uid,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.credit_note_number,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.credit_note_uid,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.original_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.applied_amount,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['uid'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['credit_note_number'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['credit_note_uid'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['original_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['applied_amount'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

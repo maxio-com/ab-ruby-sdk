@@ -6,77 +6,6 @@
 module AdvancedBilling
   # ProductFamiliesController
   class ProductFamiliesController < BaseController
-    # This method allows to retrieve a list of Product Families for a site.
-    # @param [BasicDateField] date_field Optional parameter: The type of filter
-    # you would like to apply to your search. Use in query:
-    # `date_field=created_at`.
-    # @param [String] start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns products with a
-    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified.
-    # @param [String] end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns products with a
-    # timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified.
-    # @param [String] start_datetime Optional parameter: The start date and time
-    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
-    # products with a timestamp at or after exact time provided in query. You
-    # can specify timezone in query - otherwise your site's time zone will be
-    # used. If provided, this parameter will be used instead of start_date.
-    # @param [String] end_datetime Optional parameter: The end date and time
-    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
-    # products with a timestamp at or before exact time provided in query. You
-    # can specify timezone in query - otherwise your site's time zone will be
-    # used. If provided, this parameter will be used instead of end_date.
-    # @return [Array[ProductFamilyResponse]] response from the API call
-    def list_product_families(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/product_families.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
-                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
-                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
-                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
-                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductFamilyResponse.method(:from_hash))
-                   .is_response_array(true))
-        .execute
-    end
-
-    # This method will create a Product Family within your Chargify site. Create
-    # a Product Family to act as a container for your products, components and
-    # coupons.
-    # Full documentation on how Product Families operate within the Chargify UI
-    # can be located
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405369633421)
-    # .
-    # @param [CreateProductFamilyRequest] body Optional parameter: Example:
-    # @return [ProductFamilyResponse] response from the API call
-    def create_product_family(body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/product_families.json',
-                                     Server::DEFAULT)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductFamilyResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
-        .execute
-    end
-
     # This method allows to retrieve a list of Products belonging to a Product
     # Family.
     # @param [Integer] product_family_id Required parameter: The Chargify id of
@@ -158,6 +87,77 @@ module AdvancedBilling
                    .local_error('404',
                                 'Not Found',
                                 APIException))
+        .execute
+    end
+
+    # This method will create a Product Family within your Chargify site. Create
+    # a Product Family to act as a container for your products, components and
+    # coupons.
+    # Full documentation on how Product Families operate within the Chargify UI
+    # can be located
+    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405369633421)
+    # .
+    # @param [CreateProductFamilyRequest] body Optional parameter: Example:
+    # @return [ProductFamilyResponse] response from the API call
+    def create_product_family(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/product_families.json',
+                                     Server::DEFAULT)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProductFamilyResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         ErrorListResponseException))
+        .execute
+    end
+
+    # This method allows to retrieve a list of Product Families for a site.
+    # @param [BasicDateField] date_field Optional parameter: The type of filter
+    # you would like to apply to your search. Use in query:
+    # `date_field=created_at`.
+    # @param [String] start_date Optional parameter: The start date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns products with a
+    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
+    # the date specified.
+    # @param [String] end_date Optional parameter: The end date (format
+    # YYYY-MM-DD) with which to filter the date_field. Returns products with a
+    # timestamp up to and including 11:59:59PM in your site’s time zone on the
+    # date specified.
+    # @param [String] start_datetime Optional parameter: The start date and time
+    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
+    # products with a timestamp at or after exact time provided in query. You
+    # can specify timezone in query - otherwise your site's time zone will be
+    # used. If provided, this parameter will be used instead of start_date.
+    # @param [String] end_datetime Optional parameter: The end date and time
+    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
+    # products with a timestamp at or before exact time provided in query. You
+    # can specify timezone in query - otherwise your site's time zone will be
+    # used. If provided, this parameter will be used instead of end_date.
+    # @return [Array[ProductFamilyResponse]] response from the API call
+    def list_product_families(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/product_families.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
+                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
+                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
+                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ProductFamilyResponse.method(:from_hash))
+                   .is_response_array(true))
         .execute
     end
 

@@ -263,7 +263,7 @@ module AdvancedBilling
 
     def initialize(chargify_token = SKIP,
                    id = SKIP,
-                   payment_type = PaymentType::CREDIT_CARD,
+                   payment_type = SKIP,
                    first_name = SKIP,
                    last_name = SKIP,
                    masked_card_number = SKIP,
@@ -335,7 +335,7 @@ module AdvancedBilling
       chargify_token =
         hash.key?('chargify_token') ? hash['chargify_token'] : SKIP
       id = hash.key?('id') ? hash['id'] : SKIP
-      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
+      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       first_name = hash.key?('first_name') ? hash['first_name'] : SKIP
       last_name = hash.key?('last_name') ? hash['last_name'] : SKIP
       masked_card_number =

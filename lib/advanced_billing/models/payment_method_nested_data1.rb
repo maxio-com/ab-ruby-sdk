@@ -5,7 +5,7 @@
 
 module AdvancedBilling
   # A nested data structure detailing the method of payment
-  class PaymentMethodNestedData < BaseModel
+  class PaymentMethodNestedData1 < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -74,16 +74,8 @@ module AdvancedBilling
     def self.optionals
       %w[
         type
-        masked_account_number
-        masked_routing_number
-        card_brand
         card_expiration
         last_four
-        masked_card_number
-        details
-        kind
-        memo
-        email
       ]
     end
 
@@ -94,28 +86,28 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(type = 'Payment Method Nested Data',
-                   masked_account_number = SKIP,
-                   masked_routing_number = SKIP,
-                   card_brand = SKIP,
+    def initialize(masked_account_number = nil,
+                   masked_routing_number = nil,
+                   card_brand = nil,
+                   masked_card_number = nil,
+                   details = nil,
+                   kind = nil,
+                   memo = nil,
+                   email = nil,
+                   type = 'Payment Method Nested Data1',
                    card_expiration = SKIP,
-                   last_four = SKIP,
-                   masked_card_number = SKIP,
-                   details = SKIP,
-                   kind = SKIP,
-                   memo = SKIP,
-                   email = SKIP)
+                   last_four = SKIP)
       @type = type unless type == SKIP
-      @masked_account_number = masked_account_number unless masked_account_number == SKIP
-      @masked_routing_number = masked_routing_number unless masked_routing_number == SKIP
-      @card_brand = card_brand unless card_brand == SKIP
+      @masked_account_number = masked_account_number
+      @masked_routing_number = masked_routing_number
+      @card_brand = card_brand
       @card_expiration = card_expiration unless card_expiration == SKIP
       @last_four = last_four unless last_four == SKIP
-      @masked_card_number = masked_card_number unless masked_card_number == SKIP
-      @details = details unless details == SKIP
-      @kind = kind unless kind == SKIP
-      @memo = memo unless memo == SKIP
-      @email = email unless email == SKIP
+      @masked_card_number = masked_card_number
+      @details = details
+      @kind = kind
+      @memo = memo
+      @email = email
     end
 
     # Creates an instance of the object from a hash.
@@ -123,34 +115,34 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      type = hash['type'] ||= 'Payment Method Nested Data'
       masked_account_number =
-        hash.key?('masked_account_number') ? hash['masked_account_number'] : SKIP
+        hash.key?('masked_account_number') ? hash['masked_account_number'] : nil
       masked_routing_number =
-        hash.key?('masked_routing_number') ? hash['masked_routing_number'] : SKIP
-      card_brand = hash.key?('card_brand') ? hash['card_brand'] : SKIP
+        hash.key?('masked_routing_number') ? hash['masked_routing_number'] : nil
+      card_brand = hash.key?('card_brand') ? hash['card_brand'] : nil
+      masked_card_number =
+        hash.key?('masked_card_number') ? hash['masked_card_number'] : nil
+      details = hash.key?('details') ? hash['details'] : nil
+      kind = hash.key?('kind') ? hash['kind'] : nil
+      memo = hash.key?('memo') ? hash['memo'] : nil
+      email = hash.key?('email') ? hash['email'] : nil
+      type = hash['type'] ||= 'Payment Method Nested Data1'
       card_expiration =
         hash.key?('card_expiration') ? hash['card_expiration'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
-      masked_card_number =
-        hash.key?('masked_card_number') ? hash['masked_card_number'] : SKIP
-      details = hash.key?('details') ? hash['details'] : SKIP
-      kind = hash.key?('kind') ? hash['kind'] : SKIP
-      memo = hash.key?('memo') ? hash['memo'] : SKIP
-      email = hash.key?('email') ? hash['email'] : SKIP
 
       # Create object from extracted values.
-      PaymentMethodNestedData.new(type,
-                                  masked_account_number,
-                                  masked_routing_number,
-                                  card_brand,
-                                  card_expiration,
-                                  last_four,
-                                  masked_card_number,
-                                  details,
-                                  kind,
-                                  memo,
-                                  email)
+      PaymentMethodNestedData1.new(masked_account_number,
+                                   masked_routing_number,
+                                   card_brand,
+                                   masked_card_number,
+                                   details,
+                                   kind,
+                                   memo,
+                                   email,
+                                   type,
+                                   card_expiration,
+                                   last_four)
     end
   end
 end

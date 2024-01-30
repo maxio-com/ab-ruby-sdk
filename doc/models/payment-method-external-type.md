@@ -9,19 +9,19 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `details` | `String` | Optional | - |
-| `kind` | `String` | Optional | - |
-| `memo` | `String` | Optional | - |
-| `type` | `String` | Optional | **Default**: `'external'` |
+| `details` | `String` | Required | - |
+| `kind` | `String` | Required | - |
+| `memo` | `String` | Required | - |
+| `type` | `String` | Required | **Default**: `'external'` |
 
 ## Example (as JSON)
 
 ```json
 {
-  "type": "external",
   "details": "details0",
   "kind": "kind8",
-  "memo": "memo4"
+  "memo": "memo4",
+  "type": "external"
 }
 ```
 

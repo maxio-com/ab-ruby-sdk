@@ -6,65 +6,6 @@
 module AdvancedBilling
   # ReasonCodesController
   class ReasonCodesController < BaseController
-    # This method gives a merchant the option to update an existing reason code
-    # for a given site.
-    # @param [Integer] reason_code_id Required parameter: The Chargify id of the
-    # reason code
-    # @param [UpdateReasonCodeRequest] body Optional parameter: Example:
-    # @return [ReasonCodeResponse] response from the API call
-    def update_reason_code(reason_code_id,
-                           body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/reason_codes/{reason_code_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(reason_code_id, key: 'reason_code_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
-        .execute
-    end
-
-    # This method gives a merchant the option to retrieve a list of all of the
-    # current churn codes for a given site.
-    # @param [Integer] page Optional parameter: Result records are organized in
-    # pages. By default, the first page of results is displayed. The page
-    # parameter specifies a page number of results to fetch. You can start
-    # navigating through the pages to consume the results. You do this by
-    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
-    # the query string. If there are no results to return, then an empty result
-    # set will be returned. Use in query `page=1`.
-    # @param [Integer] per_page Optional parameter: This parameter indicates how
-    # many records to fetch in each request. Default value is 20. The maximum
-    # allowed values is 200; any per_page value over 200 will be changed to 200.
-    # Use in query `per_page=200`.
-    # @return [Array[ReasonCodeResponse]] response from the API call
-    def list_reason_codes(options = {})
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/reason_codes.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(options['page'], key: 'page'))
-                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                   .is_response_array(true))
-        .execute
-    end
-
     # # Reason Codes Intro
     # ReasonCodes are a way to gain a high level view of why your customers are
     # cancelling the subcription to your product or service.
@@ -102,6 +43,36 @@ module AdvancedBilling
         .execute
     end
 
+    # This method gives a merchant the option to retrieve a list of all of the
+    # current churn codes for a given site.
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @return [Array[ReasonCodeResponse]] response from the API call
+    def list_reason_codes(options = {})
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/reason_codes.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(options['page'], key: 'page'))
+                   .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
+                   .is_response_array(true))
+        .execute
+    end
+
     # This method gives a merchant the option to retrieve a list of a particular
     # code for a given Site by providing the unique numerical ID of the code.
     # @param [Integer] reason_code_id Required parameter: The Chargify id of the
@@ -116,6 +87,35 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException))
+        .execute
+    end
+
+    # This method gives a merchant the option to update an existing reason code
+    # for a given site.
+    # @param [Integer] reason_code_id Required parameter: The Chargify id of the
+    # reason code
+    # @param [UpdateReasonCodeRequest] body Optional parameter: Example:
+    # @return [ReasonCodeResponse] response from the API call
+    def update_reason_code(reason_code_id,
+                           body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/reason_codes/{reason_code_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(reason_code_id, key: 'reason_code_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

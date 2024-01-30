@@ -25,7 +25,7 @@ module AdvancedBilling
     # Statements Architecture valid options are - `invoice`, `automatic`. For
     # current Relationship Invoicing Architecture valid options are -
     # `remittance`, `automatic`, `prepaid`.
-    # @return [PaymentCollectionMethod]
+    # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 
     # The type of payment collection to be used in the subscription. For legacy
@@ -92,7 +92,7 @@ module AdvancedBilling
                    payment_profile_id = SKIP,
                    payer_id = SKIP,
                    payer_reference = SKIP,
-                   payment_collection_method = PaymentCollectionMethod::AUTOMATIC,
+                   payment_collection_method = CollectionMethod::AUTOMATIC,
                    payer_attributes = SKIP,
                    credit_card_attributes = SKIP,
                    bank_account_attributes = SKIP)
@@ -130,7 +130,7 @@ module AdvancedBilling
       payer_reference =
         hash.key?('payer_reference') ? hash['payer_reference'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= PaymentCollectionMethod::AUTOMATIC
+        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
       payer_attributes = PayerAttributes.from_hash(hash['payer_attributes']) if
         hash['payer_attributes']
       if hash['credit_card_attributes']

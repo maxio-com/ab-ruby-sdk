@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `chargify_token` | `String` | Optional | Token received after sending billing informations using chargify.js. |
 | `id` | `Integer` | Optional | - |
-| `payment_type` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | **Default**: `PaymentType::CREDIT_CARD` |
+| `payment_type` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | - |
 | `first_name` | `String` | Optional | First name on card or bank account. If omitted, the first_name from customer attributes will be used. |
 | `last_name` | `String` | Optional | Last name on card or bank account. If omitted, the last_name from customer attributes will be used. |
 | `masked_card_number` | `String` | Optional | - |
@@ -47,10 +47,10 @@
 ```json
 {
   "chargify_token": "tok_9g6hw85pnpt6knmskpwp4ttt",
-  "payment_type": "credit_card",
   "full_number": "5424000000000015",
   "bank_account_type": "checking",
   "id": 76,
+  "payment_type": "paypal_account",
   "first_name": "first_name8",
   "last_name": "last_name6"
 }

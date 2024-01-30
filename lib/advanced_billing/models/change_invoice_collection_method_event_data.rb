@@ -27,10 +27,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        from_collection_method
-        to_collection_method
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -38,10 +35,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(from_collection_method = SKIP,
-                   to_collection_method = SKIP)
-      @from_collection_method = from_collection_method unless from_collection_method == SKIP
-      @to_collection_method = to_collection_method unless to_collection_method == SKIP
+    def initialize(from_collection_method = nil,
+                   to_collection_method = nil)
+      @from_collection_method = from_collection_method
+      @to_collection_method = to_collection_method
     end
 
     # Creates an instance of the object from a hash.
@@ -50,9 +47,9 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       from_collection_method =
-        hash.key?('from_collection_method') ? hash['from_collection_method'] : SKIP
+        hash.key?('from_collection_method') ? hash['from_collection_method'] : nil
       to_collection_method =
-        hash.key?('to_collection_method') ? hash['to_collection_method'] : SKIP
+        hash.key?('to_collection_method') ? hash['to_collection_method'] : nil
 
       # Create object from extracted values.
       ChangeInvoiceCollectionMethodEventData.new(from_collection_method,
@@ -62,11 +59,23 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [ChangeInvoiceCollectionMethodEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.from_collection_method,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.to_collection_method,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['from_collection_method'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['to_collection_method'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

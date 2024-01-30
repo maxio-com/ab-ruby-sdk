@@ -194,7 +194,7 @@ module AdvancedBilling
                    bank_name = SKIP,
                    bank_account_type = BankAccountType::CHECKING,
                    bank_account_holder_type = SKIP,
-                   payment_type = PaymentType::CREDIT_CARD,
+                   payment_type = SKIP,
                    verified = false,
                    site_gateway_setting_id = SKIP,
                    gateway_handle = SKIP)
@@ -253,7 +253,7 @@ module AdvancedBilling
         hash['bank_account_type'] ||= BankAccountType::CHECKING
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
+      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       verified = hash['verified'] ||= false
       site_gateway_setting_id =
         hash.key?('site_gateway_setting_id') ? hash['site_gateway_setting_id'] : SKIP

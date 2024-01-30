@@ -39,29 +39,6 @@ module AdvancedBilling
         .execute
     end
 
-    # Use the following method to delete a note for a Subscription.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [Integer] note_id Required parameter: The Chargify id of the note
-    # @return [void] response from the API call
-    def delete_subscription_note(subscription_id,
-                                 note_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/subscriptions/{subscription_id}/notes/{note_id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .template_param(new_parameter(note_id, key: 'note_id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true))
-        .execute
-    end
-
     # Use this method to retrieve a list of Notes associated with a
     # Subscription. The response will be an array of Notes.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
@@ -150,6 +127,29 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Use the following method to delete a note for a Subscription.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer] note_id Required parameter: The Chargify id of the note
+    # @return [void] response from the API call
+    def delete_subscription_note(subscription_id,
+                                 note_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscriptions/{subscription_id}/notes/{note_id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(note_id, key: 'note_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true))
         .execute
     end
   end

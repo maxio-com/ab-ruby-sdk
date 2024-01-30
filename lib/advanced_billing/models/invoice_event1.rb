@@ -68,7 +68,7 @@ module AdvancedBilling
     attr_accessor :debit_note_uid
 
     # A nested data structure detailing the method of payment
-    # @return [PaymentMethodNestedData]
+    # @return [PaymentMethodNestedData1]
     attr_accessor :payment_method
 
     # The Chargify id of the original payment
@@ -148,6 +148,10 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :is_advance_invoice
 
+    # The reason for the void.
+    # @return [String]
+    attr_accessor :reason
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -179,6 +183,7 @@ module AdvancedBilling
       @_hash['refund_id'] = 'refund_id'
       @_hash['prepayment'] = 'prepayment'
       @_hash['is_advance_invoice'] = 'is_advance_invoice'
+      @_hash['reason'] = 'reason'
       @_hash
     end
 
@@ -213,6 +218,7 @@ module AdvancedBilling
         refund_id
         prepayment
         is_advance_invoice
+        reason
       ]
     end
 
@@ -248,7 +254,8 @@ module AdvancedBilling
                    refund_amount = SKIP,
                    refund_id = SKIP,
                    prepayment = SKIP,
-                   is_advance_invoice = SKIP)
+                   is_advance_invoice = SKIP,
+                   reason = SKIP)
       @uid = uid unless uid == SKIP
       @credit_note_number = credit_note_number unless credit_note_number == SKIP
       @credit_note_uid = credit_note_uid unless credit_note_uid == SKIP
@@ -277,6 +284,7 @@ module AdvancedBilling
       @refund_id = refund_id unless refund_id == SKIP
       @prepayment = prepayment unless prepayment == SKIP
       @is_advance_invoice = is_advance_invoice unless is_advance_invoice == SKIP
+      @reason = reason unless reason == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -340,6 +348,7 @@ module AdvancedBilling
       prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
       is_advance_invoice =
         hash.key?('is_advance_invoice') ? hash['is_advance_invoice'] : SKIP
+      reason = hash.key?('reason') ? hash['reason'] : SKIP
 
       # Create object from extracted values.
       InvoiceEvent1.new(uid,
@@ -369,7 +378,8 @@ module AdvancedBilling
                         refund_amount,
                         refund_id,
                         prepayment,
-                        is_advance_invoice)
+                        is_advance_invoice,
+                        reason)
     end
 
     def to_custom_transaction_time

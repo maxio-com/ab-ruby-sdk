@@ -59,13 +59,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        consolidation_level
-        from_status
-        to_status
-        due_amount
-        total_amount
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -73,16 +67,16 @@ module AdvancedBilling
       []
     end
 
-    def initialize(consolidation_level = SKIP,
-                   from_status = SKIP,
-                   to_status = SKIP,
-                   due_amount = SKIP,
-                   total_amount = SKIP)
-      @consolidation_level = consolidation_level unless consolidation_level == SKIP
-      @from_status = from_status unless from_status == SKIP
-      @to_status = to_status unless to_status == SKIP
-      @due_amount = due_amount unless due_amount == SKIP
-      @total_amount = total_amount unless total_amount == SKIP
+    def initialize(consolidation_level = nil,
+                   from_status = nil,
+                   to_status = nil,
+                   due_amount = nil,
+                   total_amount = nil)
+      @consolidation_level = consolidation_level
+      @from_status = from_status
+      @to_status = to_status
+      @due_amount = due_amount
+      @total_amount = total_amount
     end
 
     # Creates an instance of the object from a hash.
@@ -91,11 +85,11 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       consolidation_level =
-        hash.key?('consolidation_level') ? hash['consolidation_level'] : SKIP
-      from_status = hash.key?('from_status') ? hash['from_status'] : SKIP
-      to_status = hash.key?('to_status') ? hash['to_status'] : SKIP
-      due_amount = hash.key?('due_amount') ? hash['due_amount'] : SKIP
-      total_amount = hash.key?('total_amount') ? hash['total_amount'] : SKIP
+        hash.key?('consolidation_level') ? hash['consolidation_level'] : nil
+      from_status = hash.key?('from_status') ? hash['from_status'] : nil
+      to_status = hash.key?('to_status') ? hash['to_status'] : nil
+      due_amount = hash.key?('due_amount') ? hash['due_amount'] : nil
+      total_amount = hash.key?('total_amount') ? hash['total_amount'] : nil
 
       # Create object from extracted values.
       IssueInvoiceEventData.new(consolidation_level,
@@ -108,11 +102,35 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [IssueInvoiceEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.consolidation_level,
+                                ->(val) { InvoiceConsolidationLevel.validate(val) }) and
+            APIHelper.valid_type?(value.from_status,
+                                  ->(val) { InvoiceStatus.validate(val) }) and
+            APIHelper.valid_type?(value.to_status,
+                                  ->(val) { InvoiceStatus.validate(val) }) and
+            APIHelper.valid_type?(value.due_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.total_amount,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['consolidation_level'],
+                              ->(val) { InvoiceConsolidationLevel.validate(val) }) and
+          APIHelper.valid_type?(value['from_status'],
+                                ->(val) { InvoiceStatus.validate(val) }) and
+          APIHelper.valid_type?(value['to_status'],
+                                ->(val) { InvoiceStatus.validate(val) }) and
+          APIHelper.valid_type?(value['due_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['total_amount'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

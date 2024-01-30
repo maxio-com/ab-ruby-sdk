@@ -114,7 +114,7 @@ module AdvancedBilling
                    bank_branch_code = SKIP,
                    bank_iban = SKIP,
                    bank_account_holder_type = SKIP,
-                   payment_type = PaymentType::CREDIT_CARD,
+                   payment_type = SKIP,
                    current_vault = SKIP,
                    vault_token = SKIP,
                    customer_vault_token = SKIP)
@@ -151,7 +151,7 @@ module AdvancedBilling
       bank_iban = hash.key?('bank_iban') ? hash['bank_iban'] : SKIP
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
+      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       current_vault = hash.key?('current_vault') ? hash['current_vault'] : SKIP
       vault_token = hash.key?('vault_token') ? hash['vault_token'] : SKIP
       customer_vault_token =

@@ -27,7 +27,7 @@ module AdvancedBilling
     # type is just a string, so a given metafield of this type can have any
     # value attached. On the other hand, dropdown and radio have a set of
     # allowed values that can be input, and appear differently on a Public
-    # Signup Page.
+    # Signup Page. Defaults to 'text'
     # @return [MetafieldInput]
     attr_accessor :input_type
 
@@ -65,7 +65,7 @@ module AdvancedBilling
     def initialize(current_name = SKIP,
                    name = SKIP,
                    scope = SKIP,
-                   input_type = MetafieldInput::TEXT,
+                   input_type = SKIP,
                    enum = SKIP)
       @current_name = current_name unless current_name == SKIP
       @name = name unless name == SKIP
@@ -82,7 +82,7 @@ module AdvancedBilling
       current_name = hash.key?('current_name') ? hash['current_name'] : SKIP
       name = hash.key?('name') ? hash['name'] : SKIP
       scope = MetafieldScope.from_hash(hash['scope']) if hash['scope']
-      input_type = hash['input_type'] ||= MetafieldInput::TEXT
+      input_type = hash.key?('input_type') ? hash['input_type'] : SKIP
       enum = hash.key?('enum') ? hash['enum'] : SKIP
 
       # Create object from extracted values.

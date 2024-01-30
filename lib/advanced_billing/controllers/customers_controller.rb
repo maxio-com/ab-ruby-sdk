@@ -62,93 +62,6 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows to update the Customer.
-    # @param [Integer] id Required parameter: The Chargify id of the customer
-    # @param [UpdateCustomerRequest] body Optional parameter: Example:
-    # @return [CustomerResponse] response from the API call
-    def update_customer(id,
-                        body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/customers/{id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(id, key: 'id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         CustomerErrorResponseException))
-        .execute
-    end
-
-    # Use this method to return the customer object if you have the unique
-    # **Reference ID (Your App)** value handy. It will return a single match.
-    # @param [String] reference Required parameter: Customer reference
-    # @return [CustomerResponse] response from the API call
-    def read_customer_by_reference(reference)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/customers/lookup.json',
-                                     Server::DEFAULT)
-                   .query_param(new_parameter(reference, key: 'reference')
-                                 .is_required(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This method allows to retrieve the Customer properties by
-    # Chargify-generated Customer ID.
-    # @param [Integer] id Required parameter: The Chargify id of the customer
-    # @return [CustomerResponse] response from the API call
-    def read_customer(id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/customers/{id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(id, key: 'id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash)))
-        .execute
-    end
-
-    # This method allows you to delete the Customer.
-    # @param [Integer] id Required parameter: The Chargify id of the customer
-    # @return [void] response from the API call
-    def delete_customer(id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/customers/{id}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(id, key: 'id')
-                                    .is_required(true)
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true))
-        .execute
-    end
-
     # This request will by default list all customers associated with your Site.
     # ## Find Customer
     # Use the search feature with the `q` query parameter to retrieve an array
@@ -219,6 +132,93 @@ module AdvancedBilling
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CustomerResponse.method(:from_hash))
                    .is_response_array(true))
+        .execute
+    end
+
+    # This method allows to retrieve the Customer properties by
+    # Chargify-generated Customer ID.
+    # @param [Integer] id Required parameter: The Chargify id of the customer
+    # @return [CustomerResponse] response from the API call
+    def read_customer(id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/customers/{id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(id, key: 'id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CustomerResponse.method(:from_hash)))
+        .execute
+    end
+
+    # This method allows to update the Customer.
+    # @param [Integer] id Required parameter: The Chargify id of the customer
+    # @param [UpdateCustomerRequest] body Optional parameter: Example:
+    # @return [CustomerResponse] response from the API call
+    def update_customer(id,
+                        body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/customers/{id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(id, key: 'id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CustomerResponse.method(:from_hash))
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         CustomerErrorResponseException))
+        .execute
+    end
+
+    # This method allows you to delete the Customer.
+    # @param [Integer] id Required parameter: The Chargify id of the customer
+    # @return [void] response from the API call
+    def delete_customer(id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/customers/{id}.json',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(id, key: 'id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true))
+        .execute
+    end
+
+    # Use this method to return the customer object if you have the unique
+    # **Reference ID (Your App)** value handy. It will return a single match.
+    # @param [String] reference Required parameter: Customer reference
+    # @return [CustomerResponse] response from the API call
+    def read_customer_by_reference(reference)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/customers/lookup.json',
+                                     Server::DEFAULT)
+                   .query_param(new_parameter(reference, key: 'reference')
+                                 .is_required(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CustomerResponse.method(:from_hash)))
         .execute
     end
 

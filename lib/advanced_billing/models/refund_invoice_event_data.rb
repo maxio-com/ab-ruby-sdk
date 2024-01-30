@@ -87,15 +87,9 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        apply_credit
         consolidation_level
-        credit_note_attributes
         memo
         original_amount
-        payment_id
-        refund_amount
-        refund_id
-        transaction_time
       ]
     end
 
@@ -104,24 +98,24 @@ module AdvancedBilling
       []
     end
 
-    def initialize(apply_credit = SKIP,
+    def initialize(apply_credit = nil,
+                   credit_note_attributes = nil,
+                   payment_id = nil,
+                   refund_amount = nil,
+                   refund_id = nil,
+                   transaction_time = nil,
                    consolidation_level = SKIP,
-                   credit_note_attributes = SKIP,
                    memo = SKIP,
-                   original_amount = SKIP,
-                   payment_id = SKIP,
-                   refund_amount = SKIP,
-                   refund_id = SKIP,
-                   transaction_time = SKIP)
-      @apply_credit = apply_credit unless apply_credit == SKIP
+                   original_amount = SKIP)
+      @apply_credit = apply_credit
       @consolidation_level = consolidation_level unless consolidation_level == SKIP
-      @credit_note_attributes = credit_note_attributes unless credit_note_attributes == SKIP
+      @credit_note_attributes = credit_note_attributes
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
-      @payment_id = payment_id unless payment_id == SKIP
-      @refund_amount = refund_amount unless refund_amount == SKIP
-      @refund_id = refund_id unless refund_id == SKIP
-      @transaction_time = transaction_time unless transaction_time == SKIP
+      @payment_id = payment_id
+      @refund_amount = refund_amount
+      @refund_id = refund_id
+      @transaction_time = transaction_time
     end
 
     # Creates an instance of the object from a hash.
@@ -129,33 +123,31 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      apply_credit = hash.key?('apply_credit') ? hash['apply_credit'] : SKIP
-      consolidation_level =
-        hash.key?('consolidation_level') ? hash['consolidation_level'] : SKIP
+      apply_credit = hash.key?('apply_credit') ? hash['apply_credit'] : nil
       credit_note_attributes = CreditNote.from_hash(hash['credit_note_attributes']) if
         hash['credit_note_attributes']
+      payment_id = hash.key?('payment_id') ? hash['payment_id'] : nil
+      refund_amount = hash.key?('refund_amount') ? hash['refund_amount'] : nil
+      refund_id = hash.key?('refund_id') ? hash['refund_id'] : nil
+      transaction_time = if hash.key?('transaction_time')
+                           (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
+                         end
+      consolidation_level =
+        hash.key?('consolidation_level') ? hash['consolidation_level'] : SKIP
       memo = hash.key?('memo') ? hash['memo'] : SKIP
       original_amount =
         hash.key?('original_amount') ? hash['original_amount'] : SKIP
-      payment_id = hash.key?('payment_id') ? hash['payment_id'] : SKIP
-      refund_amount = hash.key?('refund_amount') ? hash['refund_amount'] : SKIP
-      refund_id = hash.key?('refund_id') ? hash['refund_id'] : SKIP
-      transaction_time = if hash.key?('transaction_time')
-                           (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
-                         else
-                           SKIP
-                         end
 
       # Create object from extracted values.
       RefundInvoiceEventData.new(apply_credit,
-                                 consolidation_level,
                                  credit_note_attributes,
-                                 memo,
-                                 original_amount,
                                  payment_id,
                                  refund_amount,
                                  refund_id,
-                                 transaction_time)
+                                 transaction_time,
+                                 consolidation_level,
+                                 memo,
+                                 original_amount)
     end
 
     def to_custom_transaction_time
@@ -165,11 +157,39 @@ module AdvancedBilling
     # Validates an instance of the object from a given value.
     # @param [RefundInvoiceEventData | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.apply_credit,
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+            APIHelper.valid_type?(value.credit_note_attributes,
+                                  ->(val) { CreditNote.validate(val) }) and
+            APIHelper.valid_type?(value.payment_id,
+                                  ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.refund_amount,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.refund_id,
+                                  ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.transaction_time,
+                                  ->(val) { val.instance_of? DateTime })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['apply_credit'],
+                              ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+          APIHelper.valid_type?(value['credit_note_attributes'],
+                                ->(val) { CreditNote.validate(val) }) and
+          APIHelper.valid_type?(value['payment_id'],
+                                ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['refund_amount'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['refund_id'],
+                                ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['transaction_time'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end

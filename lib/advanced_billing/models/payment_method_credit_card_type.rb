@@ -43,11 +43,8 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        card_brand
         card_expiration
         last_four
-        masked_card_number
-        type
       ]
     end
 
@@ -58,16 +55,16 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(card_brand = SKIP,
+    def initialize(card_brand = nil,
+                   masked_card_number = nil,
+                   type = 'credit_card',
                    card_expiration = SKIP,
-                   last_four = SKIP,
-                   masked_card_number = SKIP,
-                   type = 'credit_card')
-      @card_brand = card_brand unless card_brand == SKIP
+                   last_four = SKIP)
+      @card_brand = card_brand
       @card_expiration = card_expiration unless card_expiration == SKIP
       @last_four = last_four unless last_four == SKIP
-      @masked_card_number = masked_card_number unless masked_card_number == SKIP
-      @type = type unless type == SKIP
+      @masked_card_number = masked_card_number
+      @type = type
     end
 
     # Creates an instance of the object from a hash.
@@ -75,30 +72,46 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      card_brand = hash.key?('card_brand') ? hash['card_brand'] : SKIP
+      card_brand = hash.key?('card_brand') ? hash['card_brand'] : nil
+      masked_card_number =
+        hash.key?('masked_card_number') ? hash['masked_card_number'] : nil
+      type = hash['type'] ||= 'credit_card'
       card_expiration =
         hash.key?('card_expiration') ? hash['card_expiration'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
-      masked_card_number =
-        hash.key?('masked_card_number') ? hash['masked_card_number'] : SKIP
-      type = hash['type'] ||= 'credit_card'
 
       # Create object from extracted values.
       PaymentMethodCreditCardType.new(card_brand,
-                                      card_expiration,
-                                      last_four,
                                       masked_card_number,
-                                      type)
+                                      type,
+                                      card_expiration,
+                                      last_four)
     end
 
     # Validates an instance of the object from a given value.
     # @param [PaymentMethodCreditCardType | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.card_brand,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.masked_card_number,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.type,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      (
+        APIHelper.valid_type?(value['card_brand'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['masked_card_number'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['type'],
+                                ->(val) { val.instance_of? String })
+      )
     end
   end
 end
