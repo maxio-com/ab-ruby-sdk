@@ -24,7 +24,7 @@ RSpec.describe 'Awaiting sign up subscription' do
     expect(subscription.total_revenue_in_cents).to eq(0)
     expect(subscription.product_price_in_cents).to eq(1000)
     expect(subscription.product_version_number).to eq(1)
-    expect(subscription.payment_collection_method).to eq(AdvancedBilling::PaymentCollectionMethod::AUTOMATIC)
+    expect(subscription.payment_collection_method).to eq('automatic')
 
     expect(subscription.customer.id).to eq(@customer.id)
     expect(subscription.customer.first_name).to eq(@customer.first_name)
