@@ -12,7 +12,7 @@ insights_controller = client.insights
 
 * [Read Site Stats](../../doc/controllers/insights.md#read-site-stats)
 * [Read Mrr](../../doc/controllers/insights.md#read-mrr)
-* [Read Mrr Movements](../../doc/controllers/insights.md#read-mrr-movements)
+* [List Mrr Movements](../../doc/controllers/insights.md#list-mrr-movements)
 * [List Mrr Per Subscription](../../doc/controllers/insights.md#list-mrr-per-subscription)
 
 
@@ -111,7 +111,7 @@ result = insights_controller.read_mrr
 ```
 
 
-# Read Mrr Movements
+# List Mrr Movements
 
 **This endpoint is deprecated.**
 
@@ -141,7 +141,7 @@ Usage includes revenue from:
 * Prepaid Usage Components
 
 ```ruby
-def read_mrr_movements(options = {})
+def list_mrr_movements(options = {})
 ```
 
 ## Parameters
@@ -165,7 +165,7 @@ collect = {
   'per_page': 20
 }
 
-result = insights_controller.read_mrr_movements(collect)
+result = insights_controller.list_mrr_movements(collect)
 ```
 
 ## Example Response *(as JSON)*

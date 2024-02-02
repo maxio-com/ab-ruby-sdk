@@ -14,8 +14,8 @@ events_based_billing_segments_controller = client.events_based_billing_segments
 * [List Segments for Price Point](../../doc/controllers/events-based-billing-segments.md#list-segments-for-price-point)
 * [Update Segment](../../doc/controllers/events-based-billing-segments.md#update-segment)
 * [Delete Segment](../../doc/controllers/events-based-billing-segments.md#delete-segment)
-* [Create Segments](../../doc/controllers/events-based-billing-segments.md#create-segments)
-* [Update Segments](../../doc/controllers/events-based-billing-segments.md#update-segments)
+* [Bulk Create Segments](../../doc/controllers/events-based-billing-segments.md#bulk-create-segments)
+* [Bulk Update Segments](../../doc/controllers/events-based-billing-segments.md#bulk-update-segments)
 
 
 # Create Segment
@@ -233,7 +233,7 @@ events_based_billing_segments_controller.delete_segment(
 | 422 | Unprocessable Entity (WebDAV) | `APIException` |
 
 
-# Create Segments
+# Bulk Create Segments
 
 This endpoint allows you to create multiple segments in one request. The array of segments can contain up to `2000` records.
 
@@ -242,9 +242,9 @@ If any of the records contain an error the whole request would fail and none of 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```ruby
-def create_segments(component_id,
-                    price_point_id,
-                    body: nil)
+def bulk_create_segments(component_id,
+                         price_point_id,
+                         body: nil)
 ```
 
 ## Parameters
@@ -266,7 +266,7 @@ component_id = 'component_id8'
 
 price_point_id = 'price_point_id8'
 
-result = events_based_billing_segments_controller.create_segments(
+result = events_based_billing_segments_controller.bulk_create_segments(
   component_id,
   price_point_id
 )
@@ -280,7 +280,7 @@ result = events_based_billing_segments_controller.create_segments(
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 
 
-# Update Segments
+# Bulk Update Segments
 
 This endpoint allows you to update multiple segments in one request. The array of segments can contain up to `1000` records.
 
@@ -289,9 +289,9 @@ If any of the records contain an error the whole request would fail and none of 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```ruby
-def update_segments(component_id,
-                    price_point_id,
-                    body: nil)
+def bulk_update_segments(component_id,
+                         price_point_id,
+                         body: nil)
 ```
 
 ## Parameters
@@ -313,7 +313,7 @@ component_id = 'component_id8'
 
 price_point_id = 'price_point_id8'
 
-result = events_based_billing_segments_controller.update_segments(
+result = events_based_billing_segments_controller.bulk_update_segments(
   component_id,
   price_point_id
 )

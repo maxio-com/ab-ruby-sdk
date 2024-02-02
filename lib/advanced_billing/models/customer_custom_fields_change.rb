@@ -10,11 +10,11 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[ProformaCustomField]]
+    # @return [Array[InvoiceCustomField]]
     attr_accessor :before
 
     # TODO: Write general description for this method
-    # @return [Array[ProformaCustomField]]
+    # @return [Array[InvoiceCustomField]]
     attr_accessor :after
 
     # A mapping from model property names to API property names.
@@ -27,10 +27,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        before
-        after
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -38,10 +35,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(before = SKIP,
-                   after = SKIP)
-      @before = before unless before == SKIP
-      @after = after unless after == SKIP
+    def initialize(before = nil,
+                   after = nil)
+      @before = before
+      @after = after
     end
 
     # Creates an instance of the object from a hash.
@@ -54,25 +51,47 @@ module AdvancedBilling
       unless hash['before'].nil?
         before = []
         hash['before'].each do |structure|
-          before << (ProformaCustomField.from_hash(structure) if structure)
+          before << (InvoiceCustomField.from_hash(structure) if structure)
         end
       end
 
-      before = SKIP unless hash.key?('before')
+      before = nil unless hash.key?('before')
       # Parameter is an array, so we need to iterate through it
       after = nil
       unless hash['after'].nil?
         after = []
         hash['after'].each do |structure|
-          after << (ProformaCustomField.from_hash(structure) if structure)
+          after << (InvoiceCustomField.from_hash(structure) if structure)
         end
       end
 
-      after = SKIP unless hash.key?('after')
+      after = nil unless hash.key?('after')
 
       # Create object from extracted values.
       CustomerCustomFieldsChange.new(before,
                                      after)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [CustomerCustomFieldsChange | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.before,
+                                ->(val) { InvoiceCustomField.validate(val) }) and
+            APIHelper.valid_type?(value.after,
+                                  ->(val) { InvoiceCustomField.validate(val) })
+        )
+      end
+
+      return false unless value.instance_of? Hash
+
+      (
+        APIHelper.valid_type?(value['before'],
+                              ->(val) { InvoiceCustomField.validate(val) }) and
+          APIHelper.valid_type?(value['after'],
+                                ->(val) { InvoiceCustomField.validate(val) })
+      )
     end
   end
 end

@@ -376,7 +376,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @return [DelayedCancellationResponse] response from the API call
-    def stop_delayed_cancellation(subscription_id)
+    def cancel_delayed_cancellation(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscriptions/{subscription_id}/delayed_cancel.json',

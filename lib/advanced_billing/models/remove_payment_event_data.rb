@@ -32,7 +32,7 @@ module AdvancedBilling
     attr_accessor :transaction_time
 
     # A nested data structure detailing the method of payment
-    # @return [PaymentMethodNestedData]
+    # @return [InvoiceEventPayment]
     attr_accessor :payment_method
 
     # The flag that shows whether the original payment was a prepayment or not
@@ -94,7 +94,7 @@ module AdvancedBilling
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
                          end
       payment_method = hash.key?('payment_method') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:RemovePaymentEventDataPaymentMethod), hash['payment_method']
+        UnionTypeLookUp.get(:InvoiceEventPayment), hash['payment_method']
       ) : nil
       prepayment = hash.key?('prepayment') ? hash['prepayment'] : nil
       original_amount =
@@ -127,7 +127,7 @@ module AdvancedBilling
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.transaction_time,
                                   ->(val) { val.instance_of? DateTime }) and
-            UnionTypeLookUp.get(:RemovePaymentEventDataPaymentMethod)
+            UnionTypeLookUp.get(:InvoiceEventPayment)
                            .validate(value.payment_method) and
             APIHelper.valid_type?(value.prepayment,
                                   ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
@@ -145,7 +145,7 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['transaction_time'],
                                 ->(val) { val.instance_of? String }) and
-          UnionTypeLookUp.get(:RemovePaymentEventDataPaymentMethod)
+          UnionTypeLookUp.get(:InvoiceEventPayment)
                          .validate(value['payment_method']) and
           APIHelper.valid_type?(value['prepayment'],
                                 ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })

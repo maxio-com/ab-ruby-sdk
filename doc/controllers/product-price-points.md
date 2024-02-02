@@ -17,7 +17,7 @@ product_price_points_controller = client.product_price_points
 * [Archive Product Price Point](../../doc/controllers/product-price-points.md#archive-product-price-point)
 * [Unarchive Product Price Point](../../doc/controllers/product-price-points.md#unarchive-product-price-point)
 * [Promote Product Price Point to Default](../../doc/controllers/product-price-points.md#promote-product-price-point-to-default)
-* [Create Product Price Points](../../doc/controllers/product-price-points.md#create-product-price-points)
+* [Bulk Create Product Price Points](../../doc/controllers/product-price-points.md#bulk-create-product-price-points)
 * [Create Product Currency Prices](../../doc/controllers/product-price-points.md#create-product-currency-prices)
 * [Update Product Currency Prices](../../doc/controllers/product-price-points.md#update-product-currency-prices)
 * [List All Product Price Points](../../doc/controllers/product-price-points.md#list-all-product-price-points)
@@ -524,13 +524,13 @@ result = product_price_points_controller.promote_product_price_point_to_default(
 ```
 
 
-# Create Product Price Points
+# Bulk Create Product Price Points
 
 Use this endpoint to create multiple product price points in one request.
 
 ```ruby
-def create_product_price_points(product_id,
-                                body: nil)
+def bulk_create_product_price_points(product_id,
+                                     body: nil)
 ```
 
 ## Parameters
@@ -584,7 +584,7 @@ body = BulkCreateProductPricePointsRequest.new(
   ]
 )
 
-result = product_price_points_controller.create_product_price_points(
+result = product_price_points_controller.bulk_create_product_price_points(
   product_id,
   body: body
 )

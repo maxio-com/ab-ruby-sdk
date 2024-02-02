@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PaymentMethodExternalType Model.
-  class PaymentMethodExternalType < BaseModel
+  # PaymentMethodExternal Model.
+  class PaymentMethodExternal < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -22,7 +22,7 @@ module AdvancedBilling
     attr_accessor :memo
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceEventPaymentMethod]
     attr_accessor :type
 
     # A mapping from model property names to API property names.
@@ -42,13 +42,16 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        details
+        memo
+      ]
     end
 
     def initialize(details = nil,
                    kind = nil,
                    memo = nil,
-                   type = 'external')
+                   type = nil)
       @details = details
       @kind = kind
       @memo = memo
@@ -63,17 +66,17 @@ module AdvancedBilling
       details = hash.key?('details') ? hash['details'] : nil
       kind = hash.key?('kind') ? hash['kind'] : nil
       memo = hash.key?('memo') ? hash['memo'] : nil
-      type = hash['type'] ||= 'external'
+      type = hash.key?('type') ? hash['type'] : nil
 
       # Create object from extracted values.
-      PaymentMethodExternalType.new(details,
-                                    kind,
-                                    memo,
-                                    type)
+      PaymentMethodExternal.new(details,
+                                kind,
+                                memo,
+                                type)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [PaymentMethodExternalType | Hash] The value against the validation is performed.
+    # @param [PaymentMethodExternal | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
         return (
@@ -84,7 +87,7 @@ module AdvancedBilling
             APIHelper.valid_type?(value.memo,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.type,
-                                  ->(val) { val.instance_of? String })
+                                  ->(val) { InvoiceEventPaymentMethod.validate(val) })
         )
       end
 
@@ -98,7 +101,7 @@ module AdvancedBilling
           APIHelper.valid_type?(value['memo'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['type'],
-                                ->(val) { val.instance_of? String })
+                                ->(val) { InvoiceEventPaymentMethod.validate(val) })
       )
     end
   end

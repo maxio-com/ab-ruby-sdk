@@ -12,7 +12,7 @@ subscription_group_status_controller = client.subscription_group_status
 
 * [Cancel Subscriptions in Group](../../doc/controllers/subscription-group-status.md#cancel-subscriptions-in-group)
 * [Initiate Delayed Cancellation for Group](../../doc/controllers/subscription-group-status.md#initiate-delayed-cancellation-for-group)
-* [Stop Delayed Cancellation for Group](../../doc/controllers/subscription-group-status.md#stop-delayed-cancellation-for-group)
+* [Cancel Delayed Cancellation for Group](../../doc/controllers/subscription-group-status.md#cancel-delayed-cancellation-for-group)
 * [Reactivate Subscription Group](../../doc/controllers/subscription-group-status.md#reactivate-subscription-group)
 
 
@@ -95,12 +95,12 @@ subscription_group_status_controller.initiate_delayed_cancellation_for_group(uid
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Stop Delayed Cancellation for Group
+# Cancel Delayed Cancellation for Group
 
 Removing the delayed cancellation on a subscription group will ensure that the subscriptions do not get canceled at the end of the period. The request will reset the `cancel_at_end_of_period` flag to false on each member in the group.
 
 ```ruby
-def stop_delayed_cancellation_for_group(uid)
+def cancel_delayed_cancellation_for_group(uid)
 ```
 
 ## Parameters
@@ -118,7 +118,7 @@ def stop_delayed_cancellation_for_group(uid)
 ```ruby
 uid = 'uid0'
 
-subscription_group_status_controller.stop_delayed_cancellation_for_group(uid)
+subscription_group_status_controller.cancel_delayed_cancellation_for_group(uid)
 ```
 
 ## Errors

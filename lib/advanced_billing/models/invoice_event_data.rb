@@ -7,7 +7,7 @@ require 'date'
 module AdvancedBilling
   # The event data is the data that, when combined with the command, results in
   # the output invoice found in the invoice field.
-  class InvoiceEvent1 < BaseModel
+  class InvoiceEventData < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -68,12 +68,28 @@ module AdvancedBilling
     attr_accessor :debit_note_uid
 
     # A nested data structure detailing the method of payment
-    # @return [PaymentMethodNestedData1]
+    # @return [InvoiceEventPayment1]
     attr_accessor :payment_method
 
     # The Chargify id of the original payment
     # @return [Integer]
     attr_accessor :transaction_id
+
+    # The Chargify id of the original payment
+    # @return [Integer]
+    attr_accessor :parent_invoice_number
+
+    # The Chargify id of the original payment
+    # @return [String]
+    attr_accessor :remaining_prepayment_amount
+
+    # The flag that shows whether the original payment was a prepayment or not
+    # @return [TrueClass | FalseClass]
+    attr_accessor :prepayment
+
+    # The flag that shows whether the original payment was a prepayment or not
+    # @return [TrueClass | FalseClass]
+    attr_accessor :external
 
     # The previous collection method of the invoice.
     # @return [String]
@@ -140,10 +156,6 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :refund_id
 
-    # The flag that shows whether the original payment was a prepayment or not
-    # @return [TrueClass | FalseClass]
-    attr_accessor :prepayment
-
     # If true, the invoice is an advance invoice.
     # @return [TrueClass | FalseClass]
     attr_accessor :is_advance_invoice
@@ -169,6 +181,10 @@ module AdvancedBilling
       @_hash['debit_note_uid'] = 'debit_note_uid'
       @_hash['payment_method'] = 'payment_method'
       @_hash['transaction_id'] = 'transaction_id'
+      @_hash['parent_invoice_number'] = 'parent_invoice_number'
+      @_hash['remaining_prepayment_amount'] = 'remaining_prepayment_amount'
+      @_hash['prepayment'] = 'prepayment'
+      @_hash['external'] = 'external'
       @_hash['from_collection_method'] = 'from_collection_method'
       @_hash['to_collection_method'] = 'to_collection_method'
       @_hash['consolidation_level'] = 'consolidation_level'
@@ -181,7 +197,6 @@ module AdvancedBilling
       @_hash['payment_id'] = 'payment_id'
       @_hash['refund_amount'] = 'refund_amount'
       @_hash['refund_id'] = 'refund_id'
-      @_hash['prepayment'] = 'prepayment'
       @_hash['is_advance_invoice'] = 'is_advance_invoice'
       @_hash['reason'] = 'reason'
       @_hash
@@ -204,6 +219,10 @@ module AdvancedBilling
         debit_note_uid
         payment_method
         transaction_id
+        parent_invoice_number
+        remaining_prepayment_amount
+        prepayment
+        external
         from_collection_method
         to_collection_method
         consolidation_level
@@ -216,7 +235,6 @@ module AdvancedBilling
         payment_id
         refund_amount
         refund_id
-        prepayment
         is_advance_invoice
         reason
       ]
@@ -224,7 +242,10 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        parent_invoice_number
+        remaining_prepayment_amount
+      ]
     end
 
     def initialize(uid = SKIP,
@@ -241,6 +262,10 @@ module AdvancedBilling
                    debit_note_uid = SKIP,
                    payment_method = SKIP,
                    transaction_id = SKIP,
+                   parent_invoice_number = SKIP,
+                   remaining_prepayment_amount = SKIP,
+                   prepayment = SKIP,
+                   external = SKIP,
                    from_collection_method = SKIP,
                    to_collection_method = SKIP,
                    consolidation_level = SKIP,
@@ -253,7 +278,6 @@ module AdvancedBilling
                    payment_id = SKIP,
                    refund_amount = SKIP,
                    refund_id = SKIP,
-                   prepayment = SKIP,
                    is_advance_invoice = SKIP,
                    reason = SKIP)
       @uid = uid unless uid == SKIP
@@ -270,6 +294,13 @@ module AdvancedBilling
       @debit_note_uid = debit_note_uid unless debit_note_uid == SKIP
       @payment_method = payment_method unless payment_method == SKIP
       @transaction_id = transaction_id unless transaction_id == SKIP
+      @parent_invoice_number = parent_invoice_number unless parent_invoice_number == SKIP
+      unless remaining_prepayment_amount == SKIP
+        @remaining_prepayment_amount =
+          remaining_prepayment_amount
+      end
+      @prepayment = prepayment unless prepayment == SKIP
+      @external = external unless external == SKIP
       @from_collection_method = from_collection_method unless from_collection_method == SKIP
       @to_collection_method = to_collection_method unless to_collection_method == SKIP
       @consolidation_level = consolidation_level unless consolidation_level == SKIP
@@ -282,7 +313,6 @@ module AdvancedBilling
       @payment_id = payment_id unless payment_id == SKIP
       @refund_amount = refund_amount unless refund_amount == SKIP
       @refund_id = refund_id unless refund_id == SKIP
-      @prepayment = prepayment unless prepayment == SKIP
       @is_advance_invoice = is_advance_invoice unless is_advance_invoice == SKIP
       @reason = reason unless reason == SKIP
     end
@@ -325,10 +355,16 @@ module AdvancedBilling
       debit_note_uid =
         hash.key?('debit_note_uid') ? hash['debit_note_uid'] : SKIP
       payment_method = hash.key?('payment_method') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:InvoiceEvent1PaymentMethod), hash['payment_method']
+        UnionTypeLookUp.get(:InvoiceEventDataPaymentMethod), hash['payment_method']
       ) : SKIP
       transaction_id =
         hash.key?('transaction_id') ? hash['transaction_id'] : SKIP
+      parent_invoice_number =
+        hash.key?('parent_invoice_number') ? hash['parent_invoice_number'] : SKIP
+      remaining_prepayment_amount =
+        hash.key?('remaining_prepayment_amount') ? hash['remaining_prepayment_amount'] : SKIP
+      prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
+      external = hash.key?('external') ? hash['external'] : SKIP
       from_collection_method =
         hash.key?('from_collection_method') ? hash['from_collection_method'] : SKIP
       to_collection_method =
@@ -345,41 +381,43 @@ module AdvancedBilling
       payment_id = hash.key?('payment_id') ? hash['payment_id'] : SKIP
       refund_amount = hash.key?('refund_amount') ? hash['refund_amount'] : SKIP
       refund_id = hash.key?('refund_id') ? hash['refund_id'] : SKIP
-      prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
       is_advance_invoice =
         hash.key?('is_advance_invoice') ? hash['is_advance_invoice'] : SKIP
       reason = hash.key?('reason') ? hash['reason'] : SKIP
 
       # Create object from extracted values.
-      InvoiceEvent1.new(uid,
-                        credit_note_number,
-                        credit_note_uid,
-                        original_amount,
-                        applied_amount,
-                        transaction_time,
-                        memo,
-                        role,
-                        consolidated_invoice,
-                        applied_credit_notes,
-                        debit_note_number,
-                        debit_note_uid,
-                        payment_method,
-                        transaction_id,
-                        from_collection_method,
-                        to_collection_method,
-                        consolidation_level,
-                        from_status,
-                        to_status,
-                        due_amount,
-                        total_amount,
-                        apply_credit,
-                        credit_note_attributes,
-                        payment_id,
-                        refund_amount,
-                        refund_id,
-                        prepayment,
-                        is_advance_invoice,
-                        reason)
+      InvoiceEventData.new(uid,
+                           credit_note_number,
+                           credit_note_uid,
+                           original_amount,
+                           applied_amount,
+                           transaction_time,
+                           memo,
+                           role,
+                           consolidated_invoice,
+                           applied_credit_notes,
+                           debit_note_number,
+                           debit_note_uid,
+                           payment_method,
+                           transaction_id,
+                           parent_invoice_number,
+                           remaining_prepayment_amount,
+                           prepayment,
+                           external,
+                           from_collection_method,
+                           to_collection_method,
+                           consolidation_level,
+                           from_status,
+                           to_status,
+                           due_amount,
+                           total_amount,
+                           apply_credit,
+                           credit_note_attributes,
+                           payment_id,
+                           refund_amount,
+                           refund_id,
+                           is_advance_invoice,
+                           reason)
     end
 
     def to_custom_transaction_time
@@ -387,7 +425,7 @@ module AdvancedBilling
     end
 
     # Validates an instance of the object from a given value.
-    # @param [InvoiceEvent1 | Hash] The value against the validation is performed.
+    # @param [InvoiceEventData | Hash] The value against the validation is performed.
     def self.validate(value)
       return true if value.instance_of? self
 

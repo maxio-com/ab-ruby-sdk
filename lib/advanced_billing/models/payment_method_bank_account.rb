@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PaymentMethodBankAccountType Model.
-  class PaymentMethodBankAccountType < BaseModel
+  # PaymentMethodBankAccount Model.
+  class PaymentMethodBankAccount < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :masked_routing_number
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceEventPaymentMethod]
     attr_accessor :type
 
     # A mapping from model property names to API property names.
@@ -42,7 +42,7 @@ module AdvancedBilling
 
     def initialize(masked_account_number = nil,
                    masked_routing_number = nil,
-                   type = 'bank_account')
+                   type = nil)
       @masked_account_number = masked_account_number
       @masked_routing_number = masked_routing_number
       @type = type
@@ -57,16 +57,16 @@ module AdvancedBilling
         hash.key?('masked_account_number') ? hash['masked_account_number'] : nil
       masked_routing_number =
         hash.key?('masked_routing_number') ? hash['masked_routing_number'] : nil
-      type = hash['type'] ||= 'bank_account'
+      type = hash.key?('type') ? hash['type'] : nil
 
       # Create object from extracted values.
-      PaymentMethodBankAccountType.new(masked_account_number,
-                                       masked_routing_number,
-                                       type)
+      PaymentMethodBankAccount.new(masked_account_number,
+                                   masked_routing_number,
+                                   type)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [PaymentMethodBankAccountType | Hash] The value against the validation is performed.
+    # @param [PaymentMethodBankAccount | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
         return (
@@ -75,7 +75,7 @@ module AdvancedBilling
             APIHelper.valid_type?(value.masked_routing_number,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.type,
-                                  ->(val) { val.instance_of? String })
+                                  ->(val) { InvoiceEventPaymentMethod.validate(val) })
         )
       end
 
@@ -87,7 +87,7 @@ module AdvancedBilling
           APIHelper.valid_type?(value['masked_routing_number'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['type'],
-                                ->(val) { val.instance_of? String })
+                                ->(val) { InvoiceEventPaymentMethod.validate(val) })
       )
     end
   end

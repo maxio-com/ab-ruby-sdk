@@ -190,7 +190,7 @@ module AdvancedBilling
     # @param [String] subscription_id Required parameter: The Chargify id of the
     # subscription associated with the subscription group
     # @return [FullSubscriptionGroupResponse] response from the API call
-    def read_subscription_group_by_subscription_id(subscription_id)
+    def find_subscription_group(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/lookup.json',
@@ -242,8 +242,8 @@ module AdvancedBilling
     # the subscription
     # @param [AddSubscriptionToAGroup] body Optional parameter: Example:
     # @return [SubscriptionGroupResponse] response from the API call
-    def create_subscription_group_hierarchy(subscription_id,
-                                            body: nil)
+    def add_subscription_to_group(subscription_id,
+                                  body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/group.json',

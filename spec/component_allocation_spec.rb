@@ -27,7 +27,7 @@ RSpec.describe 'Component allocations' do
             'bar'
           ),
         ],
-        Date.iso8601((Date.today + 1).strftime("%Y-%m-%d"))
+        Date.iso8601((Date.today).strftime("%Y-%m-%d"))
       )
     ).allocation_preview
 
@@ -89,7 +89,7 @@ RSpec.describe 'Component allocations' do
               'bar'
             ),
           ],
-          Date.iso8601((Date.today + 1).strftime("%Y-%m-%d"))
+          Date.iso8601((Date.today).strftime("%Y-%m-%d"))
         )
       )
     }.to raise_error do |error|

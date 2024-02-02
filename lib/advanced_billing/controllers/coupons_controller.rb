@@ -149,8 +149,8 @@ module AdvancedBilling
     # the product family to which the coupon belongs
     # @param [String] code Optional parameter: The code of the coupon
     # @return [CouponResponse] response from the API call
-    def read_coupon_by_code(product_family_id: nil,
-                            code: nil)
+    def find_coupon(product_family_id: nil,
+                    code: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/find.json',
@@ -470,8 +470,8 @@ module AdvancedBilling
     # coupon
     # @param [CouponCurrencyRequest] body Optional parameter: Example:
     # @return [CouponCurrencyResponse] response from the API call
-    def update_coupon_currency_prices(coupon_id,
-                                      body: nil)
+    def create_or_update_coupon_currency_prices(coupon_id,
+                                                body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/coupons/{coupon_id}/currency_prices.json',

@@ -10,11 +10,11 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Object]
+    # @return [InvoicePayerChange]
     attr_accessor :before
 
     # TODO: Write general description for this method
-    # @return [Object]
+    # @return [InvoicePayerChange]
     attr_accessor :after
 
     # A mapping from model property names to API property names.
@@ -27,10 +27,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        before
-        after
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -38,10 +35,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(before = SKIP,
-                   after = SKIP)
-      @before = before unless before == SKIP
-      @after = after unless after == SKIP
+    def initialize(before = nil,
+                   after = nil)
+      @before = before
+      @after = after
     end
 
     # Creates an instance of the object from a hash.
@@ -49,12 +46,34 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      before = hash.key?('before') ? hash['before'] : SKIP
-      after = hash.key?('after') ? hash['after'] : SKIP
+      before = InvoicePayerChange.from_hash(hash['before']) if hash['before']
+      after = InvoicePayerChange.from_hash(hash['after']) if hash['after']
 
       # Create object from extracted values.
       CustomerPayerChange.new(before,
                               after)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [CustomerPayerChange | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.before,
+                                ->(val) { InvoicePayerChange.validate(val) }) and
+            APIHelper.valid_type?(value.after,
+                                  ->(val) { InvoicePayerChange.validate(val) })
+        )
+      end
+
+      return false unless value.instance_of? Hash
+
+      (
+        APIHelper.valid_type?(value['before'],
+                              ->(val) { InvoicePayerChange.validate(val) }) and
+          APIHelper.valid_type?(value['after'],
+                                ->(val) { InvoicePayerChange.validate(val) })
+      )
     end
   end
 end

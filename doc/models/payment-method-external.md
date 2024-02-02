@@ -1,9 +1,9 @@
 
-# Payment Method External Type
+# Payment Method External
 
 ## Structure
 
-`PaymentMethodExternalType`
+`PaymentMethodExternal`
 
 ## Fields
 
@@ -12,16 +12,16 @@
 | `details` | `String` | Required | - |
 | `kind` | `String` | Required | - |
 | `memo` | `String` | Required | - |
-| `type` | `String` | Required | **Default**: `'external'` |
+| `type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "details": "details0",
-  "kind": "kind8",
-  "memo": "memo4",
-  "type": "external"
+  "details": "details4",
+  "kind": "kind2",
+  "memo": "memo8",
+  "type": "bank_account"
 }
 ```
 

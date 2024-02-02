@@ -1056,7 +1056,7 @@ module AdvancedBilling
     # Use this endpoint to find a subscription by its reference.
     # @param [String] reference Optional parameter: Subscription reference
     # @return [SubscriptionResponse] response from the API call
-    def read_subscription_by_reference(reference: nil)
+    def find_subscription(reference: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/lookup.json',
@@ -1114,8 +1114,8 @@ module AdvancedBilling
     # @param [UpsertPrepaidConfigurationRequest] body Optional parameter:
     # Example:
     # @return [PrepaidConfigurationResponse] response from the API call
-    def create_prepaid_subscription(subscription_id,
-                                    body: nil)
+    def update_prepaid_subscription_configuration(subscription_id,
+                                                  body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/prepaid_configurations.json',
@@ -1206,9 +1206,9 @@ module AdvancedBilling
     # be applied to a subscription
     # @param [AddCouponsRequest] body Optional parameter: Example:
     # @return [SubscriptionResponse] response from the API call
-    def apply_coupon_to_subscription(subscription_id,
-                                     code: nil,
-                                     body: nil)
+    def apply_coupons_to_subscription(subscription_id,
+                                      code: nil,
+                                      body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/add_coupon.json',
@@ -1241,7 +1241,7 @@ module AdvancedBilling
     # the subscription
     # @param [String] coupon_code Optional parameter: The coupon code
     # @return [String] response from the API call
-    def delete_coupon_from_subscription(subscription_id,
+    def remove_coupon_from_subscription(subscription_id,
                                         coupon_code: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,

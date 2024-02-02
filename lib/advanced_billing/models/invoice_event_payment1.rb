@@ -5,7 +5,7 @@
 
 module AdvancedBilling
   # A nested data structure detailing the method of payment
-  class PaymentMethodNestedData1 < BaseModel
+  class InvoiceEventPayment1 < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -83,6 +83,8 @@ module AdvancedBilling
     def self.nullables
       %w[
         last_four
+        details
+        memo
       ]
     end
 
@@ -94,7 +96,7 @@ module AdvancedBilling
                    kind = nil,
                    memo = nil,
                    email = nil,
-                   type = 'Payment Method Nested Data1',
+                   type = 'Invoice Event Payment1',
                    card_expiration = SKIP,
                    last_four = SKIP)
       @type = type unless type == SKIP
@@ -126,23 +128,23 @@ module AdvancedBilling
       kind = hash.key?('kind') ? hash['kind'] : nil
       memo = hash.key?('memo') ? hash['memo'] : nil
       email = hash.key?('email') ? hash['email'] : nil
-      type = hash['type'] ||= 'Payment Method Nested Data1'
+      type = hash['type'] ||= 'Invoice Event Payment1'
       card_expiration =
         hash.key?('card_expiration') ? hash['card_expiration'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
 
       # Create object from extracted values.
-      PaymentMethodNestedData1.new(masked_account_number,
-                                   masked_routing_number,
-                                   card_brand,
-                                   masked_card_number,
-                                   details,
-                                   kind,
-                                   memo,
-                                   email,
-                                   type,
-                                   card_expiration,
-                                   last_four)
+      InvoiceEventPayment1.new(masked_account_number,
+                               masked_routing_number,
+                               card_brand,
+                               masked_card_number,
+                               details,
+                               kind,
+                               memo,
+                               email,
+                               type,
+                               card_expiration,
+                               last_four)
     end
   end
 end

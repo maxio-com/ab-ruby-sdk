@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PaymentMethodPaypalType Model.
-  class PaymentMethodPaypalType < BaseModel
+  # PaymentMethodPaypal Model.
+  class PaymentMethodPaypal < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :email
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceEventPaymentMethod]
     attr_accessor :type
 
     # A mapping from model property names to API property names.
@@ -36,7 +36,7 @@ module AdvancedBilling
     end
 
     def initialize(email = nil,
-                   type = 'paypal_account')
+                   type = nil)
       @email = email
       @type = type
     end
@@ -47,22 +47,22 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       email = hash.key?('email') ? hash['email'] : nil
-      type = hash['type'] ||= 'paypal_account'
+      type = hash.key?('type') ? hash['type'] : nil
 
       # Create object from extracted values.
-      PaymentMethodPaypalType.new(email,
-                                  type)
+      PaymentMethodPaypal.new(email,
+                              type)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [PaymentMethodPaypalType | Hash] The value against the validation is performed.
+    # @param [PaymentMethodPaypal | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
         return (
           APIHelper.valid_type?(value.email,
                                 ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.type,
-                                  ->(val) { val.instance_of? String })
+                                  ->(val) { InvoiceEventPaymentMethod.validate(val) })
         )
       end
 
@@ -72,7 +72,7 @@ module AdvancedBilling
         APIHelper.valid_type?(value['email'],
                               ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['type'],
-                                ->(val) { val.instance_of? String })
+                                ->(val) { InvoiceEventPaymentMethod.validate(val) })
       )
     end
   end

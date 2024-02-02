@@ -234,7 +234,7 @@ module AdvancedBilling
     # @param [String] handle Required parameter: The handle of the component to
     # find
     # @return [ComponentResponse] response from the API call
-    def read_component_by_handle(handle)
+    def find_component(handle)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/lookup.json',
@@ -258,8 +258,8 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: Either the Chargify id of
     # the component or the handle for the component prefixed with `handle:`
     # @return [ComponentResponse] response from the API call
-    def read_component_by_id(product_family_id,
-                             component_id)
+    def read_component(product_family_id,
+                       component_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
@@ -460,7 +460,7 @@ module AdvancedBilling
     # @param [Integer] price_point_id Required parameter: The Chargify id of the
     # price point
     # @return [ComponentResponse] response from the API call
-    def update_default_price_point_for_component(component_id,
+    def promote_component_price_point_to_default(component_id,
                                                  price_point_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -639,8 +639,8 @@ module AdvancedBilling
     # @param [CreateComponentPricePointsRequest] body Optional parameter:
     # Example:
     # @return [ComponentPricePointsResponse] response from the API call
-    def create_component_price_points(component_id,
-                                      body: nil)
+    def bulk_create_component_price_points(component_id,
+                                           body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points/bulk.json',

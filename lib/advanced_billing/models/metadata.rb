@@ -60,7 +60,11 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        id
+        value
+        resource_id
         deleted_at
+        metafield_id
       ]
     end
 

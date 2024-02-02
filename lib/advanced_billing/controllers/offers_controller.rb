@@ -78,7 +78,7 @@ module AdvancedBilling
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
     # @return [OfferResponse] response from the API call
-    def read_offers(offer_id)
+    def read_offer(offer_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/offers/{offer_id}.json',

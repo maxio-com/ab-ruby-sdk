@@ -12,8 +12,8 @@ subscription_group_invoice_account_controller = client.subscription_group_invoic
 
 * [Create Subscription Group Prepayment](../../doc/controllers/subscription-group-invoice-account.md#create-subscription-group-prepayment)
 * [List Prepayments for Subscription Group](../../doc/controllers/subscription-group-invoice-account.md#list-prepayments-for-subscription-group)
-* [Issue Subscription Group Service Credits](../../doc/controllers/subscription-group-invoice-account.md#issue-subscription-group-service-credits)
-* [Deduct Subscription Group Service Credits](../../doc/controllers/subscription-group-invoice-account.md#deduct-subscription-group-service-credits)
+* [Issue Subscription Group Service Credit](../../doc/controllers/subscription-group-invoice-account.md#issue-subscription-group-service-credit)
+* [Deduct Subscription Group Service Credit](../../doc/controllers/subscription-group-invoice-account.md#deduct-subscription-group-service-credit)
 
 
 # Create Subscription Group Prepayment
@@ -127,13 +127,13 @@ result = subscription_group_invoice_account_controller.list_prepayments_for_subs
 | 404 | Not Found | `APIException` |
 
 
-# Issue Subscription Group Service Credits
+# Issue Subscription Group Service Credit
 
 Credit can be issued for a subscription group identified by the group's `uid`. Credit will be added to the group in the amount specified in the request body. The credit will be applied to group member invoices as they are generated.
 
 ```ruby
-def issue_subscription_group_service_credits(uid,
-                                             body: nil)
+def issue_subscription_group_service_credit(uid,
+                                            body: nil)
 ```
 
 ## Parameters
@@ -159,7 +159,7 @@ body = IssueServiceCreditRequest.new(
   )
 )
 
-result = subscription_group_invoice_account_controller.issue_subscription_group_service_credits(
+result = subscription_group_invoice_account_controller.issue_subscription_group_service_credit(
   uid,
   body: body
 )
@@ -186,13 +186,13 @@ result = subscription_group_invoice_account_controller.issue_subscription_group_
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Deduct Subscription Group Service Credits
+# Deduct Subscription Group Service Credit
 
 Credit can be deducted for a subscription group identified by the group's `uid`. Credit will be deducted from the group in the amount specified in the request body.
 
 ```ruby
-def deduct_subscription_group_service_credits(uid,
-                                              body: nil)
+def deduct_subscription_group_service_credit(uid,
+                                             body: nil)
 ```
 
 ## Parameters
@@ -218,7 +218,7 @@ body = DeductServiceCreditRequest.new(
   )
 )
 
-result = subscription_group_invoice_account_controller.deduct_subscription_group_service_credits(
+result = subscription_group_invoice_account_controller.deduct_subscription_group_service_credit(
   uid,
   body: body
 )

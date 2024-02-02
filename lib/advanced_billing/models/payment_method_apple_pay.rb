@@ -4,13 +4,13 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PaymentMethodApplePayType Model.
-  class PaymentMethodApplePayType < BaseModel
+  # PaymentMethodApplePay Model.
+  class PaymentMethodApplePay < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceEventPaymentMethod]
     attr_accessor :type
 
     # A mapping from model property names to API property names.
@@ -22,9 +22,7 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      %w[
-        type
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -32,8 +30,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(type = 'apple_pay')
-      @type = type unless type == SKIP
+    def initialize(type = nil)
+      @type = type
     end
 
     # Creates an instance of the object from a hash.
@@ -41,20 +39,24 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      type = hash['type'] ||= 'apple_pay'
+      type = hash.key?('type') ? hash['type'] : nil
 
       # Create object from extracted values.
-      PaymentMethodApplePayType.new(type)
+      PaymentMethodApplePay.new(type)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [PaymentMethodApplePayType | Hash] The value against the validation is performed.
+    # @param [PaymentMethodApplePay | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return APIHelper.valid_type?(value.type,
+                                     ->(val) { InvoiceEventPaymentMethod.validate(val) })
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      APIHelper.valid_type?(value['type'],
+                            ->(val) { InvoiceEventPaymentMethod.validate(val) })
     end
   end
 end

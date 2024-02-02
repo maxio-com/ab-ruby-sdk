@@ -15,17 +15,17 @@ components_controller = client.components
 * [Create on Off Component](../../doc/controllers/components.md#create-on-off-component)
 * [Create Prepaid Usage Component](../../doc/controllers/components.md#create-prepaid-usage-component)
 * [Create Event Based Component](../../doc/controllers/components.md#create-event-based-component)
-* [Read Component by Handle](../../doc/controllers/components.md#read-component-by-handle)
-* [Read Component by Id](../../doc/controllers/components.md#read-component-by-id)
+* [Find Component](../../doc/controllers/components.md#find-component)
+* [Read Component](../../doc/controllers/components.md#read-component)
 * [Update Product Family Component](../../doc/controllers/components.md#update-product-family-component)
 * [Archive Component](../../doc/controllers/components.md#archive-component)
 * [List Components](../../doc/controllers/components.md#list-components)
 * [Update Component](../../doc/controllers/components.md#update-component)
-* [Update Default Price Point for Component](../../doc/controllers/components.md#update-default-price-point-for-component)
+* [Promote Component Price Point to Default](../../doc/controllers/components.md#promote-component-price-point-to-default)
 * [List Components for Product Family](../../doc/controllers/components.md#list-components-for-product-family)
 * [Create Component Price Point](../../doc/controllers/components.md#create-component-price-point)
 * [List Component Price Points](../../doc/controllers/components.md#list-component-price-points)
-* [Create Component Price Points](../../doc/controllers/components.md#create-component-price-points)
+* [Bulk Create Component Price Points](../../doc/controllers/components.md#bulk-create-component-price-points)
 * [Update Component Price Point](../../doc/controllers/components.md#update-component-price-point)
 * [Archive Component Price Point](../../doc/controllers/components.md#archive-component-price-point)
 * [Unarchive Component Price Point](../../doc/controllers/components.md#unarchive-component-price-point)
@@ -627,12 +627,12 @@ result = components_controller.create_event_based_component(
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Read Component by Handle
+# Find Component
 
 This request will return information regarding a component having the handle you provide. You can identify your components with a handle so you don't have to save or reference the IDs we generate.
 
 ```ruby
-def read_component_by_handle(handle)
+def find_component(handle)
 ```
 
 ## Parameters
@@ -650,7 +650,7 @@ def read_component_by_handle(handle)
 ```ruby
 handle = 'handle6'
 
-result = components_controller.read_component_by_handle(handle)
+result = components_controller.find_component(handle)
 ```
 
 ## Example Response *(as JSON)*
@@ -684,15 +684,15 @@ result = components_controller.read_component_by_handle(handle)
 ```
 
 
-# Read Component by Id
+# Read Component
 
 This request will return information regarding a component from a specific product family.
 
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
 ```ruby
-def read_component_by_id(product_family_id,
-                         component_id)
+def read_component(product_family_id,
+                   component_id)
 ```
 
 ## Parameters
@@ -713,7 +713,7 @@ product_family_id = 140
 
 component_id = 'component_id8'
 
-result = components_controller.read_component_by_id(
+result = components_controller.read_component(
   product_family_id,
   component_id
 )
@@ -1121,7 +1121,7 @@ result = components_controller.update_component(
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Update Default Price Point for Component
+# Promote Component Price Point to Default
 
 Sets a new default price point for the component. This new default will apply to all new subscriptions going forward - existing subscriptions will remain on their current price point.
 
@@ -1130,7 +1130,7 @@ See [Price Points Documentation](https://chargify.zendesk.com/hc/en-us/articles/
 Note: Custom price points are not able to be set as the default for a component.
 
 ```ruby
-def update_default_price_point_for_component(component_id,
+def promote_component_price_point_to_default(component_id,
                                              price_point_id)
 ```
 
@@ -1152,7 +1152,7 @@ component_id = 222
 
 price_point_id = 10
 
-result = components_controller.update_default_price_point_for_component(
+result = components_controller.promote_component_price_point_to_default(
   component_id,
   price_point_id
 )
@@ -1472,13 +1472,13 @@ result = components_controller.list_component_price_points(collect)
 ```
 
 
-# Create Component Price Points
+# Bulk Create Component Price Points
 
 Use this endpoint to create multiple component price points in one request.
 
 ```ruby
-def create_component_price_points(component_id,
-                                  body: nil)
+def bulk_create_component_price_points(component_id,
+                                       body: nil)
 ```
 
 ## Parameters
@@ -1535,7 +1535,7 @@ body = CreateComponentPricePointsRequest.new(
   ]
 )
 
-result = components_controller.create_component_price_points(
+result = components_controller.bulk_create_component_price_points(
   component_id,
   body: body
 )

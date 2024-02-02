@@ -165,7 +165,7 @@ module AdvancedBilling
 
     # Information about the customer who is owner or recipient the invoiced
     # subscription.
-    # @return [Array[ProformaCustomField]]
+    # @return [Array[InvoiceCustomField]]
     attr_accessor :custom_fields
 
     # Information about the customer who is owner or recipient the invoiced
@@ -435,7 +435,7 @@ module AdvancedBilling
       unless hash['custom_fields'].nil?
         custom_fields = []
         hash['custom_fields'].each do |structure|
-          custom_fields << (ProformaCustomField.from_hash(structure) if structure)
+          custom_fields << (InvoiceCustomField.from_hash(structure) if structure)
         end
       end
 

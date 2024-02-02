@@ -9,19 +9,21 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `name` | `String` | Optional | - |
-| `value` | `String` | Optional | - |
 | `owner_id` | `Integer` | Optional | - |
-| `owner_type` | `String` | Optional | - |
+| `owner_type` | [`CustomFieldOwner`](../../doc/models/custom-field-owner.md) | Optional | - |
+| `name` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
+| `value` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
+| `metadatum_id` | `Integer` | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
+  "owner_id": 142,
+  "owner_type": "Customer",
   "name": "name0",
   "value": "value2",
-  "owner_id": 142,
-  "owner_type": "owner_type2"
+  "metadatum_id": 142
 }
 ```
 
