@@ -7,7 +7,7 @@ module Factories
         'customer_id' => customer.id,
         'next_billing_at' => nil,
         'currency' => 'USD',
-        'initial_billing_at' => (Date.today + 1).to_s,
+        'initial_billing_at' => Date.today + 1,
         'payment_profile_attributes' => {
           'first_name' => 'Joe',
           'last_name' => 'Smith',
