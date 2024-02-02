@@ -7,7 +7,7 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
       metafields = client.custom_fields.list_metafields('resource_type' => type).metafields
       while !metafields.empty?
         metafields.each do |m|
-          client.custom_fields.delete_metafield(type, m.name)
+          client.custom_fields.delete_metafield(type, name: m.name)
         end
         metafields = client.custom_fields.list_metafields('resource_type' => type).metafields
       end
