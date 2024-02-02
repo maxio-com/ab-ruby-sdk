@@ -282,8 +282,8 @@ module AdvancedBilling
     # @param [BulkCreateProductPricePointsRequest] body Optional parameter:
     # Example:
     # @return [BulkCreateProductPricePointsResponse] response from the API call
-    def create_product_price_points(product_id,
-                                    body: nil)
+    def bulk_create_product_price_points(product_id,
+                                         body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/products/{product_id}/price_points/bulk.json',

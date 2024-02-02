@@ -10,6 +10,14 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
+    # @return [Integer]
+    attr_accessor :owner_id
+
+    # TODO: Write general description for this method
+    # @return [CustomFieldOwner]
+    attr_accessor :owner_type
+
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :name
 
@@ -19,29 +27,27 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [Integer]
-    attr_accessor :owner_id
-
-    # TODO: Write general description for this method
-    # @return [String]
-    attr_accessor :owner_type
+    attr_accessor :metadatum_id
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['name'] = 'name'
-      @_hash['value'] = 'value'
       @_hash['owner_id'] = 'owner_id'
       @_hash['owner_type'] = 'owner_type'
+      @_hash['name'] = 'name'
+      @_hash['value'] = 'value'
+      @_hash['metadatum_id'] = 'metadatum_id'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
       %w[
-        name
-        value
         owner_id
         owner_type
+        name
+        value
+        metadatum_id
       ]
     end
 
@@ -50,14 +56,16 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = SKIP,
+    def initialize(owner_id = SKIP,
+                   owner_type = SKIP,
+                   name = SKIP,
                    value = SKIP,
-                   owner_id = SKIP,
-                   owner_type = SKIP)
-      @name = name unless name == SKIP
-      @value = value unless value == SKIP
+                   metadatum_id = SKIP)
       @owner_id = owner_id unless owner_id == SKIP
       @owner_type = owner_type unless owner_type == SKIP
+      @name = name unless name == SKIP
+      @value = value unless value == SKIP
+      @metadatum_id = metadatum_id unless metadatum_id == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -65,16 +73,18 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      name = hash.key?('name') ? hash['name'] : SKIP
-      value = hash.key?('value') ? hash['value'] : SKIP
       owner_id = hash.key?('owner_id') ? hash['owner_id'] : SKIP
       owner_type = hash.key?('owner_type') ? hash['owner_type'] : SKIP
+      name = hash.key?('name') ? hash['name'] : SKIP
+      value = hash.key?('value') ? hash['value'] : SKIP
+      metadatum_id = hash.key?('metadatum_id') ? hash['metadatum_id'] : SKIP
 
       # Create object from extracted values.
-      InvoiceCustomField.new(name,
+      InvoiceCustomField.new(owner_id,
+                             owner_type,
+                             name,
                              value,
-                             owner_id,
-                             owner_type)
+                             metadatum_id)
     end
   end
 end

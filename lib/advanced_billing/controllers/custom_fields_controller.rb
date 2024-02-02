@@ -303,7 +303,11 @@ module AdvancedBilling
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Metadata.method(:from_hash))
-                   .is_response_array(true))
+                   .is_response_array(true)
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         SingleErrorResponseException))
         .execute
     end
 
@@ -387,20 +391,21 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search.
-    # @param [String] start_date Optional parameter: The start date (format
+    # @param [Date] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns metadata with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
     # the date specified.
-    # @param [String] end_date Optional parameter: The end date (format
+    # @param [Date] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns metadata with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [String] start_datetime Optional parameter: The start date and time
-    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
-    # metadata with a timestamp at or after exact time provided in query. You
-    # can specify timezone in query - otherwise your site's time zone will be
-    # used. If provided, this parameter will be used instead of start_date.
-    # @param [String] end_datetime Optional parameter: The end date and time
+    # @param [DateTime] start_datetime Optional parameter: The start date and
+    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns metadata with a timestamp at or after exact time provided in
+    # query. You can specify timezone in query - otherwise your site's time zone
+    # will be used. If provided, this parameter will be used instead of
+    # start_date.
+    # @param [DateTime] end_datetime Optional parameter: The end date and time
     # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
     # metadata with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be

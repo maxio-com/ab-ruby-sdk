@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PaymentMethodCreditCardType Model.
-  class PaymentMethodCreditCardType < BaseModel
+  # PaymentMethodCreditCard Model.
+  class PaymentMethodCreditCard < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -26,7 +26,7 @@ module AdvancedBilling
     attr_accessor :masked_card_number
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceEventPaymentMethod]
     attr_accessor :type
 
     # A mapping from model property names to API property names.
@@ -57,7 +57,7 @@ module AdvancedBilling
 
     def initialize(card_brand = nil,
                    masked_card_number = nil,
-                   type = 'credit_card',
+                   type = nil,
                    card_expiration = SKIP,
                    last_four = SKIP)
       @card_brand = card_brand
@@ -75,21 +75,21 @@ module AdvancedBilling
       card_brand = hash.key?('card_brand') ? hash['card_brand'] : nil
       masked_card_number =
         hash.key?('masked_card_number') ? hash['masked_card_number'] : nil
-      type = hash['type'] ||= 'credit_card'
+      type = hash.key?('type') ? hash['type'] : nil
       card_expiration =
         hash.key?('card_expiration') ? hash['card_expiration'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
 
       # Create object from extracted values.
-      PaymentMethodCreditCardType.new(card_brand,
-                                      masked_card_number,
-                                      type,
-                                      card_expiration,
-                                      last_four)
+      PaymentMethodCreditCard.new(card_brand,
+                                  masked_card_number,
+                                  type,
+                                  card_expiration,
+                                  last_four)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [PaymentMethodCreditCardType | Hash] The value against the validation is performed.
+    # @param [PaymentMethodCreditCard | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
         return (
@@ -98,7 +98,7 @@ module AdvancedBilling
             APIHelper.valid_type?(value.masked_card_number,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.type,
-                                  ->(val) { val.instance_of? String })
+                                  ->(val) { InvoiceEventPaymentMethod.validate(val) })
         )
       end
 
@@ -110,7 +110,7 @@ module AdvancedBilling
           APIHelper.valid_type?(value['masked_card_number'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['type'],
-                                ->(val) { val.instance_of? String })
+                                ->(val) { InvoiceEventPaymentMethod.validate(val) })
       )
     end
   end

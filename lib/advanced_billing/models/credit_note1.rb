@@ -43,7 +43,7 @@ module AdvancedBilling
     # the credit was made available for application, and may come before it is
     # fully applied.
     # The format is `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :issue_date
 
     # Credit notes are applied to invoices to offset invoiced amounts - they
@@ -52,7 +52,7 @@ module AdvancedBilling
     # If the credit note has been partially applied, this field will not have a
     # value until it has been fully applied.
     # The format is `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :applied_date
 
     # Current status of the credit note.

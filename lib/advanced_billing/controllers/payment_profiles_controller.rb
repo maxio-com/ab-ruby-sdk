@@ -612,7 +612,7 @@ module AdvancedBilling
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [PaymentProfileResponse] response from the API call
-    def update_subscription_default_payment_profile(subscription_id,
+    def change_subscription_default_payment_profile(subscription_id,
                                                     payment_profile_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -650,7 +650,7 @@ module AdvancedBilling
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [PaymentProfileResponse] response from the API call
-    def update_subscription_group_default_payment_profile(uid,
+    def change_subscription_group_default_payment_profile(uid,
                                                           payment_profile_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,

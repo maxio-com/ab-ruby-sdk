@@ -12,20 +12,20 @@ subscription_components_controller = client.subscription_components
 
 * [Read Subscription Component](../../doc/controllers/subscription-components.md#read-subscription-component)
 * [List Subscription Components](../../doc/controllers/subscription-components.md#list-subscription-components)
-* [Update Subscription Components Price Points](../../doc/controllers/subscription-components.md#update-subscription-components-price-points)
-* [Reset Subscription Components Price Points](../../doc/controllers/subscription-components.md#reset-subscription-components-price-points)
+* [Bulk Update Subscription Components Price Points](../../doc/controllers/subscription-components.md#bulk-update-subscription-components-price-points)
+* [Bulk Reset Subscription Components Price Points](../../doc/controllers/subscription-components.md#bulk-reset-subscription-components-price-points)
 * [Allocate Component](../../doc/controllers/subscription-components.md#allocate-component)
 * [List Allocations](../../doc/controllers/subscription-components.md#list-allocations)
 * [Allocate Components](../../doc/controllers/subscription-components.md#allocate-components)
 * [Preview Allocations](../../doc/controllers/subscription-components.md#preview-allocations)
-* [Update Prepaid Usage Allocation](../../doc/controllers/subscription-components.md#update-prepaid-usage-allocation)
+* [Update Prepaid Usage Allocation Expiration Date](../../doc/controllers/subscription-components.md#update-prepaid-usage-allocation-expiration-date)
 * [Delete Prepaid Usage Allocation](../../doc/controllers/subscription-components.md#delete-prepaid-usage-allocation)
 * [Create Usage](../../doc/controllers/subscription-components.md#create-usage)
 * [List Usages](../../doc/controllers/subscription-components.md#list-usages)
 * [Activate Event Based Component](../../doc/controllers/subscription-components.md#activate-event-based-component)
 * [Deactivate Event Based Component](../../doc/controllers/subscription-components.md#deactivate-event-based-component)
 * [Record Event](../../doc/controllers/subscription-components.md#record-event)
-* [Record Events](../../doc/controllers/subscription-components.md#record-events)
+* [Bulk Record Events](../../doc/controllers/subscription-components.md#bulk-record-events)
 * [List Subscription Components for Site](../../doc/controllers/subscription-components.md#list-subscription-components-for-site)
 
 
@@ -171,7 +171,7 @@ result = subscription_components_controller.list_subscription_components(collect
 ```
 
 
-# Update Subscription Components Price Points
+# Bulk Update Subscription Components Price Points
 
 Updates the price points on one or more of a subscription's components.
 
@@ -182,8 +182,8 @@ The `price_point` key can take either a:
 3. `"_default"` string, which will reset the price point to the component's current default price point.
 
 ```ruby
-def update_subscription_components_price_points(subscription_id,
-                                                body: nil)
+def bulk_update_subscription_components_price_points(subscription_id,
+                                                     body: nil)
 ```
 
 ## Parameters
@@ -219,7 +219,7 @@ body = BulkComponentSPricePointAssignment.new(
   ]
 )
 
-result = subscription_components_controller.update_subscription_components_price_points(
+result = subscription_components_controller.bulk_update_subscription_components_price_points(
   subscription_id,
   body: body
 )
@@ -249,14 +249,14 @@ result = subscription_components_controller.update_subscription_components_price
 | 422 | Unprocessable Entity (WebDAV) | [`ComponentPricePointErrorException`](../../doc/models/component-price-point-error-exception.md) |
 
 
-# Reset Subscription Components Price Points
+# Bulk Reset Subscription Components Price Points
 
 Resets all of a subscription's components to use the current default.
 
 **Note**: this will update the price point for all of the subscription's components, even ones that have not been allocated yet.
 
 ```ruby
-def reset_subscription_components_price_points(subscription_id)
+def bulk_reset_subscription_components_price_points(subscription_id)
 ```
 
 ## Parameters
@@ -274,7 +274,7 @@ def reset_subscription_components_price_points(subscription_id)
 ```ruby
 subscription_id = 222
 
-result = subscription_components_controller.reset_subscription_components_price_points(subscription_id)
+result = subscription_components_controller.bulk_reset_subscription_components_price_points(subscription_id)
 ```
 
 ## Example Response *(as JSON)*
@@ -870,7 +870,7 @@ result = subscription_components_controller.preview_allocations(
 | 422 | Unprocessable Entity (WebDAV) | [`ComponentAllocationErrorException`](../../doc/models/component-allocation-error-exception.md) |
 
 
-# Update Prepaid Usage Allocation
+# Update Prepaid Usage Allocation Expiration Date
 
 When the expiration interval options are selected on a prepaid usage component price point, all allocations will be created with an expiration date. This expiration date can be changed after the fact to allow for extending or shortening the allocation's active window.
 
@@ -885,10 +885,10 @@ A few limitations exist when changing an allocation's expiration date:
 - An expiration date can be changed towards the past (essentially expiring it) up to the subscription's current period beginning date.
 
 ```ruby
-def update_prepaid_usage_allocation(subscription_id,
-                                    component_id,
-                                    allocation_id,
-                                    body: nil)
+def update_prepaid_usage_allocation_expiration_date(subscription_id,
+                                                    component_id,
+                                                    allocation_id,
+                                                    body: nil)
 ```
 
 ## Parameters
@@ -919,7 +919,7 @@ body = UpdateAllocationExpirationDate.new(
   )
 )
 
-subscription_components_controller.update_prepaid_usage_allocation(
+subscription_components_controller.update_prepaid_usage_allocation_expiration_date(
   subscription_id,
   component_id,
   allocation_id,
@@ -1342,7 +1342,7 @@ subscription_components_controller.record_event(
 ```
 
 
-# Record Events
+# Bulk Record Events
 
 Use this endpoint to record a collection of events.
 
@@ -1351,10 +1351,10 @@ Use this endpoint to record a collection of events.
 A maximum of 1000 events can be published in a single request. A 422 will be returned if this limit is exceeded.
 
 ```ruby
-def record_events(subdomain,
-                  api_handle,
-                  store_uid: nil,
-                  body: nil)
+def bulk_record_events(subdomain,
+                       api_handle,
+                       store_uid: nil,
+                       body: nil)
 ```
 
 ## Parameters
@@ -1389,7 +1389,7 @@ body = [
   )
 ]
 
-subscription_components_controller.record_events(
+subscription_components_controller.bulk_record_events(
   subdomain,
   api_handle,
   body: body

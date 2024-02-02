@@ -74,7 +74,7 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The uid of the subscription
     # group
     # @return [void] response from the API call
-    def stop_delayed_cancellation_for_group(uid)
+    def cancel_delayed_cancellation_for_group(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscription_groups/{uid}/delayed_cancel.json',

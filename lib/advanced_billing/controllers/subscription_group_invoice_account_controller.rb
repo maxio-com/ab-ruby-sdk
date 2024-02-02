@@ -97,8 +97,8 @@ module AdvancedBilling
     # group
     # @param [IssueServiceCreditRequest] body Optional parameter: Example:
     # @return [ServiceCreditResponse] response from the API call
-    def issue_subscription_group_service_credits(uid,
-                                                 body: nil)
+    def issue_subscription_group_service_credit(uid,
+                                                body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/service_credits.json',
@@ -128,8 +128,8 @@ module AdvancedBilling
     # group
     # @param [DeductServiceCreditRequest] body Optional parameter: Example:
     # @return [ServiceCredit] response from the API call
-    def deduct_subscription_group_service_credits(uid,
-                                                  body: nil)
+    def deduct_subscription_group_service_credit(uid,
+                                                 body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/service_credit_deductions.json',

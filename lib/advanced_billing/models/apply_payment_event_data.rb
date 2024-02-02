@@ -36,12 +36,28 @@ module AdvancedBilling
     attr_accessor :transaction_time
 
     # A nested data structure detailing the method of payment
-    # @return [PaymentMethodNestedData]
+    # @return [InvoiceEventPayment]
     attr_accessor :payment_method
 
     # The Chargify id of the original payment
     # @return [Integer]
     attr_accessor :transaction_id
+
+    # The Chargify id of the original payment
+    # @return [Integer]
+    attr_accessor :parent_invoice_number
+
+    # The Chargify id of the original payment
+    # @return [String]
+    attr_accessor :remaining_prepayment_amount
+
+    # The Chargify id of the original payment
+    # @return [TrueClass | FalseClass]
+    attr_accessor :prepayment
+
+    # The Chargify id of the original payment
+    # @return [TrueClass | FalseClass]
+    attr_accessor :external
 
     # A mapping from model property names to API property names.
     def self.names
@@ -52,6 +68,10 @@ module AdvancedBilling
       @_hash['transaction_time'] = 'transaction_time'
       @_hash['payment_method'] = 'payment_method'
       @_hash['transaction_id'] = 'transaction_id'
+      @_hash['parent_invoice_number'] = 'parent_invoice_number'
+      @_hash['remaining_prepayment_amount'] = 'remaining_prepayment_amount'
+      @_hash['prepayment'] = 'prepayment'
+      @_hash['external'] = 'external'
       @_hash
     end
 
@@ -59,12 +79,19 @@ module AdvancedBilling
     def self.optionals
       %w[
         transaction_id
+        parent_invoice_number
+        remaining_prepayment_amount
+        prepayment
+        external
       ]
     end
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        parent_invoice_number
+        remaining_prepayment_amount
+      ]
     end
 
     def initialize(memo = nil,
@@ -72,13 +99,24 @@ module AdvancedBilling
                    applied_amount = nil,
                    transaction_time = nil,
                    payment_method = nil,
-                   transaction_id = SKIP)
+                   transaction_id = SKIP,
+                   parent_invoice_number = SKIP,
+                   remaining_prepayment_amount = SKIP,
+                   prepayment = SKIP,
+                   external = SKIP)
       @memo = memo
       @original_amount = original_amount
       @applied_amount = applied_amount
       @transaction_time = transaction_time
       @payment_method = payment_method
       @transaction_id = transaction_id unless transaction_id == SKIP
+      @parent_invoice_number = parent_invoice_number unless parent_invoice_number == SKIP
+      unless remaining_prepayment_amount == SKIP
+        @remaining_prepayment_amount =
+          remaining_prepayment_amount
+      end
+      @prepayment = prepayment unless prepayment == SKIP
+      @external = external unless external == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -95,10 +133,16 @@ module AdvancedBilling
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
                          end
       payment_method = hash.key?('payment_method') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ApplyPaymentEventDataPaymentMethod), hash['payment_method']
+        UnionTypeLookUp.get(:InvoiceEventPayment), hash['payment_method']
       ) : nil
       transaction_id =
         hash.key?('transaction_id') ? hash['transaction_id'] : SKIP
+      parent_invoice_number =
+        hash.key?('parent_invoice_number') ? hash['parent_invoice_number'] : SKIP
+      remaining_prepayment_amount =
+        hash.key?('remaining_prepayment_amount') ? hash['remaining_prepayment_amount'] : SKIP
+      prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
+      external = hash.key?('external') ? hash['external'] : SKIP
 
       # Create object from extracted values.
       ApplyPaymentEventData.new(memo,
@@ -106,7 +150,11 @@ module AdvancedBilling
                                 applied_amount,
                                 transaction_time,
                                 payment_method,
-                                transaction_id)
+                                transaction_id,
+                                parent_invoice_number,
+                                remaining_prepayment_amount,
+                                prepayment,
+                                external)
     end
 
     def to_custom_transaction_time
@@ -126,7 +174,7 @@ module AdvancedBilling
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.transaction_time,
                                   ->(val) { val.instance_of? DateTime }) and
-            UnionTypeLookUp.get(:ApplyPaymentEventDataPaymentMethod)
+            UnionTypeLookUp.get(:InvoiceEventPayment)
                            .validate(value.payment_method)
         )
       end
@@ -142,7 +190,7 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['transaction_time'],
                                 ->(val) { val.instance_of? String }) and
-          UnionTypeLookUp.get(:ApplyPaymentEventDataPaymentMethod)
+          UnionTypeLookUp.get(:InvoiceEventPayment)
                          .validate(value['payment_method'])
       )
     end

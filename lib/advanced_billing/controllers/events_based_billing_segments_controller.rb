@@ -219,9 +219,9 @@ module AdvancedBilling
     # Price Point belonging to the Component
     # @param [BulkCreateSegments] body Optional parameter: Example:
     # @return [ListSegmentsResponse] response from the API call
-    def create_segments(component_id,
-                        price_point_id,
-                        body: nil)
+    def bulk_create_segments(component_id,
+                             price_point_id,
+                             body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/bulk.json',
@@ -264,9 +264,9 @@ module AdvancedBilling
     # Price Point belonging to the Component
     # @param [BulkUpdateSegments] body Optional parameter: Example:
     # @return [ListSegmentsResponse] response from the API call
-    def update_segments(component_id,
-                        price_point_id,
-                        body: nil)
+    def bulk_update_segments(component_id,
+                             price_point_id,
+                             body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/bulk.json',

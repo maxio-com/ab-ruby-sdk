@@ -126,8 +126,8 @@ module AdvancedBilling
     # @param [BulkComponentSPricePointAssignment] body Optional parameter:
     # Example:
     # @return [BulkComponentSPricePointAssignment] response from the API call
-    def update_subscription_components_price_points(subscription_id,
-                                                    body: nil)
+    def bulk_update_subscription_components_price_points(subscription_id,
+                                                         body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/price_points.json',
@@ -156,7 +156,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @return [SubscriptionResponse] response from the API call
-    def reset_subscription_components_price_points(subscription_id)
+    def bulk_reset_subscription_components_price_points(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/price_points/reset.json',
@@ -435,10 +435,10 @@ module AdvancedBilling
     # @param [UpdateAllocationExpirationDate] body Optional parameter:
     # Example:
     # @return [void] response from the API call
-    def update_prepaid_usage_allocation(subscription_id,
-                                        component_id,
-                                        allocation_id,
-                                        body: nil)
+    def update_prepaid_usage_allocation_expiration_date(subscription_id,
+                                                        component_id,
+                                                        allocation_id,
+                                                        body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json',
@@ -823,10 +823,10 @@ module AdvancedBilling
     # indicate the data-store.
     # @param [Array[EBBEvent]] body Optional parameter: Example:
     # @return [void] response from the API call
-    def record_events(subdomain,
-                      api_handle,
-                      store_uid: nil,
-                      body: nil)
+    def bulk_record_events(subdomain,
+                           api_handle,
+                           store_uid: nil,
+                           body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/{subdomain}/events/{api_handle}/bulk.json',

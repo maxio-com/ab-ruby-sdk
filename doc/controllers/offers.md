@@ -12,7 +12,7 @@ offers_controller = client.offers
 
 * [Create Offer](../../doc/controllers/offers.md#create-offer)
 * [List Offers](../../doc/controllers/offers.md#list-offers)
-* [Read Offers](../../doc/controllers/offers.md#read-offers)
+* [Read Offer](../../doc/controllers/offers.md#read-offer)
 * [Archive Offer](../../doc/controllers/offers.md#archive-offer)
 * [Unarchive Offer](../../doc/controllers/offers.md#unarchive-offer)
 
@@ -210,12 +210,12 @@ result = offers_controller.list_offers(collect)
 ```
 
 
-# Read Offers
+# Read Offer
 
 This method allows you to list a specific offer's attributes. This is different than list all offers for a site, as it requires an `offer_id`.
 
 ```ruby
-def read_offers(offer_id)
+def read_offer(offer_id)
 ```
 
 ## Parameters
@@ -233,7 +233,7 @@ def read_offers(offer_id)
 ```ruby
 offer_id = 130
 
-result = offers_controller.read_offers(offer_id)
+result = offers_controller.read_offer(offer_id)
 ```
 
 

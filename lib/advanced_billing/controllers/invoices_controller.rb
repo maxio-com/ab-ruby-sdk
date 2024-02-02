@@ -347,7 +347,7 @@ module AdvancedBilling
     # @param [CreateMultiInvoicePaymentRequest] body Optional parameter:
     # Example:
     # @return [MultiInvoicePaymentResponse] response from the API call
-    def record_external_payment_for_invoices(body: nil)
+    def record_payment_for_multiple_invoices(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/invoices/payments.json',
@@ -571,7 +571,7 @@ module AdvancedBilling
     # @param [Direction] direction Optional parameter: Sort direction of the
     # returned segments.
     # @return [ConsolidatedInvoice] response from the API call
-    def list_invoice_segments(options = {})
+    def list_consolidated_invoice_segments(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/invoices/{invoice_uid}/segments.json',

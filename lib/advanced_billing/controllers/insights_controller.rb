@@ -92,8 +92,8 @@ module AdvancedBilling
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
     # @return [ListMRRResponse] response from the API call
-    def read_mrr_movements(options = {})
-      warn 'Endpoint read_mrr_movements in InsightsController is deprecated'
+    def list_mrr_movements(options = {})
+      warn 'Endpoint list_mrr_movements in InsightsController is deprecated'
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/mrr_movements.json',

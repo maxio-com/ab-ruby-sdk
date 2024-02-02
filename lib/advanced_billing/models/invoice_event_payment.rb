@@ -5,7 +5,7 @@
 
 module AdvancedBilling
   # A nested data structure detailing the method of payment
-  class PaymentMethodNestedData < BaseModel
+  class InvoiceEventPayment < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -91,10 +91,12 @@ module AdvancedBilling
     def self.nullables
       %w[
         last_four
+        details
+        memo
       ]
     end
 
-    def initialize(type = 'Payment Method Nested Data',
+    def initialize(type = 'Invoice Event Payment',
                    masked_account_number = SKIP,
                    masked_routing_number = SKIP,
                    card_brand = SKIP,
@@ -123,7 +125,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      type = hash['type'] ||= 'Payment Method Nested Data'
+      type = hash['type'] ||= 'Invoice Event Payment'
       masked_account_number =
         hash.key?('masked_account_number') ? hash['masked_account_number'] : SKIP
       masked_routing_number =
@@ -140,17 +142,17 @@ module AdvancedBilling
       email = hash.key?('email') ? hash['email'] : SKIP
 
       # Create object from extracted values.
-      PaymentMethodNestedData.new(type,
-                                  masked_account_number,
-                                  masked_routing_number,
-                                  card_brand,
-                                  card_expiration,
-                                  last_four,
-                                  masked_card_number,
-                                  details,
-                                  kind,
-                                  memo,
-                                  email)
+      InvoiceEventPayment.new(type,
+                              masked_account_number,
+                              masked_routing_number,
+                              card_brand,
+                              card_expiration,
+                              last_four,
+                              masked_card_number,
+                              details,
+                              kind,
+                              memo,
+                              email)
     end
   end
 end
