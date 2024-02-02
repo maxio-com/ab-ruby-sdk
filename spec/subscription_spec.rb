@@ -63,7 +63,7 @@ RSpec.describe 'Awaiting sign up subscription' do
     expect(subscription.product.product_family.name).to eq(@product_family.name)
     expect(subscription.product.product_family.handle).to eq(@product_family.handle)
     expect(subscription.product.product_family.description).to eq(@product_family.description)
-    expect(subscription.current_period_ends_at.to_date).to eq((Date.today + 1).to_datetime)
+    expect(subscription.current_period_ends_at.to_datetime).to eq((Date.today + 1).to_datetime)
     expect(subscription.current_period_started_at.to_date).to eq(Date.today)
 
     coupons = @client.subscriptions.read_subscription(subscription.id, include: ['coupons']).subscription.coupons
