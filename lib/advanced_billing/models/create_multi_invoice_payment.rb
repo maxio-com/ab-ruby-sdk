@@ -17,7 +17,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :details
 
-    # The type of payment method used.
+    # The type of payment method used. Defaults to other.
     # @return [InvoicePaymentMethodType]
     attr_accessor :method
 
@@ -66,7 +66,7 @@ module AdvancedBilling
                    applications = nil,
                    memo = SKIP,
                    details = SKIP,
-                   method = InvoicePaymentMethodType::OTHER,
+                   method = SKIP,
                    received_on = SKIP)
       @memo = memo unless memo == SKIP
       @details = details unless details == SKIP
@@ -96,7 +96,7 @@ module AdvancedBilling
       applications = nil unless hash.key?('applications')
       memo = hash.key?('memo') ? hash['memo'] : SKIP
       details = hash.key?('details') ? hash['details'] : SKIP
-      method = hash['method'] ||= InvoicePaymentMethodType::OTHER
+      method = hash.key?('method') ? hash['method'] : SKIP
       received_on = hash.key?('received_on') ? hash['received_on'] : SKIP
 
       # Create object from extracted values.

@@ -615,7 +615,7 @@ module AdvancedBilling
                    on_hold_at = SKIP,
                    prepaid_dunning = SKIP,
                    coupons = SKIP,
-                   dunning_communication_delay_enabled = false,
+                   dunning_communication_delay_enabled = SKIP,
                    dunning_communication_delay_time_zone = SKIP,
                    receives_invoice_emails = SKIP,
                    locale = SKIP,
@@ -859,7 +859,7 @@ module AdvancedBilling
 
       coupons = SKIP unless hash.key?('coupons')
       dunning_communication_delay_enabled =
-        hash['dunning_communication_delay_enabled'] ||= false
+        hash.key?('dunning_communication_delay_enabled') ? hash['dunning_communication_delay_enabled'] : SKIP
       dunning_communication_delay_time_zone =
         hash.key?('dunning_communication_delay_time_zone') ? hash['dunning_communication_delay_time_zone'] : SKIP
       receives_invoice_emails =

@@ -192,7 +192,7 @@ module AdvancedBilling
                    customer_vault_token = SKIP,
                    billing_address_2 = SKIP,
                    bank_name = SKIP,
-                   bank_account_type = BankAccountType::CHECKING,
+                   bank_account_type = SKIP,
                    bank_account_holder_type = SKIP,
                    payment_type = SKIP,
                    verified = false,
@@ -250,7 +250,7 @@ module AdvancedBilling
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
       bank_name = hash.key?('bank_name') ? hash['bank_name'] : SKIP
       bank_account_type =
-        hash['bank_account_type'] ||= BankAccountType::CHECKING
+        hash.key?('bank_account_type') ? hash['bank_account_type'] : SKIP
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
       payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP

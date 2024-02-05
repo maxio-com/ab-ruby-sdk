@@ -17,7 +17,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :memo
 
-    # The type of payment method used.
+    # The type of payment method used. Defaults to other.
     # @return [InvoicePaymentMethodType]
     attr_accessor :method
 
@@ -52,7 +52,7 @@ module AdvancedBilling
 
     def initialize(amount = SKIP,
                    memo = SKIP,
-                   method = InvoicePaymentMethodType::OTHER,
+                   method = SKIP,
                    details = SKIP)
       @amount = amount unless amount == SKIP
       @memo = memo unless memo == SKIP
@@ -69,7 +69,7 @@ module AdvancedBilling
         UnionTypeLookUp.get(:CreateInvoicePaymentAmount), hash['amount']
       ) : SKIP
       memo = hash.key?('memo') ? hash['memo'] : SKIP
-      method = hash['method'] ||= InvoicePaymentMethodType::OTHER
+      method = hash.key?('method') ? hash['method'] : SKIP
       details = hash.key?('details') ? hash['details'] : SKIP
 
       # Create object from extracted values.
