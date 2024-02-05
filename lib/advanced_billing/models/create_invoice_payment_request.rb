@@ -13,7 +13,7 @@ module AdvancedBilling
     # @return [CreateInvoicePayment]
     attr_accessor :payment
 
-    # The type of payment to be applied to an Invoice.
+    # The type of payment to be applied to an Invoice. Defaults to external.
     # @return [InvoicePaymentType]
     attr_accessor :type
 
@@ -38,7 +38,7 @@ module AdvancedBilling
     end
 
     def initialize(payment = nil,
-                   type = InvoicePaymentType::EXTERNAL)
+                   type = SKIP)
       @payment = payment
       @type = type unless type == SKIP
     end
@@ -49,7 +49,7 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       payment = CreateInvoicePayment.from_hash(hash['payment']) if hash['payment']
-      type = hash['type'] ||= InvoicePaymentType::EXTERNAL
+      type = hash.key?('type') ? hash['type'] : SKIP
 
       # Create object from extracted values.
       CreateInvoicePaymentRequest.new(payment,

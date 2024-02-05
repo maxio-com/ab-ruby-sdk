@@ -75,6 +75,7 @@ module AdvancedBilling
 
     # Whether to use the site level exchange rate or define your own prices for
     # each currency if you have multiple currencies defined on the site.
+    # Defaults to true during creation.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
@@ -175,7 +176,7 @@ module AdvancedBilling
                    created_at = SKIP,
                    updated_at = SKIP,
                    prices = SKIP,
-                   use_site_exchange_rate = true,
+                   use_site_exchange_rate = SKIP,
                    subscription_id = SKIP,
                    tax_included = SKIP,
                    interval = SKIP,
@@ -238,7 +239,8 @@ module AdvancedBilling
       end
 
       prices = SKIP unless hash.key?('prices')
-      use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
+      use_site_exchange_rate =
+        hash.key?('use_site_exchange_rate') ? hash['use_site_exchange_rate'] : SKIP
       subscription_id =
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP

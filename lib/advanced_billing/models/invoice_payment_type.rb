@@ -4,7 +4,7 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # The type of payment to be applied to an Invoice.
+  # The type of payment to be applied to an Invoice. Defaults to external.
   class InvoicePaymentType
     INVOICE_PAYMENT_TYPE = [
       # TODO: Write general description for EXTERNAL

@@ -149,7 +149,7 @@ module AdvancedBilling
     def initialize(credit_card_attributes = SKIP,
                    product_handle = SKIP,
                    product_id = SKIP,
-                   product_change_delayed = false,
+                   product_change_delayed = SKIP,
                    next_product_id = SKIP,
                    next_product_price_point_id = SKIP,
                    snap_day = SKIP,
@@ -161,7 +161,7 @@ module AdvancedBilling
                    reference = SKIP,
                    custom_price = SKIP,
                    components = SKIP,
-                   dunning_communication_delay_enabled = false,
+                   dunning_communication_delay_enabled = SKIP,
                    dunning_communication_delay_time_zone = SKIP)
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @product_handle = product_handle unless product_handle == SKIP
@@ -207,7 +207,8 @@ module AdvancedBilling
       product_handle =
         hash.key?('product_handle') ? hash['product_handle'] : SKIP
       product_id = hash.key?('product_id') ? hash['product_id'] : SKIP
-      product_change_delayed = hash['product_change_delayed'] ||= false
+      product_change_delayed =
+        hash.key?('product_change_delayed') ? hash['product_change_delayed'] : SKIP
       next_product_id =
         hash.key?('next_product_id') ? hash['next_product_id'] : SKIP
       next_product_price_point_id =
@@ -240,7 +241,7 @@ module AdvancedBilling
 
       components = SKIP unless hash.key?('components')
       dunning_communication_delay_enabled =
-        hash['dunning_communication_delay_enabled'] ||= false
+        hash.key?('dunning_communication_delay_enabled') ? hash['dunning_communication_delay_enabled'] : SKIP
       dunning_communication_delay_time_zone =
         hash.key?('dunning_communication_delay_time_zone') ? hash['dunning_communication_delay_time_zone'] : SKIP
 

@@ -4,7 +4,7 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # The type of payment method used.
+  # The type of payment method used. Defaults to other.
   class InvoicePaymentMethodType
     INVOICE_PAYMENT_METHOD_TYPE = [
       # TODO: Write general description for CREDIT_CARD
