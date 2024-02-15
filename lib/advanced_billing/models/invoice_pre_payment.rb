@@ -10,17 +10,17 @@ module AdvancedBilling
     private_constant :SKIP
 
     # The subscription id for the prepayment account
-    # @return [String]
+    # @return [Integer]
     attr_accessor :subscription_id
 
     # The amount in cents of the prepayment that was created as a result of this
     # payment.
-    # @return [String]
+    # @return [Integer]
     attr_accessor :amount_in_cents
 
     # The total balance of the prepayment account for this subscription
     # including any prior prepayments
-    # @return [String]
+    # @return [Integer]
     attr_accessor :ending_balance_in_cents
 
     # A mapping from model property names to API property names.
@@ -70,6 +70,16 @@ module AdvancedBilling
       InvoicePrePayment.new(subscription_id,
                             amount_in_cents,
                             ending_balance_in_cents)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [InvoicePrePayment | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

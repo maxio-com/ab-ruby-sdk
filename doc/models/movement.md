@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `timestamp` | `String` | Optional | - |
+| `timestamp` | `DateTime` | Optional | - |
 | `amount_in_cents` | `Integer` | Optional | - |
 | `amount_formatted` | `String` | Optional | - |
 | `description` | `String` | Optional | - |
@@ -23,7 +23,7 @@
 
 ```json
 {
-  "timestamp": "timestamp0",
+  "timestamp": "2016-03-13T12:52:32.123Z",
   "amount_in_cents": 174,
   "amount_formatted": "amount_formatted4",
   "description": "description2",

@@ -12,9 +12,9 @@
 | `uid` | `String` | Required | - |
 | `number` | `String` | Required | - |
 | `role` | `String` | Required | - |
-| `due_date` | `String` | Required | - |
-| `issue_date` | `String` | Required | - |
-| `paid_date` | `String` | Required | - |
+| `due_date` | `Date` | Required | - |
+| `issue_date` | `Date` | Required | - |
+| `paid_date` | `Date` | Required | - |
 | `due_amount` | `String` | Required | - |
 | `paid_amount` | `String` | Required | - |
 | `tax_amount` | `String` | Required | - |
@@ -32,9 +32,9 @@
   "uid": "uid4",
   "number": "number8",
   "role": "role2",
-  "due_date": "due_date2",
-  "issue_date": "issue_date0",
-  "paid_date": "paid_date6",
+  "due_date": "2016-03-13",
+  "issue_date": "2016-03-13",
+  "paid_date": "2016-03-13",
   "due_amount": "due_amount6",
   "paid_amount": "paid_amount4",
   "tax_amount": "tax_amount2",

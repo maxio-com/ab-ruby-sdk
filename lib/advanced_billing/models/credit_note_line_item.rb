@@ -80,12 +80,12 @@ module AdvancedBilling
 
     # Start date for the period credited by this line. The format is
     # `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :period_range_start
 
     # End date for the period credited by this line. The format is
     # `"YYYY-MM-DD"`.
-    # @return [String]
+    # @return [Date]
     attr_accessor :period_range_end
 
     # The ID of the product being credited.
@@ -108,6 +108,16 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_point_id
 
+    # The price point ID of the component being credited. Will be `nil` for
+    # non-component credits.
+    # @return [Integer]
+    attr_accessor :billing_schedule_item_id
+
+    # The price point ID of the component being credited. Will be `nil` for
+    # non-component credits.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :custom_item
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -127,6 +137,8 @@ module AdvancedBilling
       @_hash['product_version'] = 'product_version'
       @_hash['component_id'] = 'component_id'
       @_hash['price_point_id'] = 'price_point_id'
+      @_hash['billing_schedule_item_id'] = 'billing_schedule_item_id'
+      @_hash['custom_item'] = 'custom_item'
       @_hash
     end
 
@@ -149,6 +161,8 @@ module AdvancedBilling
         product_version
         component_id
         price_point_id
+        billing_schedule_item_id
+        custom_item
       ]
     end
 
@@ -157,6 +171,7 @@ module AdvancedBilling
       %w[
         component_id
         price_point_id
+        billing_schedule_item_id
       ]
     end
 
@@ -175,7 +190,9 @@ module AdvancedBilling
                    product_id = SKIP,
                    product_version = SKIP,
                    component_id = SKIP,
-                   price_point_id = SKIP)
+                   price_point_id = SKIP,
+                   billing_schedule_item_id = SKIP,
+                   custom_item = SKIP)
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -192,6 +209,8 @@ module AdvancedBilling
       @product_version = product_version unless product_version == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+      @billing_schedule_item_id = billing_schedule_item_id unless billing_schedule_item_id == SKIP
+      @custom_item = custom_item unless custom_item == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -222,6 +241,9 @@ module AdvancedBilling
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
+      billing_schedule_item_id =
+        hash.key?('billing_schedule_item_id') ? hash['billing_schedule_item_id'] : SKIP
+      custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
 
       # Create object from extracted values.
       CreditNoteLineItem.new(uid,
@@ -239,7 +261,9 @@ module AdvancedBilling
                              product_id,
                              product_version,
                              component_id,
-                             price_point_id)
+                             price_point_id,
+                             billing_schedule_item_id,
+                             custom_item)
     end
   end
 end

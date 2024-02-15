@@ -8,6 +8,7 @@ module AdvancedBilling
   # storing and managing type combinator templates. It acts as a container for the templates
   # used in handling various oneof/anyof instances within the sdk.
   class UnionTypeLookUp
+    include CoreLibrary
     # rubocop:disable Lint/RedundantCopDisableDirective, Style/HashSyntax, Layout/FirstArgumentIndentation
     def self.union_types
       {
@@ -783,6 +784,16 @@ module AdvancedBilling
           ],
           UnionTypeContext.new(
             is_optional: true
+          )
+        ),
+
+        :RecordPaymentResponsePrepayment => OneOf.new(
+          [
+            LeafType.new(InvoicePrePayment)
+          ],
+          UnionTypeContext.new(
+            is_optional: true,
+            is_nullable: true
           )
         ),
 

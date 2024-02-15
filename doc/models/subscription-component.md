@@ -24,7 +24,7 @@
 | `recurring` | `TrueClass \| FalseClass` | Optional | - |
 | `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
 | `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
-| `archived_at` | `String` | Optional | - |
+| `archived_at` | `DateTime` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |
 | `price_point_handle` | `String` | Optional | - |
 | `price_point_type` | [Price Point Type](../../doc/models/price-point-type.md) \| nil | Optional | This is a container for one-of cases. |

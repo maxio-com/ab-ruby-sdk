@@ -22,15 +22,15 @@ module AdvancedBilling
     attr_accessor :role
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [Date]
     attr_accessor :due_date
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [Date]
     attr_accessor :issue_date
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [Date]
     attr_accessor :paid_date
 
     # TODO: Write general description for this method

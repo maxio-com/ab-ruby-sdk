@@ -5,12 +5,12 @@
 
 module AdvancedBilling
   # Used to Create or Update Endpoint
-  class UpdateEndpointRequest < BaseModel
+  class CreateOrUpdateEndpointRequest < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # Used to Create or Update Endpoint
-    # @return [UpdateEndpoint]
+    # @return [CreateOrUpdateEndpoint]
     attr_accessor :endpoint
 
     # A mapping from model property names to API property names.
@@ -39,10 +39,10 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      endpoint = UpdateEndpoint.from_hash(hash['endpoint']) if hash['endpoint']
+      endpoint = CreateOrUpdateEndpoint.from_hash(hash['endpoint']) if hash['endpoint']
 
       # Create object from extracted values.
-      UpdateEndpointRequest.new(endpoint)
+      CreateOrUpdateEndpointRequest.new(endpoint)
     end
   end
 end

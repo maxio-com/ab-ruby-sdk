@@ -5,7 +5,7 @@
 
 module AdvancedBilling
   # Used to Create or Update Endpoint
-  class UpdateEndpoint < BaseModel
+  class CreateOrUpdateEndpoint < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -51,8 +51,8 @@ module AdvancedBilling
         hash.key?('webhook_subscriptions') ? hash['webhook_subscriptions'] : nil
 
       # Create object from extracted values.
-      UpdateEndpoint.new(url,
-                         webhook_subscriptions)
+      CreateOrUpdateEndpoint.new(url,
+                                 webhook_subscriptions)
     end
   end
 end

@@ -14,8 +14,8 @@
 | `handle` | `String` | Optional | - |
 | `accounting_code` | `String` | Optional | - |
 | `description` | `String` | Optional | - |
-| `created_at` | `String` | Optional | - |
-| `updated_at` | `String` | Optional | - |
+| `created_at` | `DateTime` | Optional | - |
+| `updated_at` | `DateTime` | Optional | - |
 
 ## Example (as JSON)
 

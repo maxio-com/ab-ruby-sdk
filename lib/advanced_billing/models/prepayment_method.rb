@@ -4,10 +4,7 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # :- When the `method` specified is `"credit_card_on_file"`, the prepayment
-  # amount will be collected using the default credit card payment profile and
-  # applied to the prepayment account balance. This is especially useful for
-  # manual replenishment of prepaid subscriptions.
+  # Prepayment Method.
   class PrepaymentMethod
     PREPAYMENT_METHOD = [
       # TODO: Write general description for CHECK
@@ -25,8 +22,8 @@ module AdvancedBilling
       # TODO: Write general description for PAYPAL_ACCOUNT
       PAYPAL_ACCOUNT = 'paypal_account'.freeze,
 
-      # TODO: Write general description for CREDIT_CARD_ON_FILE
-      CREDIT_CARD_ON_FILE = 'credit_card_on_file'.freeze,
+      # TODO: Write general description for CREDIT_CARD
+      CREDIT_CARD = 'credit_card'.freeze,
 
       # TODO: Write general description for OTHER
       OTHER = 'other'.freeze

@@ -13,7 +13,7 @@
 | `value` | `String` | Optional | - |
 | `resource_id` | `Integer` | Optional | - |
 | `name` | `String` | Optional | - |
-| `deleted_at` | `String` | Optional | - |
+| `deleted_at` | `DateTime` | Optional | - |
 | `metafield_id` | `Integer` | Optional | - |
 
 ## Example (as JSON)
@@ -24,7 +24,7 @@
   "value": "value0",
   "resource_id": 96,
   "name": "name8",
-  "deleted_at": "deleted_at6"
+  "deleted_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

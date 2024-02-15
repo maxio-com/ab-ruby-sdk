@@ -16,8 +16,8 @@
 | `details` | `String` | Optional | - |
 | `external` | `TrueClass \| FalseClass` | Optional | - |
 | `memo` | `String` | Optional | - |
-| `payment_type` | [`PrepaymentMethod`](../../doc/models/prepayment-method.md) | Optional | :- When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be collected using the default credit card payment profile and applied to the prepayment account balance. This is especially useful for manual replenishment of prepaid subscriptions. |
-| `created_at` | `String` | Optional | - |
+| `payment_type` | [`PrepaymentMethod`](../../doc/models/prepayment-method.md) | Optional | - |
+| `created_at` | `DateTime` | Optional | - |
 
 ## Example (as JSON)
 

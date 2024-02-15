@@ -18,9 +18,9 @@
 | `name` | `String` | Optional | - |
 | `handle` | `String` | Optional | - |
 | `description` | `String` | Optional | - |
-| `created_at` | `String` | Optional | - |
-| `updated_at` | `String` | Optional | - |
-| `archived_at` | `String` | Optional | - |
+| `created_at` | `DateTime` | Optional | - |
+| `updated_at` | `DateTime` | Optional | - |
+| `archived_at` | `DateTime` | Optional | - |
 | `offer_items` | [`Array<OfferItem>`](../../doc/models/offer-item.md) | Optional | - |
 | `offer_discounts` | [`Array<OfferDiscount>`](../../doc/models/offer-discount.md) | Optional | - |
 | `product_family_name` | `String` | Optional | - |

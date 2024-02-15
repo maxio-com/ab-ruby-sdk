@@ -33,6 +33,14 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :gateway_transaction_id
 
+    # The transaction ID for the refund as returned from the payment gateway
+    # @return [String]
+    attr_accessor :gateway_used
+
+    # The transaction ID for the refund as returned from the payment gateway
+    # @return [String]
+    attr_accessor :gateway_handle
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -42,6 +50,8 @@ module AdvancedBilling
       @_hash['original_amount'] = 'original_amount'
       @_hash['applied_amount'] = 'applied_amount'
       @_hash['gateway_transaction_id'] = 'gateway_transaction_id'
+      @_hash['gateway_used'] = 'gateway_used'
+      @_hash['gateway_handle'] = 'gateway_handle'
       @_hash
     end
 
@@ -54,6 +64,8 @@ module AdvancedBilling
         original_amount
         applied_amount
         gateway_transaction_id
+        gateway_used
+        gateway_handle
       ]
     end
 
@@ -61,6 +73,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         gateway_transaction_id
+        gateway_handle
       ]
     end
 
@@ -69,13 +82,17 @@ module AdvancedBilling
                    memo = SKIP,
                    original_amount = SKIP,
                    applied_amount = SKIP,
-                   gateway_transaction_id = SKIP)
+                   gateway_transaction_id = SKIP,
+                   gateway_used = SKIP,
+                   gateway_handle = SKIP)
       @transaction_id = transaction_id unless transaction_id == SKIP
       @payment_id = payment_id unless payment_id == SKIP
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
       @applied_amount = applied_amount unless applied_amount == SKIP
       @gateway_transaction_id = gateway_transaction_id unless gateway_transaction_id == SKIP
+      @gateway_used = gateway_used unless gateway_used == SKIP
+      @gateway_handle = gateway_handle unless gateway_handle == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -93,6 +110,9 @@ module AdvancedBilling
         hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
       gateway_transaction_id =
         hash.key?('gateway_transaction_id') ? hash['gateway_transaction_id'] : SKIP
+      gateway_used = hash.key?('gateway_used') ? hash['gateway_used'] : SKIP
+      gateway_handle =
+        hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
 
       # Create object from extracted values.
       InvoiceRefund.new(transaction_id,
@@ -100,7 +120,9 @@ module AdvancedBilling
                         memo,
                         original_amount,
                         applied_amount,
-                        gateway_transaction_id)
+                        gateway_transaction_id,
+                        gateway_used,
+                        gateway_handle)
     end
   end
 end

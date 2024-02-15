@@ -273,7 +273,7 @@ module AdvancedBilling
     # added to your MRR analytics immediately. For this value to be honored, a
     # next_billing_at must be present and set to a future date. This key/value
     # will not be returned in the subscription response body.
-    # @return [String]
+    # @return [DateTime]
     attr_accessor :canceled_at
 
     # Setting this attribute to true will cause the subscription's MRR to be
@@ -655,7 +655,11 @@ module AdvancedBilling
                               SKIP
                             end
       import_mrr = hash.key?('import_mrr') ? hash['import_mrr'] : SKIP
-      canceled_at = hash.key?('canceled_at') ? hash['canceled_at'] : SKIP
+      canceled_at = if hash.key?('canceled_at')
+                      (DateTimeHelper.from_rfc3339(hash['canceled_at']) if hash['canceled_at'])
+                    else
+                      SKIP
+                    end
       activated_at = if hash.key?('activated_at')
                        (DateTimeHelper.from_rfc3339(hash['activated_at']) if hash['activated_at'])
                      else
@@ -737,6 +741,10 @@ module AdvancedBilling
 
     def to_custom_previous_billing_at
       DateTimeHelper.to_rfc3339(previous_billing_at)
+    end
+
+    def to_custom_canceled_at
+      DateTimeHelper.to_rfc3339(canceled_at)
     end
 
     def to_custom_activated_at

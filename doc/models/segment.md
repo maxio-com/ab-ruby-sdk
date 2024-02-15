@@ -18,8 +18,8 @@
 | `segment_property_2_value` | String \| Float \| Integer \| TrueClass \| FalseClass \| nil | Optional | This is a container for one-of cases. |
 | `segment_property_3_value` | String \| Float \| Integer \| TrueClass \| FalseClass \| nil | Optional | This is a container for one-of cases. |
 | `segment_property_4_value` | String \| Float \| Integer \| TrueClass \| FalseClass \| nil | Optional | This is a container for one-of cases. |
-| `created_at` | `String` | Optional | - |
-| `updated_at` | `String` | Optional | - |
+| `created_at` | `DateTime` | Optional | - |
+| `updated_at` | `DateTime` | Optional | - |
 | `prices` | [`Array<SegmentPrice>`](../../doc/models/segment-price.md) | Optional | **Constraints**: *Minimum Items*: `1` |
 
 ## Example (as JSON)

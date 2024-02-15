@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'maxio-advanced-billing-sdk'
-  s.version = '1.0.0'
+  s.version = '1.0.1'
   s.summary = 'SDK for Maxio Advanced Billing'
   s.description = "Ultimate billing and pricing flexibility for B2B SaaS.\nMaxio integrates directly into your product, so you can seamlessly manage your product catalog, bill customers, and collect payments."
   s.authors = ['Maxio SDK']

@@ -43,8 +43,8 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :expiration_interval
 
-    # A string representing the trial interval unit for this product, either
-    # month or day
+    # A string representing the expiration interval unit for this product,
+    # either month or day
     # @return [ExtendedIntervalUnit]
     attr_accessor :expiration_interval_unit
 

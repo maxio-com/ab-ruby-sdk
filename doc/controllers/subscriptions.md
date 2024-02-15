@@ -994,7 +994,7 @@ body = UpdateSubscriptionRequest.new(
     nil,
     nil,
     nil,
-    '2010-08-06T15:34:00Z'
+    DateTimeHelper.from_rfc3339('2010-08-06T15:34:00Z')
   )
 )
 

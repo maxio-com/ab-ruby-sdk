@@ -15,7 +15,7 @@
 | `payment_profile_id` | `Integer` | Optional | - |
 | `subscription_ids` | `Array<Integer>` | Optional | - |
 | `primary_subscription_id` | `Integer` | Optional | - |
-| `next_assessment_at` | `String` | Optional | - |
+| `next_assessment_at` | `DateTime` | Optional | - |
 | `state` | `String` | Optional | - |
 | `cancel_at_end_of_period` | `TrueClass \| FalseClass` | Optional | - |
 | `account_balances` | [`SubscriptionGroupBalances`](../../doc/models/subscription-group-balances.md) | Optional | - |
