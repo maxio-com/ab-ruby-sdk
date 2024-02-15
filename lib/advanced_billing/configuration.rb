@@ -24,21 +24,30 @@ module AdvancedBilling
   # All configuration including auth info and base URI for the API access
   # are configured in this class.
   class Configuration < CoreLibrary::HttpClientConfiguration
+    def basic_auth_user_name
+      @basic_auth_credentials.username
+    end
+
+    def basic_auth_password
+      @basic_auth_credentials.password
+    end
+
     # The attribute readers for properties.
-    attr_reader :environment, :subdomain, :domain, :basic_auth_user_name, :basic_auth_password
+    attr_reader :environment, :subdomain, :domain, :basic_auth_credentials
 
     class << self
       attr_reader :environments
     end
 
-    def initialize(connection: nil, adapter: :net_http_persistent, timeout: 30,
-                   max_retries: 0, retry_interval: 1, backoff_factor: 2,
-                   retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-                   retry_methods: %i[get put], http_callback: nil,
-                   environment: Environment::PRODUCTION, subdomain: 'subdomain',
-                   domain: 'chargify.com',
-                   basic_auth_user_name: 'TODO: Replace',
-                   basic_auth_password: 'TODO: Replace')
+    def initialize(
+      connection: nil, adapter: :net_http_persistent, timeout: 30,
+      max_retries: 0, retry_interval: 1, backoff_factor: 2,
+      retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
+      retry_methods: %i[get put], http_callback: nil,
+      environment: Environment::PRODUCTION, subdomain: 'subdomain',
+      domain: 'chargify.com', basic_auth_user_name: nil,
+      basic_auth_password: nil, basic_auth_credentials: nil
+    )
 
       super connection: connection, adapter: adapter, timeout: timeout,
             max_retries: max_retries, retry_interval: retry_interval,
@@ -60,6 +69,11 @@ module AdvancedBilling
       # The password to use with basic authentication
       @basic_auth_password = basic_auth_password
 
+      # Initializing Basic Authentication credentials with the provided auth parameters
+      @basic_auth_credentials = create_auth_credentials_object(
+        basic_auth_user_name, basic_auth_password, basic_auth_credentials
+      )
+
       # The Http Client to use for making requests.
       set_http_client CoreLibrary::FaradayClient.new(self)
     end
@@ -68,7 +82,8 @@ module AdvancedBilling
                    max_retries: nil, retry_interval: nil, backoff_factor: nil,
                    retry_statuses: nil, retry_methods: nil, http_callback: nil,
                    environment: nil, subdomain: nil, domain: nil,
-                   basic_auth_user_name: nil, basic_auth_password: nil)
+                   basic_auth_user_name: nil, basic_auth_password: nil,
+                   basic_auth_credentials: nil)
       connection ||= self.connection
       adapter ||= self.adapter
       timeout ||= self.timeout
@@ -81,8 +96,10 @@ module AdvancedBilling
       environment ||= self.environment
       subdomain ||= self.subdomain
       domain ||= self.domain
-      basic_auth_user_name ||= self.basic_auth_user_name
-      basic_auth_password ||= self.basic_auth_password
+      basic_auth_credentials = create_auth_credentials_object(
+        basic_auth_user_name, basic_auth_password,
+        basic_auth_credentials || self.basic_auth_credentials
+      )
 
       Configuration.new(connection: connection, adapter: adapter,
                         timeout: timeout, max_retries: max_retries,
@@ -92,8 +109,26 @@ module AdvancedBilling
                         retry_methods: retry_methods,
                         http_callback: http_callback, environment: environment,
                         subdomain: subdomain, domain: domain,
-                        basic_auth_user_name: basic_auth_user_name,
-                        basic_auth_password: basic_auth_password)
+                        basic_auth_credentials: basic_auth_credentials)
+    end
+
+    def create_auth_credentials_object(basic_auth_user_name,
+                                       basic_auth_password,
+                                       basic_auth_credentials)
+      return basic_auth_credentials if basic_auth_user_name.nil? && basic_auth_password.nil?
+
+      warn('The \'basic_auth_user_name\', \'basic_auth_password\' params are d'\
+           'eprecated. Use \'basic_auth_credentials\' param instead.')
+
+      unless basic_auth_credentials.nil?
+        return basic_auth_credentials.clone_with(
+          username: basic_auth_user_name,
+          password: basic_auth_password
+        )
+      end
+
+      BasicAuthCredentials.new(username: basic_auth_user_name,
+                               password: basic_auth_password)
     end
 
     # All the environments the SDK can run in.

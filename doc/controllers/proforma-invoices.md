@@ -111,7 +111,7 @@ def read_proforma_invoice(proforma_invoice_uid)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `proforma_invoice_uid` | `Integer` | Template, Required | The uid of the proforma invoice |
+| `proforma_invoice_uid` | `String` | Template, Required | The uid of the proforma invoice |
 
 ## Response Type
 
@@ -120,7 +120,7 @@ def read_proforma_invoice(proforma_invoice_uid)
 ## Example Usage
 
 ```ruby
-proforma_invoice_uid = 242
+proforma_invoice_uid = 'proforma_invoice_uid4'
 
 result = proforma_invoices_controller.read_proforma_invoice(proforma_invoice_uid)
 ```
@@ -199,7 +199,7 @@ def list_proforma_invoices(options = {})
 
 ## Response Type
 
-[`Array<ProformaInvoice>`](../../doc/models/proforma-invoice.md)
+[`ListProformaInvoicesResponse`](../../doc/models/list-proforma-invoices-response.md)
 
 ## Example Usage
 

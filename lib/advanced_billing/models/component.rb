@@ -127,7 +127,7 @@ module AdvancedBilling
     attr_accessor :updated_at
 
     # Timestamp indicating when this component was archived
-    # @return [String]
+    # @return [DateTime]
     attr_accessor :archived_at
 
     # (Only available on Relationship Invoicing sites) Boolean flag describing
@@ -422,7 +422,11 @@ module AdvancedBilling
                    else
                      SKIP
                    end
-      archived_at = hash.key?('archived_at') ? hash['archived_at'] : SKIP
+      archived_at = if hash.key?('archived_at')
+                      (DateTimeHelper.from_rfc3339(hash['archived_at']) if hash['archived_at'])
+                    else
+                      SKIP
+                    end
       hide_date_range_on_invoice =
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
       allow_fractional_quantities =
@@ -480,6 +484,10 @@ module AdvancedBilling
 
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
+    end
+
+    def to_custom_archived_at
+      DateTimeHelper.to_rfc3339(archived_at)
     end
 
     # Validates an instance of the object from a given value.

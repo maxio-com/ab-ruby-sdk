@@ -66,7 +66,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['order'], key: 'order'))
                    .query_param(new_parameter(options['subscription'], key: 'subscription'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(WebhookResponse.method(:from_hash))
@@ -86,7 +86,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(EnableWebhooksResponse.method(:from_hash)))
@@ -109,7 +109,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ReplayWebhooksResponse.method(:from_hash)))
@@ -122,7 +122,7 @@ module AdvancedBilling
     # [Event
     # keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-W
     # ebhooks-Reference#example-payloads)
-    # @param [UpdateEndpointRequest] body Optional parameter: Example:
+    # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
     # @return [EndpointResponse] response from the API call
     def create_endpoint(body: nil)
       new_api_call_builder
@@ -133,7 +133,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(EndpointResponse.method(:from_hash))
@@ -152,7 +152,7 @@ module AdvancedBilling
                                      '/endpoints.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Endpoint.method(:from_hash))
@@ -174,7 +174,7 @@ module AdvancedBilling
     # `webhook_subscriptions` without the specific event key.
     # @param [Integer] endpoint_id Required parameter: The Chargify id for the
     # endpoint that should be updated
-    # @param [UpdateEndpointRequest] body Optional parameter: Example:
+    # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
     # @return [EndpointResponse] response from the API call
     def update_endpoint(endpoint_id,
                         body: nil)
@@ -189,7 +189,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(EndpointResponse.method(:from_hash))

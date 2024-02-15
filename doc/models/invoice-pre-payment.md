@@ -9,17 +9,17 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Optional | The subscription id for the prepayment account |
-| `amount_in_cents` | `String` | Optional | The amount in cents of the prepayment that was created as a result of this payment. |
-| `ending_balance_in_cents` | `String` | Optional | The total balance of the prepayment account for this subscription including any prior prepayments |
+| `subscription_id` | `Integer` | Optional | The subscription id for the prepayment account |
+| `amount_in_cents` | `Integer` | Optional | The amount in cents of the prepayment that was created as a result of this payment. |
+| `ending_balance_in_cents` | `Integer` | Optional | The total balance of the prepayment account for this subscription including any prior prepayments |
 
 ## Example (as JSON)
 
 ```json
 {
-  "subscription_id": "subscription_id0",
-  "amount_in_cents": "amount_in_cents2",
-  "ending_balance_in_cents": "ending_balance_in_cents4"
+  "subscription_id": 180,
+  "amount_in_cents": 100,
+  "ending_balance_in_cents": 60
 }
 ```
 

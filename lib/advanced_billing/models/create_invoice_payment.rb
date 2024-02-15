@@ -25,6 +25,10 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :details
 
+    # The ID of the payment profile to be used for the payment.
+    # @return [Integer]
+    attr_accessor :payment_profile_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -32,6 +36,7 @@ module AdvancedBilling
       @_hash['memo'] = 'memo'
       @_hash['method'] = 'method'
       @_hash['details'] = 'details'
+      @_hash['payment_profile_id'] = 'payment_profile_id'
       @_hash
     end
 
@@ -42,6 +47,7 @@ module AdvancedBilling
         memo
         method
         details
+        payment_profile_id
       ]
     end
 
@@ -53,11 +59,13 @@ module AdvancedBilling
     def initialize(amount = SKIP,
                    memo = SKIP,
                    method = SKIP,
-                   details = SKIP)
+                   details = SKIP,
+                   payment_profile_id = SKIP)
       @amount = amount unless amount == SKIP
       @memo = memo unless memo == SKIP
       @method = method unless method == SKIP
       @details = details unless details == SKIP
+      @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -71,12 +79,15 @@ module AdvancedBilling
       memo = hash.key?('memo') ? hash['memo'] : SKIP
       method = hash.key?('method') ? hash['method'] : SKIP
       details = hash.key?('details') ? hash['details'] : SKIP
+      payment_profile_id =
+        hash.key?('payment_profile_id') ? hash['payment_profile_id'] : SKIP
 
       # Create object from extracted values.
       CreateInvoicePayment.new(amount,
                                memo,
                                method,
-                               details)
+                               details,
+                               payment_profile_id)
     end
 
     # Validates an instance of the object from a given value.

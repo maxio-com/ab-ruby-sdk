@@ -6,10 +6,11 @@
 module AdvancedBilling
   # BaseController.
   class BaseController
+    include CoreLibrary
     attr_accessor :config, :http_call_back
 
     def self.user_agent
-      'AB SDK Ruby:1.0.0 on OS {os-info}'
+      'AB SDK Ruby:1.0.1 on OS {os-info}'
     end
 
     def self.user_agent_parameters

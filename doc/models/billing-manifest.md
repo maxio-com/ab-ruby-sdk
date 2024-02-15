@@ -14,8 +14,8 @@
 | `total_discount_in_cents` | `Integer` | Optional | - |
 | `total_tax_in_cents` | `Integer` | Optional | - |
 | `subtotal_in_cents` | `Integer` | Optional | - |
-| `start_date` | `String` | Optional | - |
-| `end_date` | `String` | Optional | - |
+| `start_date` | `DateTime` | Optional | - |
+| `end_date` | `DateTime` | Optional | - |
 | `period_type` | `String` | Optional | - |
 | `existing_balance_in_cents` | `Integer` | Optional | - |
 

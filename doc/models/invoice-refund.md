@@ -15,6 +15,8 @@
 | `original_amount` | `String` | Optional | - |
 | `applied_amount` | `String` | Optional | - |
 | `gateway_transaction_id` | `String` | Optional | The transaction ID for the refund as returned from the payment gateway |
+| `gateway_used` | `String` | Optional | - |
+| `gateway_handle` | `String` | Optional | - |
 
 ## Example (as JSON)
 

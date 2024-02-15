@@ -21,8 +21,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :payment_details
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of payment method used. Defaults to other.
+    # @return [InvoicePaymentMethodType]
     attr_accessor :payment_method
 
     # A mapping from model property names to API property names.

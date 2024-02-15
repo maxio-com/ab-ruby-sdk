@@ -200,7 +200,7 @@ def create_endpoint(body: nil)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
+| `body` | [`CreateOrUpdateEndpointRequest`](../../doc/models/create-or-update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
 
@@ -209,8 +209,8 @@ def create_endpoint(body: nil)
 ## Example Usage
 
 ```ruby
-body = UpdateEndpointRequest.new(
-  UpdateEndpoint.new(
+body = CreateOrUpdateEndpointRequest.new(
+  CreateOrUpdateEndpoint.new(
     'https://your.site/webhooks',
     [
       WebhookSubscription::PAYMENT_SUCCESS,
@@ -315,7 +315,7 @@ def update_endpoint(endpoint_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `endpoint_id` | `Integer` | Template, Required | The Chargify id for the endpoint that should be updated |
-| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
+| `body` | [`CreateOrUpdateEndpointRequest`](../../doc/models/create-or-update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
 
@@ -326,8 +326,8 @@ def update_endpoint(endpoint_id,
 ```ruby
 endpoint_id = 42
 
-body = UpdateEndpointRequest.new(
-  UpdateEndpoint.new(
+body = CreateOrUpdateEndpointRequest.new(
+  CreateOrUpdateEndpoint.new(
     'https://yout.site/webhooks/1/json.',
     [
       WebhookSubscription::PAYMENT_FAILURE,

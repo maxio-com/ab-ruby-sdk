@@ -17,6 +17,12 @@
 | `price_in_cents` | `Integer` | Required | The product price, in integer cents |
 | `interval` | `Integer` | Required | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this product would renew every 30 days |
 | `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Required | A string representing the interval unit for this product, either month or day |
+| `trial_price_in_cents` | `Integer` | Optional | The product trial price, in integer cents |
+| `trial_interval` | `Integer` | Optional | The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of day would mean this product trial would last 30 days. |
+| `trial_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the trial interval unit for this product, either month or day |
+| `trial_type` | `String` | Optional | - |
+| `expiration_interval` | `Integer` | Optional | The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an expiration_interval_unit of day would mean this product would expire after 30 days. |
+| `expiration_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the expiration interval unit for this product, either month or day |
 | `auto_create_signup_page` | `TrueClass \| FalseClass` | Optional | - |
 | `tax_code` | `String` | Optional | A string representing the tax code related to the product type. This is especially important when using the Avalara service to tax based on locale. This attribute has a max length of 10 characters.<br>**Constraints**: *Maximum Length*: `10` |
 
@@ -32,8 +38,8 @@
   "price_in_cents": 190,
   "interval": 174,
   "interval_unit": "day",
-  "auto_create_signup_page": false,
-  "tax_code": "tax_code6"
+  "trial_price_in_cents": 22,
+  "trial_interval": 76
 }
 ```
 

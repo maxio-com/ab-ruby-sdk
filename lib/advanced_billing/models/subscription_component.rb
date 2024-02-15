@@ -92,7 +92,7 @@ module AdvancedBilling
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
     # Available values: `full`, `prorated`, `none`.
-    # @return [String]
+    # @return [DateTime]
     attr_accessor :archived_at
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
@@ -369,7 +369,11 @@ module AdvancedBilling
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
       downgrade_credit =
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
-      archived_at = hash.key?('archived_at') ? hash['archived_at'] : SKIP
+      archived_at = if hash.key?('archived_at')
+                      (DateTimeHelper.from_rfc3339(hash['archived_at']) if hash['archived_at'])
+                    else
+                      SKIP
+                    end
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       price_point_handle =
@@ -437,6 +441,10 @@ module AdvancedBilling
                                 display_on_hosted_page,
                                 interval,
                                 interval_unit)
+    end
+
+    def to_custom_archived_at
+      DateTimeHelper.to_rfc3339(archived_at)
     end
 
     def to_custom_created_at

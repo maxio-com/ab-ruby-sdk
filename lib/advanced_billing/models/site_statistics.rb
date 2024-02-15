@@ -38,19 +38,19 @@ module AdvancedBilling
     attr_accessor :total_canceled_subscriptions
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :total_active_subscriptions
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :total_past_due_subscriptions
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :total_unpaid_subscriptions
 
     # TODO: Write general description for this method
-    # @return [Float]
+    # @return [Integer]
     attr_accessor :total_dunning_subscriptions
 
     # A mapping from model property names to API property names.

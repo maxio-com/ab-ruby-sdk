@@ -26,7 +26,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
@@ -106,7 +106,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -139,7 +139,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BulkComponentSPricePointAssignment.method(:from_hash))
@@ -165,7 +165,7 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
@@ -262,7 +262,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
@@ -318,7 +318,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(page, key: 'page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
@@ -357,7 +357,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationResponse.method(:from_hash))
@@ -401,7 +401,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AllocationPreviewResponse.method(:from_hash))
@@ -455,7 +455,7 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error_template('422',
@@ -508,7 +508,7 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error_template('422',
@@ -614,7 +614,7 @@ module AdvancedBilling
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
@@ -690,7 +690,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageResponse.method(:from_hash))
@@ -728,7 +728,7 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -754,7 +754,7 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -803,7 +803,7 @@ module AdvancedBilling
                    .query_param(new_parameter(store_uid, key: 'store_uid'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -841,7 +841,7 @@ module AdvancedBilling
                    .query_param(new_parameter(store_uid, key: 'store_uid'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true))
         .execute
@@ -915,27 +915,27 @@ module AdvancedBilling
     # parameter: The type of filter you'd like to apply to your search. To use
     # this filter you also have to include the following param in the request
     # `include=subscription`.
-    # @param [String] filter_subscription_start_date Optional parameter: The
-    # start date (format YYYY-MM-DD) with which to filter the date_field.
-    # Returns components that belong to the subscription with a timestamp at or
-    # after midnight (12:00:00 AM) in your site’s time zone on the date
-    # specified. To use this filter you also have to include the following param
-    # in the request `include=subscription`.
-    # @param [String] filter_subscription_start_datetime Optional parameter: The
-    # start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the
-    # date_field. Returns components that belong to the subscription with a
+    # @param [Date] filter_subscription_start_date Optional parameter: The start
+    # date (format YYYY-MM-DD) with which to filter the date_field. Returns
+    # components that belong to the subscription with a timestamp at or after
+    # midnight (12:00:00 AM) in your site’s time zone on the date specified. To
+    # use this filter you also have to include the following param in the
+    # request `include=subscription`.
+    # @param [DateTime] filter_subscription_start_datetime Optional parameter:
+    # The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter
+    # the date_field. Returns components that belong to the subscription with a
     # timestamp at or after exact time provided in query. You can specify
     # timezone in query - otherwise your site''s time zone will be used. If
     # provided, this parameter will be used instead of start_date. To use this
     # filter you also have to include the following param in the request
     # `include=subscription`.
-    # @param [String] filter_subscription_end_date Optional parameter: The end
+    # @param [Date] filter_subscription_end_date Optional parameter: The end
     # date (format YYYY-MM-DD) with which to filter the date_field. Returns
     # components that belong to the subscription with a timestamp up to and
     # including 11:59:59PM in your site’s time zone on the date specified. To
     # use this filter you also have to include the following param in the
     # request `include=subscription`.
-    # @param [String] filter_subscription_end_datetime Optional parameter: The
+    # @param [DateTime] filter_subscription_end_datetime Optional parameter: The
     # end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the
     # date_field. Returns components that belong to the subscription with a
     # timestamp at or before exact time provided in query. You can specify
@@ -971,7 +971,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['filter_subscription_end_date'], key: 'filter[subscription][end_date]'))
                    .query_param(new_parameter(options['filter_subscription_end_datetime'], key: 'filter[subscription][end_datetime]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global'))
+                   .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

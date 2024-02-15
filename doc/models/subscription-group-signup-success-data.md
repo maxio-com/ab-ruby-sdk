@@ -15,7 +15,7 @@
 | `payment_profile_id` | `Integer` | Required | - |
 | `subscription_ids` | `Array<Integer>` | Required | - |
 | `primary_subscription_id` | `Integer` | Required | - |
-| `next_assessment_at` | `String` | Required | - |
+| `next_assessment_at` | `DateTime` | Required | - |
 | `state` | `String` | Required | - |
 | `cancel_at_end_of_period` | `TrueClass \| FalseClass` | Required | - |
 
@@ -32,7 +32,7 @@
     29
   ],
   "primary_subscription_id": 102,
-  "next_assessment_at": "next_assessment_at2",
+  "next_assessment_at": "2016-03-13T12:52:32.123Z",
   "state": "state4",
   "cancel_at_end_of_period": false
 }

@@ -4,13 +4,13 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # PaymentResponse Model.
-  class PaymentResponse < BaseModel
+  # RecordPaymentResponse Model.
+  class RecordPaymentResponse < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[Payment]]
+    # @return [Array[PaidInvoice]]
     attr_accessor :paid_invoices
 
     # TODO: Write general description for this method
@@ -35,7 +35,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        prepayment
+      ]
     end
 
     def initialize(paid_invoices = SKIP,
@@ -54,16 +56,28 @@ module AdvancedBilling
       unless hash['paid_invoices'].nil?
         paid_invoices = []
         hash['paid_invoices'].each do |structure|
-          paid_invoices << (Payment.from_hash(structure) if structure)
+          paid_invoices << (PaidInvoice.from_hash(structure) if structure)
         end
       end
 
       paid_invoices = SKIP unless hash.key?('paid_invoices')
-      prepayment = InvoicePrePayment.from_hash(hash['prepayment']) if hash['prepayment']
+      prepayment = hash.key?('prepayment') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:RecordPaymentResponsePrepayment), hash['prepayment']
+      ) : SKIP
 
       # Create object from extracted values.
-      PaymentResponse.new(paid_invoices,
-                          prepayment)
+      RecordPaymentResponse.new(paid_invoices,
+                                prepayment)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [RecordPaymentResponse | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end
