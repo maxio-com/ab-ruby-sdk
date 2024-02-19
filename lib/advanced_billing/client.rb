@@ -201,8 +201,7 @@ module AdvancedBilling
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       retry_methods: %i[get put], http_callback: nil,
       environment: Environment::PRODUCTION, subdomain: 'subdomain',
-      domain: 'chargify.com', basic_auth_user_name: nil,
-      basic_auth_password: nil, basic_auth_credentials: nil, config: nil
+      domain: 'chargify.com', basic_auth_credentials: nil, config: nil
     )
       @config = if config.nil?
                   Configuration.new(
@@ -212,8 +211,7 @@ module AdvancedBilling
                     retry_statuses: retry_statuses,
                     retry_methods: retry_methods, http_callback: http_callback,
                     environment: environment, subdomain: subdomain,
-                    domain: domain, basic_auth_user_name: basic_auth_user_name,
-                    basic_auth_password: basic_auth_password,
+                    domain: domain,
                     basic_auth_credentials: basic_auth_credentials
                   )
                 else
