@@ -57,12 +57,18 @@ module AdvancedBilling
                    service_credit_account_balance_in_cents = nil,
                    service_credit_balance_change_in_cents = nil,
                    currency_code = nil,
-                   at_time = nil)
+                   at_time = nil,
+                   additional_properties = {})
       @reason = reason
       @service_credit_account_balance_in_cents = service_credit_account_balance_in_cents
       @service_credit_balance_change_in_cents = service_credit_balance_change_in_cents
       @currency_code = currency_code
       @at_time = at_time
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -80,12 +86,16 @@ module AdvancedBilling
                   (DateTimeHelper.from_rfc3339(hash['at_time']) if hash['at_time'])
                 end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreditAccountBalanceChanged.new(reason,
                                       service_credit_account_balance_in_cents,
                                       service_credit_balance_change_in_cents,
                                       currency_code,
-                                      at_time)
+                                      at_time,
+                                      hash)
     end
 
     def to_custom_at_time

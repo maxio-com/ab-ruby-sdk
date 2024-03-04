@@ -46,10 +46,16 @@ module AdvancedBilling
 
     def initialize(id = nil,
                    pricing_scheme = nil,
-                   prices = nil)
+                   prices = nil,
+                   additional_properties = {})
       @id = id
       @pricing_scheme = pricing_scheme
       @prices = prices
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,10 +77,14 @@ module AdvancedBilling
 
       prices = nil unless hash.key?('prices')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       BulkUpdateSegmentsItem.new(id,
                                  pricing_scheme,
-                                 prices)
+                                 prices,
+                                 hash)
     end
   end
 end

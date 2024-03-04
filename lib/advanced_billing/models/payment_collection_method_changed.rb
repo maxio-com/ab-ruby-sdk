@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(previous_value = nil,
-                   current_value = nil)
+                   current_value = nil,
+                   additional_properties = {})
       @previous_value = previous_value
       @current_value = current_value
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -50,9 +56,13 @@ module AdvancedBilling
         hash.key?('previous_value') ? hash['previous_value'] : nil
       current_value = hash.key?('current_value') ? hash['current_value'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PaymentCollectionMethodChanged.new(previous_value,
-                                         current_value)
+                                         current_value,
+                                         hash)
     end
 
     # Validates an instance of the object from a given value.

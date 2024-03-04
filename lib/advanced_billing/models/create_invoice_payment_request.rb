@@ -38,9 +38,15 @@ module AdvancedBilling
     end
 
     def initialize(payment = nil,
-                   type = SKIP)
+                   type = SKIP,
+                   additional_properties = {})
       @payment = payment
       @type = type unless type == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -51,9 +57,13 @@ module AdvancedBilling
       payment = CreateInvoicePayment.from_hash(hash['payment']) if hash['payment']
       type = hash.key?('type') ? hash['type'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateInvoicePaymentRequest.new(payment,
-                                      type)
+                                      type,
+                                      hash)
     end
   end
 end

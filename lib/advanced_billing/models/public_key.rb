@@ -47,10 +47,16 @@ module AdvancedBilling
 
     def initialize(public_key = SKIP,
                    requires_security_token = SKIP,
-                   created_at = SKIP)
+                   created_at = SKIP,
+                   additional_properties = {})
       @public_key = public_key unless public_key == SKIP
       @requires_security_token = requires_security_token unless requires_security_token == SKIP
       @created_at = created_at unless created_at == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -67,10 +73,14 @@ module AdvancedBilling
                      SKIP
                    end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PublicKey.new(public_key,
                     requires_security_token,
-                    created_at)
+                    created_at,
+                    hash)
     end
 
     def to_custom_created_at

@@ -65,12 +65,18 @@ module AdvancedBilling
                    finished_at = SKIP,
                    row_count = SKIP,
                    created_at = SKIP,
-                   completed = SKIP)
+                   completed = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @finished_at = finished_at unless finished_at == SKIP
       @row_count = row_count unless row_count == SKIP
       @created_at = created_at unless created_at == SKIP
       @completed = completed unless completed == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -92,12 +98,16 @@ module AdvancedBilling
                    end
       completed = hash.key?('completed') ? hash['completed'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       BatchJob.new(id,
                    finished_at,
                    row_count,
                    created_at,
-                   completed)
+                   completed,
+                   hash)
     end
 
     def to_custom_finished_at

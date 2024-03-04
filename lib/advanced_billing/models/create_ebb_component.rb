@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(event_based_component = nil)
+    def initialize(event_based_component = nil,
+                   additional_properties = {})
       @event_based_component = event_based_component
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       event_based_component = EBBComponent.from_hash(hash['event_based_component']) if
         hash['event_based_component']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateEBBComponent.new(event_based_component)
+      CreateEBBComponent.new(event_based_component,
+                             hash)
     end
   end
 end

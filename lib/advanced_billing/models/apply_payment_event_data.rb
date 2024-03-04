@@ -103,7 +103,8 @@ module AdvancedBilling
                    parent_invoice_number = SKIP,
                    remaining_prepayment_amount = SKIP,
                    prepayment = SKIP,
-                   external = SKIP)
+                   external = SKIP,
+                   additional_properties = {})
       @memo = memo
       @original_amount = original_amount
       @applied_amount = applied_amount
@@ -117,6 +118,11 @@ module AdvancedBilling
       end
       @prepayment = prepayment unless prepayment == SKIP
       @external = external unless external == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -144,6 +150,9 @@ module AdvancedBilling
       prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
       external = hash.key?('external') ? hash['external'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ApplyPaymentEventData.new(memo,
                                 original_amount,
@@ -154,7 +163,8 @@ module AdvancedBilling
                                 parent_invoice_number,
                                 remaining_prepayment_amount,
                                 prepayment,
-                                external)
+                                external,
+                                hash)
     end
 
     def to_custom_transaction_time

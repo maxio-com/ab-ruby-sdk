@@ -11,14 +11,22 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [String]
+    attr_accessor :uid
+
+    # TODO: Write general description for this method
+    # @return [String]
     attr_accessor :title
 
     # TODO: Write general description for this method
     # @return [String]
+    attr_accessor :code
+
+    # TODO: Write general description for this method
+    # @return [ProformaInvoiceDiscountSourceType]
     attr_accessor :source_type
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceDiscountType]
     attr_accessor :discount_type
 
     # TODO: Write general description for this method
@@ -30,13 +38,15 @@ module AdvancedBilling
     attr_accessor :discount_amount
 
     # TODO: Write general description for this method
-    # @return [Array[ProformaInvoiceDiscountBreakout]]
+    # @return [Array[InvoiceDiscountBreakout]]
     attr_accessor :line_item_breakouts
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['uid'] = 'uid'
       @_hash['title'] = 'title'
+      @_hash['code'] = 'code'
       @_hash['source_type'] = 'source_type'
       @_hash['discount_type'] = 'discount_type'
       @_hash['eligible_amount'] = 'eligible_amount'
@@ -48,7 +58,9 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
+        uid
         title
+        code
         source_type
         discount_type
         eligible_amount
@@ -62,18 +74,28 @@ module AdvancedBilling
       []
     end
 
-    def initialize(title = SKIP,
+    def initialize(uid = SKIP,
+                   title = SKIP,
+                   code = SKIP,
                    source_type = SKIP,
                    discount_type = SKIP,
                    eligible_amount = SKIP,
                    discount_amount = SKIP,
-                   line_item_breakouts = SKIP)
+                   line_item_breakouts = SKIP,
+                   additional_properties = {})
+      @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
+      @code = code unless code == SKIP
       @source_type = source_type unless source_type == SKIP
       @discount_type = discount_type unless discount_type == SKIP
       @eligible_amount = eligible_amount unless eligible_amount == SKIP
       @discount_amount = discount_amount unless discount_amount == SKIP
       @line_item_breakouts = line_item_breakouts unless line_item_breakouts == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -81,7 +103,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
+      uid = hash.key?('uid') ? hash['uid'] : SKIP
       title = hash.key?('title') ? hash['title'] : SKIP
+      code = hash.key?('code') ? hash['code'] : SKIP
       source_type = hash.key?('source_type') ? hash['source_type'] : SKIP
       discount_type = hash.key?('discount_type') ? hash['discount_type'] : SKIP
       eligible_amount =
@@ -93,19 +117,25 @@ module AdvancedBilling
       unless hash['line_item_breakouts'].nil?
         line_item_breakouts = []
         hash['line_item_breakouts'].each do |structure|
-          line_item_breakouts << (ProformaInvoiceDiscountBreakout.from_hash(structure) if structure)
+          line_item_breakouts << (InvoiceDiscountBreakout.from_hash(structure) if structure)
         end
       end
 
       line_item_breakouts = SKIP unless hash.key?('line_item_breakouts')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ProformaInvoiceDiscount.new(title,
+      ProformaInvoiceDiscount.new(uid,
+                                  title,
+                                  code,
                                   source_type,
                                   discount_type,
                                   eligible_amount,
                                   discount_amount,
-                                  line_item_breakouts)
+                                  line_item_breakouts,
+                                  hash)
     end
   end
 end

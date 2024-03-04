@@ -4,13 +4,13 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # BulkComponentSPricePointAssignment Model.
-  class BulkComponentSPricePointAssignment < BaseModel
+  # BulkComponentsPricePointAssignment Model.
+  class BulkComponentsPricePointAssignment < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[ComponentSPricePointAssignment]]
+    # @return [Array[ComponentPricePointAssignment]]
     attr_accessor :components
 
     # A mapping from model property names to API property names.
@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(components = SKIP)
+    def initialize(components = SKIP,
+                   additional_properties = {})
       @components = components unless components == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -46,14 +52,18 @@ module AdvancedBilling
       unless hash['components'].nil?
         components = []
         hash['components'].each do |structure|
-          components << (ComponentSPricePointAssignment.from_hash(structure) if structure)
+          components << (ComponentPricePointAssignment.from_hash(structure) if structure)
         end
       end
 
       components = SKIP unless hash.key?('components')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      BulkComponentSPricePointAssignment.new(components)
+      BulkComponentsPricePointAssignment.new(components,
+                                             hash)
     end
   end
 end

@@ -95,7 +95,8 @@ module AdvancedBilling
                    payment_collection_method = CollectionMethod::AUTOMATIC,
                    payer_attributes = SKIP,
                    credit_card_attributes = SKIP,
-                   bank_account_attributes = SKIP)
+                   bank_account_attributes = SKIP,
+                   additional_properties = {})
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
       @payer_id = payer_id unless payer_id == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
@@ -107,6 +108,11 @@ module AdvancedBilling
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @bank_account_attributes = bank_account_attributes unless bank_account_attributes == SKIP
       @subscriptions = subscriptions
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -140,6 +146,9 @@ module AdvancedBilling
         bank_account_attributes = SubscriptionGroupBankAccount.from_hash(hash['bank_account_attributes'])
       end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupSignup.new(subscriptions,
                                   payment_profile_id,
@@ -148,7 +157,8 @@ module AdvancedBilling
                                   payment_collection_method,
                                   payer_attributes,
                                   credit_card_attributes,
-                                  bank_account_attributes)
+                                  bank_account_attributes,
+                                  hash)
     end
   end
 end

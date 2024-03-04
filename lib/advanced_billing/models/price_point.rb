@@ -134,7 +134,8 @@ module AdvancedBilling
                    rollover_prepaid_remainder = SKIP,
                    renew_prepaid_allocation = SKIP,
                    expiration_interval = SKIP,
-                   expiration_interval_unit = SKIP)
+                   expiration_interval_unit = SKIP,
+                   additional_properties = {})
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
@@ -151,6 +152,11 @@ module AdvancedBilling
       @renew_prepaid_allocation = renew_prepaid_allocation unless renew_prepaid_allocation == SKIP
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -187,6 +193,9 @@ module AdvancedBilling
       expiration_interval_unit =
         hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PricePoint.new(name,
                      handle,
@@ -200,7 +209,8 @@ module AdvancedBilling
                      rollover_prepaid_remainder,
                      renew_prepaid_allocation,
                      expiration_interval,
-                     expiration_interval_unit)
+                     expiration_interval_unit,
+                     hash)
     end
   end
 end

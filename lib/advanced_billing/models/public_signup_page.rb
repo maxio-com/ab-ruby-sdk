@@ -57,11 +57,17 @@ module AdvancedBilling
     def initialize(id = SKIP,
                    return_url = SKIP,
                    return_params = SKIP,
-                   url = SKIP)
+                   url = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @return_url = return_url unless return_url == SKIP
       @return_params = return_params unless return_params == SKIP
       @url = url unless url == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -74,11 +80,15 @@ module AdvancedBilling
       return_params = hash.key?('return_params') ? hash['return_params'] : SKIP
       url = hash.key?('url') ? hash['url'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PublicSignupPage.new(id,
                            return_url,
                            return_params,
-                           url)
+                           url,
+                           hash)
     end
   end
 end

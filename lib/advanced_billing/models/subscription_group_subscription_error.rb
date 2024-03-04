@@ -54,13 +54,19 @@ module AdvancedBilling
     def initialize(product = SKIP,
                    product_price_point_id = SKIP,
                    payment_profile = SKIP,
-                   payment_profile_chargify_token = SKIP)
+                   payment_profile_chargify_token = SKIP,
+                   additional_properties = {})
       @product = product unless product == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
       unless payment_profile_chargify_token == SKIP
         @payment_profile_chargify_token =
           payment_profile_chargify_token
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -77,11 +83,15 @@ module AdvancedBilling
       payment_profile_chargify_token =
         hash.key?('payment_profile.chargify_token') ? hash['payment_profile.chargify_token'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupSubscriptionError.new(product,
                                              product_price_point_id,
                                              payment_profile,
-                                             payment_profile_chargify_token)
+                                             payment_profile_chargify_token,
+                                             hash)
     end
   end
 end

@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(coupon = SKIP)
+    def initialize(coupon = SKIP,
+                   additional_properties = {})
       @coupon = coupon unless coupon == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -43,8 +49,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       coupon = Coupon.from_hash(hash['coupon']) if hash['coupon']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CouponResponse.new(coupon)
+      CouponResponse.new(coupon,
+                         hash)
     end
   end
 end

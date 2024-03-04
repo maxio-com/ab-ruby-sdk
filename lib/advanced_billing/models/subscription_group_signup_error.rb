@@ -73,13 +73,19 @@ module AdvancedBilling
                    payer = SKIP,
                    subscription_group = SKIP,
                    payment_profile_id = SKIP,
-                   payer_id = SKIP)
+                   payer_id = SKIP,
+                   additional_properties = {})
       @subscriptions = subscriptions unless subscriptions == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
       @payer = payer unless payer == SKIP
       @subscription_group = subscription_group unless subscription_group == SKIP
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
       @payer_id = payer_id unless payer_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -100,13 +106,17 @@ module AdvancedBilling
         hash.key?('payment_profile_id') ? hash['payment_profile_id'] : SKIP
       payer_id = hash.key?('payer_id') ? hash['payer_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupSignupError.new(subscriptions,
                                        payer_reference,
                                        payer,
                                        subscription_group,
                                        payment_profile_id,
-                                       payer_id)
+                                       payer_id,
+                                       hash)
     end
   end
 end

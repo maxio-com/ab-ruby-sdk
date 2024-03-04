@@ -68,13 +68,19 @@ module AdvancedBilling
                    currency = SKIP,
                    currency_symbol = SKIP,
                    breakouts = SKIP,
-                   at_time = SKIP)
+                   at_time = SKIP,
+                   additional_properties = {})
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @amount_formatted = amount_formatted unless amount_formatted == SKIP
       @currency = currency unless currency == SKIP
       @currency_symbol = currency_symbol unless currency_symbol == SKIP
       @breakouts = breakouts unless breakouts == SKIP
       @at_time = at_time unless at_time == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -96,13 +102,17 @@ module AdvancedBilling
                   SKIP
                 end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       MRR.new(amount_in_cents,
               amount_formatted,
               currency,
               currency_symbol,
               breakouts,
-              at_time)
+              at_time,
+              hash)
     end
 
     def to_custom_at_time

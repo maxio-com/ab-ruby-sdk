@@ -39,9 +39,15 @@ module AdvancedBilling
     end
 
     def initialize(subscription_groups = SKIP,
-                   meta = SKIP)
+                   meta = SKIP,
+                   additional_properties = {})
       @subscription_groups = subscription_groups unless subscription_groups == SKIP
       @meta = meta unless meta == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -61,9 +67,13 @@ module AdvancedBilling
       subscription_groups = SKIP unless hash.key?('subscription_groups')
       meta = ListSubscriptionGroupsMeta.from_hash(hash['meta']) if hash['meta']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ListSubscriptionGroupsResponse.new(subscription_groups,
-                                         meta)
+                                         meta,
+                                         hash)
     end
   end
 end

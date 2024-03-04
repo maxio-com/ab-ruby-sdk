@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(credit_scheme = nil)
+    def initialize(credit_scheme = nil,
+                   additional_properties = {})
       @credit_scheme = credit_scheme
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       credit_scheme = hash.key?('credit_scheme') ? hash['credit_scheme'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreditSchemeRequest.new(credit_scheme)
+      CreditSchemeRequest.new(credit_scheme,
+                              hash)
     end
   end
 end

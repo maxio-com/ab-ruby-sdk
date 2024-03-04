@@ -163,7 +163,8 @@ module AdvancedBilling
                    custom_price = SKIP,
                    components = SKIP,
                    dunning_communication_delay_enabled = SKIP,
-                   dunning_communication_delay_time_zone = SKIP)
+                   dunning_communication_delay_time_zone = SKIP,
+                   additional_properties = {})
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -195,6 +196,11 @@ module AdvancedBilling
       unless dunning_communication_delay_time_zone == SKIP
         @dunning_communication_delay_time_zone =
           dunning_communication_delay_time_zone
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -249,6 +255,9 @@ module AdvancedBilling
       dunning_communication_delay_time_zone =
         hash.key?('dunning_communication_delay_time_zone') ? hash['dunning_communication_delay_time_zone'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       UpdateSubscription.new(credit_card_attributes,
                              product_handle,
@@ -266,7 +275,8 @@ module AdvancedBilling
                              custom_price,
                              components,
                              dunning_communication_delay_enabled,
-                             dunning_communication_delay_time_zone)
+                             dunning_communication_delay_time_zone,
+                             hash)
     end
 
     def to_custom_next_billing_at

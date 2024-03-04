@@ -258,7 +258,8 @@ module AdvancedBilling
                    payment_method_nonce = SKIP,
                    gateway_handle = SKIP,
                    cvv = SKIP,
-                   last_four = SKIP)
+                   last_four = SKIP,
+                   additional_properties = {})
       @chargify_token = chargify_token unless chargify_token == SKIP
       @id = id unless id == SKIP
       @payment_type = payment_type unless payment_type == SKIP
@@ -284,6 +285,11 @@ module AdvancedBilling
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
       @cvv = cvv unless cvv == SKIP
       @last_four = last_four unless last_four == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -329,6 +335,9 @@ module AdvancedBilling
       cvv = hash.key?('cvv') ? hash['cvv'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PaymentProfileAttributes.new(chargify_token,
                                    id,
@@ -354,7 +363,8 @@ module AdvancedBilling
                                    payment_method_nonce,
                                    gateway_handle,
                                    cvv,
-                                   last_four)
+                                   last_four,
+                                   hash)
     end
 
     # Validates an instance of the object from a given value.

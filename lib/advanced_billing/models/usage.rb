@@ -89,7 +89,8 @@ module AdvancedBilling
                    overage_quantity = SKIP,
                    component_id = SKIP,
                    component_handle = SKIP,
-                   subscription_id = SKIP)
+                   subscription_id = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @memo = memo unless memo == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -99,6 +100,11 @@ module AdvancedBilling
       @component_id = component_id unless component_id == SKIP
       @component_handle = component_handle unless component_handle == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -126,6 +132,9 @@ module AdvancedBilling
       subscription_id =
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Usage.new(id,
                 memo,
@@ -135,7 +144,8 @@ module AdvancedBilling
                 overage_quantity,
                 component_id,
                 component_handle,
-                subscription_id)
+                subscription_id,
+                hash)
     end
 
     def to_custom_created_at

@@ -139,7 +139,8 @@ module AdvancedBilling
                    organization_address = SKIP,
                    tax_configuration = SKIP,
                    net_terms = SKIP,
-                   test = SKIP)
+                   test = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @subdomain = subdomain unless subdomain == SKIP
@@ -165,6 +166,11 @@ module AdvancedBilling
       @tax_configuration = tax_configuration unless tax_configuration == SKIP
       @net_terms = net_terms unless net_terms == SKIP
       @test = test unless test == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -198,6 +204,9 @@ module AdvancedBilling
       net_terms = NetTerms.from_hash(hash['net_terms']) if hash['net_terms']
       test = hash.key?('test') ? hash['test'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Site.new(id,
                name,
@@ -214,7 +223,8 @@ module AdvancedBilling
                organization_address,
                tax_configuration,
                net_terms,
-               test)
+               test,
+               hash)
     end
   end
 end

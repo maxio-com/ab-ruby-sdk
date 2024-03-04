@@ -207,7 +207,7 @@ module AdvancedBilling
           )
         ),
 
-        :ComponentSPricePointAssignmentPricePoint => OneOf.new(
+        :ComponentPricePointAssignmentPricePoint => OneOf.new(
           [
             LeafType.new(String),
             LeafType.new(Integer)

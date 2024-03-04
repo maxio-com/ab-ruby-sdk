@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(id = SKIP,
                    first_name = SKIP,
                    last_name = SKIP,
-                   masked_card_number = SKIP)
+                   masked_card_number = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @masked_card_number = masked_card_number unless masked_card_number == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
       masked_card_number =
         hash.key?('masked_card_number') ? hash['masked_card_number'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupPaymentProfile.new(id,
                                           first_name,
                                           last_name,
-                                          masked_card_number)
+                                          masked_card_number,
+                                          hash)
     end
   end
 end

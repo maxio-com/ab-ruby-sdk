@@ -78,7 +78,8 @@ module AdvancedBilling
                    accounting_code = SKIP,
                    description = SKIP,
                    created_at = SKIP,
-                   updated_at = SKIP)
+                   updated_at = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
@@ -86,6 +87,11 @@ module AdvancedBilling
       @description = description unless description == SKIP
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -110,6 +116,9 @@ module AdvancedBilling
                      SKIP
                    end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ProductFamily.new(id,
                         name,
@@ -117,7 +126,8 @@ module AdvancedBilling
                         accounting_code,
                         description,
                         created_at,
-                        updated_at)
+                        updated_at,
+                        hash)
     end
 
     def to_custom_created_at

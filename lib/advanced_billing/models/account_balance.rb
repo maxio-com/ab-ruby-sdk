@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(balance_in_cents = SKIP)
+    def initialize(balance_in_cents = SKIP,
+                   additional_properties = {})
       @balance_in_cents = balance_in_cents unless balance_in_cents == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -44,8 +50,12 @@ module AdvancedBilling
       balance_in_cents =
         hash.key?('balance_in_cents') ? hash['balance_in_cents'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      AccountBalance.new(balance_in_cents)
+      AccountBalance.new(balance_in_cents,
+                         hash)
     end
   end
 end

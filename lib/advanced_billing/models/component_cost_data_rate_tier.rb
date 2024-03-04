@@ -62,12 +62,18 @@ module AdvancedBilling
                    ending_quantity = SKIP,
                    quantity = SKIP,
                    unit_price = SKIP,
-                   amount = SKIP)
+                   amount = SKIP,
+                   additional_properties = {})
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
       @ending_quantity = ending_quantity unless ending_quantity == SKIP
       @quantity = quantity unless quantity == SKIP
       @unit_price = unit_price unless unit_price == SKIP
       @amount = amount unless amount == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -83,12 +89,16 @@ module AdvancedBilling
       unit_price = hash.key?('unit_price') ? hash['unit_price'] : SKIP
       amount = hash.key?('amount') ? hash['amount'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ComponentCostDataRateTier.new(starting_quantity,
                                     ending_quantity,
                                     quantity,
                                     unit_price,
-                                    amount)
+                                    amount,
+                                    hash)
     end
   end
 end

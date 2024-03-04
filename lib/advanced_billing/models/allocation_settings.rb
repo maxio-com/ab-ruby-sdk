@@ -53,10 +53,16 @@ module AdvancedBilling
 
     def initialize(upgrade_charge = SKIP,
                    downgrade_credit = SKIP,
-                   accrue_charge = SKIP)
+                   accrue_charge = SKIP,
+                   additional_properties = {})
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @accrue_charge = accrue_charge unless accrue_charge == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -70,10 +76,14 @@ module AdvancedBilling
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       accrue_charge = hash.key?('accrue_charge') ? hash['accrue_charge'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       AllocationSettings.new(upgrade_charge,
                              downgrade_credit,
-                             accrue_charge)
+                             accrue_charge,
+                             hash)
     end
   end
 end

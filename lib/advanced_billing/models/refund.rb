@@ -80,7 +80,8 @@ module AdvancedBilling
                    external = SKIP,
                    apply_credit = SKIP,
                    void_invoice = SKIP,
-                   segment_uids = SKIP)
+                   segment_uids = SKIP,
+                   additional_properties = {})
       @amount = amount unless amount == SKIP
       @memo = memo unless memo == SKIP
       @payment_id = payment_id unless payment_id == SKIP
@@ -88,6 +89,11 @@ module AdvancedBilling
       @apply_credit = apply_credit unless apply_credit == SKIP
       @void_invoice = void_invoice unless void_invoice == SKIP
       @segment_uids = segment_uids unless segment_uids == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -105,6 +111,9 @@ module AdvancedBilling
         UnionTypeLookUp.get(:RefundSegmentUids), hash['segment_uids']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Refund.new(amount,
                  memo,
@@ -112,7 +121,8 @@ module AdvancedBilling
                  external,
                  apply_credit,
                  void_invoice,
-                 segment_uids)
+                 segment_uids,
+                 hash)
     end
 
     # Validates an instance of the object from a given value.

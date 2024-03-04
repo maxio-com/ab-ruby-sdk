@@ -292,7 +292,8 @@ module AdvancedBilling
                    bank_branch_code = SKIP,
                    bank_account_type = SKIP,
                    bank_account_holder_type = SKIP,
-                   last_four = SKIP)
+                   last_four = SKIP,
+                   additional_properties = {})
       @chargify_token = chargify_token unless chargify_token == SKIP
       @id = id unless id == SKIP
       @payment_type = payment_type unless payment_type == SKIP
@@ -325,6 +326,11 @@ module AdvancedBilling
       @bank_account_type = bank_account_type unless bank_account_type == SKIP
       @bank_account_holder_type = bank_account_holder_type unless bank_account_holder_type == SKIP
       @last_four = last_four unless last_four == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -382,6 +388,9 @@ module AdvancedBilling
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreatePaymentProfile.new(chargify_token,
                                id,
@@ -414,7 +423,8 @@ module AdvancedBilling
                                bank_branch_code,
                                bank_account_type,
                                bank_account_holder_type,
-                               last_four)
+                               last_four,
+                               hash)
     end
 
     # Validates an instance of the object from a given value.

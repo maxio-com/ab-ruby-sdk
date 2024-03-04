@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(segment = nil)
+    def initialize(segment = nil,
+                   additional_properties = {})
       @segment = segment
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       segment = UpdateSegment.from_hash(hash['segment']) if hash['segment']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      UpdateSegmentRequest.new(segment)
+      UpdateSegmentRequest.new(segment,
+                               hash)
     end
   end
 end

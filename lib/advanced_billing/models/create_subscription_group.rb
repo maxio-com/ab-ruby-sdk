@@ -38,9 +38,15 @@ module AdvancedBilling
     end
 
     def initialize(subscription_id = nil,
-                   member_ids = SKIP)
+                   member_ids = SKIP,
+                   additional_properties = {})
       @subscription_id = subscription_id
       @member_ids = member_ids unless member_ids == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -53,9 +59,13 @@ module AdvancedBilling
       ) : nil
       member_ids = hash.key?('member_ids') ? hash['member_ids'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateSubscriptionGroup.new(subscription_id,
-                                  member_ids)
+                                  member_ids,
+                                  hash)
     end
 
     # Validates an instance of the object from a given value.

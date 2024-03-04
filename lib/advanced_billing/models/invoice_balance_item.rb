@@ -46,10 +46,16 @@ module AdvancedBilling
 
     def initialize(uid = SKIP,
                    number = SKIP,
-                   outstanding_amount = SKIP)
+                   outstanding_amount = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @number = number unless number == SKIP
       @outstanding_amount = outstanding_amount unless outstanding_amount == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -62,10 +68,14 @@ module AdvancedBilling
       outstanding_amount =
         hash.key?('outstanding_amount') ? hash['outstanding_amount'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceBalanceItem.new(uid,
                              number,
-                             outstanding_amount)
+                             outstanding_amount,
+                             hash)
     end
   end
 end

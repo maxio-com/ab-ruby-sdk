@@ -106,7 +106,8 @@ module AdvancedBilling
                    state = SKIP,
                    cancel_at_end_of_period = SKIP,
                    subscriptions = SKIP,
-                   payment_collection_method = CollectionMethod::AUTOMATIC)
+                   payment_collection_method = CollectionMethod::AUTOMATIC,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -120,6 +121,11 @@ module AdvancedBilling
       unless payment_collection_method == SKIP
         @payment_collection_method =
           payment_collection_method
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -158,6 +164,9 @@ module AdvancedBilling
       payment_collection_method =
         hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupSignupResponse.new(uid,
                                           scheme,
@@ -169,7 +178,8 @@ module AdvancedBilling
                                           state,
                                           cancel_at_end_of_period,
                                           subscriptions,
-                                          payment_collection_method)
+                                          payment_collection_method,
+                                          hash)
     end
 
     def to_custom_next_assessment_at

@@ -60,12 +60,18 @@ module AdvancedBilling
                    site_name = SKIP,
                    site_id = SKIP,
                    site_currency = SKIP,
-                   stats = SKIP)
+                   stats = SKIP,
+                   additional_properties = {})
       @seller_name = seller_name unless seller_name == SKIP
       @site_name = site_name unless site_name == SKIP
       @site_id = site_id unless site_id == SKIP
       @site_currency = site_currency unless site_currency == SKIP
       @stats = stats unless stats == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -79,12 +85,16 @@ module AdvancedBilling
       site_currency = hash.key?('site_currency') ? hash['site_currency'] : SKIP
       stats = SiteStatistics.from_hash(hash['stats']) if hash['stats']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SiteSummary.new(seller_name,
                       site_name,
                       site_id,
                       site_currency,
-                      stats)
+                      stats,
+                      hash)
     end
   end
 end

@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(offer = nil)
+    def initialize(offer = nil,
+                   additional_properties = {})
       @offer = offer
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       offer = CreateOffer.from_hash(hash['offer']) if hash['offer']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateOfferRequest.new(offer)
+      CreateOfferRequest.new(offer,
+                             hash)
     end
   end
 end

@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # ComponentSPricePointAssignment Model.
-  class ComponentSPricePointAssignment < BaseModel
+  # ComponentPricePointAssignment Model.
+  class ComponentPricePointAssignment < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -39,9 +39,15 @@ module AdvancedBilling
     end
 
     def initialize(component_id = SKIP,
-                   price_point = SKIP)
+                   price_point = SKIP,
+                   additional_properties = {})
       @component_id = component_id unless component_id == SKIP
       @price_point = price_point unless price_point == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -51,16 +57,20 @@ module AdvancedBilling
       # Extract variables from the hash.
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       price_point = hash.key?('price_point') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ComponentSPricePointAssignmentPricePoint), hash['price_point']
+        UnionTypeLookUp.get(:ComponentPricePointAssignmentPricePoint), hash['price_point']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ComponentSPricePointAssignment.new(component_id,
-                                         price_point)
+      ComponentPricePointAssignment.new(component_id,
+                                        price_point,
+                                        hash)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [ComponentSPricePointAssignment | Hash] The value against the validation is performed.
+    # @param [ComponentPricePointAssignment | Hash] The value against the validation is performed.
     def self.validate(value)
       return true if value.instance_of? self
 

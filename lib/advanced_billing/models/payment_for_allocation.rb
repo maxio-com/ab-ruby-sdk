@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(id = SKIP,
                    amount_in_cents = SKIP,
                    success = SKIP,
-                   memo = SKIP)
+                   memo = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @success = success unless success == SKIP
       @memo = memo unless memo == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
       success = hash.key?('success') ? hash['success'] : SKIP
       memo = hash.key?('memo') ? hash['memo'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PaymentForAllocation.new(id,
                                amount_in_cents,
                                success,
-                               memo)
+                               memo,
+                               hash)
     end
 
     # Validates an instance of the object from a given value.

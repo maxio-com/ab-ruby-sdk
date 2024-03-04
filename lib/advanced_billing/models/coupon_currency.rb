@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(id = SKIP,
                    currency = SKIP,
                    price = SKIP,
-                   coupon_id = SKIP)
+                   coupon_id = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @currency = currency unless currency == SKIP
       @price = price unless price == SKIP
       @coupon_id = coupon_id unless coupon_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -70,11 +76,15 @@ module AdvancedBilling
       price = hash.key?('price') ? hash['price'] : SKIP
       coupon_id = hash.key?('coupon_id') ? hash['coupon_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CouponCurrency.new(id,
                          currency,
                          price,
-                         coupon_id)
+                         coupon_id,
+                         hash)
     end
   end
 end

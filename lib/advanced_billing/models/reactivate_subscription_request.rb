@@ -74,7 +74,8 @@ module AdvancedBilling
                    preserve_balance = SKIP,
                    coupon_code = SKIP,
                    use_credits_and_prepayments = SKIP,
-                   resume = SKIP)
+                   resume = SKIP,
+                   additional_properties = {})
       @calendar_billing = calendar_billing unless calendar_billing == SKIP
       @include_trial = include_trial unless include_trial == SKIP
       @preserve_balance = preserve_balance unless preserve_balance == SKIP
@@ -84,6 +85,11 @@ module AdvancedBilling
           use_credits_and_prepayments
       end
       @resume = resume unless resume == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -103,13 +109,17 @@ module AdvancedBilling
         UnionTypeLookUp.get(:ReactivateSubscriptionRequestResume), hash['resume']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ReactivateSubscriptionRequest.new(calendar_billing,
                                         include_trial,
                                         preserve_balance,
                                         coupon_code,
                                         use_credits_and_prepayments,
-                                        resume)
+                                        resume,
+                                        hash)
     end
 
     # Validates an instance of the object from a given value.

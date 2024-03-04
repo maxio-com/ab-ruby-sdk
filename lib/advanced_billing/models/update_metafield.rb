@@ -66,12 +66,18 @@ module AdvancedBilling
                    name = SKIP,
                    scope = SKIP,
                    input_type = SKIP,
-                   enum = SKIP)
+                   enum = SKIP,
+                   additional_properties = {})
       @current_name = current_name unless current_name == SKIP
       @name = name unless name == SKIP
       @scope = scope unless scope == SKIP
       @input_type = input_type unless input_type == SKIP
       @enum = enum unless enum == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -85,12 +91,16 @@ module AdvancedBilling
       input_type = hash.key?('input_type') ? hash['input_type'] : SKIP
       enum = hash.key?('enum') ? hash['enum'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       UpdateMetafield.new(current_name,
                           name,
                           scope,
                           input_type,
-                          enum)
+                          enum,
+                          hash)
     end
 
     # Validates an instance of the object from a given value.

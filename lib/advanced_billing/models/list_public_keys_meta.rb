@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(total_count = SKIP,
                    current_page = SKIP,
                    total_pages = SKIP,
-                   per_page = SKIP)
+                   per_page = SKIP,
+                   additional_properties = {})
       @total_count = total_count unless total_count == SKIP
       @current_page = current_page unless current_page == SKIP
       @total_pages = total_pages unless total_pages == SKIP
       @per_page = per_page unless per_page == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -70,11 +76,15 @@ module AdvancedBilling
       total_pages = hash.key?('total_pages') ? hash['total_pages'] : SKIP
       per_page = hash.key?('per_page') ? hash['per_page'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ListPublicKeysMeta.new(total_count,
                              current_page,
                              total_pages,
-                             per_page)
+                             per_page,
+                             hash)
     end
   end
 end

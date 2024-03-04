@@ -39,11 +39,17 @@ module AdvancedBilling
     end
 
     def initialize(hide_zero_subtotal_lines = SKIP,
-                   include_discounts_on_lines = SKIP)
+                   include_discounts_on_lines = SKIP,
+                   additional_properties = {})
       @hide_zero_subtotal_lines = hide_zero_subtotal_lines unless hide_zero_subtotal_lines == SKIP
       unless include_discounts_on_lines == SKIP
         @include_discounts_on_lines =
           include_discounts_on_lines
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -57,9 +63,13 @@ module AdvancedBilling
       include_discounts_on_lines =
         hash.key?('include_discounts_on_lines') ? hash['include_discounts_on_lines'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceDisplaySettings.new(hide_zero_subtotal_lines,
-                                 include_discounts_on_lines)
+                                 include_discounts_on_lines,
+                                 hash)
     end
   end
 end

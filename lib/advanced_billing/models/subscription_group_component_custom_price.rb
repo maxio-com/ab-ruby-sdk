@@ -53,10 +53,16 @@ module AdvancedBilling
 
     def initialize(pricing_scheme = SKIP,
                    prices = SKIP,
-                   overage_pricing = SKIP)
+                   overage_pricing = SKIP,
+                   additional_properties = {})
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
       @prices = prices unless prices == SKIP
       @overage_pricing = overage_pricing unless overage_pricing == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -87,10 +93,14 @@ module AdvancedBilling
 
       overage_pricing = SKIP unless hash.key?('overage_pricing')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupComponentCustomPrice.new(pricing_scheme,
                                                 prices,
-                                                overage_pricing)
+                                                overage_pricing,
+                                                hash)
     end
   end
 end

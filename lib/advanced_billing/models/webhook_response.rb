@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(webhook = SKIP)
+    def initialize(webhook = SKIP,
+                   additional_properties = {})
       @webhook = webhook unless webhook == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -43,8 +49,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       webhook = Webhook.from_hash(hash['webhook']) if hash['webhook']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      WebhookResponse.new(webhook)
+      WebhookResponse.new(webhook,
+                          hash)
     end
   end
 end

@@ -78,7 +78,8 @@ module AdvancedBilling
                    expires_at = SKIP,
                    recurring = SKIP,
                    amount_in_cents = SKIP,
-                   percentage = SKIP)
+                   percentage = SKIP,
+                   additional_properties = {})
       @code = code unless code == SKIP
       @use_count = use_count unless use_count == SKIP
       @uses_allowed = uses_allowed unless uses_allowed == SKIP
@@ -86,6 +87,11 @@ module AdvancedBilling
       @recurring = recurring unless recurring == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @percentage = percentage unless percentage == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -102,6 +108,9 @@ module AdvancedBilling
         hash.key?('amount_in_cents') ? hash['amount_in_cents'] : SKIP
       percentage = hash.key?('percentage') ? hash['percentage'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionIncludedCoupon.new(code,
                                      use_count,
@@ -109,7 +118,8 @@ module AdvancedBilling
                                      expires_at,
                                      recurring,
                                      amount_in_cents,
-                                     percentage)
+                                     percentage,
+                                     hash)
     end
   end
 end

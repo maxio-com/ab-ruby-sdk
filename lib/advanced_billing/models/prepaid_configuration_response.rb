@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepaid_configuration = nil)
+    def initialize(prepaid_configuration = nil,
+                   additional_properties = {})
       @prepaid_configuration = prepaid_configuration
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       prepaid_configuration = PrepaidConfiguration.from_hash(hash['prepaid_configuration']) if
         hash['prepaid_configuration']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      PrepaidConfigurationResponse.new(prepaid_configuration)
+      PrepaidConfigurationResponse.new(prepaid_configuration,
+                                       hash)
     end
   end
 end

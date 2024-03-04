@@ -39,9 +39,15 @@ module AdvancedBilling
     end
 
     def initialize(label = SKIP,
-                   amount = SKIP)
+                   amount = SKIP,
+                   additional_properties = {})
       @label = label unless label == SKIP
       @amount = amount unless amount == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -52,9 +58,13 @@ module AdvancedBilling
       label = hash.key?('label') ? hash['label'] : SKIP
       amount = hash.key?('amount') ? hash['amount'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceLineItemPricingDetail.new(label,
-                                       amount)
+                                       amount,
+                                       hash)
     end
   end
 end

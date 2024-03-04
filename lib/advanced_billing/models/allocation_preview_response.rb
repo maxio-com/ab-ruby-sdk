@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(allocation_preview = nil)
+    def initialize(allocation_preview = nil,
+                   additional_properties = {})
       @allocation_preview = allocation_preview
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       allocation_preview = AllocationPreview.from_hash(hash['allocation_preview']) if
         hash['allocation_preview']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      AllocationPreviewResponse.new(allocation_preview)
+      AllocationPreviewResponse.new(allocation_preview,
+                                    hash)
     end
   end
 end

@@ -58,11 +58,17 @@ module AdvancedBilling
     def initialize(payer = SKIP,
                    shipping_address = SKIP,
                    billing_address = SKIP,
-                   custom_fields = SKIP)
+                   custom_fields = SKIP,
+                   additional_properties = {})
       @payer = payer unless payer == SKIP
       @shipping_address = shipping_address unless shipping_address == SKIP
       @billing_address = billing_address unless billing_address == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -83,11 +89,15 @@ module AdvancedBilling
         UnionTypeLookUp.get(:CustomerChangeCustomFields), hash['custom_fields']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CustomerChange.new(payer,
                          shipping_address,
                          billing_address,
-                         custom_fields)
+                         custom_fields,
+                         hash)
     end
 
     # Validates an instance of the object from a given value.

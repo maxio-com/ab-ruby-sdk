@@ -68,13 +68,19 @@ module AdvancedBilling
                    segment_uids = nil,
                    external = SKIP,
                    apply_credit = SKIP,
-                   amount = SKIP)
+                   amount = SKIP,
+                   additional_properties = {})
       @memo = memo
       @payment_id = payment_id
       @segment_uids = segment_uids
       @external = external unless external == SKIP
       @apply_credit = apply_credit unless apply_credit == SKIP
       @amount = amount unless amount == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -91,13 +97,17 @@ module AdvancedBilling
       apply_credit = hash.key?('apply_credit') ? hash['apply_credit'] : SKIP
       amount = hash.key?('amount') ? hash['amount'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RefundConsolidatedInvoice.new(memo,
                                     payment_id,
                                     segment_uids,
                                     external,
                                     apply_credit,
-                                    amount)
+                                    amount,
+                                    hash)
     end
 
     # Validates an instance of the object from a given value.

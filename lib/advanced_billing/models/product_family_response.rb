@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product_family = SKIP)
+    def initialize(product_family = SKIP,
+                   additional_properties = {})
       @product_family = product_family unless product_family == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -43,8 +49,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       product_family = ProductFamily.from_hash(hash['product_family']) if hash['product_family']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ProductFamilyResponse.new(product_family)
+      ProductFamilyResponse.new(product_family,
+                                hash)
     end
   end
 end

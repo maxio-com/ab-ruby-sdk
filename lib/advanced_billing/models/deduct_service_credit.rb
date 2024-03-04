@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(amount = nil,
-                   memo = nil)
+                   memo = nil,
+                   additional_properties = {})
       @amount = amount
       @memo = memo
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -51,9 +57,13 @@ module AdvancedBilling
       ) : nil
       memo = hash.key?('memo') ? hash['memo'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       DeductServiceCredit.new(amount,
-                              memo)
+                              memo,
+                              hash)
     end
 
     # Validates an instance of the object from a given value.

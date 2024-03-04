@@ -50,11 +50,17 @@ module AdvancedBilling
     def initialize(debit_note_number = nil,
                    debit_note_uid = nil,
                    original_amount = nil,
-                   applied_amount = nil)
+                   applied_amount = nil,
+                   additional_properties = {})
       @debit_note_number = debit_note_number
       @debit_note_uid = debit_note_uid
       @original_amount = original_amount
       @applied_amount = applied_amount
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
       applied_amount =
         hash.key?('applied_amount') ? hash['applied_amount'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ApplyDebitNoteEventData.new(debit_note_number,
                                   debit_note_uid,
                                   original_amount,
-                                  applied_amount)
+                                  applied_amount,
+                                  hash)
     end
 
     # Validates an instance of the object from a given value.

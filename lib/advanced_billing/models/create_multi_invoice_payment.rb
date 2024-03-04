@@ -67,13 +67,19 @@ module AdvancedBilling
                    memo = SKIP,
                    details = SKIP,
                    method = SKIP,
-                   received_on = SKIP)
+                   received_on = SKIP,
+                   additional_properties = {})
       @memo = memo unless memo == SKIP
       @details = details unless details == SKIP
       @method = method unless method == SKIP
       @amount = amount
       @received_on = received_on unless received_on == SKIP
       @applications = applications
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -99,13 +105,17 @@ module AdvancedBilling
       method = hash.key?('method') ? hash['method'] : SKIP
       received_on = hash.key?('received_on') ? hash['received_on'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateMultiInvoicePayment.new(amount,
                                     applications,
                                     memo,
                                     details,
                                     method,
-                                    received_on)
+                                    received_on,
+                                    hash)
     end
 
     # Validates an instance of the object from a given value.

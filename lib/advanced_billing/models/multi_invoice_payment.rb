@@ -55,11 +55,17 @@ module AdvancedBilling
     def initialize(transaction_id = SKIP,
                    total_amount = SKIP,
                    currency_code = SKIP,
-                   applications = SKIP)
+                   applications = SKIP,
+                   additional_properties = {})
       @transaction_id = transaction_id unless transaction_id == SKIP
       @total_amount = total_amount unless total_amount == SKIP
       @currency_code = currency_code unless currency_code == SKIP
       @applications = applications unless applications == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -82,11 +88,15 @@ module AdvancedBilling
 
       applications = SKIP unless hash.key?('applications')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       MultiInvoicePayment.new(transaction_id,
                               total_amount,
                               currency_code,
-                              applications)
+                              applications,
+                              hash)
     end
   end
 end

@@ -37,9 +37,15 @@ module AdvancedBilling
     end
 
     def initialize(cancellation_state = nil,
-                   cancels_at = nil)
+                   cancels_at = nil,
+                   additional_properties = {})
       @cancellation_state = cancellation_state
       @cancels_at = cancels_at
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -53,9 +59,13 @@ module AdvancedBilling
                      (DateTimeHelper.from_rfc3339(hash['cancels_at']) if hash['cancels_at'])
                    end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PendingCancellationChange.new(cancellation_state,
-                                    cancels_at)
+                                    cancels_at,
+                                    hash)
     end
 
     def to_custom_cancels_at

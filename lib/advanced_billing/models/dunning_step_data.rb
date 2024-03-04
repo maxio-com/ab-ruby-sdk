@@ -80,7 +80,8 @@ module AdvancedBilling
                    send_sms = nil,
                    email_body = SKIP,
                    email_subject = SKIP,
-                   sms_body = SKIP)
+                   sms_body = SKIP,
+                   additional_properties = {})
       @day_threshold = day_threshold
       @action = action
       @email_body = email_body unless email_body == SKIP
@@ -89,6 +90,11 @@ module AdvancedBilling
       @send_bcc_email = send_bcc_email
       @send_sms = send_sms
       @sms_body = sms_body unless sms_body == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -106,6 +112,9 @@ module AdvancedBilling
       email_subject = hash.key?('email_subject') ? hash['email_subject'] : SKIP
       sms_body = hash.key?('sms_body') ? hash['sms_body'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       DunningStepData.new(day_threshold,
                           action,
@@ -114,7 +123,8 @@ module AdvancedBilling
                           send_sms,
                           email_body,
                           email_subject,
-                          sms_body)
+                          sms_body,
+                          hash)
     end
   end
 end

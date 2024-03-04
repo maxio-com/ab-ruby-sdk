@@ -43,9 +43,15 @@ module AdvancedBilling
     end
 
     def initialize(require_resume = SKIP,
-                   forgive_balance = SKIP)
+                   forgive_balance = SKIP,
+                   additional_properties = {})
       @require_resume = require_resume unless require_resume == SKIP
       @forgive_balance = forgive_balance unless forgive_balance == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -58,9 +64,13 @@ module AdvancedBilling
       forgive_balance =
         hash.key?('forgive_balance') ? hash['forgive_balance'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ResumeOptions.new(require_resume,
-                        forgive_balance)
+                        forgive_balance,
+                        hash)
     end
 
     # Validates an instance of the object from a given value.

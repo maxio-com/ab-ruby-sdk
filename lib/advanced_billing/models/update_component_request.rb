@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component = nil)
+    def initialize(component = nil,
+                   additional_properties = {})
       @component = component
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       component = UpdateComponent.from_hash(hash['component']) if hash['component']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      UpdateComponentRequest.new(component)
+      UpdateComponentRequest.new(component,
+                                 hash)
     end
   end
 end

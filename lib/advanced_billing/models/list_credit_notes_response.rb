@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(credit_notes = nil)
+    def initialize(credit_notes = nil,
+                   additional_properties = {})
       @credit_notes = credit_notes
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -50,8 +56,12 @@ module AdvancedBilling
 
       credit_notes = nil unless hash.key?('credit_notes')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ListCreditNotesResponse.new(credit_notes)
+      ListCreditNotesResponse.new(credit_notes,
+                                  hash)
     end
   end
 end

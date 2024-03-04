@@ -50,11 +50,17 @@ module AdvancedBilling
     def initialize(credit_note_attributes = nil,
                    memo = nil,
                    applied_amount = nil,
-                   transaction_time = nil)
+                   transaction_time = nil,
+                   additional_properties = {})
       @credit_note_attributes = credit_note_attributes
       @memo = memo
       @applied_amount = applied_amount
       @transaction_time = transaction_time
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
                            (DateTimeHelper.from_rfc3339(hash['transaction_time']) if hash['transaction_time'])
                          end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       VoidRemainderEventData.new(credit_note_attributes,
                                  memo,
                                  applied_amount,
-                                 transaction_time)
+                                 transaction_time,
+                                 hash)
     end
 
     def to_custom_transaction_time

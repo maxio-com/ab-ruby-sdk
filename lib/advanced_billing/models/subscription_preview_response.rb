@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_preview = nil)
+    def initialize(subscription_preview = nil,
+                   additional_properties = {})
       @subscription_preview = subscription_preview
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       subscription_preview = SubscriptionPreview.from_hash(hash['subscription_preview']) if
         hash['subscription_preview']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      SubscriptionPreviewResponse.new(subscription_preview)
+      SubscriptionPreviewResponse.new(subscription_preview,
+                                      hash)
     end
   end
 end

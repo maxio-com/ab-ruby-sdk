@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepayment = nil)
+    def initialize(prepayment = nil,
+                   additional_properties = {})
       @prepayment = prepayment
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       prepayment = ListSubcriptionGroupPrepaymentItem.from_hash(hash['prepayment']) if
         hash['prepayment']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ListSubscriptionGroupPrepayment.new(prepayment)
+      ListSubscriptionGroupPrepayment.new(prepayment,
+                                          hash)
     end
   end
 end

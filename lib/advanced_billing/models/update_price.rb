@@ -63,12 +63,18 @@ module AdvancedBilling
                    ending_quantity = SKIP,
                    unit_price = SKIP,
                    destroy = SKIP,
-                   starting_quantity = SKIP)
+                   starting_quantity = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @ending_quantity = ending_quantity unless ending_quantity == SKIP
       @unit_price = unit_price unless unit_price == SKIP
       @destroy = destroy unless destroy == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -88,12 +94,16 @@ module AdvancedBilling
         UnionTypeLookUp.get(:UpdatePriceStartingQuantity), hash['starting_quantity']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       UpdatePrice.new(id,
                       ending_quantity,
                       unit_price,
                       destroy,
-                      starting_quantity)
+                      starting_quantity,
+                      hash)
     end
 
     # Validates an instance of the object from a given value.

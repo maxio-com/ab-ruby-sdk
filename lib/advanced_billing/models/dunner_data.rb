@@ -61,13 +61,19 @@ module AdvancedBilling
                    revenue_at_risk_in_cents = nil,
                    created_at = nil,
                    attempts = nil,
-                   last_attempted_at = nil)
+                   last_attempted_at = nil,
+                   additional_properties = {})
       @state = state
       @subscription_id = subscription_id
       @revenue_at_risk_in_cents = revenue_at_risk_in_cents
       @created_at = created_at
       @attempts = attempts
       @last_attempted_at = last_attempted_at
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -88,13 +94,17 @@ module AdvancedBilling
                             (DateTimeHelper.from_rfc3339(hash['last_attempted_at']) if hash['last_attempted_at'])
                           end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       DunnerData.new(state,
                      subscription_id,
                      revenue_at_risk_in_cents,
                      created_at,
                      attempts,
-                     last_attempted_at)
+                     last_attempted_at,
+                     hash)
     end
 
     def to_custom_created_at

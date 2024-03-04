@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(plan_amount_in_cents = SKIP,
                    plan_amount_formatted = SKIP,
                    usage_amount_in_cents = SKIP,
-                   usage_amount_formatted = SKIP)
+                   usage_amount_formatted = SKIP,
+                   additional_properties = {})
       @plan_amount_in_cents = plan_amount_in_cents unless plan_amount_in_cents == SKIP
       @plan_amount_formatted = plan_amount_formatted unless plan_amount_formatted == SKIP
       @usage_amount_in_cents = usage_amount_in_cents unless usage_amount_in_cents == SKIP
       @usage_amount_formatted = usage_amount_formatted unless usage_amount_formatted == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -74,11 +80,15 @@ module AdvancedBilling
       usage_amount_formatted =
         hash.key?('usage_amount_formatted') ? hash['usage_amount_formatted'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Breakouts.new(plan_amount_in_cents,
                     plan_amount_formatted,
                     usage_amount_in_cents,
-                    usage_amount_formatted)
+                    usage_amount_formatted,
+                    hash)
     end
   end
 end

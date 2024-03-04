@@ -114,7 +114,8 @@ module AdvancedBilling
                    initial_charge_after_trial = SKIP,
                    expiration_interval = SKIP,
                    expiration_interval_unit = SKIP,
-                   tax_included = SKIP)
+                   tax_included = SKIP,
+                   additional_properties = {})
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
       @price_in_cents = price_in_cents
@@ -131,6 +132,11 @@ module AdvancedBilling
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
       @tax_included = tax_included unless tax_included == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -167,6 +173,9 @@ module AdvancedBilling
         hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionCustomPrice.new(price_in_cents,
                                   interval,
@@ -180,7 +189,8 @@ module AdvancedBilling
                                   initial_charge_after_trial,
                                   expiration_interval,
                                   expiration_interval_unit,
-                                  tax_included)
+                                  tax_included,
+                                  hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -60,13 +60,19 @@ module AdvancedBilling
                    item_handle = nil,
                    item_name = nil,
                    previous_price_point = nil,
-                   current_price_point = nil)
+                   current_price_point = nil,
+                   additional_properties = {})
       @item_id = item_id
       @item_type = item_type
       @item_handle = item_handle
       @item_name = item_name
       @previous_price_point = previous_price_point
       @current_price_point = current_price_point
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -83,13 +89,17 @@ module AdvancedBilling
       current_price_point = ItemPricePointData.from_hash(hash['current_price_point']) if
         hash['current_price_point']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ItemPricePointChanged.new(item_id,
                                 item_type,
                                 item_handle,
                                 item_name,
                                 previous_price_point,
-                                current_price_point)
+                                current_price_point,
+                                hash)
     end
 
     # Validates an instance of the object from a given value.

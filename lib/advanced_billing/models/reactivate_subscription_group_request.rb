@@ -39,9 +39,15 @@ module AdvancedBilling
     end
 
     def initialize(resume = SKIP,
-                   resume_members = SKIP)
+                   resume_members = SKIP,
+                   additional_properties = {})
       @resume = resume unless resume == SKIP
       @resume_members = resume_members unless resume_members == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -53,9 +59,13 @@ module AdvancedBilling
       resume_members =
         hash.key?('resume_members') ? hash['resume_members'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ReactivateSubscriptionGroupRequest.new(resume,
-                                             resume_members)
+                                             resume_members,
+                                             hash)
     end
   end
 end

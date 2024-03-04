@@ -68,7 +68,8 @@ module AdvancedBilling
                    component_handle = nil,
                    memo = nil,
                    allocation_id = nil,
-                   allocated_quantity = SKIP)
+                   allocated_quantity = SKIP,
+                   additional_properties = {})
       @previous_allocation = previous_allocation
       @new_allocation = new_allocation
       @component_id = component_id
@@ -76,6 +77,11 @@ module AdvancedBilling
       @memo = memo
       @allocation_id = allocation_id
       @allocated_quantity = allocated_quantity unless allocated_quantity == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -96,6 +102,9 @@ module AdvancedBilling
         UnionTypeLookUp.get(:ComponentAllocationChangeAllocatedQuantity), hash['allocated_quantity']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ComponentAllocationChange.new(previous_allocation,
                                     new_allocation,
@@ -103,7 +112,8 @@ module AdvancedBilling
                                     component_handle,
                                     memo,
                                     allocation_id,
-                                    allocated_quantity)
+                                    allocated_quantity,
+                                    hash)
     end
 
     # Validates an instance of the object from a given value.

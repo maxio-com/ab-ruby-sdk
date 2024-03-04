@@ -455,7 +455,8 @@ module AdvancedBilling
                    custom_fields = SKIP,
                    display_settings = SKIP,
                    public_url = SKIP,
-                   previous_balance_data = SKIP)
+                   previous_balance_data = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
@@ -511,6 +512,11 @@ module AdvancedBilling
       @display_settings = display_settings unless display_settings == SKIP
       @public_url = public_url unless public_url == SKIP
       @previous_balance_data = previous_balance_data unless previous_balance_data == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -664,6 +670,9 @@ module AdvancedBilling
       previous_balance_data = InvoicePreviousBalance.from_hash(hash['previous_balance_data']) if
         hash['previous_balance_data']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Invoice.new(id,
                   uid,
@@ -716,7 +725,8 @@ module AdvancedBilling
                   custom_fields,
                   display_settings,
                   public_url,
-                  previous_balance_data)
+                  previous_balance_data,
+                  hash)
     end
 
     def to_custom_transaction_time

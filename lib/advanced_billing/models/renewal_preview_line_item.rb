@@ -123,7 +123,8 @@ module AdvancedBilling
                    component_name = SKIP,
                    product_handle = SKIP,
                    period_range_start = SKIP,
-                   period_range_end = SKIP)
+                   period_range_end = SKIP,
+                   additional_properties = {})
       @transaction_type = transaction_type unless transaction_type == SKIP
       @kind = kind unless kind == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -138,6 +139,11 @@ module AdvancedBilling
       @product_handle = product_handle unless product_handle == SKIP
       @period_range_start = period_range_start unless period_range_start == SKIP
       @period_range_end = period_range_end unless period_range_end == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -169,6 +175,9 @@ module AdvancedBilling
       period_range_end =
         hash.key?('period_range_end') ? hash['period_range_end'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RenewalPreviewLineItem.new(transaction_type,
                                  kind,
@@ -183,7 +192,8 @@ module AdvancedBilling
                                  component_name,
                                  product_handle,
                                  period_range_start,
-                                 period_range_end)
+                                 period_range_end,
+                                 hash)
     end
   end
 end

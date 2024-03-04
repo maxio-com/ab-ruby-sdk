@@ -21,12 +21,17 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :tax_amount
 
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :tax_exempt_amount
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['uid'] = 'uid'
       @_hash['taxable_amount'] = 'taxable_amount'
       @_hash['tax_amount'] = 'tax_amount'
+      @_hash['tax_exempt_amount'] = 'tax_exempt_amount'
       @_hash
     end
 
@@ -36,6 +41,7 @@ module AdvancedBilling
         uid
         taxable_amount
         tax_amount
+        tax_exempt_amount
       ]
     end
 
@@ -46,10 +52,18 @@ module AdvancedBilling
 
     def initialize(uid = SKIP,
                    taxable_amount = SKIP,
-                   tax_amount = SKIP)
+                   tax_amount = SKIP,
+                   tax_exempt_amount = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @taxable_amount = taxable_amount unless taxable_amount == SKIP
       @tax_amount = tax_amount unless tax_amount == SKIP
+      @tax_exempt_amount = tax_exempt_amount unless tax_exempt_amount == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -61,11 +75,18 @@ module AdvancedBilling
       taxable_amount =
         hash.key?('taxable_amount') ? hash['taxable_amount'] : SKIP
       tax_amount = hash.key?('tax_amount') ? hash['tax_amount'] : SKIP
+      tax_exempt_amount =
+        hash.key?('tax_exempt_amount') ? hash['tax_exempt_amount'] : SKIP
+
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
       InvoiceTaxBreakout.new(uid,
                              taxable_amount,
-                             tax_amount)
+                             tax_amount,
+                             tax_exempt_amount,
+                             hash)
     end
   end
 end

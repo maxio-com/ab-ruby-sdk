@@ -43,35 +43,78 @@ module AdvancedBilling
     attr_accessor :delivery_date
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [ProformaInvoiceStatus]
     attr_accessor :status
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
+    # @return [CollectionMethod]
     attr_accessor :collection_method
 
-    # TODO: Write general description for this method
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [String]
     attr_accessor :payment_instructions
 
-    # TODO: Write general description for this method
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [String]
     attr_accessor :currency
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # Consolidation level of the invoice, which is applicable to invoice
+    # consolidation.  It will hold one of the following values:
+    # * "none": A normal invoice with no consolidation.
+    # * "child": An invoice segment which has been combined into a consolidated
+    # invoice.
+    # * "parent": A consolidated invoice, whose contents are composed of invoice
+    # segments.
+    # "Parent" invoices do not have lines of their own, but they have subtotals
+    # and totals which aggregate the member invoice segments.
+    # See also the [invoice consolidation
+    # documentation](https://chargify.zendesk.com/hc/en-us/articles/440774639183
+    # 5).
+    # @return [InvoiceConsolidationLevel]
     attr_accessor :consolidation_level
 
-    # TODO: Write general description for this method
+    # Consolidation level of the invoice, which is applicable to invoice
+    # consolidation.  It will hold one of the following values:
+    # * "none": A normal invoice with no consolidation.
+    # * "child": An invoice segment which has been combined into a consolidated
+    # invoice.
+    # * "parent": A consolidated invoice, whose contents are composed of invoice
+    # segments.
+    # "Parent" invoices do not have lines of their own, but they have subtotals
+    # and totals which aggregate the member invoice segments.
+    # See also the [invoice consolidation
+    # documentation](https://chargify.zendesk.com/hc/en-us/articles/440774639183
+    # 5).
     # @return [String]
     attr_accessor :product_name
 
-    # TODO: Write general description for this method
+    # Consolidation level of the invoice, which is applicable to invoice
+    # consolidation.  It will hold one of the following values:
+    # * "none": A normal invoice with no consolidation.
+    # * "child": An invoice segment which has been combined into a consolidated
+    # invoice.
+    # * "parent": A consolidated invoice, whose contents are composed of invoice
+    # segments.
+    # "Parent" invoices do not have lines of their own, but they have subtotals
+    # and totals which aggregate the member invoice segments.
+    # See also the [invoice consolidation
+    # documentation](https://chargify.zendesk.com/hc/en-us/articles/440774639183
+    # 5).
     # @return [String]
     attr_accessor :product_family_name
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # 'proforma' value is deprecated in favor of proforma_adhoc and
+    # proforma_automatic
+    # @return [ProformaInvoiceRole]
     attr_accessor :role
 
     # Information about the seller (merchant) listed on the masthead of the
@@ -261,6 +304,8 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        customer_id
+        subscription_id
         number
         sequence_number
         public_url
@@ -276,7 +321,7 @@ module AdvancedBilling
                    created_at = SKIP,
                    delivery_date = SKIP,
                    status = SKIP,
-                   collection_method = SKIP,
+                   collection_method = CollectionMethod::AUTOMATIC,
                    payment_instructions = SKIP,
                    currency = SKIP,
                    consolidation_level = SKIP,
@@ -302,7 +347,8 @@ module AdvancedBilling
                    credits = SKIP,
                    payments = SKIP,
                    custom_fields = SKIP,
-                   public_url = SKIP)
+                   public_url = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -339,6 +385,11 @@ module AdvancedBilling
       @payments = payments unless payments == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @public_url = public_url unless public_url == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -362,7 +413,7 @@ module AdvancedBilling
       delivery_date = hash.key?('delivery_date') ? hash['delivery_date'] : SKIP
       status = hash.key?('status') ? hash['status'] : SKIP
       collection_method =
-        hash.key?('collection_method') ? hash['collection_method'] : SKIP
+        hash['collection_method'] ||= CollectionMethod::AUTOMATIC
       payment_instructions =
         hash.key?('payment_instructions') ? hash['payment_instructions'] : SKIP
       currency = hash.key?('currency') ? hash['currency'] : SKIP
@@ -451,6 +502,9 @@ module AdvancedBilling
       custom_fields = SKIP unless hash.key?('custom_fields')
       public_url = hash.key?('public_url') ? hash['public_url'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ProformaInvoice.new(uid,
                           site_id,
@@ -487,7 +541,8 @@ module AdvancedBilling
                           credits,
                           payments,
                           custom_fields,
-                          public_url)
+                          public_url,
+                          hash)
     end
 
     def to_custom_created_at

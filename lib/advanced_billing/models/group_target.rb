@@ -41,9 +41,15 @@ module AdvancedBilling
     end
 
     def initialize(type = nil,
-                   id = SKIP)
+                   id = SKIP,
+                   additional_properties = {})
       @type = type
       @id = id unless id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -54,9 +60,13 @@ module AdvancedBilling
       type = hash.key?('type') ? hash['type'] : nil
       id = hash.key?('id') ? hash['id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       GroupTarget.new(type,
-                      id)
+                      id,
+                      hash)
     end
   end
 end

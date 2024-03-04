@@ -101,7 +101,8 @@ module AdvancedBilling
                    billing_address = SKIP,
                    shipping_address = SKIP,
                    coupons = SKIP,
-                   status = CreateInvoiceStatus::OPEN)
+                   status = CreateInvoiceStatus::OPEN,
+                   additional_properties = {})
       @line_items = line_items unless line_items == SKIP
       @issue_date = issue_date unless issue_date == SKIP
       @net_terms = net_terms unless net_terms == SKIP
@@ -112,6 +113,11 @@ module AdvancedBilling
       @shipping_address = shipping_address unless shipping_address == SKIP
       @coupons = coupons unless coupons == SKIP
       @status = status unless status == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -152,6 +158,9 @@ module AdvancedBilling
       coupons = SKIP unless hash.key?('coupons')
       status = hash['status'] ||= CreateInvoiceStatus::OPEN
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateInvoice.new(line_items,
                         issue_date,
@@ -162,7 +171,8 @@ module AdvancedBilling
                         billing_address,
                         shipping_address,
                         coupons,
-                        status)
+                        status,
+                        hash)
     end
   end
 end

@@ -67,13 +67,19 @@ module AdvancedBilling
                    amount = SKIP,
                    description = SKIP,
                    product_family_id = SKIP,
-                   compounding_strategy = SKIP)
+                   compounding_strategy = SKIP,
+                   additional_properties = {})
       @code = code unless code == SKIP
       @percentage = percentage unless percentage == SKIP
       @amount = amount unless amount == SKIP
       @description = description unless description == SKIP
       @product_family_id = product_family_id unless product_family_id == SKIP
       @compounding_strategy = compounding_strategy unless compounding_strategy == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -95,13 +101,17 @@ module AdvancedBilling
       compounding_strategy =
         hash.key?('compounding_strategy') ? hash['compounding_strategy'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateInvoiceCoupon.new(code,
                               percentage,
                               amount,
                               description,
                               product_family_id,
-                              compounding_strategy)
+                              compounding_strategy,
+                              hash)
     end
 
     # Validates an instance of the object from a given value.

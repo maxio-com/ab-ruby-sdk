@@ -67,6 +67,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        chargify_id
         organization
         vat_number
         reference
@@ -79,7 +80,8 @@ module AdvancedBilling
                    organization = SKIP,
                    email = SKIP,
                    vat_number = SKIP,
-                   reference = SKIP)
+                   reference = SKIP,
+                   additional_properties = {})
       @chargify_id = chargify_id unless chargify_id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -87,6 +89,11 @@ module AdvancedBilling
       @email = email unless email == SKIP
       @vat_number = vat_number unless vat_number == SKIP
       @reference = reference unless reference == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -102,6 +109,9 @@ module AdvancedBilling
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
       reference = hash.key?('reference') ? hash['reference'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceCustomer.new(chargify_id,
                           first_name,
@@ -109,7 +119,8 @@ module AdvancedBilling
                           organization,
                           email,
                           vat_number,
-                          reference)
+                          reference,
+                          hash)
     end
   end
 end

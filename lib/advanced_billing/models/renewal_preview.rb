@@ -97,7 +97,8 @@ module AdvancedBilling
                    existing_balance_in_cents = SKIP,
                    total_amount_due_in_cents = SKIP,
                    uncalculated_taxes = SKIP,
-                   line_items = SKIP)
+                   line_items = SKIP,
+                   additional_properties = {})
       @next_assessment_at = next_assessment_at unless next_assessment_at == SKIP
       @subtotal_in_cents = subtotal_in_cents unless subtotal_in_cents == SKIP
       @total_tax_in_cents = total_tax_in_cents unless total_tax_in_cents == SKIP
@@ -113,6 +114,11 @@ module AdvancedBilling
       end
       @uncalculated_taxes = uncalculated_taxes unless uncalculated_taxes == SKIP
       @line_items = line_items unless line_items == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -150,6 +156,9 @@ module AdvancedBilling
 
       line_items = SKIP unless hash.key?('line_items')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RenewalPreview.new(next_assessment_at,
                          subtotal_in_cents,
@@ -159,7 +168,8 @@ module AdvancedBilling
                          existing_balance_in_cents,
                          total_amount_due_in_cents,
                          uncalculated_taxes,
-                         line_items)
+                         line_items,
+                         hash)
     end
 
     def to_custom_next_assessment_at

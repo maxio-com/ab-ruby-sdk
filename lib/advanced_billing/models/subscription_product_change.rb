@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(previous_product_id = nil,
-                   new_product_id = nil)
+                   new_product_id = nil,
+                   additional_properties = {})
       @previous_product_id = previous_product_id
       @new_product_id = new_product_id
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -51,9 +57,13 @@ module AdvancedBilling
       new_product_id =
         hash.key?('new_product_id') ? hash['new_product_id'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionProductChange.new(previous_product_id,
-                                    new_product_id)
+                                    new_product_id,
+                                    hash)
     end
 
     # Validates an instance of the object from a given value.

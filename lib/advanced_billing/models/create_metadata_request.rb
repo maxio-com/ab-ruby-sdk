@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(metadata = nil)
+    def initialize(metadata = nil,
+                   additional_properties = {})
       @metadata = metadata
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -50,8 +56,12 @@ module AdvancedBilling
 
       metadata = nil unless hash.key?('metadata')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateMetadataRequest.new(metadata)
+      CreateMetadataRequest.new(metadata,
+                                hash)
     end
   end
 end

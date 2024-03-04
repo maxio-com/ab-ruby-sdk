@@ -55,10 +55,16 @@ module AdvancedBilling
 
     def initialize(component_id = SKIP,
                    quantity = SKIP,
-                   price_point_id = SKIP)
+                   price_point_id = SKIP,
+                   additional_properties = {})
       @component_id = component_id unless component_id == SKIP
       @quantity = quantity unless quantity == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -74,10 +80,14 @@ module AdvancedBilling
         UnionTypeLookUp.get(:RenewalPreviewComponentPricePointId), hash['price_point_id']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RenewalPreviewComponent.new(component_id,
                                   quantity,
-                                  price_point_id)
+                                  price_point_id,
+                                  hash)
     end
 
     # Validates an instance of the object from a given value.
