@@ -68,13 +68,19 @@ module AdvancedBilling
                    subscription_id = SKIP,
                    created_at = SKIP,
                    updated_at = SKIP,
-                   sticky = SKIP)
+                   sticky = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @body = body unless body == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
       @sticky = sticky unless sticky == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -98,13 +104,17 @@ module AdvancedBilling
                    end
       sticky = hash.key?('sticky') ? hash['sticky'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionNote.new(id,
                            body,
                            subscription_id,
                            created_at,
                            updated_at,
-                           sticky)
+                           sticky,
+                           hash)
     end
 
     def to_custom_created_at

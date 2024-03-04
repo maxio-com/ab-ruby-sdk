@@ -131,7 +131,8 @@ module AdvancedBilling
                    stackable = SKIP,
                    compounding_strategy = SKIP,
                    exclude_mid_period_allocations = SKIP,
-                   apply_on_cancel_at_end_of_period = SKIP)
+                   apply_on_cancel_at_end_of_period = SKIP,
+                   additional_properties = {})
       @name = name
       @code = code
       @description = description unless description == SKIP
@@ -149,6 +150,11 @@ module AdvancedBilling
       unless apply_on_cancel_at_end_of_period == SKIP
         @apply_on_cancel_at_end_of_period =
           apply_on_cancel_at_end_of_period
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -181,6 +187,9 @@ module AdvancedBilling
       apply_on_cancel_at_end_of_period =
         hash.key?('apply_on_cancel_at_end_of_period') ? hash['apply_on_cancel_at_end_of_period'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateOrUpdatePercentageCoupon.new(name,
                                          code,
@@ -193,7 +202,8 @@ module AdvancedBilling
                                          stackable,
                                          compounding_strategy,
                                          exclude_mid_period_allocations,
-                                         apply_on_cancel_at_end_of_period)
+                                         apply_on_cancel_at_end_of_period,
+                                         hash)
     end
 
     def to_custom_end_date

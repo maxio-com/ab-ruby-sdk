@@ -279,7 +279,8 @@ module AdvancedBilling
                    refund_amount = SKIP,
                    refund_id = SKIP,
                    is_advance_invoice = SKIP,
-                   reason = SKIP)
+                   reason = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @credit_note_number = credit_note_number unless credit_note_number == SKIP
       @credit_note_uid = credit_note_uid unless credit_note_uid == SKIP
@@ -315,6 +316,11 @@ module AdvancedBilling
       @refund_id = refund_id unless refund_id == SKIP
       @is_advance_invoice = is_advance_invoice unless is_advance_invoice == SKIP
       @reason = reason unless reason == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -385,6 +391,9 @@ module AdvancedBilling
         hash.key?('is_advance_invoice') ? hash['is_advance_invoice'] : SKIP
       reason = hash.key?('reason') ? hash['reason'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceEventData.new(uid,
                            credit_note_number,
@@ -417,7 +426,8 @@ module AdvancedBilling
                            refund_amount,
                            refund_id,
                            is_advance_invoice,
-                           reason)
+                           reason,
+                           hash)
     end
 
     def to_custom_transaction_time

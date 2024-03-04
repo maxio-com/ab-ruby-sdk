@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(ok = SKIP)
+    def initialize(ok = SKIP,
+                   additional_properties = {})
       @ok = ok unless ok == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -43,8 +49,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       ok = hash.key?('ok') ? hash['ok'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ReasonCodesJsonResponse.new(ok)
+      ReasonCodesJsonResponse.new(ok,
+                                  hash)
     end
   end
 end

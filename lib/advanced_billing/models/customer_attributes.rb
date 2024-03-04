@@ -174,7 +174,8 @@ module AdvancedBilling
                    tax_exempt = SKIP,
                    vat_number = SKIP,
                    metafields = SKIP,
-                   parent_id = SKIP)
+                   parent_id = SKIP,
+                   additional_properties = {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -193,6 +194,11 @@ module AdvancedBilling
       @vat_number = vat_number unless vat_number == SKIP
       @metafields = metafields unless metafields == SKIP
       @parent_id = parent_id unless parent_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -219,6 +225,9 @@ module AdvancedBilling
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CustomerAttributes.new(first_name,
                              last_name,
@@ -237,7 +246,8 @@ module AdvancedBilling
                              tax_exempt,
                              vat_number,
                              metafields,
-                             parent_id)
+                             parent_id,
+                             hash)
     end
   end
 end

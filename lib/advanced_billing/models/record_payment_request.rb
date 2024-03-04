@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(payment = nil)
+    def initialize(payment = nil,
+                   additional_properties = {})
       @payment = payment
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       payment = CreatePayment.from_hash(hash['payment']) if hash['payment']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      RecordPaymentRequest.new(payment)
+      RecordPaymentRequest.new(payment,
+                               hash)
     end
   end
 end

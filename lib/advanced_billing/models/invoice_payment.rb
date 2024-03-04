@@ -99,7 +99,8 @@ module AdvancedBilling
                    prepayment = SKIP,
                    gateway_handle = SKIP,
                    gateway_used = SKIP,
-                   gateway_transaction_id = SKIP)
+                   gateway_transaction_id = SKIP,
+                   additional_properties = {})
       @transaction_time = transaction_time unless transaction_time == SKIP
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
@@ -110,6 +111,11 @@ module AdvancedBilling
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
       @gateway_used = gateway_used unless gateway_used == SKIP
       @gateway_transaction_id = gateway_transaction_id unless gateway_transaction_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -138,6 +144,9 @@ module AdvancedBilling
       gateway_transaction_id =
         hash.key?('gateway_transaction_id') ? hash['gateway_transaction_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoicePayment.new(transaction_time,
                          memo,
@@ -148,7 +157,8 @@ module AdvancedBilling
                          prepayment,
                          gateway_handle,
                          gateway_used,
-                         gateway_transaction_id)
+                         gateway_transaction_id,
+                         hash)
     end
 
     def to_custom_transaction_time

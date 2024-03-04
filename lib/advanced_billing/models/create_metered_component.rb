@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(metered_component = nil)
+    def initialize(metered_component = nil,
+                   additional_properties = {})
       @metered_component = metered_component
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       metered_component = MeteredComponent.from_hash(hash['metered_component']) if
         hash['metered_component']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateMeteredComponent.new(metered_component)
+      CreateMeteredComponent.new(metered_component,
+                                 hash)
     end
   end
 end

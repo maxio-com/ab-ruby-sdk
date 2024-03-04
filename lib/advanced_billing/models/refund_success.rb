@@ -42,10 +42,16 @@ module AdvancedBilling
 
     def initialize(refund_id = nil,
                    gateway_transaction_id = nil,
-                   product_id = nil)
+                   product_id = nil,
+                   additional_properties = {})
       @refund_id = refund_id
       @gateway_transaction_id = gateway_transaction_id
       @product_id = product_id
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -58,10 +64,14 @@ module AdvancedBilling
         hash.key?('gateway_transaction_id') ? hash['gateway_transaction_id'] : nil
       product_id = hash.key?('product_id') ? hash['product_id'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RefundSuccess.new(refund_id,
                         gateway_transaction_id,
-                        product_id)
+                        product_id,
+                        hash)
     end
 
     # Validates an instance of the object from a given value.

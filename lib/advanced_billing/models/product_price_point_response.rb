@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_point = nil)
+    def initialize(price_point = nil,
+                   additional_properties = {})
       @price_point = price_point
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       price_point = ProductPricePoint.from_hash(hash['price_point']) if hash['price_point']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ProductPricePointResponse.new(price_point)
+      ProductPricePointResponse.new(price_point,
+                                    hash)
     end
   end
 end

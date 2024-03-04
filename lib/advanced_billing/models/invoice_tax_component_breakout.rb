@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(tax_rule_id = SKIP,
                    percentage = SKIP,
                    country_code = SKIP,
-                   subdivision_code = SKIP)
+                   subdivision_code = SKIP,
+                   additional_properties = {})
       @tax_rule_id = tax_rule_id unless tax_rule_id == SKIP
       @percentage = percentage unless percentage == SKIP
       @country_code = country_code unless country_code == SKIP
       @subdivision_code = subdivision_code unless subdivision_code == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
       subdivision_code =
         hash.key?('subdivision_code') ? hash['subdivision_code'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceTaxComponentBreakout.new(tax_rule_id,
                                       percentage,
                                       country_code,
-                                      subdivision_code)
+                                      subdivision_code,
+                                      hash)
     end
   end
 end

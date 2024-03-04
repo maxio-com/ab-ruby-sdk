@@ -26,7 +26,7 @@ module AdvancedBilling
     attr_accessor :code
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceDiscountSourceType]
     attr_accessor :source_type
 
     # TODO: Write general description for this method
@@ -34,7 +34,7 @@ module AdvancedBilling
     attr_accessor :source_id
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [InvoiceDiscountType]
     attr_accessor :discount_type
 
     # TODO: Write general description for this method
@@ -111,7 +111,8 @@ module AdvancedBilling
                    eligible_amount = SKIP,
                    discount_amount = SKIP,
                    transaction_id = SKIP,
-                   line_item_breakouts = SKIP)
+                   line_item_breakouts = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -124,6 +125,11 @@ module AdvancedBilling
       @discount_amount = discount_amount unless discount_amount == SKIP
       @transaction_id = transaction_id unless transaction_id == SKIP
       @line_item_breakouts = line_item_breakouts unless line_item_breakouts == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -156,6 +162,9 @@ module AdvancedBilling
 
       line_item_breakouts = SKIP unless hash.key?('line_item_breakouts')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceDiscount.new(uid,
                           title,
@@ -168,7 +177,8 @@ module AdvancedBilling
                           eligible_amount,
                           discount_amount,
                           transaction_id,
-                          line_item_breakouts)
+                          line_item_breakouts,
+                          hash)
     end
   end
 end

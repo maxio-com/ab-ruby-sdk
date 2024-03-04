@@ -181,7 +181,8 @@ module AdvancedBilling
                    tax_included = SKIP,
                    interval = SKIP,
                    interval_unit = SKIP,
-                   currency_prices = SKIP)
+                   currency_prices = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @type = type unless type == SKIP
       @default = default unless default == SKIP
@@ -199,6 +200,11 @@ module AdvancedBilling
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @currency_prices = currency_prices unless currency_prices == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -259,6 +265,9 @@ module AdvancedBilling
 
       currency_prices = SKIP unless hash.key?('currency_prices')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ComponentPricePoint.new(id,
                               type,
@@ -276,7 +285,8 @@ module AdvancedBilling
                               tax_included,
                               interval,
                               interval_unit,
-                              currency_prices)
+                              currency_prices,
+                              hash)
     end
 
     def to_custom_archived_at

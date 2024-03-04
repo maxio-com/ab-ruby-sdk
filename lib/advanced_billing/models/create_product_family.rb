@@ -41,9 +41,15 @@ module AdvancedBilling
     end
 
     def initialize(name = SKIP,
-                   description = SKIP)
+                   description = SKIP,
+                   additional_properties = {})
       @name = name unless name == SKIP
       @description = description unless description == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -54,9 +60,13 @@ module AdvancedBilling
       name = hash.key?('name') ? hash['name'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateProductFamily.new(name,
-                              description)
+                              description,
+                              hash)
     end
   end
 end

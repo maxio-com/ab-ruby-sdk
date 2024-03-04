@@ -91,7 +91,8 @@ module AdvancedBilling
                    tax_amount = nil,
                    total_amount = nil,
                    product_name = nil,
-                   line_items = nil)
+                   line_items = nil,
+                   additional_properties = {})
       @uid = uid
       @number = number
       @role = role
@@ -103,6 +104,11 @@ module AdvancedBilling
       @total_amount = total_amount
       @product_name = product_name
       @line_items = line_items
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -133,6 +139,9 @@ module AdvancedBilling
 
       line_items = nil unless hash.key?('line_items')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ProformaInvoiceIssued.new(uid,
                                 number,
@@ -144,7 +153,8 @@ module AdvancedBilling
                                 tax_amount,
                                 total_amount,
                                 product_name,
-                                line_items)
+                                line_items,
+                                hash)
     end
 
     def to_custom_created_at

@@ -80,7 +80,8 @@ module AdvancedBilling
                    quantity = SKIP,
                    amount = SKIP,
                    pricing_scheme = SKIP,
-                   tiers = SKIP)
+                   tiers = SKIP,
+                   additional_properties = {})
       @component_code_id = component_code_id unless component_code_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -88,6 +89,11 @@ module AdvancedBilling
       @amount = amount unless amount == SKIP
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
       @tiers = tiers unless tiers == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -115,6 +121,9 @@ module AdvancedBilling
 
       tiers = SKIP unless hash.key?('tiers')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ComponentCostData.new(component_code_id,
                             price_point_id,
@@ -122,7 +131,8 @@ module AdvancedBilling
                             quantity,
                             amount,
                             pricing_scheme,
-                            tiers)
+                            tiers,
+                            hash)
     end
   end
 end

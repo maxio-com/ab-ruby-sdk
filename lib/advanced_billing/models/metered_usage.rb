@@ -60,13 +60,19 @@ module AdvancedBilling
                    usage_quantity = nil,
                    component_id = nil,
                    component_handle = nil,
-                   memo = nil)
+                   memo = nil,
+                   additional_properties = {})
       @previous_unit_balance = previous_unit_balance
       @new_unit_balance = new_unit_balance
       @usage_quantity = usage_quantity
       @component_id = component_id
       @component_handle = component_handle
       @memo = memo
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -85,13 +91,17 @@ module AdvancedBilling
         hash.key?('component_handle') ? hash['component_handle'] : nil
       memo = hash.key?('memo') ? hash['memo'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       MeteredUsage.new(previous_unit_balance,
                        new_unit_balance,
                        usage_quantity,
                        component_id,
                        component_handle,
-                       memo)
+                       memo,
+                       hash)
     end
 
     # Validates an instance of the object from a given value.

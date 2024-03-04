@@ -41,9 +41,15 @@ module AdvancedBilling
     end
 
     def initialize(cancellation_message = SKIP,
-                   reason_code = SKIP)
+                   reason_code = SKIP,
+                   additional_properties = {})
       @cancellation_message = cancellation_message unless cancellation_message == SKIP
       @reason_code = reason_code unless reason_code == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -55,9 +61,13 @@ module AdvancedBilling
         hash.key?('cancellation_message') ? hash['cancellation_message'] : SKIP
       reason_code = hash.key?('reason_code') ? hash['reason_code'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CancellationOptions.new(cancellation_message,
-                              reason_code)
+                              reason_code,
+                              hash)
     end
   end
 end

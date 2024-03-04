@@ -60,12 +60,18 @@ module AdvancedBilling
                    full_name = SKIP,
                    subscriptions_count = SKIP,
                    test_mode = SKIP,
-                   subscriptions = SKIP)
+                   subscriptions = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @full_name = full_name unless full_name == SKIP
       @subscriptions_count = subscriptions_count unless subscriptions_count == SKIP
       @test_mode = test_mode unless test_mode == SKIP
       @subscriptions = subscriptions unless subscriptions == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -89,12 +95,16 @@ module AdvancedBilling
 
       subscriptions = SKIP unless hash.key?('subscriptions')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SaleRep.new(id,
                   full_name,
                   subscriptions_count,
                   test_mode,
-                  subscriptions)
+                  subscriptions,
+                  hash)
     end
   end
 end

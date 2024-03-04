@@ -201,7 +201,8 @@ module AdvancedBilling
                    disabled = SKIP,
                    chargify_token = SKIP,
                    site_gateway_setting_id = SKIP,
-                   gateway_handle = SKIP)
+                   gateway_handle = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -224,6 +225,11 @@ module AdvancedBilling
       @chargify_token = chargify_token unless chargify_token == SKIP
       @site_gateway_setting_id = site_gateway_setting_id unless site_gateway_setting_id == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -264,6 +270,9 @@ module AdvancedBilling
       gateway_handle =
         hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreditCardPaymentProfile.new(masked_card_number,
                                    id,
@@ -286,7 +295,8 @@ module AdvancedBilling
                                    disabled,
                                    chargify_token,
                                    site_gateway_setting_id,
-                                   gateway_handle)
+                                   gateway_handle,
+                                   hash)
     end
 
     # Validates an instance of the object from a given value.

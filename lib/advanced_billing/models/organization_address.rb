@@ -90,7 +90,8 @@ module AdvancedBilling
                    zip = SKIP,
                    country = SKIP,
                    name = SKIP,
-                   phone = SKIP)
+                   phone = SKIP,
+                   additional_properties = {})
       @street = street unless street == SKIP
       @line2 = line2 unless line2 == SKIP
       @city = city unless city == SKIP
@@ -99,6 +100,11 @@ module AdvancedBilling
       @country = country unless country == SKIP
       @name = name unless name == SKIP
       @phone = phone unless phone == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -115,6 +121,9 @@ module AdvancedBilling
       name = hash.key?('name') ? hash['name'] : SKIP
       phone = hash.key?('phone') ? hash['phone'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       OrganizationAddress.new(street,
                               line2,
@@ -123,7 +132,8 @@ module AdvancedBilling
                               zip,
                               country,
                               name,
-                              phone)
+                              phone,
+                              hash)
     end
   end
 end

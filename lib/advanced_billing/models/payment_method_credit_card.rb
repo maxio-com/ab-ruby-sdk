@@ -59,12 +59,18 @@ module AdvancedBilling
                    masked_card_number = nil,
                    type = nil,
                    card_expiration = SKIP,
-                   last_four = SKIP)
+                   last_four = SKIP,
+                   additional_properties = {})
       @card_brand = card_brand
       @card_expiration = card_expiration unless card_expiration == SKIP
       @last_four = last_four unless last_four == SKIP
       @masked_card_number = masked_card_number
       @type = type
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -80,12 +86,16 @@ module AdvancedBilling
         hash.key?('card_expiration') ? hash['card_expiration'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PaymentMethodCreditCard.new(card_brand,
                                   masked_card_number,
                                   type,
                                   card_expiration,
-                                  last_four)
+                                  last_four,
+                                  hash)
     end
 
     # Validates an instance of the object from a given value.

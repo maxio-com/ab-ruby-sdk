@@ -33,8 +33,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription = SKIP)
+    def initialize(subscription = SKIP,
+                   additional_properties = {})
       @subscription = subscription unless subscription == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -44,8 +50,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       subscription = BaseStringError.from_hash(hash['subscription']) if hash['subscription']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ProformaError.new(subscription)
+      ProformaError.new(subscription,
+                        hash)
     end
   end
 end

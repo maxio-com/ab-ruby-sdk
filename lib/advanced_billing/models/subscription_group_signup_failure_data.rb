@@ -81,7 +81,8 @@ module AdvancedBilling
                    payer_attributes = SKIP,
                    credit_card_attributes = SKIP,
                    bank_account_attributes = SKIP,
-                   subscriptions = SKIP)
+                   subscriptions = SKIP,
+                   additional_properties = {})
       @payer_id = payer_id unless payer_id == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
@@ -93,6 +94,11 @@ module AdvancedBilling
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @bank_account_attributes = bank_account_attributes unless bank_account_attributes == SKIP
       @subscriptions = subscriptions unless subscriptions == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -126,6 +132,9 @@ module AdvancedBilling
 
       subscriptions = SKIP unless hash.key?('subscriptions')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupSignupFailureData.new(payer_id,
                                              payer_reference,
@@ -134,7 +143,8 @@ module AdvancedBilling
                                              payer_attributes,
                                              credit_card_attributes,
                                              bank_account_attributes,
-                                             subscriptions)
+                                             subscriptions,
+                                             hash)
     end
   end
 end

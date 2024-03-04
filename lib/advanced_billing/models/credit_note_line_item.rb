@@ -192,7 +192,8 @@ module AdvancedBilling
                    component_id = SKIP,
                    price_point_id = SKIP,
                    billing_schedule_item_id = SKIP,
-                   custom_item = SKIP)
+                   custom_item = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -211,6 +212,11 @@ module AdvancedBilling
       @price_point_id = price_point_id unless price_point_id == SKIP
       @billing_schedule_item_id = billing_schedule_item_id unless billing_schedule_item_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -245,6 +251,9 @@ module AdvancedBilling
         hash.key?('billing_schedule_item_id') ? hash['billing_schedule_item_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreditNoteLineItem.new(uid,
                              title,
@@ -263,7 +272,8 @@ module AdvancedBilling
                              component_id,
                              price_point_id,
                              billing_schedule_item_id,
-                             custom_item)
+                             custom_item,
+                             hash)
     end
   end
 end

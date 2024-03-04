@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :title
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [ProformaInvoiceTaxSourceType]
     attr_accessor :source_type
 
     # TODO: Write general description for this method
@@ -34,7 +34,7 @@ module AdvancedBilling
     attr_accessor :tax_amount
 
     # TODO: Write general description for this method
-    # @return [Array[ProformaInvoiceTaxBreakout]]
+    # @return [Array[InvoiceTaxBreakout]]
     attr_accessor :line_item_breakouts
 
     # A mapping from model property names to API property names.
@@ -74,7 +74,8 @@ module AdvancedBilling
                    percentage = SKIP,
                    taxable_amount = SKIP,
                    tax_amount = SKIP,
-                   line_item_breakouts = SKIP)
+                   line_item_breakouts = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @source_type = source_type unless source_type == SKIP
@@ -82,6 +83,11 @@ module AdvancedBilling
       @taxable_amount = taxable_amount unless taxable_amount == SKIP
       @tax_amount = tax_amount unless tax_amount == SKIP
       @line_item_breakouts = line_item_breakouts unless line_item_breakouts == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -101,11 +107,14 @@ module AdvancedBilling
       unless hash['line_item_breakouts'].nil?
         line_item_breakouts = []
         hash['line_item_breakouts'].each do |structure|
-          line_item_breakouts << (ProformaInvoiceTaxBreakout.from_hash(structure) if structure)
+          line_item_breakouts << (InvoiceTaxBreakout.from_hash(structure) if structure)
         end
       end
 
       line_item_breakouts = SKIP unless hash.key?('line_item_breakouts')
+
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
       ProformaInvoiceTax.new(uid,
@@ -114,7 +123,8 @@ module AdvancedBilling
                              percentage,
                              taxable_amount,
                              tax_amount,
-                             line_item_breakouts)
+                             line_item_breakouts,
+                             hash)
     end
   end
 end

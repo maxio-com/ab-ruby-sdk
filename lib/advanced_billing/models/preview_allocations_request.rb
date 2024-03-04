@@ -60,11 +60,17 @@ module AdvancedBilling
     def initialize(allocations = nil,
                    effective_proration_date = SKIP,
                    upgrade_charge = SKIP,
-                   downgrade_credit = SKIP)
+                   downgrade_credit = SKIP,
+                   additional_properties = {})
       @allocations = allocations
       @effective_proration_date = effective_proration_date unless effective_proration_date == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -89,11 +95,15 @@ module AdvancedBilling
       downgrade_credit =
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PreviewAllocationsRequest.new(allocations,
                                     effective_proration_date,
                                     upgrade_charge,
-                                    downgrade_credit)
+                                    downgrade_credit,
+                                    hash)
     end
   end
 end

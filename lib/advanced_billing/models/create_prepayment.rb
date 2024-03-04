@@ -62,12 +62,18 @@ module AdvancedBilling
                    details = nil,
                    memo = nil,
                    method = nil,
-                   payment_profile_id = SKIP)
+                   payment_profile_id = SKIP,
+                   additional_properties = {})
       @amount = amount
       @details = details
       @memo = memo
       @method = method
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -82,12 +88,16 @@ module AdvancedBilling
       payment_profile_id =
         hash.key?('payment_profile_id') ? hash['payment_profile_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreatePrepayment.new(amount,
                            details,
                            memo,
                            method,
-                           payment_profile_id)
+                           payment_profile_id,
+                           hash)
     end
   end
 end

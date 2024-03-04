@@ -98,7 +98,8 @@ module AdvancedBilling
                    email = nil,
                    type = 'Invoice Event Payment1',
                    card_expiration = SKIP,
-                   last_four = SKIP)
+                   last_four = SKIP,
+                   additional_properties = {})
       @type = type unless type == SKIP
       @masked_account_number = masked_account_number
       @masked_routing_number = masked_routing_number
@@ -110,6 +111,11 @@ module AdvancedBilling
       @kind = kind
       @memo = memo
       @email = email
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -133,6 +139,9 @@ module AdvancedBilling
         hash.key?('card_expiration') ? hash['card_expiration'] : SKIP
       last_four = hash.key?('last_four') ? hash['last_four'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceEventPayment1.new(masked_account_number,
                                masked_routing_number,
@@ -144,7 +153,8 @@ module AdvancedBilling
                                email,
                                type,
                                card_expiration,
-                               last_four)
+                               last_four,
+                               hash)
     end
   end
 end

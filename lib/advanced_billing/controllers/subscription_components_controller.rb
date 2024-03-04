@@ -123,9 +123,9 @@ module AdvancedBilling
     # component's current default price point.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [BulkComponentSPricePointAssignment] body Optional parameter:
+    # @param [BulkComponentsPricePointAssignment] body Optional parameter:
     # Example:
-    # @return [BulkComponentSPricePointAssignment] response from the API call
+    # @return [BulkComponentsPricePointAssignment] response from the API call
     def bulk_update_subscription_components_price_points(subscription_id,
                                                          body: nil)
       new_api_call_builder
@@ -142,7 +142,7 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BulkComponentSPricePointAssignment.method(:from_hash))
+                   .deserialize_into(BulkComponentsPricePointAssignment.method(:from_hash))
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -458,6 +458,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
@@ -511,6 +514,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .is_response_void(true)
+                   .local_error_template('404',
+                                         'Not Found:\'{$response.body}\'',
+                                         APIException)
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',

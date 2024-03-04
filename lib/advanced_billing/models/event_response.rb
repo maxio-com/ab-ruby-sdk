@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(event = nil)
+    def initialize(event = nil,
+                   additional_properties = {})
       @event = event
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       event = Event.from_hash(hash['event']) if hash['event']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      EventResponse.new(event)
+      EventResponse.new(event,
+                        hash)
     end
   end
 end

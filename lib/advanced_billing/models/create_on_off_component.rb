@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(on_off_component = nil)
+    def initialize(on_off_component = nil,
+                   additional_properties = {})
       @on_off_component = on_off_component
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       on_off_component = OnOffComponent.from_hash(hash['on_off_component']) if
         hash['on_off_component']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateOnOffComponent.new(on_off_component)
+      CreateOnOffComponent.new(on_off_component,
+                               hash)
     end
   end
 end

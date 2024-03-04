@@ -147,6 +147,10 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :custom_item
 
+    # The price point ID of the line item's product
+    # @return [String]
+    attr_accessor :kind
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -171,6 +175,7 @@ module AdvancedBilling
       @_hash['component_cost_data'] = 'component_cost_data'
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['custom_item'] = 'custom_item'
+      @_hash['kind'] = 'kind'
       @_hash
     end
 
@@ -198,6 +203,7 @@ module AdvancedBilling
         component_cost_data
         product_price_point_id
         custom_item
+        kind
       ]
     end
 
@@ -233,7 +239,9 @@ module AdvancedBilling
                    hide = SKIP,
                    component_cost_data = SKIP,
                    product_price_point_id = SKIP,
-                   custom_item = SKIP)
+                   custom_item = SKIP,
+                   kind = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -255,6 +263,12 @@ module AdvancedBilling
       @component_cost_data = component_cost_data unless component_cost_data == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
+      @kind = kind unless kind == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -294,6 +308,10 @@ module AdvancedBilling
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
+      kind = hash.key?('kind') ? hash['kind'] : SKIP
+
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
       InvoiceLineItem.new(uid,
@@ -316,7 +334,9 @@ module AdvancedBilling
                           hide,
                           component_cost_data,
                           product_price_point_id,
-                          custom_item)
+                          custom_item,
+                          kind,
+                          hash)
     end
 
     # Validates an instance of the object from a given value.

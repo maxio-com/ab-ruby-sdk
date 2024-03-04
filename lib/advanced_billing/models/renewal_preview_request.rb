@@ -35,8 +35,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(components = SKIP)
+    def initialize(components = SKIP,
+                   additional_properties = {})
       @components = components unless components == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -55,8 +61,12 @@ module AdvancedBilling
 
       components = SKIP unless hash.key?('components')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      RenewalPreviewRequest.new(components)
+      RenewalPreviewRequest.new(components,
+                                hash)
     end
   end
 end

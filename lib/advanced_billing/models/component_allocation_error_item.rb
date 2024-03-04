@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(component_id = SKIP,
                    message = SKIP,
                    kind = SKIP,
-                   on = SKIP)
+                   on = SKIP,
+                   additional_properties = {})
       @component_id = component_id unless component_id == SKIP
       @message = message unless message == SKIP
       @kind = kind unless kind == SKIP
       @on = on unless on == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -70,11 +76,15 @@ module AdvancedBilling
       kind = hash.key?('kind') ? hash['kind'] : SKIP
       on = hash.key?('on') ? hash['on'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ComponentAllocationErrorItem.new(component_id,
                                        message,
                                        kind,
-                                       on)
+                                       on,
+                                       hash)
     end
   end
 end

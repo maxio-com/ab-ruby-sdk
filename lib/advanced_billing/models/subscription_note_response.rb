@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(note = nil)
+    def initialize(note = nil,
+                   additional_properties = {})
       @note = note
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       note = SubscriptionNote.from_hash(hash['note']) if hash['note']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      SubscriptionNoteResponse.new(note)
+      SubscriptionNoteResponse.new(note,
+                                   hash)
     end
   end
 end

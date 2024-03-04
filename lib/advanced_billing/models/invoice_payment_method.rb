@@ -83,7 +83,8 @@ module AdvancedBilling
                    card_brand = SKIP,
                    card_expiration = SKIP,
                    last_four = SKIP,
-                   masked_card_number = SKIP)
+                   masked_card_number = SKIP,
+                   additional_properties = {})
       @details = details unless details == SKIP
       @kind = kind unless kind == SKIP
       @memo = memo unless memo == SKIP
@@ -92,6 +93,11 @@ module AdvancedBilling
       @card_expiration = card_expiration unless card_expiration == SKIP
       @last_four = last_four unless last_four == SKIP
       @masked_card_number = masked_card_number unless masked_card_number == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -110,6 +116,9 @@ module AdvancedBilling
       masked_card_number =
         hash.key?('masked_card_number') ? hash['masked_card_number'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoicePaymentMethod.new(details,
                                kind,
@@ -118,7 +127,8 @@ module AdvancedBilling
                                card_brand,
                                card_expiration,
                                last_four,
-                               masked_card_number)
+                               masked_card_number,
+                               hash)
     end
   end
 end

@@ -127,7 +127,8 @@ module AdvancedBilling
                    segment_property_4_value = SKIP,
                    created_at = SKIP,
                    updated_at = SKIP,
-                   prices = SKIP)
+                   prices = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
@@ -143,6 +144,11 @@ module AdvancedBilling
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
       @prices = prices unless prices == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -191,6 +197,9 @@ module AdvancedBilling
 
       prices = SKIP unless hash.key?('prices')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Segment.new(id,
                   component_id,
@@ -203,7 +212,8 @@ module AdvancedBilling
                   segment_property_4_value,
                   created_at,
                   updated_at,
-                  prices)
+                  prices,
+                  hash)
     end
 
     def to_custom_created_at

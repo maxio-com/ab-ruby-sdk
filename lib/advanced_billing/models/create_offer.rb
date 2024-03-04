@@ -71,7 +71,8 @@ module AdvancedBilling
                    description = SKIP,
                    product_price_point_id = SKIP,
                    components = SKIP,
-                   coupons = SKIP)
+                   coupons = SKIP,
+                   additional_properties = {})
       @name = name
       @handle = handle
       @description = description unless description == SKIP
@@ -79,6 +80,11 @@ module AdvancedBilling
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @components = components unless components == SKIP
       @coupons = coupons unless coupons == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -104,6 +110,9 @@ module AdvancedBilling
       components = SKIP unless hash.key?('components')
       coupons = hash.key?('coupons') ? hash['coupons'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateOffer.new(name,
                       handle,
@@ -111,7 +120,8 @@ module AdvancedBilling
                       description,
                       product_price_point_id,
                       components,
-                      coupons)
+                      coupons,
+                      hash)
     end
   end
 end

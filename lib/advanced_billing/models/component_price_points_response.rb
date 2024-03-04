@@ -39,9 +39,15 @@ module AdvancedBilling
     end
 
     def initialize(price_points = SKIP,
-                   meta = SKIP)
+                   meta = SKIP,
+                   additional_properties = {})
       @price_points = price_points unless price_points == SKIP
       @meta = meta unless meta == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -61,9 +67,13 @@ module AdvancedBilling
       price_points = SKIP unless hash.key?('price_points')
       meta = ListPublicKeysMeta.from_hash(hash['meta']) if hash['meta']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ComponentPricePointsResponse.new(price_points,
-                                       meta)
+                                       meta,
+                                       hash)
     end
   end
 end

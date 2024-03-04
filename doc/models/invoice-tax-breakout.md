@@ -12,6 +12,7 @@
 | `uid` | `String` | Optional | - |
 | `taxable_amount` | `String` | Optional | - |
 | `tax_amount` | `String` | Optional | - |
+| `tax_exempt_amount` | `String` | Optional | - |
 
 ## Example (as JSON)
 
@@ -19,7 +20,8 @@
 {
   "uid": "uid2",
   "taxable_amount": "taxable_amount6",
-  "tax_amount": "tax_amount6"
+  "tax_amount": "tax_amount6",
+  "tax_exempt_amount": "tax_exempt_amount2"
 }
 ```
 

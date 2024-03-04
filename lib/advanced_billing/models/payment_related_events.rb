@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(product_id = nil,
-                   account_transaction_id = nil)
+                   account_transaction_id = nil,
+                   additional_properties = {})
       @product_id = product_id
       @account_transaction_id = account_transaction_id
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -50,9 +56,13 @@ module AdvancedBilling
       account_transaction_id =
         hash.key?('account_transaction_id') ? hash['account_transaction_id'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PaymentRelatedEvents.new(product_id,
-                               account_transaction_id)
+                               account_transaction_id,
+                               hash)
     end
 
     # Validates an instance of the object from a given value.

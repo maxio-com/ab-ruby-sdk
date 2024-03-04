@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(memo = SKIP,
                    original_amount = SKIP,
                    applied_amount = SKIP,
-                   prepayment = SKIP)
+                   prepayment = SKIP,
+                   additional_properties = {})
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
       @applied_amount = applied_amount unless applied_amount == SKIP
       @prepayment = prepayment unless prepayment == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -72,11 +78,15 @@ module AdvancedBilling
         hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
       prepayment = hash.key?('prepayment') ? hash['prepayment'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ProformaInvoicePayment.new(memo,
                                  original_amount,
                                  applied_amount,
-                                 prepayment)
+                                 prepayment,
+                                 hash)
     end
   end
 end

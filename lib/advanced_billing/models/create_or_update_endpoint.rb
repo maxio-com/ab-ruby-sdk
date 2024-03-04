@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(url = nil,
-                   webhook_subscriptions = nil)
+                   webhook_subscriptions = nil,
+                   additional_properties = {})
       @url = url
       @webhook_subscriptions = webhook_subscriptions
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -50,9 +56,13 @@ module AdvancedBilling
       webhook_subscriptions =
         hash.key?('webhook_subscriptions') ? hash['webhook_subscriptions'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateOrUpdateEndpoint.new(url,
-                                 webhook_subscriptions)
+                                 webhook_subscriptions,
+                                 hash)
     end
   end
 end

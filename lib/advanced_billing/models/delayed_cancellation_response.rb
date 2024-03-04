@@ -32,8 +32,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(message = SKIP)
+    def initialize(message = SKIP,
+                   additional_properties = {})
       @message = message unless message == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -43,8 +49,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       message = hash.key?('message') ? hash['message'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      DelayedCancellationResponse.new(message)
+      DelayedCancellationResponse.new(message,
+                                      hash)
     end
   end
 end

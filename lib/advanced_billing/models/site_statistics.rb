@@ -102,7 +102,8 @@ module AdvancedBilling
                    total_active_subscriptions = SKIP,
                    total_past_due_subscriptions = SKIP,
                    total_unpaid_subscriptions = SKIP,
-                   total_dunning_subscriptions = SKIP)
+                   total_dunning_subscriptions = SKIP,
+                   additional_properties = {})
       @total_subscriptions = total_subscriptions unless total_subscriptions == SKIP
       @subscriptions_today = subscriptions_today unless subscriptions_today == SKIP
       @total_revenue = total_revenue unless total_revenue == SKIP
@@ -128,6 +129,11 @@ module AdvancedBilling
       unless total_dunning_subscriptions == SKIP
         @total_dunning_subscriptions =
           total_dunning_subscriptions
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -157,6 +163,9 @@ module AdvancedBilling
       total_dunning_subscriptions =
         hash.key?('total_dunning_subscriptions') ? hash['total_dunning_subscriptions'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SiteStatistics.new(total_subscriptions,
                          subscriptions_today,
@@ -168,7 +177,8 @@ module AdvancedBilling
                          total_active_subscriptions,
                          total_past_due_subscriptions,
                          total_unpaid_subscriptions,
-                         total_dunning_subscriptions)
+                         total_dunning_subscriptions,
+                         hash)
     end
   end
 end

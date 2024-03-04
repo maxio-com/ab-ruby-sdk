@@ -84,7 +84,8 @@ module AdvancedBilling
                    applied_amount = SKIP,
                    gateway_transaction_id = SKIP,
                    gateway_used = SKIP,
-                   gateway_handle = SKIP)
+                   gateway_handle = SKIP,
+                   additional_properties = {})
       @transaction_id = transaction_id unless transaction_id == SKIP
       @payment_id = payment_id unless payment_id == SKIP
       @memo = memo unless memo == SKIP
@@ -93,6 +94,11 @@ module AdvancedBilling
       @gateway_transaction_id = gateway_transaction_id unless gateway_transaction_id == SKIP
       @gateway_used = gateway_used unless gateway_used == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -114,6 +120,9 @@ module AdvancedBilling
       gateway_handle =
         hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceRefund.new(transaction_id,
                         payment_id,
@@ -122,7 +131,8 @@ module AdvancedBilling
                         applied_amount,
                         gateway_transaction_id,
                         gateway_used,
-                        gateway_handle)
+                        gateway_handle,
+                        hash)
     end
   end
 end

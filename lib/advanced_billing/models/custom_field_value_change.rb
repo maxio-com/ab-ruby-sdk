@@ -69,7 +69,8 @@ module AdvancedBilling
                    old_value = nil,
                    new_value = nil,
                    resource_type = nil,
-                   resource_id = nil)
+                   resource_id = nil,
+                   additional_properties = {})
       @event_type = event_type
       @metafield_name = metafield_name
       @metafield_id = metafield_id
@@ -77,6 +78,11 @@ module AdvancedBilling
       @new_value = new_value
       @resource_type = resource_type
       @resource_id = resource_id
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -93,6 +99,9 @@ module AdvancedBilling
       resource_type = hash.key?('resource_type') ? hash['resource_type'] : nil
       resource_id = hash.key?('resource_id') ? hash['resource_id'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CustomFieldValueChange.new(event_type,
                                  metafield_name,
@@ -100,7 +109,8 @@ module AdvancedBilling
                                  old_value,
                                  new_value,
                                  resource_type,
-                                 resource_id)
+                                 resource_id,
+                                 hash)
     end
 
     # Validates an instance of the object from a given value.

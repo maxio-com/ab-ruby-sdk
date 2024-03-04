@@ -46,10 +46,16 @@ module AdvancedBilling
 
     def initialize(allocation_id = SKIP,
                    charge_id = SKIP,
-                   usage_quantity = SKIP)
+                   usage_quantity = SKIP,
+                   additional_properties = {})
       @allocation_id = allocation_id unless allocation_id == SKIP
       @charge_id = charge_id unless charge_id == SKIP
       @usage_quantity = usage_quantity unless usage_quantity == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -62,10 +68,14 @@ module AdvancedBilling
       usage_quantity =
         hash.key?('usage_quantity') ? hash['usage_quantity'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PrepaidUsageAllocationDetail.new(allocation_id,
                                        charge_id,
-                                       usage_quantity)
+                                       usage_quantity,
+                                       hash)
     end
   end
 end

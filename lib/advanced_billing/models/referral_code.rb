@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(id = SKIP,
                    site_id = SKIP,
                    subscription_id = SKIP,
-                   code = SKIP)
+                   code = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @site_id = site_id unless site_id == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @code = code unless code == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
       code = hash.key?('code') ? hash['code'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ReferralCode.new(id,
                        site_id,
                        subscription_id,
-                       code)
+                       code,
+                       hash)
     end
   end
 end

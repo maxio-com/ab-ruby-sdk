@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(amount = SKIP,
                    category = SKIP,
                    subscriber_delta = SKIP,
-                   lead_delta = SKIP)
+                   lead_delta = SKIP,
+                   additional_properties = {})
       @amount = amount unless amount == SKIP
       @category = category unless category == SKIP
       @subscriber_delta = subscriber_delta unless subscriber_delta == SKIP
       @lead_delta = lead_delta unless lead_delta == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -71,11 +77,15 @@ module AdvancedBilling
         hash.key?('subscriber_delta') ? hash['subscriber_delta'] : SKIP
       lead_delta = hash.key?('lead_delta') ? hash['lead_delta'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       MRRMovement.new(amount,
                       category,
                       subscriber_delta,
-                      lead_delta)
+                      lead_delta,
+                      hash)
     end
   end
 end

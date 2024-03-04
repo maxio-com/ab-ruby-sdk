@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(from_collection_method = nil,
-                   to_collection_method = nil)
+                   to_collection_method = nil,
+                   additional_properties = {})
       @from_collection_method = from_collection_method
       @to_collection_method = to_collection_method
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -51,9 +57,13 @@ module AdvancedBilling
       to_collection_method =
         hash.key?('to_collection_method') ? hash['to_collection_method'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ChangeInvoiceCollectionMethodEventData.new(from_collection_method,
-                                                 to_collection_method)
+                                                 to_collection_method,
+                                                 hash)
     end
 
     # Validates an instance of the object from a given value.

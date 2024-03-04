@@ -74,13 +74,19 @@ module AdvancedBilling
                    resource_id = SKIP,
                    name = SKIP,
                    deleted_at = SKIP,
-                   metafield_id = SKIP)
+                   metafield_id = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @value = value unless value == SKIP
       @resource_id = resource_id unless resource_id == SKIP
       @name = name unless name == SKIP
       @deleted_at = deleted_at unless deleted_at == SKIP
       @metafield_id = metafield_id unless metafield_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -99,13 +105,17 @@ module AdvancedBilling
                    end
       metafield_id = hash.key?('metafield_id') ? hash['metafield_id'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Metadata.new(id,
                    value,
                    resource_id,
                    name,
                    deleted_at,
-                   metafield_id)
+                   metafield_id,
+                   hash)
     end
 
     def to_custom_deleted_at

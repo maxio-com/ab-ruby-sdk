@@ -64,12 +64,18 @@ module AdvancedBilling
                    event_type = SKIP,
                    event_data = SKIP,
                    timestamp = SKIP,
-                   invoice = SKIP)
+                   invoice = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @event_type = event_type unless event_type == SKIP
       @event_data = event_data unless event_data == SKIP
       @timestamp = timestamp unless timestamp == SKIP
       @invoice = invoice unless invoice == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -89,12 +95,16 @@ module AdvancedBilling
                   end
       invoice = Invoice.from_hash(hash['invoice']) if hash['invoice']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoiceEvent.new(id,
                        event_type,
                        event_data,
                        timestamp,
-                       invoice)
+                       invoice,
+                       hash)
     end
 
     def to_custom_timestamp

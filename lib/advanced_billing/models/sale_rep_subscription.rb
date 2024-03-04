@@ -97,7 +97,8 @@ module AdvancedBilling
                    usage = SKIP,
                    recurring = SKIP,
                    last_payment = SKIP,
-                   churn_date = SKIP)
+                   churn_date = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @site_name = site_name unless site_name == SKIP
       @subscription_url = subscription_url unless subscription_url == SKIP
@@ -108,6 +109,11 @@ module AdvancedBilling
       @recurring = recurring unless recurring == SKIP
       @last_payment = last_payment unless last_payment == SKIP
       @churn_date = churn_date unless churn_date == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -127,6 +133,9 @@ module AdvancedBilling
       last_payment = hash.key?('last_payment') ? hash['last_payment'] : SKIP
       churn_date = hash.key?('churn_date') ? hash['churn_date'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SaleRepSubscription.new(id,
                               site_name,
@@ -137,7 +146,8 @@ module AdvancedBilling
                               usage,
                               recurring,
                               last_payment,
-                              churn_date)
+                              churn_date,
+                              hash)
     end
   end
 end

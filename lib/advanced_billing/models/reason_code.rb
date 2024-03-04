@@ -75,7 +75,8 @@ module AdvancedBilling
                    description = SKIP,
                    position = SKIP,
                    created_at = SKIP,
-                   updated_at = SKIP)
+                   updated_at = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @site_id = site_id unless site_id == SKIP
       @code = code unless code == SKIP
@@ -83,6 +84,11 @@ module AdvancedBilling
       @position = position unless position == SKIP
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -106,6 +112,9 @@ module AdvancedBilling
                      SKIP
                    end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ReasonCode.new(id,
                      site_id,
@@ -113,7 +122,8 @@ module AdvancedBilling
                      description,
                      position,
                      created_at,
-                     updated_at)
+                     updated_at,
+                     hash)
     end
 
     def to_custom_created_at

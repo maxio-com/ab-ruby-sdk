@@ -46,10 +46,16 @@ module AdvancedBilling
 
     def initialize(code = SKIP,
                    description = SKIP,
-                   position = SKIP)
+                   position = SKIP,
+                   additional_properties = {})
       @code = code unless code == SKIP
       @description = description unless description == SKIP
       @position = position unless position == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -61,10 +67,14 @@ module AdvancedBilling
       description = hash.key?('description') ? hash['description'] : SKIP
       position = hash.key?('position') ? hash['position'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       UpdateReasonCode.new(code,
                            description,
-                           position)
+                           position,
+                           hash)
     end
   end
 end

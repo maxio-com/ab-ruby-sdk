@@ -52,11 +52,17 @@ module AdvancedBilling
     def initialize(amount_in_cents = nil,
                    amount = nil,
                    memo = nil,
-                   external = SKIP)
+                   external = SKIP,
+                   additional_properties = {})
       @amount_in_cents = amount_in_cents
       @amount = amount
       @memo = memo
       @external = external unless external == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -72,11 +78,15 @@ module AdvancedBilling
       memo = hash.key?('memo') ? hash['memo'] : nil
       external = hash.key?('external') ? hash['external'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RefundPrepayment.new(amount_in_cents,
                            amount,
                            memo,
-                           external)
+                           external,
+                           hash)
     end
 
     # Validates an instance of the object from a given value.

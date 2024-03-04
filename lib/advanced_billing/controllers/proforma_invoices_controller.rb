@@ -46,20 +46,38 @@ module AdvancedBilling
     # specific field as a key in the query with a value set to true.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [ProformaInvoice] response from the API call
-    def list_subscription_group_proforma_invoices(uid)
+    # @param [TrueClass | FalseClass] line_items Optional parameter: Include
+    # line items data
+    # @param [TrueClass | FalseClass] discounts Optional parameter: Include
+    # discounts data
+    # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
+    # data
+    # @param [TrueClass | FalseClass] credits Optional parameter: Include
+    # credits data
+    # @param [TrueClass | FalseClass] payments Optional parameter: Include
+    # payments data
+    # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
+    # custom fields data
+    # @return [ListProformaInvoicesResponse] response from the API call
+    def list_subscription_group_proforma_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}/proforma_invoices.json',
                                      Server::DEFAULT)
-                   .template_param(new_parameter(uid, key: 'uid')
+                   .template_param(new_parameter(options['uid'], key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
+                   .query_param(new_parameter(options['line_items'], key: 'line_items'))
+                   .query_param(new_parameter(options['discounts'], key: 'discounts'))
+                   .query_param(new_parameter(options['taxes'], key: 'taxes'))
+                   .query_param(new_parameter(options['credits'], key: 'credits'))
+                   .query_param(new_parameter(options['payments'], key: 'payments'))
+                   .query_param(new_parameter(options['custom_fields'], key: 'custom_fields'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProformaInvoice.method(:from_hash))
+                   .deserialize_into(ListProformaInvoicesResponse.method(:from_hash))
                    .local_error_template('404',
                                          'Not Found:\'{$response.body}\'',
                                          APIException))
@@ -133,8 +151,9 @@ module AdvancedBilling
     # for the invoice's Due Date, in the YYYY-MM-DD format.
     # @param [String] end_date Optional parameter: The ending date range for the
     # invoice's Due Date, in the YYYY-MM-DD format.
-    # @param [InvoiceStatus] status Optional parameter: The current status of
-    # the invoice.  Allowed Values: draft, open, paid, pending, voided
+    # @param [ProformaInvoiceStatus] status Optional parameter: The current
+    # status of the invoice.  Allowed Values: draft, open, paid, pending,
+    # voided
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -248,7 +267,7 @@ module AdvancedBilling
     # subscription's upcoming renewal has changed.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [ProformaInvoicePreview] response from the API call
+    # @return [ProformaInvoice] response from the API call
     def preview_proforma_invoice(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -261,7 +280,7 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProformaInvoicePreview.method(:from_hash))
+                   .deserialize_into(ProformaInvoice.method(:from_hash))
                    .local_error_template('404',
                                          'Not Found:\'{$response.body}\'',
                                          APIException)
@@ -325,18 +344,19 @@ module AdvancedBilling
     # populate a shipping or billing address.
     # A product and customer first name, last name, and email are the minimum
     # requirements.
-    # @param [String] include_next_proforma_invoice Optional parameter: Choose
-    # to include a proforma invoice preview for the first renewal
+    # @param [CreateSignupProformaPreviewInclude] include Optional parameter:
+    # Choose to include a proforma invoice preview for the first renewal. Use in
+    # query `include=next_proforma_invoice`.
     # @param [CreateSubscriptionRequest] body Optional parameter: Example:
     # @return [SignupProformaPreviewResponse] response from the API call
-    def preview_signup_proforma_invoice(include_next_proforma_invoice: nil,
+    def preview_signup_proforma_invoice(include: nil,
                                         body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/proforma_invoices/preview.json',
                                      Server::DEFAULT)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .query_param(new_parameter(include_next_proforma_invoice, key: 'include=next_proforma_invoice'))
+                   .query_param(new_parameter(include, key: 'include'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)

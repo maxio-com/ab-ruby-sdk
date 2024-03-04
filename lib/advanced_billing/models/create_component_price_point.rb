@@ -88,7 +88,8 @@ module AdvancedBilling
                    use_site_exchange_rate = true,
                    tax_included = SKIP,
                    interval = SKIP,
-                   interval_unit = SKIP)
+                   interval_unit = SKIP,
+                   additional_properties = {})
       @name = name
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
@@ -97,6 +98,11 @@ module AdvancedBilling
       @tax_included = tax_included unless tax_included == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -123,6 +129,9 @@ module AdvancedBilling
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateComponentPricePoint.new(name,
                                     pricing_scheme,
@@ -131,7 +140,8 @@ module AdvancedBilling
                                     use_site_exchange_rate,
                                     tax_included,
                                     interval,
-                                    interval_unit)
+                                    interval_unit,
+                                    hash)
     end
 
     # Validates an instance of the object from a given value.

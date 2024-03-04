@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(migration = nil)
+    def initialize(migration = nil,
+                   additional_properties = {})
       @migration = migration
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       migration = SubscriptionMigrationPreview.from_hash(hash['migration']) if hash['migration']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      SubscriptionMigrationPreviewResponse.new(migration)
+      SubscriptionMigrationPreviewResponse.new(migration,
+                                               hash)
     end
   end
 end

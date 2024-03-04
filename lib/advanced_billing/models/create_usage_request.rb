@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(usage = nil)
+    def initialize(usage = nil,
+                   additional_properties = {})
       @usage = usage
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       usage = CreateUsage.from_hash(hash['usage']) if hash['usage']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateUsageRequest.new(usage)
+      CreateUsageRequest.new(usage,
+                             hash)
     end
   end
 end

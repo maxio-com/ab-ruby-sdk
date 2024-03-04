@@ -71,12 +71,18 @@ module AdvancedBilling
                    canceled_at = SKIP,
                    cancellation_message = SKIP,
                    expires_at = SKIP,
-                   current_period_starts_at = SKIP)
+                   current_period_starts_at = SKIP,
+                   additional_properties = {})
       @activated_at = activated_at unless activated_at == SKIP
       @canceled_at = canceled_at unless canceled_at == SKIP
       @cancellation_message = cancellation_message unless cancellation_message == SKIP
       @expires_at = expires_at unless expires_at == SKIP
       @current_period_starts_at = current_period_starts_at unless current_period_starts_at == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -107,12 +113,16 @@ module AdvancedBilling
                                    SKIP
                                  end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       OverrideSubscription.new(activated_at,
                                canceled_at,
                                cancellation_message,
                                expires_at,
-                               current_period_starts_at)
+                               current_period_starts_at,
+                               hash)
     end
 
     def to_custom_activated_at

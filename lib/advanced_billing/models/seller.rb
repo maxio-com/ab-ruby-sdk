@@ -55,11 +55,17 @@ module AdvancedBilling
     def initialize(name = SKIP,
                    address = SKIP,
                    phone = SKIP,
-                   logo_url = SKIP)
+                   logo_url = SKIP,
+                   additional_properties = {})
       @name = name unless name == SKIP
       @address = address unless address == SKIP
       @phone = phone unless phone == SKIP
       @logo_url = logo_url unless logo_url == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -72,11 +78,15 @@ module AdvancedBilling
       phone = hash.key?('phone') ? hash['phone'] : SKIP
       logo_url = hash.key?('logo_url') ? hash['logo_url'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Seller.new(name,
                  address,
                  phone,
-                 logo_url)
+                 logo_url,
+                 hash)
     end
   end
 end

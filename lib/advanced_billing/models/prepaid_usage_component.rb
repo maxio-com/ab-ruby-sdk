@@ -221,7 +221,8 @@ module AdvancedBilling
                    expiration_interval_unit = SKIP,
                    display_on_hosted_page = SKIP,
                    allow_fractional_quantities = SKIP,
-                   public_signup_page_ids = SKIP)
+                   public_signup_page_ids = SKIP,
+                   additional_properties = {})
       @name = name
       @unit_name = unit_name unless unit_name == SKIP
       @description = description unless description == SKIP
@@ -253,6 +254,11 @@ module AdvancedBilling
           allow_fractional_quantities
       end
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -316,6 +322,9 @@ module AdvancedBilling
       public_signup_page_ids =
         hash.key?('public_signup_page_ids') ? hash['public_signup_page_ids'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PrepaidUsageComponent.new(name,
                                 unit_name,
@@ -338,7 +347,8 @@ module AdvancedBilling
                                 expiration_interval_unit,
                                 display_on_hosted_page,
                                 allow_fractional_quantities,
-                                public_signup_page_ids)
+                                public_signup_page_ids,
+                                hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -61,7 +61,8 @@ module AdvancedBilling
                    automatic_net_terms = 0,
                    remittance_net_terms = 0,
                    net_terms_on_remittance_signups_enabled = false,
-                   custom_net_terms_enabled = false)
+                   custom_net_terms_enabled = false,
+                   additional_properties = {})
       @default_net_terms = default_net_terms unless default_net_terms == SKIP
       @automatic_net_terms = automatic_net_terms unless automatic_net_terms == SKIP
       @remittance_net_terms = remittance_net_terms unless remittance_net_terms == SKIP
@@ -70,6 +71,11 @@ module AdvancedBilling
           net_terms_on_remittance_signups_enabled
       end
       @custom_net_terms_enabled = custom_net_terms_enabled unless custom_net_terms_enabled == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -84,12 +90,16 @@ module AdvancedBilling
         hash['net_terms_on_remittance_signups_enabled'] ||= false
       custom_net_terms_enabled = hash['custom_net_terms_enabled'] ||= false
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       NetTerms.new(default_net_terms,
                    automatic_net_terms,
                    remittance_net_terms,
                    net_terms_on_remittance_signups_enabled,
-                   custom_net_terms_enabled)
+                   custom_net_terms_enabled,
+                   hash)
     end
   end
 end

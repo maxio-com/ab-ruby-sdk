@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(void = nil)
+    def initialize(void = nil,
+                   additional_properties = {})
       @void = void
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       void = VoidInvoice.from_hash(hash['void']) if hash['void']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      VoidInvoiceRequest.new(void)
+      VoidInvoiceRequest.new(void,
+                             hash)
     end
   end
 end

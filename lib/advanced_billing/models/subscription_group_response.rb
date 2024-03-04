@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_group = nil)
+    def initialize(subscription_group = nil,
+                   additional_properties = {})
       @subscription_group = subscription_group
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -42,8 +48,12 @@ module AdvancedBilling
       subscription_group = SubscriptionGroup.from_hash(hash['subscription_group']) if
         hash['subscription_group']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      SubscriptionGroupResponse.new(subscription_group)
+      SubscriptionGroupResponse.new(subscription_group,
+                                    hash)
     end
   end
 end

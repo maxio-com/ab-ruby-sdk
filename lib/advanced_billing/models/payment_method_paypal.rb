@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(email = nil,
-                   type = nil)
+                   type = nil,
+                   additional_properties = {})
       @email = email
       @type = type
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -49,9 +55,13 @@ module AdvancedBilling
       email = hash.key?('email') ? hash['email'] : nil
       type = hash.key?('type') ? hash['type'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PaymentMethodPaypal.new(email,
-                              type)
+                              type,
+                              hash)
     end
 
     # Validates an instance of the object from a given value.

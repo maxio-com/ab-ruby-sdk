@@ -125,6 +125,24 @@ module AdvancedBilling
     # @return [PaymentForAllocation]
     attr_accessor :payment
 
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [DateTime]
+    attr_accessor :expires_at
+
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [Integer]
+    attr_accessor :used_quantity
+
+    # The type of credit to be created when upgrading/downgrading. Defaults to
+    # the component and then site setting if one is not provided.
+    # Available values: `full`, `prorated`, `none`.
+    # @return [Integer]
+    attr_accessor :charge_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -150,6 +168,9 @@ module AdvancedBilling
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['payment'] = 'payment'
+      @_hash['expires_at'] = 'expires_at'
+      @_hash['used_quantity'] = 'used_quantity'
+      @_hash['charge_id'] = 'charge_id'
       @_hash
     end
 
@@ -178,6 +199,9 @@ module AdvancedBilling
         upgrade_charge
         downgrade_credit
         payment
+        expires_at
+        used_quantity
+        charge_id
       ]
     end
 
@@ -213,7 +237,11 @@ module AdvancedBilling
                    initiate_dunning = SKIP,
                    upgrade_charge = SKIP,
                    downgrade_credit = SKIP,
-                   payment = SKIP)
+                   payment = SKIP,
+                   expires_at = SKIP,
+                   used_quantity = SKIP,
+                   charge_id = SKIP,
+                   additional_properties = {})
       @allocation_id = allocation_id unless allocation_id == SKIP
       @component_id = component_id unless component_id == SKIP
       @component_handle = component_handle unless component_handle == SKIP
@@ -239,6 +267,14 @@ module AdvancedBilling
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @payment = payment unless payment == SKIP
+      @expires_at = expires_at unless expires_at == SKIP
+      @used_quantity = used_quantity unless used_quantity == SKIP
+      @charge_id = charge_id unless charge_id == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -293,6 +329,16 @@ module AdvancedBilling
       payment = hash.key?('payment') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:AllocationPayment), hash['payment']
       ) : SKIP
+      expires_at = if hash.key?('expires_at')
+                     (DateTimeHelper.from_rfc3339(hash['expires_at']) if hash['expires_at'])
+                   else
+                     SKIP
+                   end
+      used_quantity = hash.key?('used_quantity') ? hash['used_quantity'] : SKIP
+      charge_id = hash.key?('charge_id') ? hash['charge_id'] : SKIP
+
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
       Allocation.new(allocation_id,
@@ -316,7 +362,11 @@ module AdvancedBilling
                      initiate_dunning,
                      upgrade_charge,
                      downgrade_credit,
-                     payment)
+                     payment,
+                     expires_at,
+                     used_quantity,
+                     charge_id,
+                     hash)
     end
 
     def to_custom_timestamp
@@ -325,6 +375,10 @@ module AdvancedBilling
 
     def to_custom_created_at
       DateTimeHelper.to_rfc3339(created_at)
+    end
+
+    def to_custom_expires_at
+      DateTimeHelper.to_rfc3339(expires_at)
     end
 
     # Validates an instance of the object from a given value.

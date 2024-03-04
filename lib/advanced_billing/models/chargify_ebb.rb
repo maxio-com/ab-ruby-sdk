@@ -81,13 +81,19 @@ module AdvancedBilling
                    created_at = SKIP,
                    uniqueness_token = SKIP,
                    subscription_id = SKIP,
-                   subscription_reference = SKIP)
+                   subscription_reference = SKIP,
+                   additional_properties = {})
       @timestamp = timestamp unless timestamp == SKIP
       @id = id unless id == SKIP
       @created_at = created_at unless created_at == SKIP
       @uniqueness_token = uniqueness_token unless uniqueness_token == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @subscription_reference = subscription_reference unless subscription_reference == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -113,13 +119,17 @@ module AdvancedBilling
       subscription_reference =
         hash.key?('subscription_reference') ? hash['subscription_reference'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       ChargifyEBB.new(timestamp,
                       id,
                       created_at,
                       uniqueness_token,
                       subscription_id,
-                      subscription_reference)
+                      subscription_reference,
+                      hash)
     end
 
     def to_custom_timestamp

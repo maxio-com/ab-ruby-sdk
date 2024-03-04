@@ -53,11 +53,17 @@ module AdvancedBilling
     def initialize(first_name = SKIP,
                    last_name = SKIP,
                    organization = SKIP,
-                   email = SKIP)
+                   email = SKIP,
+                   additional_properties = {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @organization = organization unless organization == SKIP
       @email = email unless email == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -70,11 +76,15 @@ module AdvancedBilling
       organization = hash.key?('organization') ? hash['organization'] : SKIP
       email = hash.key?('email') ? hash['email'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       InvoicePayerChange.new(first_name,
                              last_name,
                              organization,
-                             email)
+                             email,
+                             hash)
     end
   end
 end

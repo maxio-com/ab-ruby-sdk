@@ -89,7 +89,8 @@ module AdvancedBilling
                    breakouts = SKIP,
                    line_items = SKIP,
                    subscription_id = SKIP,
-                   subscriber_name = SKIP)
+                   subscriber_name = SKIP,
+                   additional_properties = {})
       @timestamp = timestamp unless timestamp == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @amount_formatted = amount_formatted unless amount_formatted == SKIP
@@ -99,6 +100,11 @@ module AdvancedBilling
       @line_items = line_items unless line_items == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @subscriber_name = subscriber_name unless subscriber_name == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -133,6 +139,9 @@ module AdvancedBilling
       subscriber_name =
         hash.key?('subscriber_name') ? hash['subscriber_name'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Movement.new(timestamp,
                    amount_in_cents,
@@ -142,7 +151,8 @@ module AdvancedBilling
                    breakouts,
                    line_items,
                    subscription_id,
-                   subscriber_name)
+                   subscriber_name,
+                   hash)
     end
 
     def to_custom_timestamp

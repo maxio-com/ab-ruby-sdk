@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(endpoint = nil)
+    def initialize(endpoint = nil,
+                   additional_properties = {})
       @endpoint = endpoint
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -41,8 +47,12 @@ module AdvancedBilling
       # Extract variables from the hash.
       endpoint = CreateOrUpdateEndpoint.from_hash(hash['endpoint']) if hash['endpoint']
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      CreateOrUpdateEndpointRequest.new(endpoint)
+      CreateOrUpdateEndpointRequest.new(endpoint,
+                                        hash)
     end
   end
 end

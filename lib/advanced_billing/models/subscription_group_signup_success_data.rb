@@ -79,7 +79,8 @@ module AdvancedBilling
                    primary_subscription_id = nil,
                    next_assessment_at = nil,
                    state = nil,
-                   cancel_at_end_of_period = nil)
+                   cancel_at_end_of_period = nil,
+                   additional_properties = {})
       @uid = uid
       @scheme = scheme
       @customer_id = customer_id
@@ -89,6 +90,11 @@ module AdvancedBilling
       @next_assessment_at = next_assessment_at
       @state = state
       @cancel_at_end_of_period = cancel_at_end_of_period
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -112,6 +118,9 @@ module AdvancedBilling
       cancel_at_end_of_period =
         hash.key?('cancel_at_end_of_period') ? hash['cancel_at_end_of_period'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionGroupSignupSuccessData.new(uid,
                                              scheme,
@@ -121,7 +130,8 @@ module AdvancedBilling
                                              primary_subscription_id,
                                              next_assessment_at,
                                              state,
-                                             cancel_at_end_of_period)
+                                             cancel_at_end_of_period,
+                                             hash)
     end
 
     def to_custom_next_assessment_at

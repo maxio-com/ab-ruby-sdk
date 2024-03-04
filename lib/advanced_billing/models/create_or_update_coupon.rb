@@ -48,10 +48,16 @@ module AdvancedBilling
 
     def initialize(coupon = SKIP,
                    restricted_products = SKIP,
-                   restricted_components = SKIP)
+                   restricted_components = SKIP,
+                   additional_properties = {})
       @coupon = coupon unless coupon == SKIP
       @restricted_products = restricted_products unless restricted_products == SKIP
       @restricted_components = restricted_components unless restricted_components == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -67,10 +73,14 @@ module AdvancedBilling
       restricted_components =
         hash.key?('restricted_components') ? hash['restricted_components'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreateOrUpdateCoupon.new(coupon,
                                restricted_products,
-                               restricted_components)
+                               restricted_components,
+                               hash)
     end
 
     # Validates an instance of the object from a given value.

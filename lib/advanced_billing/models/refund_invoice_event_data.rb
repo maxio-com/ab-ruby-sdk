@@ -106,7 +106,8 @@ module AdvancedBilling
                    transaction_time = nil,
                    consolidation_level = SKIP,
                    memo = SKIP,
-                   original_amount = SKIP)
+                   original_amount = SKIP,
+                   additional_properties = {})
       @apply_credit = apply_credit
       @consolidation_level = consolidation_level unless consolidation_level == SKIP
       @credit_note_attributes = credit_note_attributes
@@ -116,6 +117,11 @@ module AdvancedBilling
       @refund_amount = refund_amount
       @refund_id = refund_id
       @transaction_time = transaction_time
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -138,6 +144,9 @@ module AdvancedBilling
       original_amount =
         hash.key?('original_amount') ? hash['original_amount'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RefundInvoiceEventData.new(apply_credit,
                                  credit_note_attributes,
@@ -147,7 +156,8 @@ module AdvancedBilling
                                  transaction_time,
                                  consolidation_level,
                                  memo,
-                                 original_amount)
+                                 original_amount,
+                                 hash)
     end
 
     def to_custom_transaction_time

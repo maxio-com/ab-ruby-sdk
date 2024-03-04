@@ -61,12 +61,18 @@ module AdvancedBilling
                    transaction_time = SKIP,
                    invoice_uid = SKIP,
                    memo = SKIP,
-                   applied_amount = SKIP)
+                   applied_amount = SKIP,
+                   additional_properties = {})
       @uid = uid unless uid == SKIP
       @transaction_time = transaction_time unless transaction_time == SKIP
       @invoice_uid = invoice_uid unless invoice_uid == SKIP
       @memo = memo unless memo == SKIP
       @applied_amount = applied_amount unless applied_amount == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -85,12 +91,16 @@ module AdvancedBilling
       applied_amount =
         hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       CreditNoteApplication.new(uid,
                                 transaction_time,
                                 invoice_uid,
                                 memo,
-                                applied_amount)
+                                applied_amount,
+                                hash)
     end
 
     def to_custom_transaction_time

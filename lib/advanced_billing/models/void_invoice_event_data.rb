@@ -67,13 +67,19 @@ module AdvancedBilling
                    applied_amount = nil,
                    transaction_time = nil,
                    is_advance_invoice = nil,
-                   reason = nil)
+                   reason = nil,
+                   additional_properties = {})
       @credit_note_attributes = credit_note_attributes
       @memo = memo
       @applied_amount = applied_amount
       @transaction_time = transaction_time
       @is_advance_invoice = is_advance_invoice
       @reason = reason
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -94,13 +100,17 @@ module AdvancedBilling
         hash.key?('is_advance_invoice') ? hash['is_advance_invoice'] : nil
       reason = hash.key?('reason') ? hash['reason'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       VoidInvoiceEventData.new(credit_note_attributes,
                                memo,
                                applied_amount,
                                transaction_time,
                                is_advance_invoice,
-                               reason)
+                               reason,
+                               hash)
     end
 
     def to_custom_transaction_time

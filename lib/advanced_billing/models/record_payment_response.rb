@@ -41,9 +41,15 @@ module AdvancedBilling
     end
 
     def initialize(paid_invoices = SKIP,
-                   prepayment = SKIP)
+                   prepayment = SKIP,
+                   additional_properties = {})
       @paid_invoices = paid_invoices unless paid_invoices == SKIP
       @prepayment = prepayment unless prepayment == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -65,9 +71,13 @@ module AdvancedBilling
         UnionTypeLookUp.get(:RecordPaymentResponsePrepayment), hash['prepayment']
       ) : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       RecordPaymentResponse.new(paid_invoices,
-                                prepayment)
+                                prepayment,
+                                hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -247,7 +247,8 @@ module AdvancedBilling
                    vat_number = SKIP,
                    parent_id = SKIP,
                    locale = SKIP,
-                   default_subscription_group_uid = SKIP)
+                   default_subscription_group_uid = SKIP,
+                   additional_properties = {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -286,6 +287,11 @@ module AdvancedBilling
       unless default_subscription_group_uid == SKIP
         @default_subscription_group_uid =
           default_subscription_group_uid
+      end
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -343,6 +349,9 @@ module AdvancedBilling
       default_subscription_group_uid =
         hash.key?('default_subscription_group_uid') ? hash['default_subscription_group_uid'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Customer.new(first_name,
                    last_name,
@@ -370,7 +379,8 @@ module AdvancedBilling
                    vat_number,
                    parent_id,
                    locale,
-                   default_subscription_group_uid)
+                   default_subscription_group_uid,
+                   hash)
     end
 
     def to_custom_created_at

@@ -50,11 +50,17 @@ module AdvancedBilling
     def initialize(reason = nil,
                    prepayment_account_balance_in_cents = nil,
                    prepayment_balance_change_in_cents = nil,
-                   currency_code = nil)
+                   currency_code = nil,
+                   additional_properties = {})
       @reason = reason
       @prepayment_account_balance_in_cents = prepayment_account_balance_in_cents
       @prepayment_balance_change_in_cents = prepayment_balance_change_in_cents
       @currency_code = currency_code
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -69,11 +75,15 @@ module AdvancedBilling
         hash.key?('prepayment_balance_change_in_cents') ? hash['prepayment_balance_change_in_cents'] : nil
       currency_code = hash.key?('currency_code') ? hash['currency_code'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       PrepaymentAccountBalanceChanged.new(reason,
                                           prepayment_account_balance_in_cents,
                                           prepayment_balance_change_in_cents,
-                                          currency_code)
+                                          currency_code,
+                                          hash)
     end
 
     # Validates an instance of the object from a given value.

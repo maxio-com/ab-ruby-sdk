@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(plan_amount_in_cents = nil,
-                   usage_amount_in_cents = nil)
+                   usage_amount_in_cents = nil,
+                   additional_properties = {})
       @plan_amount_in_cents = plan_amount_in_cents
       @usage_amount_in_cents = usage_amount_in_cents
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -51,9 +57,13 @@ module AdvancedBilling
       usage_amount_in_cents =
         hash.key?('usage_amount_in_cents') ? hash['usage_amount_in_cents'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SubscriptionMRRBreakout.new(plan_amount_in_cents,
-                                  usage_amount_in_cents)
+                                  usage_amount_in_cents,
+                                  hash)
     end
   end
 end

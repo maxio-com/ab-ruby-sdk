@@ -191,7 +191,8 @@ module AdvancedBilling
                    allow_fractional_quantities = SKIP,
                    public_signup_page_ids = SKIP,
                    interval = SKIP,
-                   interval_unit = SKIP)
+                   interval_unit = SKIP,
+                   additional_properties = {})
       @name = name
       @unit_name = unit_name
       @description = description unless description == SKIP
@@ -217,6 +218,11 @@ module AdvancedBilling
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -272,6 +278,9 @@ module AdvancedBilling
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       MeteredComponent.new(name,
                            unit_name,
@@ -291,7 +300,8 @@ module AdvancedBilling
                            allow_fractional_quantities,
                            public_signup_page_ids,
                            interval,
-                           interval_unit)
+                           interval_unit,
+                           hash)
     end
 
     # Validates an instance of the object from a given value.

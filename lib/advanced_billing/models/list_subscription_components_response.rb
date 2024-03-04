@@ -30,8 +30,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscriptions_components = nil)
+    def initialize(subscriptions_components = nil,
+                   additional_properties = {})
       @subscriptions_components = subscriptions_components
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -50,8 +56,12 @@ module AdvancedBilling
 
       subscriptions_components = nil unless hash.key?('subscriptions_components')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
-      ListSubscriptionComponentsResponse.new(subscriptions_components)
+      ListSubscriptionComponentsResponse.new(subscriptions_components,
+                                             hash)
     end
   end
 end

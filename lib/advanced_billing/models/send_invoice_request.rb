@@ -46,10 +46,16 @@ module AdvancedBilling
 
     def initialize(recipient_emails = SKIP,
                    cc_recipient_emails = SKIP,
-                   bcc_recipient_emails = SKIP)
+                   bcc_recipient_emails = SKIP,
+                   additional_properties = {})
       @recipient_emails = recipient_emails unless recipient_emails == SKIP
       @cc_recipient_emails = cc_recipient_emails unless cc_recipient_emails == SKIP
       @bcc_recipient_emails = bcc_recipient_emails unless bcc_recipient_emails == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -64,10 +70,14 @@ module AdvancedBilling
       bcc_recipient_emails =
         hash.key?('bcc_recipient_emails') ? hash['bcc_recipient_emails'] : SKIP
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       SendInvoiceRequest.new(recipient_emails,
                              cc_recipient_emails,
-                             bcc_recipient_emails)
+                             bcc_recipient_emails,
+                             hash)
     end
   end
 end

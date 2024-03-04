@@ -36,9 +36,15 @@ module AdvancedBilling
     end
 
     def initialize(id = nil,
-                   price = nil)
+                   price = nil,
+                   additional_properties = {})
       @id = id
       @price = price
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -49,9 +55,13 @@ module AdvancedBilling
       id = hash.key?('id') ? hash['id'] : nil
       price = hash.key?('price') ? hash['price'] : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       UpdateCurrencyPrice.new(id,
-                              price)
+                              price,
+                              hash)
     end
   end
 end

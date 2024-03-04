@@ -37,9 +37,15 @@ module AdvancedBilling
     end
 
     def initialize(error = nil,
-                   new_link_available_at = nil)
+                   new_link_available_at = nil,
+                   additional_properties = {})
       @error = error
       @new_link_available_at = new_link_available_at
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -52,9 +58,13 @@ module AdvancedBilling
                                 (DateTimeHelper.from_rfc3339(hash['new_link_available_at']) if hash['new_link_available_at'])
                               end
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       TooManyManagementLinkRequests.new(error,
-                                        new_link_available_at)
+                                        new_link_available_at,
+                                        hash)
     end
 
     def to_custom_new_link_available_at

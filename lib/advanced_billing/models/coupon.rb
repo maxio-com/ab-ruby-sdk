@@ -243,7 +243,8 @@ module AdvancedBilling
                    discount_type = SKIP,
                    exclude_mid_period_allocations = SKIP,
                    apply_on_cancel_at_end_of_period = SKIP,
-                   coupon_restrictions = SKIP)
+                   coupon_restrictions = SKIP,
+                   additional_properties = {})
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @code = code unless code == SKIP
@@ -279,6 +280,11 @@ module AdvancedBilling
           apply_on_cancel_at_end_of_period
       end
       @coupon_restrictions = coupon_restrictions unless coupon_restrictions == SKIP
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -360,6 +366,9 @@ module AdvancedBilling
 
       coupon_restrictions = SKIP unless hash.key?('coupon_restrictions')
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Coupon.new(id,
                  name,
@@ -389,7 +398,8 @@ module AdvancedBilling
                  discount_type,
                  exclude_mid_period_allocations,
                  apply_on_cancel_at_end_of_period,
-                 coupon_restrictions)
+                 coupon_restrictions,
+                 hash)
     end
 
     def to_custom_start_date

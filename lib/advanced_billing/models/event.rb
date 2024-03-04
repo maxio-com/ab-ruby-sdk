@@ -60,6 +60,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         subscription_id
+        customer_id
         event_specific_data
       ]
     end
@@ -70,7 +71,8 @@ module AdvancedBilling
                    subscription_id = nil,
                    customer_id = nil,
                    created_at = nil,
-                   event_specific_data = nil)
+                   event_specific_data = nil,
+                   additional_properties = {})
       @id = id
       @key = key
       @message = message
@@ -78,6 +80,11 @@ module AdvancedBilling
       @customer_id = customer_id
       @created_at = created_at
       @event_specific_data = event_specific_data
+
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -98,6 +105,9 @@ module AdvancedBilling
         UnionTypeLookUp.get(:EventEventSpecificData), hash['event_specific_data']
       ) : nil
 
+      # Clean out expected properties from Hash.
+      names.each_value { |k| hash.delete(k) }
+
       # Create object from extracted values.
       Event.new(id,
                 key,
@@ -105,7 +115,8 @@ module AdvancedBilling
                 subscription_id,
                 customer_id,
                 created_at,
-                event_specific_data)
+                event_specific_data,
+                hash)
     end
 
     def to_custom_created_at
