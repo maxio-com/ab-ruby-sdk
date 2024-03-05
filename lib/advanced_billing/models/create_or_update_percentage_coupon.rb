@@ -80,6 +80,12 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :apply_on_cancel_at_end_of_period
 
+    # may contain uppercase alphanumeric characters and these special characters
+    # (which allow for email addresses to be used): “%”, “@”, “+”, “-”, “_”, and
+    # “.”
+    # @return [TrueClass | FalseClass]
+    attr_accessor :apply_on_subscription_expiration
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -97,6 +103,8 @@ module AdvancedBilling
         'exclude_mid_period_allocations'
       @_hash['apply_on_cancel_at_end_of_period'] =
         'apply_on_cancel_at_end_of_period'
+      @_hash['apply_on_subscription_expiration'] =
+        'apply_on_subscription_expiration'
       @_hash
     end
 
@@ -112,6 +120,7 @@ module AdvancedBilling
         compounding_strategy
         exclude_mid_period_allocations
         apply_on_cancel_at_end_of_period
+        apply_on_subscription_expiration
       ]
     end
 
@@ -132,6 +141,7 @@ module AdvancedBilling
                    compounding_strategy = SKIP,
                    exclude_mid_period_allocations = SKIP,
                    apply_on_cancel_at_end_of_period = SKIP,
+                   apply_on_subscription_expiration = SKIP,
                    additional_properties = {})
       @name = name
       @code = code
@@ -150,6 +160,10 @@ module AdvancedBilling
       unless apply_on_cancel_at_end_of_period == SKIP
         @apply_on_cancel_at_end_of_period =
           apply_on_cancel_at_end_of_period
+      end
+      unless apply_on_subscription_expiration == SKIP
+        @apply_on_subscription_expiration =
+          apply_on_subscription_expiration
       end
 
       # Add additional model properties to the instance.
@@ -186,6 +200,8 @@ module AdvancedBilling
         hash.key?('exclude_mid_period_allocations') ? hash['exclude_mid_period_allocations'] : SKIP
       apply_on_cancel_at_end_of_period =
         hash.key?('apply_on_cancel_at_end_of_period') ? hash['apply_on_cancel_at_end_of_period'] : SKIP
+      apply_on_subscription_expiration =
+        hash.key?('apply_on_subscription_expiration') ? hash['apply_on_subscription_expiration'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -203,6 +219,7 @@ module AdvancedBilling
                                          compounding_strategy,
                                          exclude_mid_period_allocations,
                                          apply_on_cancel_at_end_of_period,
+                                         apply_on_subscription_expiration,
                                          hash)
     end
 

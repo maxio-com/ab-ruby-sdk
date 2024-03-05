@@ -123,6 +123,10 @@ module AdvancedBilling
     attr_accessor :apply_on_cancel_at_end_of_period
 
     # TODO: Write general description for this method
+    # @return [TrueClass | FalseClass]
+    attr_accessor :apply_on_subscription_expiration
+
+    # TODO: Write general description for this method
     # @return [Array[CouponRestriction]]
     attr_accessor :coupon_restrictions
 
@@ -159,6 +163,8 @@ module AdvancedBilling
         'exclude_mid_period_allocations'
       @_hash['apply_on_cancel_at_end_of_period'] =
         'apply_on_cancel_at_end_of_period'
+      @_hash['apply_on_subscription_expiration'] =
+        'apply_on_subscription_expiration'
       @_hash['coupon_restrictions'] = 'coupon_restrictions'
       @_hash
     end
@@ -194,6 +200,7 @@ module AdvancedBilling
         discount_type
         exclude_mid_period_allocations
         apply_on_cancel_at_end_of_period
+        apply_on_subscription_expiration
         coupon_restrictions
       ]
     end
@@ -243,6 +250,7 @@ module AdvancedBilling
                    discount_type = SKIP,
                    exclude_mid_period_allocations = SKIP,
                    apply_on_cancel_at_end_of_period = SKIP,
+                   apply_on_subscription_expiration = SKIP,
                    coupon_restrictions = SKIP,
                    additional_properties = {})
       @id = id unless id == SKIP
@@ -278,6 +286,10 @@ module AdvancedBilling
       unless apply_on_cancel_at_end_of_period == SKIP
         @apply_on_cancel_at_end_of_period =
           apply_on_cancel_at_end_of_period
+      end
+      unless apply_on_subscription_expiration == SKIP
+        @apply_on_subscription_expiration =
+          apply_on_subscription_expiration
       end
       @coupon_restrictions = coupon_restrictions unless coupon_restrictions == SKIP
 
@@ -355,6 +367,8 @@ module AdvancedBilling
         hash.key?('exclude_mid_period_allocations') ? hash['exclude_mid_period_allocations'] : SKIP
       apply_on_cancel_at_end_of_period =
         hash.key?('apply_on_cancel_at_end_of_period') ? hash['apply_on_cancel_at_end_of_period'] : SKIP
+      apply_on_subscription_expiration =
+        hash.key?('apply_on_subscription_expiration') ? hash['apply_on_subscription_expiration'] : SKIP
       # Parameter is an array, so we need to iterate through it
       coupon_restrictions = nil
       unless hash['coupon_restrictions'].nil?
@@ -398,6 +412,7 @@ module AdvancedBilling
                  discount_type,
                  exclude_mid_period_allocations,
                  apply_on_cancel_at_end_of_period,
+                 apply_on_subscription_expiration,
                  coupon_restrictions,
                  hash)
     end
