@@ -7,11 +7,10 @@ module AdvancedBilling
   # AdvanceInvoiceController
   class AdvanceInvoiceController < BaseController
     # Generate an invoice in advance for a subscription's next renewal date.
-    # [Please see our
-    # docs](reference/Chargify-API.v1.yaml/components/schemas/Invoice) for more
-    # information on advance invoices, including eligibility on generating one;
-    # for the most part, they function like any other invoice, except they are
-    # issued early and have special behavior upon being voided.
+    # [Please see our docs]($m/Invoice) for more information on advance
+    # invoices, including eligibility on generating one; for the most part, they
+    # function like any other invoice, except they are issued early and have
+    # special behavior upon being voided.
     # A subscription may only have one advance invoice per billing period.
     # Attempting to issue an advance invoice when one already exists will return
     # an error.
@@ -83,8 +82,7 @@ module AdvancedBilling
     # A `reason` is required in order to void, and the invoice must have an open
     # status. Voiding will cause any prepayments and credits that were applied
     # to the invoice to be returned to the subscription. For a full overview of
-    # the impact of voiding, please [see our help
-    # docs](reference/Chargify-API.v1.yaml/components/schemas/Invoice).
+    # the impact of voiding, please [see our help docs]($m/Invoice).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [VoidInvoiceRequest] body Optional parameter: Example:

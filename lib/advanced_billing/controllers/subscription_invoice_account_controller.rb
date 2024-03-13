@@ -56,7 +56,11 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CreatePrepaymentResponse.method(:from_hash)))
+                   .deserialize_into(CreatePrepaymentResponse.method(:from_hash))
+                   .local_error_template('422',
+                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                          ' Response: \'{$response.body}\'.',
+                                         APIException))
         .execute
     end
 

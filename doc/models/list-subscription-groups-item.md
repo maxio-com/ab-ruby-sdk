@@ -19,6 +19,7 @@
 | `state` | `String` | Optional | - |
 | `cancel_at_end_of_period` | `TrueClass \| FalseClass` | Optional | - |
 | `account_balances` | [`SubscriptionGroupBalances`](../../doc/models/subscription-group-balances.md) | Optional | - |
+| `group_type` | [`GroupType`](../../doc/models/group-type.md) | Optional | - |
 
 ## Example (as JSON)
 

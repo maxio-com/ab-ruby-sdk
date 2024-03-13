@@ -60,7 +60,7 @@ module AdvancedBilling
                    .local_error_template('422',
                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
                                           ' Response: \'{$response.body}\'.',
-                                         SingleStringErrorResponseException))
+                                         SubscriptionGroupCreateErrorResponseException))
         .execute
     end
 
@@ -81,10 +81,10 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [String] include Optional parameter: A list of additional
-    # information to include in the response. The following values are
-    # supported:  - `account_balances`: Account balance information for the
-    # subscription groups. Use in query: `include[]=account_balances`
+    # @param [Array[SubscriptionGroupsListInclude]] include Optional parameter:
+    # A list of additional information to include in the response. The following
+    # values are supported:  - `account_balances`: Account balance information
+    # for the subscription groups. Use in query: `include[]=account_balances`
     # @return [ListSubscriptionGroupsResponse] response from the API call
     def list_subscription_groups(options = {})
       new_api_call_builder
@@ -93,9 +93,10 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['include'], key: 'include[]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('BasicAuth'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListSubscriptionGroupsResponse.method(:from_hash)))
@@ -110,8 +111,12 @@ module AdvancedBilling
     # with the request.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
+    # @param [Array[SubscriptionGroupInclude]] include Optional parameter:
+    # Allows including additional data in the response. Use in query:
+    # `include[]=current_billing_amount_in_cents`.
     # @return [FullSubscriptionGroupResponse] response from the API call
-    def read_subscription_group(uid)
+    def read_subscription_group(uid,
+                                include: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}.json',
@@ -119,8 +124,10 @@ module AdvancedBilling
                    .template_param(new_parameter(uid, key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
+                   .query_param(new_parameter(include, key: 'include[]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('BasicAuth'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash)))

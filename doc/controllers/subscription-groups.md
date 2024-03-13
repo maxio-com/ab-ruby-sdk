@@ -147,7 +147,7 @@ result = subscription_groups_controller.create_subscription_group(body: body)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SingleStringErrorResponseException`](../../doc/models/single-string-error-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionGroupCreateErrorResponseException`](../../doc/models/subscription-group-create-error-response-exception.md) |
 
 
 # List Subscription Groups
@@ -168,7 +168,7 @@ def list_subscription_groups(options = {})
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `include` | `String` | Query, Optional | A list of additional information to include in the response. The following values are supported:<br><br>- `account_balances`: Account balance information for the subscription groups. Use in query: `include[]=account_balances` |
+| `include` | [`Array<SubscriptionGroupsListInclude>`](../../doc/models/subscription-groups-list-include.md) | Query, Optional | A list of additional information to include in the response. The following values are supported:<br><br>- `account_balances`: Account balance information for the subscription groups. Use in query: `include[]=account_balances` |
 
 ## Response Type
 
@@ -177,7 +177,7 @@ def list_subscription_groups(options = {})
 ## Example Usage
 
 ```ruby
-collect = {
+Liquid error: Value cannot be null. (Parameter 'key')collect = {
   'page': 2,
   'per_page': 50
 }
@@ -233,7 +233,8 @@ Use this endpoint to find subscription group details.
 Current billing amount for the subscription group is not returned by default. If this information is desired, the `include[]=current_billing_amount_in_cents` parameter must be provided with the request.
 
 ```ruby
-def read_subscription_group(uid)
+def read_subscription_group(uid,
+                            include: nil)
 ```
 
 ## Parameters
@@ -241,6 +242,7 @@ def read_subscription_group(uid)
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
+| `include` | [`Array<SubscriptionGroupInclude>`](../../doc/models/subscription-group-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=current_billing_amount_in_cents`. |
 
 ## Response Type
 
@@ -251,7 +253,7 @@ def read_subscription_group(uid)
 ```ruby
 uid = 'uid0'
 
-result = subscription_groups_controller.read_subscription_group(uid)
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_groups_controller.read_subscription_group(uid)
 ```
 
 ## Example Response *(as JSON)*

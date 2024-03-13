@@ -25,6 +25,22 @@ module AdvancedBilling
     # @return [Array[String]]
     attr_accessor :payment_profile_chargify_token
 
+    # TODO: Write general description for this method
+    # @return [Array[String]]
+    attr_accessor :base
+
+    # TODO: Write general description for this method
+    # @return [Array[String]]
+    attr_accessor :payment_profile_expiration_month
+
+    # TODO: Write general description for this method
+    # @return [Array[String]]
+    attr_accessor :payment_profile_expiration_year
+
+    # TODO: Write general description for this method
+    # @return [Array[String]]
+    attr_accessor :payment_profile_full_number
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -33,6 +49,12 @@ module AdvancedBilling
       @_hash['payment_profile'] = 'payment_profile'
       @_hash['payment_profile_chargify_token'] =
         'payment_profile.chargify_token'
+      @_hash['base'] = 'base'
+      @_hash['payment_profile_expiration_month'] =
+        'payment_profile.expiration_month'
+      @_hash['payment_profile_expiration_year'] =
+        'payment_profile.expiration_year'
+      @_hash['payment_profile_full_number'] = 'payment_profile.full_number'
       @_hash
     end
 
@@ -43,6 +65,10 @@ module AdvancedBilling
         product_price_point_id
         payment_profile
         payment_profile_chargify_token
+        base
+        payment_profile_expiration_month
+        payment_profile_expiration_year
+        payment_profile_full_number
       ]
     end
 
@@ -55,6 +81,10 @@ module AdvancedBilling
                    product_price_point_id = SKIP,
                    payment_profile = SKIP,
                    payment_profile_chargify_token = SKIP,
+                   base = SKIP,
+                   payment_profile_expiration_month = SKIP,
+                   payment_profile_expiration_year = SKIP,
+                   payment_profile_full_number = SKIP,
                    additional_properties = {})
       @product = product unless product == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
@@ -62,6 +92,19 @@ module AdvancedBilling
       unless payment_profile_chargify_token == SKIP
         @payment_profile_chargify_token =
           payment_profile_chargify_token
+      end
+      @base = base unless base == SKIP
+      unless payment_profile_expiration_month == SKIP
+        @payment_profile_expiration_month =
+          payment_profile_expiration_month
+      end
+      unless payment_profile_expiration_year == SKIP
+        @payment_profile_expiration_year =
+          payment_profile_expiration_year
+      end
+      unless payment_profile_full_number == SKIP
+        @payment_profile_full_number =
+          payment_profile_full_number
       end
 
       # Add additional model properties to the instance.
@@ -82,6 +125,13 @@ module AdvancedBilling
         hash.key?('payment_profile') ? hash['payment_profile'] : SKIP
       payment_profile_chargify_token =
         hash.key?('payment_profile.chargify_token') ? hash['payment_profile.chargify_token'] : SKIP
+      base = hash.key?('base') ? hash['base'] : SKIP
+      payment_profile_expiration_month =
+        hash.key?('payment_profile.expiration_month') ? hash['payment_profile.expiration_month'] : SKIP
+      payment_profile_expiration_year =
+        hash.key?('payment_profile.expiration_year') ? hash['payment_profile.expiration_year'] : SKIP
+      payment_profile_full_number =
+        hash.key?('payment_profile.full_number') ? hash['payment_profile.full_number'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -91,6 +141,10 @@ module AdvancedBilling
                                              product_price_point_id,
                                              payment_profile,
                                              payment_profile_chargify_token,
+                                             base,
+                                             payment_profile_expiration_month,
+                                             payment_profile_expiration_year,
+                                             payment_profile_full_number,
                                              hash)
     end
   end

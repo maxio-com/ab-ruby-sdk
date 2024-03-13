@@ -4,32 +4,25 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # CreateSubscriptionGroup Model.
-  class CreateSubscriptionGroup < BaseModel
+  # SubscriptionGroupMembersArrayError Model.
+  class SubscriptionGroupMembersArrayError < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Integer]
-    attr_accessor :subscription_id
-
-    # TODO: Write general description for this method
-    # @return [Array[Integer]]
-    attr_accessor :member_ids
+    # @return [Array[String]]
+    attr_accessor :members
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['subscription_id'] = 'subscription_id'
-      @_hash['member_ids'] = 'member_ids'
+      @_hash['members'] = 'members'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
-      %w[
-        member_ids
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -37,11 +30,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_id = nil,
-                   member_ids = SKIP,
+    def initialize(members = nil,
                    additional_properties = {})
-      @subscription_id = subscription_id
-      @member_ids = member_ids unless member_ids == SKIP
+      @members = members
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -54,17 +45,28 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      subscription_id =
-        hash.key?('subscription_id') ? hash['subscription_id'] : nil
-      member_ids = hash.key?('member_ids') ? hash['member_ids'] : SKIP
+      members = hash.key?('members') ? hash['members'] : nil
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateSubscriptionGroup.new(subscription_id,
-                                  member_ids,
-                                  hash)
+      SubscriptionGroupMembersArrayError.new(members,
+                                             hash)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [SubscriptionGroupMembersArrayError | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return APIHelper.valid_type?(value.members,
+                                     ->(val) { val.instance_of? String })
+      end
+
+      return false unless value.instance_of? Hash
+
+      APIHelper.valid_type?(value['members'],
+                            ->(val) { val.instance_of? String })
     end
   end
 end

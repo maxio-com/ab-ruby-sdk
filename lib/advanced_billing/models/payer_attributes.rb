@@ -70,7 +70,7 @@ module AdvancedBilling
     attr_accessor :vat_number
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [TrueClass | FalseClass]
     attr_accessor :tax_exempt
 
     # TODO: Write general description for this method

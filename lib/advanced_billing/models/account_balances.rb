@@ -14,6 +14,11 @@ module AdvancedBilling
     # @return [AccountBalance]
     attr_accessor :open_invoices
 
+    # The balance, in cents, of the sum of the subscription's  pending, payable
+    # invoices.
+    # @return [AccountBalance]
+    attr_accessor :pending_invoices
+
     # The balance, in cents, of the subscription's Pending Discount account.
     # @return [AccountBalance]
     attr_accessor :pending_discounts
@@ -30,6 +35,7 @@ module AdvancedBilling
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['open_invoices'] = 'open_invoices'
+      @_hash['pending_invoices'] = 'pending_invoices'
       @_hash['pending_discounts'] = 'pending_discounts'
       @_hash['service_credits'] = 'service_credits'
       @_hash['prepayments'] = 'prepayments'
@@ -40,6 +46,7 @@ module AdvancedBilling
     def self.optionals
       %w[
         open_invoices
+        pending_invoices
         pending_discounts
         service_credits
         prepayments
@@ -52,11 +59,13 @@ module AdvancedBilling
     end
 
     def initialize(open_invoices = SKIP,
+                   pending_invoices = SKIP,
                    pending_discounts = SKIP,
                    service_credits = SKIP,
                    prepayments = SKIP,
                    additional_properties = {})
       @open_invoices = open_invoices unless open_invoices == SKIP
+      @pending_invoices = pending_invoices unless pending_invoices == SKIP
       @pending_discounts = pending_discounts unless pending_discounts == SKIP
       @service_credits = service_credits unless service_credits == SKIP
       @prepayments = prepayments unless prepayments == SKIP
@@ -73,6 +82,8 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       open_invoices = AccountBalance.from_hash(hash['open_invoices']) if hash['open_invoices']
+      pending_invoices = AccountBalance.from_hash(hash['pending_invoices']) if
+        hash['pending_invoices']
       pending_discounts = AccountBalance.from_hash(hash['pending_discounts']) if
         hash['pending_discounts']
       service_credits = AccountBalance.from_hash(hash['service_credits']) if
@@ -84,6 +95,7 @@ module AdvancedBilling
 
       # Create object from extracted values.
       AccountBalances.new(open_invoices,
+                          pending_invoices,
                           pending_discounts,
                           service_credits,
                           prepayments,
