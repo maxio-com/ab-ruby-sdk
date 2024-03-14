@@ -9,12 +9,12 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Integer` | Optional | - |
-| `subscription_id` | `Integer` | Optional | - |
-| `amount_in_cents` | `Integer` | Optional | - |
+| `id` | `Integer` | Optional | **Constraints**: `>= 1` |
+| `subscription_id` | `Integer` | Optional | **Constraints**: `>= 1` |
+| `amount_in_cents` | `Integer` | Optional | **Constraints**: `>= 0.01` |
 | `memo` | `String` | Optional | - |
 | `created_at` | `DateTime` | Optional | - |
-| `starting_balance_in_cents` | `Integer` | Optional | - |
+| `starting_balance_in_cents` | `Integer` | Optional | **Constraints**: `>= 0` |
 | `ending_balance_in_cents` | `Integer` | Optional | - |
 
 ## Example (as JSON)

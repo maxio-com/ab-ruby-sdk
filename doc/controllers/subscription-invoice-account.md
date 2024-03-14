@@ -107,6 +107,12 @@ result = subscription_invoice_account_controller.create_prepayment(
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | `APIException` |
+
 
 # List Prepayments
 

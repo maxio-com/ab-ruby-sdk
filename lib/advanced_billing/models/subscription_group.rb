@@ -18,15 +18,24 @@ module AdvancedBilling
     # @return [SubscriptionGroupPaymentProfile]
     attr_accessor :payment_profile
 
-    # TODO: Write general description for this method
-    # @return [String]
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
+    # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 
-    # TODO: Write general description for this method
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [Array[Integer]]
     attr_accessor :subscription_ids
 
-    # TODO: Write general description for this method
+    # The type of payment collection to be used in the subscription. For legacy
+    # Statements Architecture valid options are - `invoice`, `automatic`. For
+    # current Relationship Invoicing Architecture valid options are -
+    # `remittance`, `automatic`, `prepaid`.
     # @return [DateTime]
     attr_accessor :created_at
 
@@ -59,7 +68,7 @@ module AdvancedBilling
 
     def initialize(customer_id = SKIP,
                    payment_profile = SKIP,
-                   payment_collection_method = SKIP,
+                   payment_collection_method = CollectionMethod::AUTOMATIC,
                    subscription_ids = SKIP,
                    created_at = SKIP,
                    additional_properties = {})
@@ -87,7 +96,7 @@ module AdvancedBilling
       payment_profile = SubscriptionGroupPaymentProfile.from_hash(hash['payment_profile']) if
         hash['payment_profile']
       payment_collection_method =
-        hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
+        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
       subscription_ids =
         hash.key?('subscription_ids') ? hash['subscription_ids'] : SKIP
       created_at = if hash.key?('created_at')

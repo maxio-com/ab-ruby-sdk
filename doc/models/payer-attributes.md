@@ -24,7 +24,7 @@
 | `phone` | `String` | Optional | - |
 | `locale` | `String` | Optional | - |
 | `vat_number` | `String` | Optional | - |
-| `tax_exempt` | `String` | Optional | - |
+| `tax_exempt` | `TrueClass \| FalseClass` | Optional | - |
 | `tax_exempt_reason` | `String` | Optional | - |
 | `metafields` | `Hash[String, String]` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. |
 

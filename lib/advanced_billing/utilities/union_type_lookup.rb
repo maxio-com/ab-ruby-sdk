@@ -502,13 +502,6 @@ module AdvancedBilling
           )
         ),
 
-        :CreateSubscriptionGroupSubscriptionId => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ]
-        ),
-
         :CustomerChangePayer => OneOf.new(
           [
             LeafType.new(CustomerPayerChange)
@@ -991,6 +984,14 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
+        ),
+
+        :SubscriptionGroupCreateErrorResponseErrors => OneOf.new(
+          [
+            LeafType.new(SubscriptionGroupMembersArrayError),
+            LeafType.new(SubscriptionGroupSingleError),
+            LeafType.new(String)
+          ]
         ),
 
         :SubscriptionGroupCreditCardFullNumber => OneOf.new(

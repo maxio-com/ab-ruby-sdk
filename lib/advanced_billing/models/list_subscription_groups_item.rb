@@ -50,6 +50,10 @@ module AdvancedBilling
     # @return [SubscriptionGroupBalances]
     attr_accessor :account_balances
 
+    # TODO: Write general description for this method
+    # @return [GroupType]
+    attr_accessor :group_type
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -63,6 +67,7 @@ module AdvancedBilling
       @_hash['state'] = 'state'
       @_hash['cancel_at_end_of_period'] = 'cancel_at_end_of_period'
       @_hash['account_balances'] = 'account_balances'
+      @_hash['group_type'] = 'group_type'
       @_hash
     end
 
@@ -79,6 +84,7 @@ module AdvancedBilling
         state
         cancel_at_end_of_period
         account_balances
+        group_type
       ]
     end
 
@@ -97,6 +103,7 @@ module AdvancedBilling
                    state = SKIP,
                    cancel_at_end_of_period = SKIP,
                    account_balances = SKIP,
+                   group_type = SKIP,
                    additional_properties = {})
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
@@ -108,6 +115,7 @@ module AdvancedBilling
       @state = state unless state == SKIP
       @cancel_at_end_of_period = cancel_at_end_of_period unless cancel_at_end_of_period == SKIP
       @account_balances = account_balances unless account_balances == SKIP
+      @group_type = group_type unless group_type == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -139,6 +147,7 @@ module AdvancedBilling
         hash.key?('cancel_at_end_of_period') ? hash['cancel_at_end_of_period'] : SKIP
       account_balances = SubscriptionGroupBalances.from_hash(hash['account_balances']) if
         hash['account_balances']
+      group_type = hash.key?('group_type') ? hash['group_type'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -154,6 +163,7 @@ module AdvancedBilling
                                      state,
                                      cancel_at_end_of_period,
                                      account_balances,
+                                     group_type,
                                      hash)
     end
 
