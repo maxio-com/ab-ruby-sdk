@@ -25,47 +25,47 @@ module AdvancedBilling
     # @return [Date]
     attr_accessor :due_date
 
-    # TODO: Write general description for this method
-    # @return [Date]
+    # Invoice issue date. Can be an empty string if value is missing.
+    # @return [String]
     attr_accessor :issue_date
 
-    # TODO: Write general description for this method
-    # @return [Date]
+    # Paid date. Can be an empty string if value is missing.
+    # @return [String]
     attr_accessor :paid_date
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :due_amount
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :paid_amount
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :tax_amount
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :refund_amount
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :total_amount
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :status_amount
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :product_name
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [String]
     attr_accessor :consolidation_level
 
-    # TODO: Write general description for this method
+    # Paid date. Can be an empty string if value is missing.
     # @return [Array[InvoiceLineItemEventData]]
     attr_accessor :line_items
 
@@ -97,7 +97,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        due_date
+      ]
     end
 
     def initialize(uid = nil,
