@@ -87,9 +87,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      credit_note_attributes = hash.key?('credit_note_attributes') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:VoidInvoiceEventDataCreditNoteAttributes), hash['credit_note_attributes']
-      ) : nil
+      credit_note_attributes = CreditNote.from_hash(hash['credit_note_attributes']) if
+        hash['credit_note_attributes']
       memo = hash.key?('memo') ? hash['memo'] : nil
       applied_amount =
         hash.key?('applied_amount') ? hash['applied_amount'] : nil
@@ -122,8 +121,8 @@ module AdvancedBilling
     def self.validate(value)
       if value.instance_of? self
         return (
-          UnionTypeLookUp.get(:VoidInvoiceEventDataCreditNoteAttributes)
-                         .validate(value.credit_note_attributes) and
+          APIHelper.valid_type?(value.credit_note_attributes,
+                                ->(val) { CreditNote.validate(val) }) and
             APIHelper.valid_type?(value.memo,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.applied_amount,
@@ -140,8 +139,8 @@ module AdvancedBilling
       return false unless value.instance_of? Hash
 
       (
-        UnionTypeLookUp.get(:VoidInvoiceEventDataCreditNoteAttributes)
-                       .validate(value['credit_note_attributes']) and
+        APIHelper.valid_type?(value['credit_note_attributes'],
+                              ->(val) { CreditNote.validate(val) }) and
           APIHelper.valid_type?(value['memo'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['applied_amount'],

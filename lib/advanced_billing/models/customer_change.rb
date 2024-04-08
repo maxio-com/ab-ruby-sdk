@@ -76,18 +76,13 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      payer = hash.key?('payer') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomerChangePayer), hash['payer']
-      ) : SKIP
-      shipping_address = hash.key?('shipping_address') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomerChangeShippingAddress), hash['shipping_address']
-      ) : SKIP
-      billing_address = hash.key?('billing_address') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomerChangeBillingAddress), hash['billing_address']
-      ) : SKIP
-      custom_fields = hash.key?('custom_fields') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CustomerChangeCustomFields), hash['custom_fields']
-      ) : SKIP
+      payer = CustomerPayerChange.from_hash(hash['payer']) if hash['payer']
+      shipping_address = AddressChange.from_hash(hash['shipping_address']) if
+        hash['shipping_address']
+      billing_address = AddressChange.from_hash(hash['billing_address']) if
+        hash['billing_address']
+      custom_fields = CustomerCustomFieldsChange.from_hash(hash['custom_fields']) if
+        hash['custom_fields']
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -98,16 +93,6 @@ module AdvancedBilling
                          billing_address,
                          custom_fields,
                          hash)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [CustomerChange | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

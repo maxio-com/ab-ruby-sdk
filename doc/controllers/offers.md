@@ -183,8 +183,7 @@ result = offers_controller.list_offers(collect)
           "price_point_id": 149438,
           "price_point_name": "Auto-created",
           "starting_quantity": "0.0",
-          "editable": false,
-          "currency_prices": []
+          "editable": false
         }
       ],
       "offer_discounts": [

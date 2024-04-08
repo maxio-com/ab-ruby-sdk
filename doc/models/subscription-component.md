@@ -17,7 +17,7 @@
 | `unit_balance` | `Integer` | Optional | - |
 | `currency` | `String` | Optional | - |
 | `allocated_quantity` | Integer \| String \| nil | Optional | This is a container for one-of cases. |
-| `pricing_scheme` | [Pricing Scheme](../../doc/models/pricing-scheme.md) \| nil | Optional | This is a container for one-of cases. |
+| `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | - |
 | `component_id` | `Integer` | Optional | - |
 | `component_handle` | `String` | Optional | - |
 | `subscription_id` | `Integer` | Optional | - |

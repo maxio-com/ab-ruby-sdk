@@ -354,9 +354,9 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .query_param(new_parameter(name, key: 'name'))
-                   .query_param(new_parameter(names, key: 'names[]'))
+                   .query_param(new_parameter(names, key: 'names'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::PLAIN))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
                    .is_response_void(true)
                    .local_error_template('404',
@@ -434,11 +434,11 @@ module AdvancedBilling
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['with_deleted'], key: 'with_deleted'))
-                   .query_param(new_parameter(options['resource_ids'], key: 'resource_ids[]'))
+                   .query_param(new_parameter(options['resource_ids'], key: 'resource_ids'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(PaginatedMetadata.method(:from_hash)))

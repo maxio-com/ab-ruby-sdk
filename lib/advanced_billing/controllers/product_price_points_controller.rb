@@ -381,38 +381,8 @@ module AdvancedBilling
     # to a Site.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @param [IncludeNotNull] filter_archived_at Optional parameter: Allows
-    # fetching price points only if archived_at is present or not. Use in query:
-    # `filter[archived_at]=not_null`.
-    # @param [BasicDateField] filter_date_field Optional parameter: The type of
-    # filter you would like to apply to your search. Use in query:
-    # `filter[date_field]=created_at`.
-    # @param [Date] filter_end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
-    # a timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified.
-    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
-    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns price points with a timestamp at or before exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # end_date.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # price points with matching id based on provided values. Use in query:
-    # `filter[ids]=1,2,3`.
-    # @param [Date] filter_start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
-    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified.
-    # @param [DateTime] filter_start_datetime Optional parameter: The start date
-    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns price points with a timestamp at or after exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # start_date.
-    # @param [Array[PricePointType]] filter_type Optional parameter: Allows
-    # fetching price points with matching type. Use in query:
-    # `filter[type]=catalog,custom`.
+    # @param [ListPricePointsFilter] filter Optional parameter: Filter to use
+    # for List PricePoints operations
     # @param [ListProductsPricePointsInclude] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include=currency_prices`.
@@ -434,14 +404,7 @@ module AdvancedBilling
                                      '/products_price_points.json',
                                      Server::DEFAULT)
                    .query_param(new_parameter(options['direction'], key: 'direction'))
-                   .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
-                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
-                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
-                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
-                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['include'], key: 'include'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))

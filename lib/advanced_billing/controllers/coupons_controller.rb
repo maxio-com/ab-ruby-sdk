@@ -70,44 +70,13 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 30. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [BasicDateField] filter_date_field Optional parameter: The type of
-    # filter you would like to apply to your search. Use in query
-    # `filter[date_field]=created_at`.
-    # @param [Date] filter_end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
-    # timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified. Use in query `filter[date_field]=2011-12-15`.
-    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
-    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns coupons with a timestamp at or before exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`.
-    # @param [Date] filter_start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
-    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified. Use in query `filter[start_date]=2011-12-17`.
-    # @param [DateTime] filter_start_datetime Optional parameter: The start date
-    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns coupons with a timestamp at or after exact time provided in query.
-    # You can specify timezone in query - otherwise your site's time zone will
-    # be used. If provided, this parameter will be used instead of start_date.
-    # Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # coupons with matching id based on provided values. Use in query
-    # `filter[ids]=1,2,3`.
-    # @param [Array[String]] filter_codes Optional parameter: Allows fetching
-    # coupons with matching codes based on provided values. Use in query
-    # `filter[codes]=free,free_trial`.
+    # @param [ListCouponsFilter] filter Optional parameter: Filter to use for
+    # List Coupons operations
     # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
     # fetching coupons, if you have defined multiple currencies at the site
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching coupons with matching use_site_exchange_rate
-    # based on provided value. Use in query
-    # `filter[use_site_exchange_rate]=true`.
     # @return [Array[CouponResponse]] response from the API call
     def list_coupons_for_product_family(options = {})
       new_api_call_builder
@@ -119,15 +88,8 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
-                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
-                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
-                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_codes'], key: 'filter[codes]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
@@ -283,72 +245,13 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 30. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [BasicDateField] date_field Optional parameter: The field was
-    # deprecated: on January 20, 2022. We recommend using filter[date_field]
-    # instead to achieve the same result. The type of filter you would like to
-    # apply to your search.
-    # @param [Date] start_date Optional parameter: The field was deprecated: on
-    # January 20, 2022. We recommend using filter[start_date] instead to achieve
-    # the same result. The start date (format YYYY-MM-DD) with which to filter
-    # the date_field. Returns coupons with a timestamp at or after midnight
-    # (12:00:00 AM) in your site’s time zone on the date specified.
-    # @param [Date] end_date Optional parameter: The field was deprecated: on
-    # January 20, 2022. We recommend using filter[end_date] instead to achieve
-    # the same result. The end date (format YYYY-MM-DD) with which to filter the
-    # date_field. Returns coupons with a timestamp up to and including
-    # 11:59:59PM in your site’s time zone on the date specified.
-    # @param [DateTime] start_datetime Optional parameter: The field was
-    # deprecated: on January 20, 2022. We recommend using filter[start_datetime]
-    # instead to achieve the same result. The start date and time (format
-    # YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons
-    # with a timestamp at or after exact time provided in query. You can specify
-    # timezone in query - otherwise your site's time zone will be used. If
-    # provided, this parameter will be used instead of start_date.
-    # @param [DateTime] end_datetime Optional parameter: The field was
-    # deprecated: on January 20, 2022. We recommend using filter[end_datetime]
-    # instead to achieve the same result. The end date and time (format
-    # YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons
-    # with a timestamp at or before exact time provided in query. You can
-    # specify timezone in query - otherwise your site's time zone will be used.
-    # If provided, this parameter will be used instead of end_date.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # coupons with matching id based on provided values. Use in query
-    # `filter[ids]=1,2,3`.
-    # @param [Array[String]] filter_codes Optional parameter: Allows fetching
-    # coupons with matching code based on provided values. Use in query
-    # `filter[ids]=1,2,3`.
+    # @param [ListCouponsFilter] filter Optional parameter: Filter to use for
+    # List Coupons operations
     # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
     # fetching coupons, if you have defined multiple currencies at the site
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @param [Date] filter_end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
-    # timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified. Use in query `filter[end_date]=2011-12-17`.
-    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
-    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns coupons with a timestamp at or before exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # end_date. Use in query `filter[end_datetime]=2011-12-19T10:15:30+01:00`.
-    # @param [Date] filter_start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
-    # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified. Use in query `filter[start_date]=2011-12-19`.
-    # @param [DateTime] filter_start_datetime Optional parameter: The start date
-    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns coupons with a timestamp at or after exact time provided in query.
-    # You can specify timezone in query - otherwise your site's time zone will
-    # be used. If provided, this parameter will be used instead of start_date.
-    # Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`.
-    # @param [BasicDateField] filter_date_field Optional parameter: The type of
-    # filter you would like to apply to your search. Use in query
-    # `filter[date_field]=updated_at`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching coupons with matching use_site_exchange_rate
-    # based on provided value. Use in query
-    # `filter[use_site_exchange_rate]=true`.
     # @return [Array[CouponResponse]] response from the API call
     def list_coupons(options = {})
       new_api_call_builder
@@ -357,20 +260,8 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['date_field'], key: 'date_field'))
-                   .query_param(new_parameter(options['start_date'], key: 'start_date'))
-                   .query_param(new_parameter(options['end_date'], key: 'end_date'))
-                   .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
-                   .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_codes'], key: 'filter[codes]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
-                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
-                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
-                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
-                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))

@@ -362,9 +362,8 @@ module AdvancedBilling
       allocated_quantity = hash.key?('allocated_quantity') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:SubscriptionComponentAllocatedQuantity), hash['allocated_quantity']
       ) : SKIP
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionComponentPricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       component_handle =
         hash.key?('component_handle') ? hash['component_handle'] : SKIP
