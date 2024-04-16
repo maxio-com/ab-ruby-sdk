@@ -68,5 +68,19 @@ module AdvancedBilling
                       id,
                       hash)
     end
+
+    # Validates an instance of the object from a given value.
+    # @param [GroupTarget | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return APIHelper.valid_type?(value.type,
+                                     ->(val) { GroupTargetType.validate(val) })
+      end
+
+      return false unless value.instance_of? Hash
+
+      APIHelper.valid_type?(value['type'],
+                            ->(val) { GroupTargetType.validate(val) })
+    end
   end
 end

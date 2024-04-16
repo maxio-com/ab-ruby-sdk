@@ -46,7 +46,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        amount_in_cents
+      ]
     end
 
     def initialize(amount_in_cents = nil,

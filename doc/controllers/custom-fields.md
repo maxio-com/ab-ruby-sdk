@@ -101,7 +101,6 @@ result = custom_fields_controller.create_metafields(
   {
     "name": "Color",
     "scope": {
-      "hosted": [],
       "csv": "0",
       "statements": "0",
       "invoices": "0",
@@ -114,7 +113,6 @@ result = custom_fields_controller.create_metafields(
   {
     "name": "Brand",
     "scope": {
-      "hosted": [],
       "csv": "0",
       "statements": "0",
       "invoices": "0",
@@ -480,7 +478,7 @@ resource_type = ResourceType::SUBSCRIPTIONS
 
 resource_id = 60
 
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')custom_fields_controller.delete_metadata(
+custom_fields_controller.delete_metadata(
   resource_type,
   resource_id
 )
@@ -536,7 +534,7 @@ def list_metadata_for_resource_type(options = {})
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')collect = {
+collect = {
   'resource_type': ResourceType::SUBSCRIPTIONS,
   'page': 2,
   'per_page': 50,

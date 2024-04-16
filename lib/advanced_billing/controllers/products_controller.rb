@@ -149,6 +149,8 @@ module AdvancedBilling
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query:
     # `date_field=created_at`.
+    # @param [ListProductsFilter] filter Optional parameter: Filter to use for
+    # List Products operations
     # @param [Date] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
@@ -184,17 +186,6 @@ module AdvancedBilling
     # @param [ListProductsInclude] include Optional parameter: Allows including
     # additional data in the response. Use in query
     # `include=prepaid_product_price_point`.
-    # @param [IncludeNotNull]
-    # filter_prepaid_product_price_point_product_price_point_id Optional
-    # parameter: Allows fetching products only if a prepaid product price point
-    # is present or not. To use this filter you also have to include the
-    # following param in the request `include=prepaid_product_price_point`. Use
-    # in query
-    # `filter[prepaid_product_price_point][product_price_point_id]=not_null`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching products with matching use_site_exchange_rate
-    # based on provided value (refers to default price point). Use in query
-    # `filter[use_site_exchange_rate]=true`.
     # @return [Array[ProductResponse]] response from the API call
     def list_products(options = {})
       new_api_call_builder
@@ -202,6 +193,7 @@ module AdvancedBilling
                                      '/products.json',
                                      Server::DEFAULT)
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
@@ -210,10 +202,9 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
                    .query_param(new_parameter(options['include'], key: 'include'))
-                   .query_param(new_parameter(options['filter_prepaid_product_price_point_product_price_point_id'], key: 'filter[prepaid_product_price_point][product_price_point_id]'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('BasicAuth'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ProductResponse.method(:from_hash))

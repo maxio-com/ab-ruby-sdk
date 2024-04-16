@@ -113,5 +113,15 @@ module AdvancedBilling
                                      overage_pricing,
                                      hash)
     end
+
+    # Validates an instance of the object from a given value.
+    # @param [PrepaidComponentPricePoint | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
+    end
   end
 end

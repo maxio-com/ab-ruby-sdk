@@ -79,5 +79,19 @@ module AdvancedBilling
                          prices,
                          hash)
     end
+
+    # Validates an instance of the object from a given value.
+    # @param [OveragePricing | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return APIHelper.valid_type?(value.pricing_scheme,
+                                     ->(val) { PricingScheme.validate(val) })
+      end
+
+      return false unless value.instance_of? Hash
+
+      APIHelper.valid_type?(value['pricing_scheme'],
+                            ->(val) { PricingScheme.validate(val) })
+    end
   end
 end

@@ -863,10 +863,10 @@ module AdvancedBilling
                    .query_param(new_parameter(options['metadata'], key: 'metadata'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['sort'], key: 'sort'))
-                   .query_param(new_parameter(options['include'], key: 'include[]'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash))
@@ -984,10 +984,10 @@ module AdvancedBilling
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(include, key: 'include[]'))
+                   .query_param(new_parameter(include, key: 'include'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::PLAIN))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
@@ -1100,9 +1100,9 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(ack, key: 'ack')
                                  .is_required(true))
-                   .query_param(new_parameter(cascade, key: 'cascade[]'))
+                   .query_param(new_parameter(cascade, key: 'cascade'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::PLAIN))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .is_response_void(true))
         .execute

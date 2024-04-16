@@ -27,7 +27,9 @@ module AdvancedBilling
 
     # An array for optional fields
     def self.optionals
-      []
+      %w[
+        memo
+      ]
     end
 
     # An array for nullable fields
@@ -36,10 +38,10 @@ module AdvancedBilling
     end
 
     def initialize(amount = nil,
-                   memo = nil,
+                   memo = SKIP,
                    additional_properties = {})
       @amount = amount
-      @memo = memo
+      @memo = memo unless memo == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -55,7 +57,7 @@ module AdvancedBilling
       amount = hash.key?('amount') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:IssueServiceCreditAmount), hash['amount']
       ) : nil
-      memo = hash.key?('memo') ? hash['memo'] : nil
+      memo = hash.key?('memo') ? hash['memo'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -70,22 +72,14 @@ module AdvancedBilling
     # @param [IssueServiceCredit | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
-        return (
-          UnionTypeLookUp.get(:IssueServiceCreditAmount)
-                         .validate(value.amount) and
-            APIHelper.valid_type?(value.memo,
-                                  ->(val) { val.instance_of? String })
-        )
+        return UnionTypeLookUp.get(:IssueServiceCreditAmount)
+                              .validate(value.amount)
       end
 
       return false unless value.instance_of? Hash
 
-      (
-        UnionTypeLookUp.get(:IssueServiceCreditAmount)
-                       .validate(value['amount']) and
-          APIHelper.valid_type?(value['memo'],
-                                ->(val) { val.instance_of? String })
-      )
+      UnionTypeLookUp.get(:IssueServiceCreditAmount)
+                     .validate(value['amount'])
     end
   end
 end

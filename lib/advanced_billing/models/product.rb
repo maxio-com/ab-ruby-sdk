@@ -415,9 +415,8 @@ module AdvancedBilling
         hash.key?('request_credit_card') ? hash['request_credit_card'] : SKIP
       expiration_interval =
         hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
-      expiration_interval_unit = hash.key?('expiration_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ProductExpirationIntervalUnit), hash['expiration_interval_unit']
-      ) : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
       created_at = if hash.key?('created_at')
                      (DateTimeHelper.from_rfc3339(hash['created_at']) if hash['created_at'])
                    else
@@ -438,9 +437,8 @@ module AdvancedBilling
         hash.key?('trial_price_in_cents') ? hash['trial_price_in_cents'] : SKIP
       trial_interval =
         hash.key?('trial_interval') ? hash['trial_interval'] : SKIP
-      trial_interval_unit = hash.key?('trial_interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ProductTrialIntervalUnit), hash['trial_interval_unit']
-      ) : SKIP
+      trial_interval_unit =
+        hash.key?('trial_interval_unit') ? hash['trial_interval_unit'] : SKIP
       archived_at = if hash.key?('archived_at')
                       (DateTimeHelper.from_rfc3339(hash['archived_at']) if hash['archived_at'])
                     else
@@ -542,16 +540,6 @@ module AdvancedBilling
 
     def to_custom_archived_at
       DateTimeHelper.to_rfc3339(archived_at)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [Product | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

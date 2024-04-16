@@ -27,6 +27,7 @@
 | `tax_exempt` | `TrueClass \| FalseClass` | Optional | - |
 | `tax_exempt_reason` | `String` | Optional | - |
 | `parent_id` | `Integer` | Optional | - |
+| `verified` | `TrueClass \| FalseClass` | Optional | Is the customer verified to use ACH as a payment method. Available only on Authorize.Net gateway |
 
 ## Example (as JSON)
 

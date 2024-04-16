@@ -81,6 +81,11 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :parent_id
 
+    # Is the customer verified to use ACH as a payment method. Available only on
+    # Authorize.Net gateway
+    # @return [TrueClass | FalseClass]
+    attr_accessor :verified
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -102,6 +107,7 @@ module AdvancedBilling
       @_hash['tax_exempt'] = 'tax_exempt'
       @_hash['tax_exempt_reason'] = 'tax_exempt_reason'
       @_hash['parent_id'] = 'parent_id'
+      @_hash['verified'] = 'verified'
       @_hash
     end
 
@@ -126,6 +132,7 @@ module AdvancedBilling
         tax_exempt
         tax_exempt_reason
         parent_id
+        verified
       ]
     end
 
@@ -133,6 +140,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         parent_id
+        verified
       ]
     end
 
@@ -154,6 +162,7 @@ module AdvancedBilling
                    tax_exempt = SKIP,
                    tax_exempt_reason = SKIP,
                    parent_id = SKIP,
+                   verified = SKIP,
                    additional_properties = {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -173,6 +182,7 @@ module AdvancedBilling
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
       @tax_exempt_reason = tax_exempt_reason unless tax_exempt_reason == SKIP
       @parent_id = parent_id unless parent_id == SKIP
+      @verified = verified unless verified == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -204,6 +214,7 @@ module AdvancedBilling
       tax_exempt_reason =
         hash.key?('tax_exempt_reason') ? hash['tax_exempt_reason'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
+      verified = hash.key?('verified') ? hash['verified'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -227,6 +238,7 @@ module AdvancedBilling
                          tax_exempt,
                          tax_exempt_reason,
                          parent_id,
+                         verified,
                          hash)
     end
   end
