@@ -93,10 +93,10 @@ module AdvancedBilling
                                      Server::DEFAULT)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['include'], key: 'include[]'))
+                   .query_param(new_parameter(options['include'], key: 'include'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListSubscriptionGroupsResponse.method(:from_hash)))
@@ -124,10 +124,10 @@ module AdvancedBilling
                    .template_param(new_parameter(uid, key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
-                   .query_param(new_parameter(include, key: 'include[]'))
+                   .query_param(new_parameter(include, key: 'include'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash)))
@@ -135,8 +135,8 @@ module AdvancedBilling
     end
 
     # Use this endpoint to update subscription group members.
-    # `"member_ids": []` should contain an array of both subscription IDs to set
-    # as group members and subscription IDs already present in the groups. Not
+    # `"member_ids"` should contain an array of both subscription IDs to set as
+    # group members and subscription IDs already present in the groups. Not
     # including them will result in removing them from subscription group. To
     # clean up members, just leave the array empty.
     # @param [String] uid Required parameter: The uid of the subscription

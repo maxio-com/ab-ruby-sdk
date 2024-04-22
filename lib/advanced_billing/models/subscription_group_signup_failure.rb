@@ -74,7 +74,8 @@ module AdvancedBilling
       if value.instance_of? self
         return (
           APIHelper.valid_type?(value.subscription_group,
-                                ->(val) { SubscriptionGroupSignupFailureData.validate(val) }) and
+                                ->(val) { SubscriptionGroupSignupFailureData.validate(val) },
+                                is_model_hash: true) and
             APIHelper.valid_type?(value.customer,
                                   ->(val) { val.instance_of? String })
         )
@@ -84,7 +85,8 @@ module AdvancedBilling
 
       (
         APIHelper.valid_type?(value['subscription_group'],
-                              ->(val) { SubscriptionGroupSignupFailureData.validate(val) }) and
+                              ->(val) { SubscriptionGroupSignupFailureData.validate(val) },
+                              is_model_hash: true) and
           APIHelper.valid_type?(value['customer'],
                                 ->(val) { val.instance_of? String })
       )

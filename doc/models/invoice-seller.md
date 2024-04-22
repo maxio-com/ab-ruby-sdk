@@ -26,7 +26,8 @@ Information about the seller (merchant) listed on the masthead of the invoice.
     "line2": "line20",
     "city": "city6",
     "state": "state2",
-    "zip": "zip0"
+    "zip": "zip0",
+    "country": "country0"
   },
   "phone": "phone0",
   "logo_url": "logo_url0"

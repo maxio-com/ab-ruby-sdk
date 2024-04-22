@@ -30,7 +30,30 @@
       }
     ],
     "upgrade_charge": "full",
-    "event_based_billing_metric_id": 68
+    "downgrade_credit": "full",
+    "price_points": [
+      {
+        "name": "name2",
+        "handle": "handle8",
+        "pricing_scheme": "per_unit",
+        "interval": 92,
+        "interval_unit": "day",
+        "prices": [
+          {
+            "starting_quantity": 242,
+            "ending_quantity": 40,
+            "unit_price": 23.26
+          }
+        ]
+      }
+    ],
+    "unit_price": "String7",
+    "tax_code": "tax_code6",
+    "hide_date_range_on_invoice": false,
+    "price_in_cents": "price_in_cents2",
+    "event_based_billing_metric_id": 68,
+    "interval": 182,
+    "interval_unit": "day"
   }
 }
 ```

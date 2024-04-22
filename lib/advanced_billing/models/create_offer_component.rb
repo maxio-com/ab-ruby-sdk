@@ -15,12 +15,17 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [Integer]
+    attr_accessor :price_point_id
+
+    # TODO: Write general description for this method
+    # @return [Integer]
     attr_accessor :starting_quantity
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['component_id'] = 'component_id'
+      @_hash['price_point_id'] = 'price_point_id'
       @_hash['starting_quantity'] = 'starting_quantity'
       @_hash
     end
@@ -29,6 +34,7 @@ module AdvancedBilling
     def self.optionals
       %w[
         component_id
+        price_point_id
         starting_quantity
       ]
     end
@@ -39,9 +45,11 @@ module AdvancedBilling
     end
 
     def initialize(component_id = SKIP,
+                   price_point_id = SKIP,
                    starting_quantity = SKIP,
                    additional_properties = {})
       @component_id = component_id unless component_id == SKIP
+      @price_point_id = price_point_id unless price_point_id == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
 
       # Add additional model properties to the instance.
@@ -56,6 +64,8 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
+      price_point_id =
+        hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       starting_quantity =
         hash.key?('starting_quantity') ? hash['starting_quantity'] : SKIP
 
@@ -64,6 +74,7 @@ module AdvancedBilling
 
       # Create object from extracted values.
       CreateOfferComponent.new(component_id,
+                               price_point_id,
                                starting_quantity,
                                hash)
     end

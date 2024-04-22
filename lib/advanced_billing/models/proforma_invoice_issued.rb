@@ -187,7 +187,9 @@ module AdvancedBilling
             APIHelper.valid_type?(value.product_name,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.line_items,
-                                  ->(val) { InvoiceLineItemEventData.validate(val) })
+                                  ->(val) { InvoiceLineItemEventData.validate(val) },
+                                  is_model_hash: true,
+                                  is_inner_model_hash: true)
         )
       end
 
@@ -215,7 +217,9 @@ module AdvancedBilling
           APIHelper.valid_type?(value['product_name'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['line_items'],
-                                ->(val) { InvoiceLineItemEventData.validate(val) })
+                                ->(val) { InvoiceLineItemEventData.validate(val) },
+                                is_model_hash: true,
+                                is_inner_model_hash: true)
       )
     end
   end

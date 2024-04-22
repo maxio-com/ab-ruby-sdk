@@ -544,9 +544,6 @@ result = invoices_controller.read_invoice(uid)
       "price_point_id": null
     }
   ],
-  "discounts": [],
-  "taxes": [],
-  "credits": [],
   "payments": [
     {
       "transaction_time": "2018-07-26T15:22:02Z",
@@ -564,8 +561,6 @@ result = invoices_controller.read_invoice(uid)
       "prepayment": false
     }
   ],
-  "refunds": [],
-  "custom_fields": [],
   "public_url": "https://www.chargifypay.com/invoice/inv_8jzrw74xq8kxr?token=fb6kpjz5rcr2vttyjs4rcv6y"
 }
 ```
@@ -704,7 +699,6 @@ result = invoices_controller.list_invoice_events(collect)
           "organization": null,
           "email": "evan4@example.com"
         },
-        "recipient_emails": [],
         "net_terms": 0,
         "memo": "Thanks for your business! If you have any questions, please contact your account manager.",
         "billing_address": {
@@ -970,8 +964,6 @@ result = invoices_controller.list_invoice_events(collect)
         "total_amount": "168.61",
         "paid_amount": "168.61",
         "due_amount": "0.0",
-        "credits": [],
-        "refunds": [],
         "payments": [
           {
             "memo": "Non-Resumable Canceled On Purpose - Standard Plan: Renewal payment",
@@ -989,7 +981,6 @@ result = invoices_controller.list_invoice_events(collect)
             "prepayment": false
           }
         ],
-        "custom_fields": [],
         "display_settings": {
           "hide_zero_subtotal_lines": false,
           "include_discounts_on_lines": false
@@ -2607,12 +2598,6 @@ result = invoices_controller.create_invoice(
         "price_point_id": null
       }
     ],
-    "discounts": [],
-    "taxes": [],
-    "credits": [],
-    "payments": [],
-    "refunds": [],
-    "custom_fields": [],
     "public_url": "https://www.test-chargifypay.com/invoice/inv_98nbmb93gxjz8?token=rmfmwvbdy4xmyw5f29j5gc6x"
   }
 }

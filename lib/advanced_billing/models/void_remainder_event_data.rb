@@ -98,7 +98,8 @@ module AdvancedBilling
       if value.instance_of? self
         return (
           APIHelper.valid_type?(value.credit_note_attributes,
-                                ->(val) { CreditNote.validate(val) }) and
+                                ->(val) { CreditNote.validate(val) },
+                                is_model_hash: true) and
             APIHelper.valid_type?(value.memo,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.applied_amount,
@@ -112,7 +113,8 @@ module AdvancedBilling
 
       (
         APIHelper.valid_type?(value['credit_note_attributes'],
-                              ->(val) { CreditNote.validate(val) }) and
+                              ->(val) { CreditNote.validate(val) },
+                              is_model_hash: true) and
           APIHelper.valid_type?(value['memo'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['applied_amount'],

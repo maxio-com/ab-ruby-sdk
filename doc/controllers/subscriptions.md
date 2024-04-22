@@ -681,7 +681,7 @@ body = CreateSubscriptionRequest.new(
       'Acme',
       'XYZ',
       '123 Mass Ave.',
-      'address_24',
+      nil,
       'Boston',
       'MA',
       '02120',
@@ -701,7 +701,7 @@ body = CreateSubscriptionRequest.new(
       '1',
       '2021',
       '123 Mass Ave.',
-      'billing_address_22',
+      nil,
       'Boston',
       'MA',
       'US',
@@ -902,14 +902,17 @@ def list_subscriptions(options = {})
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')collect = {
+collect = {
   'page': 2,
   'per_page': 50,
   'start_date': Date.iso8601('2022-07-01'),
   'end_date': Date.iso8601('2022-08-01'),
   'start_datetime': DateTimeHelper.from_rfc3339('2022-07-01 09:00:05'),
   'end_datetime': DateTimeHelper.from_rfc3339('2022-08-01 10:00:05'),
-  'sort': SubscriptionSort::SIGNUP_DATE
+  'sort': SubscriptionSort::SIGNUP_DATE,
+  'include': [
+    SubscriptionListInclude::SELF_SERVICE_PAGE_TOKEN
+  ]
 }
 
 result = subscriptions_controller.list_subscriptions(collect)
@@ -1150,7 +1153,15 @@ def read_subscription(subscription_id,
 ```ruby
 subscription_id = 222
 
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscriptions_controller.read_subscription(subscription_id)
+include = [
+  SubscriptionInclude::COUPONS,
+  SubscriptionInclude::SELF_SERVICE_PAGE_TOKEN
+]
+
+result = subscriptions_controller.read_subscription(
+  subscription_id,
+  include: include
+)
 ```
 
 ## Example Response *(as JSON)*
@@ -1420,9 +1431,15 @@ subscription_id = 222
 
 ack = 252
 
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')subscriptions_controller.purge_subscription(
+cascade = [
+  SubscriptionPurgeType::CUSTOMER,
+  SubscriptionPurgeType::PAYMENT_PROFILE
+]
+
+subscriptions_controller.purge_subscription(
   subscription_id,
-  ack
+  ack,
+  cascade: cascade
 )
 ```
 

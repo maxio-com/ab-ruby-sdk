@@ -67,9 +67,7 @@ module AdvancedBilling
       end
 
       paid_invoices = SKIP unless hash.key?('paid_invoices')
-      prepayment = hash.key?('prepayment') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:RecordPaymentResponsePrepayment), hash['prepayment']
-      ) : SKIP
+      prepayment = InvoicePrePayment.from_hash(hash['prepayment']) if hash['prepayment']
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -78,16 +76,6 @@ module AdvancedBilling
       RecordPaymentResponse.new(paid_invoices,
                                 prepayment,
                                 hash)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [RecordPaymentResponse | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

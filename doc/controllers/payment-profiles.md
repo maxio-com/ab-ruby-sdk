@@ -622,8 +622,7 @@ body = UpdatePaymentProfileRequest.new(
     'Boulder',
     'CO',
     '80302',
-    'US',
-    'billing_address_22'
+    'US'
   )
 )
 

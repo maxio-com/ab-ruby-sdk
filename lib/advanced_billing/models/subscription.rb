@@ -291,7 +291,8 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :payer_id
 
-    # The balance in cents plus the estimated renewal amount in cents.
+    # The balance in cents plus the estimated renewal amount in cents. Returned
+    # ONLY for readSubscription operation as it's compute intensive operation.
     # @return [Integer]
     attr_accessor :current_billing_amount_in_cents
 
@@ -811,9 +812,7 @@ module AdvancedBilling
       customer = Customer.from_hash(hash['customer']) if hash['customer']
       product = Product.from_hash(hash['product']) if hash['product']
       credit_card = CreditCardPaymentProfile.from_hash(hash['credit_card']) if hash['credit_card']
-      group = hash.key?('group') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionGroup2), hash['group']
-      ) : SKIP
+      group = NestedSubscriptionGroup.from_hash(hash['group']) if hash['group']
       bank_account = BankAccountPaymentProfile.from_hash(hash['bank_account']) if
         hash['bank_account']
       payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
@@ -1009,16 +1008,6 @@ module AdvancedBilling
 
     def to_custom_scheduled_cancellation_at
       DateTimeHelper.to_rfc3339(scheduled_cancellation_at)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [Subscription | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

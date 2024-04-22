@@ -27,7 +27,13 @@
     "invoices": "0",
     "statements": "0",
     "portal": "0",
-    "public_show": "0"
+    "public_show": "0",
+    "public_edit": "0",
+    "hosted": [
+      "hosted3",
+      "hosted4",
+      "hosted5"
+    ]
   },
   "data_count": 216,
   "input_type": "radio"

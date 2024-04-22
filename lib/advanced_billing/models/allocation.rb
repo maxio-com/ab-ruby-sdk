@@ -326,9 +326,7 @@ module AdvancedBilling
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
       downgrade_credit =
         hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
-      payment = hash.key?('payment') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:AllocationPayment), hash['payment']
-      ) : SKIP
+      payment = PaymentForAllocation.from_hash(hash['payment']) if hash['payment']
       expires_at = if hash.key?('expires_at')
                      (DateTimeHelper.from_rfc3339(hash['expires_at']) if hash['expires_at'])
                    else

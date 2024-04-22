@@ -28,7 +28,13 @@
     "subscriptions_today": 228,
     "total_revenue": "total_revenue6",
     "revenue_today": "revenue_today4",
-    "revenue_this_month": "revenue_this_month4"
+    "revenue_this_month": "revenue_this_month4",
+    "revenue_this_year": "revenue_this_year0",
+    "total_canceled_subscriptions": 70,
+    "total_active_subscriptions": 114,
+    "total_past_due_subscriptions": 136,
+    "total_unpaid_subscriptions": 236,
+    "total_dunning_subscriptions": 168
   }
 }
 ```

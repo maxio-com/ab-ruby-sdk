@@ -116,9 +116,11 @@ module AdvancedBilling
             APIHelper.valid_type?(value.item_name,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.previous_price_point,
-                                  ->(val) { ItemPricePointData.validate(val) }) and
+                                  ->(val) { ItemPricePointData.validate(val) },
+                                  is_model_hash: true) and
             APIHelper.valid_type?(value.current_price_point,
-                                  ->(val) { ItemPricePointData.validate(val) })
+                                  ->(val) { ItemPricePointData.validate(val) },
+                                  is_model_hash: true)
         )
       end
 
@@ -134,9 +136,11 @@ module AdvancedBilling
           APIHelper.valid_type?(value['item_name'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['previous_price_point'],
-                                ->(val) { ItemPricePointData.validate(val) }) and
+                                ->(val) { ItemPricePointData.validate(val) },
+                                is_model_hash: true) and
           APIHelper.valid_type?(value['current_price_point'],
-                                ->(val) { ItemPricePointData.validate(val) })
+                                ->(val) { ItemPricePointData.validate(val) },
+                                is_model_hash: true)
       )
     end
   end

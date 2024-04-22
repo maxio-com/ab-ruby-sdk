@@ -4,9 +4,9 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # List Subscription Group Prepayment Date Field.
-  class ListSubscriptionGroupPrepaymentDateField
-    LIST_SUBSCRIPTION_GROUP_PREPAYMENT_DATE_FIELD = [
+  # List Prepayment Date Field.
+  class ListPrepaymentDateField
+    LIST_PREPAYMENT_DATE_FIELD = [
       # TODO: Write general description for CREATED_AT
       CREATED_AT = 'created_at'.freeze,
 
@@ -17,7 +17,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      LIST_SUBSCRIPTION_GROUP_PREPAYMENT_DATE_FIELD.include?(value)
+      LIST_PREPAYMENT_DATE_FIELD.include?(value)
     end
   end
 end

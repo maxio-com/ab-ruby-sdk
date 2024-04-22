@@ -129,9 +129,7 @@ def list_prepayments(options = {})
 | `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `filter_date_field` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. created_at - Time when prepayment was created. application_at - Time when prepayment was applied to invoice. Use in query `filter[date_field]=created_at`. |
-| `filter_start_date` | `Date` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-15`. |
-| `filter_end_date` | `Date` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `filter[end_date]=2011-12-15`. |
+| `filter` | [`ListPrepaymentsFilter`](../../doc/models/list-prepayments-filter.md) | Query, Optional | Filter to use for List Prepayments operations |
 
 ## Response Type
 
@@ -140,10 +138,15 @@ def list_prepayments(options = {})
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')collect = {
+collect = {
   'subscription_id': 222,
   'page': 2,
-  'per_page': 50
+  'per_page': 50,
+  'filter': ListPrepaymentsFilter.new(
+    ListPrepaymentDateField::CREATED_AT,
+    Date.iso8601('2024-01-01'),
+    Date.iso8601('2024-01-31')
+  )
 }
 
 result = subscription_invoice_account_controller.list_prepayments(collect)
@@ -204,8 +207,7 @@ subscription_id = 222
 
 body = IssueServiceCreditRequest.new(
   IssueServiceCredit.new(
-    '1',
-    'Courtesy credit'
+    '1'
   )
 )
 
@@ -226,6 +228,12 @@ result = subscription_invoice_account_controller.issue_service_credit(
   "memo": "Credit to group account"
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | `APIException` |
 
 
 # Deduct Service Credit
@@ -270,7 +278,7 @@ subscription_invoice_account_controller.deduct_service_credit(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | `APIException` |
 
 
 # Refund Prepayment
@@ -290,7 +298,7 @@ def refund_prepayment(subscription_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
-| `prepayment_id` | `String` | Template, Required | id of prepayment |
+| `prepayment_id` | `Integer` | Template, Required | id of prepayment |
 | `body` | [`RefundPrepaymentRequest`](../../doc/models/refund-prepayment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -302,7 +310,7 @@ def refund_prepayment(subscription_id,
 ```ruby
 subscription_id = 222
 
-prepayment_id = 'prepayment_id8'
+prepayment_id = 228
 
 result = subscription_invoice_account_controller.refund_prepayment(
   subscription_id,
@@ -316,5 +324,5 @@ result = subscription_invoice_account_controller.refund_prepayment(
 |  --- | --- | --- |
 | 400 | Bad Request | [`RefundPrepaymentBaseErrorsResponseException`](../../doc/models/refund-prepayment-base-errors-response-exception.md) |
 | 404 | Not Found | `APIException` |
-| 422 | Unprocessable Entity | [`RefundPrepaymentAggregatedErrorsResponseException`](../../doc/models/refund-prepayment-aggregated-errors-response-exception.md) |
+| 422 | Unprocessable Entity | `APIException` |
 

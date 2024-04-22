@@ -172,7 +172,8 @@ module AdvancedBilling
           APIHelper.valid_type?(value.apply_credit,
                                 ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
             APIHelper.valid_type?(value.credit_note_attributes,
-                                  ->(val) { CreditNote.validate(val) }) and
+                                  ->(val) { CreditNote.validate(val) },
+                                  is_model_hash: true) and
             APIHelper.valid_type?(value.payment_id,
                                   ->(val) { val.instance_of? Integer }) and
             APIHelper.valid_type?(value.refund_amount,
@@ -190,7 +191,8 @@ module AdvancedBilling
         APIHelper.valid_type?(value['apply_credit'],
                               ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
           APIHelper.valid_type?(value['credit_note_attributes'],
-                                ->(val) { CreditNote.validate(val) }) and
+                                ->(val) { CreditNote.validate(val) },
+                                is_model_hash: true) and
           APIHelper.valid_type?(value['payment_id'],
                                 ->(val) { val.instance_of? Integer }) and
           APIHelper.valid_type?(value['refund_amount'],
