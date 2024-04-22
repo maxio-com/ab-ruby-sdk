@@ -25,7 +25,14 @@
       "memo": "memo6",
       "proration_downgrade_scheme": "proration_downgrade_scheme0",
       "proration_upgrade_scheme": "proration_upgrade_scheme2",
-      "accrue_charge": false
+      "accrue_charge": false,
+      "downgrade_credit": "prorated",
+      "upgrade_charge": "prorated",
+      "initiate_dunning": false,
+      "price_point_id": "String7",
+      "billing_schedule": {
+        "initial_billing_at": "2016-03-13"
+      }
     }
   ],
   "effective_proration_date": "2023-12-01",

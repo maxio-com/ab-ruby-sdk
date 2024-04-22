@@ -154,7 +154,9 @@ module AdvancedBilling
             APIHelper.valid_type?(value.pricing_scheme,
                                   ->(val) { PricingScheme.validate(val) }) and
             APIHelper.valid_type?(value.prices,
-                                  ->(val) { Price.validate(val) })
+                                  ->(val) { Price.validate(val) },
+                                  is_model_hash: true,
+                                  is_inner_model_hash: true)
         )
       end
 
@@ -166,7 +168,9 @@ module AdvancedBilling
           APIHelper.valid_type?(value['pricing_scheme'],
                                 ->(val) { PricingScheme.validate(val) }) and
           APIHelper.valid_type?(value['prices'],
-                                ->(val) { Price.validate(val) })
+                                ->(val) { Price.validate(val) },
+                                is_model_hash: true,
+                                is_inner_model_hash: true)
       )
     end
   end

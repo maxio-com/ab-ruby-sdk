@@ -126,7 +126,9 @@ module AdvancedBilling
           UnionTypeLookUp.get(:CreateMultiInvoicePaymentAmount)
                          .validate(value.amount) and
             APIHelper.valid_type?(value.applications,
-                                  ->(val) { CreateInvoicePaymentApplication.validate(val) })
+                                  ->(val) { CreateInvoicePaymentApplication.validate(val) },
+                                  is_model_hash: true,
+                                  is_inner_model_hash: true)
         )
       end
 
@@ -136,7 +138,9 @@ module AdvancedBilling
         UnionTypeLookUp.get(:CreateMultiInvoicePaymentAmount)
                        .validate(value['amount']) and
           APIHelper.valid_type?(value['applications'],
-                                ->(val) { CreateInvoicePaymentApplication.validate(val) })
+                                ->(val) { CreateInvoicePaymentApplication.validate(val) },
+                                is_model_hash: true,
+                                is_inner_model_hash: true)
       )
     end
   end

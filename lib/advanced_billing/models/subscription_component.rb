@@ -168,6 +168,11 @@ module AdvancedBilling
 
     # An optional object, will be returned if provided `include=subscription`
     # query param.
+    # @return [Array[HistoricUsage]]
+    attr_accessor :historic_usages
+
+    # An optional object, will be returned if provided `include=subscription`
+    # query param.
     # @return [TrueClass | FalseClass]
     attr_accessor :display_on_hosted_page
 
@@ -215,6 +220,7 @@ module AdvancedBilling
       @_hash['description'] = 'description'
       @_hash['allow_fractional_quantities'] = 'allow_fractional_quantities'
       @_hash['subscription'] = 'subscription'
+      @_hash['historic_usages'] = 'historic_usages'
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
@@ -252,6 +258,7 @@ module AdvancedBilling
         description
         allow_fractional_quantities
         subscription
+        historic_usages
         display_on_hosted_page
         interval
         interval_unit
@@ -302,6 +309,7 @@ module AdvancedBilling
                    description = SKIP,
                    allow_fractional_quantities = SKIP,
                    subscription = SKIP,
+                   historic_usages = SKIP,
                    display_on_hosted_page = SKIP,
                    interval = SKIP,
                    interval_unit = SKIP,
@@ -337,6 +345,7 @@ module AdvancedBilling
           allow_fractional_quantities
       end
       @subscription = subscription unless subscription == SKIP
+      @historic_usages = historic_usages unless historic_usages == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
@@ -362,9 +371,8 @@ module AdvancedBilling
       allocated_quantity = hash.key?('allocated_quantity') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:SubscriptionComponentAllocatedQuantity), hash['allocated_quantity']
       ) : SKIP
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionComponentPricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       component_handle =
         hash.key?('component_handle') ? hash['component_handle'] : SKIP
@@ -410,6 +418,16 @@ module AdvancedBilling
         hash.key?('allow_fractional_quantities') ? hash['allow_fractional_quantities'] : SKIP
       subscription = SubscriptionComponentSubscription.from_hash(hash['subscription']) if
         hash['subscription']
+      # Parameter is an array, so we need to iterate through it
+      historic_usages = nil
+      unless hash['historic_usages'].nil?
+        historic_usages = []
+        hash['historic_usages'].each do |structure|
+          historic_usages << (HistoricUsage.from_hash(structure) if structure)
+        end
+      end
+
+      historic_usages = SKIP unless hash.key?('historic_usages')
       display_on_hosted_page =
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
@@ -447,6 +465,7 @@ module AdvancedBilling
                                 description,
                                 allow_fractional_quantities,
                                 subscription,
+                                historic_usages,
                                 display_on_hosted_page,
                                 interval,
                                 interval_unit,

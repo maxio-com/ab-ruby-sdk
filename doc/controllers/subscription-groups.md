@@ -177,9 +177,12 @@ def list_subscription_groups(options = {})
 ## Example Usage
 
 ```ruby
-Liquid error: Value cannot be null. (Parameter 'key')collect = {
+collect = {
   'page': 2,
-  'per_page': 50
+  'per_page': 50,
+  'include': [
+    SubscriptionGroupsListInclude::ACCOUNT_BALANCES
+  ]
 }
 
 result = subscription_groups_controller.list_subscription_groups(collect)
@@ -253,7 +256,14 @@ def read_subscription_group(uid,
 ```ruby
 uid = 'uid0'
 
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_groups_controller.read_subscription_group(uid)
+include = [
+  SubscriptionGroupInclude::CURRENT_BILLING_AMOUNT_IN_CENTS
+]
+
+result = subscription_groups_controller.read_subscription_group(
+  uid,
+  include: include
+)
 ```
 
 ## Example Response *(as JSON)*
@@ -302,7 +312,7 @@ Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot 
 # Update Subscription Group Members
 
 Use this endpoint to update subscription group members.
-`"member_ids": []` should contain an array of both subscription IDs to set as group members and subscription IDs already present in the groups. Not including them will result in removing them from subscription group. To clean up members, just leave the array empty.
+`"member_ids"` should contain an array of both subscription IDs to set as group members and subscription IDs already present in the groups. Not including them will result in removing them from subscription group. To clean up members, just leave the array empty.
 
 ```ruby
 def update_subscription_group_members(uid,

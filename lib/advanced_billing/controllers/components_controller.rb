@@ -382,13 +382,8 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [Array[String]] filter_ids Optional parameter: Allows fetching
-    # components with matching id based on provided value. Use in query
-    # `filter[ids]=1,2,3`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching components with matching use_site_exchange_rate
-    # based on provided value (refers to default price point). Use in query
-    # `filter[use_site_exchange_rate]=true`.
+    # @param [ListComponentsFilter] filter Optional parameter: Filter to use for
+    # List Components operations
     # @return [Array[ComponentResponse]] response from the API call
     def list_components(options = {})
       new_api_call_builder
@@ -403,8 +398,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
@@ -486,9 +480,6 @@ module AdvancedBilling
     # the product family
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
     # Include archived items.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # components with matching id based on provided value. Use in query
-    # `filter[ids]=1,2`.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -500,6 +491,8 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
+    # @param [ListComponentsFilter] filter Optional parameter: Filter to use for
+    # List Components operations
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query
     # `date_field=created_at`.
@@ -522,10 +515,6 @@ module AdvancedBilling
     # components with a timestamp at or after exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of start_date.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching components with matching use_site_exchange_rate
-    # based on provided value (refers to default price point). Use in query
-    # `filter[use_site_exchange_rate]=true`.
     # @return [Array[ComponentResponse]] response from the API call
     def list_components_for_product_family(options = {})
       new_api_call_builder
@@ -536,15 +525,14 @@ module AdvancedBilling
                                     .is_required(true)
                                     .should_encode(true))
                    .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
@@ -826,19 +814,6 @@ module AdvancedBilling
 
     # This method allows to retrieve a list of Components Price Points belonging
     # to a Site.
-    # @param [BasicDateField] filter_date_field Optional parameter: The type of
-    # filter you would like to apply to your search. Use in query:
-    # `filter[date_field]=created_at`.
-    # @param [Date] filter_end_date Optional parameter: The end date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
-    # a timestamp up to and including 11:59:59PM in your site’s time zone on the
-    # date specified.
-    # @param [DateTime] filter_end_datetime Optional parameter: The end date and
-    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns price points with a timestamp at or before exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # end_date.
     # @param [ListComponentsPricePointsInclude] include Optional parameter:
     # Allows including additional data in the response. Use in query:
     # `include=currency_prices`.
@@ -853,45 +828,21 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [Date] filter_start_date Optional parameter: The start date (format
-    # YYYY-MM-DD) with which to filter the date_field. Returns price points with
-    # a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
-    # the date specified.
-    # @param [DateTime] filter_start_datetime Optional parameter: The start date
-    # and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-    # Returns price points with a timestamp at or after exact time provided in
-    # query. You can specify timezone in query - otherwise your site's time zone
-    # will be used. If provided, this parameter will be used instead of
-    # start_date.
-    # @param [Array[PricePointType]] filter_type Optional parameter: Allows
-    # fetching price points with matching type. Use in query:
-    # `filter[type]=custom,catalog`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @param [Array[Integer]] filter_ids Optional parameter: Allows fetching
-    # price points with matching id based on provided values. Use in query:
-    # `filter[ids]=1,2,3`.
-    # @param [IncludeNotNull] filter_archived_at Optional parameter: Allows
-    # fetching price points only if archived_at is present or not. Use in query:
-    # `filter[archived_at]=not_null`.
+    # @param [ListPricePointsFilter] filter Optional parameter: Filter to use
+    # for List PricePoints operations
     # @return [ListComponentsPricePointsResponse] response from the API call
     def list_all_component_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components_price_points.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(options['filter_date_field'], key: 'filter[date_field]'))
-                   .query_param(new_parameter(options['filter_end_date'], key: 'filter[end_date]'))
-                   .query_param(new_parameter(options['filter_end_datetime'], key: 'filter[end_datetime]'))
                    .query_param(new_parameter(options['include'], key: 'include'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_start_date'], key: 'filter[start_date]'))
-                   .query_param(new_parameter(options['filter_start_datetime'], key: 'filter[start_datetime]'))
-                   .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
-                   .query_param(new_parameter(options['filter_ids'], key: 'filter[ids]'))
-                   .query_param(new_parameter(options['filter_archived_at'], key: 'filter[archived_at]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))

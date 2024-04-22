@@ -112,9 +112,8 @@ module AdvancedBilling
 
     # This endpoint returns your site's current MRR, including plan and usage
     # breakouts split per subscription.
-    # @param [Array[Integer]] filter_subscription_ids Optional parameter: Submit
-    # ids in order to limit results. Use in query:
-    # `filter[subscription_ids]=1,2,3`.
+    # @param [ListMrrFilter] filter Optional parameter: Filter to use for List
+    # MRR per subscription operation
     # @param [String] at_time Optional parameter: Submit a timestamp in ISO8601
     # format to request MRR for a historic time. Use in query:
     # `at_time=2022-01-10T10:00:00-05:00`.
@@ -140,7 +139,7 @@ module AdvancedBilling
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions_mrr.json',
                                      Server::DEFAULT)
-                   .query_param(new_parameter(options['filter_subscription_ids'], key: 'filter[subscription_ids]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['at_time'], key: 'at_time'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))

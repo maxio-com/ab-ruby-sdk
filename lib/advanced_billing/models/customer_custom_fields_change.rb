@@ -81,27 +81,5 @@ module AdvancedBilling
                                      after,
                                      hash)
     end
-
-    # Validates an instance of the object from a given value.
-    # @param [CustomerCustomFieldsChange | Hash] The value against the validation is performed.
-    def self.validate(value)
-      if value.instance_of? self
-        return (
-          APIHelper.valid_type?(value.before,
-                                ->(val) { InvoiceCustomField.validate(val) }) and
-            APIHelper.valid_type?(value.after,
-                                  ->(val) { InvoiceCustomField.validate(val) })
-        )
-      end
-
-      return false unless value.instance_of? Hash
-
-      (
-        APIHelper.valid_type?(value['before'],
-                              ->(val) { InvoiceCustomField.validate(val) }) and
-          APIHelper.valid_type?(value['after'],
-                                ->(val) { InvoiceCustomField.validate(val) })
-      )
-    end
   end
 end

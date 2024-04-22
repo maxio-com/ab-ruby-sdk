@@ -251,9 +251,7 @@ module AdvancedBilling
         hash.key?('subscription_id') ? hash['subscription_id'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
-      interval_unit = hash.key?('interval_unit') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ComponentPricePointIntervalUnit), hash['interval_unit']
-      ) : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       # Parameter is an array, so we need to iterate through it
       currency_prices = nil
       unless hash['currency_prices'].nil?
@@ -299,16 +297,6 @@ module AdvancedBilling
 
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [ComponentPricePoint | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

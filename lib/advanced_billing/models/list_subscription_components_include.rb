@@ -8,7 +8,10 @@ module AdvancedBilling
   class ListSubscriptionComponentsInclude
     LIST_SUBSCRIPTION_COMPONENTS_INCLUDE = [
       # TODO: Write general description for SUBSCRIPTION
-      SUBSCRIPTION = 'subscription'.freeze
+      SUBSCRIPTION = 'subscription'.freeze,
+
+      # TODO: Write general description for HISTORIC_USAGES
+      HISTORIC_USAGES = 'historic_usages'.freeze
     ].freeze
 
     def self.validate(value)

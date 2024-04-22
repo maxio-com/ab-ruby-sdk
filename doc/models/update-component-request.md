@@ -21,7 +21,10 @@
     "name": "name8",
     "description": "description2",
     "accounting_code": "accounting_code4",
-    "taxable": false
+    "taxable": false,
+    "tax_code": "tax_code6",
+    "display_on_hosted_page": false,
+    "upgrade_charge": "prorated"
   }
 }
 ```

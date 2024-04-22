@@ -302,9 +302,9 @@ module AdvancedBilling
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       hide = hash.key?('hide') ? hash['hide'] : SKIP
-      component_cost_data = hash.key?('component_cost_data') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:InvoiceLineItemComponentCostData2), hash['component_cost_data']
-      ) : SKIP
+      if hash['component_cost_data']
+        component_cost_data = InvoiceLineItemComponentCostData.from_hash(hash['component_cost_data'])
+      end
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP

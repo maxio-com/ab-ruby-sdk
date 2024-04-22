@@ -83,7 +83,12 @@
     "interval_unit": "day",
     "trial_price_in_cents": "String3",
     "trial_interval": "String5",
-    "trial_interval_unit": "day"
+    "trial_interval_unit": "day",
+    "initial_charge_in_cents": "String3",
+    "initial_charge_after_trial": false,
+    "expiration_interval": "String3",
+    "expiration_interval_unit": "day",
+    "tax_included": false
   }
 }
 ```

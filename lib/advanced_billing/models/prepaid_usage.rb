@@ -177,7 +177,9 @@ module AdvancedBilling
             APIHelper.valid_type?(value.memo,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.allocation_details,
-                                  ->(val) { PrepaidUsageAllocationDetail.validate(val) })
+                                  ->(val) { PrepaidUsageAllocationDetail.validate(val) },
+                                  is_model_hash: true,
+                                  is_inner_model_hash: true)
         )
       end
 
@@ -203,7 +205,9 @@ module AdvancedBilling
           APIHelper.valid_type?(value['memo'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['allocation_details'],
-                                ->(val) { PrepaidUsageAllocationDetail.validate(val) })
+                                ->(val) { PrepaidUsageAllocationDetail.validate(val) },
+                                is_model_hash: true,
+                                is_inner_model_hash: true)
       )
     end
   end

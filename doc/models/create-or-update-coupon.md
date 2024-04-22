@@ -25,7 +25,12 @@
     "allow_negative_balance": false,
     "recurring": false,
     "end_date": "2016-03-13T12:52:32.123Z",
-    "product_family_id": "product_family_id6"
+    "product_family_id": "product_family_id6",
+    "stackable": false,
+    "compounding_strategy": "compound",
+    "exclude_mid_period_allocations": false,
+    "apply_on_cancel_at_end_of_period": false,
+    "apply_on_subscription_expiration": false
   },
   "restricted_products": {
     "key0": true

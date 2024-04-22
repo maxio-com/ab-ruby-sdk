@@ -71,23 +71,8 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 30. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @param [String] filter_segment_property_1_value Optional parameter: The
-    # value passed here would be used to filter segments. Pass a value related
-    # to `segment_property_1` on attached Metric. If empty string is passed,
-    # this filter would be rejected. Use in query
-    # `filter[segment_property_1_value]=EU`.
-    # @param [String] filter_segment_property_2_value Optional parameter: The
-    # value passed here would be used to filter segments. Pass a value related
-    # to `segment_property_2` on attached Metric. If empty string is passed,
-    # this filter would be rejected.
-    # @param [String] filter_segment_property_3_value Optional parameter: The
-    # value passed here would be used to filter segments. Pass a value related
-    # to `segment_property_3` on attached Metric. If empty string is passed,
-    # this filter would be rejected.
-    # @param [String] filter_segment_property_4_value Optional parameter: The
-    # value passed here would be used to filter segments. Pass a value related
-    # to `segment_property_4` on attached Metric. If empty string is passed,
-    # this filter would be rejected.
+    # @param [ListSegmentsFilter] filter Optional parameter: Filter to use for
+    # List Segments for a Price Point operation
     # @return [ListSegmentsResponse] response from the API call
     def list_segments_for_price_point(options = {})
       new_api_call_builder
@@ -102,12 +87,10 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
-                   .query_param(new_parameter(options['filter_segment_property_1_value'], key: 'filter[segment_property_1_value]'))
-                   .query_param(new_parameter(options['filter_segment_property_2_value'], key: 'filter[segment_property_2_value]'))
-                   .query_param(new_parameter(options['filter_segment_property_3_value'], key: 'filter[segment_property_3_value]'))
-                   .query_param(new_parameter(options['filter_segment_property_4_value'], key: 'filter[segment_property_4_value]'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('BasicAuth')))
+                   .auth(Single.new('BasicAuth'))
+                   .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListSegmentsResponse.method(:from_hash))

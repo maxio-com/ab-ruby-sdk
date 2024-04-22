@@ -29,21 +29,48 @@
       "kind": "component",
       "amount_in_cents": 24,
       "memo": "memo2",
-      "discount_amount_in_cents": 172
+      "discount_amount_in_cents": 172,
+      "taxable_amount_in_cents": 42,
+      "component_id": 0,
+      "component_handle": "component_handle8",
+      "component_name": "component_name4",
+      "product_id": 88,
+      "product_handle": "product_handle0",
+      "product_name": "product_name4",
+      "period_range_start": "period_range_start2",
+      "period_range_end": "period_range_end0"
     },
     {
       "transaction_type": "credit",
       "kind": "component",
       "amount_in_cents": 24,
       "memo": "memo2",
-      "discount_amount_in_cents": 172
+      "discount_amount_in_cents": 172,
+      "taxable_amount_in_cents": 42,
+      "component_id": 0,
+      "component_handle": "component_handle8",
+      "component_name": "component_name4",
+      "product_id": 88,
+      "product_handle": "product_handle0",
+      "product_name": "product_name4",
+      "period_range_start": "period_range_start2",
+      "period_range_end": "period_range_end0"
     },
     {
       "transaction_type": "credit",
       "kind": "component",
       "amount_in_cents": 24,
       "memo": "memo2",
-      "discount_amount_in_cents": 172
+      "discount_amount_in_cents": 172,
+      "taxable_amount_in_cents": 42,
+      "component_id": 0,
+      "component_handle": "component_handle8",
+      "component_name": "component_name4",
+      "product_id": 88,
+      "product_handle": "product_handle0",
+      "product_name": "product_name4",
+      "period_range_start": "period_range_start2",
+      "period_range_end": "period_range_end0"
     }
   ],
   "total_in_cents": 192,

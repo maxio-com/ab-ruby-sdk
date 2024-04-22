@@ -48,6 +48,8 @@ module AdvancedBilling
     # `date_field=updated_at`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
+    # @param [ListSubscriptionComponentsFilter] filter Optional parameter:
+    # Filter to use for List Subscription Components operation
     # @param [String] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns components with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
@@ -74,16 +76,9 @@ module AdvancedBilling
     # components with a timestamp at or after exact time provided in query. You
     # can specify timezone in query - otherwise your site''s time zone will be
     # used. If provided, this parameter will be used instead of start_date.
-    # @param [ListSubscriptionComponentsInclude] include Optional parameter:
-    # Allows including additional data in the response. Use in query
-    # `include=subscription`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching components allocation with matching
-    # use_site_exchange_rate based on provided value. Use in query
-    # `filter[use_site_exchange_rate]=true`.
-    # @param [Array[String]] filter_currencies Optional parameter: Allows
-    # fetching components allocation with matching currency based on provided
-    # values. Use in query `filter[currencies]=EUR,USD`.
+    # @param [Array[ListSubscriptionComponentsInclude]] include Optional
+    # parameter: Allows including additional data in the response. Use in query
+    # `include=subscription,historic_usages`.
     # @return [Array[SubscriptionComponentResponse]] response from the API call
     def list_subscription_components(options = {})
       new_api_call_builder
@@ -95,6 +90,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['price_point_ids'], key: 'price_point_ids'))
@@ -103,8 +99,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
                    .query_param(new_parameter(options['include'], key: 'include'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
-                   .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
@@ -869,6 +863,9 @@ module AdvancedBilling
     # attribute by which to sort. Use in query: `sort=updated_at`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
+    # @param [ListSubscriptionComponentsForSiteFilter] filter Optional
+    # parameter: Filter to use for List Subscription Components For Site
+    # operation
     # @param [SubscriptionListDateField] date_field Optional parameter: The type
     # of filter you'd like to apply to your search. Use in query:
     # `date_field=updated_at`.
@@ -903,52 +900,7 @@ module AdvancedBilling
     # provided ids. Use in query `product_family_ids=1,2,3`.
     # @param [ListSubscriptionComponentsInclude] include Optional parameter:
     # Allows including additional data in the response. Use in query
-    # `include=subscription`.
-    # @param [TrueClass | FalseClass] filter_use_site_exchange_rate Optional
-    # parameter: Allows fetching components allocation with matching
-    # use_site_exchange_rate based on provided value. Use in query
-    # `filter[use_site_exchange_rate]=true`.
-    # @param [Array[String]] filter_currencies Optional parameter: Allows
-    # fetching components allocation with matching currency based on provided
-    # values. Use in query `filter[currencies]=USD,EUR`.
-    # @param [Array[SubscriptionStateFilter]] filter_subscription_states
-    # Optional parameter: Allows fetching components allocations that belong to
-    # the subscription with matching states based on provided values. To use
-    # this filter you also have to include the following param in the request
-    # `include=subscription`. Use in query
-    # `filter[subscription][states]=active,canceled&include=subscription`.
-    # @param [SubscriptionListDateField] filter_subscription_date_field Optional
-    # parameter: The type of filter you'd like to apply to your search. To use
-    # this filter you also have to include the following param in the request
-    # `include=subscription`.
-    # @param [Date] filter_subscription_start_date Optional parameter: The start
-    # date (format YYYY-MM-DD) with which to filter the date_field. Returns
-    # components that belong to the subscription with a timestamp at or after
-    # midnight (12:00:00 AM) in your site’s time zone on the date specified. To
-    # use this filter you also have to include the following param in the
-    # request `include=subscription`.
-    # @param [DateTime] filter_subscription_start_datetime Optional parameter:
-    # The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter
-    # the date_field. Returns components that belong to the subscription with a
-    # timestamp at or after exact time provided in query. You can specify
-    # timezone in query - otherwise your site''s time zone will be used. If
-    # provided, this parameter will be used instead of start_date. To use this
-    # filter you also have to include the following param in the request
-    # `include=subscription`.
-    # @param [Date] filter_subscription_end_date Optional parameter: The end
-    # date (format YYYY-MM-DD) with which to filter the date_field. Returns
-    # components that belong to the subscription with a timestamp up to and
-    # including 11:59:59PM in your site’s time zone on the date specified. To
-    # use this filter you also have to include the following param in the
-    # request `include=subscription`.
-    # @param [DateTime] filter_subscription_end_datetime Optional parameter: The
-    # end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the
-    # date_field. Returns components that belong to the subscription with a
-    # timestamp at or before exact time provided in query. You can specify
-    # timezone in query - otherwise your site''s time zone will be used. If
-    # provided, this parameter will be used instead of end_date. To use this
-    # filter you also have to include the following param in the request
-    # `include=subscription`.
+    # `include=subscription,historic_usages`.
     # @return [ListSubscriptionComponentsResponse] response from the API call
     def list_subscription_components_for_site(options = {})
       new_api_call_builder
@@ -959,6 +911,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['sort'], key: 'sort'))
                    .query_param(new_parameter(options['direction'], key: 'direction'))
+                   .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
@@ -968,14 +921,6 @@ module AdvancedBilling
                    .query_param(new_parameter(options['price_point_ids'], key: 'price_point_ids'))
                    .query_param(new_parameter(options['product_family_ids'], key: 'product_family_ids'))
                    .query_param(new_parameter(options['include'], key: 'include'))
-                   .query_param(new_parameter(options['filter_use_site_exchange_rate'], key: 'filter[use_site_exchange_rate]'))
-                   .query_param(new_parameter(options['filter_currencies'], key: 'filter[currencies]'))
-                   .query_param(new_parameter(options['filter_subscription_states'], key: 'filter[subscription][states]'))
-                   .query_param(new_parameter(options['filter_subscription_date_field'], key: 'filter[subscription][date_field]'))
-                   .query_param(new_parameter(options['filter_subscription_start_date'], key: 'filter[subscription][start_date]'))
-                   .query_param(new_parameter(options['filter_subscription_start_datetime'], key: 'filter[subscription][start_datetime]'))
-                   .query_param(new_parameter(options['filter_subscription_end_date'], key: 'filter[subscription][end_date]'))
-                   .query_param(new_parameter(options['filter_subscription_end_datetime'], key: 'filter[subscription][end_datetime]'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))

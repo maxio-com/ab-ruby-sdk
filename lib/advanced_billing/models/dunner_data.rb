@@ -114,5 +114,43 @@ module AdvancedBilling
     def to_custom_last_attempted_at
       DateTimeHelper.to_rfc3339(last_attempted_at)
     end
+
+    # Validates an instance of the object from a given value.
+    # @param [DunnerData | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.state,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.subscription_id,
+                                  ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.revenue_at_risk_in_cents,
+                                  ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.created_at,
+                                  ->(val) { val.instance_of? DateTime }) and
+            APIHelper.valid_type?(value.attempts,
+                                  ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.last_attempted_at,
+                                  ->(val) { val.instance_of? DateTime })
+        )
+      end
+
+      return false unless value.instance_of? Hash
+
+      (
+        APIHelper.valid_type?(value['state'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['subscription_id'],
+                                ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['revenue_at_risk_in_cents'],
+                                ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['created_at'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['attempts'],
+                                ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['last_attempted_at'],
+                                ->(val) { val.instance_of? String })
+      )
+    end
   end
 end

@@ -21,14 +21,16 @@
     "line2": "line24",
     "city": "city0",
     "state": "state6",
-    "zip": "zip4"
+    "zip": "zip4",
+    "country": "country4"
   },
   "after": {
     "street": "street2",
     "line2": "line26",
     "city": "city8",
     "state": "state2",
-    "zip": "zip4"
+    "zip": "zip4",
+    "country": "country6"
   }
 }
 ```

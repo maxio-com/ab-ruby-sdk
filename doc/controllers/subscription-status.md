@@ -102,7 +102,6 @@ result = subscription_status_controller.retry_subscription(subscription_id)
     "coupon_uses_allowed": null,
     "reason_code": null,
     "automatically_resume_at": null,
-    "coupon_codes": [],
     "offer_id": null,
     "credit_balance_in_cents": 0,
     "prepayment_balance_in_cents": 0,
@@ -754,7 +753,6 @@ result = subscription_status_controller.update_automatic_subscription_resumption
     "coupon_uses_allowed": null,
     "reason_code": null,
     "automatically_resume_at": "2019-01-20T00:00:00-06:00",
-    "coupon_codes": [],
     "customer": {
       "id": 19948683,
       "first_name": "Vanessa",
@@ -811,8 +809,7 @@ result = subscription_status_controller.update_automatic_subscription_resumption
         "description": "",
         "handle": "acme-products",
         "accounting_code": null
-      },
-      "public_signup_pages": []
+      }
     },
     "credit_card": {
       "id": 13826563,

@@ -369,9 +369,8 @@ module AdvancedBilling
       id = hash.key?('id') ? hash['id'] : SKIP
       name = hash.key?('name') ? hash['name'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
-      pricing_scheme = hash.key?('pricing_scheme') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:ComponentPricingScheme), hash['pricing_scheme']
-      ) : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       unit_price = hash.key?('unit_price') ? hash['unit_price'] : SKIP
       product_family_id =
@@ -498,16 +497,6 @@ module AdvancedBilling
 
     def to_custom_archived_at
       DateTimeHelper.to_rfc3339(archived_at)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [Component | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

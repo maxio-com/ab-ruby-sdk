@@ -20,7 +20,9 @@
     "name": "name0",
     "handle": "handle6",
     "accounting_code": "accounting_code6",
-    "description": "description0"
+    "description": "description0",
+    "created_at": "2016-03-13T12:52:32.123Z",
+    "updated_at": "2016-03-13T12:52:32.123Z"
   }
 }
 ```

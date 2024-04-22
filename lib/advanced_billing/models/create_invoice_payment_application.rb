@@ -64,5 +64,27 @@ module AdvancedBilling
                                           amount,
                                           hash)
     end
+
+    # Validates an instance of the object from a given value.
+    # @param [CreateInvoicePaymentApplication | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.invoice_uid,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.amount,
+                                  ->(val) { val.instance_of? String })
+        )
+      end
+
+      return false unless value.instance_of? Hash
+
+      (
+        APIHelper.valid_type?(value['invoice_uid'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['amount'],
+                                ->(val) { val.instance_of? String })
+      )
+    end
   end
 end

@@ -126,5 +126,39 @@ module AdvancedBilling
                           sms_body,
                           hash)
     end
+
+    # Validates an instance of the object from a given value.
+    # @param [DunningStepData | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.day_threshold,
+                                ->(val) { val.instance_of? Integer }) and
+            APIHelper.valid_type?(value.action,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.send_email,
+                                  ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+            APIHelper.valid_type?(value.send_bcc_email,
+                                  ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+            APIHelper.valid_type?(value.send_sms,
+                                  ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
+        )
+      end
+
+      return false unless value.instance_of? Hash
+
+      (
+        APIHelper.valid_type?(value['day_threshold'],
+                              ->(val) { val.instance_of? Integer }) and
+          APIHelper.valid_type?(value['action'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['send_email'],
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+          APIHelper.valid_type?(value['send_bcc_email'],
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+          APIHelper.valid_type?(value['send_sms'],
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
+      )
+    end
   end
 end

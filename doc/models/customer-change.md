@@ -9,10 +9,10 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `payer` | [Customer Payer Change](../../doc/models/customer-payer-change.md) \| nil | Optional | This is a container for one-of cases. |
-| `shipping_address` | [Address Change](../../doc/models/address-change.md) \| nil | Optional | This is a container for one-of cases. |
-| `billing_address` | [Address Change](../../doc/models/address-change.md) \| nil | Optional | This is a container for one-of cases. |
-| `custom_fields` | [Customer Custom Fields Change](../../doc/models/customer-custom-fields-change.md) \| nil | Optional | This is a container for one-of cases. |
+| `payer` | [`CustomerPayerChange`](../../doc/models/customer-payer-change.md) | Optional | - |
+| `shipping_address` | [`AddressChange`](../../doc/models/address-change.md) | Optional | - |
+| `billing_address` | [`AddressChange`](../../doc/models/address-change.md) | Optional | - |
+| `custom_fields` | [`CustomerCustomFieldsChange`](../../doc/models/customer-custom-fields-change.md) | Optional | - |
 
 ## Example (as JSON)
 
@@ -38,14 +38,16 @@
       "line2": "line24",
       "city": "city0",
       "state": "state6",
-      "zip": "zip4"
+      "zip": "zip4",
+      "country": "country4"
     },
     "after": {
       "street": "street2",
       "line2": "line26",
       "city": "city8",
       "state": "state2",
-      "zip": "zip4"
+      "zip": "zip4",
+      "country": "country6"
     }
   },
   "billing_address": {
@@ -54,14 +56,16 @@
       "line2": "line24",
       "city": "city0",
       "state": "state6",
-      "zip": "zip4"
+      "zip": "zip4",
+      "country": "country4"
     },
     "after": {
       "street": "street2",
       "line2": "line26",
       "city": "city8",
       "state": "state2",
-      "zip": "zip4"
+      "zip": "zip4",
+      "country": "country6"
     }
   },
   "custom_fields": {
@@ -72,9 +76,23 @@
         "name": "name0",
         "value": "value2",
         "metadatum_id": 26
+      },
+      {
+        "owner_id": 26,
+        "owner_type": "Customer",
+        "name": "name0",
+        "value": "value2",
+        "metadatum_id": 26
       }
     ],
     "after": [
+      {
+        "owner_id": 130,
+        "owner_type": "Customer",
+        "name": "name2",
+        "value": "value4",
+        "metadatum_id": 130
+      },
       {
         "owner_id": 130,
         "owner_type": "Customer",

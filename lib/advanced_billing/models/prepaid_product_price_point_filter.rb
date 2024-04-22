@@ -4,27 +4,25 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # RefundPrepaymentAggregatedError Model.
-  class RefundPrepaymentAggregatedError < BaseModel
+  # PrepaidProductPricePointFilter Model.
+  class PrepaidProductPricePointFilter < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [PrepaymentAggregatedError]
-    attr_accessor :refund
+    # Passed as a parameter to list methods to return only non null values.
+    # @return [String]
+    attr_reader :product_price_point_id
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['refund'] = 'refund'
+      @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
-      %w[
-        refund
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -32,9 +30,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(refund = SKIP,
-                   additional_properties = {})
-      @refund = refund unless refund == SKIP
+    def initialize(additional_properties = {})
+      @product_price_point_id = 'not_null'
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -47,14 +44,13 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      refund = PrepaymentAggregatedError.from_hash(hash['refund']) if hash['refund']
+
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundPrepaymentAggregatedError.new(refund,
-                                          hash)
+      PrepaidProductPricePointFilter.new(hash)
     end
   end
 end
