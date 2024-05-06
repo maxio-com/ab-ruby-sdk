@@ -95,7 +95,7 @@ module AdvancedBilling
     attr_accessor :stackable
 
     # TODO: Write general description for this method
-    # @return [Object]
+    # @return [CompoundingStrategy]
     attr_accessor :compounding_strategy
 
     # TODO: Write general description for this method
@@ -219,6 +219,7 @@ module AdvancedBilling
         duration_interval_span
         archived_at
         conversion_limit
+        compounding_strategy
       ]
     end
 
@@ -347,9 +348,8 @@ module AdvancedBilling
       conversion_limit =
         hash.key?('conversion_limit') ? hash['conversion_limit'] : SKIP
       stackable = hash.key?('stackable') ? hash['stackable'] : SKIP
-      compounding_strategy = hash.key?('compounding_strategy') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:CouponCompoundingStrategy), hash['compounding_strategy']
-      ) : SKIP
+      compounding_strategy =
+        hash.key?('compounding_strategy') ? hash['compounding_strategy'] : SKIP
       use_site_exchange_rate =
         hash.key?('use_site_exchange_rate') ? hash['use_site_exchange_rate'] : SKIP
       created_at = if hash.key?('created_at')
@@ -435,16 +435,6 @@ module AdvancedBilling
 
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [Coupon | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

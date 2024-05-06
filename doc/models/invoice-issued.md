@@ -49,35 +49,7 @@
       "title": "title4",
       "description": "description8",
       "quantity": 102,
-      "quantity_delta": 204,
-      "unit_price": "unit_price6",
-      "period_range_start": "period_range_start2",
-      "period_range_end": "period_range_end0",
-      "amount": "amount0",
-      "line_references": "line_references8",
-      "pricing_details_index": 40,
-      "pricing_details": [
-        {
-          "label": "label0",
-          "amount": "amount2"
-        },
-        {
-          "label": "label0",
-          "amount": "amount2"
-        },
-        {
-          "label": "label0",
-          "amount": "amount2"
-        }
-      ],
-      "tax_code": "tax_code6",
-      "tax_amount": "tax_amount8",
-      "product_id": 88,
-      "product_price_point_id": 12,
-      "price_point_id": 232,
-      "component_id": 0,
-      "billing_schedule_item_id": 236,
-      "custom_item": false
+      "quantity_delta": 204
     }
   ]
 }

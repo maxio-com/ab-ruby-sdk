@@ -184,6 +184,15 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        handle
+        trial_price_in_cents
+        trial_interval
+        trial_interval_unit
+        introductory_offer
+        initial_charge_in_cents
+        initial_charge_after_trial
+        expiration_interval
+        expiration_interval_unit
         archived_at
         subscription_id
       ]

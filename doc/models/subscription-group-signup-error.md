@@ -37,21 +37,6 @@
       "base": [
         "base5",
         "base6"
-      ],
-      "payment_profile.expiration_month": [
-        "payment_profile.expiration_month6",
-        "payment_profile.expiration_month5",
-        "payment_profile.expiration_month4"
-      ],
-      "payment_profile.expiration_year": [
-        "payment_profile.expiration_year8",
-        "payment_profile.expiration_year9",
-        "payment_profile.expiration_year0"
-      ],
-      "payment_profile.full_number": [
-        "payment_profile.full_number7",
-        "payment_profile.full_number8",
-        "payment_profile.full_number9"
       ]
     },
     "key1": {
@@ -70,21 +55,6 @@
       "base": [
         "base5",
         "base6"
-      ],
-      "payment_profile.expiration_month": [
-        "payment_profile.expiration_month6",
-        "payment_profile.expiration_month5",
-        "payment_profile.expiration_month4"
-      ],
-      "payment_profile.expiration_year": [
-        "payment_profile.expiration_year8",
-        "payment_profile.expiration_year9",
-        "payment_profile.expiration_year0"
-      ],
-      "payment_profile.full_number": [
-        "payment_profile.full_number7",
-        "payment_profile.full_number8",
-        "payment_profile.full_number9"
       ]
     }
   },

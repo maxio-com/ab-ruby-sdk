@@ -25,13 +25,7 @@
     "interval": 186,
     "interval_unit": "day",
     "trial_price_in_cents": 34,
-    "trial_interval": 88,
-    "trial_interval_unit": "day",
-    "trial_type": "trial_type4",
-    "expiration_interval": 172,
-    "expiration_interval_unit": "day",
-    "auto_create_signup_page": false,
-    "tax_code": "tax_code8"
+    "trial_interval": 88
   }
 }
 ```

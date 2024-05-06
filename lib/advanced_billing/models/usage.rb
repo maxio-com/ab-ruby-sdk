@@ -78,7 +78,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        memo
+      ]
     end
 
     def initialize(id = SKIP,

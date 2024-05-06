@@ -63,8 +63,7 @@
       "subscription_group8",
       "subscription_group9"
     ],
-    "payment_profile_id": "payment_profile_id8",
-    "payer_id": "payer_id8"
+    "payment_profile_id": "payment_profile_id8"
   }
 }
 ```

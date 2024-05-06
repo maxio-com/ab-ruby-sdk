@@ -33,10 +33,7 @@
     "kind": "kind8",
     "memo": "memo4",
     "type": "type0",
-    "card_brand": "card_brand6",
-    "card_expiration": "card_expiration6",
-    "last_four": "last_four4",
-    "masked_card_number": "masked_card_number8"
+    "card_brand": "card_brand6"
   }
 }
 ```

@@ -531,13 +531,17 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        current_period_ends_at
+        next_assessment_at
         trial_started_at
         trial_ended_at
+        activated_at
         expires_at
         cancellation_message
         cancellation_method
         cancel_at_end_of_period
         canceled_at
+        current_period_started_at
         delayed_cancel_at
         coupon_code
         snap_day
@@ -561,6 +565,7 @@ module AdvancedBilling
         receives_invoice_emails
         locale
         scheduled_cancellation_at
+        prepaid_configuration
       ]
     end
 

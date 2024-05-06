@@ -29,24 +29,14 @@
       "site_name": "site_name8",
       "subscription_url": "subscription_url2",
       "customer_name": "customer_name8",
-      "created_at": "created_at4",
-      "mrr": "mrr8",
-      "usage": "usage4",
-      "recurring": "recurring0",
-      "last_payment": "last_payment4",
-      "churn_date": "churn_date4"
+      "created_at": "created_at4"
     },
     {
       "id": 202,
       "site_name": "site_name8",
       "subscription_url": "subscription_url2",
       "customer_name": "customer_name8",
-      "created_at": "created_at4",
-      "mrr": "mrr8",
-      "usage": "usage4",
-      "recurring": "recurring0",
-      "last_payment": "last_payment4",
-      "churn_date": "churn_date4"
+      "created_at": "created_at4"
     }
   ]
 }

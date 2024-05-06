@@ -159,6 +159,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        handle
         archived_at
         interval
         interval_unit

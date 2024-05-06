@@ -20,15 +20,7 @@
     "first_name": "first_name4",
     "last_name": "last_name2",
     "card_type": "bogus",
-    "expiration_month": "expiration_month0",
-    "expiration_year": "expiration_year4",
-    "current_vault": "eway",
-    "billing_address": "billing_address4",
-    "billing_city": "billing_city8",
-    "billing_state": "billing_state2",
-    "billing_zip": "billing_zip2",
-    "billing_country": "billing_country2",
-    "billing_address_2": "billing_address_26"
+    "expiration_month": "expiration_month0"
   }
 }
 ```

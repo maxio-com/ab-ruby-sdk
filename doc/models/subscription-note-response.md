@@ -20,8 +20,7 @@
     "body": "body0",
     "subscription_id": 138,
     "created_at": "2016-03-13T12:52:32.123Z",
-    "updated_at": "2016-03-13T12:52:32.123Z",
-    "sticky": false
+    "updated_at": "2016-03-13T12:52:32.123Z"
   }
 }
 ```
