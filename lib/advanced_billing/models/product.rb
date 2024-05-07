@@ -301,6 +301,7 @@ module AdvancedBilling
         archived_at
         return_params
         update_return_url
+        initial_charge_after_trial
         update_return_params
         tax_code
         use_site_exchange_rate

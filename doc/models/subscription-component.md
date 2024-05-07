@@ -27,7 +27,7 @@
 | `archived_at` | `DateTime` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |
 | `price_point_handle` | `String` | Optional | - |
-| `price_point_type` | [Price Point Type](../../doc/models/price-point-type.md) \| nil | Optional | This is a container for one-of cases. |
+| `price_point_type` | [`PricePointType`](../../doc/models/price-point-type.md) | Optional | - |
 | `price_point_name` | `String` | Optional | - |
 | `product_family_id` | `Integer` | Optional | - |
 | `product_family_handle` | `String` | Optional | - |

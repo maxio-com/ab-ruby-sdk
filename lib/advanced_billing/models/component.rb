@@ -266,6 +266,7 @@ module AdvancedBilling
         default_price_point_id
         overage_prices
         prices
+        price_points_url
         tax_code
         upgrade_charge
         downgrade_credit

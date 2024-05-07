@@ -31,8 +31,7 @@
     "date_field": "updated_at",
     "start_date": "2016-03-13",
     "end_date": "2016-03-13",
-    "start_datetime": "2016-03-13T12:52:32.123Z",
-    "end_datetime": "2016-03-13T12:52:32.123Z"
+    "start_datetime": "2016-03-13T12:52:32.123Z"
   }
 }
 ```

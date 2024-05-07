@@ -25,11 +25,7 @@
     "trial_price_in_cents": 108,
     "trial_interval": 202,
     "trial_interval_unit": "day",
-    "trial_type": "trial_type4",
-    "initial_charge_in_cents": 8,
-    "initial_charge_after_trial": false,
-    "expiration_interval": 30,
-    "expiration_interval_unit": "day"
+    "trial_type": "trial_type4"
   }
 }
 ```

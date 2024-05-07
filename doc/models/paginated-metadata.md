@@ -29,16 +29,14 @@
       "value": "value8",
       "resource_id": 134,
       "name": "name6",
-      "deleted_at": "2016-03-13T12:52:32.123Z",
-      "metafield_id": 238
+      "deleted_at": "2016-03-13T12:52:32.123Z"
     },
     {
       "id": 50,
       "value": "value8",
       "resource_id": 134,
       "name": "name6",
-      "deleted_at": "2016-03-13T12:52:32.123Z",
-      "metafield_id": 238
+      "deleted_at": "2016-03-13T12:52:32.123Z"
     }
   ]
 }

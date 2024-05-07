@@ -21,8 +21,7 @@
       "currency": "currency8",
       "price": "price4",
       "formatted_price": "formatted_price6",
-      "price_id": 116,
-      "price_point_id": 72
+      "price_id": 116
     }
   ]
 }

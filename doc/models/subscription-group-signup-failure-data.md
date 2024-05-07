@@ -31,24 +31,7 @@
     "last_name": "last_name0",
     "email": "email4",
     "cc_emails": "cc_emails2",
-    "organization": "organization6",
-    "reference": "reference8",
-    "address": "address8",
-    "address_2": "address_26",
-    "city": "city2",
-    "state": "state8",
-    "zip": "zip6",
-    "country": "country6",
-    "phone": "phone2",
-    "locale": "locale0",
-    "vat_number": "vat_number0",
-    "tax_exempt": false,
-    "tax_exempt_reason": "tax_exempt_reason6",
-    "metafields": {
-      "key0": "metafields5",
-      "key1": "metafields6",
-      "key2": "metafields7"
-    }
+    "organization": "organization6"
   }
 }
 ```

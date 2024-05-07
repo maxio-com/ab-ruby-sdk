@@ -187,15 +187,6 @@ module AdvancedBilling
           )
         ),
 
-        :CouponCompoundingStrategy => AnyOf.new(
-          [
-            LeafType.new(CompoundingStrategy)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :CreateAllocationPricePointId => OneOf.new(
           [
             LeafType.new(String),
@@ -787,15 +778,6 @@ module AdvancedBilling
           [
             LeafType.new(Integer),
             LeafType.new(String)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :SubscriptionComponentPricePointType => OneOf.new(
-          [
-            LeafType.new(PricePointType)
           ],
           UnionTypeContext.new(
             is_optional: true

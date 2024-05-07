@@ -20,9 +20,7 @@
     "site_id": 166,
     "code": "code4",
     "description": "description6",
-    "position": 14,
-    "created_at": "2016-03-13T12:52:32.123Z",
-    "updated_at": "2016-03-13T12:52:32.123Z"
+    "position": 14
   }
 }
 ```

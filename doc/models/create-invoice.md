@@ -32,14 +32,7 @@
       "quantity": 56.68,
       "unit_price": 39.9,
       "taxable": false,
-      "tax_code": "tax_code6",
-      "period_range_start": "period_range_start2",
-      "period_range_end": "period_range_end0",
-      "product_id": "String5",
-      "component_id": "String7",
-      "price_point_id": "String1",
-      "product_price_point_id": "String3",
-      "description": "description8"
+      "tax_code": "tax_code6"
     }
   ],
   "net_terms": 18,

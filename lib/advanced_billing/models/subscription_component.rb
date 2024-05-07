@@ -110,7 +110,7 @@ module AdvancedBilling
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
     # Available values: `full`, `prorated`, `none`.
-    # @return [Object]
+    # @return [PricePointType]
     attr_accessor :price_point_type
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
@@ -275,6 +275,7 @@ module AdvancedBilling
         archived_at
         price_point_id
         price_point_handle
+        price_point_type
         price_point_name
         use_site_exchange_rate
         description
@@ -392,9 +393,8 @@ module AdvancedBilling
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       price_point_handle =
         hash.key?('price_point_handle') ? hash['price_point_handle'] : SKIP
-      price_point_type = hash.key?('price_point_type') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionComponentPricePointType), hash['price_point_type']
-      ) : SKIP
+      price_point_type =
+        hash.key?('price_point_type') ? hash['price_point_type'] : SKIP
       price_point_name =
         hash.key?('price_point_name') ? hash['price_point_name'] : SKIP
       product_family_id =

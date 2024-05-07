@@ -25,12 +25,7 @@
     "statements": "0",
     "portal": "0",
     "public_show": "0",
-    "public_edit": "0",
-    "hosted": [
-      "hosted3",
-      "hosted4",
-      "hosted5"
-    ]
+    "public_edit": "0"
   },
   "input_type": "text",
   "enum": [

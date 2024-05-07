@@ -78,7 +78,11 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        start_date
+        end_date
+        period_type
+      ]
     end
 
     def initialize(line_items = SKIP,
