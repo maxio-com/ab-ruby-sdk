@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 RSpec.describe 'Awaiting sign up subscription' do
   before(:all) do
     @client = build_client
-    @product_family = @client.product_families.read_product_family('handle:developer-experience-billing-plans').product_family
+    @product_family = Factories::ProductFamily.create(@client, product_family: @product_family)
     @customer = Factories::Customer.create(@client)
     @product = Factories::Product.create(@client, product_family: @product_family)
     @metered_component = Factories::MeteredComponent.create(@client, product_family: @product_family)
