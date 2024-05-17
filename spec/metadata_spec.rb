@@ -109,7 +109,7 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
     expect(radio_field.data_count).to eq(0)
     expect(radio_field.name).to eq(radio_name)
 
-    product_family = client.product_families.read_product_family('handle:developer-experience-billing-plans').product_family
+    product_family = Factories::ProductFamily.create(client)
     customer = Factories::Customer.create(client)
     product = Factories::Product.create(client, product_family: product_family)
     subscription = Factories::Subscription.create(client, customer: customer, product: product)

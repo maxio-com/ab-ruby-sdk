@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 RSpec.describe 'Component allocations' do
   before(:all) do
     @client = build_client
-    @product_family = @client.product_families.read_product_family('handle:developer-experience-billing-plans').product_family
+    @product_family = Factories::ProductFamily.create(@client)
     @product = Factories::Product.create(@client, product_family: @product_family)
     @customer = Factories::Customer.create(@client)
     @subscription = Factories::Subscription.create(@client, product: @product, customer: @customer)

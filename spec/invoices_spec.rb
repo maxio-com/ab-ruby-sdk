@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 RSpec.describe 'Invoices' do
   before(:all) do
     @client = build_client
-    @product_family = @client.product_families.read_product_family('handle:developer-experience-billing-plans').product_family
+    @product_family = Factories::ProductFamily.create(@client)
     @customer = Factories::Customer.create(@client)
     @product = Factories::Product.create(@client, product_family: @product_family)
     @subscription = Factories::Subscription.create(@client, customer: @customer, product: @product)
