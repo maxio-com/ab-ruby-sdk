@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Customer]
+    # @return [Customer1]
     attr_accessor :customer
 
     # A mapping from model property names to API property names.
@@ -45,7 +45,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      customer = Customer.from_hash(hash['customer']) if hash['customer']
+      customer = Customer1.from_hash(hash['customer']) if hash['customer']
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }

@@ -76,7 +76,7 @@ module AdvancedBilling
 
     # The memo printed on credit note, which is a description of the reason for
     # the credit.
-    # @return [Customer1]
+    # @return [Customer]
     attr_accessor :customer
 
     # The memo printed on credit note, which is a description of the reason for
@@ -306,7 +306,7 @@ module AdvancedBilling
       currency = hash.key?('currency') ? hash['currency'] : SKIP
       memo = hash.key?('memo') ? hash['memo'] : SKIP
       seller = Seller.from_hash(hash['seller']) if hash['seller']
-      customer = Customer1.from_hash(hash['customer']) if hash['customer']
+      customer = Customer.from_hash(hash['customer']) if hash['customer']
       billing_address = BillingAddress.from_hash(hash['billing_address']) if
         hash['billing_address']
       shipping_address = ShippingAddress.from_hash(hash['shipping_address']) if

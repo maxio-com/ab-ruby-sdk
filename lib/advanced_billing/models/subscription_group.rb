@@ -68,7 +68,7 @@ module AdvancedBilling
 
     def initialize(customer_id = SKIP,
                    payment_profile = SKIP,
-                   payment_collection_method = CollectionMethod::AUTOMATIC,
+                   payment_collection_method = SKIP,
                    subscription_ids = SKIP,
                    created_at = SKIP,
                    additional_properties = {})
@@ -96,7 +96,7 @@ module AdvancedBilling
       payment_profile = SubscriptionGroupPaymentProfile.from_hash(hash['payment_profile']) if
         hash['payment_profile']
       payment_collection_method =
-        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
+        hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       subscription_ids =
         hash.key?('subscription_ids') ? hash['subscription_ids'] : SKIP
       created_at = if hash.key?('created_at')

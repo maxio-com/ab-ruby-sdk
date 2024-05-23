@@ -310,7 +310,7 @@ module AdvancedBilling
                    state = SKIP,
                    cancel_at_end_of_period = SKIP,
                    subscriptions = SKIP,
-                   payment_collection_method = CollectionMethod::AUTOMATIC,
+                   payment_collection_method = SKIP,
                    additional_properties = {})
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
@@ -366,7 +366,7 @@ module AdvancedBilling
 
       subscriptions = SKIP unless hash.key?('subscriptions')
       payment_collection_method =
-        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
+        hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }

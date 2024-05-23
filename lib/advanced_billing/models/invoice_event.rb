@@ -14,33 +14,30 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :id
 
-    # Invoice Event Type
-    # @return [InvoiceEventType]
-    attr_accessor :event_type
-
-    # The event data is the data that, when combined with the command, results
-    # in the output invoice found in the invoice field.
-    # @return [InvoiceEventData]
-    attr_accessor :event_data
-
-    # The event data is the data that, when combined with the command, results
-    # in the output invoice found in the invoice field.
+    # TODO: Write general description for this method
     # @return [DateTime]
     attr_accessor :timestamp
 
-    # The event data is the data that, when combined with the command, results
-    # in the output invoice found in the invoice field.
-    # @return [Invoice]
+    # TODO: Write general description for this method
+    # @return [Invoice1]
     attr_accessor :invoice
+
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :event_type
+
+    # Example schema for an `apply_credit_note` event
+    # @return [ApplyCreditNoteEventData1]
+    attr_accessor :event_data
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['id'] = 'id'
-      @_hash['event_type'] = 'event_type'
-      @_hash['event_data'] = 'event_data'
       @_hash['timestamp'] = 'timestamp'
       @_hash['invoice'] = 'invoice'
+      @_hash['event_type'] = 'event_type'
+      @_hash['event_data'] = 'event_data'
       @_hash
     end
 
@@ -48,10 +45,10 @@ module AdvancedBilling
     def self.optionals
       %w[
         id
-        event_type
-        event_data
         timestamp
         invoice
+        event_type
+        event_data
       ]
     end
 
@@ -61,16 +58,16 @@ module AdvancedBilling
     end
 
     def initialize(id = SKIP,
-                   event_type = SKIP,
-                   event_data = SKIP,
                    timestamp = SKIP,
                    invoice = SKIP,
+                   event_type = 'Invoice Event',
+                   event_data = SKIP,
                    additional_properties = {})
       @id = id unless id == SKIP
-      @event_type = event_type unless event_type == SKIP
-      @event_data = event_data unless event_data == SKIP
       @timestamp = timestamp unless timestamp == SKIP
       @invoice = invoice unless invoice == SKIP
+      @event_type = event_type unless event_type == SKIP
+      @event_data = event_data unless event_data == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -84,41 +81,29 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       id = hash.key?('id') ? hash['id'] : SKIP
-      event_type = hash.key?('event_type') ? hash['event_type'] : SKIP
-      event_data = hash.key?('event_data') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:InvoiceEventEventData), hash['event_data']
-      ) : SKIP
       timestamp = if hash.key?('timestamp')
                     (DateTimeHelper.from_rfc3339(hash['timestamp']) if hash['timestamp'])
                   else
                     SKIP
                   end
-      invoice = Invoice.from_hash(hash['invoice']) if hash['invoice']
+      invoice = Invoice1.from_hash(hash['invoice']) if hash['invoice']
+      event_type = hash['event_type'] ||= 'Invoice Event'
+      event_data = ApplyCreditNoteEventData1.from_hash(hash['event_data']) if hash['event_data']
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
       InvoiceEvent.new(id,
-                       event_type,
-                       event_data,
                        timestamp,
                        invoice,
+                       event_type,
+                       event_data,
                        hash)
     end
 
     def to_custom_timestamp
       DateTimeHelper.to_rfc3339(timestamp)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [InvoiceEvent | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
   end
 end

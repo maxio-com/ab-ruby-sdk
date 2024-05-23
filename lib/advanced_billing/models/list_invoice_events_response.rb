@@ -71,16 +71,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      # Parameter is an array, so we need to iterate through it
-      events = nil
-      unless hash['events'].nil?
-        events = []
-        hash['events'].each do |structure|
-          events << (InvoiceEvent.from_hash(structure) if structure)
-        end
-      end
-
-      events = SKIP unless hash.key?('events')
+      events = hash.key?('events') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:InvoiceEvent), hash['events']
+      ) : SKIP
       page = hash.key?('page') ? hash['page'] : SKIP
       per_page = hash.key?('per_page') ? hash['per_page'] : SKIP
       total_pages = hash.key?('total_pages') ? hash['total_pages'] : SKIP
@@ -94,6 +87,16 @@ module AdvancedBilling
                                     per_page,
                                     total_pages,
                                     hash)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [ListInvoiceEventsResponse | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
   end
 end

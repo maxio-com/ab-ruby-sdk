@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :subscription_group
 
     # TODO: Write general description for this method
-    # @return [Customer]
+    # @return [Customer1]
     attr_accessor :customer
 
     # A mapping from model property names to API property names.
@@ -55,7 +55,7 @@ module AdvancedBilling
       if hash['subscription_group']
         subscription_group = SubscriptionGroupSignupSuccessData.from_hash(hash['subscription_group'])
       end
-      customer = Customer.from_hash(hash['customer']) if hash['customer']
+      customer = Customer1.from_hash(hash['customer']) if hash['customer']
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -75,7 +75,7 @@ module AdvancedBilling
                                 ->(val) { SubscriptionGroupSignupSuccessData.validate(val) },
                                 is_model_hash: true) and
             APIHelper.valid_type?(value.customer,
-                                  ->(val) { Customer.validate(val) },
+                                  ->(val) { Customer1.validate(val) },
                                   is_model_hash: true)
         )
       end
@@ -87,7 +87,7 @@ module AdvancedBilling
                               ->(val) { SubscriptionGroupSignupSuccessData.validate(val) },
                               is_model_hash: true) and
           APIHelper.valid_type?(value['customer'],
-                                ->(val) { Customer.validate(val) },
+                                ->(val) { Customer1.validate(val) },
                                 is_model_hash: true)
       )
     end

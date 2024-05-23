@@ -24,15 +24,15 @@ module AdvancedBilling
     # @return [InvoiceConsolidationLevel]
     attr_accessor :consolidation_level
 
-    # The status of the invoice before event occurence. See [Invoice
-    # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
-    # e-item-breakdowns) for more.
+    # The status of the invoice before event occurrence. See [Invoice
+    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
+    # 53-Introduction-to-Invoices#invoice-statusess) for more.
     # @return [InvoiceStatus]
     attr_accessor :from_status
 
-    # The status of the invoice after event occurence. See [Invoice
-    # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
-    # e-item-breakdowns) for more.
+    # The status of the invoice after event occurrence. See [Invoice
+    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
+    # 53-Introduction-to-Invoices#invoice-statusess) for more.
     # @return [InvoiceStatus]
     attr_accessor :to_status
 

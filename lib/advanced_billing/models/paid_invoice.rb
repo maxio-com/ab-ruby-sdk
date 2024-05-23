@@ -14,8 +14,8 @@ module AdvancedBilling
     attr_accessor :invoice_id
 
     # The current status of the invoice. See [Invoice
-    # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#lin
-    # e-item-breakdowns) for more.
+    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
+    # 53-Introduction-to-Invoices#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :status
 
