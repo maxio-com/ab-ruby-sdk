@@ -5,8 +5,8 @@
 
 module AdvancedBilling
   # The current status of the invoice. See [Invoice
-  # Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-
-  # item-breakdowns) for more.
+  # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253
+  # -Introduction-to-Invoices#invoice-statuses) for more.
   class InvoiceStatus
     INVOICE_STATUS = [
       # TODO: Write general description for DRAFT

@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Refund]
+    # @return [Object]
     attr_accessor :refund
 
     # A mapping from model property names to API property names.

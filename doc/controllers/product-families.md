@@ -190,6 +190,7 @@ def create_product_family(body: nil)
 body = CreateProductFamilyRequest.new(
   CreateProductFamily.new(
     'Acme Projects',
+    nil,
     'Amazing project management tool'
   )
 )

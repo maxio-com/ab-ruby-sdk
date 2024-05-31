@@ -82,6 +82,75 @@ module AdvancedBilling
           ]
         ),
 
+        :InvoiceEvent => AnyOf.new(
+          [
+            LeafType.new(ApplyCreditNoteEvent, UnionTypeContext.new(
+              discriminator_value: 'apply_credit_note',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(ApplyDebitNoteEvent, UnionTypeContext.new(
+              discriminator_value: 'apply_debit_note',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(ApplyPaymentEvent, UnionTypeContext.new(
+              discriminator_value: 'apply_payment',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(BackportInvoiceEvent, UnionTypeContext.new(
+              discriminator_value: 'backport_invoice',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(ChangeChargebackStatusEvent, UnionTypeContext.new(
+              discriminator_value: 'change_chargeback_status',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(ChangeInvoiceCollectionMethodEvent, UnionTypeContext.new(
+              discriminator_value: 'change_invoice_collection_method',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(ChangeInvoiceStatusEvent, UnionTypeContext.new(
+              discriminator_value: 'change_invoice_status',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(CreateCreditNoteEvent, UnionTypeContext.new(
+              discriminator_value: 'create_credit_note',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(CreateDebitNoteEvent, UnionTypeContext.new(
+              discriminator_value: 'create_debit_note',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(FailedPaymentEvent, UnionTypeContext.new(
+              discriminator_value: 'failed_payment',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(IssueInvoiceEvent, UnionTypeContext.new(
+              discriminator_value: 'issue_invoice',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(RefundInvoiceEvent, UnionTypeContext.new(
+              discriminator_value: 'refund_invoice',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(RemovePaymentEvent, UnionTypeContext.new(
+              discriminator_value: 'remove_payment',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(VoidInvoiceEvent, UnionTypeContext.new(
+              discriminator_value: 'void_invoice',
+              discriminator: 'event_type'
+            )),
+            LeafType.new(VoidRemainderEvent, UnionTypeContext.new(
+              discriminator_value: 'void_remainder',
+              discriminator: 'event_type'
+            ))
+          ],
+          UnionTypeContext.new(
+            is_array: true,
+            is_optional: true
+          )
+        ),
+
         :AddSubscriptionToAGroupGroup => OneOf.new(
           [
             LeafType.new(GroupSettings),
@@ -519,36 +588,6 @@ module AdvancedBilling
           )
         ),
 
-        :InvoiceEventEventData => AnyOf.new(
-          [
-            LeafType.new(ApplyCreditNoteEventData),
-            LeafType.new(ApplyDebitNoteEventData),
-            LeafType.new(ApplyPaymentEventData),
-            LeafType.new(ChangeInvoiceCollectionMethodEventData),
-            LeafType.new(IssueInvoiceEventData),
-            LeafType.new(RefundInvoiceEventData),
-            LeafType.new(RemovePaymentEventData),
-            LeafType.new(VoidInvoiceEventData),
-            LeafType.new(VoidRemainderEventData)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :InvoiceEventDataPaymentMethod => AnyOf.new(
-          [
-            LeafType.new(PaymentMethodApplePay),
-            LeafType.new(PaymentMethodBankAccount),
-            LeafType.new(PaymentMethodCreditCard),
-            LeafType.new(PaymentMethodExternal),
-            LeafType.new(PaymentMethodPaypal)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :IssueServiceCreditAmount => OneOf.new(
           [
             LeafType.new(Float),
@@ -665,18 +704,6 @@ module AdvancedBilling
           [
             AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)]),
             LeafType.new(ResumeOptions)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :RefundSegmentUids => OneOf.new(
-          [
-            LeafType.new(String, UnionTypeContext.new(
-              is_array: true
-            )),
-            LeafType.new(String)
           ],
           UnionTypeContext.new(
             is_optional: true

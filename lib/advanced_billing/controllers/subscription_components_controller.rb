@@ -79,6 +79,10 @@ module AdvancedBilling
     # @param [Array[ListSubscriptionComponentsInclude]] include Optional
     # parameter: Allows including additional data in the response. Use in query
     # `include=subscription,historic_usages`.
+    # @param [TrueClass | FalseClass] in_use Optional parameter: If in_use is
+    # set to true, it returns only components that are currently in use.
+    # However, if it's set to false or not provided, it returns all components
+    # connected with the subscription.
     # @return [Array[SubscriptionComponentResponse]] response from the API call
     def list_subscription_components(options = {})
       new_api_call_builder
@@ -99,6 +103,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
                    .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['in_use'], key: 'in_use'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
