@@ -22,6 +22,9 @@ module AdvancedBilling
       # TODO: Write general description for APPLY_DEBIT_NOTE
       APPLY_DEBIT_NOTE = 'apply_debit_note'.freeze,
 
+      # TODO: Write general description for CREATE_DEBIT_NOTE
+      CREATE_DEBIT_NOTE = 'create_debit_note'.freeze,
+
       # TODO: Write general description for REFUND_INVOICE
       REFUND_INVOICE = 'refund_invoice'.freeze,
 

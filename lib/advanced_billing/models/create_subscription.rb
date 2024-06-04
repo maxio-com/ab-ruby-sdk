@@ -437,7 +437,7 @@ module AdvancedBilling
                    custom_price = SKIP,
                    coupon_code = SKIP,
                    coupon_codes = SKIP,
-                   payment_collection_method = CollectionMethod::AUTOMATIC,
+                   payment_collection_method = SKIP,
                    receives_invoice_emails = SKIP,
                    net_terms = SKIP,
                    customer_id = SKIP,
@@ -580,7 +580,7 @@ module AdvancedBilling
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
       coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
+        hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       receives_invoice_emails =
         hash.key?('receives_invoice_emails') ? hash['receives_invoice_emails'] : SKIP
       net_terms = hash.key?('net_terms') ? hash['net_terms'] : SKIP

@@ -92,7 +92,7 @@ module AdvancedBilling
                    payment_profile_id = SKIP,
                    payer_id = SKIP,
                    payer_reference = SKIP,
-                   payment_collection_method = CollectionMethod::AUTOMATIC,
+                   payment_collection_method = SKIP,
                    payer_attributes = SKIP,
                    credit_card_attributes = SKIP,
                    bank_account_attributes = SKIP,
@@ -136,7 +136,7 @@ module AdvancedBilling
       payer_reference =
         hash.key?('payer_reference') ? hash['payer_reference'] : SKIP
       payment_collection_method =
-        hash['payment_collection_method'] ||= CollectionMethod::AUTOMATIC
+        hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       payer_attributes = PayerAttributes.from_hash(hash['payer_attributes']) if
         hash['payer_attributes']
       if hash['credit_card_attributes']

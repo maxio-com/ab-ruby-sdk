@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [PricePoint]
+    # @return [Object]
     attr_accessor :price_point
 
     # A mapping from model property names to API property names.

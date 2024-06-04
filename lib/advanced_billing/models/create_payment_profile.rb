@@ -155,13 +155,13 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :bank_routing_number
 
-    # (Required when creating with ACH, GoCardless, Stripe BECS Direct Debit and
-    # bank_iban is blank) The customerʼs bank account number
+    # (Required when creating with ACH, GoCardless, Stripe BECS or BACS Direct
+    # Debit, and bank_iban is blank) The customerʼs bank account number
     # @return [String]
     attr_accessor :bank_account_number
 
-    # (Optional when creating with GoCardless, required with Stripe BECS Direct
-    # Debit) Branch code. Alternatively, an IBAN can be provided
+    # (Optional when creating with GoCardless, required with Stripe BECS or BACS
+    # Direct Debit) Branch/Sort code. Alternatively, an IBAN can be provided
     # @return [String]
     attr_accessor :bank_branch_code
 

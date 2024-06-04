@@ -10,6 +10,10 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
+    # TODO: Write general description for this method
+    # @return [InvoiceConsolidationLevel]
+    attr_accessor :consolidation_level
+
     # The payment memo
     # @return [String]
     attr_accessor :memo
@@ -36,7 +40,7 @@ module AdvancedBilling
     attr_accessor :transaction_time
 
     # A nested data structure detailing the method of payment
-    # @return [InvoiceEventPayment]
+    # @return [Object]
     attr_accessor :payment_method
 
     # The Chargify id of the original payment
@@ -62,6 +66,7 @@ module AdvancedBilling
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['consolidation_level'] = 'consolidation_level'
       @_hash['memo'] = 'memo'
       @_hash['original_amount'] = 'original_amount'
       @_hash['applied_amount'] = 'applied_amount'
@@ -94,7 +99,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(memo = nil,
+    def initialize(consolidation_level = nil,
+                   memo = nil,
                    original_amount = nil,
                    applied_amount = nil,
                    transaction_time = nil,
@@ -105,6 +111,7 @@ module AdvancedBilling
                    prepayment = SKIP,
                    external = SKIP,
                    additional_properties = {})
+      @consolidation_level = consolidation_level
       @memo = memo
       @original_amount = original_amount
       @applied_amount = applied_amount
@@ -130,6 +137,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
+      consolidation_level =
+        hash.key?('consolidation_level') ? hash['consolidation_level'] : nil
       memo = hash.key?('memo') ? hash['memo'] : nil
       original_amount =
         hash.key?('original_amount') ? hash['original_amount'] : nil
@@ -154,7 +163,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ApplyPaymentEventData.new(memo,
+      ApplyPaymentEventData.new(consolidation_level,
+                                memo,
                                 original_amount,
                                 applied_amount,
                                 transaction_time,
@@ -176,8 +186,10 @@ module AdvancedBilling
     def self.validate(value)
       if value.instance_of? self
         return (
-          APIHelper.valid_type?(value.memo,
-                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value.consolidation_level,
+                                ->(val) { InvoiceConsolidationLevel.validate(val) }) and
+            APIHelper.valid_type?(value.memo,
+                                  ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.original_amount,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.applied_amount,
@@ -192,8 +204,10 @@ module AdvancedBilling
       return false unless value.instance_of? Hash
 
       (
-        APIHelper.valid_type?(value['memo'],
-                              ->(val) { val.instance_of? String }) and
+        APIHelper.valid_type?(value['consolidation_level'],
+                              ->(val) { InvoiceConsolidationLevel.validate(val) }) and
+          APIHelper.valid_type?(value['memo'],
+                                ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['original_amount'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['applied_amount'],

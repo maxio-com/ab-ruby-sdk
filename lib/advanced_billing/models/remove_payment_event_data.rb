@@ -32,7 +32,7 @@ module AdvancedBilling
     attr_accessor :transaction_time
 
     # A nested data structure detailing the method of payment
-    # @return [InvoiceEventPayment]
+    # @return [Object]
     attr_accessor :payment_method
 
     # The flag that shows whether the original payment was a prepayment or not

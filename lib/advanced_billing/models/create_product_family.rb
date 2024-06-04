@@ -15,12 +15,17 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [String]
+    attr_accessor :handle
+
+    # TODO: Write general description for this method
+    # @return [String]
     attr_accessor :description
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['name'] = 'name'
+      @_hash['handle'] = 'handle'
       @_hash['description'] = 'description'
       @_hash
     end
@@ -28,7 +33,7 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        name
+        handle
         description
       ]
     end
@@ -36,14 +41,17 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        handle
         description
       ]
     end
 
-    def initialize(name = SKIP,
+    def initialize(name = nil,
+                   handle = SKIP,
                    description = SKIP,
                    additional_properties = {})
-      @name = name unless name == SKIP
+      @name = name
+      @handle = handle unless handle == SKIP
       @description = description unless description == SKIP
 
       # Add additional model properties to the instance.
@@ -57,7 +65,8 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      name = hash.key?('name') ? hash['name'] : SKIP
+      name = hash.key?('name') ? hash['name'] : nil
+      handle = hash.key?('handle') ? hash['handle'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
 
       # Clean out expected properties from Hash.
@@ -65,6 +74,7 @@ module AdvancedBilling
 
       # Create object from extracted values.
       CreateProductFamily.new(name,
+                              handle,
                               description,
                               hash)
     end

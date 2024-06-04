@@ -321,7 +321,7 @@ module AdvancedBilling
                    created_at = SKIP,
                    delivery_date = SKIP,
                    status = SKIP,
-                   collection_method = CollectionMethod::AUTOMATIC,
+                   collection_method = SKIP,
                    payment_instructions = SKIP,
                    currency = SKIP,
                    consolidation_level = SKIP,
@@ -413,7 +413,7 @@ module AdvancedBilling
       delivery_date = hash.key?('delivery_date') ? hash['delivery_date'] : SKIP
       status = hash.key?('status') ? hash['status'] : SKIP
       collection_method =
-        hash['collection_method'] ||= CollectionMethod::AUTOMATIC
+        hash.key?('collection_method') ? hash['collection_method'] : SKIP
       payment_instructions =
         hash.key?('payment_instructions') ? hash['payment_instructions'] : SKIP
       currency = hash.key?('currency') ? hash['currency'] : SKIP
