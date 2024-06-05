@@ -27,7 +27,9 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :cc_emails
 
-    # The organization of the customer
+    # The organization of the customer. If no value, `null` or empty string is
+    # provided, `organization` will be populated with the customer's first and
+    # last name, separated with a space.
     # @return [String]
     attr_accessor :organization
 
