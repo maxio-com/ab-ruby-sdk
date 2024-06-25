@@ -4,42 +4,27 @@ module Factories
       client.components.create_on_off_component(
         product_family.id,
         body: AdvancedBilling::CreateOnOffComponent.new(
-          AdvancedBilling::OnOffComponent.new(
-            "Component #{SecureRandom.hex(4)}",
-            'desc',
-            "handle#{SecureRandom.hex(4)}",
-            false,
-            [
-              AdvancedBilling::Price.new(
-                40,
-                10.0,
-                125.12
-              )
-            ],
-            'none',
-            'none',
-            [
+          on_off_component: AdvancedBilling::OnOffComponent.new(
+            name: "Component #{SecureRandom.hex(4)}",
+            description: 'desc',
+            handle: "handle#{SecureRandom.hex(4)}",
+            taxable: false,
+            upgrade_charge: 'none',
+            downgrade_credit: 'none',
+            price_points: [
               AdvancedBilling::ComponentPricePointItem.new(
-                'name123',
-                nil,
-                nil,
-                nil,
-                nil,
-                [
+                name: 'name123',
+                prices: [
                   AdvancedBilling::Price.new(
-                    40,
-                    10.0,
-                    125.12
+                    starting_quantity: 40,
+                    unit_price: 10.0,
+                    ending_quantity: 125.12
                   )
                 ]
               )
             ],
-            125.12,
-            nil,
-            nil,
-            nil,
-            nil,
-            false
+            unit_price: 125.12,
+            allow_fractional_quantities: false
           )
         )
       ).component

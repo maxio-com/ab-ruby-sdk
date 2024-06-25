@@ -22,25 +22,21 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
     result = client.custom_fields.create_metafields(
       AdvancedBilling::ResourceType::SUBSCRIPTIONS,
       body: AdvancedBilling::CreateMetafieldsRequest.new(
-        [
+        metafields: [
           AdvancedBilling::CreateMetafield.new(
-            dropdown_name,
-            AdvancedBilling::MetafieldScope.new(
-              nil,
-              nil,
-              nil,
-              nil,
-              AdvancedBilling::IncludeOption::INCLUDE,
-              AdvancedBilling::IncludeOption::INCLUDE
+            name: dropdown_name,
+            scope: AdvancedBilling::MetafieldScope.new(
+              public_show: AdvancedBilling::IncludeOption::INCLUDE,
+              public_edit: AdvancedBilling::IncludeOption::INCLUDE
             ),
-            AdvancedBilling::MetafieldInput::DROPDOWN,
-            [
+            input_type: AdvancedBilling::MetafieldInput::DROPDOWN,
+            enum: [
               'option 1',
               'option 2'
             ]
           ),
           AdvancedBilling::CreateMetafield.new(
-            text_field_name
+            name: text_field_name
           )
         ]
       )
@@ -77,16 +73,15 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
     result = client.custom_fields.create_metafields(
       AdvancedBilling::ResourceType::CUSTOMERS,
       body: AdvancedBilling::CreateMetafieldsRequest.new(
-        AdvancedBilling::CreateMetafield.new(
-          radio_name,
-          AdvancedBilling::MetafieldScope.new(
-            AdvancedBilling::IncludeOption::INCLUDE,
-            AdvancedBilling::IncludeOption::INCLUDE,
-            nil,
-            AdvancedBilling::IncludeOption::INCLUDE,
+        metafields: AdvancedBilling::CreateMetafield.new(
+          name: radio_name,
+          scope: AdvancedBilling::MetafieldScope.new(
+            csv: AdvancedBilling::IncludeOption::INCLUDE,
+            invoices: AdvancedBilling::IncludeOption::INCLUDE,
+            portal: AdvancedBilling::IncludeOption::INCLUDE,
           ),
-          AdvancedBilling::MetafieldInput::RADIO,
-          [
+          input_type: AdvancedBilling::MetafieldInput::RADIO,
+          enum: [
             'option 1',
             'option 2'
           ]
@@ -118,14 +113,14 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
       AdvancedBilling::ResourceType::SUBSCRIPTIONS,
       subscription.id,
       body: AdvancedBilling::CreateMetadataRequest.new(
-        [
+        metadata: [
           AdvancedBilling::CreateMetadata.new(
-            dropdown_name,
-            'option 1'
+            name: dropdown_name,
+            value: 'option 1'
           ),
           AdvancedBilling::CreateMetadata.new(
-            text_field_name,
-            'something'
+            name: text_field_name,
+            value: 'something'
           )
         ]
       )
@@ -160,10 +155,10 @@ RSpec.describe 'Check system metadata for subscriptions and customers' do
       AdvancedBilling::ResourceType::CUSTOMERS,
       customer.id,
       body: AdvancedBilling::CreateMetadataRequest.new(
-        [
+        metadata: [
           AdvancedBilling::CreateMetadata.new(
-            radio_name,
-            'option 2'
+            name: radio_name,
+            value: 'option 2'
           )
         ]
       )

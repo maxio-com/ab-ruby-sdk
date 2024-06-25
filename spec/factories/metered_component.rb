@@ -6,23 +6,17 @@ module Factories
       client.components.create_metered_component(
         product_family.id,
         body: AdvancedBilling::CreateMeteredComponent.new(
-          AdvancedBilling::MeteredComponent.new(
-            "#{FFaker::Product.product_name}#{token}",
-            FFaker::Lorem.word,
-            AdvancedBilling::PricingScheme::STAIRSTEP,
-            nil,
-            nil,
-            false,
-            [
+          metered_component: AdvancedBilling::MeteredComponent.new(
+            name: "#{FFaker::Product.product_name}#{token}",
+            unit_name: FFaker::Lorem.word,
+            pricing_scheme: AdvancedBilling::PricingScheme::STAIRSTEP,
+            taxable: false,
+            prices: [
               AdvancedBilling::Price.from_hash(
                 'starting_quantity' => 1,
                 'unit_price' => 1.0
               )
             ],
-            nil,
-            nil,
-            nil,
-            'USD'
           )
         )    
       ).component

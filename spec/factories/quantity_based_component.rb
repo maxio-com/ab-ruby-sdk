@@ -4,24 +4,17 @@ module Factories
       client.components.create_quantity_based_component(
         product_family.id,
         body: AdvancedBilling::CreateQuantityBasedComponent.new(
-          AdvancedBilling::QuantityBasedComponent.new(
-            "Component #{SecureRandom.hex(4)}",
-            'message',
-            AdvancedBilling::PricingScheme::PER_UNIT,
-            'description',
-            "handle#{SecureRandom.hex(4)}",
-            false,
-            nil,
-            'none',
-            'none',
-            nil,
-            125,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            true
+          quantity_based_component: AdvancedBilling::QuantityBasedComponent.new(
+            name: "Component #{SecureRandom.hex(4)}",
+            unit_name: 'message',
+            pricing_scheme: AdvancedBilling::PricingScheme::PER_UNIT,
+            description: 'description',
+            handle: "handle#{SecureRandom.hex(4)}",
+            taxable: false,
+            upgrade_charge: 'none',
+            downgrade_credit: 'none',
+            unit_price: 125,
+            allow_fractional_quantities: true
           )
         )
       ).component
