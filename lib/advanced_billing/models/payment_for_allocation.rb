@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   amount_in_cents = SKIP,
-                   success = SKIP,
-                   memo = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, amount_in_cents: SKIP, success: SKIP, memo: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @success = success unless success == SKIP
@@ -81,11 +78,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentForAllocation.new(id,
-                               amount_in_cents,
-                               success,
-                               memo,
-                               hash)
+      PaymentForAllocation.new(id: id,
+                               amount_in_cents: amount_in_cents,
+                               success: success,
+                               memo: memo,
+                               additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

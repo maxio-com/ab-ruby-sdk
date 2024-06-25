@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(metafields = SKIP,
-                   additional_properties = {})
+    def initialize(metafields: SKIP, additional_properties: {})
       @metafields = metafields unless metafields == SKIP
 
       # Add additional model properties to the instance.
@@ -55,8 +54,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateMetafieldsRequest.new(metafields,
-                                  hash)
+      UpdateMetafieldsRequest.new(metafields: metafields,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

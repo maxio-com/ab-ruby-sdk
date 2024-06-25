@@ -35,9 +35,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(previous_product_id = nil,
-                   new_product_id = nil,
-                   additional_properties = {})
+    def initialize(previous_product_id:, new_product_id:,
+                   additional_properties: {})
       @previous_product_id = previous_product_id
       @new_product_id = new_product_id
 
@@ -61,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionProductChange.new(previous_product_id,
-                                    new_product_id,
-                                    hash)
+      SubscriptionProductChange.new(previous_product_id: previous_product_id,
+                                    new_product_id: new_product_id,
+                                    additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

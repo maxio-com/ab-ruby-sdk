@@ -35,9 +35,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(url = nil,
-                   webhook_subscriptions = nil,
-                   additional_properties = {})
+    def initialize(url:, webhook_subscriptions:, additional_properties: {})
       @url = url
       @webhook_subscriptions = webhook_subscriptions
 
@@ -60,9 +58,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateOrUpdateEndpoint.new(url,
-                                 webhook_subscriptions,
-                                 hash)
+      CreateOrUpdateEndpoint.new(url: url,
+                                 webhook_subscriptions: webhook_subscriptions,
+                                 additional_properties: hash)
     end
   end
 end

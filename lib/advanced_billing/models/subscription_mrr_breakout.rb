@@ -35,9 +35,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(plan_amount_in_cents = nil,
-                   usage_amount_in_cents = nil,
-                   additional_properties = {})
+    def initialize(plan_amount_in_cents:, usage_amount_in_cents:,
+                   additional_properties: {})
       @plan_amount_in_cents = plan_amount_in_cents
       @usage_amount_in_cents = usage_amount_in_cents
 
@@ -61,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionMRRBreakout.new(plan_amount_in_cents,
-                                  usage_amount_in_cents,
-                                  hash)
+      SubscriptionMRRBreakout.new(plan_amount_in_cents: plan_amount_in_cents,
+                                  usage_amount_in_cents: usage_amount_in_cents,
+                                  additional_properties: hash)
     end
   end
 end

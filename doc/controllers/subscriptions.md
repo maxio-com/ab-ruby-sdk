@@ -691,57 +691,35 @@ def create_subscription(body: nil)
 
 ```ruby
 body = CreateSubscriptionRequest.new(
-  CreateSubscription.new(
-    'basic',
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    CustomerAttributes.new(
-      'Joe',
-      'Blow',
-      'joe@example.com',
-      nil,
-      'Acme',
-      'XYZ',
-      '123 Mass Ave.',
-      'address_24',
-      'Boston',
-      'MA',
-      '02120',
-      'US',
-      '(617) 111 - 0000'
+  subscription: CreateSubscription.new(
+    product_handle: 'basic',
+    customer_attributes: CustomerAttributes.new(
+      first_name: 'Joe',
+      last_name: 'Blow',
+      email: 'joe@example.com',
+      organization: 'Acme',
+      reference: 'XYZ',
+      address: '123 Mass Ave.',
+      address_2: 'address_24',
+      city: 'Boston',
+      state: 'MA',
+      zip: '02120',
+      country: 'US',
+      phone: '(617) 111 - 0000'
     ),
-    nil,
-    PaymentProfileAttributes.new(
-      nil,
-      nil,
-      nil,
-      'Joe',
-      'Smith',
-      nil,
-      '4111111111111111',
-      CardType::VISA,
-      '1',
-      '2021',
-      '123 Mass Ave.',
-      'billing_address_22',
-      'Boston',
-      'MA',
-      'US',
-      '02120'
+    credit_card_attributes: PaymentProfileAttributes.new(
+      first_name: 'Joe',
+      last_name: 'Smith',
+      full_number: '4111111111111111',
+      card_type: CardType::VISA,
+      expiration_month: '1',
+      expiration_year: '2021',
+      billing_address: '123 Mass Ave.',
+      billing_address_2: 'billing_address_22',
+      billing_city: 'Boston',
+      billing_state: 'MA',
+      billing_country: 'US',
+      billing_zip: '02120'
     )
   )
 )
@@ -1021,19 +999,13 @@ def update_subscription(subscription_id,
 subscription_id = 222
 
 body = UpdateSubscriptionRequest.new(
-  UpdateSubscription.new(
-    CreditCardAttributes.new(
-      '4111111111111111',
-      '10',
-      '2030'
+  subscription: UpdateSubscription.new(
+    credit_card_attributes: CreditCardAttributes.new(
+      full_number: '4111111111111111',
+      expiration_month: '10',
+      expiration_year: '2030'
     ),
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    DateTimeHelper.from_rfc3339('2010-08-06T15:34:00Z')
+    next_billing_at: DateTimeHelper.from_rfc3339('2010-08-06T15:34:00Z')
   )
 )
 
@@ -1384,11 +1356,11 @@ def override_subscription(subscription_id,
 subscription_id = 222
 
 body = OverrideSubscriptionRequest.new(
-  OverrideSubscription.new(
-    DateTimeHelper.from_rfc3339('1999-12-01T10:28:34-05:00'),
-    DateTimeHelper.from_rfc3339('2000-12-31T10:28:34-05:00'),
-    'Original cancellation in 2000',
-    DateTimeHelper.from_rfc3339('2001-07-15T10:28:34-05:00')
+  subscription: OverrideSubscription.new(
+    activated_at: DateTimeHelper.from_rfc3339('1999-12-01T10:28:34-05:00'),
+    canceled_at: DateTimeHelper.from_rfc3339('2000-12-31T10:28:34-05:00'),
+    cancellation_message: 'Original cancellation in 2000',
+    expires_at: DateTimeHelper.from_rfc3339('2001-07-15T10:28:34-05:00')
   )
 )
 
@@ -1506,11 +1478,11 @@ def update_prepaid_subscription_configuration(subscription_id,
 subscription_id = 222
 
 body = UpsertPrepaidConfigurationRequest.new(
-  UpsertPrepaidConfiguration.new(
-    50000,
-    50000,
-    true,
-    10000
+  prepaid_configuration: UpsertPrepaidConfiguration.new(
+    initial_funding_amount_in_cents: 50000,
+    replenish_to_amount_in_cents: 50000,
+    auto_replenish: true,
+    replenish_threshold_amount_in_cents: 10000
   )
 )
 
@@ -1581,8 +1553,8 @@ def preview_subscription(body: nil)
 
 ```ruby
 body = CreateSubscriptionRequest.new(
-  CreateSubscription.new(
-    'gold-product'
+  subscription: CreateSubscription.new(
+    product_handle: 'gold-product'
   )
 )
 
@@ -1744,7 +1716,7 @@ def apply_coupons_to_subscription(subscription_id,
 subscription_id = 222
 
 body = AddCouponsRequest.new(
-  [
+  codes: [
     'COUPON_1',
     'COUPON_2'
   ]

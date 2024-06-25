@@ -33,8 +33,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(segments = nil,
-                   additional_properties = {})
+    def initialize(segments:, additional_properties: {})
       @segments = segments
 
       # Add additional model properties to the instance.
@@ -54,8 +53,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      EventBasedBillingSegmentError.new(segments,
-                                        hash)
+      EventBasedBillingSegmentError.new(segments: segments,
+                                        additional_properties: hash)
     end
   end
 end

@@ -72,14 +72,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(code = SKIP,
-                   use_count = SKIP,
-                   uses_allowed = SKIP,
-                   expires_at = SKIP,
-                   recurring = SKIP,
-                   amount_in_cents = SKIP,
-                   percentage = SKIP,
-                   additional_properties = {})
+    def initialize(code: SKIP, use_count: SKIP, uses_allowed: SKIP,
+                   expires_at: SKIP, recurring: SKIP, amount_in_cents: SKIP,
+                   percentage: SKIP, additional_properties: {})
       @code = code unless code == SKIP
       @use_count = use_count unless use_count == SKIP
       @uses_allowed = uses_allowed unless uses_allowed == SKIP
@@ -112,14 +107,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionIncludedCoupon.new(code,
-                                     use_count,
-                                     uses_allowed,
-                                     expires_at,
-                                     recurring,
-                                     amount_in_cents,
-                                     percentage,
-                                     hash)
+      SubscriptionIncludedCoupon.new(code: code,
+                                     use_count: use_count,
+                                     uses_allowed: uses_allowed,
+                                     expires_at: expires_at,
+                                     recurring: recurring,
+                                     amount_in_cents: amount_in_cents,
+                                     percentage: percentage,
+                                     additional_properties: hash)
     end
   end
 end

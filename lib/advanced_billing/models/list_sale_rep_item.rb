@@ -56,12 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   full_name = SKIP,
-                   subscriptions_count = SKIP,
-                   mrr_data = SKIP,
-                   test_mode = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, full_name: SKIP, subscriptions_count: SKIP,
+                   mrr_data: SKIP, test_mode: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @full_name = full_name unless full_name == SKIP
       @subscriptions_count = subscriptions_count unless subscriptions_count == SKIP
@@ -92,12 +88,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSaleRepItem.new(id,
-                          full_name,
-                          subscriptions_count,
-                          mrr_data,
-                          test_mode,
-                          hash)
+      ListSaleRepItem.new(id: id,
+                          full_name: full_name,
+                          subscriptions_count: subscriptions_count,
+                          mrr_data: mrr_data,
+                          test_mode: test_mode,
+                          additional_properties: hash)
     end
   end
 end

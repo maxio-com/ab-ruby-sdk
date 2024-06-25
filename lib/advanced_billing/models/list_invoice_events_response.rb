@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(events = SKIP,
-                   page = SKIP,
-                   per_page = SKIP,
-                   total_pages = SKIP,
-                   additional_properties = {})
+    def initialize(events: SKIP, page: SKIP, per_page: SKIP, total_pages: SKIP,
+                   additional_properties: {})
       @events = events unless events == SKIP
       @page = page unless page == SKIP
       @per_page = per_page unless per_page == SKIP
@@ -82,11 +79,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListInvoiceEventsResponse.new(events,
-                                    page,
-                                    per_page,
-                                    total_pages,
-                                    hash)
+      ListInvoiceEventsResponse.new(events: events,
+                                    page: page,
+                                    per_page: per_page,
+                                    total_pages: total_pages,
+                                    additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

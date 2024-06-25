@@ -81,16 +81,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   subscription_group_uid = SKIP,
-                   amount_in_cents = SKIP,
-                   remaining_amount_in_cents = SKIP,
-                   details = SKIP,
-                   external = SKIP,
-                   memo = SKIP,
-                   payment_type = SKIP,
-                   created_at = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, subscription_group_uid: SKIP,
+                   amount_in_cents: SKIP, remaining_amount_in_cents: SKIP,
+                   details: SKIP, external: SKIP, memo: SKIP,
+                   payment_type: SKIP, created_at: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @subscription_group_uid = subscription_group_uid unless subscription_group_uid == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -136,16 +131,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSubcriptionGroupPrepaymentItem.new(id,
-                                             subscription_group_uid,
-                                             amount_in_cents,
-                                             remaining_amount_in_cents,
-                                             details,
-                                             external,
-                                             memo,
-                                             payment_type,
-                                             created_at,
-                                             hash)
+      ListSubcriptionGroupPrepaymentItem.new(id: id,
+                                             subscription_group_uid: subscription_group_uid,
+                                             amount_in_cents: amount_in_cents,
+                                             remaining_amount_in_cents: remaining_amount_in_cents,
+                                             details: details,
+                                             external: external,
+                                             memo: memo,
+                                             payment_type: payment_type,
+                                             created_at: created_at,
+                                             additional_properties: hash)
     end
 
     def to_custom_created_at

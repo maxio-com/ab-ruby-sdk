@@ -70,18 +70,14 @@ def create_metafields(resource_type,
 resource_type = ResourceType::SUBSCRIPTIONS
 
 body = CreateMetafieldsRequest.new(
-  CreateMetafield.new(
-    'Dropdown field',
-    MetafieldScope.new(
-      nil,
-      nil,
-      nil,
-      nil,
-      IncludeOption::INCLUDE,
-      IncludeOption::INCLUDE
+  metafields: CreateMetafield.new(
+    name: 'Dropdown field',
+    scope: MetafieldScope.new(
+      public_show: IncludeOption::INCLUDE,
+      public_edit: IncludeOption::INCLUDE
     ),
-    MetafieldInput::DROPDOWN,
-    [
+    input_type: MetafieldInput::DROPDOWN,
+    enum: [
       'option 1',
       'option 2'
     ]
@@ -318,14 +314,14 @@ resource_type = ResourceType::SUBSCRIPTIONS
 resource_id = 60
 
 body = CreateMetadataRequest.new(
-  [
+  metadata: [
     CreateMetadata.new(
-      'Color',
-      'Blue'
+      name: 'Color',
+      value: 'Blue'
     ),
     CreateMetadata.new(
-      'Something',
-      'Useful'
+      name: 'Something',
+      value: 'Useful'
     )
   ]
 )

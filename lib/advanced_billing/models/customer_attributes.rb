@@ -157,25 +157,12 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(first_name = SKIP,
-                   last_name = SKIP,
-                   email = SKIP,
-                   cc_emails = SKIP,
-                   organization = SKIP,
-                   reference = SKIP,
-                   address = SKIP,
-                   address_2 = SKIP,
-                   city = SKIP,
-                   state = SKIP,
-                   zip = SKIP,
-                   country = SKIP,
-                   phone = SKIP,
-                   verified = SKIP,
-                   tax_exempt = SKIP,
-                   vat_number = SKIP,
-                   metafields = SKIP,
-                   parent_id = SKIP,
-                   additional_properties = {})
+    def initialize(first_name: SKIP, last_name: SKIP, email: SKIP,
+                   cc_emails: SKIP, organization: SKIP, reference: SKIP,
+                   address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
+                   zip: SKIP, country: SKIP, phone: SKIP, verified: SKIP,
+                   tax_exempt: SKIP, vat_number: SKIP, metafields: SKIP,
+                   parent_id: SKIP, additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -229,25 +216,25 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CustomerAttributes.new(first_name,
-                             last_name,
-                             email,
-                             cc_emails,
-                             organization,
-                             reference,
-                             address,
-                             address_2,
-                             city,
-                             state,
-                             zip,
-                             country,
-                             phone,
-                             verified,
-                             tax_exempt,
-                             vat_number,
-                             metafields,
-                             parent_id,
-                             hash)
+      CustomerAttributes.new(first_name: first_name,
+                             last_name: last_name,
+                             email: email,
+                             cc_emails: cc_emails,
+                             organization: organization,
+                             reference: reference,
+                             address: address,
+                             address_2: address_2,
+                             city: city,
+                             state: state,
+                             zip: zip,
+                             country: country,
+                             phone: phone,
+                             verified: verified,
+                             tax_exempt: tax_exempt,
+                             vat_number: vat_number,
+                             metafields: metafields,
+                             parent_id: parent_id,
+                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

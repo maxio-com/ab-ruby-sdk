@@ -52,11 +52,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(initial_funding_amount_in_cents = SKIP,
-                   replenish_to_amount_in_cents = SKIP,
-                   auto_replenish = SKIP,
-                   replenish_threshold_amount_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(initial_funding_amount_in_cents: SKIP,
+                   replenish_to_amount_in_cents: SKIP, auto_replenish: SKIP,
+                   replenish_threshold_amount_in_cents: SKIP,
+                   additional_properties: {})
       unless initial_funding_amount_in_cents == SKIP
         @initial_funding_amount_in_cents =
           initial_funding_amount_in_cents
@@ -95,11 +94,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpsertPrepaidConfiguration.new(initial_funding_amount_in_cents,
-                                     replenish_to_amount_in_cents,
-                                     auto_replenish,
-                                     replenish_threshold_amount_in_cents,
-                                     hash)
+      UpsertPrepaidConfiguration.new(initial_funding_amount_in_cents: initial_funding_amount_in_cents,
+                                     replenish_to_amount_in_cents: replenish_to_amount_in_cents,
+                                     auto_replenish: auto_replenish,
+                                     replenish_threshold_amount_in_cents: replenish_threshold_amount_in_cents,
+                                     additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -90,17 +90,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   reference = SKIP,
-                   product_id = SKIP,
-                   product_handle = SKIP,
-                   product_price_point_id = SKIP,
-                   product_price_point_handle = SKIP,
-                   currency = SKIP,
-                   coupon_code = SKIP,
-                   total_revenue_in_cents = SKIP,
-                   balance_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, reference: SKIP, product_id: SKIP,
+                   product_handle: SKIP, product_price_point_id: SKIP,
+                   product_price_point_handle: SKIP, currency: SKIP,
+                   coupon_code: SKIP, total_revenue_in_cents: SKIP,
+                   balance_in_cents: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @reference = reference unless reference == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -146,17 +140,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupItem.new(id,
-                                reference,
-                                product_id,
-                                product_handle,
-                                product_price_point_id,
-                                product_price_point_handle,
-                                currency,
-                                coupon_code,
-                                total_revenue_in_cents,
-                                balance_in_cents,
-                                hash)
+      SubscriptionGroupItem.new(id: id,
+                                reference: reference,
+                                product_id: product_id,
+                                product_handle: product_handle,
+                                product_price_point_id: product_price_point_id,
+                                product_price_point_handle: product_price_point_handle,
+                                currency: currency,
+                                coupon_code: coupon_code,
+                                total_revenue_in_cents: total_revenue_in_cents,
+                                balance_in_cents: balance_in_cents,
+                                additional_properties: hash)
     end
   end
 end

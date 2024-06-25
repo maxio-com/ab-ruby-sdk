@@ -160,24 +160,14 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name = nil,
-                   unit_name = nil,
-                   pricing_scheme = nil,
-                   event_based_billing_metric_id = nil,
-                   description = SKIP,
-                   handle = SKIP,
-                   taxable = SKIP,
-                   prices = SKIP,
-                   upgrade_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   price_points = SKIP,
-                   unit_price = SKIP,
-                   tax_code = SKIP,
-                   hide_date_range_on_invoice = SKIP,
-                   price_in_cents = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   additional_properties = {})
+    def initialize(name:, unit_name:, pricing_scheme:,
+                   event_based_billing_metric_id:, description: SKIP,
+                   handle: SKIP, taxable: SKIP, prices: SKIP,
+                   upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
+                   hide_date_range_on_invoice: SKIP, price_in_cents: SKIP,
+                   interval: SKIP, interval_unit: SKIP,
+                   additional_properties: {})
       @name = name
       @unit_name = unit_name
       @description = description unless description == SKIP
@@ -258,24 +248,24 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      EBBComponent.new(name,
-                       unit_name,
-                       pricing_scheme,
-                       event_based_billing_metric_id,
-                       description,
-                       handle,
-                       taxable,
-                       prices,
-                       upgrade_charge,
-                       downgrade_credit,
-                       price_points,
-                       unit_price,
-                       tax_code,
-                       hide_date_range_on_invoice,
-                       price_in_cents,
-                       interval,
-                       interval_unit,
-                       hash)
+      EBBComponent.new(name: name,
+                       unit_name: unit_name,
+                       pricing_scheme: pricing_scheme,
+                       event_based_billing_metric_id: event_based_billing_metric_id,
+                       description: description,
+                       handle: handle,
+                       taxable: taxable,
+                       prices: prices,
+                       upgrade_charge: upgrade_charge,
+                       downgrade_credit: downgrade_credit,
+                       price_points: price_points,
+                       unit_price: unit_price,
+                       tax_code: tax_code,
+                       hide_date_range_on_invoice: hide_date_range_on_invoice,
+                       price_in_cents: price_in_cents,
+                       interval: interval,
+                       interval_unit: interval_unit,
+                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

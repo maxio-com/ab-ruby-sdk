@@ -10,7 +10,7 @@ The following parameters are configurable for the API Client:
 | `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
-| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 30** |
+| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 120** |
 | `max_retries` | `Integer` | The number of times to retry an endpoint call if it fails. <br> **Default: 0** |
 | `retry_interval` | `Float` | Pause in seconds between retries. <br> **Default: 1** |
 | `backoff_factor` | `Float` | The amount to multiply each successive retry's interval amount by in order to provide backoff. <br> **Default: 2** |
@@ -46,6 +46,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | billing_portal | Gets BillingPortalController |
 | coupons | Gets CouponsController |
 | components | Gets ComponentsController |
+| component_price_points | Gets ComponentPricePointsController |
 | customers | Gets CustomersController |
 | custom_fields | Gets CustomFieldsController |
 | events | Gets EventsController |

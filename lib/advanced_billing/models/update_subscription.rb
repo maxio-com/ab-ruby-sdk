@@ -147,24 +147,17 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(credit_card_attributes = SKIP,
-                   product_handle = SKIP,
-                   product_id = SKIP,
-                   product_change_delayed = SKIP,
-                   next_product_id = SKIP,
-                   next_product_price_point_id = SKIP,
-                   snap_day = SKIP,
-                   next_billing_at = SKIP,
-                   payment_collection_method = SKIP,
-                   receives_invoice_emails = SKIP,
-                   net_terms = SKIP,
-                   stored_credential_transaction_id = SKIP,
-                   reference = SKIP,
-                   custom_price = SKIP,
-                   components = SKIP,
-                   dunning_communication_delay_enabled = SKIP,
-                   dunning_communication_delay_time_zone = SKIP,
-                   additional_properties = {})
+    def initialize(credit_card_attributes: SKIP, product_handle: SKIP,
+                   product_id: SKIP, product_change_delayed: SKIP,
+                   next_product_id: SKIP, next_product_price_point_id: SKIP,
+                   snap_day: SKIP, next_billing_at: SKIP,
+                   payment_collection_method: SKIP,
+                   receives_invoice_emails: SKIP, net_terms: SKIP,
+                   stored_credential_transaction_id: SKIP, reference: SKIP,
+                   custom_price: SKIP, components: SKIP,
+                   dunning_communication_delay_enabled: SKIP,
+                   dunning_communication_delay_time_zone: SKIP,
+                   additional_properties: {})
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -259,24 +252,24 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateSubscription.new(credit_card_attributes,
-                             product_handle,
-                             product_id,
-                             product_change_delayed,
-                             next_product_id,
-                             next_product_price_point_id,
-                             snap_day,
-                             next_billing_at,
-                             payment_collection_method,
-                             receives_invoice_emails,
-                             net_terms,
-                             stored_credential_transaction_id,
-                             reference,
-                             custom_price,
-                             components,
-                             dunning_communication_delay_enabled,
-                             dunning_communication_delay_time_zone,
-                             hash)
+      UpdateSubscription.new(credit_card_attributes: credit_card_attributes,
+                             product_handle: product_handle,
+                             product_id: product_id,
+                             product_change_delayed: product_change_delayed,
+                             next_product_id: next_product_id,
+                             next_product_price_point_id: next_product_price_point_id,
+                             snap_day: snap_day,
+                             next_billing_at: next_billing_at,
+                             payment_collection_method: payment_collection_method,
+                             receives_invoice_emails: receives_invoice_emails,
+                             net_terms: net_terms,
+                             stored_credential_transaction_id: stored_credential_transaction_id,
+                             reference: reference,
+                             custom_price: custom_price,
+                             components: components,
+                             dunning_communication_delay_enabled: dunning_communication_delay_enabled,
+                             dunning_communication_delay_time_zone: dunning_communication_delay_time_zone,
+                             additional_properties: hash)
     end
 
     def to_custom_next_billing_at

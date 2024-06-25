@@ -35,9 +35,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_group = nil,
-                   customer = nil,
-                   additional_properties = {})
+    def initialize(subscription_group:, customer:, additional_properties: {})
       @subscription_group = subscription_group
       @customer = customer
 
@@ -61,9 +59,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignupSuccess.new(subscription_group,
-                                         customer,
-                                         hash)
+      SubscriptionGroupSignupSuccess.new(subscription_group: subscription_group,
+                                         customer: customer,
+                                         additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

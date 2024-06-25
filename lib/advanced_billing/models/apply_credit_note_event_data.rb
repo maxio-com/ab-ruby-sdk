@@ -90,17 +90,10 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(uid = nil,
-                   credit_note_number = nil,
-                   credit_note_uid = nil,
-                   original_amount = nil,
-                   applied_amount = nil,
-                   transaction_time = SKIP,
-                   memo = SKIP,
-                   role = SKIP,
-                   consolidated_invoice = SKIP,
-                   applied_credit_notes = SKIP,
-                   additional_properties = {})
+    def initialize(uid:, credit_note_number:, credit_note_uid:,
+                   original_amount:, applied_amount:, transaction_time: SKIP,
+                   memo: SKIP, role: SKIP, consolidated_invoice: SKIP,
+                   applied_credit_notes: SKIP, additional_properties: {})
       @uid = uid
       @credit_note_number = credit_note_number
       @credit_note_uid = credit_note_uid
@@ -156,17 +149,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ApplyCreditNoteEventData.new(uid,
-                                   credit_note_number,
-                                   credit_note_uid,
-                                   original_amount,
-                                   applied_amount,
-                                   transaction_time,
-                                   memo,
-                                   role,
-                                   consolidated_invoice,
-                                   applied_credit_notes,
-                                   hash)
+      ApplyCreditNoteEventData.new(uid: uid,
+                                   credit_note_number: credit_note_number,
+                                   credit_note_uid: credit_note_uid,
+                                   original_amount: original_amount,
+                                   applied_amount: applied_amount,
+                                   transaction_time: transaction_time,
+                                   memo: memo,
+                                   role: role,
+                                   consolidated_invoice: consolidated_invoice,
+                                   applied_credit_notes: applied_credit_notes,
+                                   additional_properties: hash)
     end
 
     def to_custom_transaction_time

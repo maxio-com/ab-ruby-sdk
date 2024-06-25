@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(chargify = SKIP,
-                   additional_properties = {})
+    def initialize(chargify: SKIP, additional_properties: {})
       @chargify = chargify unless chargify == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      EBBEvent.new(chargify,
-                   hash)
+      EBBEvent.new(chargify: chargify,
+                   additional_properties: hash)
     end
   end
 end

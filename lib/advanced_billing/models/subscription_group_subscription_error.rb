@@ -77,15 +77,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product = SKIP,
-                   product_price_point_id = SKIP,
-                   payment_profile = SKIP,
-                   payment_profile_chargify_token = SKIP,
-                   base = SKIP,
-                   payment_profile_expiration_month = SKIP,
-                   payment_profile_expiration_year = SKIP,
-                   payment_profile_full_number = SKIP,
-                   additional_properties = {})
+    def initialize(product: SKIP, product_price_point_id: SKIP,
+                   payment_profile: SKIP, payment_profile_chargify_token: SKIP,
+                   base: SKIP, payment_profile_expiration_month: SKIP,
+                   payment_profile_expiration_year: SKIP,
+                   payment_profile_full_number: SKIP, additional_properties: {})
       @product = product unless product == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
@@ -137,15 +133,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSubscriptionError.new(product,
-                                             product_price_point_id,
-                                             payment_profile,
-                                             payment_profile_chargify_token,
-                                             base,
-                                             payment_profile_expiration_month,
-                                             payment_profile_expiration_year,
-                                             payment_profile_full_number,
-                                             hash)
+      SubscriptionGroupSubscriptionError.new(product: product,
+                                             product_price_point_id: product_price_point_id,
+                                             payment_profile: payment_profile,
+                                             payment_profile_chargify_token: payment_profile_chargify_token,
+                                             base: base,
+                                             payment_profile_expiration_month: payment_profile_expiration_month,
+                                             payment_profile_expiration_year: payment_profile_expiration_year,
+                                             payment_profile_full_number: payment_profile_full_number,
+                                             additional_properties: hash)
     end
   end
 end

@@ -15,19 +15,19 @@ RSpec.describe 'Component allocations' do
     allocation_preview = @client.subscription_components.preview_allocations(
       @subscription.id,
       body: AdvancedBilling::PreviewAllocationsRequest.new(
-        [
+        allocations: [
           AdvancedBilling::CreateAllocation.new(
-            1,
-            @on_off_component.id,
-            'foo'
+            quantity: 1,
+            component_id: @on_off_component.id,
+            memo: 'foo'
           ),
           AdvancedBilling::CreateAllocation.new(
-            '10.3',
-            @quantity_based_component.id,
-            'bar'
+            quantity: '10.3',
+            component_id: @quantity_based_component.id,
+            memo: 'bar'
           ),
         ],
-        Date.iso8601((Date.today).strftime("%Y-%m-%d"))
+        effective_proration_date: Date.iso8601((Date.today).strftime("%Y-%m-%d"))
       )
     ).allocation_preview
 
@@ -42,18 +42,18 @@ RSpec.describe 'Component allocations' do
     response = @client.subscription_components.allocate_components(
       @subscription.id,
       body: AdvancedBilling::AllocateComponents.new(
-        'prorate-attempt-capture',
-        'no-prorate',
-        [
+        proration_upgrade_scheme: 'prorate-attempt-capture',
+        proration_downgrade_scheme: 'no-prorate',
+        allocations: [
           AdvancedBilling::CreateAllocation.new(
-            1,
-            @on_off_component.id,
-            'foo'
+            quantity: 1,
+            component_id: @on_off_component.id,
+            memo: 'foo'
           ),
           AdvancedBilling::CreateAllocation.new(
-            '10.3',
-            @quantity_based_component.id,
-            'bar'
+            quantity: '10.3',
+            component_id: @quantity_based_component.id,
+            memo: 'bar'
           ),
         ]
       )
@@ -77,19 +77,19 @@ RSpec.describe 'Component allocations' do
       @client.subscription_components.preview_allocations(
         @subscription.id,
         body: AdvancedBilling::PreviewAllocationsRequest.new(
-          [
+          allocations: [
             AdvancedBilling::CreateAllocation.new(
-              50,
-              @on_off_component.id,
-              'foo'
+              quantity: 50,
+              component_id: @on_off_component.id,
+              memo: 'foo'
             ),
             AdvancedBilling::CreateAllocation.new(
-              '10.3',
-              @quantity_based_component.id,
-              'bar'
+              quantity: '10.3',
+              component_id: @quantity_based_component.id,
+              memo: 'bar'
             ),
           ],
-          Date.iso8601((Date.today).strftime("%Y-%m-%d"))
+          effective_proration_date: Date.iso8601((Date.today).strftime("%Y-%m-%d"))
         )
       )
     }.to raise_error do |error|

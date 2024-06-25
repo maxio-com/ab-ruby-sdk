@@ -51,10 +51,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(upgrade_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   accrue_charge = SKIP,
-                   additional_properties = {})
+    def initialize(upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   accrue_charge: SKIP, additional_properties: {})
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @accrue_charge = accrue_charge unless accrue_charge == SKIP
@@ -80,10 +78,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AllocationSettings.new(upgrade_charge,
-                             downgrade_credit,
-                             accrue_charge,
-                             hash)
+      AllocationSettings.new(upgrade_charge: upgrade_charge,
+                             downgrade_credit: downgrade_credit,
+                             accrue_charge: accrue_charge,
+                             additional_properties: hash)
     end
   end
 end

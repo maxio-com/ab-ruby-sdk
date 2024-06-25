@@ -37,9 +37,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(payment = nil,
-                   type = SKIP,
-                   additional_properties = {})
+    def initialize(payment:, type: SKIP, additional_properties: {})
       @payment = payment
       @type = type unless type == SKIP
 
@@ -61,9 +59,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateInvoicePaymentRequest.new(payment,
-                                      type,
-                                      hash)
+      CreateInvoicePaymentRequest.new(payment: payment,
+                                      type: type,
+                                      additional_properties: hash)
     end
   end
 end

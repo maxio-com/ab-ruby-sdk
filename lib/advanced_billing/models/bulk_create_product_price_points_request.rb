@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_points = nil,
-                   additional_properties = {})
+    def initialize(price_points:, additional_properties: {})
       @price_points = price_points
 
       # Add additional model properties to the instance.
@@ -60,8 +59,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BulkCreateProductPricePointsRequest.new(price_points,
-                                              hash)
+      BulkCreateProductPricePointsRequest.new(price_points: price_points,
+                                              additional_properties: hash)
     end
   end
 end

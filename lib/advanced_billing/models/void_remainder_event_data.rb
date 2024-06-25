@@ -47,11 +47,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(credit_note_attributes = nil,
-                   memo = nil,
-                   applied_amount = nil,
-                   transaction_time = nil,
-                   additional_properties = {})
+    def initialize(credit_note_attributes:, memo:, applied_amount:,
+                   transaction_time:, additional_properties: {})
       @credit_note_attributes = credit_note_attributes
       @memo = memo
       @applied_amount = applied_amount
@@ -81,11 +78,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      VoidRemainderEventData.new(credit_note_attributes,
-                                 memo,
-                                 applied_amount,
-                                 transaction_time,
-                                 hash)
+      VoidRemainderEventData.new(credit_note_attributes: credit_note_attributes,
+                                 memo: memo,
+                                 applied_amount: applied_amount,
+                                 transaction_time: transaction_time,
+                                 additional_properties: hash)
     end
 
     def to_custom_transaction_time

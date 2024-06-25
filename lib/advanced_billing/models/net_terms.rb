@@ -57,12 +57,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(default_net_terms = 0,
-                   automatic_net_terms = 0,
-                   remittance_net_terms = 0,
-                   net_terms_on_remittance_signups_enabled = false,
-                   custom_net_terms_enabled = false,
-                   additional_properties = {})
+    def initialize(default_net_terms: 0, automatic_net_terms: 0,
+                   remittance_net_terms: 0,
+                   net_terms_on_remittance_signups_enabled: false,
+                   custom_net_terms_enabled: false, additional_properties: {})
       @default_net_terms = default_net_terms unless default_net_terms == SKIP
       @automatic_net_terms = automatic_net_terms unless automatic_net_terms == SKIP
       @remittance_net_terms = remittance_net_terms unless remittance_net_terms == SKIP
@@ -94,12 +92,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      NetTerms.new(default_net_terms,
-                   automatic_net_terms,
-                   remittance_net_terms,
-                   net_terms_on_remittance_signups_enabled,
-                   custom_net_terms_enabled,
-                   hash)
+      NetTerms.new(default_net_terms: default_net_terms,
+                   automatic_net_terms: automatic_net_terms,
+                   remittance_net_terms: remittance_net_terms,
+                   net_terms_on_remittance_signups_enabled: net_terms_on_remittance_signups_enabled,
+                   custom_net_terms_enabled: custom_net_terms_enabled,
+                   additional_properties: hash)
     end
   end
 end

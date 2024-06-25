@@ -250,7 +250,7 @@ def list_mrr_per_subscription(options = {})
 ```ruby
 collect = {
   'filter': ListMrrFilter.new(
-    [
+    subscription_ids: [
       1,
       2,
       3

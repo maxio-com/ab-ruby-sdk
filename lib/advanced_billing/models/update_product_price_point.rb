@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(handle = SKIP,
-                   price_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(handle: SKIP, price_in_cents: SKIP,
+                   additional_properties: {})
       @handle = handle unless handle == SKIP
       @price_in_cents = price_in_cents unless price_in_cents == SKIP
 
@@ -63,9 +62,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateProductPricePoint.new(handle,
-                                  price_in_cents,
-                                  hash)
+      UpdateProductPricePoint.new(handle: handle,
+                                  price_in_cents: price_in_cents,
+                                  additional_properties: hash)
     end
   end
 end

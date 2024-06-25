@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(resume = SKIP,
-                   resume_members = SKIP,
-                   additional_properties = {})
+    def initialize(resume: SKIP, resume_members: SKIP,
+                   additional_properties: {})
       @resume = resume unless resume == SKIP
       @resume_members = resume_members unless resume_members == SKIP
 
@@ -63,9 +62,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReactivateSubscriptionGroupRequest.new(resume,
-                                             resume_members,
-                                             hash)
+      ReactivateSubscriptionGroupRequest.new(resume: resume,
+                                             resume_members: resume_members,
+                                             additional_properties: hash)
     end
   end
 end

@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(kind = SKIP,
-                   message = SKIP,
-                   additional_properties = {})
+    def initialize(kind: SKIP, message: SKIP, additional_properties: {})
       @kind = kind unless kind == SKIP
       @message = message unless message == SKIP
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionComponentAllocationErrorItem.new(kind,
-                                                   message,
-                                                   hash)
+      SubscriptionComponentAllocationErrorItem.new(kind: kind,
+                                                   message: message,
+                                                   additional_properties: hash)
     end
   end
 end

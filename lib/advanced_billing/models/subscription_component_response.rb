@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component = SKIP,
-                   additional_properties = {})
+    def initialize(component: SKIP, additional_properties: {})
       @component = component unless component == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionComponentResponse.new(component,
-                                        hash)
+      SubscriptionComponentResponse.new(component: component,
+                                        additional_properties: hash)
     end
   end
 end

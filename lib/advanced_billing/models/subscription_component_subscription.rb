@@ -176,9 +176,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(state = SKIP,
-                   updated_at = SKIP,
-                   additional_properties = {})
+    def initialize(state: SKIP, updated_at: SKIP, additional_properties: {})
       @state = state unless state == SKIP
       @updated_at = updated_at unless updated_at == SKIP
 
@@ -204,9 +202,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionComponentSubscription.new(state,
-                                            updated_at,
-                                            hash)
+      SubscriptionComponentSubscription.new(state: state,
+                                            updated_at: updated_at,
+                                            additional_properties: hash)
     end
 
     def to_custom_updated_at

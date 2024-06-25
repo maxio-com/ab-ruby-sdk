@@ -53,10 +53,10 @@ def create_reason_code(body: nil)
 
 ```ruby
 body = CreateReasonCodeRequest.new(
-  CreateReasonCode.new(
-    'NOTHANKYOU',
-    'No thank you!',
-    5
+  reason_code: CreateReasonCode.new(
+    code: 'NOTHANKYOU',
+    description: 'No thank you!',
+    position: 5
   )
 )
 

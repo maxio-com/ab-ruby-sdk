@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(ids = nil,
-                   additional_properties = {})
+    def initialize(ids:, additional_properties: {})
       @ids = ids
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReplayWebhooksRequest.new(ids,
-                                hash)
+      ReplayWebhooksRequest.new(ids: ids,
+                                additional_properties: hash)
     end
   end
 end

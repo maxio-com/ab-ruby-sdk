@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   type = SKIP,
-                   message = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, type: SKIP, message: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @type = type unless type == SKIP
       @message = message unless message == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupMemberError.new(id,
-                                       type,
-                                       message,
-                                       hash)
+      SubscriptionGroupMemberError.new(id: id,
+                                       type: type,
+                                       message: message,
+                                       additional_properties: hash)
     end
   end
 end

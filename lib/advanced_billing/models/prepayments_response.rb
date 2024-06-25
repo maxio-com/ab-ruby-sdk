@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepayments = SKIP,
-                   additional_properties = {})
+    def initialize(prepayments: SKIP, additional_properties: {})
       @prepayments = prepayments unless prepayments == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PrepaymentsResponse.new(prepayments,
-                              hash)
+      PrepaymentsResponse.new(prepayments: prepayments,
+                              additional_properties: hash)
     end
   end
 end

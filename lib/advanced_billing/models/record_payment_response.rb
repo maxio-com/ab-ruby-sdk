@@ -40,9 +40,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(paid_invoices = SKIP,
-                   prepayment = SKIP,
-                   additional_properties = {})
+    def initialize(paid_invoices: SKIP, prepayment: SKIP,
+                   additional_properties: {})
       @paid_invoices = paid_invoices unless paid_invoices == SKIP
       @prepayment = prepayment unless prepayment == SKIP
 
@@ -73,9 +72,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RecordPaymentResponse.new(paid_invoices,
-                                prepayment,
-                                hash)
+      RecordPaymentResponse.new(paid_invoices: paid_invoices,
+                                prepayment: prepayment,
+                                additional_properties: hash)
     end
   end
 end

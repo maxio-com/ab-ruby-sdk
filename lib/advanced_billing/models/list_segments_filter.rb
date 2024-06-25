@@ -59,11 +59,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(segment_property_1_value = SKIP,
-                   segment_property_2_value = SKIP,
-                   segment_property_3_value = SKIP,
-                   segment_property_4_value = SKIP,
-                   additional_properties = {})
+    def initialize(segment_property_1_value: SKIP,
+                   segment_property_2_value: SKIP,
+                   segment_property_3_value: SKIP,
+                   segment_property_4_value: SKIP, additional_properties: {})
       @segment_property_1_value = segment_property_1_value unless segment_property_1_value == SKIP
       @segment_property_2_value = segment_property_2_value unless segment_property_2_value == SKIP
       @segment_property_3_value = segment_property_3_value unless segment_property_3_value == SKIP
@@ -93,11 +92,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSegmentsFilter.new(segment_property_1_value,
-                             segment_property_2_value,
-                             segment_property_3_value,
-                             segment_property_4_value,
-                             hash)
+      ListSegmentsFilter.new(segment_property_1_value: segment_property_1_value,
+                             segment_property_2_value: segment_property_2_value,
+                             segment_property_3_value: segment_property_3_value,
+                             segment_property_4_value: segment_property_4_value,
+                             additional_properties: hash)
     end
   end
 end

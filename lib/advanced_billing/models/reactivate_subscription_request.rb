@@ -69,13 +69,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(calendar_billing = SKIP,
-                   include_trial = SKIP,
-                   preserve_balance = SKIP,
-                   coupon_code = SKIP,
-                   use_credits_and_prepayments = SKIP,
-                   resume = SKIP,
-                   additional_properties = {})
+    def initialize(calendar_billing: SKIP, include_trial: SKIP,
+                   preserve_balance: SKIP, coupon_code: SKIP,
+                   use_credits_and_prepayments: SKIP, resume: SKIP,
+                   additional_properties: {})
       @calendar_billing = calendar_billing unless calendar_billing == SKIP
       @include_trial = include_trial unless include_trial == SKIP
       @preserve_balance = preserve_balance unless preserve_balance == SKIP
@@ -113,13 +110,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReactivateSubscriptionRequest.new(calendar_billing,
-                                        include_trial,
-                                        preserve_balance,
-                                        coupon_code,
-                                        use_credits_and_prepayments,
-                                        resume,
-                                        hash)
+      ReactivateSubscriptionRequest.new(calendar_billing: calendar_billing,
+                                        include_trial: include_trial,
+                                        preserve_balance: preserve_balance,
+                                        coupon_code: coupon_code,
+                                        use_credits_and_prepayments: use_credits_and_prepayments,
+                                        resume: resume,
+                                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(allocation = nil,
-                   additional_properties = {})
+    def initialize(allocation:, additional_properties: {})
       @allocation = allocation
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateAllocationRequest.new(allocation,
-                                  hash)
+      CreateAllocationRequest.new(allocation: allocation,
+                                  additional_properties: hash)
     end
   end
 end

@@ -51,10 +51,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(accrue = false,
-                   align_date = false,
-                   prorate = false,
-                   additional_properties = {})
+    def initialize(accrue: false, align_date: false, prorate: false,
+                   additional_properties: {})
       @accrue = accrue unless accrue == SKIP
       @align_date = align_date unless align_date == SKIP
       @prorate = prorate unless prorate == SKIP
@@ -78,10 +76,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      GroupBilling.new(accrue,
-                       align_date,
-                       prorate,
-                       hash)
+      GroupBilling.new(accrue: accrue,
+                       align_date: align_date,
+                       prorate: prorate,
+                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -51,12 +51,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = nil,
-                   timestamp = nil,
-                   invoice = nil,
-                   event_type = InvoiceEventType::APPLY_CREDIT_NOTE,
-                   event_data = nil,
-                   additional_properties = {})
+    def initialize(id:, timestamp:, invoice:,
+                   event_type: InvoiceEventType::APPLY_CREDIT_NOTE, event_data:,
+                   additional_properties: {})
       @id = id
       @timestamp = timestamp
       @invoice = invoice
@@ -86,12 +83,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ApplyCreditNoteEvent.new(id,
-                               timestamp,
-                               invoice,
-                               event_type,
-                               event_data,
-                               hash)
+      ApplyCreditNoteEvent.new(id: id,
+                               timestamp: timestamp,
+                               invoice: invoice,
+                               event_type: event_type,
+                               event_data: event_data,
+                               additional_properties: hash)
     end
 
     def to_custom_timestamp

@@ -93,16 +93,10 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(handle = SKIP,
-                   name = SKIP,
-                   description = SKIP,
-                   accounting_code = SKIP,
-                   taxable = SKIP,
-                   tax_code = SKIP,
-                   item_category = SKIP,
-                   display_on_hosted_page = SKIP,
-                   upgrade_charge = SKIP,
-                   additional_properties = {})
+    def initialize(handle: SKIP, name: SKIP, description: SKIP,
+                   accounting_code: SKIP, taxable: SKIP, tax_code: SKIP,
+                   item_category: SKIP, display_on_hosted_page: SKIP,
+                   upgrade_charge: SKIP, additional_properties: {})
       @handle = handle unless handle == SKIP
       @name = name unless name == SKIP
       @description = description unless description == SKIP
@@ -141,16 +135,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateComponent.new(handle,
-                          name,
-                          description,
-                          accounting_code,
-                          taxable,
-                          tax_code,
-                          item_category,
-                          display_on_hosted_page,
-                          upgrade_charge,
-                          hash)
+      UpdateComponent.new(handle: handle,
+                          name: name,
+                          description: description,
+                          accounting_code: accounting_code,
+                          taxable: taxable,
+                          tax_code: tax_code,
+                          item_category: item_category,
+                          display_on_hosted_page: display_on_hosted_page,
+                          upgrade_charge: upgrade_charge,
+                          additional_properties: hash)
     end
   end
 end

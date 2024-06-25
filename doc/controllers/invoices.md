@@ -61,13 +61,13 @@ def refund_invoice(uid,
 uid = 'uid0'
 
 body = RefundInvoiceRequest.new(
-  RefundInvoice.new(
-    '100.00',
-    'Refund for Basic Plan renewal',
-    12345,
-    false,
-    false,
-    true
+  refund: RefundInvoice.new(
+    amount: '100.00',
+    memo: 'Refund for Basic Plan renewal',
+    payment_id: 12345,
+    external: false,
+    apply_credit: false,
+    void_invoice: true
   )
 )
 
@@ -1078,11 +1078,11 @@ def record_payment_for_invoice(uid,
 uid = 'uid0'
 
 body = CreateInvoicePaymentRequest.new(
-  CreateInvoicePayment.new(
-    124.33,
-    'for John Smith',
-    InvoicePaymentMethodType::CHECK,
-    '#0102'
+  payment: CreateInvoicePayment.new(
+    amount: 124.33,
+    memo: 'for John Smith',
+    method: InvoicePaymentMethodType::CHECK,
+    details: '#0102'
   )
 )
 
@@ -1146,21 +1146,21 @@ def record_payment_for_multiple_invoices(body: nil)
 
 ```ruby
 body = CreateMultiInvoicePaymentRequest.new(
-  CreateMultiInvoicePayment.new(
-    '100.00',
-    [
+  payment: CreateMultiInvoicePayment.new(
+    amount: '100.00',
+    applications: [
       CreateInvoicePaymentApplication.new(
-        'inv_8gk5bwkct3gqt',
-        '50.00'
+        invoice_uid: 'inv_8gk5bwkct3gqt',
+        amount: '50.00'
       ),
       CreateInvoicePaymentApplication.new(
-        'inv_7bc6bwkct3lyt',
-        '50.00'
+        invoice_uid: 'inv_7bc6bwkct3lyt',
+        amount: '50.00'
       )
     ],
-    'to pay the bills',
-    'check number 8675309',
-    InvoicePaymentMethodType::CHECK
+    memo: 'to pay the bills',
+    details: 'check number 8675309',
+    method: InvoicePaymentMethodType::CHECK
   )
 )
 
@@ -1869,11 +1869,11 @@ def record_payment_for_subscription(subscription_id,
 subscription_id = 222
 
 body = RecordPaymentRequest.new(
-  CreatePayment.new(
-    '10.0',
-    'to pay the bills',
-    'check number 8675309',
-    InvoicePaymentMethodType::CHECK
+  payment: CreatePayment.new(
+    amount: '10.0',
+    memo: 'to pay the bills',
+    payment_details: 'check number 8675309',
+    payment_method: InvoicePaymentMethodType::CHECK
   )
 )
 
@@ -1983,8 +1983,8 @@ def void_invoice(uid,
 uid = 'uid0'
 
 body = VoidInvoiceRequest.new(
-  VoidInvoice.new(
-    'Duplicate invoice'
+  void: VoidInvoice.new(
+    reason: 'Duplicate invoice'
   )
 )
 
@@ -2502,12 +2502,12 @@ def create_invoice(subscription_id,
 subscription_id = 222
 
 body = CreateInvoiceRequest.new(
-  CreateInvoice.new(
-    [
+  invoice: CreateInvoice.new(
+    line_items: [
       CreateInvoiceItem.new(
-        'A Product',
-        12,
-        '150.00'
+        title: 'A Product',
+        quantity: 12,
+        unit_price: '150.00'
       )
     ]
   )
@@ -2653,13 +2653,13 @@ def send_invoice(uid,
 uid = 'uid0'
 
 body = SendInvoiceRequest.new(
-  [
+  recipient_emails: [
     'user0@example.com'
   ],
-  [
+  cc_recipient_emails: [
     'user1@example.com'
   ],
-  [
+  bcc_recipient_emails: [
     'user2@example.com'
   ]
 )
@@ -3025,7 +3025,7 @@ def issue_invoice(uid,
 uid = 'uid0'
 
 body = IssueInvoiceRequest.new(
-  FailedPaymentAction::LEAVE_OPEN_INVOICE
+  on_failed_payment: FailedPaymentAction::LEAVE_OPEN_INVOICE
 )
 
 result = invoices_controller.issue_invoice(

@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(last_sent_at = SKIP,
-                   last_accepted_at = SKIP,
-                   uninvited_count = SKIP,
-                   additional_properties = {})
+    def initialize(last_sent_at: SKIP, last_accepted_at: SKIP,
+                   uninvited_count: SKIP, additional_properties: {})
       @last_sent_at = last_sent_at unless last_sent_at == SKIP
       @last_accepted_at = last_accepted_at unless last_accepted_at == SKIP
       @uninvited_count = uninvited_count unless uninvited_count == SKIP
@@ -73,10 +71,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RevokedInvitation.new(last_sent_at,
-                            last_accepted_at,
-                            uninvited_count,
-                            hash)
+      RevokedInvitation.new(last_sent_at: last_sent_at,
+                            last_accepted_at: last_accepted_at,
+                            uninvited_count: uninvited_count,
+                            additional_properties: hash)
     end
   end
 end

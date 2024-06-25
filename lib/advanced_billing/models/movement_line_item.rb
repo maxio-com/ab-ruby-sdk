@@ -88,16 +88,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product_id = SKIP,
-                   component_id = SKIP,
-                   price_point_id = SKIP,
-                   name = SKIP,
-                   mrr = SKIP,
-                   mrr_movements = SKIP,
-                   quantity = SKIP,
-                   prev_quantity = SKIP,
-                   recurring = SKIP,
-                   additional_properties = {})
+    def initialize(product_id: SKIP, component_id: SKIP, price_point_id: SKIP,
+                   name: SKIP, mrr: SKIP, mrr_movements: SKIP, quantity: SKIP,
+                   prev_quantity: SKIP, recurring: SKIP,
+                   additional_properties: {})
       @product_id = product_id unless product_id == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
@@ -143,16 +137,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      MovementLineItem.new(product_id,
-                           component_id,
-                           price_point_id,
-                           name,
-                           mrr,
-                           mrr_movements,
-                           quantity,
-                           prev_quantity,
-                           recurring,
-                           hash)
+      MovementLineItem.new(product_id: product_id,
+                           component_id: component_id,
+                           price_point_id: price_point_id,
+                           name: name,
+                           mrr: mrr,
+                           mrr_movements: mrr_movements,
+                           quantity: quantity,
+                           prev_quantity: prev_quantity,
+                           recurring: recurring,
+                           additional_properties: hash)
     end
   end
 end

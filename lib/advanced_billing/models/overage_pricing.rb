@@ -41,9 +41,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(pricing_scheme = nil,
-                   prices = SKIP,
-                   additional_properties = {})
+    def initialize(pricing_scheme:, prices: SKIP, additional_properties: {})
       @pricing_scheme = pricing_scheme
       @prices = prices unless prices == SKIP
 
@@ -75,9 +73,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      OveragePricing.new(pricing_scheme,
-                         prices,
-                         hash)
+      OveragePricing.new(pricing_scheme: pricing_scheme,
+                         prices: prices,
+                         additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(migration = nil,
-                   additional_properties = {})
+    def initialize(migration:, additional_properties: {})
       @migration = migration
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionProductMigrationRequest.new(migration,
-                                              hash)
+      SubscriptionProductMigrationRequest.new(migration: migration,
+                                              additional_properties: hash)
     end
   end
 end

@@ -111,19 +111,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(event = SKIP,
-                   id = SKIP,
-                   created_at = SKIP,
-                   last_error = SKIP,
-                   last_error_at = SKIP,
-                   accepted_at = SKIP,
-                   last_sent_at = SKIP,
-                   last_sent_url = SKIP,
-                   successful = SKIP,
-                   body = SKIP,
-                   signature = SKIP,
-                   signature_hmac_sha_256 = SKIP,
-                   additional_properties = {})
+    def initialize(event: SKIP, id: SKIP, created_at: SKIP, last_error: SKIP,
+                   last_error_at: SKIP, accepted_at: SKIP, last_sent_at: SKIP,
+                   last_sent_url: SKIP, successful: SKIP, body: SKIP,
+                   signature: SKIP, signature_hmac_sha_256: SKIP,
+                   additional_properties: {})
       @event = event unless event == SKIP
       @id = id unless id == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -182,19 +174,19 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Webhook.new(event,
-                  id,
-                  created_at,
-                  last_error,
-                  last_error_at,
-                  accepted_at,
-                  last_sent_at,
-                  last_sent_url,
-                  successful,
-                  body,
-                  signature,
-                  signature_hmac_sha_256,
-                  hash)
+      Webhook.new(event: event,
+                  id: id,
+                  created_at: created_at,
+                  last_error: last_error,
+                  last_error_at: last_error_at,
+                  accepted_at: accepted_at,
+                  last_sent_at: last_sent_at,
+                  last_sent_url: last_sent_url,
+                  successful: successful,
+                  body: body,
+                  signature: signature,
+                  signature_hmac_sha_256: signature_hmac_sha_256,
+                  additional_properties: hash)
     end
 
     def to_custom_created_at

@@ -40,7 +40,7 @@ module Factories
 
       client.subscriptions.create_subscription(
         body: AdvancedBilling::CreateSubscriptionRequest.new(
-          AdvancedBilling::CreateSubscription.from_hash(subscription_attributes)
+          subscription: AdvancedBilling::CreateSubscription.from_hash(subscription_attributes)
         )
       ).subscription
     end

@@ -44,10 +44,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = nil,
-                   pricing_scheme = nil,
-                   prices = nil,
-                   additional_properties = {})
+    def initialize(id:, pricing_scheme:, prices:, additional_properties: {})
       @id = id
       @pricing_scheme = pricing_scheme
       @prices = prices
@@ -81,10 +78,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BulkUpdateSegmentsItem.new(id,
-                                 pricing_scheme,
-                                 prices,
-                                 hash)
+      BulkUpdateSegmentsItem.new(id: id,
+                                 pricing_scheme: pricing_scheme,
+                                 prices: prices,
+                                 additional_properties: hash)
     end
   end
 end

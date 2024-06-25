@@ -48,11 +48,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(details = nil,
-                   kind = nil,
-                   memo = nil,
-                   type = nil,
-                   additional_properties = {})
+    def initialize(details:, kind:, memo:, type:, additional_properties: {})
       @details = details
       @kind = kind
       @memo = memo
@@ -78,11 +74,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentMethodExternal.new(details,
-                                kind,
-                                memo,
-                                type,
-                                hash)
+      PaymentMethodExternal.new(details: details,
+                                kind: kind,
+                                memo: memo,
+                                type: type,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

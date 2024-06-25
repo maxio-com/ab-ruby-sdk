@@ -56,12 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   url = SKIP,
-                   site_id = SKIP,
-                   status = SKIP,
-                   webhook_subscriptions = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, url: SKIP, site_id: SKIP, status: SKIP,
+                   webhook_subscriptions: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @url = url unless url == SKIP
       @site_id = site_id unless site_id == SKIP
@@ -90,12 +86,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Endpoint.new(id,
-                   url,
-                   site_id,
-                   status,
-                   webhook_subscriptions,
-                   hash)
+      Endpoint.new(id: id,
+                   url: url,
+                   site_id: site_id,
+                   status: status,
+                   webhook_subscriptions: webhook_subscriptions,
+                   additional_properties: hash)
     end
   end
 end

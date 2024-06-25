@@ -180,29 +180,16 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(masked_card_number = nil,
-                   id = SKIP,
-                   first_name = SKIP,
-                   last_name = SKIP,
-                   card_type = SKIP,
-                   expiration_month = SKIP,
-                   expiration_year = SKIP,
-                   customer_id = SKIP,
-                   current_vault = SKIP,
-                   vault_token = SKIP,
-                   billing_address = SKIP,
-                   billing_city = SKIP,
-                   billing_state = SKIP,
-                   billing_zip = SKIP,
-                   billing_country = SKIP,
-                   customer_vault_token = SKIP,
-                   billing_address_2 = SKIP,
-                   payment_type = SKIP,
-                   disabled = SKIP,
-                   chargify_token = SKIP,
-                   site_gateway_setting_id = SKIP,
-                   gateway_handle = SKIP,
-                   additional_properties = {})
+    def initialize(masked_card_number:, id: SKIP, first_name: SKIP,
+                   last_name: SKIP, card_type: SKIP, expiration_month: SKIP,
+                   expiration_year: SKIP, customer_id: SKIP,
+                   current_vault: SKIP, vault_token: SKIP,
+                   billing_address: SKIP, billing_city: SKIP,
+                   billing_state: SKIP, billing_zip: SKIP,
+                   billing_country: SKIP, customer_vault_token: SKIP,
+                   billing_address_2: SKIP, payment_type: SKIP, disabled: SKIP,
+                   chargify_token: SKIP, site_gateway_setting_id: SKIP,
+                   gateway_handle: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -274,29 +261,29 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreditCardPaymentProfile.new(masked_card_number,
-                                   id,
-                                   first_name,
-                                   last_name,
-                                   card_type,
-                                   expiration_month,
-                                   expiration_year,
-                                   customer_id,
-                                   current_vault,
-                                   vault_token,
-                                   billing_address,
-                                   billing_city,
-                                   billing_state,
-                                   billing_zip,
-                                   billing_country,
-                                   customer_vault_token,
-                                   billing_address_2,
-                                   payment_type,
-                                   disabled,
-                                   chargify_token,
-                                   site_gateway_setting_id,
-                                   gateway_handle,
-                                   hash)
+      CreditCardPaymentProfile.new(masked_card_number: masked_card_number,
+                                   id: id,
+                                   first_name: first_name,
+                                   last_name: last_name,
+                                   card_type: card_type,
+                                   expiration_month: expiration_month,
+                                   expiration_year: expiration_year,
+                                   customer_id: customer_id,
+                                   current_vault: current_vault,
+                                   vault_token: vault_token,
+                                   billing_address: billing_address,
+                                   billing_city: billing_city,
+                                   billing_state: billing_state,
+                                   billing_zip: billing_zip,
+                                   billing_country: billing_country,
+                                   customer_vault_token: customer_vault_token,
+                                   billing_address_2: billing_address_2,
+                                   payment_type: payment_type,
+                                   disabled: disabled,
+                                   chargify_token: chargify_token,
+                                   site_gateway_setting_id: site_gateway_setting_id,
+                                   gateway_handle: gateway_handle,
+                                   additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

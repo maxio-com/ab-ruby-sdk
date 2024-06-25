@@ -134,25 +134,12 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(first_name = nil,
-                   last_name = nil,
-                   email = nil,
-                   cc_emails = SKIP,
-                   organization = SKIP,
-                   reference = SKIP,
-                   address = SKIP,
-                   address_2 = SKIP,
-                   city = SKIP,
-                   state = SKIP,
-                   zip = SKIP,
-                   country = SKIP,
-                   phone = SKIP,
-                   locale = SKIP,
-                   vat_number = SKIP,
-                   tax_exempt = SKIP,
-                   tax_exempt_reason = SKIP,
-                   parent_id = SKIP,
-                   additional_properties = {})
+    def initialize(first_name:, last_name:, email:, cc_emails: SKIP,
+                   organization: SKIP, reference: SKIP, address: SKIP,
+                   address_2: SKIP, city: SKIP, state: SKIP, zip: SKIP,
+                   country: SKIP, phone: SKIP, locale: SKIP, vat_number: SKIP,
+                   tax_exempt: SKIP, tax_exempt_reason: SKIP, parent_id: SKIP,
+                   additional_properties: {})
       @first_name = first_name
       @last_name = last_name
       @email = email
@@ -207,25 +194,25 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateCustomer.new(first_name,
-                         last_name,
-                         email,
-                         cc_emails,
-                         organization,
-                         reference,
-                         address,
-                         address_2,
-                         city,
-                         state,
-                         zip,
-                         country,
-                         phone,
-                         locale,
-                         vat_number,
-                         tax_exempt,
-                         tax_exempt_reason,
-                         parent_id,
-                         hash)
+      CreateCustomer.new(first_name: first_name,
+                         last_name: last_name,
+                         email: email,
+                         cc_emails: cc_emails,
+                         organization: organization,
+                         reference: reference,
+                         address: address,
+                         address_2: address_2,
+                         city: city,
+                         state: state,
+                         zip: zip,
+                         country: country,
+                         phone: phone,
+                         locale: locale,
+                         vat_number: vat_number,
+                         tax_exempt: tax_exempt,
+                         tax_exempt_reason: tax_exempt_reason,
+                         parent_id: parent_id,
+                         additional_properties: hash)
     end
   end
 end

@@ -57,12 +57,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   transaction_time = SKIP,
-                   invoice_uid = SKIP,
-                   memo = SKIP,
-                   applied_amount = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, transaction_time: SKIP, invoice_uid: SKIP,
+                   memo: SKIP, applied_amount: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @transaction_time = transaction_time unless transaction_time == SKIP
       @invoice_uid = invoice_uid unless invoice_uid == SKIP
@@ -95,12 +91,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreditNoteApplication.new(uid,
-                                transaction_time,
-                                invoice_uid,
-                                memo,
-                                applied_amount,
-                                hash)
+      CreditNoteApplication.new(uid: uid,
+                                transaction_time: transaction_time,
+                                invoice_uid: invoice_uid,
+                                memo: memo,
+                                applied_amount: applied_amount,
+                                additional_properties: hash)
     end
 
     def to_custom_transaction_time

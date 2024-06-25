@@ -50,21 +50,19 @@ component_id = 'component_id8'
 price_point_id = 'price_point_id8'
 
 body = CreateSegmentRequest.new(
-  CreateSegment.new(
-    PricingScheme::VOLUME,
-    'France',
-    'Spain',
-    nil,
-    nil,
-    [
+  segment: CreateSegment.new(
+    pricing_scheme: PricingScheme::VOLUME,
+    segment_property_1_value: 'France',
+    segment_property_2_value: 'Spain',
+    prices: [
       CreateOrUpdateSegmentPrice.new(
-        0.19,
-        1,
-        10000
+        unit_price: 0.19,
+        starting_quantity: 1,
+        ending_quantity: 10000
       ),
       CreateOrUpdateSegmentPrice.new(
-        0.09,
-        10001
+        unit_price: 0.09,
+        starting_quantity: 10001
       )
     ]
   )
@@ -120,7 +118,7 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListSegmentsFilter.new(
-    'EU'
+    segment_property_1_value: 'EU'
   )
 }
 

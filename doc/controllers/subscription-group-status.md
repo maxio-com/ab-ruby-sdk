@@ -44,7 +44,7 @@ def cancel_subscriptions_in_group(uid,
 uid = 'uid0'
 
 body = CancelGroupedSubscriptionsRequest.new(
-  true
+  charge_unbilled_usage: true
 )
 
 subscription_group_status_controller.cancel_subscriptions_in_group(
@@ -172,7 +172,7 @@ def reactivate_subscription_group(uid,
 uid = 'uid0'
 
 body = ReactivateSubscriptionGroupRequest.new(
-  true
+  resume: true
 )
 
 result = subscription_group_status_controller.reactivate_subscription_group(

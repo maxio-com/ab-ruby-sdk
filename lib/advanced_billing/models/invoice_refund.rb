@@ -77,15 +77,10 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(transaction_id = SKIP,
-                   payment_id = SKIP,
-                   memo = SKIP,
-                   original_amount = SKIP,
-                   applied_amount = SKIP,
-                   gateway_transaction_id = SKIP,
-                   gateway_used = SKIP,
-                   gateway_handle = SKIP,
-                   additional_properties = {})
+    def initialize(transaction_id: SKIP, payment_id: SKIP, memo: SKIP,
+                   original_amount: SKIP, applied_amount: SKIP,
+                   gateway_transaction_id: SKIP, gateway_used: SKIP,
+                   gateway_handle: SKIP, additional_properties: {})
       @transaction_id = transaction_id unless transaction_id == SKIP
       @payment_id = payment_id unless payment_id == SKIP
       @memo = memo unless memo == SKIP
@@ -124,15 +119,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceRefund.new(transaction_id,
-                        payment_id,
-                        memo,
-                        original_amount,
-                        applied_amount,
-                        gateway_transaction_id,
-                        gateway_used,
-                        gateway_handle,
-                        hash)
+      InvoiceRefund.new(transaction_id: transaction_id,
+                        payment_id: payment_id,
+                        memo: memo,
+                        original_amount: original_amount,
+                        applied_amount: applied_amount,
+                        gateway_transaction_id: gateway_transaction_id,
+                        gateway_used: gateway_used,
+                        gateway_handle: gateway_handle,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(referral_code = SKIP,
-                   additional_properties = {})
+    def initialize(referral_code: SKIP, additional_properties: {})
       @referral_code = referral_code unless referral_code == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReferralValidationResponse.new(referral_code,
-                                     hash)
+      ReferralValidationResponse.new(referral_code: referral_code,
+                                     additional_properties: hash)
     end
   end
 end

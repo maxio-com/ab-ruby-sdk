@@ -47,10 +47,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(balance_in_cents = SKIP,
-                   automatic_balance_in_cents = SKIP,
-                   remittance_balance_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(balance_in_cents: SKIP, automatic_balance_in_cents: SKIP,
+                   remittance_balance_in_cents: SKIP, additional_properties: {})
       @balance_in_cents = balance_in_cents unless balance_in_cents == SKIP
       unless automatic_balance_in_cents == SKIP
         @automatic_balance_in_cents =
@@ -83,10 +81,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AccountBalance.new(balance_in_cents,
-                         automatic_balance_in_cents,
-                         remittance_balance_in_cents,
-                         hash)
+      AccountBalance.new(balance_in_cents: balance_in_cents,
+                         automatic_balance_in_cents: automatic_balance_in_cents,
+                         remittance_balance_in_cents: remittance_balance_in_cents,
+                         additional_properties: hash)
     end
   end
 end

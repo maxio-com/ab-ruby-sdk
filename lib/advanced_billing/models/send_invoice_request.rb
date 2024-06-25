@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(recipient_emails = SKIP,
-                   cc_recipient_emails = SKIP,
-                   bcc_recipient_emails = SKIP,
-                   additional_properties = {})
+    def initialize(recipient_emails: SKIP, cc_recipient_emails: SKIP,
+                   bcc_recipient_emails: SKIP, additional_properties: {})
       @recipient_emails = recipient_emails unless recipient_emails == SKIP
       @cc_recipient_emails = cc_recipient_emails unless cc_recipient_emails == SKIP
       @bcc_recipient_emails = bcc_recipient_emails unless bcc_recipient_emails == SKIP
@@ -74,10 +72,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SendInvoiceRequest.new(recipient_emails,
-                             cc_recipient_emails,
-                             bcc_recipient_emails,
-                             hash)
+      SendInvoiceRequest.new(recipient_emails: recipient_emails,
+                             cc_recipient_emails: cc_recipient_emails,
+                             bcc_recipient_emails: bcc_recipient_emails,
+                             additional_properties: hash)
     end
   end
 end

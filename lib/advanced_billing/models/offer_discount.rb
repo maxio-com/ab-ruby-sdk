@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(coupon_code = SKIP,
-                   coupon_id = SKIP,
-                   coupon_name = SKIP,
-                   additional_properties = {})
+    def initialize(coupon_code: SKIP, coupon_id: SKIP, coupon_name: SKIP,
+                   additional_properties: {})
       @coupon_code = coupon_code unless coupon_code == SKIP
       @coupon_id = coupon_id unless coupon_id == SKIP
       @coupon_name = coupon_name unless coupon_name == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      OfferDiscount.new(coupon_code,
-                        coupon_id,
-                        coupon_name,
-                        hash)
+      OfferDiscount.new(coupon_code: coupon_code,
+                        coupon_id: coupon_id,
+                        coupon_name: coupon_name,
+                        additional_properties: hash)
     end
   end
 end

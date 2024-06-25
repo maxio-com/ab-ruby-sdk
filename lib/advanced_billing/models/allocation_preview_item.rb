@@ -159,25 +159,15 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(component_id = SKIP,
-                   subscription_id = SKIP,
-                   quantity = SKIP,
-                   previous_quantity = SKIP,
-                   memo = SKIP,
-                   timestamp = SKIP,
-                   proration_upgrade_scheme = SKIP,
-                   proration_downgrade_scheme = SKIP,
-                   accrue_charge = SKIP,
-                   upgrade_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   price_point_id = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   previous_price_point_id = SKIP,
-                   price_point_handle = SKIP,
-                   price_point_name = SKIP,
-                   component_handle = SKIP,
-                   additional_properties = {})
+    def initialize(component_id: SKIP, subscription_id: SKIP, quantity: SKIP,
+                   previous_quantity: SKIP, memo: SKIP, timestamp: SKIP,
+                   proration_upgrade_scheme: SKIP,
+                   proration_downgrade_scheme: SKIP, accrue_charge: SKIP,
+                   upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   price_point_id: SKIP, interval: SKIP, interval_unit: SKIP,
+                   previous_price_point_id: SKIP, price_point_handle: SKIP,
+                   price_point_name: SKIP, component_handle: SKIP,
+                   additional_properties: {})
       @component_id = component_id unless component_id == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @quantity = quantity unless quantity == SKIP
@@ -248,25 +238,25 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AllocationPreviewItem.new(component_id,
-                                subscription_id,
-                                quantity,
-                                previous_quantity,
-                                memo,
-                                timestamp,
-                                proration_upgrade_scheme,
-                                proration_downgrade_scheme,
-                                accrue_charge,
-                                upgrade_charge,
-                                downgrade_credit,
-                                price_point_id,
-                                interval,
-                                interval_unit,
-                                previous_price_point_id,
-                                price_point_handle,
-                                price_point_name,
-                                component_handle,
-                                hash)
+      AllocationPreviewItem.new(component_id: component_id,
+                                subscription_id: subscription_id,
+                                quantity: quantity,
+                                previous_quantity: previous_quantity,
+                                memo: memo,
+                                timestamp: timestamp,
+                                proration_upgrade_scheme: proration_upgrade_scheme,
+                                proration_downgrade_scheme: proration_downgrade_scheme,
+                                accrue_charge: accrue_charge,
+                                upgrade_charge: upgrade_charge,
+                                downgrade_credit: downgrade_credit,
+                                price_point_id: price_point_id,
+                                interval: interval,
+                                interval_unit: interval_unit,
+                                previous_price_point_id: previous_price_point_id,
+                                price_point_handle: price_point_handle,
+                                price_point_name: price_point_name,
+                                component_handle: component_handle,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

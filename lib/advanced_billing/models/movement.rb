@@ -81,16 +81,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(timestamp = SKIP,
-                   amount_in_cents = SKIP,
-                   amount_formatted = SKIP,
-                   description = SKIP,
-                   category = SKIP,
-                   breakouts = SKIP,
-                   line_items = SKIP,
-                   subscription_id = SKIP,
-                   subscriber_name = SKIP,
-                   additional_properties = {})
+    def initialize(timestamp: SKIP, amount_in_cents: SKIP,
+                   amount_formatted: SKIP, description: SKIP, category: SKIP,
+                   breakouts: SKIP, line_items: SKIP, subscription_id: SKIP,
+                   subscriber_name: SKIP, additional_properties: {})
       @timestamp = timestamp unless timestamp == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @amount_formatted = amount_formatted unless amount_formatted == SKIP
@@ -143,16 +137,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Movement.new(timestamp,
-                   amount_in_cents,
-                   amount_formatted,
-                   description,
-                   category,
-                   breakouts,
-                   line_items,
-                   subscription_id,
-                   subscriber_name,
-                   hash)
+      Movement.new(timestamp: timestamp,
+                   amount_in_cents: amount_in_cents,
+                   amount_formatted: amount_formatted,
+                   description: description,
+                   category: category,
+                   breakouts: breakouts,
+                   line_items: line_items,
+                   subscription_id: subscription_id,
+                   subscriber_name: subscriber_name,
+                   additional_properties: hash)
     end
 
     def to_custom_timestamp

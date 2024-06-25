@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(codes = SKIP,
-                   additional_properties = {})
+    def initialize(codes: SKIP, additional_properties: {})
       @codes = codes unless codes == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AddCouponsRequest.new(codes,
-                            hash)
+      AddCouponsRequest.new(codes: codes,
+                            additional_properties: hash)
     end
   end
 end

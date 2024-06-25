@@ -54,12 +54,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(amount_in_cents = nil,
-                   applied_amount = nil,
-                   payment_method = nil,
-                   transaction_id = nil,
-                   memo = SKIP,
-                   additional_properties = {})
+    def initialize(amount_in_cents:, applied_amount:, payment_method:,
+                   transaction_id:, memo: SKIP, additional_properties: {})
       @amount_in_cents = amount_in_cents
       @applied_amount = applied_amount
       @memo = memo unless memo == SKIP
@@ -91,12 +87,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      FailedPaymentEventData.new(amount_in_cents,
-                                 applied_amount,
-                                 payment_method,
-                                 transaction_id,
-                                 memo,
-                                 hash)
+      FailedPaymentEventData.new(amount_in_cents: amount_in_cents,
+                                 applied_amount: applied_amount,
+                                 payment_method: payment_method,
+                                 transaction_id: transaction_id,
+                                 memo: memo,
+                                 additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

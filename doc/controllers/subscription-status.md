@@ -545,8 +545,8 @@ def pause_subscription(subscription_id,
 subscription_id = 222
 
 body = PauseRequest.new(
-  AutoResume.new(
-    DateTimeHelper.from_rfc3339('2017-05-25T11:25:00Z')
+  hold: AutoResume.new(
+    automatically_resume_at: DateTimeHelper.from_rfc3339('2017-05-25T11:25:00Z')
   )
 )
 
@@ -704,8 +704,8 @@ def update_automatic_subscription_resumption(subscription_id,
 subscription_id = 222
 
 body = PauseRequest.new(
-  AutoResume.new(
-    DateTimeHelper.from_rfc3339('2019-01-20T00:00:00')
+  hold: AutoResume.new(
+    automatically_resume_at: DateTimeHelper.from_rfc3339('2019-01-20T00:00:00')
   )
 )
 
@@ -1026,14 +1026,14 @@ def reactivate_subscription(subscription_id,
 subscription_id = 222
 
 body = ReactivateSubscriptionRequest.new(
-  ReactivationBilling.new(
-    ReactivationCharge::PRORATED
+  calendar_billing: ReactivationBilling.new(
+    reactivation_charge: ReactivationCharge::PRORATED
   ),
-  true,
-  true,
-  '10OFF',
-  true,
-  true
+  include_trial: true,
+  preserve_balance: true,
+  coupon_code: '10OFF',
+  use_credits_and_prepayments: true,
+  resume: true
 )
 
 result = subscription_status_controller.reactivate_subscription(
@@ -1315,20 +1315,20 @@ def preview_renewal(subscription_id,
 subscription_id = 222
 
 body = RenewalPreviewRequest.new(
-  [
+  components: [
     RenewalPreviewComponent.new(
-      10708,
-      10000
+      component_id: 10708,
+      quantity: 10000
     ),
     RenewalPreviewComponent.new(
-      'handle:small-instance-hours',
-      10000,
-      8712
+      component_id: 'handle:small-instance-hours',
+      quantity: 10000,
+      price_point_id: 8712
     ),
     RenewalPreviewComponent.new(
-      'handle:large-instance-hours',
-      100,
-      'handle:startup-pricing'
+      component_id: 'handle:large-instance-hours',
+      quantity: 100,
+      price_point_id: 'handle:startup-pricing'
     )
   ]
 )

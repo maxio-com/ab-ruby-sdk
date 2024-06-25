@@ -14,44 +14,28 @@ RSpec.describe 'Invoices' do
     invoice = @client.invoices.create_invoice(
       @subscription.id,
       body: AdvancedBilling::CreateInvoiceRequest.new(
-        AdvancedBilling::CreateInvoice.new(
-          [
+        invoice: AdvancedBilling::CreateInvoice.new(
+          line_items: [
             AdvancedBilling::CreateInvoiceItem.new(
-              'A Product',
-              12,
-              '150.00',
-              nil,
-              nil,
-              nil,
-              nil,
-              nil,
-              nil,
-              nil,
-              nil,
-              'test invoice'
+              title: 'A Product',
+              quantity: 12,
+              unit_price: '150.00',
+              description: 'test invoice'
             )
           ],
-          Date.iso8601('2024-01-01'),
-          nil,
-          nil,
-          nil,
-          nil,
-          AdvancedBilling::CreateInvoiceAddress.new(
-            'Hilario',
-            'Schmidt',
-            '282-329-2085',
-            '65581 Auer Expressway',
-            nil,
-            nil,
-            nil,
-            '15217',
-            'US'
+          issue_date: Date.iso8601('2024-01-01'),
+          billing_address: AdvancedBilling::CreateInvoiceAddress.new(
+            first_name: 'Hilario',
+            last_name: 'Schmidt',
+            phone: '282-329-2085',
+            address: '65581 Auer Expressway',
+            zip: '15217',
+            country: 'US'
           ),
-          nil,
-          [
+          coupons: [
             AdvancedBilling::CreateInvoiceCoupon.new(
-              @coupon.code,
-              50.0
+              code: @coupon.code,
+              percentage: 50.0
             )
           ]
         )
@@ -81,8 +65,8 @@ RSpec.describe 'Invoices' do
     result = @client.invoices.void_invoice(
       invoice.uid,
       body: AdvancedBilling::VoidInvoiceRequest.new(
-        AdvancedBilling::VoidInvoice.new(
-          'Duplicate invoice'
+        void: AdvancedBilling::VoidInvoice.new(
+          reason: 'Duplicate invoice'
         )
       )
     )
@@ -123,44 +107,30 @@ RSpec.describe 'Invoices' do
       @client.invoices.create_invoice(
         @subscription.id,
         body: AdvancedBilling::CreateInvoiceRequest.new(
-          AdvancedBilling::CreateInvoice.new(
-            [
+          invoice: AdvancedBilling::CreateInvoice.new(
+            line_items: [
               AdvancedBilling::CreateInvoiceItem.new(
-                'A Product',
-                12,
-                '150.00',
-                nil,
-                nil,
-                Date.iso8601('2024-01-01'),
-                Date.iso8601('2023-01-01'),
-                nil,
-                nil,
-                nil,
-                nil,
-                'test invoice'
+                title: 'A Product',
+                quantity: 12,
+                unit_price: '150.00',
+                period_range_start: Date.iso8601('2024-01-01'),
+                period_range_end: Date.iso8601('2023-01-01'),
+                description: 'test invoice'
               )
             ],
-            Date.iso8601('2024-01-01'),
-            nil,
-            nil,
-            nil,
-            nil,
-            AdvancedBilling::CreateInvoiceAddress.new(
-              'Hilario',
-              'Schmidt',
-              '282-329-2085',
-              '65581 Auer Expressway',
-              nil,
-              nil,
-              nil,
-              '15217',
-              'US'
+            issue_date: Date.iso8601('2024-01-01'),
+            billing_address: AdvancedBilling::CreateInvoiceAddress.new(
+              first_name: 'Hilario',
+              last_name: 'Schmidt',
+              phone: '282-329-2085',
+              address: '65581 Auer Expressway',
+              zip: '15217',
+              country: 'US'
             ),
-            nil,
-            [
+            coupons: [
               AdvancedBilling::CreateInvoiceCoupon.new(
-                @coupon.code,
-                50.0
+                code: @coupon.code,
+                percentage: 50.0
               )
             ]
           )

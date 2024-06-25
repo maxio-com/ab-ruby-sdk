@@ -33,8 +33,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(preserve_period = SKIP,
-                   additional_properties = {})
+    def initialize(preserve_period: SKIP, additional_properties: {})
       @preserve_period = preserve_period unless preserve_period == SKIP
 
       # Add additional model properties to the instance.
@@ -55,8 +54,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Proration.new(preserve_period,
-                    hash)
+      Proration.new(preserve_period: preserve_period,
+                    additional_properties: hash)
     end
   end
 end

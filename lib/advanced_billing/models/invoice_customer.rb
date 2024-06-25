@@ -74,14 +74,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(chargify_id = SKIP,
-                   first_name = SKIP,
-                   last_name = SKIP,
-                   organization = SKIP,
-                   email = SKIP,
-                   vat_number = SKIP,
-                   reference = SKIP,
-                   additional_properties = {})
+    def initialize(chargify_id: SKIP, first_name: SKIP, last_name: SKIP,
+                   organization: SKIP, email: SKIP, vat_number: SKIP,
+                   reference: SKIP, additional_properties: {})
       @chargify_id = chargify_id unless chargify_id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -113,14 +108,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceCustomer.new(chargify_id,
-                          first_name,
-                          last_name,
-                          organization,
-                          email,
-                          vat_number,
-                          reference,
-                          hash)
+      InvoiceCustomer.new(chargify_id: chargify_id,
+                          first_name: first_name,
+                          last_name: last_name,
+                          organization: organization,
+                          email: email,
+                          vat_number: vat_number,
+                          reference: reference,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

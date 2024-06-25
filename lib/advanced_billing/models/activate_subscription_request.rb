@@ -38,8 +38,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(revert_on_failure = SKIP,
-                   additional_properties = {})
+    def initialize(revert_on_failure: SKIP, additional_properties: {})
       @revert_on_failure = revert_on_failure unless revert_on_failure == SKIP
 
       # Add additional model properties to the instance.
@@ -60,8 +59,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ActivateSubscriptionRequest.new(revert_on_failure,
-                                      hash)
+      ActivateSubscriptionRequest.new(revert_on_failure: revert_on_failure,
+                                      additional_properties: hash)
     end
   end
 end

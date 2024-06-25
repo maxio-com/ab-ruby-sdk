@@ -58,12 +58,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   initial_funding_amount_in_cents = SKIP,
-                   replenish_to_amount_in_cents = SKIP,
-                   auto_replenish = SKIP,
-                   replenish_threshold_amount_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, initial_funding_amount_in_cents: SKIP,
+                   replenish_to_amount_in_cents: SKIP, auto_replenish: SKIP,
+                   replenish_threshold_amount_in_cents: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       unless initial_funding_amount_in_cents == SKIP
         @initial_funding_amount_in_cents =
@@ -104,12 +102,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PrepaidConfiguration.new(id,
-                               initial_funding_amount_in_cents,
-                               replenish_to_amount_in_cents,
-                               auto_replenish,
-                               replenish_threshold_amount_in_cents,
-                               hash)
+      PrepaidConfiguration.new(id: id,
+                               initial_funding_amount_in_cents: initial_funding_amount_in_cents,
+                               replenish_to_amount_in_cents: replenish_to_amount_in_cents,
+                               auto_replenish: auto_replenish,
+                               replenish_threshold_amount_in_cents: replenish_threshold_amount_in_cents,
+                               additional_properties: hash)
     end
   end
 end

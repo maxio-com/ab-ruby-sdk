@@ -20,9 +20,9 @@ module Factories
       client.coupons.create_coupon(
         product_family.id,
         body: AdvancedBilling::CreateOrUpdateCoupon.new(
-          AdvancedBilling::CreateOrUpdatePercentageCoupon.from_hash(coupon_attributes),
-          { product.id => true },
-          component.nil? ? {} : { component.id => true }
+          coupon: AdvancedBilling::CreateOrUpdatePercentageCoupon.from_hash(coupon_attributes),
+          restricted_products: { product.id => true },
+          restricted_components: component.nil? ? {} : { component.id => true }
         )
       ).coupon
     end

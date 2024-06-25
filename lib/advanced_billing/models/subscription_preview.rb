@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(current_billing_manifest = SKIP,
-                   next_billing_manifest = SKIP,
-                   additional_properties = {})
+    def initialize(current_billing_manifest: SKIP, next_billing_manifest: SKIP,
+                   additional_properties: {})
       @current_billing_manifest = current_billing_manifest unless current_billing_manifest == SKIP
       @next_billing_manifest = next_billing_manifest unless next_billing_manifest == SKIP
 
@@ -64,9 +63,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionPreview.new(current_billing_manifest,
-                              next_billing_manifest,
-                              hash)
+      SubscriptionPreview.new(current_billing_manifest: current_billing_manifest,
+                              next_billing_manifest: next_billing_manifest,
+                              additional_properties: hash)
     end
   end
 end

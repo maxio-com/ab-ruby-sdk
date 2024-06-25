@@ -41,9 +41,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(ids = SKIP,
-                   use_site_exchange_rate = SKIP,
-                   additional_properties = {})
+    def initialize(ids: SKIP, use_site_exchange_rate: SKIP,
+                   additional_properties: {})
       @ids = ids unless ids == SKIP
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
 
@@ -66,9 +65,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListComponentsFilter.new(ids,
-                               use_site_exchange_rate,
-                               hash)
+      ListComponentsFilter.new(ids: ids,
+                               use_site_exchange_rate: use_site_exchange_rate,
+                               additional_properties: hash)
     end
   end
 end

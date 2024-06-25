@@ -56,12 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(total_count = SKIP,
-                   current_page = SKIP,
-                   total_pages = SKIP,
-                   per_page = SKIP,
-                   metadata = SKIP,
-                   additional_properties = {})
+    def initialize(total_count: SKIP, current_page: SKIP, total_pages: SKIP,
+                   per_page: SKIP, metadata: SKIP, additional_properties: {})
       @total_count = total_count unless total_count == SKIP
       @current_page = current_page unless current_page == SKIP
       @total_pages = total_pages unless total_pages == SKIP
@@ -98,12 +94,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaginatedMetadata.new(total_count,
-                            current_page,
-                            total_pages,
-                            per_page,
-                            metadata,
-                            hash)
+      PaginatedMetadata.new(total_count: total_count,
+                            current_page: current_page,
+                            total_pages: total_pages,
+                            per_page: per_page,
+                            metadata: metadata,
+                            additional_properties: hash)
     end
   end
 end

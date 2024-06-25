@@ -157,27 +157,15 @@ module AdvancedBilling
       []
     end
 
-    def initialize(full_number = SKIP,
-                   expiration_month = SKIP,
-                   expiration_year = SKIP,
-                   chargify_token = SKIP,
-                   vault_token = SKIP,
-                   current_vault = SKIP,
-                   gateway_handle = SKIP,
-                   first_name = SKIP,
-                   last_name = SKIP,
-                   billing_address = SKIP,
-                   billing_address_2 = SKIP,
-                   billing_city = SKIP,
-                   billing_state = SKIP,
-                   billing_zip = SKIP,
-                   billing_country = SKIP,
-                   last_four = SKIP,
-                   card_type = SKIP,
-                   customer_vault_token = SKIP,
-                   cvv = SKIP,
-                   payment_type = SKIP,
-                   additional_properties = {})
+    def initialize(full_number: SKIP, expiration_month: SKIP,
+                   expiration_year: SKIP, chargify_token: SKIP,
+                   vault_token: SKIP, current_vault: SKIP, gateway_handle: SKIP,
+                   first_name: SKIP, last_name: SKIP, billing_address: SKIP,
+                   billing_address_2: SKIP, billing_city: SKIP,
+                   billing_state: SKIP, billing_zip: SKIP,
+                   billing_country: SKIP, last_four: SKIP, card_type: SKIP,
+                   customer_vault_token: SKIP, cvv: SKIP, payment_type: SKIP,
+                   additional_properties: {})
       @full_number = full_number unless full_number == SKIP
       @expiration_month = expiration_month unless expiration_month == SKIP
       @expiration_year = expiration_year unless expiration_year == SKIP
@@ -247,27 +235,27 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupCreditCard.new(full_number,
-                                      expiration_month,
-                                      expiration_year,
-                                      chargify_token,
-                                      vault_token,
-                                      current_vault,
-                                      gateway_handle,
-                                      first_name,
-                                      last_name,
-                                      billing_address,
-                                      billing_address_2,
-                                      billing_city,
-                                      billing_state,
-                                      billing_zip,
-                                      billing_country,
-                                      last_four,
-                                      card_type,
-                                      customer_vault_token,
-                                      cvv,
-                                      payment_type,
-                                      hash)
+      SubscriptionGroupCreditCard.new(full_number: full_number,
+                                      expiration_month: expiration_month,
+                                      expiration_year: expiration_year,
+                                      chargify_token: chargify_token,
+                                      vault_token: vault_token,
+                                      current_vault: current_vault,
+                                      gateway_handle: gateway_handle,
+                                      first_name: first_name,
+                                      last_name: last_name,
+                                      billing_address: billing_address,
+                                      billing_address_2: billing_address_2,
+                                      billing_city: billing_city,
+                                      billing_state: billing_state,
+                                      billing_zip: billing_zip,
+                                      billing_country: billing_country,
+                                      last_four: last_four,
+                                      card_type: card_type,
+                                      customer_vault_token: customer_vault_token,
+                                      cvv: cvv,
+                                      payment_type: payment_type,
+                                      additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

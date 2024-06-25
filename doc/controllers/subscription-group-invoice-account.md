@@ -92,9 +92,9 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListPrepaymentsFilter.new(
-    ListPrepaymentDateField::CREATED_AT,
-    Date.iso8601('2024-01-01'),
-    Date.iso8601('2024-01-31')
+    date_field: ListPrepaymentDateField::CREATED_AT,
+    start_date: Date.iso8601('2024-01-01'),
+    end_date: Date.iso8601('2024-01-31')
   )
 }
 
@@ -156,9 +156,9 @@ def issue_subscription_group_service_credit(uid,
 uid = 'uid0'
 
 body = IssueServiceCreditRequest.new(
-  IssueServiceCredit.new(
-    10,
-    'Credit the group account'
+  service_credit: IssueServiceCredit.new(
+    amount: 10,
+    memo: 'Credit the group account'
   )
 )
 
@@ -215,9 +215,9 @@ def deduct_subscription_group_service_credit(uid,
 uid = 'uid0'
 
 body = DeductServiceCreditRequest.new(
-  DeductServiceCredit.new(
-    10,
-    'Deduct from group account'
+  deduction: DeductServiceCredit.new(
+    amount: 10,
+    memo: 'Deduct from group account'
   )
 )
 

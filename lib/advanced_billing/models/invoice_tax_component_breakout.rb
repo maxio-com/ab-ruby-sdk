@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(tax_rule_id = SKIP,
-                   percentage = SKIP,
-                   country_code = SKIP,
-                   subdivision_code = SKIP,
-                   additional_properties = {})
+    def initialize(tax_rule_id: SKIP, percentage: SKIP, country_code: SKIP,
+                   subdivision_code: SKIP, additional_properties: {})
       @tax_rule_id = tax_rule_id unless tax_rule_id == SKIP
       @percentage = percentage unless percentage == SKIP
       @country_code = country_code unless country_code == SKIP
@@ -81,11 +78,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceTaxComponentBreakout.new(tax_rule_id,
-                                      percentage,
-                                      country_code,
-                                      subdivision_code,
-                                      hash)
+      InvoiceTaxComponentBreakout.new(tax_rule_id: tax_rule_id,
+                                      percentage: percentage,
+                                      country_code: country_code,
+                                      subdivision_code: subdivision_code,
+                                      additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

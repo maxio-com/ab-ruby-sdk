@@ -44,8 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(on_failed_payment = FailedPaymentAction::LEAVE_OPEN_INVOICE,
-                   additional_properties = {})
+    def initialize(on_failed_payment: FailedPaymentAction::LEAVE_OPEN_INVOICE,
+                   additional_properties: {})
       @on_failed_payment = on_failed_payment unless on_failed_payment == SKIP
 
       # Add additional model properties to the instance.
@@ -66,8 +66,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      IssueInvoiceRequest.new(on_failed_payment,
-                              hash)
+      IssueInvoiceRequest.new(on_failed_payment: on_failed_payment,
+                              additional_properties: hash)
     end
   end
 end

@@ -96,11 +96,13 @@ module AdvancedBilling
     # Use this endpoint to update a product price point.
     # Note: Custom product price points are not able to be updated.
     # @param [Integer | String] product_id Required parameter: The id or handle
-    # of the product. When using the handle, it must be prefixed with
-    # `handle:`
+    # of the product. When using the handle, it must be prefixed with `handle:`.
+    # Example: `123` for an integer ID, or `handle:example-product-handle` for a
+    # string handle.
     # @param [Integer | String] price_point_id Required parameter: The id or
     # handle of the price point. When using the handle, it must be prefixed with
-    # `handle:`
+    # `handle:`. Example: `123` for an integer ID, or
+    # `handle:example-product-price-point-handle` for a string handle.
     # @param [UpdateProductPricePointRequest] body Optional parameter:
     # Example:
     # @return [ProductPricePointResponse] response from the API call
@@ -137,12 +139,15 @@ module AdvancedBilling
     end
 
     # Use this endpoint to retrieve details for a specific product price point.
+    # You can achieve this by using either the product price point ID or handle.
     # @param [Integer | String] product_id Required parameter: The id or handle
-    # of the product. When using the handle, it must be prefixed with
-    # `handle:`
+    # of the product. When using the handle, it must be prefixed with `handle:`.
+    # Example: `123` for an integer ID, or `handle:example-product-handle` for a
+    # string handle.
     # @param [Integer | String] price_point_id Required parameter: The id or
     # handle of the price point. When using the handle, it must be prefixed with
-    # `handle:`
+    # `handle:`. Example: `123` for an integer ID, or
+    # `handle:example-product-price-point-handle` for a string handle.
     # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
     # fetching a product's price points, if you have defined multiple currencies
     # at the site level, you can optionally pass the ?currency_prices=true query
@@ -183,11 +188,13 @@ module AdvancedBilling
 
     # Use this endpoint to archive a product price point.
     # @param [Integer | String] product_id Required parameter: The id or handle
-    # of the product. When using the handle, it must be prefixed with
-    # `handle:`
+    # of the product. When using the handle, it must be prefixed with `handle:`.
+    # Example: `123` for an integer ID, or `handle:example-product-handle` for a
+    # string handle.
     # @param [Integer | String] price_point_id Required parameter: The id or
     # handle of the price point. When using the handle, it must be prefixed with
-    # `handle:`
+    # `handle:`. Example: `123` for an integer ID, or
+    # `handle:example-product-price-point-handle` for a string handle.
     # @return [ProductPricePointResponse] response from the API call
     def archive_product_price_point(product_id,
                                     price_point_id)

@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   deleted = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, deleted: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @deleted = deleted unless deleted == SKIP
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DeleteSubscriptionGroupResponse.new(uid,
-                                          deleted,
-                                          hash)
+      DeleteSubscriptionGroupResponse.new(uid: uid,
+                                          deleted: deleted,
+                                          additional_properties: hash)
     end
   end
 end

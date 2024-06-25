@@ -42,10 +42,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_id = nil,
-                   mrr_amount_in_cents = nil,
-                   breakouts = SKIP,
-                   additional_properties = {})
+    def initialize(subscription_id:, mrr_amount_in_cents:, breakouts: SKIP,
+                   additional_properties: {})
       @subscription_id = subscription_id
       @mrr_amount_in_cents = mrr_amount_in_cents
       @breakouts = breakouts unless breakouts == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionMRR.new(subscription_id,
-                          mrr_amount_in_cents,
-                          breakouts,
-                          hash)
+      SubscriptionMRR.new(subscription_id: subscription_id,
+                          mrr_amount_in_cents: mrr_amount_in_cents,
+                          breakouts: breakouts,
+                          additional_properties: hash)
     end
   end
 end

@@ -347,28 +347,12 @@ def create_signup_proforma_invoice(body: nil)
 
 ```ruby
 body = CreateSubscriptionRequest.new(
-  CreateSubscription.new(
-    'gold-product',
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    CustomerAttributes.new(
-      'Myra',
-      'Maisel',
-      'mmaisel@example.com'
+  subscription: CreateSubscription.new(
+    product_handle: 'gold-product',
+    customer_attributes: CustomerAttributes.new(
+      first_name: 'Myra',
+      last_name: 'Maisel',
+      email: 'mmaisel@example.com'
     )
   )
 )
@@ -414,28 +398,12 @@ def preview_signup_proforma_invoice(include: nil,
 
 ```ruby
 body = CreateSubscriptionRequest.new(
-  CreateSubscription.new(
-    'gold-plan',
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    CustomerAttributes.new(
-      'first',
-      'last',
-      'flast@example.com'
+  subscription: CreateSubscription.new(
+    product_handle: 'gold-plan',
+    customer_attributes: CustomerAttributes.new(
+      first_name: 'first',
+      last_name: 'last',
+      email: 'flast@example.com'
     )
   )
 )

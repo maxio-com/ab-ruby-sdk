@@ -37,8 +37,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(reactivation_charge = ReactivationCharge::PRORATED,
-                   additional_properties = {})
+    def initialize(reactivation_charge: ReactivationCharge::PRORATED,
+                   additional_properties: {})
       @reactivation_charge = reactivation_charge unless reactivation_charge == SKIP
 
       # Add additional model properties to the instance.
@@ -59,8 +59,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReactivationBilling.new(reactivation_charge,
-                              hash)
+      ReactivationBilling.new(reactivation_charge: reactivation_charge,
+                              additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

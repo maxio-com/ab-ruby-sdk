@@ -46,10 +46,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_id = SKIP,
-                   amount_in_cents = SKIP,
-                   ending_balance_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(subscription_id: SKIP, amount_in_cents: SKIP,
+                   ending_balance_in_cents: SKIP, additional_properties: {})
       @subscription_id = subscription_id unless subscription_id == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @ending_balance_in_cents = ending_balance_in_cents unless ending_balance_in_cents == SKIP
@@ -76,10 +74,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoicePrePayment.new(subscription_id,
-                            amount_in_cents,
-                            ending_balance_in_cents,
-                            hash)
+      InvoicePrePayment.new(subscription_id: subscription_id,
+                            amount_in_cents: amount_in_cents,
+                            ending_balance_in_cents: ending_balance_in_cents,
+                            additional_properties: hash)
     end
   end
 end

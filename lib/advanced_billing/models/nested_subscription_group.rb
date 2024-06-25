@@ -53,11 +53,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   scheme = SKIP,
-                   primary_subscription_id = SKIP,
-                   primary = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, scheme: SKIP, primary_subscription_id: SKIP,
+                   primary: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @primary_subscription_id = primary_subscription_id unless primary_subscription_id == SKIP
@@ -84,11 +81,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      NestedSubscriptionGroup.new(uid,
-                                  scheme,
-                                  primary_subscription_id,
-                                  primary,
-                                  hash)
+      NestedSubscriptionGroup.new(uid: uid,
+                                  scheme: scheme,
+                                  primary_subscription_id: primary_subscription_id,
+                                  primary: primary,
+                                  additional_properties: hash)
     end
   end
 end

@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   number = SKIP,
-                   outstanding_amount = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, number: SKIP, outstanding_amount: SKIP,
+                   additional_properties: {})
       @uid = uid unless uid == SKIP
       @number = number unless number == SKIP
       @outstanding_amount = outstanding_amount unless outstanding_amount == SKIP
@@ -72,10 +70,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceBalanceItem.new(uid,
-                             number,
-                             outstanding_amount,
-                             hash)
+      InvoiceBalanceItem.new(uid: uid,
+                             number: number,
+                             outstanding_amount: outstanding_amount,
+                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

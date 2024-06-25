@@ -54,11 +54,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   return_url = SKIP,
-                   return_params = SKIP,
-                   url = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, return_url: SKIP, return_params: SKIP, url: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @return_url = return_url unless return_url == SKIP
       @return_params = return_params unless return_params == SKIP
@@ -84,11 +81,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PublicSignupPage.new(id,
-                           return_url,
-                           return_params,
-                           url,
-                           hash)
+      PublicSignupPage.new(id: id,
+                           return_url: return_url,
+                           return_params: return_params,
+                           url: url,
+                           additional_properties: hash)
     end
   end
 end

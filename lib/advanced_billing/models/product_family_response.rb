@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product_family = SKIP,
-                   additional_properties = {})
+    def initialize(product_family: SKIP, additional_properties: {})
       @product_family = product_family unless product_family == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProductFamilyResponse.new(product_family,
-                                hash)
+      ProductFamilyResponse.new(product_family: product_family,
+                                additional_properties: hash)
     end
   end
 end

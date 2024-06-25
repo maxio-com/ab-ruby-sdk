@@ -53,11 +53,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prorated_adjustment_in_cents = SKIP,
-                   charge_in_cents = SKIP,
-                   payment_due_in_cents = SKIP,
-                   credit_applied_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(prorated_adjustment_in_cents: SKIP, charge_in_cents: SKIP,
+                   payment_due_in_cents: SKIP, credit_applied_in_cents: SKIP,
+                   additional_properties: {})
       unless prorated_adjustment_in_cents == SKIP
         @prorated_adjustment_in_cents =
           prorated_adjustment_in_cents
@@ -90,11 +88,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionMigrationPreview.new(prorated_adjustment_in_cents,
-                                       charge_in_cents,
-                                       payment_due_in_cents,
-                                       credit_applied_in_cents,
-                                       hash)
+      SubscriptionMigrationPreview.new(prorated_adjustment_in_cents: prorated_adjustment_in_cents,
+                                       charge_in_cents: charge_in_cents,
+                                       payment_due_in_cents: payment_due_in_cents,
+                                       credit_applied_in_cents: credit_applied_in_cents,
+                                       additional_properties: hash)
     end
   end
 end

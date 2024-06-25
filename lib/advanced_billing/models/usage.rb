@@ -83,16 +83,10 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   memo = SKIP,
-                   created_at = SKIP,
-                   price_point_id = SKIP,
-                   quantity = SKIP,
-                   overage_quantity = SKIP,
-                   component_id = SKIP,
-                   component_handle = SKIP,
-                   subscription_id = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, memo: SKIP, created_at: SKIP, price_point_id: SKIP,
+                   quantity: SKIP, overage_quantity: SKIP, component_id: SKIP,
+                   component_handle: SKIP, subscription_id: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @memo = memo unless memo == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -138,16 +132,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Usage.new(id,
-                memo,
-                created_at,
-                price_point_id,
-                quantity,
-                overage_quantity,
-                component_id,
-                component_handle,
-                subscription_id,
-                hash)
+      Usage.new(id: id,
+                memo: memo,
+                created_at: created_at,
+                price_point_id: price_point_id,
+                quantity: quantity,
+                overage_quantity: overage_quantity,
+                component_id: component_id,
+                component_handle: component_handle,
+                subscription_id: subscription_id,
+                additional_properties: hash)
     end
 
     def to_custom_created_at

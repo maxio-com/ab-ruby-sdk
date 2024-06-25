@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   handle = SKIP,
-                   name = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, handle: SKIP, name: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @handle = handle unless handle == SKIP
       @name = name unless name == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ItemPricePointData.new(id,
-                             handle,
-                             name,
-                             hash)
+      ItemPricePointData.new(id: id,
+                             handle: handle,
+                             name: name,
+                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

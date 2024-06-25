@@ -51,11 +51,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(amount_in_cents = nil,
-                   amount = nil,
-                   memo = nil,
-                   external = SKIP,
-                   additional_properties = {})
+    def initialize(amount_in_cents:, amount:, memo:, external: SKIP,
+                   additional_properties: {})
       @amount_in_cents = amount_in_cents
       @amount = amount
       @memo = memo
@@ -84,11 +81,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundPrepayment.new(amount_in_cents,
-                           amount,
-                           memo,
-                           external,
-                           hash)
+      RefundPrepayment.new(amount_in_cents: amount_in_cents,
+                           amount: amount,
+                           memo: memo,
+                           external: external,
+                           additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

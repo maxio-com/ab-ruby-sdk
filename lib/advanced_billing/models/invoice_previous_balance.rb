@@ -39,9 +39,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(captured_at = SKIP,
-                   invoices = SKIP,
-                   additional_properties = {})
+    def initialize(captured_at: SKIP, invoices: SKIP, additional_properties: {})
       @captured_at = captured_at unless captured_at == SKIP
       @invoices = invoices unless invoices == SKIP
 
@@ -76,9 +74,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoicePreviousBalance.new(captured_at,
-                                 invoices,
-                                 hash)
+      InvoicePreviousBalance.new(captured_at: captured_at,
+                                 invoices: invoices,
+                                 additional_properties: hash)
     end
 
     def to_custom_captured_at

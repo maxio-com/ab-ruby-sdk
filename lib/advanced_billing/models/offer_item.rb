@@ -91,17 +91,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component_id = SKIP,
-                   price_point_id = SKIP,
-                   starting_quantity = SKIP,
-                   editable = SKIP,
-                   component_unit_price = SKIP,
-                   component_name = SKIP,
-                   price_point_name = SKIP,
-                   currency_prices = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   additional_properties = {})
+    def initialize(component_id: SKIP, price_point_id: SKIP,
+                   starting_quantity: SKIP, editable: SKIP,
+                   component_unit_price: SKIP, component_name: SKIP,
+                   price_point_name: SKIP, currency_prices: SKIP,
+                   interval: SKIP, interval_unit: SKIP,
+                   additional_properties: {})
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
@@ -153,17 +148,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      OfferItem.new(component_id,
-                    price_point_id,
-                    starting_quantity,
-                    editable,
-                    component_unit_price,
-                    component_name,
-                    price_point_name,
-                    currency_prices,
-                    interval,
-                    interval_unit,
-                    hash)
+      OfferItem.new(component_id: component_id,
+                    price_point_id: price_point_id,
+                    starting_quantity: starting_quantity,
+                    editable: editable,
+                    component_unit_price: component_unit_price,
+                    component_name: component_name,
+                    price_point_name: price_point_name,
+                    currency_prices: currency_prices,
+                    interval: interval,
+                    interval_unit: interval_unit,
+                    additional_properties: hash)
     end
   end
 end

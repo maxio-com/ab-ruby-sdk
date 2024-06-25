@@ -37,9 +37,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_id = nil,
-                   member_ids = SKIP,
-                   additional_properties = {})
+    def initialize(subscription_id:, member_ids: SKIP,
+                   additional_properties: {})
       @subscription_id = subscription_id
       @member_ids = member_ids unless member_ids == SKIP
 
@@ -62,9 +61,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateSubscriptionGroup.new(subscription_id,
-                                  member_ids,
-                                  hash)
+      CreateSubscriptionGroup.new(subscription_id: subscription_id,
+                                  member_ids: member_ids,
+                                  additional_properties: hash)
     end
   end
 end

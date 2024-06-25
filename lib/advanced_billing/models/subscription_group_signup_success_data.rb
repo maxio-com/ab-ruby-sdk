@@ -71,16 +71,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = nil,
-                   scheme = nil,
-                   customer_id = nil,
-                   payment_profile_id = nil,
-                   subscription_ids = nil,
-                   primary_subscription_id = nil,
-                   next_assessment_at = nil,
-                   state = nil,
-                   cancel_at_end_of_period = nil,
-                   additional_properties = {})
+    def initialize(uid:, scheme:, customer_id:, payment_profile_id:,
+                   subscription_ids:, primary_subscription_id:,
+                   next_assessment_at:, state:, cancel_at_end_of_period:,
+                   additional_properties: {})
       @uid = uid
       @scheme = scheme
       @customer_id = customer_id
@@ -122,16 +116,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignupSuccessData.new(uid,
-                                             scheme,
-                                             customer_id,
-                                             payment_profile_id,
-                                             subscription_ids,
-                                             primary_subscription_id,
-                                             next_assessment_at,
-                                             state,
-                                             cancel_at_end_of_period,
-                                             hash)
+      SubscriptionGroupSignupSuccessData.new(uid: uid,
+                                             scheme: scheme,
+                                             customer_id: customer_id,
+                                             payment_profile_id: payment_profile_id,
+                                             subscription_ids: subscription_ids,
+                                             primary_subscription_id: primary_subscription_id,
+                                             next_assessment_at: next_assessment_at,
+                                             state: state,
+                                             cancel_at_end_of_period: cancel_at_end_of_period,
+                                             additional_properties: hash)
     end
 
     def to_custom_next_assessment_at

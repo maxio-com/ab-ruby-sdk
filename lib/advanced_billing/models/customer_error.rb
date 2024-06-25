@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(customer = SKIP,
-                   additional_properties = {})
+    def initialize(customer: SKIP, additional_properties: {})
       @customer = customer unless customer == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CustomerError.new(customer,
-                        hash)
+      CustomerError.new(customer: customer,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

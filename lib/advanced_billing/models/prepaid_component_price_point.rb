@@ -62,12 +62,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = SKIP,
-                   handle = SKIP,
-                   pricing_scheme = SKIP,
-                   prices = SKIP,
-                   overage_pricing = SKIP,
-                   additional_properties = {})
+    def initialize(name: SKIP, handle: SKIP, pricing_scheme: SKIP, prices: SKIP,
+                   overage_pricing: SKIP, additional_properties: {})
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
@@ -106,12 +102,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PrepaidComponentPricePoint.new(name,
-                                     handle,
-                                     pricing_scheme,
-                                     prices,
-                                     overage_pricing,
-                                     hash)
+      PrepaidComponentPricePoint.new(name: name,
+                                     handle: handle,
+                                     pricing_scheme: pricing_scheme,
+                                     prices: prices,
+                                     overage_pricing: overage_pricing,
+                                     additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

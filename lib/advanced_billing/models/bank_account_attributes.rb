@@ -106,19 +106,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(chargify_token = SKIP,
-                   bank_name = SKIP,
-                   bank_routing_number = SKIP,
-                   bank_account_number = SKIP,
-                   bank_account_type = SKIP,
-                   bank_branch_code = SKIP,
-                   bank_iban = SKIP,
-                   bank_account_holder_type = SKIP,
-                   payment_type = SKIP,
-                   current_vault = SKIP,
-                   vault_token = SKIP,
-                   customer_vault_token = SKIP,
-                   additional_properties = {})
+    def initialize(chargify_token: SKIP, bank_name: SKIP,
+                   bank_routing_number: SKIP, bank_account_number: SKIP,
+                   bank_account_type: SKIP, bank_branch_code: SKIP,
+                   bank_iban: SKIP, bank_account_holder_type: SKIP,
+                   payment_type: SKIP, current_vault: SKIP, vault_token: SKIP,
+                   customer_vault_token: SKIP, additional_properties: {})
       @chargify_token = chargify_token unless chargify_token == SKIP
       @bank_name = bank_name unless bank_name == SKIP
       @bank_routing_number = bank_routing_number unless bank_routing_number == SKIP
@@ -167,19 +160,19 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BankAccountAttributes.new(chargify_token,
-                                bank_name,
-                                bank_routing_number,
-                                bank_account_number,
-                                bank_account_type,
-                                bank_branch_code,
-                                bank_iban,
-                                bank_account_holder_type,
-                                payment_type,
-                                current_vault,
-                                vault_token,
-                                customer_vault_token,
-                                hash)
+      BankAccountAttributes.new(chargify_token: chargify_token,
+                                bank_name: bank_name,
+                                bank_routing_number: bank_routing_number,
+                                bank_account_number: bank_account_number,
+                                bank_account_type: bank_account_type,
+                                bank_branch_code: bank_branch_code,
+                                bank_iban: bank_iban,
+                                bank_account_holder_type: bank_account_holder_type,
+                                payment_type: payment_type,
+                                current_vault: current_vault,
+                                vault_token: vault_token,
+                                customer_vault_token: customer_vault_token,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

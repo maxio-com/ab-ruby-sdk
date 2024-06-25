@@ -81,18 +81,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = nil,
-                   number = nil,
-                   role = nil,
-                   delivery_date = nil,
-                   created_at = nil,
-                   due_amount = nil,
-                   paid_amount = nil,
-                   tax_amount = nil,
-                   total_amount = nil,
-                   product_name = nil,
-                   line_items = nil,
-                   additional_properties = {})
+    def initialize(uid:, number:, role:, delivery_date:, created_at:,
+                   due_amount:, paid_amount:, tax_amount:, total_amount:,
+                   product_name:, line_items:, additional_properties: {})
       @uid = uid
       @number = number
       @role = role
@@ -143,18 +134,18 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProformaInvoiceIssued.new(uid,
-                                number,
-                                role,
-                                delivery_date,
-                                created_at,
-                                due_amount,
-                                paid_amount,
-                                tax_amount,
-                                total_amount,
-                                product_name,
-                                line_items,
-                                hash)
+      ProformaInvoiceIssued.new(uid: uid,
+                                number: number,
+                                role: role,
+                                delivery_date: delivery_date,
+                                created_at: created_at,
+                                due_amount: due_amount,
+                                paid_amount: paid_amount,
+                                tax_amount: tax_amount,
+                                total_amount: total_amount,
+                                product_name: product_name,
+                                line_items: line_items,
+                                additional_properties: hash)
     end
 
     def to_custom_created_at

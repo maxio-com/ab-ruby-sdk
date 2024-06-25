@@ -675,6 +675,8 @@ require_relative 'advanced_billing/controllers/advance_invoice_controller'
 require_relative 'advanced_billing/controllers/billing_portal_controller'
 require_relative 'advanced_billing/controllers/coupons_controller'
 require_relative 'advanced_billing/controllers/components_controller'
+require_relative 'advanced_billing/controllers/' \
+                 'component_price_points_controller'
 require_relative 'advanced_billing/controllers/customers_controller'
 require_relative 'advanced_billing/controllers/custom_fields_controller'
 require_relative 'advanced_billing/controllers/events_controller'

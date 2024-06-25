@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(rates = SKIP,
-                   additional_properties = {})
+    def initialize(rates: SKIP, additional_properties: {})
       @rates = rates unless rates == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceLineItemComponentCostData.new(rates,
-                                           hash)
+      InvoiceLineItemComponentCostData.new(rates: rates,
+                                           additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

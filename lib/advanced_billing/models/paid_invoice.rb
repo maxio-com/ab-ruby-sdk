@@ -52,11 +52,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(invoice_id = SKIP,
-                   status = SKIP,
-                   due_amount = SKIP,
-                   paid_amount = SKIP,
-                   additional_properties = {})
+    def initialize(invoice_id: SKIP, status: SKIP, due_amount: SKIP,
+                   paid_amount: SKIP, additional_properties: {})
       @invoice_id = invoice_id unless invoice_id == SKIP
       @status = status unless status == SKIP
       @due_amount = due_amount unless due_amount == SKIP
@@ -82,11 +79,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaidInvoice.new(invoice_id,
-                      status,
-                      due_amount,
-                      paid_amount,
-                      hash)
+      PaidInvoice.new(invoice_id: invoice_id,
+                      status: status,
+                      due_amount: due_amount,
+                      paid_amount: paid_amount,
+                      additional_properties: hash)
     end
   end
 end

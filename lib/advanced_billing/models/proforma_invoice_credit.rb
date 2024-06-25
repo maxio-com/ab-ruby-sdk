@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   memo = SKIP,
-                   original_amount = SKIP,
-                   applied_amount = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, memo: SKIP, original_amount: SKIP,
+                   applied_amount: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
@@ -82,11 +79,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProformaInvoiceCredit.new(uid,
-                                memo,
-                                original_amount,
-                                applied_amount,
-                                hash)
+      ProformaInvoiceCredit.new(uid: uid,
+                                memo: memo,
+                                original_amount: original_amount,
+                                applied_amount: applied_amount,
+                                additional_properties: hash)
     end
   end
 end

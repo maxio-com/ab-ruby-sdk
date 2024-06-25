@@ -35,8 +35,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(automatically_resume_at = SKIP,
-                   additional_properties = {})
+    def initialize(automatically_resume_at: SKIP, additional_properties: {})
       @automatically_resume_at = automatically_resume_at unless automatically_resume_at == SKIP
 
       # Add additional model properties to the instance.
@@ -60,8 +59,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AutoResume.new(automatically_resume_at,
-                     hash)
+      AutoResume.new(automatically_resume_at: automatically_resume_at,
+                     additional_properties: hash)
     end
 
     def to_custom_automatically_resume_at

@@ -45,10 +45,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(public_key = SKIP,
-                   requires_security_token = SKIP,
-                   created_at = SKIP,
-                   additional_properties = {})
+    def initialize(public_key: SKIP, requires_security_token: SKIP,
+                   created_at: SKIP, additional_properties: {})
       @public_key = public_key unless public_key == SKIP
       @requires_security_token = requires_security_token unless requires_security_token == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -77,10 +75,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PublicKey.new(public_key,
-                    requires_security_token,
-                    created_at,
-                    hash)
+      PublicKey.new(public_key: public_key,
+                    requires_security_token: requires_security_token,
+                    created_at: created_at,
+                    additional_properties: hash)
     end
 
     def to_custom_created_at

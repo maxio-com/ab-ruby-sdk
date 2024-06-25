@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   site_id = SKIP,
-                   subscription_id = SKIP,
-                   code = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, site_id: SKIP, subscription_id: SKIP, code: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @site_id = site_id unless site_id == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
@@ -81,11 +78,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReferralCode.new(id,
-                       site_id,
-                       subscription_id,
-                       code,
-                       hash)
+      ReferralCode.new(id: id,
+                       site_id: site_id,
+                       subscription_id: subscription_id,
+                       code: code,
+                       additional_properties: hash)
     end
   end
 end

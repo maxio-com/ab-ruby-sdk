@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(allocation = SKIP,
-                   additional_properties = {})
+    def initialize(allocation: SKIP, additional_properties: {})
       @allocation = allocation unless allocation == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateAllocationExpirationDate.new(allocation,
-                                         hash)
+      UpdateAllocationExpirationDate.new(allocation: allocation,
+                                         additional_properties: hash)
     end
   end
 end

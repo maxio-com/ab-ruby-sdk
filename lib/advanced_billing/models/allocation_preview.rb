@@ -105,20 +105,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(start_date = SKIP,
-                   end_date = SKIP,
-                   subtotal_in_cents = SKIP,
-                   total_tax_in_cents = SKIP,
-                   total_discount_in_cents = SKIP,
-                   total_in_cents = SKIP,
-                   direction = SKIP,
-                   proration_scheme = SKIP,
-                   line_items = SKIP,
-                   accrue_charge = SKIP,
-                   allocations = SKIP,
-                   period_type = SKIP,
-                   existing_balance_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(start_date: SKIP, end_date: SKIP, subtotal_in_cents: SKIP,
+                   total_tax_in_cents: SKIP, total_discount_in_cents: SKIP,
+                   total_in_cents: SKIP, direction: SKIP,
+                   proration_scheme: SKIP, line_items: SKIP,
+                   accrue_charge: SKIP, allocations: SKIP, period_type: SKIP,
+                   existing_balance_in_cents: SKIP, additional_properties: {})
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
       @subtotal_in_cents = subtotal_in_cents unless subtotal_in_cents == SKIP
@@ -197,20 +189,20 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AllocationPreview.new(start_date,
-                            end_date,
-                            subtotal_in_cents,
-                            total_tax_in_cents,
-                            total_discount_in_cents,
-                            total_in_cents,
-                            direction,
-                            proration_scheme,
-                            line_items,
-                            accrue_charge,
-                            allocations,
-                            period_type,
-                            existing_balance_in_cents,
-                            hash)
+      AllocationPreview.new(start_date: start_date,
+                            end_date: end_date,
+                            subtotal_in_cents: subtotal_in_cents,
+                            total_tax_in_cents: total_tax_in_cents,
+                            total_discount_in_cents: total_discount_in_cents,
+                            total_in_cents: total_in_cents,
+                            direction: direction,
+                            proration_scheme: proration_scheme,
+                            line_items: line_items,
+                            accrue_charge: accrue_charge,
+                            allocations: allocations,
+                            period_type: period_type,
+                            existing_balance_in_cents: existing_balance_in_cents,
+                            additional_properties: hash)
     end
 
     def to_custom_start_date

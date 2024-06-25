@@ -56,12 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(owner_id = SKIP,
-                   owner_type = SKIP,
-                   name = SKIP,
-                   value = SKIP,
-                   metadatum_id = SKIP,
-                   additional_properties = {})
+    def initialize(owner_id: SKIP, owner_type: SKIP, name: SKIP, value: SKIP,
+                   metadatum_id: SKIP, additional_properties: {})
       @owner_id = owner_id unless owner_id == SKIP
       @owner_type = owner_type unless owner_type == SKIP
       @name = name unless name == SKIP
@@ -89,12 +85,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceCustomField.new(owner_id,
-                             owner_type,
-                             name,
-                             value,
-                             metadatum_id,
-                             hash)
+      InvoiceCustomField.new(owner_id: owner_id,
+                             owner_type: owner_type,
+                             name: name,
+                             value: value,
+                             metadatum_id: metadatum_id,
+                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

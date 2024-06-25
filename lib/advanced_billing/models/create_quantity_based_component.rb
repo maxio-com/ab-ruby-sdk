@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(quantity_based_component = nil,
-                   additional_properties = {})
+    def initialize(quantity_based_component:, additional_properties: {})
       @quantity_based_component = quantity_based_component
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateQuantityBasedComponent.new(quantity_based_component,
-                                       hash)
+      CreateQuantityBasedComponent.new(quantity_based_component: quantity_based_component,
+                                       additional_properties: hash)
     end
   end
 end

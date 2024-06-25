@@ -114,20 +114,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product_handle = SKIP,
-                   product_id = SKIP,
-                   product_price_point_id = SKIP,
-                   product_price_point_handle = SKIP,
-                   offer_id = SKIP,
-                   reference = SKIP,
-                   primary = SKIP,
-                   currency = SKIP,
-                   coupon_codes = SKIP,
-                   components = SKIP,
-                   custom_price = SKIP,
-                   calendar_billing = SKIP,
-                   metafields = SKIP,
-                   additional_properties = {})
+    def initialize(product_handle: SKIP, product_id: SKIP,
+                   product_price_point_id: SKIP,
+                   product_price_point_handle: SKIP, offer_id: SKIP,
+                   reference: SKIP, primary: SKIP, currency: SKIP,
+                   coupon_codes: SKIP, components: SKIP, custom_price: SKIP,
+                   calendar_billing: SKIP, metafields: SKIP,
+                   additional_properties: {})
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
@@ -188,20 +181,20 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignupItem.new(product_handle,
-                                      product_id,
-                                      product_price_point_id,
-                                      product_price_point_handle,
-                                      offer_id,
-                                      reference,
-                                      primary,
-                                      currency,
-                                      coupon_codes,
-                                      components,
-                                      custom_price,
-                                      calendar_billing,
-                                      metafields,
-                                      hash)
+      SubscriptionGroupSignupItem.new(product_handle: product_handle,
+                                      product_id: product_id,
+                                      product_price_point_id: product_price_point_id,
+                                      product_price_point_handle: product_price_point_handle,
+                                      offer_id: offer_id,
+                                      reference: reference,
+                                      primary: primary,
+                                      currency: currency,
+                                      coupon_codes: coupon_codes,
+                                      components: components,
+                                      custom_price: custom_price,
+                                      calendar_billing: calendar_billing,
+                                      metafields: metafields,
+                                      additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

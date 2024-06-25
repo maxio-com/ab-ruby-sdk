@@ -93,18 +93,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   scheme = SKIP,
-                   customer_id = SKIP,
-                   payment_profile_id = SKIP,
-                   subscription_ids = SKIP,
-                   primary_subscription_id = SKIP,
-                   next_assessment_at = SKIP,
-                   state = SKIP,
-                   cancel_at_end_of_period = SKIP,
-                   account_balances = SKIP,
-                   group_type = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, scheme: SKIP, customer_id: SKIP,
+                   payment_profile_id: SKIP, subscription_ids: SKIP,
+                   primary_subscription_id: SKIP, next_assessment_at: SKIP,
+                   state: SKIP, cancel_at_end_of_period: SKIP,
+                   account_balances: SKIP, group_type: SKIP,
+                   additional_properties: {})
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -153,18 +147,18 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSubscriptionGroupsItem.new(uid,
-                                     scheme,
-                                     customer_id,
-                                     payment_profile_id,
-                                     subscription_ids,
-                                     primary_subscription_id,
-                                     next_assessment_at,
-                                     state,
-                                     cancel_at_end_of_period,
-                                     account_balances,
-                                     group_type,
-                                     hash)
+      ListSubscriptionGroupsItem.new(uid: uid,
+                                     scheme: scheme,
+                                     customer_id: customer_id,
+                                     payment_profile_id: payment_profile_id,
+                                     subscription_ids: subscription_ids,
+                                     primary_subscription_id: primary_subscription_id,
+                                     next_assessment_at: next_assessment_at,
+                                     state: state,
+                                     cancel_at_end_of_period: cancel_at_end_of_period,
+                                     account_balances: account_balances,
+                                     group_type: group_type,
+                                     additional_properties: hash)
     end
 
     def to_custom_next_assessment_at

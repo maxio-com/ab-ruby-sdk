@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(offers = SKIP,
-                   additional_properties = {})
+    def initialize(offers: SKIP, additional_properties: {})
       @offers = offers unless offers == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListOffersResponse.new(offers,
-                             hash)
+      ListOffersResponse.new(offers: offers,
+                             additional_properties: hash)
     end
   end
 end

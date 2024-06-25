@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(segments = SKIP,
-                   additional_properties = {})
+    def initialize(segments: SKIP, additional_properties: {})
       @segments = segments unless segments == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BulkCreateSegments.new(segments,
-                             hash)
+      BulkCreateSegments.new(segments: segments,
+                             additional_properties: hash)
     end
   end
 end

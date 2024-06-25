@@ -35,9 +35,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(previous_subscription_state = nil,
-                   new_subscription_state = nil,
-                   additional_properties = {})
+    def initialize(previous_subscription_state:, new_subscription_state:,
+                   additional_properties: {})
       @previous_subscription_state = previous_subscription_state
       @new_subscription_state = new_subscription_state
 
@@ -61,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionStateChange.new(previous_subscription_state,
-                                  new_subscription_state,
-                                  hash)
+      SubscriptionStateChange.new(previous_subscription_state: previous_subscription_state,
+                                  new_subscription_state: new_subscription_state,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

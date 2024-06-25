@@ -55,11 +55,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(agreement_terms = SKIP,
-                   authorizer_first_name = SKIP,
-                   authorizer_last_name = SKIP,
-                   ip_address = SKIP,
-                   additional_properties = {})
+    def initialize(agreement_terms: SKIP, authorizer_first_name: SKIP,
+                   authorizer_last_name: SKIP, ip_address: SKIP,
+                   additional_properties: {})
       @agreement_terms = agreement_terms unless agreement_terms == SKIP
       @authorizer_first_name = authorizer_first_name unless authorizer_first_name == SKIP
       @authorizer_last_name = authorizer_last_name unless authorizer_last_name == SKIP
@@ -88,11 +86,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ACHAgreement.new(agreement_terms,
-                       authorizer_first_name,
-                       authorizer_last_name,
-                       ip_address,
-                       hash)
+      ACHAgreement.new(agreement_terms: agreement_terms,
+                       authorizer_first_name: authorizer_first_name,
+                       authorizer_last_name: authorizer_last_name,
+                       ip_address: ip_address,
+                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

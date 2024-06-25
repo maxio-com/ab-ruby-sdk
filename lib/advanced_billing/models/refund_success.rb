@@ -40,10 +40,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(refund_id = nil,
-                   gateway_transaction_id = nil,
-                   product_id = nil,
-                   additional_properties = {})
+    def initialize(refund_id:, gateway_transaction_id:, product_id:,
+                   additional_properties: {})
       @refund_id = refund_id
       @gateway_transaction_id = gateway_transaction_id
       @product_id = product_id
@@ -68,10 +66,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundSuccess.new(refund_id,
-                        gateway_transaction_id,
-                        product_id,
-                        hash)
+      RefundSuccess.new(refund_id: refund_id,
+                        gateway_transaction_id: gateway_transaction_id,
+                        product_id: product_id,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

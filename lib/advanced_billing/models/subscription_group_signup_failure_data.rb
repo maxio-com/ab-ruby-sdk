@@ -74,15 +74,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(payer_id = SKIP,
-                   payer_reference = SKIP,
-                   payment_profile_id = SKIP,
-                   payment_collection_method = SKIP,
-                   payer_attributes = SKIP,
-                   credit_card_attributes = SKIP,
-                   bank_account_attributes = SKIP,
-                   subscriptions = SKIP,
-                   additional_properties = {})
+    def initialize(payer_id: SKIP, payer_reference: SKIP,
+                   payment_profile_id: SKIP, payment_collection_method: SKIP,
+                   payer_attributes: SKIP, credit_card_attributes: SKIP,
+                   bank_account_attributes: SKIP, subscriptions: SKIP,
+                   additional_properties: {})
       @payer_id = payer_id unless payer_id == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
@@ -136,15 +132,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignupFailureData.new(payer_id,
-                                             payer_reference,
-                                             payment_profile_id,
-                                             payment_collection_method,
-                                             payer_attributes,
-                                             credit_card_attributes,
-                                             bank_account_attributes,
-                                             subscriptions,
-                                             hash)
+      SubscriptionGroupSignupFailureData.new(payer_id: payer_id,
+                                             payer_reference: payer_reference,
+                                             payment_profile_id: payment_profile_id,
+                                             payment_collection_method: payment_collection_method,
+                                             payer_attributes: payer_attributes,
+                                             credit_card_attributes: credit_card_attributes,
+                                             bank_account_attributes: bank_account_attributes,
+                                             subscriptions: subscriptions,
+                                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

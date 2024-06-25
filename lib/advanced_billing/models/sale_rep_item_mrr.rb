@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(mrr = SKIP,
-                   usage = SKIP,
-                   recurring = SKIP,
-                   additional_properties = {})
+    def initialize(mrr: SKIP, usage: SKIP, recurring: SKIP,
+                   additional_properties: {})
       @mrr = mrr unless mrr == SKIP
       @usage = usage unless usage == SKIP
       @recurring = recurring unless recurring == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SaleRepItemMrr.new(mrr,
-                         usage,
-                         recurring,
-                         hash)
+      SaleRepItemMrr.new(mrr: mrr,
+                         usage: usage,
+                         recurring: recurring,
+                         additional_properties: hash)
     end
   end
 end

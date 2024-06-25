@@ -47,10 +47,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(currencies = SKIP,
-                   use_site_exchange_rate = SKIP,
-                   subscription = SKIP,
-                   additional_properties = {})
+    def initialize(currencies: SKIP, use_site_exchange_rate: SKIP,
+                   subscription: SKIP, additional_properties: {})
       @currencies = currencies unless currencies == SKIP
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
       @subscription = subscription unless subscription == SKIP
@@ -75,10 +73,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSubscriptionComponentsForSiteFilter.new(currencies,
-                                                  use_site_exchange_rate,
-                                                  subscription,
-                                                  hash)
+      ListSubscriptionComponentsForSiteFilter.new(currencies: currencies,
+                                                  use_site_exchange_rate: use_site_exchange_rate,
+                                                  subscription: subscription,
+                                                  additional_properties: hash)
     end
   end
 end

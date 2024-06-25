@@ -65,13 +65,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(debit_note_number = nil,
-                   debit_note_uid = nil,
-                   original_amount = nil,
-                   applied_amount = nil,
-                   memo = SKIP,
-                   transaction_time = SKIP,
-                   additional_properties = {})
+    def initialize(debit_note_number:, debit_note_uid:, original_amount:,
+                   applied_amount:, memo: SKIP, transaction_time: SKIP,
+                   additional_properties: {})
       @debit_note_number = debit_note_number
       @debit_note_uid = debit_note_uid
       @original_amount = original_amount
@@ -109,13 +105,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ApplyDebitNoteEventData.new(debit_note_number,
-                                  debit_note_uid,
-                                  original_amount,
-                                  applied_amount,
-                                  memo,
-                                  transaction_time,
-                                  hash)
+      ApplyDebitNoteEventData.new(debit_note_number: debit_note_number,
+                                  debit_note_uid: debit_note_uid,
+                                  original_amount: original_amount,
+                                  applied_amount: applied_amount,
+                                  memo: memo,
+                                  transaction_time: transaction_time,
+                                  additional_properties: hash)
     end
 
     def to_custom_transaction_time

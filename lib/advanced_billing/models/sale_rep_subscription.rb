@@ -88,17 +88,10 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   site_name = SKIP,
-                   subscription_url = SKIP,
-                   customer_name = SKIP,
-                   created_at = SKIP,
-                   mrr = SKIP,
-                   usage = SKIP,
-                   recurring = SKIP,
-                   last_payment = SKIP,
-                   churn_date = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, site_name: SKIP, subscription_url: SKIP,
+                   customer_name: SKIP, created_at: SKIP, mrr: SKIP,
+                   usage: SKIP, recurring: SKIP, last_payment: SKIP,
+                   churn_date: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @site_name = site_name unless site_name == SKIP
       @subscription_url = subscription_url unless subscription_url == SKIP
@@ -137,17 +130,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SaleRepSubscription.new(id,
-                              site_name,
-                              subscription_url,
-                              customer_name,
-                              created_at,
-                              mrr,
-                              usage,
-                              recurring,
-                              last_payment,
-                              churn_date,
-                              hash)
+      SaleRepSubscription.new(id: id,
+                              site_name: site_name,
+                              subscription_url: subscription_url,
+                              customer_name: customer_name,
+                              created_at: created_at,
+                              mrr: mrr,
+                              usage: usage,
+                              recurring: recurring,
+                              last_payment: last_payment,
+                              churn_date: churn_date,
+                              additional_properties: hash)
     end
   end
 end

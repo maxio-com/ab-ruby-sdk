@@ -91,15 +91,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(date_field = SKIP,
-                   start_date = SKIP,
-                   end_date = SKIP,
-                   start_datetime = SKIP,
-                   end_datetime = SKIP,
-                   type = SKIP,
-                   ids = SKIP,
-                   archived_at = SKIP,
-                   additional_properties = {})
+    def initialize(date_field: SKIP, start_date: SKIP, end_date: SKIP,
+                   start_datetime: SKIP, end_datetime: SKIP, type: SKIP,
+                   ids: SKIP, archived_at: SKIP, additional_properties: {})
       @date_field = date_field unless date_field == SKIP
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
@@ -141,15 +135,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListPricePointsFilter.new(date_field,
-                                start_date,
-                                end_date,
-                                start_datetime,
-                                end_datetime,
-                                type,
-                                ids,
-                                archived_at,
-                                hash)
+      ListPricePointsFilter.new(date_field: date_field,
+                                start_date: start_date,
+                                end_date: end_date,
+                                start_datetime: start_datetime,
+                                end_datetime: end_datetime,
+                                type: type,
+                                ids: ids,
+                                archived_at: archived_at,
+                                additional_properties: hash)
     end
 
     def to_custom_start_datetime

@@ -30,7 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(additional_properties = {})
+    def initialize(additional_properties: {})
       @product_price_point_id = 'not_null'
 
       # Add additional model properties to the instance.
@@ -50,7 +50,7 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PrepaidProductPricePointFilter.new(hash)
+      PrepaidProductPricePointFilter.new(additional_properties: hash)
     end
   end
 end

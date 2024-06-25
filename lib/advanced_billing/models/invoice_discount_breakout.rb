@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   eligible_amount = SKIP,
-                   discount_amount = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, eligible_amount: SKIP, discount_amount: SKIP,
+                   additional_properties: {})
       @uid = uid unless uid == SKIP
       @eligible_amount = eligible_amount unless eligible_amount == SKIP
       @discount_amount = discount_amount unless discount_amount == SKIP
@@ -73,10 +71,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceDiscountBreakout.new(uid,
-                                  eligible_amount,
-                                  discount_amount,
-                                  hash)
+      InvoiceDiscountBreakout.new(uid: uid,
+                                  eligible_amount: eligible_amount,
+                                  discount_amount: discount_amount,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -69,14 +69,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   site_id = SKIP,
-                   code = SKIP,
-                   description = SKIP,
-                   position = SKIP,
-                   created_at = SKIP,
-                   updated_at = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, site_id: SKIP, code: SKIP, description: SKIP,
+                   position: SKIP, created_at: SKIP, updated_at: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @site_id = site_id unless site_id == SKIP
       @code = code unless code == SKIP
@@ -116,14 +111,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReasonCode.new(id,
-                     site_id,
-                     code,
-                     description,
-                     position,
-                     created_at,
-                     updated_at,
-                     hash)
+      ReasonCode.new(id: id,
+                     site_id: site_id,
+                     code: code,
+                     description: description,
+                     position: position,
+                     created_at: created_at,
+                     updated_at: updated_at,
+                     additional_properties: hash)
     end
 
     def to_custom_created_at

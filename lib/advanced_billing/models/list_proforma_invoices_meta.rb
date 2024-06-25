@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(total_count = SKIP,
-                   current_page = SKIP,
-                   total_pages = SKIP,
-                   status_code = SKIP,
-                   additional_properties = {})
+    def initialize(total_count: SKIP, current_page: SKIP, total_pages: SKIP,
+                   status_code: SKIP, additional_properties: {})
       @total_count = total_count unless total_count == SKIP
       @current_page = current_page unless current_page == SKIP
       @total_pages = total_pages unless total_pages == SKIP
@@ -80,11 +77,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListProformaInvoicesMeta.new(total_count,
-                                   current_page,
-                                   total_pages,
-                                   status_code,
-                                   hash)
+      ListProformaInvoicesMeta.new(total_count: total_count,
+                                   current_page: current_page,
+                                   total_pages: total_pages,
+                                   status_code: status_code,
+                                   additional_properties: hash)
     end
   end
 end

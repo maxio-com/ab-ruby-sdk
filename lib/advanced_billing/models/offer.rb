@@ -144,26 +144,14 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   site_id = SKIP,
-                   product_family_id = SKIP,
-                   product_id = SKIP,
-                   product_price_point_id = SKIP,
-                   product_revisable_number = SKIP,
-                   name = SKIP,
-                   handle = SKIP,
-                   description = SKIP,
-                   created_at = SKIP,
-                   updated_at = SKIP,
-                   archived_at = SKIP,
-                   offer_items = SKIP,
-                   offer_discounts = SKIP,
-                   product_family_name = SKIP,
-                   product_name = SKIP,
-                   product_price_point_name = SKIP,
-                   product_price_in_cents = SKIP,
-                   offer_signup_pages = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, site_id: SKIP, product_family_id: SKIP,
+                   product_id: SKIP, product_price_point_id: SKIP,
+                   product_revisable_number: SKIP, name: SKIP, handle: SKIP,
+                   description: SKIP, created_at: SKIP, updated_at: SKIP,
+                   archived_at: SKIP, offer_items: SKIP, offer_discounts: SKIP,
+                   product_family_name: SKIP, product_name: SKIP,
+                   product_price_point_name: SKIP, product_price_in_cents: SKIP,
+                   offer_signup_pages: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @site_id = site_id unless site_id == SKIP
       @product_family_id = product_family_id unless product_family_id == SKIP
@@ -264,26 +252,26 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Offer.new(id,
-                site_id,
-                product_family_id,
-                product_id,
-                product_price_point_id,
-                product_revisable_number,
-                name,
-                handle,
-                description,
-                created_at,
-                updated_at,
-                archived_at,
-                offer_items,
-                offer_discounts,
-                product_family_name,
-                product_name,
-                product_price_point_name,
-                product_price_in_cents,
-                offer_signup_pages,
-                hash)
+      Offer.new(id: id,
+                site_id: site_id,
+                product_family_id: product_family_id,
+                product_id: product_id,
+                product_price_point_id: product_price_point_id,
+                product_revisable_number: product_revisable_number,
+                name: name,
+                handle: handle,
+                description: description,
+                created_at: created_at,
+                updated_at: updated_at,
+                archived_at: archived_at,
+                offer_items: offer_items,
+                offer_discounts: offer_discounts,
+                product_family_name: product_family_name,
+                product_name: product_name,
+                product_price_point_name: product_price_point_name,
+                product_price_in_cents: product_price_in_cents,
+                offer_signup_pages: offer_signup_pages,
+                additional_properties: hash)
     end
 
     def to_custom_created_at

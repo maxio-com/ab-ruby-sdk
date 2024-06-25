@@ -200,29 +200,16 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name = nil,
-                   unit_name = SKIP,
-                   description = SKIP,
-                   handle = SKIP,
-                   taxable = SKIP,
-                   pricing_scheme = SKIP,
-                   prices = SKIP,
-                   upgrade_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   price_points = SKIP,
-                   unit_price = SKIP,
-                   tax_code = SKIP,
-                   hide_date_range_on_invoice = SKIP,
-                   price_in_cents = SKIP,
-                   overage_pricing = SKIP,
-                   rollover_prepaid_remainder = SKIP,
-                   renew_prepaid_allocation = SKIP,
-                   expiration_interval = SKIP,
-                   expiration_interval_unit = SKIP,
-                   display_on_hosted_page = SKIP,
-                   allow_fractional_quantities = SKIP,
-                   public_signup_page_ids = SKIP,
-                   additional_properties = {})
+    def initialize(name:, unit_name: SKIP, description: SKIP, handle: SKIP,
+                   taxable: SKIP, pricing_scheme: SKIP, prices: SKIP,
+                   upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
+                   hide_date_range_on_invoice: SKIP, price_in_cents: SKIP,
+                   overage_pricing: SKIP, rollover_prepaid_remainder: SKIP,
+                   renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP, display_on_hosted_page: SKIP,
+                   allow_fractional_quantities: SKIP,
+                   public_signup_page_ids: SKIP, additional_properties: {})
       @name = name
       @unit_name = unit_name unless unit_name == SKIP
       @description = description unless description == SKIP
@@ -326,29 +313,29 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PrepaidUsageComponent.new(name,
-                                unit_name,
-                                description,
-                                handle,
-                                taxable,
-                                pricing_scheme,
-                                prices,
-                                upgrade_charge,
-                                downgrade_credit,
-                                price_points,
-                                unit_price,
-                                tax_code,
-                                hide_date_range_on_invoice,
-                                price_in_cents,
-                                overage_pricing,
-                                rollover_prepaid_remainder,
-                                renew_prepaid_allocation,
-                                expiration_interval,
-                                expiration_interval_unit,
-                                display_on_hosted_page,
-                                allow_fractional_quantities,
-                                public_signup_page_ids,
-                                hash)
+      PrepaidUsageComponent.new(name: name,
+                                unit_name: unit_name,
+                                description: description,
+                                handle: handle,
+                                taxable: taxable,
+                                pricing_scheme: pricing_scheme,
+                                prices: prices,
+                                upgrade_charge: upgrade_charge,
+                                downgrade_credit: downgrade_credit,
+                                price_points: price_points,
+                                unit_price: unit_price,
+                                tax_code: tax_code,
+                                hide_date_range_on_invoice: hide_date_range_on_invoice,
+                                price_in_cents: price_in_cents,
+                                overage_pricing: overage_pricing,
+                                rollover_prepaid_remainder: rollover_prepaid_remainder,
+                                renew_prepaid_allocation: renew_prepaid_allocation,
+                                expiration_interval: expiration_interval,
+                                expiration_interval_unit: expiration_interval_unit,
+                                display_on_hosted_page: display_on_hosted_page,
+                                allow_fractional_quantities: allow_fractional_quantities,
+                                public_signup_page_ids: public_signup_page_ids,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

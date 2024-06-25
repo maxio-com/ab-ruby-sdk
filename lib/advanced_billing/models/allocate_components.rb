@@ -84,15 +84,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(proration_upgrade_scheme = SKIP,
-                   proration_downgrade_scheme = SKIP,
-                   allocations = SKIP,
-                   accrue_charge = SKIP,
-                   upgrade_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   payment_collection_method = SKIP,
-                   initiate_dunning = SKIP,
-                   additional_properties = {})
+    def initialize(proration_upgrade_scheme: SKIP,
+                   proration_downgrade_scheme: SKIP, allocations: SKIP,
+                   accrue_charge: SKIP, upgrade_charge: SKIP,
+                   downgrade_credit: SKIP, payment_collection_method: SKIP,
+                   initiate_dunning: SKIP, additional_properties: {})
       @proration_upgrade_scheme = proration_upgrade_scheme unless proration_upgrade_scheme == SKIP
       unless proration_downgrade_scheme == SKIP
         @proration_downgrade_scheme =
@@ -147,15 +143,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AllocateComponents.new(proration_upgrade_scheme,
-                             proration_downgrade_scheme,
-                             allocations,
-                             accrue_charge,
-                             upgrade_charge,
-                             downgrade_credit,
-                             payment_collection_method,
-                             initiate_dunning,
-                             hash)
+      AllocateComponents.new(proration_upgrade_scheme: proration_upgrade_scheme,
+                             proration_downgrade_scheme: proration_downgrade_scheme,
+                             allocations: allocations,
+                             accrue_charge: accrue_charge,
+                             upgrade_charge: upgrade_charge,
+                             downgrade_credit: downgrade_credit,
+                             payment_collection_method: payment_collection_method,
+                             initiate_dunning: initiate_dunning,
+                             additional_properties: hash)
     end
   end
 end

@@ -55,13 +55,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(previous_unit_balance = nil,
-                   new_unit_balance = nil,
-                   usage_quantity = nil,
-                   component_id = nil,
-                   component_handle = nil,
-                   memo = nil,
-                   additional_properties = {})
+    def initialize(previous_unit_balance:, new_unit_balance:, usage_quantity:,
+                   component_id:, component_handle:, memo:,
+                   additional_properties: {})
       @previous_unit_balance = previous_unit_balance
       @new_unit_balance = new_unit_balance
       @usage_quantity = usage_quantity
@@ -95,13 +91,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      MeteredUsage.new(previous_unit_balance,
-                       new_unit_balance,
-                       usage_quantity,
-                       component_id,
-                       component_handle,
-                       memo,
-                       hash)
+      MeteredUsage.new(previous_unit_balance: previous_unit_balance,
+                       new_unit_balance: new_unit_balance,
+                       usage_quantity: usage_quantity,
+                       component_id: component_id,
+                       component_handle: component_handle,
+                       memo: memo,
+                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

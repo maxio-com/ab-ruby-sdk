@@ -80,17 +80,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = nil,
-                   subscription_id = nil,
-                   amount_in_cents = nil,
-                   remaining_amount_in_cents = nil,
-                   external = nil,
-                   memo = nil,
-                   created_at = nil,
-                   refunded_amount_in_cents = SKIP,
-                   details = SKIP,
-                   payment_type = SKIP,
-                   additional_properties = {})
+    def initialize(id:, subscription_id:, amount_in_cents:,
+                   remaining_amount_in_cents:, external:, memo:, created_at:,
+                   refunded_amount_in_cents: SKIP, details: SKIP,
+                   payment_type: SKIP, additional_properties: {})
       @id = id
       @subscription_id = subscription_id
       @amount_in_cents = amount_in_cents
@@ -134,17 +127,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Prepayment.new(id,
-                     subscription_id,
-                     amount_in_cents,
-                     remaining_amount_in_cents,
-                     external,
-                     memo,
-                     created_at,
-                     refunded_amount_in_cents,
-                     details,
-                     payment_type,
-                     hash)
+      Prepayment.new(id: id,
+                     subscription_id: subscription_id,
+                     amount_in_cents: amount_in_cents,
+                     remaining_amount_in_cents: remaining_amount_in_cents,
+                     external: external,
+                     memo: memo,
+                     created_at: created_at,
+                     refunded_amount_in_cents: refunded_amount_in_cents,
+                     details: details,
+                     payment_type: payment_type,
+                     additional_properties: hash)
     end
 
     def to_custom_created_at

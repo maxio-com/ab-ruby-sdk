@@ -62,13 +62,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = nil,
-                   applications = nil,
-                   memo = SKIP,
-                   details = SKIP,
-                   method = SKIP,
-                   received_on = SKIP,
-                   additional_properties = {})
+    def initialize(amount:, applications:, memo: SKIP, details: SKIP,
+                   method: SKIP, received_on: SKIP, additional_properties: {})
       @memo = memo unless memo == SKIP
       @details = details unless details == SKIP
       @method = method unless method == SKIP
@@ -109,13 +104,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateMultiInvoicePayment.new(amount,
-                                    applications,
-                                    memo,
-                                    details,
-                                    method,
-                                    received_on,
-                                    hash)
+      CreateMultiInvoicePayment.new(amount: amount,
+                                    applications: applications,
+                                    memo: memo,
+                                    details: details,
+                                    method: method,
+                                    received_on: received_on,
+                                    additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

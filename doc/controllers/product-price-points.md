@@ -49,20 +49,20 @@ def create_product_price_point(product_id,
 product_id = 124
 
 body = CreateProductPricePointRequest.new(
-  CreateProductPricePoint.new(
-    'Educational',
-    1000,
-    1,
-    IntervalUnit::MONTH,
-    'educational',
-    4900,
-    1,
-    IntervalUnit::MONTH,
-    'payment_expected',
-    120000,
-    false,
-    12,
-    IntervalUnit::MONTH
+  price_point: CreateProductPricePoint.new(
+    name: 'Educational',
+    price_in_cents: 1000,
+    interval: 1,
+    interval_unit: IntervalUnit::MONTH,
+    handle: 'educational',
+    trial_price_in_cents: 4900,
+    trial_interval: 1,
+    trial_interval_unit: IntervalUnit::MONTH,
+    trial_type: 'payment_expected',
+    initial_charge_in_cents: 120000,
+    initial_charge_after_trial: false,
+    expiration_interval: 12,
+    expiration_interval_unit: IntervalUnit::MONTH
   )
 )
 
@@ -202,9 +202,9 @@ product_id = 124
 price_point_id = 188
 
 body = UpdateProductPricePointRequest.new(
-  UpdateProductPricePoint.new(
-    'educational',
-    1250
+  price_point: UpdateProductPricePoint.new(
+    handle: 'educational',
+    price_in_cents: 1250
   )
 )
 
@@ -245,7 +245,7 @@ result = product_price_points_controller.update_product_price_point(
 
 # Read Product Price Point
 
-Use this endpoint to retrieve details for a specific product price point.
+Use this endpoint to retrieve details for a specific product price point. You can achieve this by using either the product price point ID or handle.
 
 ```ruby
 def read_product_price_point(product_id,
@@ -549,36 +549,36 @@ def bulk_create_product_price_points(product_id,
 product_id = 202
 
 body = BulkCreateProductPricePointsRequest.new(
-  [
+  price_points: [
     CreateProductPricePoint.new(
-      'Educational',
-      1000,
-      1,
-      IntervalUnit::MONTH,
-      'educational',
-      4900,
-      1,
-      IntervalUnit::MONTH,
-      'payment_expected',
-      120000,
-      false,
-      12,
-      IntervalUnit::MONTH
+      name: 'Educational',
+      price_in_cents: 1000,
+      interval: 1,
+      interval_unit: IntervalUnit::MONTH,
+      handle: 'educational',
+      trial_price_in_cents: 4900,
+      trial_interval: 1,
+      trial_interval_unit: IntervalUnit::MONTH,
+      trial_type: 'payment_expected',
+      initial_charge_in_cents: 120000,
+      initial_charge_after_trial: false,
+      expiration_interval: 12,
+      expiration_interval_unit: IntervalUnit::MONTH
     ),
     CreateProductPricePoint.new(
-      'More Educational',
-      2000,
-      1,
-      IntervalUnit::MONTH,
-      'more-educational',
-      4900,
-      1,
-      IntervalUnit::MONTH,
-      'payment_expected',
-      120000,
-      false,
-      12,
-      IntervalUnit::MONTH
+      name: 'More Educational',
+      price_in_cents: 2000,
+      interval: 1,
+      interval_unit: IntervalUnit::MONTH,
+      handle: 'more-educational',
+      trial_price_in_cents: 4900,
+      trial_interval: 1,
+      trial_interval_unit: IntervalUnit::MONTH,
+      trial_type: 'payment_expected',
+      initial_charge_in_cents: 120000,
+      initial_charge_after_trial: false,
+      expiration_interval: 12,
+      expiration_interval_unit: IntervalUnit::MONTH
     )
   ]
 )
@@ -655,21 +655,21 @@ def create_product_currency_prices(product_price_point_id,
 product_price_point_id = 234
 
 body = CreateProductCurrencyPricesRequest.new(
-  [
+  currency_prices: [
     CreateProductCurrencyPrice.new(
-      'EUR',
-      60,
-      CurrencyPriceRole::BASELINE
+      currency: 'EUR',
+      price: 60,
+      role: CurrencyPriceRole::BASELINE
     ),
     CreateProductCurrencyPrice.new(
-      'EUR',
-      30,
-      CurrencyPriceRole::TRIAL
+      currency: 'EUR',
+      price: 30,
+      role: CurrencyPriceRole::TRIAL
     ),
     CreateProductCurrencyPrice.new(
-      'EUR',
-      100,
-      CurrencyPriceRole::INITIAL
+      currency: 'EUR',
+      price: 100,
+      role: CurrencyPriceRole::INITIAL
     )
   ]
 )
@@ -734,14 +734,14 @@ def update_product_currency_prices(product_price_point_id,
 product_price_point_id = 234
 
 body = UpdateCurrencyPricesRequest.new(
-  [
+  currency_prices: [
     UpdateCurrencyPrice.new(
-      200,
-      15
+      id: 200,
+      price: 15
     ),
     UpdateCurrencyPrice.new(
-      201,
-      5
+      id: 201,
+      price: 5
     )
   ]
 )
@@ -803,17 +803,16 @@ def list_all_product_price_points(options = {})
 ```ruby
 collect = {
   'filter': ListPricePointsFilter.new(
-    nil,
-    Date.iso8601('2011-12-17'),
-    Date.iso8601('2011-12-15'),
-    DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
-    DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
-    [
+    start_date: Date.iso8601('2011-12-17'),
+    end_date: Date.iso8601('2011-12-15'),
+    start_datetime: DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
+    end_datetime: DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
+    type: [
       PricePointType::CATALOG,
       PricePointType::DEFAULT,
       PricePointType::CUSTOM
     ],
-    [
+    ids: [
       1,
       2,
       3

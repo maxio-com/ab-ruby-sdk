@@ -68,14 +68,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   title = SKIP,
-                   source_type = SKIP,
-                   percentage = SKIP,
-                   taxable_amount = SKIP,
-                   tax_amount = SKIP,
-                   line_item_breakouts = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, title: SKIP, source_type: SKIP, percentage: SKIP,
+                   taxable_amount: SKIP, tax_amount: SKIP,
+                   line_item_breakouts: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @source_type = source_type unless source_type == SKIP
@@ -117,14 +112,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProformaInvoiceTax.new(uid,
-                             title,
-                             source_type,
-                             percentage,
-                             taxable_amount,
-                             tax_amount,
-                             line_item_breakouts,
-                             hash)
+      ProformaInvoiceTax.new(uid: uid,
+                             title: title,
+                             source_type: source_type,
+                             percentage: percentage,
+                             taxable_amount: taxable_amount,
+                             tax_amount: tax_amount,
+                             line_item_breakouts: line_item_breakouts,
+                             additional_properties: hash)
     end
   end
 end

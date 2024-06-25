@@ -53,10 +53,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component_id = SKIP,
-                   quantity = SKIP,
-                   price_point_id = SKIP,
-                   additional_properties = {})
+    def initialize(component_id: SKIP, quantity: SKIP, price_point_id: SKIP,
+                   additional_properties: {})
       @component_id = component_id unless component_id == SKIP
       @quantity = quantity unless quantity == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
@@ -84,10 +82,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RenewalPreviewComponent.new(component_id,
-                                  quantity,
-                                  price_point_id,
-                                  hash)
+      RenewalPreviewComponent.new(component_id: component_id,
+                                  quantity: quantity,
+                                  price_point_id: price_point_id,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

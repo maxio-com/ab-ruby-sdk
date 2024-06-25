@@ -63,13 +63,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount_in_cents = SKIP,
-                   amount_formatted = SKIP,
-                   currency = SKIP,
-                   currency_symbol = SKIP,
-                   breakouts = SKIP,
-                   at_time = SKIP,
-                   additional_properties = {})
+    def initialize(amount_in_cents: SKIP, amount_formatted: SKIP,
+                   currency: SKIP, currency_symbol: SKIP, breakouts: SKIP,
+                   at_time: SKIP, additional_properties: {})
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @amount_formatted = amount_formatted unless amount_formatted == SKIP
       @currency = currency unless currency == SKIP
@@ -106,13 +102,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      MRR.new(amount_in_cents,
-              amount_formatted,
-              currency,
-              currency_symbol,
-              breakouts,
-              at_time,
-              hash)
+      MRR.new(amount_in_cents: amount_in_cents,
+              amount_formatted: amount_formatted,
+              currency: currency,
+              currency_symbol: currency_symbol,
+              breakouts: breakouts,
+              at_time: at_time,
+              additional_properties: hash)
     end
 
     def to_custom_at_time

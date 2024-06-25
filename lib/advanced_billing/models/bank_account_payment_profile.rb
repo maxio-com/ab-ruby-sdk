@@ -177,29 +177,17 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(masked_bank_routing_number = nil,
-                   masked_bank_account_number = nil,
-                   id = SKIP,
-                   first_name = SKIP,
-                   last_name = SKIP,
-                   customer_id = SKIP,
-                   current_vault = SKIP,
-                   vault_token = SKIP,
-                   billing_address = SKIP,
-                   billing_city = SKIP,
-                   billing_state = SKIP,
-                   billing_zip = SKIP,
-                   billing_country = SKIP,
-                   customer_vault_token = SKIP,
-                   billing_address_2 = SKIP,
-                   bank_name = SKIP,
-                   bank_account_type = SKIP,
-                   bank_account_holder_type = SKIP,
-                   payment_type = SKIP,
-                   verified = false,
-                   site_gateway_setting_id = SKIP,
-                   gateway_handle = SKIP,
-                   additional_properties = {})
+    def initialize(masked_bank_routing_number:, masked_bank_account_number:,
+                   id: SKIP, first_name: SKIP, last_name: SKIP,
+                   customer_id: SKIP, current_vault: SKIP, vault_token: SKIP,
+                   billing_address: SKIP, billing_city: SKIP,
+                   billing_state: SKIP, billing_zip: SKIP,
+                   billing_country: SKIP, customer_vault_token: SKIP,
+                   billing_address_2: SKIP, bank_name: SKIP,
+                   bank_account_type: SKIP, bank_account_holder_type: SKIP,
+                   payment_type: SKIP, verified: false,
+                   site_gateway_setting_id: SKIP, gateway_handle: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -271,29 +259,29 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BankAccountPaymentProfile.new(masked_bank_routing_number,
-                                    masked_bank_account_number,
-                                    id,
-                                    first_name,
-                                    last_name,
-                                    customer_id,
-                                    current_vault,
-                                    vault_token,
-                                    billing_address,
-                                    billing_city,
-                                    billing_state,
-                                    billing_zip,
-                                    billing_country,
-                                    customer_vault_token,
-                                    billing_address_2,
-                                    bank_name,
-                                    bank_account_type,
-                                    bank_account_holder_type,
-                                    payment_type,
-                                    verified,
-                                    site_gateway_setting_id,
-                                    gateway_handle,
-                                    hash)
+      BankAccountPaymentProfile.new(masked_bank_routing_number: masked_bank_routing_number,
+                                    masked_bank_account_number: masked_bank_account_number,
+                                    id: id,
+                                    first_name: first_name,
+                                    last_name: last_name,
+                                    customer_id: customer_id,
+                                    current_vault: current_vault,
+                                    vault_token: vault_token,
+                                    billing_address: billing_address,
+                                    billing_city: billing_city,
+                                    billing_state: billing_state,
+                                    billing_zip: billing_zip,
+                                    billing_country: billing_country,
+                                    customer_vault_token: customer_vault_token,
+                                    billing_address_2: billing_address_2,
+                                    bank_name: bank_name,
+                                    bank_account_type: bank_account_type,
+                                    bank_account_holder_type: bank_account_holder_type,
+                                    payment_type: payment_type,
+                                    verified: verified,
+                                    site_gateway_setting_id: site_gateway_setting_id,
+                                    gateway_handle: gateway_handle,
+                                    additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

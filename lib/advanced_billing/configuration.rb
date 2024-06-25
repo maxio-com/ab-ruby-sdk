@@ -32,7 +32,7 @@ module AdvancedBilling
     end
 
     def initialize(
-      connection: nil, adapter: :net_http_persistent, timeout: 30,
+      connection: nil, adapter: :net_http_persistent, timeout: 120,
       max_retries: 0, retry_interval: 1, backoff_factor: 2,
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       retry_methods: %i[get put], http_callback: nil,

@@ -51,9 +51,9 @@ def create_subscription_note(subscription_id,
 subscription_id = 222
 
 body = UpdateSubscriptionNoteRequest.new(
-  UpdateSubscriptionNote.new(
-    'New test note.',
-    true
+  note: UpdateSubscriptionNote.new(
+    body: 'New test note.',
+    sticky: true
   )
 )
 
@@ -203,9 +203,9 @@ subscription_id = 222
 note_id = 66
 
 body = UpdateSubscriptionNoteRequest.new(
-  UpdateSubscriptionNote.new(
-    'Modified test note.',
-    true
+  note: UpdateSubscriptionNote.new(
+    body: 'Modified test note.',
+    sticky: true
   )
 )
 

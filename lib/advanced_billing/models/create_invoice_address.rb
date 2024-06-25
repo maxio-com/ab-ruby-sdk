@@ -80,16 +80,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(first_name = SKIP,
-                   last_name = SKIP,
-                   phone = SKIP,
-                   address = SKIP,
-                   address_2 = SKIP,
-                   city = SKIP,
-                   state = SKIP,
-                   zip = SKIP,
-                   country = SKIP,
-                   additional_properties = {})
+    def initialize(first_name: SKIP, last_name: SKIP, phone: SKIP,
+                   address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
+                   zip: SKIP, country: SKIP, additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @phone = phone unless phone == SKIP
@@ -125,16 +118,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateInvoiceAddress.new(first_name,
-                               last_name,
-                               phone,
-                               address,
-                               address_2,
-                               city,
-                               state,
-                               zip,
-                               country,
-                               hash)
+      CreateInvoiceAddress.new(first_name: first_name,
+                               last_name: last_name,
+                               phone: phone,
+                               address: address,
+                               address_2: address_2,
+                               city: city,
+                               state: state,
+                               zip: zip,
+                               country: country,
+                               additional_properties: hash)
     end
   end
 end

@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepayments = nil,
-                   additional_properties = {})
+    def initialize(prepayments:, additional_properties: {})
       @prepayments = prepayments
 
       # Add additional model properties to the instance.
@@ -60,8 +59,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSubscriptionGroupPrepaymentResponse.new(prepayments,
-                                                  hash)
+      ListSubscriptionGroupPrepaymentResponse.new(prepayments: prepayments,
+                                                  additional_properties: hash)
     end
   end
 end

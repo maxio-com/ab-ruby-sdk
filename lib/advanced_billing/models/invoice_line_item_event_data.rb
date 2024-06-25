@@ -155,27 +155,15 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(uid = SKIP,
-                   title = SKIP,
-                   description = SKIP,
-                   quantity = SKIP,
-                   quantity_delta = SKIP,
-                   unit_price = SKIP,
-                   period_range_start = SKIP,
-                   period_range_end = SKIP,
-                   amount = SKIP,
-                   line_references = SKIP,
-                   pricing_details_index = SKIP,
-                   pricing_details = SKIP,
-                   tax_code = SKIP,
-                   tax_amount = SKIP,
-                   product_id = SKIP,
-                   product_price_point_id = SKIP,
-                   price_point_id = SKIP,
-                   component_id = SKIP,
-                   billing_schedule_item_id = SKIP,
-                   custom_item = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, title: SKIP, description: SKIP, quantity: SKIP,
+                   quantity_delta: SKIP, unit_price: SKIP,
+                   period_range_start: SKIP, period_range_end: SKIP,
+                   amount: SKIP, line_references: SKIP,
+                   pricing_details_index: SKIP, pricing_details: SKIP,
+                   tax_code: SKIP, tax_amount: SKIP, product_id: SKIP,
+                   product_price_point_id: SKIP, price_point_id: SKIP,
+                   component_id: SKIP, billing_schedule_item_id: SKIP,
+                   custom_item: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -250,27 +238,27 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceLineItemEventData.new(uid,
-                                   title,
-                                   description,
-                                   quantity,
-                                   quantity_delta,
-                                   unit_price,
-                                   period_range_start,
-                                   period_range_end,
-                                   amount,
-                                   line_references,
-                                   pricing_details_index,
-                                   pricing_details,
-                                   tax_code,
-                                   tax_amount,
-                                   product_id,
-                                   product_price_point_id,
-                                   price_point_id,
-                                   component_id,
-                                   billing_schedule_item_id,
-                                   custom_item,
-                                   hash)
+      InvoiceLineItemEventData.new(uid: uid,
+                                   title: title,
+                                   description: description,
+                                   quantity: quantity,
+                                   quantity_delta: quantity_delta,
+                                   unit_price: unit_price,
+                                   period_range_start: period_range_start,
+                                   period_range_end: period_range_end,
+                                   amount: amount,
+                                   line_references: line_references,
+                                   pricing_details_index: pricing_details_index,
+                                   pricing_details: pricing_details,
+                                   tax_code: tax_code,
+                                   tax_amount: tax_amount,
+                                   product_id: product_id,
+                                   product_price_point_id: product_price_point_id,
+                                   price_point_id: price_point_id,
+                                   component_id: component_id,
+                                   billing_schedule_item_id: billing_schedule_item_id,
+                                   custom_item: custom_item,
+                                   additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

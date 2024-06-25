@@ -98,16 +98,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(apply_credit = nil,
-                   credit_note_attributes = nil,
-                   payment_id = nil,
-                   refund_amount = nil,
-                   refund_id = nil,
-                   transaction_time = nil,
-                   consolidation_level = SKIP,
-                   memo = SKIP,
-                   original_amount = SKIP,
-                   additional_properties = {})
+    def initialize(apply_credit:, credit_note_attributes:, payment_id:,
+                   refund_amount:, refund_id:, transaction_time:,
+                   consolidation_level: SKIP, memo: SKIP, original_amount: SKIP,
+                   additional_properties: {})
       @apply_credit = apply_credit
       @consolidation_level = consolidation_level unless consolidation_level == SKIP
       @credit_note_attributes = credit_note_attributes
@@ -148,16 +142,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundInvoiceEventData.new(apply_credit,
-                                 credit_note_attributes,
-                                 payment_id,
-                                 refund_amount,
-                                 refund_id,
-                                 transaction_time,
-                                 consolidation_level,
-                                 memo,
-                                 original_amount,
-                                 hash)
+      RefundInvoiceEventData.new(apply_credit: apply_credit,
+                                 credit_note_attributes: credit_note_attributes,
+                                 payment_id: payment_id,
+                                 refund_amount: refund_amount,
+                                 refund_id: refund_id,
+                                 transaction_time: transaction_time,
+                                 consolidation_level: consolidation_level,
+                                 memo: memo,
+                                 original_amount: original_amount,
+                                 additional_properties: hash)
     end
 
     def to_custom_transaction_time

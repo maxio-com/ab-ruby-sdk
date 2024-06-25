@@ -128,7 +128,7 @@ def enable_webhooks(body: nil)
 
 ```ruby
 body = EnableWebhooksRequest.new(
-  true
+  webhooks_enabled: true
 )
 
 result = webhooks_controller.enable_webhooks(body: body)
@@ -167,7 +167,7 @@ def replay_webhooks(body: nil)
 
 ```ruby
 body = ReplayWebhooksRequest.new(
-  [
+  ids: [
     123456789,
     123456788
   ]
@@ -210,9 +210,9 @@ def create_endpoint(body: nil)
 
 ```ruby
 body = CreateOrUpdateEndpointRequest.new(
-  CreateOrUpdateEndpoint.new(
-    'https://your.site/webhooks',
-    [
+  endpoint: CreateOrUpdateEndpoint.new(
+    url: 'https://your.site/webhooks',
+    webhook_subscriptions: [
       WebhookSubscription::PAYMENT_SUCCESS,
       WebhookSubscription::PAYMENT_FAILURE
     ]
@@ -327,9 +327,9 @@ def update_endpoint(endpoint_id,
 endpoint_id = 42
 
 body = CreateOrUpdateEndpointRequest.new(
-  CreateOrUpdateEndpoint.new(
-    'https://yout.site/webhooks/1/json.',
-    [
+  endpoint: CreateOrUpdateEndpoint.new(
+    url: 'https://yout.site/webhooks/1/json.',
+    webhook_subscriptions: [
       WebhookSubscription::PAYMENT_FAILURE,
       WebhookSubscription::PAYMENT_SUCCESS,
       WebhookSubscription::REFUND_FAILURE

@@ -58,12 +58,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   item_type = SKIP,
-                   item_id = SKIP,
-                   name = SKIP,
-                   handle = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, item_type: SKIP, item_id: SKIP, name: SKIP,
+                   handle: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @item_type = item_type unless item_type == SKIP
       @item_id = item_id unless item_id == SKIP
@@ -91,12 +87,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CouponRestriction.new(id,
-                            item_type,
-                            item_id,
-                            name,
-                            handle,
-                            hash)
+      CouponRestriction.new(id: id,
+                            item_type: item_type,
+                            item_id: item_id,
+                            name: name,
+                            handle: handle,
+                            additional_properties: hash)
     end
   end
 end

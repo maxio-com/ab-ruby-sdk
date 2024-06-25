@@ -35,9 +35,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product_id = nil,
-                   account_transaction_id = nil,
-                   additional_properties = {})
+    def initialize(product_id:, account_transaction_id:,
+                   additional_properties: {})
       @product_id = product_id
       @account_transaction_id = account_transaction_id
 
@@ -60,9 +59,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentRelatedEvents.new(product_id,
-                               account_transaction_id,
-                               hash)
+      PaymentRelatedEvents.new(product_id: product_id,
+                               account_transaction_id: account_transaction_id,
+                               additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.
