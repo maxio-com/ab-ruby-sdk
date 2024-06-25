@@ -36,9 +36,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(error = nil,
-                   new_link_available_at = nil,
-                   additional_properties = {})
+    def initialize(error:, new_link_available_at:, additional_properties: {})
       @error = error
       @new_link_available_at = new_link_available_at
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      TooManyManagementLinkRequests.new(error,
-                                        new_link_available_at,
-                                        hash)
+      TooManyManagementLinkRequests.new(error: error,
+                                        new_link_available_at: new_link_available_at,
+                                        additional_properties: hash)
     end
 
     def to_custom_new_link_available_at

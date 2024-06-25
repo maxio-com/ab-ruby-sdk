@@ -89,16 +89,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(next_assessment_at = SKIP,
-                   subtotal_in_cents = SKIP,
-                   total_tax_in_cents = SKIP,
-                   total_discount_in_cents = SKIP,
-                   total_in_cents = SKIP,
-                   existing_balance_in_cents = SKIP,
-                   total_amount_due_in_cents = SKIP,
-                   uncalculated_taxes = SKIP,
-                   line_items = SKIP,
-                   additional_properties = {})
+    def initialize(next_assessment_at: SKIP, subtotal_in_cents: SKIP,
+                   total_tax_in_cents: SKIP, total_discount_in_cents: SKIP,
+                   total_in_cents: SKIP, existing_balance_in_cents: SKIP,
+                   total_amount_due_in_cents: SKIP, uncalculated_taxes: SKIP,
+                   line_items: SKIP, additional_properties: {})
       @next_assessment_at = next_assessment_at unless next_assessment_at == SKIP
       @subtotal_in_cents = subtotal_in_cents unless subtotal_in_cents == SKIP
       @total_tax_in_cents = total_tax_in_cents unless total_tax_in_cents == SKIP
@@ -160,16 +155,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RenewalPreview.new(next_assessment_at,
-                         subtotal_in_cents,
-                         total_tax_in_cents,
-                         total_discount_in_cents,
-                         total_in_cents,
-                         existing_balance_in_cents,
-                         total_amount_due_in_cents,
-                         uncalculated_taxes,
-                         line_items,
-                         hash)
+      RenewalPreview.new(next_assessment_at: next_assessment_at,
+                         subtotal_in_cents: subtotal_in_cents,
+                         total_tax_in_cents: total_tax_in_cents,
+                         total_discount_in_cents: total_discount_in_cents,
+                         total_in_cents: total_in_cents,
+                         existing_balance_in_cents: existing_balance_in_cents,
+                         total_amount_due_in_cents: total_amount_due_in_cents,
+                         uncalculated_taxes: uncalculated_taxes,
+                         line_items: line_items,
+                         additional_properties: hash)
     end
 
     def to_custom_next_assessment_at

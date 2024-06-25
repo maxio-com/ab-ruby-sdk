@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(last_name = SKIP,
-                   first_name = SKIP,
-                   email = SKIP,
-                   additional_properties = {})
+    def initialize(last_name: SKIP, first_name: SKIP, email: SKIP,
+                   additional_properties: {})
       @last_name = last_name unless last_name == SKIP
       @first_name = first_name unless first_name == SKIP
       @email = email unless email == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PayerError.new(last_name,
-                     first_name,
-                     email,
-                     hash)
+      PayerError.new(last_name: last_name,
+                     first_name: first_name,
+                     email: email,
+                     additional_properties: hash)
     end
   end
 end

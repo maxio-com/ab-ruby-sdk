@@ -131,23 +131,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = nil,
-                   description = nil,
-                   price_in_cents = nil,
-                   interval = nil,
-                   interval_unit = nil,
-                   handle = SKIP,
-                   accounting_code = SKIP,
-                   require_credit_card = SKIP,
-                   trial_price_in_cents = SKIP,
-                   trial_interval = SKIP,
-                   trial_interval_unit = SKIP,
-                   trial_type = SKIP,
-                   expiration_interval = SKIP,
-                   expiration_interval_unit = SKIP,
-                   auto_create_signup_page = SKIP,
-                   tax_code = SKIP,
-                   additional_properties = {})
+    def initialize(name:, description:, price_in_cents:, interval:,
+                   interval_unit:, handle: SKIP, accounting_code: SKIP,
+                   require_credit_card: SKIP, trial_price_in_cents: SKIP,
+                   trial_interval: SKIP, trial_interval_unit: SKIP,
+                   trial_type: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP,
+                   auto_create_signup_page: SKIP, tax_code: SKIP,
+                   additional_properties: {})
       @name = name
       @handle = handle unless handle == SKIP
       @description = description
@@ -206,23 +197,23 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateOrUpdateProduct.new(name,
-                                description,
-                                price_in_cents,
-                                interval,
-                                interval_unit,
-                                handle,
-                                accounting_code,
-                                require_credit_card,
-                                trial_price_in_cents,
-                                trial_interval,
-                                trial_interval_unit,
-                                trial_type,
-                                expiration_interval,
-                                expiration_interval_unit,
-                                auto_create_signup_page,
-                                tax_code,
-                                hash)
+      CreateOrUpdateProduct.new(name: name,
+                                description: description,
+                                price_in_cents: price_in_cents,
+                                interval: interval,
+                                interval_unit: interval_unit,
+                                handle: handle,
+                                accounting_code: accounting_code,
+                                require_credit_card: require_credit_card,
+                                trial_price_in_cents: trial_price_in_cents,
+                                trial_interval: trial_interval,
+                                trial_interval_unit: trial_interval_unit,
+                                trial_type: trial_type,
+                                expiration_interval: expiration_interval,
+                                expiration_interval_unit: expiration_interval_unit,
+                                auto_create_signup_page: auto_create_signup_page,
+                                tax_code: tax_code,
+                                additional_properties: hash)
     end
   end
 end

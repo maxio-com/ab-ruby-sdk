@@ -68,13 +68,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscriptions = SKIP,
-                   payer_reference = SKIP,
-                   payer = SKIP,
-                   subscription_group = SKIP,
-                   payment_profile_id = SKIP,
-                   payer_id = SKIP,
-                   additional_properties = {})
+    def initialize(subscriptions: SKIP, payer_reference: SKIP, payer: SKIP,
+                   subscription_group: SKIP, payment_profile_id: SKIP,
+                   payer_id: SKIP, additional_properties: {})
       @subscriptions = subscriptions unless subscriptions == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
       @payer = payer unless payer == SKIP
@@ -110,13 +106,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignupError.new(subscriptions,
-                                       payer_reference,
-                                       payer,
-                                       subscription_group,
-                                       payment_profile_id,
-                                       payer_id,
-                                       hash)
+      SubscriptionGroupSignupError.new(subscriptions: subscriptions,
+                                       payer_reference: payer_reference,
+                                       payer: payer,
+                                       subscription_group: subscription_group,
+                                       payment_profile_id: payment_profile_id,
+                                       payer_id: payer_id,
+                                       additional_properties: hash)
     end
   end
 end

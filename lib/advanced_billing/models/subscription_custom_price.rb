@@ -102,20 +102,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_in_cents = nil,
-                   interval = nil,
-                   interval_unit = nil,
-                   name = SKIP,
-                   handle = SKIP,
-                   trial_price_in_cents = SKIP,
-                   trial_interval = SKIP,
-                   trial_interval_unit = SKIP,
-                   initial_charge_in_cents = SKIP,
-                   initial_charge_after_trial = SKIP,
-                   expiration_interval = SKIP,
-                   expiration_interval_unit = SKIP,
-                   tax_included = SKIP,
-                   additional_properties = {})
+    def initialize(price_in_cents:, interval:, interval_unit:, name: SKIP,
+                   handle: SKIP, trial_price_in_cents: SKIP,
+                   trial_interval: SKIP, trial_interval_unit: SKIP,
+                   initial_charge_in_cents: SKIP,
+                   initial_charge_after_trial: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP, tax_included: SKIP,
+                   additional_properties: {})
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
       @price_in_cents = price_in_cents
@@ -177,20 +170,20 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionCustomPrice.new(price_in_cents,
-                                  interval,
-                                  interval_unit,
-                                  name,
-                                  handle,
-                                  trial_price_in_cents,
-                                  trial_interval,
-                                  trial_interval_unit,
-                                  initial_charge_in_cents,
-                                  initial_charge_after_trial,
-                                  expiration_interval,
-                                  expiration_interval_unit,
-                                  tax_included,
-                                  hash)
+      SubscriptionCustomPrice.new(price_in_cents: price_in_cents,
+                                  interval: interval,
+                                  interval_unit: interval_unit,
+                                  name: name,
+                                  handle: handle,
+                                  trial_price_in_cents: trial_price_in_cents,
+                                  trial_interval: trial_interval,
+                                  trial_interval_unit: trial_interval_unit,
+                                  initial_charge_in_cents: initial_charge_in_cents,
+                                  initial_charge_after_trial: initial_charge_after_trial,
+                                  expiration_interval: expiration_interval,
+                                  expiration_interval_unit: expiration_interval_unit,
+                                  tax_included: tax_included,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

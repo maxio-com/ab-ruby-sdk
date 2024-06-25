@@ -56,11 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(pricing_scheme = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   prices = SKIP,
-                   additional_properties = {})
+    def initialize(pricing_scheme: SKIP, interval: SKIP, interval_unit: SKIP,
+                   prices: SKIP, additional_properties: {})
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
@@ -96,11 +93,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ComponentCustomPrice.new(pricing_scheme,
-                               interval,
-                               interval_unit,
-                               prices,
-                               hash)
+      ComponentCustomPrice.new(pricing_scheme: pricing_scheme,
+                               interval: interval,
+                               interval_unit: interval_unit,
+                               prices: prices,
+                               additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

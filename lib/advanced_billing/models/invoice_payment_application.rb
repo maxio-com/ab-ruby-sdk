@@ -46,10 +46,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(invoice_uid = SKIP,
-                   application_uid = SKIP,
-                   applied_amount = SKIP,
-                   additional_properties = {})
+    def initialize(invoice_uid: SKIP, application_uid: SKIP,
+                   applied_amount: SKIP, additional_properties: {})
       @invoice_uid = invoice_uid unless invoice_uid == SKIP
       @application_uid = application_uid unless application_uid == SKIP
       @applied_amount = applied_amount unless applied_amount == SKIP
@@ -75,10 +73,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoicePaymentApplication.new(invoice_uid,
-                                    application_uid,
-                                    applied_amount,
-                                    hash)
+      InvoicePaymentApplication.new(invoice_uid: invoice_uid,
+                                    application_uid: application_uid,
+                                    applied_amount: applied_amount,
+                                    additional_properties: hash)
     end
   end
 end

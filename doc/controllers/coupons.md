@@ -65,24 +65,24 @@ def create_coupon(product_family_id,
 product_family_id = 140
 
 body = CreateOrUpdateCoupon.new(
-  CreateOrUpdatePercentageCoupon.new(
-    '15% off',
-    '15OFF',
-    15,
-    '15% off for life',
-    false,
-    false,
-    DateTimeHelper.from_rfc3339('2012-08-29T12:00:00-04:00'),
-    '2',
-    true,
-    CompoundingStrategy::COMPOUND,
-    true,
-    true
+  coupon: CreateOrUpdatePercentageCoupon.new(
+    name: '15% off',
+    code: '15OFF',
+    percentage: 15,
+    description: '15% off for life',
+    allow_negative_balance: false,
+    recurring: false,
+    end_date: DateTimeHelper.from_rfc3339('2012-08-29T12:00:00-04:00'),
+    product_family_id: '2',
+    stackable: true,
+    compounding_strategy: CompoundingStrategy::COMPOUND,
+    exclude_mid_period_allocations: true,
+    apply_on_cancel_at_end_of_period: true
   ),
-  {
+  restricted_products: {
     '1': true
   },
-  {
+  restricted_components: {
     '1': true,
     '2': false
   }
@@ -133,17 +133,16 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListCouponsFilter.new(
-    nil,
-    Date.iso8601('2011-12-17'),
-    Date.iso8601('2011-12-15'),
-    DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
-    DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
-    [
+    start_date: Date.iso8601('2011-12-17'),
+    end_date: Date.iso8601('2011-12-15'),
+    start_datetime: DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
+    end_datetime: DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
+    ids: [
       1,
       2,
       3
     ],
-    [
+    codes: [
       'free',
       'free_trial'
     ]
@@ -378,22 +377,22 @@ product_family_id = 140
 coupon_id = 162
 
 body = CreateOrUpdateCoupon.new(
-  CreateOrUpdatePercentageCoupon.new(
-    '15% off',
-    '15OFF',
-    15,
-    '15% off for life',
-    false,
-    false,
-    DateTimeHelper.from_rfc3339('2012-08-29T12:00:00-04:00'),
-    '2',
-    true,
-    CompoundingStrategy::COMPOUND
+  coupon: CreateOrUpdatePercentageCoupon.new(
+    name: '15% off',
+    code: '15OFF',
+    percentage: 15,
+    description: '15% off for life',
+    allow_negative_balance: false,
+    recurring: false,
+    end_date: DateTimeHelper.from_rfc3339('2012-08-29T12:00:00-04:00'),
+    product_family_id: '2',
+    stackable: true,
+    compounding_strategy: CompoundingStrategy::COMPOUND
   ),
-  {
+  restricted_products: {
     '1': true
   },
-  {
+  restricted_components: {
     '1': true,
     '2': false
   }
@@ -531,17 +530,16 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListCouponsFilter.new(
-    nil,
-    Date.iso8601('2011-12-17'),
-    Date.iso8601('2011-12-15'),
-    DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
-    DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
-    [
+    start_date: Date.iso8601('2011-12-17'),
+    end_date: Date.iso8601('2011-12-15'),
+    start_datetime: DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
+    end_datetime: DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
+    ids: [
       1,
       2,
       3
     ],
-    [
+    codes: [
       'free',
       'free_trial'
     ]
@@ -781,14 +779,14 @@ def create_or_update_coupon_currency_prices(coupon_id,
 coupon_id = 162
 
 body = CouponCurrencyRequest.new(
-  [
+  currency_prices: [
     UpdateCouponCurrency.new(
-      'EUR',
-      10
+      currency: 'EUR',
+      price: 10
     ),
     UpdateCouponCurrency.new(
-      'GBP',
-      9
+      currency: 'GBP',
+      price: 9
     )
   ]
 )
@@ -865,7 +863,7 @@ def create_coupon_subcodes(coupon_id,
 coupon_id = 162
 
 body = CouponSubcodes.new(
-  [
+  codes: [
     'BALTIMOREFALL',
     'ORLANDOFALL',
     'DETROITFALL'
@@ -989,7 +987,7 @@ def update_coupon_subcodes(coupon_id,
 coupon_id = 162
 
 body = CouponSubcodes.new(
-  [
+  codes: [
     'AAAA',
     'BBBB',
     'CCCC'

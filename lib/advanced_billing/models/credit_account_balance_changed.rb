@@ -53,12 +53,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(reason = nil,
-                   service_credit_account_balance_in_cents = nil,
-                   service_credit_balance_change_in_cents = nil,
-                   currency_code = nil,
-                   at_time = nil,
-                   additional_properties = {})
+    def initialize(reason:, service_credit_account_balance_in_cents:,
+                   service_credit_balance_change_in_cents:, currency_code:,
+                   at_time:, additional_properties: {})
       @reason = reason
       @service_credit_account_balance_in_cents = service_credit_account_balance_in_cents
       @service_credit_balance_change_in_cents = service_credit_balance_change_in_cents
@@ -90,12 +87,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreditAccountBalanceChanged.new(reason,
-                                      service_credit_account_balance_in_cents,
-                                      service_credit_balance_change_in_cents,
-                                      currency_code,
-                                      at_time,
-                                      hash)
+      CreditAccountBalanceChanged.new(reason: reason,
+                                      service_credit_account_balance_in_cents: service_credit_account_balance_in_cents,
+                                      service_credit_balance_change_in_cents: service_credit_balance_change_in_cents,
+                                      currency_code: currency_code,
+                                      at_time: at_time,
+                                      additional_properties: hash)
     end
 
     def to_custom_at_time

@@ -95,17 +95,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = nil,
-                   pricing_scheme = nil,
-                   prices = nil,
-                   overage_pricing = nil,
-                   handle = SKIP,
-                   use_site_exchange_rate = true,
-                   rollover_prepaid_remainder = SKIP,
-                   renew_prepaid_allocation = SKIP,
-                   expiration_interval = SKIP,
-                   expiration_interval_unit = SKIP,
-                   additional_properties = {})
+    def initialize(name:, pricing_scheme:, prices:, overage_pricing:,
+                   handle: SKIP, use_site_exchange_rate: true,
+                   rollover_prepaid_remainder: SKIP,
+                   renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP, additional_properties: {})
       @name = name
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
@@ -161,17 +155,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreatePrepaidUsageComponentPricePoint.new(name,
-                                                pricing_scheme,
-                                                prices,
-                                                overage_pricing,
-                                                handle,
-                                                use_site_exchange_rate,
-                                                rollover_prepaid_remainder,
-                                                renew_prepaid_allocation,
-                                                expiration_interval,
-                                                expiration_interval_unit,
-                                                hash)
+      CreatePrepaidUsageComponentPricePoint.new(name: name,
+                                                pricing_scheme: pricing_scheme,
+                                                prices: prices,
+                                                overage_pricing: overage_pricing,
+                                                handle: handle,
+                                                use_site_exchange_rate: use_site_exchange_rate,
+                                                rollover_prepaid_remainder: rollover_prepaid_remainder,
+                                                renew_prepaid_allocation: renew_prepaid_allocation,
+                                                expiration_interval: expiration_interval,
+                                                expiration_interval_unit: expiration_interval_unit,
+                                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

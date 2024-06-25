@@ -33,8 +33,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription = SKIP,
-                   additional_properties = {})
+    def initialize(subscription: SKIP, additional_properties: {})
       @subscription = subscription unless subscription == SKIP
 
       # Add additional model properties to the instance.
@@ -54,8 +53,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProformaError.new(subscription,
-                        hash)
+      ProformaError.new(subscription: subscription,
+                        additional_properties: hash)
     end
   end
 end

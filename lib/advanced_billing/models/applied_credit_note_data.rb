@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   number = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, number: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @number = number unless number == SKIP
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AppliedCreditNoteData.new(uid,
-                                number,
-                                hash)
+      AppliedCreditNoteData.new(uid: uid,
+                                number: number,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

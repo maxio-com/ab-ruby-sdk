@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(batchjob = nil,
-                   additional_properties = {})
+    def initialize(batchjob:, additional_properties: {})
       @batchjob = batchjob
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BatchJobResponse.new(batchjob,
-                           hash)
+      BatchJobResponse.new(batchjob: batchjob,
+                           additional_properties: hash)
     end
   end
 end

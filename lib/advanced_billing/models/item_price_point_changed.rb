@@ -55,13 +55,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(item_id = nil,
-                   item_type = nil,
-                   item_handle = nil,
-                   item_name = nil,
-                   previous_price_point = nil,
-                   current_price_point = nil,
-                   additional_properties = {})
+    def initialize(item_id:, item_type:, item_handle:, item_name:,
+                   previous_price_point:, current_price_point:,
+                   additional_properties: {})
       @item_id = item_id
       @item_type = item_type
       @item_handle = item_handle
@@ -93,13 +89,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ItemPricePointChanged.new(item_id,
-                                item_type,
-                                item_handle,
-                                item_name,
-                                previous_price_point,
-                                current_price_point,
-                                hash)
+      ItemPricePointChanged.new(item_id: item_id,
+                                item_type: item_type,
+                                item_handle: item_handle,
+                                item_name: item_name,
+                                previous_price_point: previous_price_point,
+                                current_price_point: current_price_point,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

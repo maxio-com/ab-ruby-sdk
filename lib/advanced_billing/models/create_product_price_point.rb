@@ -117,21 +117,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = nil,
-                   price_in_cents = nil,
-                   interval = nil,
-                   interval_unit = nil,
-                   handle = SKIP,
-                   trial_price_in_cents = SKIP,
-                   trial_interval = SKIP,
-                   trial_interval_unit = SKIP,
-                   trial_type = SKIP,
-                   initial_charge_in_cents = SKIP,
-                   initial_charge_after_trial = SKIP,
-                   expiration_interval = SKIP,
-                   expiration_interval_unit = SKIP,
-                   use_site_exchange_rate = true,
-                   additional_properties = {})
+    def initialize(name:, price_in_cents:, interval:, interval_unit:,
+                   handle: SKIP, trial_price_in_cents: SKIP,
+                   trial_interval: SKIP, trial_interval_unit: SKIP,
+                   trial_type: SKIP, initial_charge_in_cents: SKIP,
+                   initial_charge_after_trial: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP, use_site_exchange_rate: true,
+                   additional_properties: {})
       @name = name
       @handle = handle unless handle == SKIP
       @price_in_cents = price_in_cents
@@ -188,21 +180,21 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateProductPricePoint.new(name,
-                                  price_in_cents,
-                                  interval,
-                                  interval_unit,
-                                  handle,
-                                  trial_price_in_cents,
-                                  trial_interval,
-                                  trial_interval_unit,
-                                  trial_type,
-                                  initial_charge_in_cents,
-                                  initial_charge_after_trial,
-                                  expiration_interval,
-                                  expiration_interval_unit,
-                                  use_site_exchange_rate,
-                                  hash)
+      CreateProductPricePoint.new(name: name,
+                                  price_in_cents: price_in_cents,
+                                  interval: interval,
+                                  interval_unit: interval_unit,
+                                  handle: handle,
+                                  trial_price_in_cents: trial_price_in_cents,
+                                  trial_interval: trial_interval,
+                                  trial_interval_unit: trial_interval_unit,
+                                  trial_type: trial_type,
+                                  initial_charge_in_cents: initial_charge_in_cents,
+                                  initial_charge_after_trial: initial_charge_after_trial,
+                                  expiration_interval: expiration_interval,
+                                  expiration_interval_unit: expiration_interval_unit,
+                                  use_site_exchange_rate: use_site_exchange_rate,
+                                  additional_properties: hash)
     end
   end
 end

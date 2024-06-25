@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(webhooks_enabled = SKIP,
-                   additional_properties = {})
+    def initialize(webhooks_enabled: SKIP, additional_properties: {})
       @webhooks_enabled = webhooks_enabled unless webhooks_enabled == SKIP
 
       # Add additional model properties to the instance.
@@ -54,8 +53,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      EnableWebhooksResponse.new(webhooks_enabled,
-                                 hash)
+      EnableWebhooksResponse.new(webhooks_enabled: webhooks_enabled,
+                                 additional_properties: hash)
     end
   end
 end

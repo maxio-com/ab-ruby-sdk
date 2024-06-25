@@ -35,9 +35,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(body = nil,
-                   sticky = nil,
-                   additional_properties = {})
+    def initialize(body:, sticky:, additional_properties: {})
       @body = body
       @sticky = sticky
 
@@ -59,9 +57,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateSubscriptionNote.new(body,
-                                 sticky,
-                                 hash)
+      UpdateSubscriptionNote.new(body: body,
+                                 sticky: sticky,
+                                 additional_properties: hash)
     end
   end
 end

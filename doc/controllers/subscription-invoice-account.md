@@ -77,11 +77,11 @@ def create_prepayment(subscription_id,
 subscription_id = 222
 
 body = CreatePrepaymentRequest.new(
-  CreatePrepayment.new(
-    100,
-    'John Doe signup for $100',
-    'Signup for $100',
-    CreatePrepaymentMethod::CHECK
+  prepayment: CreatePrepayment.new(
+    amount: 100,
+    details: 'John Doe signup for $100',
+    memo: 'Signup for $100',
+    method: CreatePrepaymentMethod::CHECK
   )
 )
 
@@ -143,9 +143,9 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListPrepaymentsFilter.new(
-    ListPrepaymentDateField::CREATED_AT,
-    Date.iso8601('2024-01-01'),
-    Date.iso8601('2024-01-31')
+    date_field: ListPrepaymentDateField::CREATED_AT,
+    start_date: Date.iso8601('2024-01-01'),
+    end_date: Date.iso8601('2024-01-31')
   )
 }
 
@@ -206,8 +206,8 @@ def issue_service_credit(subscription_id,
 subscription_id = 222
 
 body = IssueServiceCreditRequest.new(
-  IssueServiceCredit.new(
-    '1'
+  service_credit: IssueServiceCredit.new(
+    amount: '1'
   )
 )
 
@@ -262,9 +262,9 @@ def deduct_service_credit(subscription_id,
 subscription_id = 222
 
 body = DeductServiceCreditRequest.new(
-  DeductServiceCredit.new(
-    '1',
-    'Deduction'
+  deduction: DeductServiceCredit.new(
+    amount: '1',
+    memo: 'Deduction'
   )
 )
 

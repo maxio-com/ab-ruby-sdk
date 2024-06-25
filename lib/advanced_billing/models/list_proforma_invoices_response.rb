@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(proforma_invoices = SKIP,
-                   meta = SKIP,
-                   additional_properties = {})
+    def initialize(proforma_invoices: SKIP, meta: SKIP,
+                   additional_properties: {})
       @proforma_invoices = proforma_invoices unless proforma_invoices == SKIP
       @meta = meta unless meta == SKIP
 
@@ -71,9 +70,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListProformaInvoicesResponse.new(proforma_invoices,
-                                       meta,
-                                       hash)
+      ListProformaInvoicesResponse.new(proforma_invoices: proforma_invoices,
+                                       meta: meta,
+                                       additional_properties: hash)
     end
   end
 end

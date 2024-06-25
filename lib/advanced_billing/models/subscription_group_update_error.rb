@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(members = SKIP,
-                   additional_properties = {})
+    def initialize(members: SKIP, additional_properties: {})
       @members = members unless members == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupUpdateError.new(members,
-                                       hash)
+      SubscriptionGroupUpdateError.new(members: members,
+                                       additional_properties: hash)
     end
   end
 end

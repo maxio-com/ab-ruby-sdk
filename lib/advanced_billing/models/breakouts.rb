@@ -50,11 +50,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(plan_amount_in_cents = SKIP,
-                   plan_amount_formatted = SKIP,
-                   usage_amount_in_cents = SKIP,
-                   usage_amount_formatted = SKIP,
-                   additional_properties = {})
+    def initialize(plan_amount_in_cents: SKIP, plan_amount_formatted: SKIP,
+                   usage_amount_in_cents: SKIP, usage_amount_formatted: SKIP,
+                   additional_properties: {})
       @plan_amount_in_cents = plan_amount_in_cents unless plan_amount_in_cents == SKIP
       @plan_amount_formatted = plan_amount_formatted unless plan_amount_formatted == SKIP
       @usage_amount_in_cents = usage_amount_in_cents unless usage_amount_in_cents == SKIP
@@ -84,11 +82,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Breakouts.new(plan_amount_in_cents,
-                    plan_amount_formatted,
-                    usage_amount_in_cents,
-                    usage_amount_formatted,
-                    hash)
+      Breakouts.new(plan_amount_in_cents: plan_amount_in_cents,
+                    plan_amount_formatted: plan_amount_formatted,
+                    usage_amount_in_cents: usage_amount_in_cents,
+                    usage_amount_formatted: usage_amount_formatted,
+                    additional_properties: hash)
     end
   end
 end

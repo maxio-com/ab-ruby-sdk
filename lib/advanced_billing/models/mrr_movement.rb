@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = SKIP,
-                   category = SKIP,
-                   subscriber_delta = SKIP,
-                   lead_delta = SKIP,
-                   additional_properties = {})
+    def initialize(amount: SKIP, category: SKIP, subscriber_delta: SKIP,
+                   lead_delta: SKIP, additional_properties: {})
       @amount = amount unless amount == SKIP
       @category = category unless category == SKIP
       @subscriber_delta = subscriber_delta unless subscriber_delta == SKIP
@@ -81,11 +78,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      MRRMovement.new(amount,
-                      category,
-                      subscriber_delta,
-                      lead_delta,
-                      hash)
+      MRRMovement.new(amount: amount,
+                      category: category,
+                      subscriber_delta: subscriber_delta,
+                      lead_delta: lead_delta,
+                      additional_properties: hash)
     end
   end
 end

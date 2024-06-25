@@ -95,13 +95,12 @@ def migrate_subscription_product(subscription_id,
 subscription_id = 222
 
 body = SubscriptionProductMigrationRequest.new(
-  SubscriptionProductMigration.new(
-    3801242,
-    nil,
-    false,
-    false,
-    true,
-    true
+  migration: SubscriptionProductMigration.new(
+    product_id: 3801242,
+    include_trial: false,
+    include_initial_charge: false,
+    include_coupons: true,
+    preserve_period: true
   )
 )
 
@@ -272,13 +271,11 @@ def preview_subscription_product_migration(subscription_id,
 subscription_id = 222
 
 body = SubscriptionMigrationPreviewRequest.new(
-  SubscriptionMigrationPreviewOptions.new(
-    nil,
-    nil,
-    false,
-    false,
-    true,
-    false
+  migration: SubscriptionMigrationPreviewOptions.new(
+    include_trial: false,
+    include_initial_charge: false,
+    include_coupons: true,
+    preserve_period: false
   )
 )
 

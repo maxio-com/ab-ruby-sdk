@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(proforma_invoice_preview = nil,
-                   additional_properties = {})
+    def initialize(proforma_invoice_preview:, additional_properties: {})
       @proforma_invoice_preview = proforma_invoice_preview
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SignupProformaPreviewResponse.new(proforma_invoice_preview,
-                                        hash)
+      SignupProformaPreviewResponse.new(proforma_invoice_preview: proforma_invoice_preview,
+                                        additional_properties: hash)
     end
   end
 end

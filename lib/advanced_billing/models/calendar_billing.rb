@@ -41,9 +41,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(snap_day = SKIP,
-                   calendar_billing_first_charge = SKIP,
-                   additional_properties = {})
+    def initialize(snap_day: SKIP, calendar_billing_first_charge: SKIP,
+                   additional_properties: {})
       @snap_day = snap_day unless snap_day == SKIP
       unless calendar_billing_first_charge == SKIP
         @calendar_billing_first_charge =
@@ -71,9 +70,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CalendarBilling.new(snap_day,
-                          calendar_billing_first_charge,
-                          hash)
+      CalendarBilling.new(snap_day: snap_day,
+                          calendar_billing_first_charge: calendar_billing_first_charge,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

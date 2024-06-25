@@ -76,15 +76,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(details = SKIP,
-                   kind = SKIP,
-                   memo = SKIP,
-                   type = SKIP,
-                   card_brand = SKIP,
-                   card_expiration = SKIP,
-                   last_four = SKIP,
-                   masked_card_number = SKIP,
-                   additional_properties = {})
+    def initialize(details: SKIP, kind: SKIP, memo: SKIP, type: SKIP,
+                   card_brand: SKIP, card_expiration: SKIP, last_four: SKIP,
+                   masked_card_number: SKIP, additional_properties: {})
       @details = details unless details == SKIP
       @kind = kind unless kind == SKIP
       @memo = memo unless memo == SKIP
@@ -120,15 +114,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoicePaymentMethod.new(details,
-                               kind,
-                               memo,
-                               type,
-                               card_brand,
-                               card_expiration,
-                               last_four,
-                               masked_card_number,
-                               hash)
+      InvoicePaymentMethod.new(details: details,
+                               kind: kind,
+                               memo: memo,
+                               type: type,
+                               card_brand: card_brand,
+                               card_expiration: card_expiration,
+                               last_four: last_four,
+                               masked_card_number: masked_card_number,
+                               additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

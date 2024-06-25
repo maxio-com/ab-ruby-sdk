@@ -103,17 +103,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product_id = SKIP,
-                   product_price_point_id = SKIP,
-                   include_trial = false,
-                   include_initial_charge = false,
-                   include_coupons = true,
-                   preserve_period = false,
-                   product_handle = SKIP,
-                   product_price_point_handle = SKIP,
-                   proration = SKIP,
-                   proration_date = SKIP,
-                   additional_properties = {})
+    def initialize(product_id: SKIP, product_price_point_id: SKIP,
+                   include_trial: false, include_initial_charge: false,
+                   include_coupons: true, preserve_period: false,
+                   product_handle: SKIP, product_price_point_handle: SKIP,
+                   proration: SKIP, proration_date: SKIP,
+                   additional_properties: {})
       @product_id = product_id unless product_id == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @include_trial = include_trial unless include_trial == SKIP
@@ -161,17 +156,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionMigrationPreviewOptions.new(product_id,
-                                              product_price_point_id,
-                                              include_trial,
-                                              include_initial_charge,
-                                              include_coupons,
-                                              preserve_period,
-                                              product_handle,
-                                              product_price_point_handle,
-                                              proration,
-                                              proration_date,
-                                              hash)
+      SubscriptionMigrationPreviewOptions.new(product_id: product_id,
+                                              product_price_point_id: product_price_point_id,
+                                              include_trial: include_trial,
+                                              include_initial_charge: include_initial_charge,
+                                              include_coupons: include_coupons,
+                                              preserve_period: preserve_period,
+                                              product_handle: product_handle,
+                                              product_price_point_handle: product_price_point_handle,
+                                              proration: proration,
+                                              proration_date: proration_date,
+                                              additional_properties: hash)
     end
 
     def to_custom_proration_date

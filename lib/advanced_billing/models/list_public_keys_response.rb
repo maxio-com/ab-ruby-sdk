@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(chargify_js_keys = SKIP,
-                   meta = SKIP,
-                   additional_properties = {})
+    def initialize(chargify_js_keys: SKIP, meta: SKIP,
+                   additional_properties: {})
       @chargify_js_keys = chargify_js_keys unless chargify_js_keys == SKIP
       @meta = meta unless meta == SKIP
 
@@ -71,9 +70,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListPublicKeysResponse.new(chargify_js_keys,
-                                 meta,
-                                 hash)
+      ListPublicKeysResponse.new(chargify_js_keys: chargify_js_keys,
+                                 meta: meta,
+                                 additional_properties: hash)
     end
   end
 end

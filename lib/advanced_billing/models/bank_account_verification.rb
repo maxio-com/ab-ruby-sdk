@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(deposit_1_in_cents = SKIP,
-                   deposit_2_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(deposit_1_in_cents: SKIP, deposit_2_in_cents: SKIP,
+                   additional_properties: {})
       @deposit_1_in_cents = deposit_1_in_cents unless deposit_1_in_cents == SKIP
       @deposit_2_in_cents = deposit_2_in_cents unless deposit_2_in_cents == SKIP
 
@@ -64,9 +63,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BankAccountVerification.new(deposit_1_in_cents,
-                                  deposit_2_in_cents,
-                                  hash)
+      BankAccountVerification.new(deposit_1_in_cents: deposit_1_in_cents,
+                                  deposit_2_in_cents: deposit_2_in_cents,
+                                  additional_properties: hash)
     end
   end
 end

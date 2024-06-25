@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(metafields = nil,
-                   additional_properties = {})
+    def initialize(metafields:, additional_properties: {})
       @metafields = metafields
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateMetafieldsRequest.new(metafields,
-                                  hash)
+      CreateMetafieldsRequest.new(metafields: metafields,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -45,11 +45,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = nil,
-                   details = nil,
-                   memo = nil,
-                   method = nil,
-                   additional_properties = {})
+    def initialize(amount:, details:, memo:, method:, additional_properties: {})
       @amount = amount
       @details = details
       @memo = memo
@@ -75,11 +71,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupPrepayment.new(amount,
-                                      details,
-                                      memo,
-                                      method,
-                                      hash)
+      SubscriptionGroupPrepayment.new(amount: amount,
+                                      details: details,
+                                      memo: memo,
+                                      method: method,
+                                      additional_properties: hash)
     end
   end
 end

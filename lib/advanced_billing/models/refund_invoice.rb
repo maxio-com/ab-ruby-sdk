@@ -64,13 +64,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = nil,
-                   memo = nil,
-                   payment_id = nil,
-                   external = SKIP,
-                   apply_credit = SKIP,
-                   void_invoice = SKIP,
-                   additional_properties = {})
+    def initialize(amount:, memo:, payment_id:, external: SKIP,
+                   apply_credit: SKIP, void_invoice: SKIP,
+                   additional_properties: {})
       @amount = amount
       @memo = memo
       @payment_id = payment_id
@@ -100,13 +96,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundInvoice.new(amount,
-                        memo,
-                        payment_id,
-                        external,
-                        apply_credit,
-                        void_invoice,
-                        hash)
+      RefundInvoice.new(amount: amount,
+                        memo: memo,
+                        payment_id: payment_id,
+                        external: external,
+                        apply_credit: apply_credit,
+                        void_invoice: void_invoice,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

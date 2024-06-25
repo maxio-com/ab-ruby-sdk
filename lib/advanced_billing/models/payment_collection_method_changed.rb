@@ -35,9 +35,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(previous_value = nil,
-                   current_value = nil,
-                   additional_properties = {})
+    def initialize(previous_value:, current_value:, additional_properties: {})
       @previous_value = previous_value
       @current_value = current_value
 
@@ -60,9 +58,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentCollectionMethodChanged.new(previous_value,
-                                         current_value,
-                                         hash)
+      PaymentCollectionMethodChanged.new(previous_value: previous_value,
+                                         current_value: current_value,
+                                         additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

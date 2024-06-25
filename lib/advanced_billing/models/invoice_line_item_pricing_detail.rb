@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(label = SKIP,
-                   amount = SKIP,
-                   additional_properties = {})
+    def initialize(label: SKIP, amount: SKIP, additional_properties: {})
       @label = label unless label == SKIP
       @amount = amount unless amount == SKIP
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceLineItemPricingDetail.new(label,
-                                       amount,
-                                       hash)
+      InvoiceLineItemPricingDetail.new(label: label,
+                                       amount: amount,
+                                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

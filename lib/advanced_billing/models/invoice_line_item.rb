@@ -219,29 +219,15 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(uid = SKIP,
-                   title = SKIP,
-                   description = SKIP,
-                   quantity = SKIP,
-                   unit_price = SKIP,
-                   subtotal_amount = SKIP,
-                   discount_amount = SKIP,
-                   tax_amount = SKIP,
-                   total_amount = SKIP,
-                   tiered_unit_price = SKIP,
-                   period_range_start = SKIP,
-                   period_range_end = SKIP,
-                   transaction_id = SKIP,
-                   product_id = SKIP,
-                   product_version = SKIP,
-                   component_id = SKIP,
-                   price_point_id = SKIP,
-                   hide = SKIP,
-                   component_cost_data = SKIP,
-                   product_price_point_id = SKIP,
-                   custom_item = SKIP,
-                   kind = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, title: SKIP, description: SKIP, quantity: SKIP,
+                   unit_price: SKIP, subtotal_amount: SKIP,
+                   discount_amount: SKIP, tax_amount: SKIP, total_amount: SKIP,
+                   tiered_unit_price: SKIP, period_range_start: SKIP,
+                   period_range_end: SKIP, transaction_id: SKIP,
+                   product_id: SKIP, product_version: SKIP, component_id: SKIP,
+                   price_point_id: SKIP, hide: SKIP, component_cost_data: SKIP,
+                   product_price_point_id: SKIP, custom_item: SKIP, kind: SKIP,
+                   additional_properties: {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -314,29 +300,29 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceLineItem.new(uid,
-                          title,
-                          description,
-                          quantity,
-                          unit_price,
-                          subtotal_amount,
-                          discount_amount,
-                          tax_amount,
-                          total_amount,
-                          tiered_unit_price,
-                          period_range_start,
-                          period_range_end,
-                          transaction_id,
-                          product_id,
-                          product_version,
-                          component_id,
-                          price_point_id,
-                          hide,
-                          component_cost_data,
-                          product_price_point_id,
-                          custom_item,
-                          kind,
-                          hash)
+      InvoiceLineItem.new(uid: uid,
+                          title: title,
+                          description: description,
+                          quantity: quantity,
+                          unit_price: unit_price,
+                          subtotal_amount: subtotal_amount,
+                          discount_amount: discount_amount,
+                          tax_amount: tax_amount,
+                          total_amount: total_amount,
+                          tiered_unit_price: tiered_unit_price,
+                          period_range_start: period_range_start,
+                          period_range_end: period_range_end,
+                          transaction_id: transaction_id,
+                          product_id: product_id,
+                          product_version: product_version,
+                          component_id: component_id,
+                          price_point_id: price_point_id,
+                          hide: hide,
+                          component_cost_data: component_cost_data,
+                          product_price_point_id: product_price_point_id,
+                          custom_item: custom_item,
+                          kind: kind,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

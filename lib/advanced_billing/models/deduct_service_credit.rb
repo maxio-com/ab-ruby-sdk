@@ -37,9 +37,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = nil,
-                   memo = SKIP,
-                   additional_properties = {})
+    def initialize(amount:, memo: SKIP, additional_properties: {})
       @amount = amount
       @memo = memo unless memo == SKIP
 
@@ -63,9 +61,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DeductServiceCredit.new(amount,
-                              memo,
-                              hash)
+      DeductServiceCredit.new(amount: amount,
+                              memo: memo,
+                              additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

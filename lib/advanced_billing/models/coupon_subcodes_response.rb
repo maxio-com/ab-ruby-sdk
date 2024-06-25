@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(created_codes = SKIP,
-                   duplicate_codes = SKIP,
-                   invalid_codes = SKIP,
-                   additional_properties = {})
+    def initialize(created_codes: SKIP, duplicate_codes: SKIP,
+                   invalid_codes: SKIP, additional_properties: {})
       @created_codes = created_codes unless created_codes == SKIP
       @duplicate_codes = duplicate_codes unless duplicate_codes == SKIP
       @invalid_codes = invalid_codes unless invalid_codes == SKIP
@@ -72,10 +70,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CouponSubcodesResponse.new(created_codes,
-                                 duplicate_codes,
-                                 invalid_codes,
-                                 hash)
+      CouponSubcodesResponse.new(created_codes: created_codes,
+                                 duplicate_codes: duplicate_codes,
+                                 invalid_codes: invalid_codes,
+                                 additional_properties: hash)
     end
   end
 end

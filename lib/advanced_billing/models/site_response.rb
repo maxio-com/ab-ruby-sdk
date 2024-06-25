@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(site = nil,
-                   additional_properties = {})
+    def initialize(site:, additional_properties: {})
       @site = site
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SiteResponse.new(site,
-                       hash)
+      SiteResponse.new(site: site,
+                       additional_properties: hash)
     end
   end
 end

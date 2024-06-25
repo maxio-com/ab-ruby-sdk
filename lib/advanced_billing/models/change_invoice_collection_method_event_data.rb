@@ -35,9 +35,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(from_collection_method = nil,
-                   to_collection_method = nil,
-                   additional_properties = {})
+    def initialize(from_collection_method:, to_collection_method:,
+                   additional_properties: {})
       @from_collection_method = from_collection_method
       @to_collection_method = to_collection_method
 
@@ -61,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ChangeInvoiceCollectionMethodEventData.new(from_collection_method,
-                                                 to_collection_method,
-                                                 hash)
+      ChangeInvoiceCollectionMethodEventData.new(from_collection_method: from_collection_method,
+                                                 to_collection_method: to_collection_method,
+                                                 additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

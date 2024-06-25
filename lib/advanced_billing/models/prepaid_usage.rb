@@ -76,17 +76,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(previous_unit_balance = nil,
-                   previous_overage_unit_balance = nil,
-                   new_unit_balance = nil,
-                   new_overage_unit_balance = nil,
-                   usage_quantity = nil,
-                   overage_usage_quantity = nil,
-                   component_id = nil,
-                   component_handle = nil,
-                   memo = nil,
-                   allocation_details = nil,
-                   additional_properties = {})
+    def initialize(previous_unit_balance:, previous_overage_unit_balance:,
+                   new_unit_balance:, new_overage_unit_balance:,
+                   usage_quantity:, overage_usage_quantity:, component_id:,
+                   component_handle:, memo:, allocation_details:,
+                   additional_properties: {})
       @previous_unit_balance = previous_unit_balance
       @previous_overage_unit_balance = previous_overage_unit_balance
       @new_unit_balance = new_unit_balance
@@ -140,17 +134,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PrepaidUsage.new(previous_unit_balance,
-                       previous_overage_unit_balance,
-                       new_unit_balance,
-                       new_overage_unit_balance,
-                       usage_quantity,
-                       overage_usage_quantity,
-                       component_id,
-                       component_handle,
-                       memo,
-                       allocation_details,
-                       hash)
+      PrepaidUsage.new(previous_unit_balance: previous_unit_balance,
+                       previous_overage_unit_balance: previous_overage_unit_balance,
+                       new_unit_balance: new_unit_balance,
+                       new_overage_unit_balance: new_overage_unit_balance,
+                       usage_quantity: usage_quantity,
+                       overage_usage_quantity: overage_usage_quantity,
+                       component_id: component_id,
+                       component_handle: component_handle,
+                       memo: memo,
+                       allocation_details: allocation_details,
+                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

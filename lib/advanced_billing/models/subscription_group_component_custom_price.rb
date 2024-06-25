@@ -51,10 +51,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(pricing_scheme = SKIP,
-                   prices = SKIP,
-                   overage_pricing = SKIP,
-                   additional_properties = {})
+    def initialize(pricing_scheme: SKIP, prices: SKIP, overage_pricing: SKIP,
+                   additional_properties: {})
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
       @prices = prices unless prices == SKIP
       @overage_pricing = overage_pricing unless overage_pricing == SKIP
@@ -97,10 +95,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupComponentCustomPrice.new(pricing_scheme,
-                                                prices,
-                                                overage_pricing,
-                                                hash)
+      SubscriptionGroupComponentCustomPrice.new(pricing_scheme: pricing_scheme,
+                                                prices: prices,
+                                                overage_pricing: overage_pricing,
+                                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

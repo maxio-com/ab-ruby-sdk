@@ -55,11 +55,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(payer = SKIP,
-                   shipping_address = SKIP,
-                   billing_address = SKIP,
-                   custom_fields = SKIP,
-                   additional_properties = {})
+    def initialize(payer: SKIP, shipping_address: SKIP, billing_address: SKIP,
+                   custom_fields: SKIP, additional_properties: {})
       @payer = payer unless payer == SKIP
       @shipping_address = shipping_address unless shipping_address == SKIP
       @billing_address = billing_address unless billing_address == SKIP
@@ -88,11 +85,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CustomerChange.new(payer,
-                         shipping_address,
-                         billing_address,
-                         custom_fields,
-                         hash)
+      CustomerChange.new(payer: payer,
+                         shipping_address: shipping_address,
+                         billing_address: billing_address,
+                         custom_fields: custom_fields,
+                         additional_properties: hash)
     end
   end
 end

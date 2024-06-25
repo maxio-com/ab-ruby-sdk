@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(members = nil,
-                   additional_properties = {})
+    def initialize(members:, additional_properties: {})
       @members = members
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupMembersArrayError.new(members,
-                                             hash)
+      SubscriptionGroupMembersArrayError.new(members: members,
+                                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

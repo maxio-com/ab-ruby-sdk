@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component_id = SKIP,
-                   message = SKIP,
-                   kind = SKIP,
-                   on = SKIP,
-                   additional_properties = {})
+    def initialize(component_id: SKIP, message: SKIP, kind: SKIP, on: SKIP,
+                   additional_properties: {})
       @component_id = component_id unless component_id == SKIP
       @message = message unless message == SKIP
       @kind = kind unless kind == SKIP
@@ -80,11 +77,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ComponentAllocationErrorItem.new(component_id,
-                                       message,
-                                       kind,
-                                       on,
-                                       hash)
+      ComponentAllocationErrorItem.new(component_id: component_id,
+                                       message: message,
+                                       kind: kind,
+                                       on: on,
+                                       additional_properties: hash)
     end
   end
 end

@@ -56,12 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(seller_name = SKIP,
-                   site_name = SKIP,
-                   site_id = SKIP,
-                   site_currency = SKIP,
-                   stats = SKIP,
-                   additional_properties = {})
+    def initialize(seller_name: SKIP, site_name: SKIP, site_id: SKIP,
+                   site_currency: SKIP, stats: SKIP, additional_properties: {})
       @seller_name = seller_name unless seller_name == SKIP
       @site_name = site_name unless site_name == SKIP
       @site_id = site_id unless site_id == SKIP
@@ -89,12 +85,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SiteSummary.new(seller_name,
-                      site_name,
-                      site_id,
-                      site_currency,
-                      stats,
-                      hash)
+      SiteSummary.new(seller_name: seller_name,
+                      site_name: site_name,
+                      site_id: site_id,
+                      site_currency: site_currency,
+                      stats: stats,
+                      additional_properties: hash)
     end
   end
 end

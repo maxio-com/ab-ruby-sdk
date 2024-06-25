@@ -166,24 +166,13 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   type = SKIP,
-                   default = SKIP,
-                   name = SKIP,
-                   pricing_scheme = SKIP,
-                   component_id = SKIP,
-                   handle = SKIP,
-                   archived_at = SKIP,
-                   created_at = SKIP,
-                   updated_at = SKIP,
-                   prices = SKIP,
-                   use_site_exchange_rate = SKIP,
-                   subscription_id = SKIP,
-                   tax_included = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   currency_prices = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, type: SKIP, default: SKIP, name: SKIP,
+                   pricing_scheme: SKIP, component_id: SKIP, handle: SKIP,
+                   archived_at: SKIP, created_at: SKIP, updated_at: SKIP,
+                   prices: SKIP, use_site_exchange_rate: SKIP,
+                   subscription_id: SKIP, tax_included: SKIP, interval: SKIP,
+                   interval_unit: SKIP, currency_prices: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @type = type unless type == SKIP
       @default = default unless default == SKIP
@@ -268,24 +257,24 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ComponentPricePoint.new(id,
-                              type,
-                              default,
-                              name,
-                              pricing_scheme,
-                              component_id,
-                              handle,
-                              archived_at,
-                              created_at,
-                              updated_at,
-                              prices,
-                              use_site_exchange_rate,
-                              subscription_id,
-                              tax_included,
-                              interval,
-                              interval_unit,
-                              currency_prices,
-                              hash)
+      ComponentPricePoint.new(id: id,
+                              type: type,
+                              default: default,
+                              name: name,
+                              pricing_scheme: pricing_scheme,
+                              component_id: component_id,
+                              handle: handle,
+                              archived_at: archived_at,
+                              created_at: created_at,
+                              updated_at: updated_at,
+                              prices: prices,
+                              use_site_exchange_rate: use_site_exchange_rate,
+                              subscription_id: subscription_id,
+                              tax_included: tax_included,
+                              interval: interval,
+                              interval_unit: interval_unit,
+                              currency_prices: currency_prices,
+                              additional_properties: hash)
     end
 
     def to_custom_archived_at

@@ -53,11 +53,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name = SKIP,
-                   address = SKIP,
-                   phone = SKIP,
-                   logo_url = SKIP,
-                   additional_properties = {})
+    def initialize(name: SKIP, address: SKIP, phone: SKIP, logo_url: SKIP,
+                   additional_properties: {})
       @name = name unless name == SKIP
       @address = address unless address == SKIP
       @phone = phone unless phone == SKIP
@@ -83,11 +80,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceSeller.new(name,
-                        address,
-                        phone,
-                        logo_url,
-                        hash)
+      InvoiceSeller.new(name: name,
+                        address: address,
+                        phone: phone,
+                        logo_url: logo_url,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

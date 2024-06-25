@@ -100,19 +100,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(uid = SKIP,
-                   title = SKIP,
-                   description = SKIP,
-                   code = SKIP,
-                   source_type = SKIP,
-                   source_id = SKIP,
-                   discount_type = SKIP,
-                   percentage = SKIP,
-                   eligible_amount = SKIP,
-                   discount_amount = SKIP,
-                   transaction_id = SKIP,
-                   line_item_breakouts = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, title: SKIP, description: SKIP, code: SKIP,
+                   source_type: SKIP, source_id: SKIP, discount_type: SKIP,
+                   percentage: SKIP, eligible_amount: SKIP,
+                   discount_amount: SKIP, transaction_id: SKIP,
+                   line_item_breakouts: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -166,19 +158,19 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceDiscount.new(uid,
-                          title,
-                          description,
-                          code,
-                          source_type,
-                          source_id,
-                          discount_type,
-                          percentage,
-                          eligible_amount,
-                          discount_amount,
-                          transaction_id,
-                          line_item_breakouts,
-                          hash)
+      InvoiceDiscount.new(uid: uid,
+                          title: title,
+                          description: description,
+                          code: code,
+                          source_type: source_type,
+                          source_id: source_id,
+                          discount_type: discount_type,
+                          percentage: percentage,
+                          eligible_amount: eligible_amount,
+                          discount_amount: discount_amount,
+                          transaction_id: transaction_id,
+                          line_item_breakouts: line_item_breakouts,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(payment_profile = nil,
-                   additional_properties = {})
+    def initialize(payment_profile:, additional_properties: {})
       @payment_profile = payment_profile
 
       # Add additional model properties to the instance.
@@ -52,8 +51,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      GetOneTimeTokenRequest.new(payment_profile,
-                                 hash)
+      GetOneTimeTokenRequest.new(payment_profile: payment_profile,
+                                 additional_properties: hash)
     end
   end
 end

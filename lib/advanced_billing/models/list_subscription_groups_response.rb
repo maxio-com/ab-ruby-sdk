@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_groups = SKIP,
-                   meta = SKIP,
-                   additional_properties = {})
+    def initialize(subscription_groups: SKIP, meta: SKIP,
+                   additional_properties: {})
       @subscription_groups = subscription_groups unless subscription_groups == SKIP
       @meta = meta unless meta == SKIP
 
@@ -71,9 +70,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSubscriptionGroupsResponse.new(subscription_groups,
-                                         meta,
-                                         hash)
+      ListSubscriptionGroupsResponse.new(subscription_groups: subscription_groups,
+                                         meta: meta,
+                                         additional_properties: hash)
     end
   end
 end

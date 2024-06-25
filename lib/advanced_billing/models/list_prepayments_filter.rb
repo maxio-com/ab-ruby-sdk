@@ -52,10 +52,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(date_field = SKIP,
-                   start_date = SKIP,
-                   end_date = SKIP,
-                   additional_properties = {})
+    def initialize(date_field: SKIP, start_date: SKIP, end_date: SKIP,
+                   additional_properties: {})
       @date_field = date_field unless date_field == SKIP
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
@@ -79,10 +77,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListPrepaymentsFilter.new(date_field,
-                                start_date,
-                                end_date,
-                                hash)
+      ListPrepaymentsFilter.new(date_field: date_field,
+                                start_date: start_date,
+                                end_date: end_date,
+                                additional_properties: hash)
     end
   end
 end

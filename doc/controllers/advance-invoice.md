@@ -44,7 +44,7 @@ def issue_advance_invoice(subscription_id,
 subscription_id = 222
 
 body = IssueAdvanceInvoiceRequest.new(
-  true
+  force: true
 )
 
 result = advance_invoice_controller.issue_advance_invoice(

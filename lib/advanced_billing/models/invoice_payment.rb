@@ -90,17 +90,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(transaction_time = SKIP,
-                   memo = SKIP,
-                   original_amount = SKIP,
-                   applied_amount = SKIP,
-                   payment_method = SKIP,
-                   transaction_id = SKIP,
-                   prepayment = SKIP,
-                   gateway_handle = SKIP,
-                   gateway_used = SKIP,
-                   gateway_transaction_id = SKIP,
-                   additional_properties = {})
+    def initialize(transaction_time: SKIP, memo: SKIP, original_amount: SKIP,
+                   applied_amount: SKIP, payment_method: SKIP,
+                   transaction_id: SKIP, prepayment: SKIP, gateway_handle: SKIP,
+                   gateway_used: SKIP, gateway_transaction_id: SKIP,
+                   additional_properties: {})
       @transaction_time = transaction_time unless transaction_time == SKIP
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
@@ -148,17 +142,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoicePayment.new(transaction_time,
-                         memo,
-                         original_amount,
-                         applied_amount,
-                         payment_method,
-                         transaction_id,
-                         prepayment,
-                         gateway_handle,
-                         gateway_used,
-                         gateway_transaction_id,
-                         hash)
+      InvoicePayment.new(transaction_time: transaction_time,
+                         memo: memo,
+                         original_amount: original_amount,
+                         applied_amount: applied_amount,
+                         payment_method: payment_method,
+                         transaction_id: transaction_id,
+                         prepayment: prepayment,
+                         gateway_handle: gateway_handle,
+                         gateway_used: gateway_used,
+                         gateway_transaction_id: gateway_transaction_id,
+                         additional_properties: hash)
     end
 
     def to_custom_transaction_time

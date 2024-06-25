@@ -40,10 +40,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(dunner = nil,
-                   current_step = nil,
-                   next_step = nil,
-                   additional_properties = {})
+    def initialize(dunner:, current_step:, next_step:,
+                   additional_properties: {})
       @dunner = dunner
       @current_step = current_step
       @next_step = next_step
@@ -67,10 +65,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DunningStepReached.new(dunner,
-                             current_step,
-                             next_step,
-                             hash)
+      DunningStepReached.new(dunner: dunner,
+                             current_step: current_step,
+                             next_step: next_step,
+                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

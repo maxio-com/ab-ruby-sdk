@@ -51,20 +51,19 @@ def create_offer(body: nil)
 
 ```ruby
 body = CreateOfferRequest.new(
-  CreateOffer.new(
-    'Solo',
-    'han_shot_first',
-    31,
-    'A Star Wars Story',
-    102,
-    [
+  offer: CreateOffer.new(
+    name: 'Solo',
+    handle: 'han_shot_first',
+    product_id: 31,
+    description: 'A Star Wars Story',
+    product_price_point_id: 102,
+    components: [
       CreateOfferComponent.new(
-        24,
-        nil,
-        1
+        component_id: 24,
+        starting_quantity: 1
       )
     ],
-    [
+    coupons: [
       'DEF456'
     ]
   )

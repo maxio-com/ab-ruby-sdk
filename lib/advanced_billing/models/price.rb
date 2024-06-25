@@ -45,10 +45,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(starting_quantity = nil,
-                   unit_price = nil,
-                   ending_quantity = SKIP,
-                   additional_properties = {})
+    def initialize(starting_quantity:, unit_price:, ending_quantity: SKIP,
+                   additional_properties: {})
       @starting_quantity = starting_quantity
       @ending_quantity = ending_quantity unless ending_quantity == SKIP
       @unit_price = unit_price
@@ -78,10 +76,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Price.new(starting_quantity,
-                unit_price,
-                ending_quantity,
-                hash)
+      Price.new(starting_quantity: starting_quantity,
+                unit_price: unit_price,
+                ending_quantity: ending_quantity,
+                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

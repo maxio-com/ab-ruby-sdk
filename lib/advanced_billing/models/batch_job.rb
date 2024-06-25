@@ -61,12 +61,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   finished_at = SKIP,
-                   row_count = SKIP,
-                   created_at = SKIP,
-                   completed = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, finished_at: SKIP, row_count: SKIP,
+                   created_at: SKIP, completed: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @finished_at = finished_at unless finished_at == SKIP
       @row_count = row_count unless row_count == SKIP
@@ -102,12 +98,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BatchJob.new(id,
-                   finished_at,
-                   row_count,
-                   created_at,
-                   completed,
-                   hash)
+      BatchJob.new(id: id,
+                   finished_at: finished_at,
+                   row_count: row_count,
+                   created_at: created_at,
+                   completed: completed,
+                   additional_properties: hash)
     end
 
     def to_custom_finished_at

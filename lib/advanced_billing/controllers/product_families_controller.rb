@@ -8,8 +8,8 @@ module AdvancedBilling
   class ProductFamiliesController < BaseController
     # This method allows to retrieve a list of Products belonging to a Product
     # Family.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the product belongs
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start

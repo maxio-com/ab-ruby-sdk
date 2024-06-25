@@ -76,13 +76,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(timestamp = SKIP,
-                   id = SKIP,
-                   created_at = SKIP,
-                   uniqueness_token = SKIP,
-                   subscription_id = SKIP,
-                   subscription_reference = SKIP,
-                   additional_properties = {})
+    def initialize(timestamp: SKIP, id: SKIP, created_at: SKIP,
+                   uniqueness_token: SKIP, subscription_id: SKIP,
+                   subscription_reference: SKIP, additional_properties: {})
       @timestamp = timestamp unless timestamp == SKIP
       @id = id unless id == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -123,13 +119,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ChargifyEBB.new(timestamp,
-                      id,
-                      created_at,
-                      uniqueness_token,
-                      subscription_id,
-                      subscription_reference,
-                      hash)
+      ChargifyEBB.new(timestamp: timestamp,
+                      id: id,
+                      created_at: created_at,
+                      uniqueness_token: uniqueness_token,
+                      subscription_id: subscription_id,
+                      subscription_reference: subscription_reference,
+                      additional_properties: hash)
     end
 
     def to_custom_timestamp

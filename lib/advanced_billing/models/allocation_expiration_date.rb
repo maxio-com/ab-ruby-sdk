@@ -33,8 +33,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(expires_at = SKIP,
-                   additional_properties = {})
+    def initialize(expires_at: SKIP, additional_properties: {})
       @expires_at = expires_at unless expires_at == SKIP
 
       # Add additional model properties to the instance.
@@ -58,8 +57,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AllocationExpirationDate.new(expires_at,
-                                   hash)
+      AllocationExpirationDate.new(expires_at: expires_at,
+                                   additional_properties: hash)
     end
 
     def to_custom_expires_at

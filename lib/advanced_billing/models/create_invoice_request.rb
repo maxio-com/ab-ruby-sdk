@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(invoice = nil,
-                   additional_properties = {})
+    def initialize(invoice:, additional_properties: {})
       @invoice = invoice
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateInvoiceRequest.new(invoice,
-                               hash)
+      CreateInvoiceRequest.new(invoice: invoice,
+                               additional_properties: hash)
     end
   end
 end

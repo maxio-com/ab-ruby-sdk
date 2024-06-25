@@ -73,15 +73,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(day_threshold = nil,
-                   action = nil,
-                   send_email = nil,
-                   send_bcc_email = nil,
-                   send_sms = nil,
-                   email_body = SKIP,
-                   email_subject = SKIP,
-                   sms_body = SKIP,
-                   additional_properties = {})
+    def initialize(day_threshold:, action:, send_email:, send_bcc_email:,
+                   send_sms:, email_body: SKIP, email_subject: SKIP,
+                   sms_body: SKIP, additional_properties: {})
       @day_threshold = day_threshold
       @action = action
       @email_body = email_body unless email_body == SKIP
@@ -116,15 +110,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DunningStepData.new(day_threshold,
-                          action,
-                          send_email,
-                          send_bcc_email,
-                          send_sms,
-                          email_body,
-                          email_subject,
-                          sms_body,
-                          hash)
+      DunningStepData.new(day_threshold: day_threshold,
+                          action: action,
+                          send_email: send_email,
+                          send_bcc_email: send_bcc_email,
+                          send_sms: send_sms,
+                          email_body: email_body,
+                          email_subject: email_subject,
+                          sms_body: sms_body,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

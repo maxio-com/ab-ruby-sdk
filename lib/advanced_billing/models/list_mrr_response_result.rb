@@ -68,14 +68,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(page = SKIP,
-                   per_page = SKIP,
-                   total_pages = SKIP,
-                   total_entries = SKIP,
-                   currency = SKIP,
-                   currency_symbol = SKIP,
-                   movements = SKIP,
-                   additional_properties = {})
+    def initialize(page: SKIP, per_page: SKIP, total_pages: SKIP,
+                   total_entries: SKIP, currency: SKIP, currency_symbol: SKIP,
+                   movements: SKIP, additional_properties: {})
       @page = page unless page == SKIP
       @per_page = per_page unless per_page == SKIP
       @total_pages = total_pages unless total_pages == SKIP
@@ -117,14 +112,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListMRRResponseResult.new(page,
-                                per_page,
-                                total_pages,
-                                total_entries,
-                                currency,
-                                currency_symbol,
-                                movements,
-                                hash)
+      ListMRRResponseResult.new(page: page,
+                                per_page: per_page,
+                                total_pages: total_pages,
+                                total_entries: total_entries,
+                                currency: currency,
+                                currency_symbol: currency_symbol,
+                                movements: movements,
+                                additional_properties: hash)
     end
   end
 end

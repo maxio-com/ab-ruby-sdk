@@ -58,12 +58,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = nil,
-                   details = nil,
-                   memo = nil,
-                   method = nil,
-                   payment_profile_id = SKIP,
-                   additional_properties = {})
+    def initialize(amount:, details:, memo:, method:, payment_profile_id: SKIP,
+                   additional_properties: {})
       @amount = amount
       @details = details
       @memo = memo
@@ -92,12 +88,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreatePrepayment.new(amount,
-                           details,
-                           memo,
-                           method,
-                           payment_profile_id,
-                           hash)
+      CreatePrepayment.new(amount: amount,
+                           details: details,
+                           memo: memo,
+                           method: method,
+                           payment_profile_id: payment_profile_id,
+                           additional_properties: hash)
     end
   end
 end

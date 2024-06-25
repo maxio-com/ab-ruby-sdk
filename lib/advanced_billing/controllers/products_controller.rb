@@ -13,8 +13,8 @@ module AdvancedBilling
     # + [Changing a Subscription's
     # Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/540422533466
     # 9-Product-Changes-Migrations)
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the product belongs
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
     # @return [ProductResponse] response from the API call
     def create_product(product_family_id,

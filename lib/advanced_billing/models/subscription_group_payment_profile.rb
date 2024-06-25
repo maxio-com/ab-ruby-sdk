@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   first_name = SKIP,
-                   last_name = SKIP,
-                   masked_card_number = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, first_name: SKIP, last_name: SKIP,
+                   masked_card_number: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -81,11 +78,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupPaymentProfile.new(id,
-                                          first_name,
-                                          last_name,
-                                          masked_card_number,
-                                          hash)
+      SubscriptionGroupPaymentProfile.new(id: id,
+                                          first_name: first_name,
+                                          last_name: last_name,
+                                          masked_card_number: masked_card_number,
+                                          additional_properties: hash)
     end
   end
 end

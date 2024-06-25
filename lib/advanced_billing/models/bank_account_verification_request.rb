@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(bank_account_verification = nil,
-                   additional_properties = {})
+    def initialize(bank_account_verification:, additional_properties: {})
       @bank_account_verification = bank_account_verification
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BankAccountVerificationRequest.new(bank_account_verification,
-                                         hash)
+      BankAccountVerificationRequest.new(bank_account_verification: bank_account_verification,
+                                         additional_properties: hash)
     end
   end
 end

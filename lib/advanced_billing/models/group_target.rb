@@ -40,9 +40,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(type = nil,
-                   id = SKIP,
-                   additional_properties = {})
+    def initialize(type:, id: SKIP, additional_properties: {})
       @type = type
       @id = id unless id == SKIP
 
@@ -64,9 +62,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      GroupTarget.new(type,
-                      id,
-                      hash)
+      GroupTarget.new(type: type,
+                      id: id,
+                      additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(current_page = SKIP,
-                   total_count = SKIP,
-                   additional_properties = {})
+    def initialize(current_page: SKIP, total_count: SKIP,
+                   additional_properties: {})
       @current_page = current_page unless current_page == SKIP
       @total_count = total_count unless total_count == SKIP
 
@@ -62,9 +61,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListSubscriptionGroupsMeta.new(current_page,
-                                     total_count,
-                                     hash)
+      ListSubscriptionGroupsMeta.new(current_page: current_page,
+                                     total_count: total_count,
+                                     additional_properties: hash)
     end
   end
 end

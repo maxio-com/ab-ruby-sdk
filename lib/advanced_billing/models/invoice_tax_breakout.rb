@@ -50,11 +50,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid = SKIP,
-                   taxable_amount = SKIP,
-                   tax_amount = SKIP,
-                   tax_exempt_amount = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, taxable_amount: SKIP, tax_amount: SKIP,
+                   tax_exempt_amount: SKIP, additional_properties: {})
       @uid = uid unless uid == SKIP
       @taxable_amount = taxable_amount unless taxable_amount == SKIP
       @tax_amount = tax_amount unless tax_amount == SKIP
@@ -82,11 +79,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceTaxBreakout.new(uid,
-                             taxable_amount,
-                             tax_amount,
-                             tax_exempt_amount,
-                             hash)
+      InvoiceTaxBreakout.new(uid: uid,
+                             taxable_amount: taxable_amount,
+                             tax_amount: tax_amount,
+                             tax_exempt_amount: tax_exempt_amount,
+                             additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

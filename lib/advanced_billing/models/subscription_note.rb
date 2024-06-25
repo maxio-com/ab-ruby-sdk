@@ -63,13 +63,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   body = SKIP,
-                   subscription_id = SKIP,
-                   created_at = SKIP,
-                   updated_at = SKIP,
-                   sticky = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, body: SKIP, subscription_id: SKIP,
+                   created_at: SKIP, updated_at: SKIP, sticky: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @body = body unless body == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
@@ -108,13 +104,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionNote.new(id,
-                           body,
-                           subscription_id,
-                           created_at,
-                           updated_at,
-                           sticky,
-                           hash)
+      SubscriptionNote.new(id: id,
+                           body: body,
+                           subscription_id: subscription_id,
+                           created_at: created_at,
+                           updated_at: updated_at,
+                           sticky: sticky,
+                           additional_properties: hash)
     end
 
     def to_custom_created_at

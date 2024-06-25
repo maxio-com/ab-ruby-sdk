@@ -21,17 +21,7 @@ components_controller = client.components
 * [Archive Component](../../doc/controllers/components.md#archive-component)
 * [List Components](../../doc/controllers/components.md#list-components)
 * [Update Component](../../doc/controllers/components.md#update-component)
-* [Promote Component Price Point to Default](../../doc/controllers/components.md#promote-component-price-point-to-default)
 * [List Components for Product Family](../../doc/controllers/components.md#list-components-for-product-family)
-* [Create Component Price Point](../../doc/controllers/components.md#create-component-price-point)
-* [List Component Price Points](../../doc/controllers/components.md#list-component-price-points)
-* [Bulk Create Component Price Points](../../doc/controllers/components.md#bulk-create-component-price-points)
-* [Update Component Price Point](../../doc/controllers/components.md#update-component-price-point)
-* [Archive Component Price Point](../../doc/controllers/components.md#archive-component-price-point)
-* [Unarchive Component Price Point](../../doc/controllers/components.md#unarchive-component-price-point)
-* [Create Currency Prices](../../doc/controllers/components.md#create-currency-prices)
-* [Update Currency Prices](../../doc/controllers/components.md#update-currency-prices)
-* [List All Component Price Points](../../doc/controllers/components.md#list-all-component-price-points)
 
 
 # Create Metered Component
@@ -66,17 +56,15 @@ def create_metered_component(product_family_id,
 product_family_id = 140
 
 body = CreateMeteredComponent.new(
-  MeteredComponent.new(
-    'Text messages',
-    'text message',
-    PricingScheme::PER_UNIT,
-    nil,
-    nil,
-    false,
-    [
+  metered_component: MeteredComponent.new(
+    name: 'Text messages',
+    unit_name: 'text message',
+    pricing_scheme: PricingScheme::PER_UNIT,
+    taxable: false,
+    prices: [
       Price.new(
-        1,
-        1
+        starting_quantity: 1,
+        unit_price: 1
       )
     ]
   )
@@ -186,25 +174,16 @@ def create_quantity_based_component(product_family_id,
 product_family_id = 140
 
 body = CreateQuantityBasedComponent.new(
-  QuantityBasedComponent.new(
-    'Quantity Based Component',
-    'Component',
-    PricingScheme::PER_UNIT,
-    'Example of JSON per-unit component example',
-    nil,
-    true,
-    nil,
-    nil,
-    nil,
-    nil,
-    '10',
-    nil,
-    nil,
-    nil,
-    nil,
-    true,
-    true,
-    [
+  quantity_based_component: QuantityBasedComponent.new(
+    name: 'Quantity Based Component',
+    unit_name: 'Component',
+    pricing_scheme: PricingScheme::PER_UNIT,
+    description: 'Example of JSON per-unit component example',
+    taxable: true,
+    unit_price: '10',
+    display_on_hosted_page: true,
+    allow_fractional_quantities: true,
+    public_signup_page_ids: [
       323397
     ]
   )
@@ -304,27 +283,18 @@ def create_on_off_component(product_family_id,
 product_family_id = 140
 
 body = CreateOnOffComponent.new(
-  OnOffComponent.new(
-    'Annual Support Services',
-    'Prepay for support services',
-    nil,
-    true,
-    [
+  on_off_component: OnOffComponent.new(
+    name: 'Annual Support Services',
+    description: 'Prepay for support services',
+    taxable: true,
+    prices: [
       Price.new(
-        '0',
-        '100.00'
+        starting_quantity: '0',
+        unit_price: '100.00'
       )
     ],
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    true,
-    nil,
-    [
+    display_on_hosted_page: true,
+    public_signup_page_ids: [
       320495
     ]
   )
@@ -412,39 +382,29 @@ def create_prepaid_usage_component(product_family_id,
 product_family_id = 140
 
 body = CreatePrepaidComponent.new(
-  PrepaidUsageComponent.new(
-    'Minutes',
-    'minutes',
-    nil,
-    nil,
-    nil,
-    PricingScheme::PER_UNIT,
-    nil,
-    nil,
-    nil,
-    nil,
-    2,
-    nil,
-    nil,
-    nil,
-    OveragePricing.new(
-      PricingScheme::STAIRSTEP,
-      [
+  prepaid_usage_component: PrepaidUsageComponent.new(
+    name: 'Minutes',
+    unit_name: 'minutes',
+    pricing_scheme: PricingScheme::PER_UNIT,
+    unit_price: 2,
+    overage_pricing: OveragePricing.new(
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      prices: [
         Price.new(
-          1,
-          3,
-          100
+          starting_quantity: 1,
+          unit_price: 3,
+          ending_quantity: 100
         ),
         Price.new(
-          101,
-          5
+          starting_quantity: 101,
+          unit_price: 5
         )
       ]
     ),
-    true,
-    true,
-    15,
-    IntervalUnit::DAY
+    rollover_prepaid_remainder: true,
+    renew_prepaid_allocation: true,
+    expiration_interval: 15,
+    expiration_interval_unit: IntervalUnit::DAY
   )
 )
 
@@ -556,18 +516,18 @@ def create_event_based_component(product_family_id,
 product_family_id = 140
 
 body = CreateEBBComponent.new(
-  EBBComponent.new(
-    'Component Name',
-    'string',
-    PricingScheme::PER_UNIT,
-    123,
-    'string',
-    'some_handle',
-    true,
-    [
+  event_based_component: EBBComponent.new(
+    name: 'Component Name',
+    unit_name: 'string',
+    pricing_scheme: PricingScheme::PER_UNIT,
+    event_based_billing_metric_id: 123,
+    description: 'string',
+    handle: 'some_handle',
+    taxable: true,
+    prices: [
       Price.new(
-        1,
-        '0.49'
+        starting_quantity: 1,
+        unit_price: '0.49'
       )
     ]
   )
@@ -781,14 +741,8 @@ product_family_id = 140
 component_id = 'component_id8'
 
 body = UpdateComponentRequest.new(
-  UpdateComponent.new(
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    ItemCategory::ENUM_BUSINESS_SOFTWARE
+  component: UpdateComponent.new(
+    item_category: ItemCategory::ENUM_BUSINESS_SOFTWARE
   )
 )
 
@@ -936,7 +890,7 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListComponentsFilter.new(
-    [
+    ids: [
       1,
       2,
       3
@@ -1072,14 +1026,8 @@ def update_component(component_id,
 component_id = 'component_id8'
 
 body = UpdateComponentRequest.new(
-  UpdateComponent.new(
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    ItemCategory::ENUM_BUSINESS_SOFTWARE
+  component: UpdateComponent.new(
+    item_category: ItemCategory::ENUM_BUSINESS_SOFTWARE
   )
 )
 
@@ -1126,77 +1074,6 @@ result = components_controller.update_component(
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Promote Component Price Point to Default
-
-Sets a new default price point for the component. This new default will apply to all new subscriptions going forward - existing subscriptions will remain on their current price point.
-
-See [Price Points Documentation](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-points) for more information on price points and moving subscriptions between price points.
-
-Note: Custom price points are not able to be set as the default for a component.
-
-```ruby
-def promote_component_price_point_to_default(component_id,
-                                             price_point_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
-
-## Response Type
-
-[`ComponentResponse`](../../doc/models/component-response.md)
-
-## Example Usage
-
-```ruby
-component_id = 222
-
-price_point_id = 10
-
-result = components_controller.promote_component_price_point_to_default(
-  component_id,
-  price_point_id
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "component": {
-    "id": 292609,
-    "name": "Text messages",
-    "pricing_scheme": "stairstep",
-    "unit_name": "text message",
-    "unit_price": null,
-    "product_family_id": 528484,
-    "price_per_unit_in_cents": null,
-    "kind": "metered_component",
-    "archived": false,
-    "taxable": false,
-    "description": null,
-    "created_at": "2019-08-02T05:54:53-04:00",
-    "prices": [
-      {
-        "id": 47,
-        "component_id": 292609,
-        "starting_quantity": 1,
-        "ending_quantity": null,
-        "unit_price": "1.0",
-        "price_point_id": 173,
-        "formatted_unit_price": "$1.00"
-      }
-    ],
-    "default_price_point_name": "Original"
-  }
-}
-```
-
-
 # List Components for Product Family
 
 This request will return a list of components for a particular product family.
@@ -1232,7 +1109,7 @@ collect = {
   'page': 2,
   'per_page': 50,
   'filter': ListComponentsFilter.new(
-    [
+    ids: [
       1,
       2,
       3
@@ -1339,723 +1216,4 @@ result = components_controller.list_components_for_product_family(collect)
   }
 ]
 ```
-
-
-# Create Component Price Point
-
-This endpoint can be used to create a new price point for an existing component.
-
-```ruby
-def create_component_price_point(component_id,
-                                 body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component |
-| `body` | [`CreateComponentPricePointRequest`](../../doc/models/create-component-price-point-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
-
-## Example Usage
-
-```ruby
-component_id = 222
-
-body = CreateComponentPricePointRequest.new(
-  CreateComponentPricePoint.new(
-    'Wholesale',
-    PricingScheme::STAIRSTEP,
-    [
-      Price.new(
-        '1',
-        '5.00',
-        '100'
-      ),
-      Price.new(
-        '101',
-        '4.00'
-      )
-    ],
-    'wholesale-handle',
-    false
-  )
-)
-
-result = components_controller.create_component_price_point(
-  component_id,
-  body: body
-)
-```
-
-
-# List Component Price Points
-
-Use this endpoint to read current price points that are associated with a component.
-
-You may specify the component by using either the numeric id or the `handle:gold` syntax.
-
-When fetching a component's price points, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response.
-
-If the price point is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
-
-```ruby
-def list_component_price_points(options = {})
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component |
-| `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | Include an array of currency price data |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
-
-## Response Type
-
-[`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
-
-## Example Usage
-
-```ruby
-Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'component_id': 222,
-  'page': 2,
-  'per_page': 50
-}
-
-result = components_controller.list_component_price_points(collect)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_points": [
-    {
-      "id": 80,
-      "default": false,
-      "name": "Wholesale Two",
-      "pricing_scheme": "per_unit",
-      "component_id": 74,
-      "handle": "wholesale-two",
-      "archived_at": null,
-      "created_at": "2017-07-05T13:55:40-04:00",
-      "updated_at": "2017-07-05T13:55:40-04:00",
-      "prices": [
-        {
-          "id": 121,
-          "component_id": 74,
-          "starting_quantity": 1,
-          "ending_quantity": null,
-          "unit_price": "5.0"
-        }
-      ]
-    },
-    {
-      "id": 81,
-      "default": false,
-      "name": "MSRP",
-      "pricing_scheme": "per_unit",
-      "component_id": 74,
-      "handle": "msrp",
-      "archived_at": null,
-      "created_at": "2017-07-05T13:55:40-04:00",
-      "updated_at": "2017-07-05T13:55:40-04:00",
-      "prices": [
-        {
-          "id": 122,
-          "component_id": 74,
-          "starting_quantity": 1,
-          "ending_quantity": null,
-          "unit_price": "4.0"
-        }
-      ]
-    }
-  ]
-}
-```
-
-
-# Bulk Create Component Price Points
-
-Use this endpoint to create multiple component price points in one request.
-
-```ruby
-def bulk_create_component_price_points(component_id,
-                                       body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `String` | Template, Required | The Chargify id of the component for which you want to fetch price points. |
-| `body` | [`CreateComponentPricePointsRequest`](../../doc/models/create-component-price-points-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
-
-## Example Usage
-
-```ruby
-component_id = 'component_id8'
-
-body = CreateComponentPricePointsRequest.new(
-  [
-    CreateComponentPricePoint.new(
-      'Wholesale',
-      PricingScheme::PER_UNIT,
-      [
-        Price.new(
-          1,
-          5
-        )
-      ],
-      'wholesale'
-    ),
-    CreateComponentPricePoint.new(
-      'MSRP',
-      PricingScheme::PER_UNIT,
-      [
-        Price.new(
-          1,
-          4
-        )
-      ],
-      'msrp'
-    ),
-    CreateComponentPricePoint.new(
-      'Special Pricing',
-      PricingScheme::PER_UNIT,
-      [
-        Price.new(
-          1,
-          5
-        )
-      ],
-      'special'
-    )
-  ]
-)
-
-result = components_controller.bulk_create_component_price_points(
-  component_id,
-  body: body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_points": [
-    {
-      "id": 80,
-      "default": false,
-      "name": "Wholesale Two",
-      "pricing_scheme": "per_unit",
-      "component_id": 74,
-      "handle": "wholesale-two",
-      "archived_at": null,
-      "created_at": "2017-07-05T13:55:40-04:00",
-      "updated_at": "2017-07-05T13:55:40-04:00",
-      "prices": [
-        {
-          "id": 121,
-          "component_id": 74,
-          "starting_quantity": 1,
-          "ending_quantity": null,
-          "unit_price": "5.0"
-        }
-      ]
-    },
-    {
-      "id": 81,
-      "default": false,
-      "name": "MSRP",
-      "pricing_scheme": "per_unit",
-      "component_id": 74,
-      "handle": "msrp",
-      "archived_at": null,
-      "created_at": "2017-07-05T13:55:40-04:00",
-      "updated_at": "2017-07-05T13:55:40-04:00",
-      "prices": [
-        {
-          "id": 122,
-          "component_id": 74,
-          "starting_quantity": 1,
-          "ending_quantity": null,
-          "unit_price": "4.0"
-        }
-      ]
-    }
-  ]
-}
-```
-
-
-# Update Component Price Point
-
-When updating a price point, it's prices can be updated as well by creating new prices or editing / removing existing ones.
-
-Passing in a price bracket without an `id` will attempt to create a new price.
-
-Including an `id` will update the corresponding price, and including the `_destroy` flag set to true along with the `id` will remove that price.
-
-Note: Custom price points cannot be updated directly. They must be edited through the Subscription.
-
-```ruby
-def update_component_price_point(component_id,
-                                 price_point_id,
-                                 body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
-| `body` | [`UpdateComponentPricePointRequest`](../../doc/models/update-component-price-point-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
-
-## Example Usage
-
-```ruby
-component_id = 222
-
-price_point_id = 10
-
-body = UpdateComponentPricePointRequest.new(
-  UpdateComponentPricePoint.new(
-    'Default',
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    [
-      UpdatePrice.new(
-        1,
-        100,
-        5
-      ),
-      UpdatePrice.new(
-        2,
-        nil,
-        nil,
-        true
-      ),
-      UpdatePrice.new(
-        nil,
-        nil,
-        4,
-        nil,
-        101
-      )
-    ]
-  )
-)
-
-result = components_controller.update_component_price_point(
-  component_id,
-  price_point_id,
-  body: body
-)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
-
-
-# Archive Component Price Point
-
-A price point can be archived at any time. Subscriptions using a price point that has been archived will continue using it until they're moved to another price point.
-
-```ruby
-def archive_component_price_point(component_id,
-                                  price_point_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
-
-## Response Type
-
-[`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
-
-## Example Usage
-
-```ruby
-component_id = 222
-
-price_point_id = 10
-
-result = components_controller.archive_component_price_point(
-  component_id,
-  price_point_id
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_point": {
-    "id": 79,
-    "default": false,
-    "name": "Wholesale",
-    "pricing_scheme": "stairstep",
-    "component_id": 74,
-    "handle": "wholesale-handle",
-    "archived_at": "2017-07-06T15:04:00-04:00",
-    "created_at": "2017-07-05T13:44:30-04:00",
-    "updated_at": "2017-07-05T13:44:30-04:00",
-    "prices": [
-      {
-        "id": 119,
-        "component_id": 74,
-        "starting_quantity": 1,
-        "ending_quantity": 100,
-        "unit_price": "5.0"
-      },
-      {
-        "id": 120,
-        "component_id": 74,
-        "starting_quantity": 101,
-        "ending_quantity": null,
-        "unit_price": "4.0"
-      }
-    ]
-  }
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
-
-
-# Unarchive Component Price Point
-
-Use this endpoint to unarchive a component price point.
-
-```ruby
-def unarchive_component_price_point(component_id,
-                                    price_point_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
-
-## Response Type
-
-[`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
-
-## Example Usage
-
-```ruby
-component_id = 222
-
-price_point_id = 10
-
-result = components_controller.unarchive_component_price_point(
-  component_id,
-  price_point_id
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_point": {
-    "id": 79,
-    "default": false,
-    "name": "Wholesale",
-    "pricing_scheme": "stairstep",
-    "component_id": 74,
-    "handle": "wholesale-handle",
-    "archived_at": null,
-    "created_at": "2017-07-05T13:44:30-04:00",
-    "updated_at": "2017-07-05T13:44:30-04:00",
-    "prices": [
-      {
-        "id": 119,
-        "component_id": 74,
-        "starting_quantity": 1,
-        "ending_quantity": 100,
-        "unit_price": "5.0"
-      },
-      {
-        "id": 120,
-        "component_id": 74,
-        "starting_quantity": 101,
-        "ending_quantity": null,
-        "unit_price": "4.0"
-      }
-    ]
-  }
-}
-```
-
-
-# Create Currency Prices
-
-This endpoint allows you to create currency prices for a given currency that has been defined on the site level in your settings.
-
-When creating currency prices, they need to mirror the structure of your primary pricing. For each price level defined on the component price point, there should be a matching price level created in the given currency.
-
-Note: Currency Prices are not able to be created for custom price points.
-
-```ruby
-def create_currency_prices(price_point_id,
-                           body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
-| `body` | [`CreateCurrencyPricesRequest`](../../doc/models/create-currency-prices-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
-
-## Example Usage
-
-```ruby
-price_point_id = 10
-
-body = CreateCurrencyPricesRequest.new(
-  [
-    CreateCurrencyPrice.new(
-      'EUR',
-      50,
-      20
-    ),
-    CreateCurrencyPrice.new(
-      'EUR',
-      40,
-      21
-    )
-  ]
-)
-
-result = components_controller.create_currency_prices(
-  price_point_id,
-  body: body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "currency_prices": [
-    {
-      "id": 100,
-      "currency": "EUR",
-      "price": "123",
-      "formatted_price": "€123,00",
-      "price_id": 32669,
-      "price_point_id": 25554
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
-
-
-# Update Currency Prices
-
-This endpoint allows you to update currency prices for a given currency that has been defined on the site level in your settings.
-
-Note: Currency Prices are not able to be updated for custom price points.
-
-```ruby
-def update_currency_prices(price_point_id,
-                           body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
-| `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
-
-## Response Type
-
-[`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
-
-## Example Usage
-
-```ruby
-price_point_id = 10
-
-body = UpdateCurrencyPricesRequest.new(
-  [
-    UpdateCurrencyPrice.new(
-      100,
-      51
-    ),
-    UpdateCurrencyPrice.new(
-      101,
-      41
-    )
-  ]
-)
-
-result = components_controller.update_currency_prices(
-  price_point_id,
-  body: body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "currency_prices": [
-    {
-      "id": 100,
-      "currency": "EUR",
-      "price": "123",
-      "formatted_price": "€123,00",
-      "price_id": 32669,
-      "price_point_id": 25554
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
-
-
-# List All Component Price Points
-
-This method allows to retrieve a list of Components Price Points belonging to a Site.
-
-```ruby
-def list_all_component_price_points(options = {})
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `include` | [`ListComponentsPricePointsInclude`](../../doc/models/list-components-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `filter` | [`ListPricePointsFilter`](../../doc/models/list-price-points-filter.md) | Query, Optional | Filter to use for List PricePoints operations |
-
-## Response Type
-
-[`ListComponentsPricePointsResponse`](../../doc/models/list-components-price-points-response.md)
-
-## Example Usage
-
-```ruby
-collect = {
-  'include': ListComponentsPricePointsInclude::CURRENCY_PRICES,
-  'page': 2,
-  'per_page': 50,
-  'filter': ListPricePointsFilter.new(
-    nil,
-    Date.iso8601('2011-12-17'),
-    Date.iso8601('2011-12-15'),
-    DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
-    DateTimeHelper.from_rfc3339('06/07/2019 17:20:06'),
-    [
-      PricePointType::CATALOG,
-      PricePointType::DEFAULT,
-      PricePointType::CUSTOM
-    ],
-    [
-      1,
-      2,
-      3
-    ]
-  )
-}
-
-result = components_controller.list_all_component_price_points(collect)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "price_points": [
-    {
-      "id": 1,
-      "name": "Auto-created",
-      "type": "default",
-      "pricing_scheme": "per_unit",
-      "component_id": 2,
-      "handle": "auto-created",
-      "archived_at": null,
-      "created_at": "2021-02-21T11:05:57-05:00",
-      "updated_at": "2021-02-21T11:05:57-05:00",
-      "prices": [
-        {
-          "id": 3,
-          "component_id": 2,
-          "starting_quantity": 0,
-          "ending_quantity": null,
-          "unit_price": "1.0",
-          "price_point_id": 1,
-          "formatted_unit_price": "$1.00",
-          "segment_id": null
-        }
-      ],
-      "tax_included": false
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 

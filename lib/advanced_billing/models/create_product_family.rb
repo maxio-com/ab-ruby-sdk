@@ -46,10 +46,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name = nil,
-                   handle = SKIP,
-                   description = SKIP,
-                   additional_properties = {})
+    def initialize(name:, handle: SKIP, description: SKIP,
+                   additional_properties: {})
       @name = name
       @handle = handle unless handle == SKIP
       @description = description unless description == SKIP
@@ -73,10 +71,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateProductFamily.new(name,
-                              handle,
-                              description,
-                              hash)
+      CreateProductFamily.new(name: name,
+                              handle: handle,
+                              description: description,
+                              additional_properties: hash)
     end
   end
 end

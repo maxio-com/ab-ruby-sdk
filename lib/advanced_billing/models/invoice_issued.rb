@@ -102,22 +102,10 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(uid = nil,
-                   number = nil,
-                   role = nil,
-                   due_date = nil,
-                   issue_date = nil,
-                   paid_date = nil,
-                   due_amount = nil,
-                   paid_amount = nil,
-                   tax_amount = nil,
-                   refund_amount = nil,
-                   total_amount = nil,
-                   status_amount = nil,
-                   product_name = nil,
-                   consolidation_level = nil,
-                   line_items = nil,
-                   additional_properties = {})
+    def initialize(uid:, number:, role:, due_date:, issue_date:, paid_date:,
+                   due_amount:, paid_amount:, tax_amount:, refund_amount:,
+                   total_amount:, status_amount:, product_name:,
+                   consolidation_level:, line_items:, additional_properties: {})
       @uid = uid
       @number = number
       @role = role
@@ -175,22 +163,22 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceIssued.new(uid,
-                        number,
-                        role,
-                        due_date,
-                        issue_date,
-                        paid_date,
-                        due_amount,
-                        paid_amount,
-                        tax_amount,
-                        refund_amount,
-                        total_amount,
-                        status_amount,
-                        product_name,
-                        consolidation_level,
-                        line_items,
-                        hash)
+      InvoiceIssued.new(uid: uid,
+                        number: number,
+                        role: role,
+                        due_date: due_date,
+                        issue_date: issue_date,
+                        paid_date: paid_date,
+                        due_amount: due_amount,
+                        paid_amount: paid_amount,
+                        tax_amount: tax_amount,
+                        refund_amount: refund_amount,
+                        total_amount: total_amount,
+                        status_amount: status_amount,
+                        product_name: product_name,
+                        consolidation_level: consolidation_level,
+                        line_items: line_items,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -129,7 +129,7 @@ collect = {
   'subscription_id': 222,
   'date_field': SubscriptionListDateField::UPDATED_AT,
   'filter': ListSubscriptionComponentsFilter.new(
-    [
+    currencies: [
       'EUR',
       'USD'
     ]
@@ -213,18 +213,18 @@ def bulk_update_subscription_components_price_points(subscription_id,
 subscription_id = 222
 
 body = BulkComponentsPricePointAssignment.new(
-  [
+  components: [
     ComponentPricePointAssignment.new(
-      997,
-      1022
+      component_id: 997,
+      price_point: 1022
     ),
     ComponentPricePointAssignment.new(
-      998,
-      'wholesale-handle'
+      component_id: 998,
+      price_point: 'wholesale-handle'
     ),
     ComponentPricePointAssignment.new(
-      999,
-      '_default'
+      component_id: 999,
+      price_point: '_default'
     )
   ]
 )
@@ -466,10 +466,9 @@ subscription_id = 222
 component_id = 222
 
 body = CreateAllocationRequest.new(
-  CreateAllocation.new(
-    5,
-    nil,
-    'Recoding component purchase of Acme Support'
+  allocation: CreateAllocation.new(
+    quantity: 5,
+    memo: 'Recoding component purchase of Acme Support'
   )
 )
 
@@ -655,18 +654,18 @@ def allocate_components(subscription_id,
 subscription_id = 222
 
 body = AllocateComponents.new(
-  'prorate-attempt-capture',
-  'no-prorate',
-  [
+  proration_upgrade_scheme: 'prorate-attempt-capture',
+  proration_downgrade_scheme: 'no-prorate',
+  allocations: [
     CreateAllocation.new(
-      10,
-      123,
-      'foo'
+      quantity: 10,
+      component_id: 123,
+      memo: 'foo'
     ),
     CreateAllocation.new(
-      5,
-      456,
-      'bar'
+      quantity: 5,
+      component_id: 456,
+      memo: 'bar'
     )
   ]
 )
@@ -760,21 +759,17 @@ def preview_allocations(subscription_id,
 subscription_id = 222
 
 body = PreviewAllocationsRequest.new(
-  [
+  allocations: [
     CreateAllocation.new(
-      10,
-      554108,
-      'NOW',
-      'prorate',
-      'prorate-attempt-capture',
-      nil,
-      nil,
-      nil,
-      nil,
-      325826
+      quantity: 10,
+      component_id: 554108,
+      memo: 'NOW',
+      proration_downgrade_scheme: 'prorate',
+      proration_upgrade_scheme: 'prorate-attempt-capture',
+      price_point_id: 325826
     )
   ],
-  Date.iso8601('2023-11-01')
+  effective_proration_date: Date.iso8601('2023-11-01')
 )
 
 result = subscription_components_controller.preview_allocations(
@@ -937,8 +932,8 @@ component_id = 222
 allocation_id = 24
 
 body = UpdateAllocationExpirationDate.new(
-  AllocationExpirationDate.new(
-    DateTimeHelper.from_rfc3339('2021-05-05T16:00:00')
+  allocation: AllocationExpirationDate.new(
+    expires_at: DateTimeHelper.from_rfc3339('2021-05-05T16:00:00')
   )
 )
 
@@ -1000,7 +995,7 @@ component_id = 222
 allocation_id = 24
 
 body = CreditSchemeRequest.new(
-  CreditScheme::NONE
+  credit_scheme: CreditScheme::NONE
 )
 
 subscription_components_controller.delete_prepaid_usage_allocation(
@@ -1104,10 +1099,10 @@ subscription_id = 222
 component_id = 144
 
 body = CreateUsageRequest.new(
-  CreateUsage.new(
-    1000,
-    '149416',
-    'My memo'
+  usage: CreateUsage.new(
+    quantity: 1000,
+    price_point_id: '149416',
+    memo: 'My memo'
   )
 )
 
@@ -1350,12 +1345,9 @@ subdomain = 'subdomain4'
 api_handle = 'api_handle6'
 
 body = EBBEvent.new(
-  ChargifyEBB.new(
-    DateTimeHelper.from_rfc3339('2020-02-27T17:45:50-05:00'),
-    nil,
-    nil,
-    nil,
-    1
+  chargify: ChargifyEBB.new(
+    timestamp: DateTimeHelper.from_rfc3339('2020-02-27T17:45:50-05:00'),
+    subscription_id: 1
   )
 )
 
@@ -1404,12 +1396,9 @@ api_handle = 'api_handle6'
 
 body = [
   EBBEvent.new(
-    ChargifyEBB.new(
-      DateTimeHelper.from_rfc3339('2020-02-27T17:45:50-05:00'),
-      nil,
-      nil,
-      nil,
-      1
+    chargify: ChargifyEBB.new(
+      timestamp: DateTimeHelper.from_rfc3339('2020-02-27T17:45:50-05:00'),
+      subscription_id: 1
     )
   )
 ]
@@ -1461,7 +1450,7 @@ collect = {
   'per_page': 50,
   'sort': ListSubscriptionComponentsSort::UPDATED_AT,
   'filter': ListSubscriptionComponentsForSiteFilter.new(
-    [
+    currencies: [
       'EUR',
       'USD'
     ]

@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(charge_unbilled_usage = SKIP,
-                   additional_properties = {})
+    def initialize(charge_unbilled_usage: SKIP, additional_properties: {})
       @charge_unbilled_usage = charge_unbilled_usage unless charge_unbilled_usage == SKIP
 
       # Add additional model properties to the instance.
@@ -54,8 +53,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CancelGroupedSubscriptionsRequest.new(charge_unbilled_usage,
-                                            hash)
+      CancelGroupedSubscriptionsRequest.new(charge_unbilled_usage: charge_unbilled_usage,
+                                            additional_properties: hash)
     end
   end
 end

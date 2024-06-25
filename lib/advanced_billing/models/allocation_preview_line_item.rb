@@ -80,16 +80,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(transaction_type = SKIP,
-                   kind = SKIP,
-                   amount_in_cents = SKIP,
-                   memo = SKIP,
-                   discount_amount_in_cents = SKIP,
-                   taxable_amount_in_cents = SKIP,
-                   component_id = SKIP,
-                   component_handle = SKIP,
-                   direction = SKIP,
-                   additional_properties = {})
+    def initialize(transaction_type: SKIP, kind: SKIP, amount_in_cents: SKIP,
+                   memo: SKIP, discount_amount_in_cents: SKIP,
+                   taxable_amount_in_cents: SKIP, component_id: SKIP,
+                   component_handle: SKIP, direction: SKIP,
+                   additional_properties: {})
       @transaction_type = transaction_type unless transaction_type == SKIP
       @kind = kind unless kind == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -130,16 +125,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AllocationPreviewLineItem.new(transaction_type,
-                                    kind,
-                                    amount_in_cents,
-                                    memo,
-                                    discount_amount_in_cents,
-                                    taxable_amount_in_cents,
-                                    component_id,
-                                    component_handle,
-                                    direction,
-                                    hash)
+      AllocationPreviewLineItem.new(transaction_type: transaction_type,
+                                    kind: kind,
+                                    amount_in_cents: amount_in_cents,
+                                    memo: memo,
+                                    discount_amount_in_cents: discount_amount_in_cents,
+                                    taxable_amount_in_cents: taxable_amount_in_cents,
+                                    component_id: component_id,
+                                    component_handle: component_handle,
+                                    direction: direction,
+                                    additional_properties: hash)
     end
   end
 end

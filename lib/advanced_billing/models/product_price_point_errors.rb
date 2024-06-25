@@ -62,13 +62,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_point = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   name = SKIP,
-                   price = SKIP,
-                   price_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(price_point: SKIP, interval: SKIP, interval_unit: SKIP,
+                   name: SKIP, price: SKIP, price_in_cents: SKIP,
+                   additional_properties: {})
       @price_point = price_point unless price_point == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
@@ -99,13 +95,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProductPricePointErrors.new(price_point,
-                                  interval,
-                                  interval_unit,
-                                  name,
-                                  price,
-                                  price_in_cents,
-                                  hash)
+      ProductPricePointErrors.new(price_point: price_point,
+                                  interval: interval,
+                                  interval_unit: interval_unit,
+                                  name: name,
+                                  price: price,
+                                  price_in_cents: price_in_cents,
+                                  additional_properties: hash)
     end
   end
 end

@@ -115,18 +115,12 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(quantity = nil,
-                   component_id = SKIP,
-                   memo = SKIP,
-                   proration_downgrade_scheme = SKIP,
-                   proration_upgrade_scheme = SKIP,
-                   accrue_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   upgrade_charge = SKIP,
-                   initiate_dunning = SKIP,
-                   price_point_id = SKIP,
-                   billing_schedule = SKIP,
-                   additional_properties = {})
+    def initialize(quantity:, component_id: SKIP, memo: SKIP,
+                   proration_downgrade_scheme: SKIP,
+                   proration_upgrade_scheme: SKIP, accrue_charge: SKIP,
+                   downgrade_credit: SKIP, upgrade_charge: SKIP,
+                   initiate_dunning: SKIP, price_point_id: SKIP,
+                   billing_schedule: SKIP, additional_properties: {})
       @quantity = quantity
       @component_id = component_id unless component_id == SKIP
       @memo = memo unless memo == SKIP
@@ -177,18 +171,18 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateAllocation.new(quantity,
-                           component_id,
-                           memo,
-                           proration_downgrade_scheme,
-                           proration_upgrade_scheme,
-                           accrue_charge,
-                           downgrade_credit,
-                           upgrade_charge,
-                           initiate_dunning,
-                           price_point_id,
-                           billing_schedule,
-                           hash)
+      CreateAllocation.new(quantity: quantity,
+                           component_id: component_id,
+                           memo: memo,
+                           proration_downgrade_scheme: proration_downgrade_scheme,
+                           proration_upgrade_scheme: proration_upgrade_scheme,
+                           accrue_charge: accrue_charge,
+                           downgrade_credit: downgrade_credit,
+                           upgrade_charge: upgrade_charge,
+                           initiate_dunning: initiate_dunning,
+                           price_point_id: price_point_id,
+                           billing_schedule: billing_schedule,
+                           additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

@@ -66,12 +66,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(customer_id = SKIP,
-                   payment_profile = SKIP,
-                   payment_collection_method = SKIP,
-                   subscription_ids = SKIP,
-                   created_at = SKIP,
-                   additional_properties = {})
+    def initialize(customer_id: SKIP, payment_profile: SKIP,
+                   payment_collection_method: SKIP, subscription_ids: SKIP,
+                   created_at: SKIP, additional_properties: {})
       @customer_id = customer_id unless customer_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
       unless payment_collection_method == SKIP
@@ -109,12 +106,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroup.new(customer_id,
-                            payment_profile,
-                            payment_collection_method,
-                            subscription_ids,
-                            created_at,
-                            hash)
+      SubscriptionGroup.new(customer_id: customer_id,
+                            payment_profile: payment_profile,
+                            payment_collection_method: payment_collection_method,
+                            subscription_ids: subscription_ids,
+                            created_at: created_at,
+                            additional_properties: hash)
     end
 
     def to_custom_created_at

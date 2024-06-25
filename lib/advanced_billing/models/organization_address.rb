@@ -83,15 +83,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(street = SKIP,
-                   line2 = SKIP,
-                   city = SKIP,
-                   state = SKIP,
-                   zip = SKIP,
-                   country = SKIP,
-                   name = SKIP,
-                   phone = SKIP,
-                   additional_properties = {})
+    def initialize(street: SKIP, line2: SKIP, city: SKIP, state: SKIP,
+                   zip: SKIP, country: SKIP, name: SKIP, phone: SKIP,
+                   additional_properties: {})
       @street = street unless street == SKIP
       @line2 = line2 unless line2 == SKIP
       @city = city unless city == SKIP
@@ -125,15 +119,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      OrganizationAddress.new(street,
-                              line2,
-                              city,
-                              state,
-                              zip,
-                              country,
-                              name,
-                              phone,
-                              hash)
+      OrganizationAddress.new(street: street,
+                              line2: line2,
+                              city: city,
+                              state: state,
+                              zip: zip,
+                              country: country,
+                              name: name,
+                              phone: phone,
+                              additional_properties: hash)
     end
   end
 end

@@ -36,9 +36,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(cancellation_state = nil,
-                   cancels_at = nil,
-                   additional_properties = {})
+    def initialize(cancellation_state:, cancels_at:, additional_properties: {})
       @cancellation_state = cancellation_state
       @cancels_at = cancels_at
 
@@ -63,9 +61,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PendingCancellationChange.new(cancellation_state,
-                                    cancels_at,
-                                    hash)
+      PendingCancellationChange.new(cancellation_state: cancellation_state,
+                                    cancels_at: cancels_at,
+                                    additional_properties: hash)
     end
 
     def to_custom_cancels_at

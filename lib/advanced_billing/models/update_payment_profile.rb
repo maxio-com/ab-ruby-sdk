@@ -123,20 +123,13 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(first_name = SKIP,
-                   last_name = SKIP,
-                   full_number = SKIP,
-                   card_type = SKIP,
-                   expiration_month = SKIP,
-                   expiration_year = SKIP,
-                   current_vault = SKIP,
-                   billing_address = SKIP,
-                   billing_city = SKIP,
-                   billing_state = SKIP,
-                   billing_zip = SKIP,
-                   billing_country = SKIP,
-                   billing_address_2 = SKIP,
-                   additional_properties = {})
+    def initialize(first_name: SKIP, last_name: SKIP, full_number: SKIP,
+                   card_type: SKIP, expiration_month: SKIP,
+                   expiration_year: SKIP, current_vault: SKIP,
+                   billing_address: SKIP, billing_city: SKIP,
+                   billing_state: SKIP, billing_zip: SKIP,
+                   billing_country: SKIP, billing_address_2: SKIP,
+                   additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @full_number = full_number unless full_number == SKIP
@@ -185,20 +178,20 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdatePaymentProfile.new(first_name,
-                               last_name,
-                               full_number,
-                               card_type,
-                               expiration_month,
-                               expiration_year,
-                               current_vault,
-                               billing_address,
-                               billing_city,
-                               billing_state,
-                               billing_zip,
-                               billing_country,
-                               billing_address_2,
-                               hash)
+      UpdatePaymentProfile.new(first_name: first_name,
+                               last_name: last_name,
+                               full_number: full_number,
+                               card_type: card_type,
+                               expiration_month: expiration_month,
+                               expiration_year: expiration_year,
+                               current_vault: current_vault,
+                               billing_address: billing_address,
+                               billing_city: billing_city,
+                               billing_state: billing_state,
+                               billing_zip: billing_zip,
+                               billing_country: billing_country,
+                               billing_address_2: billing_address_2,
+                               additional_properties: hash)
     end
   end
 end

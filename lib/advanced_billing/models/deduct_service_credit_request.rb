@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(deduction = nil,
-                   additional_properties = {})
+    def initialize(deduction:, additional_properties: {})
       @deduction = deduction
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DeductServiceCreditRequest.new(deduction,
-                                     hash)
+      DeductServiceCreditRequest.new(deduction: deduction,
+                                     additional_properties: hash)
     end
   end
 end

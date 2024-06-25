@@ -43,9 +43,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepaid_product_price_point = SKIP,
-                   use_site_exchange_rate = SKIP,
-                   additional_properties = {})
+    def initialize(prepaid_product_price_point: SKIP,
+                   use_site_exchange_rate: SKIP, additional_properties: {})
       unless prepaid_product_price_point == SKIP
         @prepaid_product_price_point =
           prepaid_product_price_point
@@ -73,9 +72,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListProductsFilter.new(prepaid_product_price_point,
-                             use_site_exchange_rate,
-                             hash)
+      ListProductsFilter.new(prepaid_product_price_point: prepaid_product_price_point,
+                             use_site_exchange_rate: use_site_exchange_rate,
+                             additional_properties: hash)
     end
   end
 end

@@ -65,13 +65,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(url = SKIP,
-                   fetch_count = SKIP,
-                   created_at = SKIP,
-                   new_link_available_at = SKIP,
-                   expires_at = SKIP,
-                   last_invite_sent_at = SKIP,
-                   additional_properties = {})
+    def initialize(url: SKIP, fetch_count: SKIP, created_at: SKIP,
+                   new_link_available_at: SKIP, expires_at: SKIP,
+                   last_invite_sent_at: SKIP, additional_properties: {})
       @url = url unless url == SKIP
       @fetch_count = fetch_count unless fetch_count == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -117,13 +113,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PortalManagementLink.new(url,
-                               fetch_count,
-                               created_at,
-                               new_link_available_at,
-                               expires_at,
-                               last_invite_sent_at,
-                               hash)
+      PortalManagementLink.new(url: url,
+                               fetch_count: fetch_count,
+                               created_at: created_at,
+                               new_link_available_at: new_link_available_at,
+                               expires_at: expires_at,
+                               last_invite_sent_at: last_invite_sent_at,
+                               additional_properties: hash)
     end
 
     def to_custom_created_at

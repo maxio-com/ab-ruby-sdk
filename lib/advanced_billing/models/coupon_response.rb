@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(coupon = SKIP,
-                   additional_properties = {})
+    def initialize(coupon: SKIP, additional_properties: {})
       @coupon = coupon unless coupon == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CouponResponse.new(coupon,
-                         hash)
+      CouponResponse.new(coupon: coupon,
+                         additional_properties: hash)
     end
   end
 end

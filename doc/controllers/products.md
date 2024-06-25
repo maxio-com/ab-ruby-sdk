@@ -34,7 +34,7 @@ def create_product(product_family_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_family_id` | `Integer` | Template, Required | The Chargify id of the product family to which the product belongs |
+| `product_family_id` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -44,26 +44,20 @@ def create_product(product_family_id,
 ## Example Usage
 
 ```ruby
-product_family_id = 140
+product_family_id = 'product_family_id4'
 
 body = CreateOrUpdateProductRequest.new(
-  CreateOrUpdateProduct.new(
-    'Gold Plan',
-    'This is our gold plan.',
-    1000,
-    1,
-    IntervalUnit::MONTH,
-    'gold',
-    '123',
-    true,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    true,
-    'D0000000'
+  product: CreateOrUpdateProduct.new(
+    name: 'Gold Plan',
+    description: 'This is our gold plan.',
+    price_in_cents: 1000,
+    interval: 1,
+    interval_unit: IntervalUnit::MONTH,
+    handle: 'gold',
+    accounting_code: '123',
+    require_credit_card: true,
+    auto_create_signup_page: true,
+    tax_code: 'D0000000'
   )
 )
 

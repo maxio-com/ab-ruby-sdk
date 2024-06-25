@@ -65,14 +65,8 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = nil,
-                   key = nil,
-                   message = nil,
-                   subscription_id = nil,
-                   customer_id = nil,
-                   created_at = nil,
-                   event_specific_data = nil,
-                   additional_properties = {})
+    def initialize(id:, key:, message:, subscription_id:, customer_id:,
+                   created_at:, event_specific_data:, additional_properties: {})
       @id = id
       @key = key
       @message = message
@@ -109,14 +103,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Event.new(id,
-                key,
-                message,
-                subscription_id,
-                customer_id,
-                created_at,
-                event_specific_data,
-                hash)
+      Event.new(id: id,
+                key: key,
+                message: message,
+                subscription_id: subscription_id,
+                customer_id: customer_id,
+                created_at: created_at,
+                event_specific_data: event_specific_data,
+                additional_properties: hash)
     end
 
     def to_custom_created_at

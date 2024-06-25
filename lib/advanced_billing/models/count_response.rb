@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(count = SKIP,
-                   additional_properties = {})
+    def initialize(count: SKIP, additional_properties: {})
       @count = count unless count == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CountResponse.new(count,
-                        hash)
+      CountResponse.new(count: count,
+                        additional_properties: hash)
     end
   end
 end

@@ -63,14 +63,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(event_type = nil,
-                   metafield_name = nil,
-                   metafield_id = nil,
-                   old_value = nil,
-                   new_value = nil,
-                   resource_type = nil,
-                   resource_id = nil,
-                   additional_properties = {})
+    def initialize(event_type:, metafield_name:, metafield_id:, old_value:,
+                   new_value:, resource_type:, resource_id:,
+                   additional_properties: {})
       @event_type = event_type
       @metafield_name = metafield_name
       @metafield_id = metafield_id
@@ -103,14 +98,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CustomFieldValueChange.new(event_type,
-                                 metafield_name,
-                                 metafield_id,
-                                 old_value,
-                                 new_value,
-                                 resource_type,
-                                 resource_id,
-                                 hash)
+      CustomFieldValueChange.new(event_type: event_type,
+                                 metafield_name: metafield_name,
+                                 metafield_id: metafield_id,
+                                 old_value: old_value,
+                                 new_value: new_value,
+                                 resource_type: resource_type,
+                                 resource_id: resource_id,
+                                 additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

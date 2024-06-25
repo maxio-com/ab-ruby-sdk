@@ -116,19 +116,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   component_id = SKIP,
-                   price_point_id = SKIP,
-                   event_based_billing_metric_id = SKIP,
-                   pricing_scheme = SKIP,
-                   segment_property_1_value = SKIP,
-                   segment_property_2_value = SKIP,
-                   segment_property_3_value = SKIP,
-                   segment_property_4_value = SKIP,
-                   created_at = SKIP,
-                   updated_at = SKIP,
-                   prices = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, component_id: SKIP, price_point_id: SKIP,
+                   event_based_billing_metric_id: SKIP, pricing_scheme: SKIP,
+                   segment_property_1_value: SKIP,
+                   segment_property_2_value: SKIP,
+                   segment_property_3_value: SKIP,
+                   segment_property_4_value: SKIP, created_at: SKIP,
+                   updated_at: SKIP, prices: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
@@ -201,19 +195,19 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Segment.new(id,
-                  component_id,
-                  price_point_id,
-                  event_based_billing_metric_id,
-                  pricing_scheme,
-                  segment_property_1_value,
-                  segment_property_2_value,
-                  segment_property_3_value,
-                  segment_property_4_value,
-                  created_at,
-                  updated_at,
-                  prices,
-                  hash)
+      Segment.new(id: id,
+                  component_id: component_id,
+                  price_point_id: price_point_id,
+                  event_based_billing_metric_id: event_based_billing_metric_id,
+                  pricing_scheme: pricing_scheme,
+                  segment_property_1_value: segment_property_1_value,
+                  segment_property_2_value: segment_property_2_value,
+                  segment_property_3_value: segment_property_3_value,
+                  segment_property_4_value: segment_property_4_value,
+                  created_at: created_at,
+                  updated_at: updated_at,
+                  prices: prices,
+                  additional_properties: hash)
     end
 
     def to_custom_created_at

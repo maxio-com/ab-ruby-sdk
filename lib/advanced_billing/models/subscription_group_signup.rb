@@ -88,15 +88,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscriptions = nil,
-                   payment_profile_id = SKIP,
-                   payer_id = SKIP,
-                   payer_reference = SKIP,
-                   payment_collection_method = SKIP,
-                   payer_attributes = SKIP,
-                   credit_card_attributes = SKIP,
-                   bank_account_attributes = SKIP,
-                   additional_properties = {})
+    def initialize(subscriptions:, payment_profile_id: SKIP, payer_id: SKIP,
+                   payer_reference: SKIP, payment_collection_method: SKIP,
+                   payer_attributes: SKIP, credit_card_attributes: SKIP,
+                   bank_account_attributes: SKIP, additional_properties: {})
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
       @payer_id = payer_id unless payer_id == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
@@ -150,15 +145,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignup.new(subscriptions,
-                                  payment_profile_id,
-                                  payer_id,
-                                  payer_reference,
-                                  payment_collection_method,
-                                  payer_attributes,
-                                  credit_card_attributes,
-                                  bank_account_attributes,
-                                  hash)
+      SubscriptionGroupSignup.new(subscriptions: subscriptions,
+                                  payment_profile_id: payment_profile_id,
+                                  payer_id: payer_id,
+                                  payer_reference: payer_reference,
+                                  payment_collection_method: payment_collection_method,
+                                  payer_attributes: payer_attributes,
+                                  credit_card_attributes: credit_card_attributes,
+                                  bank_account_attributes: bank_account_attributes,
+                                  additional_properties: hash)
     end
   end
 end

@@ -92,18 +92,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(total_subscriptions = SKIP,
-                   subscriptions_today = SKIP,
-                   total_revenue = SKIP,
-                   revenue_today = SKIP,
-                   revenue_this_month = SKIP,
-                   revenue_this_year = SKIP,
-                   total_canceled_subscriptions = SKIP,
-                   total_active_subscriptions = SKIP,
-                   total_past_due_subscriptions = SKIP,
-                   total_unpaid_subscriptions = SKIP,
-                   total_dunning_subscriptions = SKIP,
-                   additional_properties = {})
+    def initialize(total_subscriptions: SKIP, subscriptions_today: SKIP,
+                   total_revenue: SKIP, revenue_today: SKIP,
+                   revenue_this_month: SKIP, revenue_this_year: SKIP,
+                   total_canceled_subscriptions: SKIP,
+                   total_active_subscriptions: SKIP,
+                   total_past_due_subscriptions: SKIP,
+                   total_unpaid_subscriptions: SKIP,
+                   total_dunning_subscriptions: SKIP, additional_properties: {})
       @total_subscriptions = total_subscriptions unless total_subscriptions == SKIP
       @subscriptions_today = subscriptions_today unless subscriptions_today == SKIP
       @total_revenue = total_revenue unless total_revenue == SKIP
@@ -167,18 +163,18 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SiteStatistics.new(total_subscriptions,
-                         subscriptions_today,
-                         total_revenue,
-                         revenue_today,
-                         revenue_this_month,
-                         revenue_this_year,
-                         total_canceled_subscriptions,
-                         total_active_subscriptions,
-                         total_past_due_subscriptions,
-                         total_unpaid_subscriptions,
-                         total_dunning_subscriptions,
-                         hash)
+      SiteStatistics.new(total_subscriptions: total_subscriptions,
+                         subscriptions_today: subscriptions_today,
+                         total_revenue: total_revenue,
+                         revenue_today: revenue_today,
+                         revenue_this_month: revenue_this_month,
+                         revenue_this_year: revenue_this_year,
+                         total_canceled_subscriptions: total_canceled_subscriptions,
+                         total_active_subscriptions: total_active_subscriptions,
+                         total_past_due_subscriptions: total_past_due_subscriptions,
+                         total_unpaid_subscriptions: total_unpaid_subscriptions,
+                         total_dunning_subscriptions: total_dunning_subscriptions,
+                         additional_properties: hash)
     end
   end
 end

@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(invoices = SKIP,
-                   additional_properties = {})
+    def initialize(invoices: SKIP, additional_properties: {})
       @invoices = invoices unless invoices == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ConsolidatedInvoice.new(invoices,
-                              hash)
+      ConsolidatedInvoice.new(invoices: invoices,
+                              additional_properties: hash)
     end
   end
 end

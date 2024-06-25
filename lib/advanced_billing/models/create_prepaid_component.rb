@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepaid_usage_component = nil,
-                   additional_properties = {})
+    def initialize(prepaid_usage_component:, additional_properties: {})
       @prepaid_usage_component = prepaid_usage_component
 
       # Add additional model properties to the instance.
@@ -52,8 +51,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreatePrepaidComponent.new(prepaid_usage_component,
-                                 hash)
+      CreatePrepaidComponent.new(prepaid_usage_component: prepaid_usage_component,
+                                 additional_properties: hash)
     end
   end
 end

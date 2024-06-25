@@ -52,11 +52,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(transaction_id = SKIP,
-                   total_amount = SKIP,
-                   currency_code = SKIP,
-                   applications = SKIP,
-                   additional_properties = {})
+    def initialize(transaction_id: SKIP, total_amount: SKIP,
+                   currency_code: SKIP, applications: SKIP,
+                   additional_properties: {})
       @transaction_id = transaction_id unless transaction_id == SKIP
       @total_amount = total_amount unless total_amount == SKIP
       @currency_code = currency_code unless currency_code == SKIP
@@ -92,11 +90,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      MultiInvoicePayment.new(transaction_id,
-                              total_amount,
-                              currency_code,
-                              applications,
-                              hash)
+      MultiInvoicePayment.new(transaction_id: transaction_id,
+                              total_amount: total_amount,
+                              currency_code: currency_code,
+                              applications: applications,
+                              additional_properties: hash)
     end
   end
 end

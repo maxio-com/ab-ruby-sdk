@@ -46,10 +46,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(total_usage_quantity = SKIP,
-                   billing_period_starts_at = SKIP,
-                   billing_period_ends_at = SKIP,
-                   additional_properties = {})
+    def initialize(total_usage_quantity: SKIP, billing_period_starts_at: SKIP,
+                   billing_period_ends_at: SKIP, additional_properties: {})
       @total_usage_quantity = total_usage_quantity unless total_usage_quantity == SKIP
       @billing_period_starts_at = billing_period_starts_at unless billing_period_starts_at == SKIP
       @billing_period_ends_at = billing_period_ends_at unless billing_period_ends_at == SKIP
@@ -82,10 +80,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      HistoricUsage.new(total_usage_quantity,
-                        billing_period_starts_at,
-                        billing_period_ends_at,
-                        hash)
+      HistoricUsage.new(total_usage_quantity: total_usage_quantity,
+                        billing_period_starts_at: billing_period_starts_at,
+                        billing_period_ends_at: billing_period_ends_at,
+                        additional_properties: hash)
     end
 
     def to_custom_billing_period_starts_at

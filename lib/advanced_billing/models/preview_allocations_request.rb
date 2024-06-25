@@ -57,11 +57,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(allocations = nil,
-                   effective_proration_date = SKIP,
-                   upgrade_charge = SKIP,
-                   downgrade_credit = SKIP,
-                   additional_properties = {})
+    def initialize(allocations:, effective_proration_date: SKIP,
+                   upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   additional_properties: {})
       @allocations = allocations
       @effective_proration_date = effective_proration_date unless effective_proration_date == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
@@ -99,11 +97,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PreviewAllocationsRequest.new(allocations,
-                                    effective_proration_date,
-                                    upgrade_charge,
-                                    downgrade_credit,
-                                    hash)
+      PreviewAllocationsRequest.new(allocations: allocations,
+                                    effective_proration_date: effective_proration_date,
+                                    upgrade_charge: upgrade_charge,
+                                    downgrade_credit: downgrade_credit,
+                                    additional_properties: hash)
     end
   end
 end

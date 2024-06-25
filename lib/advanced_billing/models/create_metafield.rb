@@ -56,11 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = SKIP,
-                   scope = SKIP,
-                   input_type = SKIP,
-                   enum = SKIP,
-                   additional_properties = {})
+    def initialize(name: SKIP, scope: SKIP, input_type: SKIP, enum: SKIP,
+                   additional_properties: {})
       @name = name unless name == SKIP
       @scope = scope unless scope == SKIP
       @input_type = input_type unless input_type == SKIP
@@ -86,11 +83,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateMetafield.new(name,
-                          scope,
-                          input_type,
-                          enum,
-                          hash)
+      CreateMetafield.new(name: name,
+                          scope: scope,
+                          input_type: input_type,
+                          enum: enum,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

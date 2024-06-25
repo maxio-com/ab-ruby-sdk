@@ -317,38 +317,14 @@ def create_payment_profile(body: nil)
 
 ```ruby
 body = CreatePaymentProfileRequest.new(
-  CreatePaymentProfile.new(
-    nil,
-    nil,
-    PaymentType::BANK_ACCOUNT,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    123,
-    nil,
-    nil,
-    nil,
-    nil,
-    'Best Bank',
-    nil,
-    '021000089',
-    '111111111111',
-    nil,
-    BankAccountType::CHECKING,
-    BankAccountHolderType::BUSINESS
+  payment_profile: CreatePaymentProfile.new(
+    payment_type: PaymentType::BANK_ACCOUNT,
+    customer_id: 123,
+    bank_name: 'Best Bank',
+    bank_routing_number: '021000089',
+    bank_account_number: '111111111111',
+    bank_account_type: BankAccountType::CHECKING,
+    bank_account_holder_type: BankAccountHolderType::BUSINESS
   )
 )
 
@@ -638,20 +614,20 @@ def update_payment_profile(payment_profile_id,
 payment_profile_id = 198
 
 body = UpdatePaymentProfileRequest.new(
-  UpdatePaymentProfile.new(
-    'Graham',
-    'Test',
-    '4111111111111111',
-    CardType::MASTER,
-    '04',
-    '2030',
-    CurrentVault::BOGUS,
-    '456 Juniper Court',
-    'Boulder',
-    'CO',
-    '80302',
-    'US',
-    'billing_address_22'
+  payment_profile: UpdatePaymentProfile.new(
+    first_name: 'Graham',
+    last_name: 'Test',
+    full_number: '4111111111111111',
+    card_type: CardType::MASTER,
+    expiration_month: '04',
+    expiration_year: '2030',
+    current_vault: CurrentVault::BOGUS,
+    billing_address: '456 Juniper Court',
+    billing_city: 'Boulder',
+    billing_state: 'CO',
+    billing_zip: '80302',
+    billing_country: 'US',
+    billing_address_2: 'billing_address_22'
   )
 )
 
@@ -798,9 +774,9 @@ def verify_bank_account(bank_account_id,
 bank_account_id = 252
 
 body = BankAccountVerificationRequest.new(
-  BankAccountVerification.new(
-    32,
-    45
+  bank_account_verification: BankAccountVerification.new(
+    deposit_1_in_cents: 32,
+    deposit_2_in_cents: 45
   )
 )
 

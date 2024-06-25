@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(per_page = SKIP,
-                   price_point = SKIP,
-                   additional_properties = {})
+    def initialize(per_page: SKIP, price_point: SKIP, additional_properties: {})
       @per_page = per_page unless per_page == SKIP
       @price_point = price_point unless price_point == SKIP
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Errors.new(per_page,
-                 price_point,
-                 hash)
+      Errors.new(per_page: per_page,
+                 price_point: price_point,
+                 additional_properties: hash)
     end
   end
 end

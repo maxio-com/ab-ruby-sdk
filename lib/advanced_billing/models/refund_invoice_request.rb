@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(refund = nil,
-                   additional_properties = {})
+    def initialize(refund:, additional_properties: {})
       @refund = refund
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundInvoiceRequest.new(refund,
-                               hash)
+      RefundInvoiceRequest.new(refund: refund,
+                               additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

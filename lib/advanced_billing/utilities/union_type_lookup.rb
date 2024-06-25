@@ -12,6 +12,48 @@ module AdvancedBilling
     # rubocop:disable Lint/RedundantCopDisableDirective, Style/HashSyntax, Layout/FirstArgumentIndentation
     def self.union_types
       {
+        :UpdateComponentPricePointComponentId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :UpdateComponentPricePointPricePointId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :ReadComponentPricePointComponentId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :ReadComponentPricePointPricePointId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :ArchiveComponentPricePointComponentId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :ArchiveComponentPricePointPricePointId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
         :CreateProductPricePointProductId => OneOf.new(
           [
             LeafType.new(Integer),

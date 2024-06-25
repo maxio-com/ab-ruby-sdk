@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(offer = nil,
-                   additional_properties = {})
+    def initialize(offer:, additional_properties: {})
       @offer = offer
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateOfferRequest.new(offer,
-                             hash)
+      CreateOfferRequest.new(offer: offer,
+                             additional_properties: hash)
     end
   end
 end

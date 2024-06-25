@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(code = SKIP,
-                   description = SKIP,
-                   position = SKIP,
-                   additional_properties = {})
+    def initialize(code: SKIP, description: SKIP, position: SKIP,
+                   additional_properties: {})
       @code = code unless code == SKIP
       @description = description unless description == SKIP
       @position = position unless position == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateReasonCode.new(code,
-                           description,
-                           position,
-                           hash)
+      UpdateReasonCode.new(code: code,
+                           description: description,
+                           position: position,
+                           additional_properties: hash)
     end
   end
 end

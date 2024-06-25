@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(hold = SKIP,
-                   additional_properties = {})
+    def initialize(hold: SKIP, additional_properties: {})
       @hold = hold unless hold == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PauseRequest.new(hold,
-                       hash)
+      PauseRequest.new(hold: hold,
+                       additional_properties: hash)
     end
   end
 end

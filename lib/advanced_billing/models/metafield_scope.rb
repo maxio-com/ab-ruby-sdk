@@ -71,14 +71,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(csv = SKIP,
-                   invoices = SKIP,
-                   statements = SKIP,
-                   portal = SKIP,
-                   public_show = SKIP,
-                   public_edit = SKIP,
-                   hosted = SKIP,
-                   additional_properties = {})
+    def initialize(csv: SKIP, invoices: SKIP, statements: SKIP, portal: SKIP,
+                   public_show: SKIP, public_edit: SKIP, hosted: SKIP,
+                   additional_properties: {})
       @csv = csv unless csv == SKIP
       @invoices = invoices unless invoices == SKIP
       @statements = statements unless statements == SKIP
@@ -110,14 +105,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      MetafieldScope.new(csv,
-                         invoices,
-                         statements,
-                         portal,
-                         public_show,
-                         public_edit,
-                         hosted,
-                         hash)
+      MetafieldScope.new(csv: csv,
+                         invoices: invoices,
+                         statements: statements,
+                         portal: portal,
+                         public_show: public_show,
+                         public_edit: public_edit,
+                         hosted: hosted,
+                         additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

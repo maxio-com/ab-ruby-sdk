@@ -69,14 +69,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component_id = SKIP,
-                   enabled = SKIP,
-                   unit_balance = SKIP,
-                   allocated_quantity = SKIP,
-                   quantity = SKIP,
-                   price_point_id = SKIP,
-                   custom_price = SKIP,
-                   additional_properties = {})
+    def initialize(component_id: SKIP, enabled: SKIP, unit_balance: SKIP,
+                   allocated_quantity: SKIP, quantity: SKIP,
+                   price_point_id: SKIP, custom_price: SKIP,
+                   additional_properties: {})
       @component_id = component_id unless component_id == SKIP
       @enabled = enabled unless enabled == SKIP
       @unit_balance = unit_balance unless unit_balance == SKIP
@@ -114,14 +110,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateSubscriptionComponent.new(component_id,
-                                      enabled,
-                                      unit_balance,
-                                      allocated_quantity,
-                                      quantity,
-                                      price_point_id,
-                                      custom_price,
-                                      hash)
+      CreateSubscriptionComponent.new(component_id: component_id,
+                                      enabled: enabled,
+                                      unit_balance: unit_balance,
+                                      allocated_quantity: allocated_quantity,
+                                      quantity: quantity,
+                                      price_point_id: price_point_id,
+                                      custom_price: custom_price,
+                                      additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

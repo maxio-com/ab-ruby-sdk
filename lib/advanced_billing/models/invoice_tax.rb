@@ -94,18 +94,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(uid = SKIP,
-                   title = SKIP,
-                   description = SKIP,
-                   source_type = SKIP,
-                   source_id = SKIP,
-                   percentage = SKIP,
-                   taxable_amount = SKIP,
-                   tax_amount = SKIP,
-                   transaction_id = SKIP,
-                   line_item_breakouts = SKIP,
-                   tax_component_breakouts = SKIP,
-                   additional_properties = {})
+    def initialize(uid: SKIP, title: SKIP, description: SKIP, source_type: SKIP,
+                   source_id: SKIP, percentage: SKIP, taxable_amount: SKIP,
+                   tax_amount: SKIP, transaction_id: SKIP,
+                   line_item_breakouts: SKIP, tax_component_breakouts: SKIP,
+                   additional_properties: {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -165,18 +158,18 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      InvoiceTax.new(uid,
-                     title,
-                     description,
-                     source_type,
-                     source_id,
-                     percentage,
-                     taxable_amount,
-                     tax_amount,
-                     transaction_id,
-                     line_item_breakouts,
-                     tax_component_breakouts,
-                     hash)
+      InvoiceTax.new(uid: uid,
+                     title: title,
+                     description: description,
+                     source_type: source_type,
+                     source_id: source_id,
+                     percentage: percentage,
+                     taxable_amount: taxable_amount,
+                     tax_amount: tax_amount,
+                     transaction_id: transaction_id,
+                     line_item_breakouts: line_item_breakouts,
+                     tax_component_breakouts: tax_component_breakouts,
+                     additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

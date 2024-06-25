@@ -51,28 +51,21 @@ def signup_with_subscription_group(body: nil)
 
 ```ruby
 body = SubscriptionGroupSignupRequest.new(
-  SubscriptionGroupSignup.new(
-    [
+  subscription_group: SubscriptionGroupSignup.new(
+    subscriptions: [
       SubscriptionGroupSignupItem.new(
-        nil,
-        11,
-        nil,
-        nil,
-        nil,
-        nil,
-        true
+        product_id: 11,
+        primary: true
       ),
       SubscriptionGroupSignupItem.new(
-        nil,
-        12
+        product_id: 12
       ),
       SubscriptionGroupSignupItem.new(
-        nil,
-        13
+        product_id: 13
       )
     ],
-    123,
-    123
+    payment_profile_id: 123,
+    payer_id: 123
   )
 )
 
@@ -108,9 +101,9 @@ def create_subscription_group(body: nil)
 
 ```ruby
 body = CreateSubscriptionGroupRequest.new(
-  CreateSubscriptionGroup.new(
-    1,
-    [
+  subscription_group: CreateSubscriptionGroup.new(
+    subscription_id: 1,
+    member_ids: [
       2,
       3,
       4
@@ -336,8 +329,8 @@ def update_subscription_group_members(uid,
 uid = 'uid0'
 
 body = UpdateSubscriptionGroupRequest.new(
-  UpdateSubscriptionGroup.new(
-    [
+  subscription_group: UpdateSubscriptionGroup.new(
+    member_ids: [
       1,
       2,
       3
@@ -537,15 +530,15 @@ def add_subscription_to_group(subscription_id,
 subscription_id = 222
 
 body = AddSubscriptionToAGroup.new(
-  GroupSettings.new(
-    GroupTarget.new(
-      GroupTargetType::SUBSCRIPTION,
-      32987
+  group: GroupSettings.new(
+    target: GroupTarget.new(
+      type: GroupTargetType::SUBSCRIPTION,
+      id: 32987
     ),
-    GroupBilling.new(
-      true,
-      true,
-      true
+    billing: GroupBilling.new(
+      accrue: true,
+      align_date: true,
+      prorate: true
     )
   )
 )

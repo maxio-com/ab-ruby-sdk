@@ -85,16 +85,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(line_items = SKIP,
-                   total_in_cents = SKIP,
-                   total_discount_in_cents = SKIP,
-                   total_tax_in_cents = SKIP,
-                   subtotal_in_cents = SKIP,
-                   start_date = SKIP,
-                   end_date = SKIP,
-                   period_type = SKIP,
-                   existing_balance_in_cents = SKIP,
-                   additional_properties = {})
+    def initialize(line_items: SKIP, total_in_cents: SKIP,
+                   total_discount_in_cents: SKIP, total_tax_in_cents: SKIP,
+                   subtotal_in_cents: SKIP, start_date: SKIP, end_date: SKIP,
+                   period_type: SKIP, existing_balance_in_cents: SKIP,
+                   additional_properties: {})
       @line_items = line_items unless line_items == SKIP
       @total_in_cents = total_in_cents unless total_in_cents == SKIP
       @total_discount_in_cents = total_discount_in_cents unless total_discount_in_cents == SKIP
@@ -155,16 +150,16 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BillingManifest.new(line_items,
-                          total_in_cents,
-                          total_discount_in_cents,
-                          total_tax_in_cents,
-                          subtotal_in_cents,
-                          start_date,
-                          end_date,
-                          period_type,
-                          existing_balance_in_cents,
-                          hash)
+      BillingManifest.new(line_items: line_items,
+                          total_in_cents: total_in_cents,
+                          total_discount_in_cents: total_discount_in_cents,
+                          total_tax_in_cents: total_tax_in_cents,
+                          subtotal_in_cents: subtotal_in_cents,
+                          start_date: start_date,
+                          end_date: end_date,
+                          period_type: period_type,
+                          existing_balance_in_cents: existing_balance_in_cents,
+                          additional_properties: hash)
     end
 
     def to_custom_start_date

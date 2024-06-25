@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(message = SKIP,
-                   additional_properties = {})
+    def initialize(message: SKIP, additional_properties: {})
       @message = message unless message == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DelayedCancellationResponse.new(message,
-                                      hash)
+      DelayedCancellationResponse.new(message: message,
+                                      additional_properties: hash)
     end
   end
 end

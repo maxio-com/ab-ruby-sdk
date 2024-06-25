@@ -64,21 +64,21 @@ def create_customer(body: nil)
 
 ```ruby
 body = CreateCustomerRequest.new(
-  CreateCustomer.new(
-    'Martha',
-    'Washington',
-    'martha@example.com',
-    'george@example.com',
-    'ABC, Inc.',
-    '1234567890',
-    '123 Main Street',
-    'Unit 10',
-    'Anytown',
-    'MA',
-    '02120',
-    'US',
-    '555-555-1212',
-    'es-MX'
+  customer: CreateCustomer.new(
+    first_name: 'Martha',
+    last_name: 'Washington',
+    email: 'martha@example.com',
+    cc_emails: 'george@example.com',
+    organization: 'ABC, Inc.',
+    reference: '1234567890',
+    address: '123 Main Street',
+    address_2: 'Unit 10',
+    city: 'Anytown',
+    state: 'MA',
+    zip: '02120',
+    country: 'US',
+    phone: '555-555-1212',
+    locale: 'es-MX'
   )
 )
 
@@ -317,10 +317,10 @@ def update_customer(id,
 id = 112
 
 body = UpdateCustomerRequest.new(
-  UpdateCustomer.new(
-    'Martha',
-    'Washington',
-    'martha.washington@example.com'
+  customer: UpdateCustomer.new(
+    first_name: 'Martha',
+    last_name: 'Washington',
+    email: 'martha.washington@example.com'
   )
 )
 

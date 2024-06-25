@@ -64,14 +64,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(transaction_id = nil,
-                   memo = nil,
-                   applied_amount = nil,
-                   transaction_time = nil,
-                   payment_method = nil,
-                   prepayment = nil,
-                   original_amount = SKIP,
-                   additional_properties = {})
+    def initialize(transaction_id:, memo:, applied_amount:, transaction_time:,
+                   payment_method:, prepayment:, original_amount: SKIP,
+                   additional_properties: {})
       @transaction_id = transaction_id
       @memo = memo
       @original_amount = original_amount unless original_amount == SKIP
@@ -110,14 +105,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RemovePaymentEventData.new(transaction_id,
-                                 memo,
-                                 applied_amount,
-                                 transaction_time,
-                                 payment_method,
-                                 prepayment,
-                                 original_amount,
-                                 hash)
+      RemovePaymentEventData.new(transaction_id: transaction_id,
+                                 memo: memo,
+                                 applied_amount: applied_amount,
+                                 transaction_time: transaction_time,
+                                 payment_method: payment_method,
+                                 prepayment: prepayment,
+                                 original_amount: original_amount,
+                                 additional_properties: hash)
     end
 
     def to_custom_transaction_time

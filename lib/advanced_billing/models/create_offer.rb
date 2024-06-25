@@ -65,14 +65,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = nil,
-                   handle = nil,
-                   product_id = nil,
-                   description = SKIP,
-                   product_price_point_id = SKIP,
-                   components = SKIP,
-                   coupons = SKIP,
-                   additional_properties = {})
+    def initialize(name:, handle:, product_id:, description: SKIP,
+                   product_price_point_id: SKIP, components: SKIP,
+                   coupons: SKIP, additional_properties: {})
       @name = name
       @handle = handle
       @description = description unless description == SKIP
@@ -114,14 +109,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateOffer.new(name,
-                      handle,
-                      product_id,
-                      description,
-                      product_price_point_id,
-                      components,
-                      coupons,
-                      hash)
+      CreateOffer.new(name: name,
+                      handle: handle,
+                      product_id: product_id,
+                      description: description,
+                      product_price_point_id: product_price_point_id,
+                      components: components,
+                      coupons: coupons,
+                      additional_properties: hash)
     end
   end
 end

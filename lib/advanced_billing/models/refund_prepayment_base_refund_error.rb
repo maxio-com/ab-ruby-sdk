@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(refund = SKIP,
-                   additional_properties = {})
+    def initialize(refund: SKIP, additional_properties: {})
       @refund = refund unless refund == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RefundPrepaymentBaseRefundError.new(refund,
-                                          hash)
+      RefundPrepaymentBaseRefundError.new(refund: refund,
+                                          additional_properties: hash)
     end
   end
 end

@@ -110,21 +110,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(transaction_type = SKIP,
-                   kind = SKIP,
-                   amount_in_cents = SKIP,
-                   memo = SKIP,
-                   discount_amount_in_cents = SKIP,
-                   taxable_amount_in_cents = SKIP,
-                   component_id = SKIP,
-                   component_handle = SKIP,
-                   component_name = SKIP,
-                   product_id = SKIP,
-                   product_handle = SKIP,
-                   product_name = SKIP,
-                   period_range_start = SKIP,
-                   period_range_end = SKIP,
-                   additional_properties = {})
+    def initialize(transaction_type: SKIP, kind: SKIP, amount_in_cents: SKIP,
+                   memo: SKIP, discount_amount_in_cents: SKIP,
+                   taxable_amount_in_cents: SKIP, component_id: SKIP,
+                   component_handle: SKIP, component_name: SKIP,
+                   product_id: SKIP, product_handle: SKIP, product_name: SKIP,
+                   period_range_start: SKIP, period_range_end: SKIP,
+                   additional_properties: {})
       @transaction_type = transaction_type unless transaction_type == SKIP
       @kind = kind unless kind == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -179,21 +171,21 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BillingManifestItem.new(transaction_type,
-                              kind,
-                              amount_in_cents,
-                              memo,
-                              discount_amount_in_cents,
-                              taxable_amount_in_cents,
-                              component_id,
-                              component_handle,
-                              component_name,
-                              product_id,
-                              product_handle,
-                              product_name,
-                              period_range_start,
-                              period_range_end,
-                              hash)
+      BillingManifestItem.new(transaction_type: transaction_type,
+                              kind: kind,
+                              amount_in_cents: amount_in_cents,
+                              memo: memo,
+                              discount_amount_in_cents: discount_amount_in_cents,
+                              taxable_amount_in_cents: taxable_amount_in_cents,
+                              component_id: component_id,
+                              component_handle: component_handle,
+                              component_name: component_name,
+                              product_id: product_id,
+                              product_handle: product_handle,
+                              product_name: product_name,
+                              period_range_start: period_range_start,
+                              period_range_end: period_range_end,
+                              additional_properties: hash)
     end
   end
 end

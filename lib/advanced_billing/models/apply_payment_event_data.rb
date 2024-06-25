@@ -99,18 +99,11 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(consolidation_level = nil,
-                   memo = nil,
-                   original_amount = nil,
-                   applied_amount = nil,
-                   transaction_time = nil,
-                   payment_method = nil,
-                   transaction_id = SKIP,
-                   parent_invoice_number = SKIP,
-                   remaining_prepayment_amount = SKIP,
-                   prepayment = SKIP,
-                   external = SKIP,
-                   additional_properties = {})
+    def initialize(consolidation_level:, memo:, original_amount:,
+                   applied_amount:, transaction_time:, payment_method:,
+                   transaction_id: SKIP, parent_invoice_number: SKIP,
+                   remaining_prepayment_amount: SKIP, prepayment: SKIP,
+                   external: SKIP, additional_properties: {})
       @consolidation_level = consolidation_level
       @memo = memo
       @original_amount = original_amount
@@ -163,18 +156,18 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ApplyPaymentEventData.new(consolidation_level,
-                                memo,
-                                original_amount,
-                                applied_amount,
-                                transaction_time,
-                                payment_method,
-                                transaction_id,
-                                parent_invoice_number,
-                                remaining_prepayment_amount,
-                                prepayment,
-                                external,
-                                hash)
+      ApplyPaymentEventData.new(consolidation_level: consolidation_level,
+                                memo: memo,
+                                original_amount: original_amount,
+                                applied_amount: applied_amount,
+                                transaction_time: transaction_time,
+                                payment_method: payment_method,
+                                transaction_id: transaction_id,
+                                parent_invoice_number: parent_invoice_number,
+                                remaining_prepayment_amount: remaining_prepayment_amount,
+                                prepayment: prepayment,
+                                external: external,
+                                additional_properties: hash)
     end
 
     def to_custom_transaction_time

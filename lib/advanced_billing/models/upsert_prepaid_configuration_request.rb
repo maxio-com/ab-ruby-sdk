@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepaid_configuration = nil,
-                   additional_properties = {})
+    def initialize(prepaid_configuration:, additional_properties: {})
       @prepaid_configuration = prepaid_configuration
 
       # Add additional model properties to the instance.
@@ -52,8 +51,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpsertPrepaidConfigurationRequest.new(prepaid_configuration,
-                                            hash)
+      UpsertPrepaidConfigurationRequest.new(prepaid_configuration: prepaid_configuration,
+                                            additional_properties: hash)
     end
   end
 end

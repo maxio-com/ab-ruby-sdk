@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(currency_prices = nil,
-                   additional_properties = {})
+    def initialize(currency_prices:, additional_properties: {})
       @currency_prices = currency_prices
 
       # Add additional model properties to the instance.
@@ -60,8 +59,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CouponCurrencyRequest.new(currency_prices,
-                                hash)
+      CouponCurrencyRequest.new(currency_prices: currency_prices,
+                                additional_properties: hash)
     end
   end
 end

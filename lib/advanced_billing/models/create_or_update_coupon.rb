@@ -46,10 +46,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(coupon = SKIP,
-                   restricted_products = SKIP,
-                   restricted_components = SKIP,
-                   additional_properties = {})
+    def initialize(coupon: SKIP, restricted_products: SKIP,
+                   restricted_components: SKIP, additional_properties: {})
       @coupon = coupon unless coupon == SKIP
       @restricted_products = restricted_products unless restricted_products == SKIP
       @restricted_components = restricted_components unless restricted_components == SKIP
@@ -77,10 +75,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateOrUpdateCoupon.new(coupon,
-                               restricted_products,
-                               restricted_components,
-                               hash)
+      CreateOrUpdateCoupon.new(coupon: coupon,
+                               restricted_products: restricted_products,
+                               restricted_components: restricted_components,
+                               additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

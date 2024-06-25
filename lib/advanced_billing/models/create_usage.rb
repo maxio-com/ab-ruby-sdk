@@ -56,11 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(quantity = SKIP,
-                   price_point_id = SKIP,
-                   memo = SKIP,
-                   billing_schedule = SKIP,
-                   additional_properties = {})
+    def initialize(quantity: SKIP, price_point_id: SKIP, memo: SKIP,
+                   billing_schedule: SKIP, additional_properties: {})
       @quantity = quantity unless quantity == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @memo = memo unless memo == SKIP
@@ -88,11 +85,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateUsage.new(quantity,
-                      price_point_id,
-                      memo,
-                      billing_schedule,
-                      hash)
+      CreateUsage.new(quantity: quantity,
+                      price_point_id: price_point_id,
+                      memo: memo,
+                      billing_schedule: billing_schedule,
+                      additional_properties: hash)
     end
   end
 end

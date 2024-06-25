@@ -62,13 +62,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   nickname = SKIP,
-                   enabled = SKIP,
-                   return_url = SKIP,
-                   return_params = SKIP,
-                   url = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, nickname: SKIP, enabled: SKIP, return_url: SKIP,
+                   return_params: SKIP, url: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @nickname = nickname unless nickname == SKIP
       @enabled = enabled unless enabled == SKIP
@@ -98,13 +93,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      OfferSignupPage.new(id,
-                          nickname,
-                          enabled,
-                          return_url,
-                          return_params,
-                          url,
-                          hash)
+      OfferSignupPage.new(id: id,
+                          nickname: nickname,
+                          enabled: enabled,
+                          return_url: return_url,
+                          return_params: return_params,
+                          url: url,
+                          additional_properties: hash)
     end
   end
 end

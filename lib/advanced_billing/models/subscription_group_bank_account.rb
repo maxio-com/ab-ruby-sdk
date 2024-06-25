@@ -129,23 +129,15 @@ module AdvancedBilling
       []
     end
 
-    def initialize(bank_name = SKIP,
-                   bank_account_number = SKIP,
-                   bank_routing_number = SKIP,
-                   bank_iban = SKIP,
-                   bank_branch_code = SKIP,
-                   bank_account_type = SKIP,
-                   bank_account_holder_type = SKIP,
-                   payment_type = SKIP,
-                   billing_address = SKIP,
-                   billing_city = SKIP,
-                   billing_state = SKIP,
-                   billing_zip = SKIP,
-                   billing_country = SKIP,
-                   chargify_token = SKIP,
-                   current_vault = SKIP,
-                   gateway_handle = SKIP,
-                   additional_properties = {})
+    def initialize(bank_name: SKIP, bank_account_number: SKIP,
+                   bank_routing_number: SKIP, bank_iban: SKIP,
+                   bank_branch_code: SKIP, bank_account_type: SKIP,
+                   bank_account_holder_type: SKIP, payment_type: SKIP,
+                   billing_address: SKIP, billing_city: SKIP,
+                   billing_state: SKIP, billing_zip: SKIP,
+                   billing_country: SKIP, chargify_token: SKIP,
+                   current_vault: SKIP, gateway_handle: SKIP,
+                   additional_properties: {})
       @bank_name = bank_name unless bank_name == SKIP
       @bank_account_number = bank_account_number unless bank_account_number == SKIP
       @bank_routing_number = bank_routing_number unless bank_routing_number == SKIP
@@ -204,23 +196,23 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupBankAccount.new(bank_name,
-                                       bank_account_number,
-                                       bank_routing_number,
-                                       bank_iban,
-                                       bank_branch_code,
-                                       bank_account_type,
-                                       bank_account_holder_type,
-                                       payment_type,
-                                       billing_address,
-                                       billing_city,
-                                       billing_state,
-                                       billing_zip,
-                                       billing_country,
-                                       chargify_token,
-                                       current_vault,
-                                       gateway_handle,
-                                       hash)
+      SubscriptionGroupBankAccount.new(bank_name: bank_name,
+                                       bank_account_number: bank_account_number,
+                                       bank_routing_number: bank_routing_number,
+                                       bank_iban: bank_iban,
+                                       bank_branch_code: bank_branch_code,
+                                       bank_account_type: bank_account_type,
+                                       bank_account_holder_type: bank_account_holder_type,
+                                       payment_type: payment_type,
+                                       billing_address: billing_address,
+                                       billing_city: billing_city,
+                                       billing_state: billing_state,
+                                       billing_zip: billing_zip,
+                                       billing_country: billing_country,
+                                       chargify_token: chargify_token,
+                                       current_vault: current_vault,
+                                       gateway_handle: gateway_handle,
+                                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

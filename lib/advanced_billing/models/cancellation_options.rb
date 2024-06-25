@@ -40,9 +40,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(cancellation_message = SKIP,
-                   reason_code = SKIP,
-                   additional_properties = {})
+    def initialize(cancellation_message: SKIP, reason_code: SKIP,
+                   additional_properties: {})
       @cancellation_message = cancellation_message unless cancellation_message == SKIP
       @reason_code = reason_code unless reason_code == SKIP
 
@@ -65,9 +64,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CancellationOptions.new(cancellation_message,
-                              reason_code,
-                              hash)
+      CancellationOptions.new(cancellation_message: cancellation_message,
+                              reason_code: reason_code,
+                              additional_properties: hash)
     end
   end
 end

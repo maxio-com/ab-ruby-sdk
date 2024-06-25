@@ -81,15 +81,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = nil,
-                   pricing_scheme = nil,
-                   prices = nil,
-                   handle = SKIP,
-                   use_site_exchange_rate = true,
-                   tax_included = SKIP,
-                   interval = SKIP,
-                   interval_unit = SKIP,
-                   additional_properties = {})
+    def initialize(name:, pricing_scheme:, prices:, handle: SKIP,
+                   use_site_exchange_rate: true, tax_included: SKIP,
+                   interval: SKIP, interval_unit: SKIP,
+                   additional_properties: {})
       @name = name
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
@@ -133,15 +128,15 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateComponentPricePoint.new(name,
-                                    pricing_scheme,
-                                    prices,
-                                    handle,
-                                    use_site_exchange_rate,
-                                    tax_included,
-                                    interval,
-                                    interval_unit,
-                                    hash)
+      CreateComponentPricePoint.new(name: name,
+                                    pricing_scheme: pricing_scheme,
+                                    prices: prices,
+                                    handle: handle,
+                                    use_site_exchange_rate: use_site_exchange_rate,
+                                    tax_included: tax_included,
+                                    interval: interval,
+                                    interval_unit: interval_unit,
+                                    additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

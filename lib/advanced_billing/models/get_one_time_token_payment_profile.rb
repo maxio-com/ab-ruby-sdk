@@ -154,28 +154,14 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(first_name = nil,
-                   last_name = nil,
-                   masked_card_number = nil,
-                   card_type = nil,
-                   expiration_month = nil,
-                   expiration_year = nil,
-                   current_vault = nil,
-                   vault_token = nil,
-                   billing_address = nil,
-                   billing_city = nil,
-                   billing_country = nil,
-                   billing_state = nil,
-                   billing_zip = nil,
-                   payment_type = nil,
-                   disabled = nil,
-                   site_gateway_setting_id = nil,
-                   id = SKIP,
-                   customer_id = SKIP,
-                   billing_address_2 = SKIP,
-                   customer_vault_token = SKIP,
-                   gateway_handle = SKIP,
-                   additional_properties = {})
+    def initialize(first_name:, last_name:, masked_card_number:, card_type:,
+                   expiration_month:, expiration_year:, current_vault:,
+                   vault_token:, billing_address:, billing_city:,
+                   billing_country:, billing_state:, billing_zip:,
+                   payment_type:, disabled:, site_gateway_setting_id:, id: SKIP,
+                   customer_id: SKIP, billing_address_2: SKIP,
+                   customer_vault_token: SKIP, gateway_handle: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @first_name = first_name
       @last_name = last_name
@@ -244,28 +230,28 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      GetOneTimeTokenPaymentProfile.new(first_name,
-                                        last_name,
-                                        masked_card_number,
-                                        card_type,
-                                        expiration_month,
-                                        expiration_year,
-                                        current_vault,
-                                        vault_token,
-                                        billing_address,
-                                        billing_city,
-                                        billing_country,
-                                        billing_state,
-                                        billing_zip,
-                                        payment_type,
-                                        disabled,
-                                        site_gateway_setting_id,
-                                        id,
-                                        customer_id,
-                                        billing_address_2,
-                                        customer_vault_token,
-                                        gateway_handle,
-                                        hash)
+      GetOneTimeTokenPaymentProfile.new(first_name: first_name,
+                                        last_name: last_name,
+                                        masked_card_number: masked_card_number,
+                                        card_type: card_type,
+                                        expiration_month: expiration_month,
+                                        expiration_year: expiration_year,
+                                        current_vault: current_vault,
+                                        vault_token: vault_token,
+                                        billing_address: billing_address,
+                                        billing_city: billing_city,
+                                        billing_country: billing_country,
+                                        billing_state: billing_state,
+                                        billing_zip: billing_zip,
+                                        payment_type: payment_type,
+                                        disabled: disabled,
+                                        site_gateway_setting_id: site_gateway_setting_id,
+                                        id: id,
+                                        customer_id: customer_id,
+                                        billing_address_2: billing_address_2,
+                                        customer_vault_token: customer_vault_token,
+                                        gateway_handle: gateway_handle,
+                                        additional_properties: hash)
     end
   end
 end

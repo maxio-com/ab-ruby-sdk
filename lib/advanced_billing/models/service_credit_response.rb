@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(service_credit = nil,
-                   additional_properties = {})
+    def initialize(service_credit:, additional_properties: {})
       @service_credit = service_credit
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ServiceCreditResponse.new(service_credit,
-                                hash)
+      ServiceCreditResponse.new(service_credit: service_credit,
+                                additional_properties: hash)
     end
   end
 end

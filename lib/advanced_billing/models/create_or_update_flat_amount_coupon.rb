@@ -129,20 +129,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = nil,
-                   code = nil,
-                   amount_in_cents = nil,
-                   description = SKIP,
-                   allow_negative_balance = SKIP,
-                   recurring = SKIP,
-                   end_date = SKIP,
-                   product_family_id = SKIP,
-                   stackable = SKIP,
-                   compounding_strategy = SKIP,
-                   exclude_mid_period_allocations = SKIP,
-                   apply_on_cancel_at_end_of_period = SKIP,
-                   apply_on_subscription_expiration = SKIP,
-                   additional_properties = {})
+    def initialize(name:, code:, amount_in_cents:, description: SKIP,
+                   allow_negative_balance: SKIP, recurring: SKIP,
+                   end_date: SKIP, product_family_id: SKIP, stackable: SKIP,
+                   compounding_strategy: SKIP,
+                   exclude_mid_period_allocations: SKIP,
+                   apply_on_cancel_at_end_of_period: SKIP,
+                   apply_on_subscription_expiration: SKIP,
+                   additional_properties: {})
       @name = name
       @code = code
       @description = description unless description == SKIP
@@ -206,20 +200,20 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateOrUpdateFlatAmountCoupon.new(name,
-                                         code,
-                                         amount_in_cents,
-                                         description,
-                                         allow_negative_balance,
-                                         recurring,
-                                         end_date,
-                                         product_family_id,
-                                         stackable,
-                                         compounding_strategy,
-                                         exclude_mid_period_allocations,
-                                         apply_on_cancel_at_end_of_period,
-                                         apply_on_subscription_expiration,
-                                         hash)
+      CreateOrUpdateFlatAmountCoupon.new(name: name,
+                                         code: code,
+                                         amount_in_cents: amount_in_cents,
+                                         description: description,
+                                         allow_negative_balance: allow_negative_balance,
+                                         recurring: recurring,
+                                         end_date: end_date,
+                                         product_family_id: product_family_id,
+                                         stackable: stackable,
+                                         compounding_strategy: compounding_strategy,
+                                         exclude_mid_period_allocations: exclude_mid_period_allocations,
+                                         apply_on_cancel_at_end_of_period: apply_on_cancel_at_end_of_period,
+                                         apply_on_subscription_expiration: apply_on_subscription_expiration,
+                                         additional_properties: hash)
     end
 
     def to_custom_end_date

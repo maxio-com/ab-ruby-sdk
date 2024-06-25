@@ -72,14 +72,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id = SKIP,
-                   name = SKIP,
-                   handle = SKIP,
-                   accounting_code = SKIP,
-                   description = SKIP,
-                   created_at = SKIP,
-                   updated_at = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, name: SKIP, handle: SKIP, accounting_code: SKIP,
+                   description: SKIP, created_at: SKIP, updated_at: SKIP,
+                   additional_properties: {})
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
@@ -120,14 +115,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ProductFamily.new(id,
-                        name,
-                        handle,
-                        accounting_code,
-                        description,
-                        created_at,
-                        updated_at,
-                        hash)
+      ProductFamily.new(id: id,
+                        name: name,
+                        handle: handle,
+                        accounting_code: accounting_code,
+                        description: description,
+                        created_at: created_at,
+                        updated_at: updated_at,
+                        additional_properties: hash)
     end
 
     def to_custom_created_at

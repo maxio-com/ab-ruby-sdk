@@ -136,25 +136,12 @@ module AdvancedBilling
       []
     end
 
-    def initialize(first_name = SKIP,
-                   last_name = SKIP,
-                   email = SKIP,
-                   cc_emails = SKIP,
-                   organization = SKIP,
-                   reference = SKIP,
-                   address = SKIP,
-                   address_2 = SKIP,
-                   city = SKIP,
-                   state = SKIP,
-                   zip = SKIP,
-                   country = SKIP,
-                   phone = SKIP,
-                   locale = SKIP,
-                   vat_number = SKIP,
-                   tax_exempt = SKIP,
-                   tax_exempt_reason = SKIP,
-                   metafields = SKIP,
-                   additional_properties = {})
+    def initialize(first_name: SKIP, last_name: SKIP, email: SKIP,
+                   cc_emails: SKIP, organization: SKIP, reference: SKIP,
+                   address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
+                   zip: SKIP, country: SKIP, phone: SKIP, locale: SKIP,
+                   vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
+                   metafields: SKIP, additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -209,25 +196,25 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PayerAttributes.new(first_name,
-                          last_name,
-                          email,
-                          cc_emails,
-                          organization,
-                          reference,
-                          address,
-                          address_2,
-                          city,
-                          state,
-                          zip,
-                          country,
-                          phone,
-                          locale,
-                          vat_number,
-                          tax_exempt,
-                          tax_exempt_reason,
-                          metafields,
-                          hash)
+      PayerAttributes.new(first_name: first_name,
+                          last_name: last_name,
+                          email: email,
+                          cc_emails: cc_emails,
+                          organization: organization,
+                          reference: reference,
+                          address: address,
+                          address_2: address_2,
+                          city: city,
+                          state: state,
+                          zip: zip,
+                          country: country,
+                          phone: phone,
+                          locale: locale,
+                          vat_number: vat_number,
+                          tax_exempt: tax_exempt,
+                          tax_exempt_reason: tax_exempt_reason,
+                          metafields: metafields,
+                          additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

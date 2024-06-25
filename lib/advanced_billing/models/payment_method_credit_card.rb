@@ -55,12 +55,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(card_brand = nil,
-                   masked_card_number = nil,
-                   type = nil,
-                   card_expiration = SKIP,
-                   last_four = SKIP,
-                   additional_properties = {})
+    def initialize(card_brand:, masked_card_number:, type:,
+                   card_expiration: SKIP, last_four: SKIP,
+                   additional_properties: {})
       @card_brand = card_brand
       @card_expiration = card_expiration unless card_expiration == SKIP
       @last_four = last_four unless last_four == SKIP
@@ -90,12 +87,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentMethodCreditCard.new(card_brand,
-                                  masked_card_number,
-                                  type,
-                                  card_expiration,
-                                  last_four,
-                                  hash)
+      PaymentMethodCreditCard.new(card_brand: card_brand,
+                                  masked_card_number: masked_card_number,
+                                  type: type,
+                                  card_expiration: card_expiration,
+                                  last_four: last_four,
+                                  additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

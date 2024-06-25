@@ -63,12 +63,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(from_status = nil,
-                   to_status = nil,
-                   gateway_trans_id = SKIP,
-                   amount = SKIP,
-                   consolidation_level = SKIP,
-                   additional_properties = {})
+    def initialize(from_status:, to_status:, gateway_trans_id: SKIP,
+                   amount: SKIP, consolidation_level: SKIP,
+                   additional_properties: {})
       @gateway_trans_id = gateway_trans_id unless gateway_trans_id == SKIP
       @amount = amount unless amount == SKIP
       @from_status = from_status
@@ -98,12 +95,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ChangeInvoiceStatusEventData.new(from_status,
-                                       to_status,
-                                       gateway_trans_id,
-                                       amount,
-                                       consolidation_level,
-                                       hash)
+      ChangeInvoiceStatusEventData.new(from_status: from_status,
+                                       to_status: to_status,
+                                       gateway_trans_id: gateway_trans_id,
+                                       amount: amount,
+                                       consolidation_level: consolidation_level,
+                                       additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

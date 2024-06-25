@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(force = SKIP,
-                   additional_properties = {})
+    def initialize(force: SKIP, additional_properties: {})
       @force = force unless force == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      IssueAdvanceInvoiceRequest.new(force,
-                                     hash)
+      IssueAdvanceInvoiceRequest.new(force: force,
+                                     additional_properties: hash)
     end
   end
 end

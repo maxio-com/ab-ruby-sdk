@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_points = SKIP,
-                   meta = SKIP,
-                   additional_properties = {})
+    def initialize(price_points: SKIP, meta: SKIP, additional_properties: {})
       @price_points = price_points unless price_points == SKIP
       @meta = meta unless meta == SKIP
 
@@ -71,9 +69,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ComponentPricePointsResponse.new(price_points,
-                                       meta,
-                                       hash)
+      ComponentPricePointsResponse.new(price_points: price_points,
+                                       meta: meta,
+                                       additional_properties: hash)
     end
   end
 end

@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_preview = nil,
-                   additional_properties = {})
+    def initialize(subscription_preview:, additional_properties: {})
       @subscription_preview = subscription_preview
 
       # Add additional model properties to the instance.
@@ -52,8 +51,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionPreviewResponse.new(subscription_preview,
-                                      hash)
+      SubscriptionPreviewResponse.new(subscription_preview: subscription_preview,
+                                      additional_properties: hash)
     end
   end
 end

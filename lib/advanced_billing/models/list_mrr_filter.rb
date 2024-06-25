@@ -33,8 +33,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription_ids = SKIP,
-                   additional_properties = {})
+    def initialize(subscription_ids: SKIP, additional_properties: {})
       @subscription_ids = subscription_ids unless subscription_ids == SKIP
 
       # Add additional model properties to the instance.
@@ -55,8 +54,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListMrrFilter.new(subscription_ids,
-                        hash)
+      ListMrrFilter.new(subscription_ids: subscription_ids,
+                        additional_properties: hash)
     end
   end
 end

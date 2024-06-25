@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(renewal_preview = nil,
-                   additional_properties = {})
+    def initialize(renewal_preview:, additional_properties: {})
       @renewal_preview = renewal_preview
 
       # Add additional model properties to the instance.
@@ -52,8 +51,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      RenewalPreviewResponse.new(renewal_preview,
-                                 hash)
+      RenewalPreviewResponse.new(renewal_preview: renewal_preview,
+                                 additional_properties: hash)
     end
   end
 end

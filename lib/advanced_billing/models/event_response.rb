@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(event = nil,
-                   additional_properties = {})
+    def initialize(event:, additional_properties: {})
       @event = event
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      EventResponse.new(event,
-                        hash)
+      EventResponse.new(event: event,
+                        additional_properties: hash)
     end
   end
 end

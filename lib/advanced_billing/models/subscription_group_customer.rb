@@ -56,12 +56,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(first_name = SKIP,
-                   last_name = SKIP,
-                   organization = SKIP,
-                   email = SKIP,
-                   reference = SKIP,
-                   additional_properties = {})
+    def initialize(first_name: SKIP, last_name: SKIP, organization: SKIP,
+                   email: SKIP, reference: SKIP, additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @organization = organization unless organization == SKIP
@@ -89,12 +85,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupCustomer.new(first_name,
-                                    last_name,
-                                    organization,
-                                    email,
-                                    reference,
-                                    hash)
+      SubscriptionGroupCustomer.new(first_name: first_name,
+                                    last_name: last_name,
+                                    organization: organization,
+                                    email: email,
+                                    reference: reference,
+                                    additional_properties: hash)
     end
   end
 end

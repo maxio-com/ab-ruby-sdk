@@ -73,13 +73,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(pricing_scheme = nil,
-                   segment_property_1_value = SKIP,
-                   segment_property_2_value = SKIP,
-                   segment_property_3_value = SKIP,
-                   segment_property_4_value = SKIP,
-                   prices = SKIP,
-                   additional_properties = {})
+    def initialize(pricing_scheme:, segment_property_1_value: SKIP,
+                   segment_property_2_value: SKIP,
+                   segment_property_3_value: SKIP,
+                   segment_property_4_value: SKIP, prices: SKIP,
+                   additional_properties: {})
       @segment_property_1_value = segment_property_1_value unless segment_property_1_value == SKIP
       @segment_property_2_value = segment_property_2_value unless segment_property_2_value == SKIP
       @segment_property_3_value = segment_property_3_value unless segment_property_3_value == SKIP
@@ -127,13 +125,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateSegment.new(pricing_scheme,
-                        segment_property_1_value,
-                        segment_property_2_value,
-                        segment_property_3_value,
-                        segment_property_4_value,
-                        prices,
-                        hash)
+      CreateSegment.new(pricing_scheme: pricing_scheme,
+                        segment_property_1_value: segment_property_1_value,
+                        segment_property_2_value: segment_property_2_value,
+                        segment_property_3_value: segment_property_3_value,
+                        segment_property_4_value: segment_property_4_value,
+                        prices: prices,
+                        additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

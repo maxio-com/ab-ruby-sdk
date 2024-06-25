@@ -68,14 +68,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(customer_name = SKIP,
-                   subscription_id = SKIP,
-                   site_link = SKIP,
-                   site_name = SKIP,
-                   subscription_mrr = SKIP,
-                   sales_rep_id = SKIP,
-                   sales_rep_name = SKIP,
-                   additional_properties = {})
+    def initialize(customer_name: SKIP, subscription_id: SKIP, site_link: SKIP,
+                   site_name: SKIP, subscription_mrr: SKIP, sales_rep_id: SKIP,
+                   sales_rep_name: SKIP, additional_properties: {})
       @customer_name = customer_name unless customer_name == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @site_link = site_link unless site_link == SKIP
@@ -110,14 +105,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SaleRepSettings.new(customer_name,
-                          subscription_id,
-                          site_link,
-                          site_name,
-                          subscription_mrr,
-                          sales_rep_id,
-                          sales_rep_name,
-                          hash)
+      SaleRepSettings.new(customer_name: customer_name,
+                          subscription_id: subscription_id,
+                          site_link: site_link,
+                          site_name: site_name,
+                          subscription_mrr: subscription_mrr,
+                          sales_rep_id: sales_rep_id,
+                          sales_rep_name: sales_rep_name,
+                          additional_properties: hash)
     end
   end
 end

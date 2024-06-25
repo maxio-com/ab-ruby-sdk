@@ -56,13 +56,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(state = nil,
-                   subscription_id = nil,
-                   revenue_at_risk_in_cents = nil,
-                   created_at = nil,
-                   attempts = nil,
-                   last_attempted_at = nil,
-                   additional_properties = {})
+    def initialize(state:, subscription_id:, revenue_at_risk_in_cents:,
+                   created_at:, attempts:, last_attempted_at:,
+                   additional_properties: {})
       @state = state
       @subscription_id = subscription_id
       @revenue_at_risk_in_cents = revenue_at_risk_in_cents
@@ -98,13 +94,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      DunnerData.new(state,
-                     subscription_id,
-                     revenue_at_risk_in_cents,
-                     created_at,
-                     attempts,
-                     last_attempted_at,
-                     hash)
+      DunnerData.new(state: state,
+                     subscription_id: subscription_id,
+                     revenue_at_risk_in_cents: revenue_at_risk_in_cents,
+                     created_at: created_at,
+                     attempts: attempts,
+                     last_attempted_at: last_attempted_at,
+                     additional_properties: hash)
     end
 
     def to_custom_created_at

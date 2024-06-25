@@ -62,14 +62,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(previous_allocation = nil,
-                   new_allocation = nil,
-                   component_id = nil,
-                   component_handle = nil,
-                   memo = nil,
-                   allocation_id = nil,
-                   allocated_quantity = SKIP,
-                   additional_properties = {})
+    def initialize(previous_allocation:, new_allocation:, component_id:,
+                   component_handle:, memo:, allocation_id:,
+                   allocated_quantity: SKIP, additional_properties: {})
       @previous_allocation = previous_allocation
       @new_allocation = new_allocation
       @component_id = component_id
@@ -106,14 +101,14 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ComponentAllocationChange.new(previous_allocation,
-                                    new_allocation,
-                                    component_id,
-                                    component_handle,
-                                    memo,
-                                    allocation_id,
-                                    allocated_quantity,
-                                    hash)
+      ComponentAllocationChange.new(previous_allocation: previous_allocation,
+                                    new_allocation: new_allocation,
+                                    component_id: component_id,
+                                    component_handle: component_handle,
+                                    memo: memo,
+                                    allocation_id: allocation_id,
+                                    allocated_quantity: allocated_quantity,
+                                    additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

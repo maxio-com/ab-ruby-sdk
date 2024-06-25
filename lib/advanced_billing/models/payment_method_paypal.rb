@@ -35,9 +35,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(email = nil,
-                   type = nil,
-                   additional_properties = {})
+    def initialize(email:, type:, additional_properties: {})
       @email = email
       @type = type
 
@@ -59,9 +57,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentMethodPaypal.new(email,
-                              type,
-                              hash)
+      PaymentMethodPaypal.new(email: email,
+                              type: type,
+                              additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

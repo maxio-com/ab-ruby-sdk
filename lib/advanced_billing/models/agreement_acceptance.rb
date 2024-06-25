@@ -72,13 +72,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(ip_address = SKIP,
-                   terms_url = SKIP,
-                   privacy_policy_url = SKIP,
-                   return_refund_policy_url = SKIP,
-                   delivery_policy_url = SKIP,
-                   secure_checkout_policy_url = SKIP,
-                   additional_properties = {})
+    def initialize(ip_address: SKIP, terms_url: SKIP, privacy_policy_url: SKIP,
+                   return_refund_policy_url: SKIP, delivery_policy_url: SKIP,
+                   secure_checkout_policy_url: SKIP, additional_properties: {})
       @ip_address = ip_address unless ip_address == SKIP
       @terms_url = terms_url unless terms_url == SKIP
       @privacy_policy_url = privacy_policy_url unless privacy_policy_url == SKIP
@@ -115,13 +111,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AgreementAcceptance.new(ip_address,
-                              terms_url,
-                              privacy_policy_url,
-                              return_refund_policy_url,
-                              delivery_policy_url,
-                              secure_checkout_policy_url,
-                              hash)
+      AgreementAcceptance.new(ip_address: ip_address,
+                              terms_url: terms_url,
+                              privacy_policy_url: privacy_policy_url,
+                              return_refund_policy_url: return_refund_policy_url,
+                              delivery_policy_url: delivery_policy_url,
+                              secure_checkout_policy_url: secure_checkout_policy_url,
+                              additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

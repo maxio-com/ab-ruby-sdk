@@ -50,11 +50,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(last_sent_at = SKIP,
-                   last_accepted_at = SKIP,
-                   send_invite_link_text = SKIP,
-                   uninvited_count = SKIP,
-                   additional_properties = {})
+    def initialize(last_sent_at: SKIP, last_accepted_at: SKIP,
+                   send_invite_link_text: SKIP, uninvited_count: SKIP,
+                   additional_properties: {})
       @last_sent_at = last_sent_at unless last_sent_at == SKIP
       @last_accepted_at = last_accepted_at unless last_accepted_at == SKIP
       @send_invite_link_text = send_invite_link_text unless send_invite_link_text == SKIP
@@ -83,11 +81,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ResentInvitation.new(last_sent_at,
-                           last_accepted_at,
-                           send_invite_link_text,
-                           uninvited_count,
-                           hash)
+      ResentInvitation.new(last_sent_at: last_sent_at,
+                           last_accepted_at: last_accepted_at,
+                           send_invite_link_text: send_invite_link_text,
+                           uninvited_count: uninvited_count,
+                           additional_properties: hash)
     end
   end
 end

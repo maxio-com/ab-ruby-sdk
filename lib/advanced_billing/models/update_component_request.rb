@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(component = nil,
-                   additional_properties = {})
+    def initialize(component:, additional_properties: {})
       @component = component
 
       # Add additional model properties to the instance.
@@ -51,8 +50,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      UpdateComponentRequest.new(component,
-                                 hash)
+      UpdateComponentRequest.new(component: component,
+                                 additional_properties: hash)
     end
   end
 end

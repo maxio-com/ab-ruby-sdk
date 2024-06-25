@@ -58,12 +58,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(open_invoices = SKIP,
-                   pending_invoices = SKIP,
-                   pending_discounts = SKIP,
-                   service_credits = SKIP,
-                   prepayments = SKIP,
-                   additional_properties = {})
+    def initialize(open_invoices: SKIP, pending_invoices: SKIP,
+                   pending_discounts: SKIP, service_credits: SKIP,
+                   prepayments: SKIP, additional_properties: {})
       @open_invoices = open_invoices unless open_invoices == SKIP
       @pending_invoices = pending_invoices unless pending_invoices == SKIP
       @pending_discounts = pending_discounts unless pending_discounts == SKIP
@@ -94,12 +91,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      AccountBalances.new(open_invoices,
-                          pending_invoices,
-                          pending_discounts,
-                          service_credits,
-                          prepayments,
-                          hash)
+      AccountBalances.new(open_invoices: open_invoices,
+                          pending_invoices: pending_invoices,
+                          pending_discounts: pending_discounts,
+                          service_credits: service_credits,
+                          prepayments: prepayments,
+                          additional_properties: hash)
     end
   end
 end

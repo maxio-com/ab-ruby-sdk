@@ -106,19 +106,11 @@ module AdvancedBilling
       []
     end
 
-    def initialize(title = SKIP,
-                   quantity = SKIP,
-                   unit_price = SKIP,
-                   taxable = SKIP,
-                   tax_code = SKIP,
-                   period_range_start = SKIP,
-                   period_range_end = SKIP,
-                   product_id = SKIP,
-                   component_id = SKIP,
-                   price_point_id = SKIP,
-                   product_price_point_id = SKIP,
-                   description = SKIP,
-                   additional_properties = {})
+    def initialize(title: SKIP, quantity: SKIP, unit_price: SKIP, taxable: SKIP,
+                   tax_code: SKIP, period_range_start: SKIP,
+                   period_range_end: SKIP, product_id: SKIP, component_id: SKIP,
+                   price_point_id: SKIP, product_price_point_id: SKIP,
+                   description: SKIP, additional_properties: {})
       @title = title unless title == SKIP
       @quantity = quantity unless quantity == SKIP
       @unit_price = unit_price unless unit_price == SKIP
@@ -174,19 +166,19 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateInvoiceItem.new(title,
-                            quantity,
-                            unit_price,
-                            taxable,
-                            tax_code,
-                            period_range_start,
-                            period_range_end,
-                            product_id,
-                            component_id,
-                            price_point_id,
-                            product_price_point_id,
-                            description,
-                            hash)
+      CreateInvoiceItem.new(title: title,
+                            quantity: quantity,
+                            unit_price: unit_price,
+                            taxable: taxable,
+                            tax_code: tax_code,
+                            period_range_start: period_range_start,
+                            period_range_end: period_range_end,
+                            product_id: product_id,
+                            component_id: component_id,
+                            price_point_id: price_point_id,
+                            product_price_point_id: product_price_point_id,
+                            description: description,
+                            additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

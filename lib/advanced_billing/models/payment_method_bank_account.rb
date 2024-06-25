@@ -40,10 +40,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(masked_account_number = nil,
-                   masked_routing_number = nil,
-                   type = nil,
-                   additional_properties = {})
+    def initialize(masked_account_number:, masked_routing_number:, type:,
+                   additional_properties: {})
       @masked_account_number = masked_account_number
       @masked_routing_number = masked_routing_number
       @type = type
@@ -69,10 +67,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      PaymentMethodBankAccount.new(masked_account_number,
-                                   masked_routing_number,
-                                   type,
-                                   hash)
+      PaymentMethodBankAccount.new(masked_account_number: masked_account_number,
+                                   masked_routing_number: masked_routing_number,
+                                   type: type,
+                                   additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

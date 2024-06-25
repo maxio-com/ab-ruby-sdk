@@ -67,12 +67,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(consolidation_level = nil,
-                   from_status = nil,
-                   to_status = nil,
-                   due_amount = nil,
-                   total_amount = nil,
-                   additional_properties = {})
+    def initialize(consolidation_level:, from_status:, to_status:, due_amount:,
+                   total_amount:, additional_properties: {})
       @consolidation_level = consolidation_level
       @from_status = from_status
       @to_status = to_status
@@ -101,12 +97,12 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      IssueInvoiceEventData.new(consolidation_level,
-                                from_status,
-                                to_status,
-                                due_amount,
-                                total_amount,
-                                hash)
+      IssueInvoiceEventData.new(consolidation_level: consolidation_level,
+                                from_status: from_status,
+                                to_status: to_status,
+                                due_amount: due_amount,
+                                total_amount: total_amount,
+                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

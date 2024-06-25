@@ -124,23 +124,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(id = SKIP,
-                   name = SKIP,
-                   subdomain = SKIP,
-                   currency = SKIP,
-                   seller_id = SKIP,
-                   non_primary_currencies = SKIP,
-                   relationship_invoicing_enabled = SKIP,
-                   customer_hierarchy_enabled = SKIP,
-                   whopays_enabled = SKIP,
-                   whopays_default_payer = SKIP,
-                   allocation_settings = SKIP,
-                   default_payment_collection_method = SKIP,
-                   organization_address = SKIP,
-                   tax_configuration = SKIP,
-                   net_terms = SKIP,
-                   test = SKIP,
-                   additional_properties = {})
+    def initialize(id: SKIP, name: SKIP, subdomain: SKIP, currency: SKIP,
+                   seller_id: SKIP, non_primary_currencies: SKIP,
+                   relationship_invoicing_enabled: SKIP,
+                   customer_hierarchy_enabled: SKIP, whopays_enabled: SKIP,
+                   whopays_default_payer: SKIP, allocation_settings: SKIP,
+                   default_payment_collection_method: SKIP,
+                   organization_address: SKIP, tax_configuration: SKIP,
+                   net_terms: SKIP, test: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @subdomain = subdomain unless subdomain == SKIP
@@ -208,23 +199,23 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      Site.new(id,
-               name,
-               subdomain,
-               currency,
-               seller_id,
-               non_primary_currencies,
-               relationship_invoicing_enabled,
-               customer_hierarchy_enabled,
-               whopays_enabled,
-               whopays_default_payer,
-               allocation_settings,
-               default_payment_collection_method,
-               organization_address,
-               tax_configuration,
-               net_terms,
-               test,
-               hash)
+      Site.new(id: id,
+               name: name,
+               subdomain: subdomain,
+               currency: currency,
+               seller_id: seller_id,
+               non_primary_currencies: non_primary_currencies,
+               relationship_invoicing_enabled: relationship_invoicing_enabled,
+               customer_hierarchy_enabled: customer_hierarchy_enabled,
+               whopays_enabled: whopays_enabled,
+               whopays_default_payer: whopays_default_payer,
+               allocation_settings: allocation_settings,
+               default_payment_collection_method: default_payment_collection_method,
+               organization_address: organization_address,
+               tax_configuration: tax_configuration,
+               net_terms: net_terms,
+               test: test,
+               additional_properties: hash)
     end
   end
 end

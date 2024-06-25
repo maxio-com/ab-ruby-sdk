@@ -40,10 +40,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(currency = nil,
-                   price = nil,
-                   role = nil,
-                   additional_properties = {})
+    def initialize(currency:, price:, role:, additional_properties: {})
       @currency = currency
       @price = price
       @role = role
@@ -67,10 +64,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateProductCurrencyPrice.new(currency,
-                                     price,
-                                     role,
-                                     hash)
+      CreateProductCurrencyPrice.new(currency: currency,
+                                     price: price,
+                                     role: role,
+                                     additional_properties: hash)
     end
   end
 end

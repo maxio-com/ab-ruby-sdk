@@ -44,10 +44,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(currency = SKIP,
-                   price = SKIP,
-                   price_id = SKIP,
-                   additional_properties = {})
+    def initialize(currency: SKIP, price: SKIP, price_id: SKIP,
+                   additional_properties: {})
       @currency = currency unless currency == SKIP
       @price = price unless price == SKIP
       @price_id = price_id unless price_id == SKIP
@@ -71,10 +69,10 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateCurrencyPrice.new(currency,
-                              price,
-                              price_id,
-                              hash)
+      CreateCurrencyPrice.new(currency: currency,
+                              price: price,
+                              price_id: price_id,
+                              additional_properties: hash)
     end
   end
 end

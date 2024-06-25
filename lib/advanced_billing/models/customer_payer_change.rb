@@ -35,9 +35,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(before = nil,
-                   after = nil,
-                   additional_properties = {})
+    def initialize(before:, after:, additional_properties: {})
       @before = before
       @after = after
 
@@ -59,9 +57,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CustomerPayerChange.new(before,
-                              after,
-                              hash)
+      CustomerPayerChange.new(before: before,
+                              after: after,
+                              additional_properties: hash)
     end
   end
 end

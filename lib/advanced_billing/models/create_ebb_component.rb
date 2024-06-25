@@ -30,8 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(event_based_component = nil,
-                   additional_properties = {})
+    def initialize(event_based_component:, additional_properties: {})
       @event_based_component = event_based_component
 
       # Add additional model properties to the instance.
@@ -52,8 +51,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateEBBComponent.new(event_based_component,
-                             hash)
+      CreateEBBComponent.new(event_based_component: event_based_component,
+                             additional_properties: hash)
     end
   end
 end

@@ -38,9 +38,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(current_proforma_invoice = SKIP,
-                   next_proforma_invoice = SKIP,
-                   additional_properties = {})
+    def initialize(current_proforma_invoice: SKIP, next_proforma_invoice: SKIP,
+                   additional_properties: {})
       @current_proforma_invoice = current_proforma_invoice unless current_proforma_invoice == SKIP
       @next_proforma_invoice = next_proforma_invoice unless next_proforma_invoice == SKIP
 
@@ -64,9 +63,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      SignupProformaPreview.new(current_proforma_invoice,
-                                next_proforma_invoice,
-                                hash)
+      SignupProformaPreview.new(current_proforma_invoice: current_proforma_invoice,
+                                next_proforma_invoice: next_proforma_invoice,
+                                additional_properties: hash)
     end
   end
 end

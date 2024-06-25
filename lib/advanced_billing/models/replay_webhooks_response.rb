@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(status = SKIP,
-                   additional_properties = {})
+    def initialize(status: SKIP, additional_properties: {})
       @status = status unless status == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ReplayWebhooksResponse.new(status,
-                                 hash)
+      ReplayWebhooksResponse.new(status: status,
+                                 additional_properties: hash)
     end
   end
 end

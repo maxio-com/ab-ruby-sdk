@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(currency_prices = SKIP,
-                   additional_properties = {})
+    def initialize(currency_prices: SKIP, additional_properties: {})
       @currency_prices = currency_prices unless currency_prices == SKIP
 
       # Add additional model properties to the instance.
@@ -62,8 +61,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CouponCurrencyResponse.new(currency_prices,
-                                 hash)
+      CouponCurrencyResponse.new(currency_prices: currency_prices,
+                                 additional_properties: hash)
     end
   end
 end

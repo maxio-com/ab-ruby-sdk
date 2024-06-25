@@ -62,13 +62,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(code = SKIP,
-                   percentage = SKIP,
-                   amount = SKIP,
-                   description = SKIP,
-                   product_family_id = SKIP,
-                   compounding_strategy = SKIP,
-                   additional_properties = {})
+    def initialize(code: SKIP, percentage: SKIP, amount: SKIP,
+                   description: SKIP, product_family_id: SKIP,
+                   compounding_strategy: SKIP, additional_properties: {})
       @code = code unless code == SKIP
       @percentage = percentage unless percentage == SKIP
       @amount = amount unless amount == SKIP
@@ -105,13 +101,13 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateInvoiceCoupon.new(code,
-                              percentage,
-                              amount,
-                              description,
-                              product_family_id,
-                              compounding_strategy,
-                              hash)
+      CreateInvoiceCoupon.new(code: code,
+                              percentage: percentage,
+                              amount: amount,
+                              description: description,
+                              product_family_id: product_family_id,
+                              compounding_strategy: compounding_strategy,
+                              additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.

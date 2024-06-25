@@ -92,17 +92,10 @@ module AdvancedBilling
       []
     end
 
-    def initialize(line_items = SKIP,
-                   issue_date = SKIP,
-                   net_terms = SKIP,
-                   payment_instructions = SKIP,
-                   memo = SKIP,
-                   seller_address = SKIP,
-                   billing_address = SKIP,
-                   shipping_address = SKIP,
-                   coupons = SKIP,
-                   status = CreateInvoiceStatus::OPEN,
-                   additional_properties = {})
+    def initialize(line_items: SKIP, issue_date: SKIP, net_terms: SKIP,
+                   payment_instructions: SKIP, memo: SKIP, seller_address: SKIP,
+                   billing_address: SKIP, shipping_address: SKIP, coupons: SKIP,
+                   status: CreateInvoiceStatus::OPEN, additional_properties: {})
       @line_items = line_items unless line_items == SKIP
       @issue_date = issue_date unless issue_date == SKIP
       @net_terms = net_terms unless net_terms == SKIP
@@ -162,17 +155,17 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateInvoice.new(line_items,
-                        issue_date,
-                        net_terms,
-                        payment_instructions,
-                        memo,
-                        seller_address,
-                        billing_address,
-                        shipping_address,
-                        coupons,
-                        status,
-                        hash)
+      CreateInvoice.new(line_items: line_items,
+                        issue_date: issue_date,
+                        net_terms: net_terms,
+                        payment_instructions: payment_instructions,
+                        memo: memo,
+                        seller_address: seller_address,
+                        billing_address: billing_address,
+                        shipping_address: shipping_address,
+                        coupons: coupons,
+                        status: status,
+                        additional_properties: hash)
     end
   end
 end

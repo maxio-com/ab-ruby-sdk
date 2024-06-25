@@ -32,8 +32,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(webhook = SKIP,
-                   additional_properties = {})
+    def initialize(webhook: SKIP, additional_properties: {})
       @webhook = webhook unless webhook == SKIP
 
       # Add additional model properties to the instance.
@@ -53,8 +52,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      WebhookResponse.new(webhook,
-                          hash)
+      WebhookResponse.new(webhook: webhook,
+                          additional_properties: hash)
     end
   end
 end

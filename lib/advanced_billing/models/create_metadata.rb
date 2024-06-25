@@ -38,9 +38,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(name = SKIP,
-                   value = SKIP,
-                   additional_properties = {})
+    def initialize(name: SKIP, value: SKIP, additional_properties: {})
       @name = name unless name == SKIP
       @value = value unless value == SKIP
 
@@ -62,9 +60,9 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreateMetadata.new(name,
-                         value,
-                         hash)
+      CreateMetadata.new(name: name,
+                         value: value,
+                         additional_properties: hash)
     end
   end
 end

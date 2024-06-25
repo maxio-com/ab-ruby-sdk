@@ -45,11 +45,8 @@ module AdvancedBilling
       []
     end
 
-    def initialize(amount = nil,
-                   memo = nil,
-                   payment_details = nil,
-                   payment_method = nil,
-                   additional_properties = {})
+    def initialize(amount:, memo:, payment_details:, payment_method:,
+                   additional_properties: {})
       @amount = amount
       @memo = memo
       @payment_details = payment_details
@@ -77,11 +74,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreatePayment.new(amount,
-                        memo,
-                        payment_details,
-                        payment_method,
-                        hash)
+      CreatePayment.new(amount: amount,
+                        memo: memo,
+                        payment_details: payment_details,
+                        payment_method: payment_method,
+                        additional_properties: hash)
     end
   end
 end
