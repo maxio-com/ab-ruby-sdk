@@ -7,11 +7,11 @@ RSpec.describe AdvancedBilling::SitesController do
         client = build_client
         site = client.sites.read_site.site
 
-        expect(site.id).to eq(86563)
+        expect(site.id).to eq(87392)
         expect(site.name).to eq('Ruby SDK')
         expect(site.subdomain).to eq('ruby-sdk')
         expect(site.currency).to eq('USD')
-        expect(site.seller_id).to eq(56887)
+        expect(site.seller_id).to eq(58665)
         expect(site.non_primary_currencies).to eq(['EUR'])
         expect(site.relationship_invoicing_enabled).to eq(true)
         expect(site.customer_hierarchy_enabled).to eq(false)
