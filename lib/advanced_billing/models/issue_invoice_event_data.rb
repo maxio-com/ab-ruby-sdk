@@ -19,20 +19,20 @@ module AdvancedBilling
     # "Parent" invoices do not have lines of their own, but they have subtotals
     # and totals which aggregate the member invoice segments.
     # See also the [invoice consolidation
-    # documentation](https://chargify.zendesk.com/hc/en-us/articles/440774639183
-    # 5).
+    # documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-
+    # Invoice-Consolidation).
     # @return [InvoiceConsolidationLevel]
     attr_accessor :consolidation_level
 
     # The status of the invoice before event occurrence. See [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statusess) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :from_status
 
     # The status of the invoice after event occurrence. See [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statusess) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :to_status
 

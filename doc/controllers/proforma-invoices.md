@@ -90,13 +90,13 @@ def list_subscription_group_proforma_invoices(options = {})
 
 ```ruby
 collect = {
-  'uid': 'uid0',
-  'line_items': false,
-  'discounts': false,
-  'taxes': false,
-  'credits': false,
-  'payments': false,
-  'custom_fields': false
+  'uid' => 'uid0',
+  'line_items' => false,
+  'discounts' => false,
+  'taxes' => false,
+  'credits' => false,
+  'payments' => false,
+  'custom_fields' => false
 }
 
 result = proforma_invoices_controller.list_subscription_group_proforma_invoices(collect)
@@ -219,16 +219,16 @@ def list_proforma_invoices(options = {})
 
 ```ruby
 collect = {
-  'subscription_id': 222,
-  'page': 2,
-  'per_page': 50,
-  'direction': Direction::DESC,
-  'line_items': false,
-  'discounts': false,
-  'taxes': false,
-  'credits': false,
-  'payments': false,
-  'custom_fields': false
+  'subscription_id' => 222,
+  'page' => 2,
+  'per_page' => 50,
+  'direction' => Direction::DESC,
+  'line_items' => false,
+  'discounts' => false,
+  'taxes' => false,
+  'credits' => false,
+  'payments' => false,
+  'custom_fields' => false
 }
 
 result = proforma_invoices_controller.list_proforma_invoices(collect)

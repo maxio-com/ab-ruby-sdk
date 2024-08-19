@@ -7,14 +7,14 @@ module AdvancedBilling
   # CouponsController
   class CouponsController < BaseController
     # ## Coupons Documentation
-    # Coupons can be administered in the Chargify application or created via
-    # API. Please view our section on [creating
-    # coupons](https://maxio-chargify.zendesk.com/hc/en-us/articles/540474283073
-    # 3) for more information.
+    # Coupons can be administered in the Advanced Billing application or created
+    # via API. Please view our section on [creating
+    # coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creati
+    # ng-Editing-Deleting-Coupons) for more information.
     # Additionally, for documentation on how to apply a coupon to a subscription
-    # within the Chargify UI, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404761012877)
-    # .
+    # within the Advanced Billing UI, please see our documentation
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-
+    # and-Subscriptions).
     # ## Create Coupon
     # This request will create a coupon, based on the provided information.
     # When creating a coupon, you must specify a product family using the
@@ -25,8 +25,8 @@ module AdvancedBilling
     # by optionally passing in hashes of `restricted_products` and/or
     # `restricted_components` in the format:
     # `{ "<product/component_id>": boolean_value }`
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
     # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
     # @return [CouponResponse] response from the API call
     def create_coupon(product_family_id,
@@ -44,12 +44,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -57,8 +57,8 @@ module AdvancedBilling
     # If the coupon is set to `use_site_exchange_rate: true`, it will return
     # pricing based on the current exchange rate. If the flag is set to false,
     # it will return all of the defined prices for each currency.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -94,9 +94,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -107,8 +107,8 @@ module AdvancedBilling
     # to find does not belong to the default product family in your site, then
     # you will need to specify (either in the url or as a query string param)
     # the product family id.
-    # @param [Integer] product_family_id Optional parameter: The Chargify id of
-    # the product family to which the coupon belongs
+    # @param [Integer] product_family_id Optional parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
     # @param [String] code Optional parameter: The code of the coupon
     # @return [CouponResponse] response from the API call
     def find_coupon(product_family_id: nil,
@@ -122,13 +122,13 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash)))
         .execute
     end
 
     # You can retrieve the Coupon via the API with the Show method. You must
-    # identify the Coupon in this call by the ID parameter that Chargify
+    # identify the Coupon in this call by the ID parameter that Advanced Billing
     # assigns.
     # If instead you would like to find a Coupon using a Coupon code, see the
     # Coupon Find method.
@@ -138,10 +138,10 @@ module AdvancedBilling
     # If the coupon is set to `use_site_exchange_rate: true`, it will return
     # pricing based on the current exchange rate. If the flag is set to false,
     # it will return all of the defined prices for each currency.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @return [CouponResponse] response from the API call
     def read_coupon(product_family_id,
                     coupon_id)
@@ -158,8 +158,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash)))
         .execute
     end
 
@@ -170,10 +170,10 @@ module AdvancedBilling
     # by optionally passing in hashes of `restricted_products` and/or
     # `restricted_components` in the format:
     # `{ "<product/component_id>": boolean_value }`
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
     # @return [CouponResponse] response from the API call
     def update_coupon(product_family_id,
@@ -195,8 +195,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash)))
         .execute
     end
 
@@ -205,10 +205,10 @@ module AdvancedBilling
     # remain attached and functional on existing Subscriptions that are using
     # it.
     # The `archived_at` date and time will be assigned.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @return [CouponResponse] response from the API call
     def archive_coupon(product_family_id,
                        coupon_id)
@@ -225,8 +225,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash)))
         .execute
     end
 
@@ -266,18 +266,18 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
     # This request will provide details about the coupon usage as an array of
     # data hashes, one per product.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the coupon belongs
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @return [Array[CouponUsage]] response from the API call
     def read_coupon_usage(product_family_id,
                           coupon_id)
@@ -294,9 +294,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponUsage.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponUsage.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -327,8 +327,8 @@ module AdvancedBilling
     # de>&product_family_id=<id>
     # ```
     # @param [String] code Required parameter: The code of the coupon
-    # @param [Integer] product_family_id Optional parameter: The Chargify id of
-    # the product family to which the coupon belongs
+    # @param [Integer] product_family_id Optional parameter: The Advanced
+    # Billing id of the product family to which the coupon belongs
     # @return [CouponResponse] response from the API call
     def validate_coupon(code,
                         product_family_id: nil)
@@ -342,11 +342,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                SingleStringErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponResponse.method(:from_hash))
+                    .local_error('404',
+                                 'Not Found',
+                                 SingleStringErrorResponseException))
         .execute
     end
 
@@ -357,8 +357,8 @@ module AdvancedBilling
     # Currency pricing for coupons must mirror the setup of the primary coupon
     # pricing - if the primary coupon is percentage based, you will not be able
     # to define pricing in non-primary currencies.
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @param [CouponCurrencyRequest] body Optional parameter: Example:
     # @return [CouponCurrencyResponse] response from the API call
     def create_or_update_coupon_currency_prices(coupon_id,
@@ -376,8 +376,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
         .execute
     end
 
@@ -397,14 +397,14 @@ module AdvancedBilling
     # contain only letters and numbers, and do not have any spaces. Lowercase
     # letters will be capitalized before the subcode is created.
     # ## Coupon Subcodes Documentation
-    # Full documentation on how to create coupon subcodes in the Chargify UI can
-    # be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407755909531#coupon
-    # -codes).
+    # Full documentation on how to create coupon subcodes in the Advanced
+    # Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-C
+    # odes).
     # Additionally, for documentation on how to apply a coupon to a Subscription
-    # within the Chargify UI, please see our documentation
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#coupon
-    # ).
+    # within the Advanced Billing UI, please see our documentation
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-
+    # and-Subscriptions).
     # ## Create Coupon Subcode
     # This request allows you to create specific subcodes underneath an existing
     # coupon code.
@@ -419,8 +419,8 @@ module AdvancedBilling
     # So, if the coupon subcode is `20%OFF`, the URL to delete this coupon
     # subcode would be:
     # `https://<subdomain>.chargify.com/coupons/567/codes/20%25OFF.<format>`
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @param [CouponSubcodes] body Optional parameter: Example:
     # @return [CouponSubcodesResponse] response from the API call
     def create_coupon_subcodes(coupon_id,
@@ -438,15 +438,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
         .execute
     end
 
     # This request allows you to request the subcodes that are attached to a
     # coupon.
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -472,8 +472,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponSubcodes.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponSubcodes.method(:from_hash)))
         .execute
     end
 
@@ -486,8 +486,8 @@ module AdvancedBilling
     # + The created subcodes,
     # + Subcodes that were not created because they already exist,
     # + Any subcodes not created because they are invalid.
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon
     # @param [CouponSubcodes] body Optional parameter: Example:
     # @return [CouponSubcodesResponse] response from the API call
     def update_coupon_subcodes(coupon_id,
@@ -505,8 +505,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CouponSubcodesResponse.method(:from_hash)))
         .execute
     end
 
@@ -530,8 +530,8 @@ module AdvancedBilling
     # Or if the coupon subcode is 20%OFF, the URL to delete this coupon subcode
     # would be:
     # @https://<subdomain>.chargify.com/coupons/567/codes/20%25OFF.<format>
-    # @param [Integer] coupon_id Required parameter: The Chargify id of the
-    # coupon to which the subcode belongs
+    # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
+    # the coupon to which the subcode belongs
     # @param [String] subcode Required parameter: The subcode of the coupon
     # @return [void] response from the API call
     def delete_coupon_subcode(coupon_id,
@@ -548,10 +548,10 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
   end

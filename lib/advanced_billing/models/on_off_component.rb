@@ -32,8 +32,8 @@ module AdvancedBilling
 
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
-    # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-
-    # bracket-rules) for an overview of how price brackets work for different
+    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Po
+    # ints-Components) for an overview of how price brackets work for different
     # pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
@@ -155,6 +155,7 @@ module AdvancedBilling
       %w[
         upgrade_charge
         downgrade_credit
+        interval_unit
       ]
     end
 

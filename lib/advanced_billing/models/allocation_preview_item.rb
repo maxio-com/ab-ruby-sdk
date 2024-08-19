@@ -155,6 +155,7 @@ module AdvancedBilling
         timestamp
         upgrade_charge
         downgrade_credit
+        interval_unit
         component_handle
       ]
     end

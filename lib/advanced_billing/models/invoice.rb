@@ -81,20 +81,20 @@ module AdvancedBilling
     attr_accessor :paid_date
 
     # The current status of the invoice. See [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statuses) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :status
 
     # The current status of the invoice. See [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statuses) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceRole]
     attr_accessor :role
 
     # The current status of the invoice. See [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statuses) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [Integer]
     attr_accessor :parent_invoice_id
 
@@ -126,8 +126,8 @@ module AdvancedBilling
     # "Parent" invoices do not have lines of their own, but they have subtotals
     # and totals which aggregate the member invoice segments.
     # See also the [invoice consolidation
-    # documentation](https://chargify.zendesk.com/hc/en-us/articles/440774639183
-    # 5).
+    # documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-
+    # Invoice-Consolidation).
     # @return [InvoiceConsolidationLevel]
     attr_accessor :consolidation_level
 
@@ -275,6 +275,10 @@ module AdvancedBilling
     # @return [InvoicePreviousBalance]
     attr_accessor :previous_balance_data
 
+    # The format is `"YYYY-MM-DD"`.
+    # @return [Date]
+    attr_accessor :public_url_expires_on
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -331,6 +335,7 @@ module AdvancedBilling
       @_hash['display_settings'] = 'display_settings'
       @_hash['public_url'] = 'public_url'
       @_hash['previous_balance_data'] = 'previous_balance_data'
+      @_hash['public_url_expires_on'] = 'public_url_expires_on'
       @_hash
     end
 
@@ -389,6 +394,7 @@ module AdvancedBilling
         display_settings
         public_url
         previous_balance_data
+        public_url_expires_on
       ]
     end
 
@@ -424,7 +430,7 @@ module AdvancedBilling
                    credits: SKIP, refunds: SKIP, payments: SKIP,
                    custom_fields: SKIP, display_settings: SKIP,
                    public_url: SKIP, previous_balance_data: SKIP,
-                   additional_properties: {})
+                   public_url_expires_on: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
@@ -480,6 +486,7 @@ module AdvancedBilling
       @display_settings = display_settings unless display_settings == SKIP
       @public_url = public_url unless public_url == SKIP
       @previous_balance_data = previous_balance_data unless previous_balance_data == SKIP
+      @public_url_expires_on = public_url_expires_on unless public_url_expires_on == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -637,6 +644,8 @@ module AdvancedBilling
       public_url = hash.key?('public_url') ? hash['public_url'] : SKIP
       previous_balance_data = InvoicePreviousBalance.from_hash(hash['previous_balance_data']) if
         hash['previous_balance_data']
+      public_url_expires_on =
+        hash.key?('public_url_expires_on') ? hash['public_url_expires_on'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -694,6 +703,7 @@ module AdvancedBilling
                   display_settings: display_settings,
                   public_url: public_url,
                   previous_balance_data: previous_balance_data,
+                  public_url_expires_on: public_url_expires_on,
                   additional_properties: hash)
     end
 

@@ -210,6 +210,7 @@ module AdvancedBilling
       %w[
         component_handle
         memo
+        interval_unit
         upgrade_charge
         downgrade_credit
         payment

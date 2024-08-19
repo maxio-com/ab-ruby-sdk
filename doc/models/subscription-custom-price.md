@@ -22,7 +22,7 @@
 | `initial_charge_in_cents` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `initial_charge_after_trial` | `TrueClass \| FalseClass` | Optional | (Optional) |
 | `expiration_interval` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
-| `expiration_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | (Optional) |
+| `expiration_interval_unit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | (Optional) |
 | `tax_included` | `TrueClass \| FalseClass` | Optional | (Optional) |
 
 ## Example (as JSON)

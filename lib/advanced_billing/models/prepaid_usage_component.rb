@@ -45,9 +45,9 @@ module AdvancedBilling
 
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
-    # Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#genera
-    # l-price-bracket-rules) for an overview of how price brackets work for
-    # different pricing schemes.
+    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Componen
+    # t-Pricing-Schemes#price-bracket-rules) for an overview of how price
+    # brackets work for different pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
 
@@ -116,7 +116,7 @@ module AdvancedBilling
     # (only for prepaid usage components where rollover_prepaid_remainder is
     # true) The number of `expiration_interval_unit`s after which rollover
     # amounts should expire
-    # @return [IntervalUnit]
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # (only for prepaid usage components where rollover_prepaid_remainder is
@@ -197,6 +197,7 @@ module AdvancedBilling
       %w[
         upgrade_charge
         downgrade_credit
+        expiration_interval_unit
       ]
     end
 

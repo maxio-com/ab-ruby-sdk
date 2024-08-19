@@ -67,8 +67,8 @@ module AdvancedBilling
     attr_accessor :expiration_interval
 
     # A string representing the expiration interval unit for this product price
-    # point, either month or day
-    # @return [IntervalUnit]
+    # point, either month, day or never
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # Whether or not to use the site's exchange rate or define your own pricing
@@ -114,7 +114,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        expiration_interval_unit
+      ]
     end
 
     def initialize(name:, price_in_cents:, interval:, interval_unit:,

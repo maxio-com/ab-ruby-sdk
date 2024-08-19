@@ -14,7 +14,7 @@
 | `expiration_year` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `chargify_token` | `String` | Optional | - |
 | `vault_token` | `String` | Optional | - |
-| `current_vault` | [`CurrentVault`](../../doc/models/current-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. |
+| `current_vault` | [`CreditCardVault`](../../doc/models/credit-card-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. |
 | `gateway_handle` | `String` | Optional | - |
 | `first_name` | `String` | Optional | - |
 | `last_name` | `String` | Optional | - |

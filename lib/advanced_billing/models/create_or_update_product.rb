@@ -72,12 +72,12 @@ module AdvancedBilling
     attr_accessor :expiration_interval
 
     # A string representing the expiration interval unit for this product,
-    # either month or day
-    # @return [IntervalUnit]
+    # either month, day or never
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # A string representing the expiration interval unit for this product,
-    # either month or day
+    # either month, day or never
     # @return [TrueClass | FalseClass]
     attr_accessor :auto_create_signup_page
 
@@ -128,7 +128,10 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        trial_interval_unit
+        expiration_interval_unit
+      ]
     end
 
     def initialize(name:, description:, price_in_cents:, interval:,

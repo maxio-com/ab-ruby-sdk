@@ -19,7 +19,7 @@ offers_controller = client.offers
 
 # Create Offer
 
-Create an offer within your Chargify site by sending a POST request.
+Create an offer within your Advanced Billing site by sending a POST request.
 
 ## Documentation
 
@@ -27,7 +27,7 @@ Offers allow you to package complicated combinations of products, components and
 
 Once an offer is defined it can be used as an alternative to the product when creating subscriptions.
 
-Full documentation on how to use offers in the Chargify UI can be located [here](https://chargify.zendesk.com/hc/en-us/articles/4407753852059).
+Full documentation on how to use offers in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261295098637-Offers-Overview).
 
 ## Using a Product Price Point
 
@@ -145,9 +145,9 @@ def list_offers(options = {})
 
 ```ruby
 collect = {
-  'page': 2,
-  'per_page': 50,
-  'include_archived': true
+  'page' => 2,
+  'per_page' => 50,
+  'include_archived' => true
 }
 
 result = offers_controller.list_offers(collect)

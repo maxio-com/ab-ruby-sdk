@@ -27,7 +27,8 @@ module AdvancedBilling
     # @return [MetafieldInput]
     attr_accessor :input_type
 
-    # Only applicable when input_type is radio or dropdown
+    # Only applicable when input_type is radio or dropdown. Empty strings will
+    # not be submitted.
     # @return [Array[String]]
     attr_accessor :enum
 

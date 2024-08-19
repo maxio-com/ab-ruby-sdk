@@ -690,10 +690,24 @@ module AdvancedBilling
           )
         ),
 
-        :PaymentProfileResponsePaymentProfile => OneOf.new(
+        :PaymentProfile => AnyOf.new(
           [
-            LeafType.new(BankAccountPaymentProfile),
-            LeafType.new(CreditCardPaymentProfile)
+            LeafType.new(ApplePayPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'apple_pay',
+              discriminator: 'payment_type'
+            )),
+            LeafType.new(BankAccountPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'bank_account',
+              discriminator: 'payment_type'
+            )),
+            LeafType.new(CreditCardPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'credit_card',
+              discriminator: 'payment_type'
+            )),
+            LeafType.new(PaypalPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'paypal_account',
+              discriminator: 'payment_type'
+            ))
           ]
         ),
 

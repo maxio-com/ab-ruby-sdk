@@ -25,7 +25,7 @@ product_price_points_controller = client.product_price_points
 
 # Create Product Price Point
 
-[Product Price Point Documentation](https://chargify.zendesk.com/hc/en-us/articles/4407755824155)
+[Product Price Point Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261111947789-Product-Price-Points)
 
 ```ruby
 def create_product_price_point(product_id,
@@ -62,7 +62,7 @@ body = CreateProductPricePointRequest.new(
     initial_charge_in_cents: 120000,
     initial_charge_after_trial: false,
     expiration_interval: 12,
-    expiration_interval_unit: IntervalUnit::MONTH
+    expiration_interval_unit: ExpirationIntervalUnit::MONTH
   )
 )
 
@@ -132,9 +132,9 @@ def list_product_price_points(options = {})
 
 ```ruby
 Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'product_id': 124,
-  'page': 2,
-  'per_page': 10
+  'product_id' => 124,
+  'page' => 2,
+  'per_page' => 10
 }
 
 result = product_price_points_controller.list_product_price_points(collect)
@@ -386,8 +386,8 @@ def unarchive_product_price_point(product_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | `Integer` | Template, Required | The Chargify id of the product to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the product price point |
+| `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product to which the price point belongs |
+| `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the product price point |
 
 ## Response Type
 
@@ -449,8 +449,8 @@ def promote_product_price_point_to_default(product_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | `Integer` | Template, Required | The Chargify id of the product to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the product price point |
+| `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product to which the price point belongs |
+| `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the product price point |
 
 ## Response Type
 
@@ -536,7 +536,7 @@ def bulk_create_product_price_points(product_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | `Integer` | Template, Required | The Chargify id of the product to which the price points belong |
+| `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product to which the price points belong |
 | `body` | [`BulkCreateProductPricePointsRequest`](../../doc/models/bulk-create-product-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -563,7 +563,7 @@ body = BulkCreateProductPricePointsRequest.new(
       initial_charge_in_cents: 120000,
       initial_charge_after_trial: false,
       expiration_interval: 12,
-      expiration_interval_unit: IntervalUnit::MONTH
+      expiration_interval_unit: ExpirationIntervalUnit::MONTH
     ),
     CreateProductPricePoint.new(
       name: 'More Educational',
@@ -578,7 +578,7 @@ body = BulkCreateProductPricePointsRequest.new(
       initial_charge_in_cents: 120000,
       initial_charge_after_trial: false,
       expiration_interval: 12,
-      expiration_interval_unit: IntervalUnit::MONTH
+      expiration_interval_unit: ExpirationIntervalUnit::MONTH
     )
   ]
 )
@@ -642,7 +642,7 @@ def create_product_currency_prices(product_price_point_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_price_point_id` | `Integer` | Template, Required | The Chargify id of the product price point |
+| `product_price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the product price point |
 | `body` | [`CreateProductCurrencyPricesRequest`](../../doc/models/create-product-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -721,7 +721,7 @@ def update_product_currency_prices(product_price_point_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_price_point_id` | `Integer` | Template, Required | The Chargify id of the product price point |
+| `product_price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the product price point |
 | `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -802,7 +802,7 @@ def list_all_product_price_points(options = {})
 
 ```ruby
 collect = {
-  'filter': ListPricePointsFilter.new(
+  'filter' => ListPricePointsFilter.new(
     start_date: Date.iso8601('2011-12-17'),
     end_date: Date.iso8601('2011-12-15'),
     start_datetime: DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),
@@ -818,9 +818,9 @@ collect = {
       3
     ]
   ),
-  'include': ListProductsPricePointsInclude::CURRENCY_PRICES,
-  'page': 2,
-  'per_page': 50
+  'include' => ListProductsPricePointsInclude::CURRENCY_PRICES,
+  'page' => 2,
+  'per_page' => 50
 }
 
 result = product_price_points_controller.list_all_product_price_points(collect)

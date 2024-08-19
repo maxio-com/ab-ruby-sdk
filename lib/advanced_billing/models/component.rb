@@ -274,6 +274,7 @@ module AdvancedBilling
         item_category
         use_site_exchange_rate
         accounting_code
+        interval_unit
       ]
     end
 

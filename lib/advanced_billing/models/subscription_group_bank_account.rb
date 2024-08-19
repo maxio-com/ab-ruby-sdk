@@ -73,10 +73,12 @@ module AdvancedBilling
     attr_accessor :chargify_token
 
     # The vault that stores the payment profile with the provided vault_token.
+    # Use `bogus` for testing.
     # @return [BankAccountVault]
     attr_accessor :current_vault
 
     # The vault that stores the payment profile with the provided vault_token.
+    # Use `bogus` for testing.
     # @return [String]
     attr_accessor :gateway_handle
 

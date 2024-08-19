@@ -20,7 +20,7 @@ module AdvancedBilling
     # Access to the Sales Commission API endpoints is available to users with
     # financial access, where the seller has the Advanced Analytics component
     # enabled. For further information on getting access to Advanced Analytics
-    # please contact Chargify support.
+    # please contact Maxio support.
     # > Note: The request is at seller level, it means `<<subdomain>>` variable
     # will be replaced by `app`
     # @param [String] seller_id Required parameter: The Chargify id of your
@@ -57,9 +57,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SaleRepSettings.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SaleRepSettings.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -77,7 +77,7 @@ module AdvancedBilling
     # Access to the Sales Commission API endpoints is available to users with
     # financial access, where the seller has the Advanced Analytics component
     # enabled. For further information on getting access to Advanced Analytics
-    # please contact Chargify support.
+    # please contact Maxio support.
     # > Note: The request is at seller level, it means `<<subdomain>>` variable
     # will be replaced by `app`
     # @param [String] seller_id Required parameter: The Chargify id of your
@@ -114,9 +114,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListSaleRepItem.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListSaleRepItem.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -134,13 +134,13 @@ module AdvancedBilling
     # Access to the Sales Commission API endpoints is available to users with
     # financial access, where the seller has the Advanced Analytics component
     # enabled. For further information on getting access to Advanced Analytics
-    # please contact Chargify support.
+    # please contact Maxio support.
     # > Note: The request is at seller level, it means `<<subdomain>>` variable
     # will be replaced by `app`
     # @param [String] seller_id Required parameter: The Chargify id of your
     # seller account
-    # @param [String] sales_rep_id Required parameter: The Chargify id of sales
-    # rep.
+    # @param [String] sales_rep_id Required parameter: The Advanced Billing id
+    # of sales rep.
     # @param [String] authorization Optional parameter: For authorization use
     # user API key. See details
     # [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg
@@ -181,8 +181,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SaleRep.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SaleRep.method(:from_hash)))
         .execute
     end
   end

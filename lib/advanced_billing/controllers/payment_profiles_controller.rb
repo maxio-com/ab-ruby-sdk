@@ -9,10 +9,11 @@ module AdvancedBilling
     # Use this endpoint to create a payment profile for a customer.
     # Payment Profiles house the credit card, ACH (Authorize.Net or Stripe
     # only,) or PayPal (Braintree only,) data for a customer. The payment
-    # information is attached to the customer within Chargify, as opposed to the
-    # Subscription itself.
-    # You must include a customer_id so that Chargify will attach it to the
-    # customer entry. If no customer_id is included the API will return a 404.
+    # information is attached to the customer within Advanced Billing, as
+    # opposed to the Subscription itself.
+    # You must include a customer_id so that Advanced Billing will attach it to
+    # the customer entry. If no customer_id is included the API will return a
+    # 404.
     # ## Create a Payment Profile for ACH usage
     # If you would like to create a payment method that is a Bank Account
     # applicable for ACH payments use the following:
@@ -37,17 +38,17 @@ module AdvancedBilling
     # [here](https://developers.chargify.com/docs/developer-docs/d2e9e34db740e-s
     # ignups#taxes)
     # ## Payment Profile Documentation
-    # Full documentation on how Payment Profiles operate within Chargify can be
-    # located under the following links:
+    # Full documentation on how Payment Profiles operate within Advanced Billing
+    # can be located under the following links:
     # + [Subscriber Payment
-    # Details](https://maxio-chargify.zendesk.com/hc/en-us/articles/540521255834
-    # 9-Customers-Reference#customers-reference-0-0)
+    # Details](https://maxio.zendesk.com/hc/en-us/articles/24251599929613-Subscr
+    # iption-Summary-Payment-Details-Tab)
     # + [Self Service
-    # Pages](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404759627021)
-    # (Allows credit card updates by Subscriber)
+    # Pages](https://maxio.zendesk.com/hc/en-us/articles/24261425318541-Self-Ser
+    # vice-Pages) (Allows credit card updates by Subscriber)
     # + [Public Signup Pages payment
-    # settings](https://maxio-chargify.zendesk.com/hc/en-us/articles/54052677543
-    # 81-Individual-Page-Settings#credit-card-settings)
+    # settings](https://maxio.zendesk.com/hc/en-us/articles/24261368332557-Indiv
+    # idual-Page-Settings)
     # ## Create a Payment Profile with a Chargify.js token
     # ```json
     # {
@@ -86,8 +87,8 @@ module AdvancedBilling
     # ## GoCardless
     # For more information on GoCardless, please view the following resources:
     # + [Full documentation on
-    # GoCardless](https://maxio-chargify.zendesk.com/hc/en-us/articles/540450188
-    # 9677)
+    # GoCardless](https://maxio.zendesk.com/hc/en-us/articles/24176159136909-GoC
+    # ardless)
     # + [Using Chargify.js with GoCardless - minimal
     # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
     # DIy-examples#minimal-example-with-direct-debit-gocardless-gateway)
@@ -134,8 +135,8 @@ module AdvancedBilling
     # If the customer, bank account, and mandate already exist in GoCardless, a
     # payment profile can be created by using the IDs. In order to create masked
     # versions of `bank_account_number` and `bank_routing_number` that are used
-    # to display within Chargify Admin UI, you can pass the last four digits for
-    # this fields which then will be saved in this form
+    # to display within Advanced Billing Admin UI, you can pass the last four
+    # digits for this fields which then will be saved in this form
     # `XXXX[four-provided-digits]`.
     # ```json
     # {
@@ -161,8 +162,8 @@ module AdvancedBilling
     # For more information on Stripe SEPA Direct Debit, please view the
     # following resources:
     # + [Full documentation on Stripe SEPA Direct
-    # Debit](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405050826765-
-    # Stripe-SEPA-and-BECS-Direct-Debit)
+    # Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-S
+    # EPA-and-BECS-Direct-Debit)
     # + [Using Chargify.js with Stripe Direct Debit - minimal
     # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
     # DIy-examples#minimal-example-with-sepa-or-becs-direct-debit-stripe-gateway
@@ -192,8 +193,8 @@ module AdvancedBilling
     # For more information on Stripe BECS Direct Debit, please view the
     # following resources:
     # + [Full documentation on Stripe BECS Direct
-    # Debit](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405050826765-
-    # Stripe-SEPA-and-BECS-Direct-Debit)
+    # Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-S
+    # EPA-and-BECS-Direct-Debit)
     # + [Using Chargify.js with Stripe BECS Direct Debit - minimal
     # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
     # DIy-examples#minimal-example-with-sepa-or-becs-direct-debit-stripe-gateway
@@ -225,8 +226,8 @@ module AdvancedBilling
     # For more information on Stripe BACS Direct Debit, please view the
     # following resources:
     # + [Full documentation on Stripe BACS Direct
-    # Debit](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405050826765-
-    # Stripe-SEPA-and-BECS-Direct-Debit)
+    # Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-S
+    # EPA-and-BECS-Direct-Debit)
     # ### Stripe BACS Direct Debit Payment Profiles
     # The following example creates a customer, bank account and mandate in
     # Stripe:
@@ -250,9 +251,10 @@ module AdvancedBilling
     # It may happen that a payment needs 3D Secure Authentication when the
     # payment profile is created; this is referred to in our help docs as a
     # [post-authentication
-    # flow](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405177432077#p
-    # sd2-flows-pre-authentication-and-post-authentication). The server returns
-    # `422 Unprocessable Entity` in this case with the following response:
+    # flow](https://maxio.zendesk.com/hc/en-us/articles/24176278996493-Testing-I
+    # mplementing-3D-Secure#psd2-flows-pre-authentication-and-post-authenticatio
+    # n). The server returns `422 Unprocessable Entity` in this case with the
+    # following response:
     # ```json
     # {
     #     "jsonapi": {
@@ -322,7 +324,7 @@ module AdvancedBilling
     # following the IBAN or the Local Bank details examples, a customer, bank
     # account and mandate will be created in your current vault. If the
     # customer, bank account, and mandate already exist in your vault, follow
-    # the Import example to link the payment profile into Chargify.
+    # the Import example to link the payment profile into Advanced Billing.
     # @return [PaymentProfileResponse] response from the API call
     def create_payment_profile(body: nil)
       new_api_call_builder
@@ -335,15 +337,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -375,9 +377,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -428,11 +430,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                    .local_error('404',
+                                 'Not Found',
+                                 APIException))
         .execute
     end
 
@@ -464,8 +466,8 @@ module AdvancedBilling
     # Customer’s credit cards without passing in the full credit card number and
     # CVV.
     # - If you are using **Authorize.net**, **Cybersource**, **Forte**,
-    # **Braintree Blue** or **Stripe**, Chargify will ignore the credit card
-    # number and CVV when processing an update via the API, and attempt a
+    # **Braintree Blue** or **Stripe**, Advanced Billing will ignore the credit
+    # card number and CVV when processing an update via the API, and attempt a
     # partial update instead. If you wish to change the card number on a payment
     # profile, you will need to create a new payment profile for the given
     # customer.
@@ -497,15 +499,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorStringMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                    .local_error('404',
+                                 'Not Found',
+                                 APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorStringMapResponseException))
         .execute
     end
 
@@ -525,14 +527,14 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .is_response_void(true)
+                    .local_error('404',
+                                 'Not Found',
+                                 APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -565,7 +567,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
@@ -591,15 +593,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BankAccountResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(BankAccountResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -625,7 +627,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
@@ -653,15 +655,15 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error('404',
-                                'Not Found',
-                                APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                    .local_error('404',
+                                 'Not Found',
+                                 APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -691,24 +693,25 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaymentProfileResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaymentProfileResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
-    # One Time Tokens aka Chargify Tokens house the credit card or ACH
+    # One Time Tokens aka Advanced Billing Tokens house the credit card or ACH
     # (Authorize.Net or Stripe only) data for a customer.
     # You can use One Time Tokens while creating a subscription or payment
     # profile instead of passing all bank account or credit card data directly
     # to a given API endpoint.
     # To obtain a One Time Token you have to use
-    # [chargify.js](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0
+    # [Chargify.js](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0
     # NjAzNDI0-overview).
-    # @param [String] chargify_token Required parameter: Chargify Token
+    # @param [String] chargify_token Required parameter: Advanced Billing
+    # Token
     # @return [GetOneTimeTokenRequest] response from the API call
     def read_one_time_token(chargify_token)
       new_api_call_builder
@@ -721,11 +724,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(GetOneTimeTokenRequest.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GetOneTimeTokenRequest.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -757,14 +760,14 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
   end

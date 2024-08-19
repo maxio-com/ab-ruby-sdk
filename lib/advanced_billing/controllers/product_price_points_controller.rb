@@ -7,8 +7,8 @@ module AdvancedBilling
   # ProductPricePointsController
   class ProductPricePointsController < BaseController
     # [Product Price Point
-    # Documentation](https://chargify.zendesk.com/hc/en-us/articles/440775582415
-    # 5)
+    # Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261111947789-
+    # Product-Price-Points)
     # @param [Integer | String] product_id Required parameter: The id or handle
     # of the product. When using the handle, it must be prefixed with
     # `handle:`
@@ -34,12 +34,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ProductPricePointErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductPricePointResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ProductPricePointErrorResponseException))
         .execute
     end
 
@@ -88,8 +88,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListProductPricePointsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListProductPricePointsResponse.method(:from_hash)))
         .execute
     end
 
@@ -133,8 +133,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -181,8 +181,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -219,20 +219,20 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductPricePointResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
     # Use this endpoint to unarchive an archived product price point.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # product price point
+    # @param [Integer] product_id Required parameter: The Advanced Billing id of
+    # the product to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Advanced Billing
+    # id of the product price point
     # @return [ProductPricePointResponse] response from the API call
     def unarchive_product_price_point(product_id,
                                       price_point_id)
@@ -249,8 +249,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductPricePointResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -258,10 +258,10 @@ module AdvancedBilling
     # product.
     # Note: Custom product price points are not able to be set as the default
     # for a product.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # product price point
+    # @param [Integer] product_id Required parameter: The Advanced Billing id of
+    # the product to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Advanced Billing
+    # id of the product price point
     # @return [ProductResponse] response from the API call
     def promote_product_price_point_to_default(product_id,
                                                price_point_id)
@@ -278,14 +278,14 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash)))
         .execute
     end
 
     # Use this endpoint to create multiple product price points in one request.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product to which the price points belong
+    # @param [Integer] product_id Required parameter: The Advanced Billing id of
+    # the product to which the price points belong
     # @param [BulkCreateProductPricePointsRequest] body Optional parameter:
     # Example:
     # @return [BulkCreateProductPricePointsResponse] response from the API call
@@ -304,12 +304,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BulkCreateProductPricePointsResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(BulkCreateProductPricePointsResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          APIException))
         .execute
     end
 
@@ -320,8 +320,8 @@ module AdvancedBilling
     # fee, each currency must also define a trial and/or setup fee.
     # Note: Currency Prices are not able to be created for custom product price
     # points.
-    # @param [Integer] product_price_point_id Required parameter: The Chargify
-    # id of the product price point
+    # @param [Integer] product_price_point_id Required parameter: The Advanced
+    # Billing id of the product price point
     # @param [CreateProductCurrencyPricesRequest] body Optional parameter:
     # Example:
     # @return [CurrencyPricesResponse] response from the API call
@@ -340,12 +340,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CurrencyPricesResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorArrayMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CurrencyPricesResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -356,8 +356,8 @@ module AdvancedBilling
     # fee, each currency must also define a trial and/or setup fee.
     # Note: Currency Prices are not able to be updated for custom product price
     # points.
-    # @param [Integer] product_price_point_id Required parameter: The Chargify
-    # id of the product price point
+    # @param [Integer] product_price_point_id Required parameter: The Advanced
+    # Billing id of the product price point
     # @param [UpdateCurrencyPricesRequest] body Optional parameter: Example:
     # @return [CurrencyPricesResponse] response from the API call
     def update_product_currency_prices(product_price_point_id,
@@ -375,12 +375,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CurrencyPricesResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorArrayMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CurrencyPricesResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -419,12 +419,12 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListProductPricePointsResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListProductPricePointsResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
   end

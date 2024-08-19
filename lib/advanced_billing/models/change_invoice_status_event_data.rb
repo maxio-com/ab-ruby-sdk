@@ -19,22 +19,22 @@ module AdvancedBilling
     attr_accessor :amount
 
     # The status of the invoice before any changes occurred. See [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statuses) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :from_status
 
     # The updated status of the invoice after changes have been made. See
     # [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statuses) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :to_status
 
     # The updated status of the invoice after changes have been made. See
     # [Invoice
-    # Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/54050787942
-    # 53-Introduction-to-Invoices#invoice-statuses) for more.
+    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
+    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
     # @return [InvoiceConsolidationLevel]
     attr_accessor :consolidation_level
 

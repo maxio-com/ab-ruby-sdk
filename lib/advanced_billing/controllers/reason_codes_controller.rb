@@ -9,15 +9,15 @@ module AdvancedBilling
     # # Reason Codes Intro
     # ReasonCodes are a way to gain a high level view of why your customers are
     # cancelling the subcription to your product or service.
-    # Add a set of churn reason codes to be displayed in-app and/or the Chargify
+    # Add a set of churn reason codes to be displayed in-app and/or the Maxio
     # Billing Portal. As your subscribers decide to cancel their subscription,
     # learn why they decided to cancel.
     # ## Reason Code Documentation
-    # Full documentation on how Reason Codes operate within Chargify can be
-    # located under the following links.
+    # Full documentation on how Reason Codes operate within Advanced Billing can
+    # be located under the following links.
     # [Churn Reason
-    # Codes](https://chargify.zendesk.com/hc/en-us/articles/4407896775579#churn-
-    # reason-codes)
+    # Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Re
+    # ason-Codes)
     # ## Create Reason Code
     # This method gives a merchant the option to create a reason codes for a
     # given Site.
@@ -34,12 +34,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReasonCodeResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -67,16 +67,16 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReasonCodeResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
     # This method gives a merchant the option to retrieve a list of a particular
     # code for a given Site by providing the unique numerical ID of the code.
-    # @param [Integer] reason_code_id Required parameter: The Chargify id of the
-    # reason code
+    # @param [Integer] reason_code_id Required parameter: The Advanced Billing
+    # id of the reason code
     # @return [ReasonCodeResponse] response from the API call
     def read_reason_code(reason_code_id)
       new_api_call_builder
@@ -89,18 +89,18 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReasonCodeResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
     # This method gives a merchant the option to update an existing reason code
     # for a given site.
-    # @param [Integer] reason_code_id Required parameter: The Chargify id of the
-    # reason code
+    # @param [Integer] reason_code_id Required parameter: The Advanced Billing
+    # id of the reason code
     # @param [UpdateReasonCodeRequest] body Optional parameter: Example:
     # @return [ReasonCodeResponse] response from the API call
     def update_reason_code(reason_code_id,
@@ -118,19 +118,19 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReasonCodeResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
     # This method gives a merchant the option to delete one reason code from the
     # Churn Reason Codes. This code will be immediately removed. This action is
     # not reversable.
-    # @param [Integer] reason_code_id Required parameter: The Chargify id of the
-    # reason code
+    # @param [Integer] reason_code_id Required parameter: The Advanced Billing
+    # id of the reason code
     # @return [ReasonCodesJsonResponse] response from the API call
     def delete_reason_code(reason_code_id)
       new_api_call_builder
@@ -143,11 +143,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReasonCodesJsonResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReasonCodesJsonResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
   end

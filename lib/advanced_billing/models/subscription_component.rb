@@ -279,6 +279,7 @@ module AdvancedBilling
         price_point_name
         use_site_exchange_rate
         description
+        interval_unit
       ]
     end
 

@@ -94,7 +94,7 @@ module AdvancedBilling
 
     # The vault that stores the payment profile with the provided `vault_token`.
     # Use `bogus` for testing.
-    # @return [CurrentVault]
+    # @return [AllVaults]
     attr_accessor :current_vault
 
     # The “token” provided by your vault storage for an already stored payment

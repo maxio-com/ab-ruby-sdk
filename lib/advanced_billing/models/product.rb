@@ -44,8 +44,8 @@ module AdvancedBilling
     attr_accessor :expiration_interval
 
     # A string representing the expiration interval unit for this product,
-    # either month or day
-    # @return [ExtendedIntervalUnit]
+    # either month, day or never
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # Timestamp indicating when this product was created

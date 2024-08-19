@@ -39,7 +39,7 @@ module AdvancedBilling
 
     # The vault that stores the payment profile with the provided `vault_token`.
     # Use `bogus` for testing.
-    # @return [CurrentVault]
+    # @return [AllVaults]
     attr_accessor :current_vault
 
     # The credit card or bank account billing street address (i.e. 123 Main

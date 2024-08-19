@@ -7,9 +7,10 @@ module AdvancedBilling
   # BillingPortalController
   class BillingPortalController < BaseController
     # ## Billing Portal Documentation
-    # Full documentation on how the Billing Portal operates within the Chargify
-    # UI can be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407648972443).
+    # Full documentation on how the Billing Portal operates within the Advanced
+    # Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-
+    # Portal-Overview).
     # This documentation is focused on how the to configure the Billing Portal
     # Settings, as well as Subscriber Interaction and Merchant Management of the
     # Billing Portal.
@@ -25,12 +26,12 @@ module AdvancedBilling
     # If you need to provide your customer their Management URL through other
     # means, you can retrieve it via the API. Because the URL is
     # cryptographically signed with a timestamp, it is not possible for
-    # merchants to generate the URL without requesting it from Chargify.
+    # merchants to generate the URL without requesting it from Advanced Billing.
     # In order to prevent abuse & overuse, we ask that you request a new URL
     # only when absolutely necessary. Management URLs are good for 65 days, so
     # you should re-use a previously generated one as much as possible. If you
     # use the URL frequently (such as to display on your website), please **do
-    # not** make an API request to Chargify every time.
+    # not** make an API request to Advanced Billing every time.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
     # @param [AutoInvite] auto_invite Optional parameter: When set to 1, an
@@ -50,12 +51,12 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -85,16 +86,16 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PortalManagementLink.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException)
-                   .local_error_template('429',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         TooManyManagementLinkRequestsErrorException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PortalManagementLink.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException)
+                    .local_error_template('429',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          TooManyManagementLinkRequestsErrorException))
         .execute
     end
 
@@ -123,15 +124,15 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ResentInvitation.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ResentInvitation.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -154,8 +155,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RevokedInvitation.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(RevokedInvitation.method(:from_hash)))
         .execute
     end
   end

@@ -4,9 +4,9 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # Extended Interval Unit.
-  class ExtendedIntervalUnit
-    EXTENDED_INTERVAL_UNIT = [
+  # Expiration Interval Unit.
+  class ExpirationIntervalUnit
+    EXPIRATION_INTERVAL_UNIT = [
       # TODO: Write general description for DAY
       DAY = 'day'.freeze,
 
@@ -20,7 +20,7 @@ module AdvancedBilling
     def self.validate(value)
       return false if value.nil?
 
-      EXTENDED_INTERVAL_UNIT.include?(value)
+      EXPIRATION_INTERVAL_UNIT.include?(value)
     end
   end
 end

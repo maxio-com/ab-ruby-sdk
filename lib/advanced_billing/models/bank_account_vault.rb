@@ -4,23 +4,33 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # The vault that stores the payment profile with the provided vault_token.
+  # The vault that stores the payment profile with the provided vault_token. Use
+  # `bogus` for testing.
   class BankAccountVault
     BANK_ACCOUNT_VAULT = [
-      # TODO: Write general description for BOGUS
-      BOGUS = 'bogus'.freeze,
-
       # TODO: Write general description for AUTHORIZENET
       AUTHORIZENET = 'authorizenet'.freeze,
 
-      # TODO: Write general description for STRIPE_CONNECT
-      STRIPE_CONNECT = 'stripe_connect'.freeze,
+      # TODO: Write general description for BLUE_SNAP
+      BLUE_SNAP = 'blue_snap'.freeze,
 
-      # TODO: Write general description for BRAINTREE_BLUE
-      BRAINTREE_BLUE = 'braintree_blue'.freeze,
+      # TODO: Write general description for BOGUS
+      BOGUS = 'bogus'.freeze,
+
+      # TODO: Write general description for FORTE
+      FORTE = 'forte'.freeze,
 
       # TODO: Write general description for GOCARDLESS
-      GOCARDLESS = 'gocardless'.freeze
+      GOCARDLESS = 'gocardless'.freeze,
+
+      # TODO: Write general description for MAXIO_PAYMENTS
+      MAXIO_PAYMENTS = 'maxio_payments'.freeze,
+
+      # TODO: Write general description for MAXP
+      MAXP = 'maxp'.freeze,
+
+      # TODO: Write general description for STRIPE_CONNECT
+      STRIPE_CONNECT = 'stripe_connect'.freeze
     ].freeze
 
     def self.validate(value)

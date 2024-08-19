@@ -31,12 +31,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupSignupResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionGroupSignupErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionGroupSignupResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionGroupSignupErrorResponseException))
         .execute
     end
 
@@ -55,12 +55,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionGroupCreateErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionGroupResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionGroupCreateErrorResponseException))
         .execute
     end
 
@@ -98,8 +98,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListSubscriptionGroupsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListSubscriptionGroupsResponse.method(:from_hash)))
         .execute
     end
 
@@ -129,8 +129,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash)))
         .execute
     end
 
@@ -159,12 +159,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionGroupUpdateErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionGroupResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionGroupUpdateErrorResponseException))
         .execute
     end
 
@@ -184,18 +184,18 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeleteSubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeleteSubscriptionGroupResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
     # Use this endpoint to find subscription group associated with subscription.
     # If the subscription is not in a group endpoint will return 404 code.
-    # @param [String] subscription_id Required parameter: The Chargify id of the
-    # subscription associated with the subscription group
+    # @param [String] subscription_id Required parameter: The Advanced Billing
+    # id of the subscription associated with the subscription group
     # @return [FullSubscriptionGroupResponse] response from the API call
     def find_subscription_group(subscription_id)
       new_api_call_builder
@@ -207,20 +207,20 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FullSubscriptionGroupResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
     # For sites making use of the [Relationship
-    # Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and
-    # [Customer
-    # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
-    # features, it is possible to add existing subscriptions to subscription
-    # groups.
+    # Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanc
+    # ed-Billing-Invoices-Overview) and [Customer
+    # Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Cust
+    # omer-Hierarchies-WhoPays#customer-hierarchies) features, it is possible to
+    # add existing subscriptions to subscription groups.
     # Passing `group` parameters with a `target` containing a `type` and
     # optional `id` is all that's needed. When the `target` parameter specifies
     # a `"customer"` or `"subscription"` that is already part of a hierarchy,
@@ -264,17 +264,17 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionGroupResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionGroupResponse.method(:from_hash)))
         .execute
     end
 
     # For sites making use of the [Relationship
-    # Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and
-    # [Customer
-    # Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
-    # features, it is possible to remove existing subscription from subscription
-    # group.
+    # Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanc
+    # ed-Billing-Invoices-Overview) and [Customer
+    # Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Cust
+    # omer-Hierarchies-WhoPays#customer-hierarchies) features, it is possible to
+    # remove existing subscription from subscription group.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @return [void] response from the API call
@@ -288,14 +288,14 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
   end

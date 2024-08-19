@@ -48,11 +48,11 @@ def list_products_for_product_family(options = {})
 
 ```ruby
 collect = {
-  'product_family_id': 'product_family_id4',
-  'page': 2,
-  'per_page': 50,
-  'date_field': BasicDateField::UPDATED_AT,
-  'include': ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
+  'product_family_id' => 'product_family_id4',
+  'page' => 2,
+  'per_page' => 50,
+  'date_field' => BasicDateField::UPDATED_AT,
+  'include' => ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
 }
 
 result = product_families_controller.list_products_for_product_family(collect)
@@ -166,9 +166,9 @@ result = product_families_controller.list_products_for_product_family(collect)
 
 # Create Product Family
 
-This method will create a Product Family within your Chargify site. Create a Product Family to act as a container for your products, components and coupons.
+This method will create a Product Family within your Advanced Billing site. Create a Product Family to act as a container for your products, components and coupons.
 
-Full documentation on how Product Families operate within the Chargify UI can be located [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405369633421).
+Full documentation on how Product Families operate within the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
 
 ```ruby
 def create_product_family(body: nil)
@@ -244,7 +244,7 @@ def list_product_families(options = {})
 
 ```ruby
 collect = {
-  'date_field': BasicDateField::UPDATED_AT
+  'date_field' => BasicDateField::UPDATED_AT
 }
 
 result = product_families_controller.list_product_families(collect)
@@ -294,7 +294,7 @@ def read_product_family(id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `Integer` | Template, Required | The Chargify id of the product family |
+| `id` | `Integer` | Template, Required | The Advanced Billing id of the product family |
 
 ## Response Type
 

@@ -171,9 +171,9 @@ def list_subscription_groups(options = {})
 
 ```ruby
 collect = {
-  'page': 2,
-  'per_page': 50,
-  'include': [
+  'page' => 2,
+  'per_page' => 50,
+  'include' => [
     SubscriptionGroupsListInclude::ACCOUNT_BALANCES
   ]
 }
@@ -429,7 +429,7 @@ def find_subscription_group(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `String` | Query, Required | The Chargify id of the subscription associated with the subscription group |
+| `subscription_id` | `String` | Query, Required | The Advanced Billing id of the subscription associated with the subscription group |
 
 ## Response Type
 
@@ -493,7 +493,7 @@ result = subscription_groups_controller.find_subscription_group(subscription_id)
 
 # Add Subscription to Group
 
-For sites making use of the [Relationship Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and [Customer Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291) features, it is possible to add existing subscriptions to subscription groups.
+For sites making use of the [Relationship Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview) and [Customer Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies) features, it is possible to add existing subscriptions to subscription groups.
 
 Passing `group` parameters with a `target` containing a `type` and optional `id` is all that's needed. When the `target` parameter specifies a `"customer"` or `"subscription"` that is already part of a hierarchy, the subscription will become a member of the customer's subscription group.  If the target customer or subscription is not part of a subscription group, a new group will be created and the subscription will become part of the group with the specified target customer set as the responsible payer for the group's subscriptions.
 
@@ -574,7 +574,7 @@ result = subscription_groups_controller.add_subscription_to_group(
 
 # Remove Subscription From Group
 
-For sites making use of the [Relationship Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and [Customer Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291) features, it is possible to remove existing subscription from subscription group.
+For sites making use of the [Relationship Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview) and [Customer Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies) features, it is possible to remove existing subscription from subscription group.
 
 ```ruby
 def remove_subscription_from_group(subscription_id)

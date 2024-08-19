@@ -88,10 +88,10 @@ def list_prepayments_for_subscription_group(options = {})
 
 ```ruby
 collect = {
-  'uid': 'uid0',
-  'page': 2,
-  'per_page': 50,
-  'filter': ListPrepaymentsFilter.new(
+  'uid' => 'uid0',
+  'page' => 2,
+  'per_page' => 50,
+  'filter' => ListPrepaymentsFilter.new(
     date_field: ListPrepaymentDateField::CREATED_AT,
     start_date: Date.iso8601('2024-01-01'),
     end_date: Date.iso8601('2024-01-31')

@@ -9,22 +9,22 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # (Optional) Token received after sending billing informations using
+    # (Optional) Token received after sending billing information using
     # chargify.js. This token must be passed as a sole attribute of
     # `payment_profile_attributes` (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [String]
     attr_accessor :chargify_token
 
-    # (Optional) Token received after sending billing informations using
+    # (Optional) Token received after sending billing information using
     # chargify.js. This token must be passed as a sole attribute of
     # `payment_profile_attributes` (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [Integer]
     attr_accessor :id
 
-    # (Optional) Token received after sending billing informations using
+    # (Optional) Token received after sending billing information using
     # chargify.js. This token must be passed as a sole attribute of
     # `payment_profile_attributes` (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
-    # @return [String]
+    # @return [PaymentType]
     attr_accessor :payment_type
 
     # (Optional) First name on card or bank account. If omitted, the first_name
@@ -108,7 +108,7 @@ module AdvancedBilling
 
     # (Optional, used only for Subscription Import) The vault that stores the
     # payment profile with the provided vault_token.
-    # @return [CurrentVault]
+    # @return [AllVaults]
     attr_accessor :current_vault
 
     # (Optional, used only for Subscription Import) The “token” provided by your
