@@ -6,16 +6,13 @@
 module AdvancedBilling
   # The vault that stores the payment profile with the provided `vault_token`.
   # Use `bogus` for testing.
-  class CurrentVault
-    CURRENT_VAULT = [
+  class AllVaults
+    ALL_VAULTS = [
       # TODO: Write general description for ADYEN
       ADYEN = 'adyen'.freeze,
 
       # TODO: Write general description for AUTHORIZENET
       AUTHORIZENET = 'authorizenet'.freeze,
-
-      # TODO: Write general description for AVALARA
-      AVALARA = 'avalara'.freeze,
 
       # TODO: Write general description for BEANSTREAM
       BEANSTREAM = 'beanstream'.freeze,
@@ -25,6 +22,9 @@ module AdvancedBilling
 
       # TODO: Write general description for BOGUS
       BOGUS = 'bogus'.freeze,
+
+      # TODO: Write general description for BRAINTREE1
+      BRAINTREE1 = 'braintree1'.freeze,
 
       # TODO: Write general description for BRAINTREE_BLUE
       BRAINTREE_BLUE = 'braintree_blue'.freeze,
@@ -40,6 +40,9 @@ module AdvancedBilling
 
       # TODO: Write general description for EWAY
       EWAY = 'eway'.freeze,
+
+      # TODO: Write general description for EWAY_RAPID
+      EWAY_RAPID = 'eway_rapid'.freeze,
 
       # TODO: Write general description for EWAY_RAPID_STD
       EWAY_RAPID_STD = 'eway_rapid_std'.freeze,
@@ -59,6 +62,9 @@ module AdvancedBilling
       # TODO: Write general description for MAXIO_PAYMENTS
       MAXIO_PAYMENTS = 'maxio_payments'.freeze,
 
+      # TODO: Write general description for MAXP
+      MAXP = 'maxp'.freeze,
+
       # TODO: Write general description for MODUSLINK
       MODUSLINK = 'moduslink'.freeze,
 
@@ -74,11 +80,23 @@ module AdvancedBilling
       # TODO: Write general description for PAYMENT_EXPRESS
       PAYMENT_EXPRESS = 'payment_express'.freeze,
 
+      # TODO: Write general description for PAYMILL
+      PAYMILL = 'paymill'.freeze,
+
+      # TODO: Write general description for PAYPAL
+      PAYPAL = 'paypal'.freeze,
+
+      # TODO: Write general description for PAYPAL_COMPLETE
+      PAYPAL_COMPLETE = 'paypal_complete'.freeze,
+
       # TODO: Write general description for PIN
       PIN = 'pin'.freeze,
 
       # TODO: Write general description for SQUARE
       SQUARE = 'square'.freeze,
+
+      # TODO: Write general description for STRIPE
+      STRIPE = 'stripe'.freeze,
 
       # TODO: Write general description for STRIPE_CONNECT
       STRIPE_CONNECT = 'stripe_connect'.freeze,
@@ -87,13 +105,16 @@ module AdvancedBilling
       TRUST_COMMERCE = 'trust_commerce'.freeze,
 
       # TODO: Write general description for UNIPAAS
-      UNIPAAS = 'unipaas'.freeze
+      UNIPAAS = 'unipaas'.freeze,
+
+      # TODO: Write general description for WIRECARD
+      WIRECARD = 'wirecard'.freeze
     ].freeze
 
     def self.validate(value)
       return false if value.nil?
 
-      CURRENT_VAULT.include?(value)
+      ALL_VAULTS.include?(value)
     end
   end
 end

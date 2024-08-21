@@ -20,10 +20,10 @@ products_controller = client.products
 
 # Create Product
 
-Use this method to create a product within your Chargify site.
+Use this method to create a product within your Advanced Billing site.
 
-+ [Products Documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405561405709)
-+ [Changing a Subscription's Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404225334669-Product-Changes-Migrations)
++ [Products Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
++ [Changing a Subscription's Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations)
 
 ```ruby
 def create_product(product_family_id,
@@ -125,7 +125,7 @@ result = products_controller.create_product(
 
 # Read Product
 
-This endpoint allows you to read the current details of a product that you've created in Chargify.
+This endpoint allows you to read the current details of a product that you've created in Advanced Billing.
 
 ```ruby
 def read_product(product_id)
@@ -135,7 +135,7 @@ def read_product(product_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | `Integer` | Template, Required | The Chargify id of the product |
+| `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
 
@@ -214,7 +214,7 @@ def update_product(product_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | `Integer` | Template, Required | The Chargify id of the product |
+| `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product |
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -298,7 +298,7 @@ def archive_product(product_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_id` | `Integer` | Template, Required | The Chargify id of the product |
+| `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
 
@@ -488,11 +488,11 @@ def list_products(options = {})
 
 ```ruby
 collect = {
-  'date_field': BasicDateField::UPDATED_AT,
-  'page': 2,
-  'per_page': 50,
-  'include_archived': true,
-  'include': ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
+  'date_field' => BasicDateField::UPDATED_AT,
+  'page' => 2,
+  'per_page' => 50,
+  'include_archived' => true,
+  'include' => ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
 }
 
 result = products_controller.list_products(collect)

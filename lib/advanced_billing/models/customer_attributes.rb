@@ -101,6 +101,10 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :parent_id
 
+    # (Optional) The Salesforce ID of the customer.
+    # @return [String]
+    attr_accessor :salesforce_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -122,6 +126,7 @@ module AdvancedBilling
       @_hash['vat_number'] = 'vat_number'
       @_hash['metafields'] = 'metafields'
       @_hash['parent_id'] = 'parent_id'
+      @_hash['salesforce_id'] = 'salesforce_id'
       @_hash
     end
 
@@ -146,6 +151,7 @@ module AdvancedBilling
         vat_number
         metafields
         parent_id
+        salesforce_id
       ]
     end
 
@@ -154,6 +160,7 @@ module AdvancedBilling
       %w[
         address_2
         parent_id
+        salesforce_id
       ]
     end
 
@@ -162,7 +169,8 @@ module AdvancedBilling
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, phone: SKIP, verified: SKIP,
                    tax_exempt: SKIP, vat_number: SKIP, metafields: SKIP,
-                   parent_id: SKIP, additional_properties: {})
+                   parent_id: SKIP, salesforce_id: SKIP,
+                   additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -181,6 +189,7 @@ module AdvancedBilling
       @vat_number = vat_number unless vat_number == SKIP
       @metafields = metafields unless metafields == SKIP
       @parent_id = parent_id unless parent_id == SKIP
+      @salesforce_id = salesforce_id unless salesforce_id == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -211,6 +220,7 @@ module AdvancedBilling
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
+      salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -234,6 +244,7 @@ module AdvancedBilling
                              vat_number: vat_number,
                              metafields: metafields,
                              parent_id: parent_id,
+                             salesforce_id: salesforce_id,
                              additional_properties: hash)
     end
 

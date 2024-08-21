@@ -13,19 +13,20 @@ module AdvancedBilling
     # identifier for the customer from your own app, i.e. the customer’s ID.
     # This allows you to retrieve a given customer via a piece of shared
     # information. Alternatively, you may choose to leave `reference` blank, and
-    # store Chargify’s unique ID for the customer, which is in the `id`
+    # store Advanced Billing’s unique ID for the customer, which is in the `id`
     # attribute.
     # Full documentation on how to locate, create and edit Customers in the
-    # Chargify UI can be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407659914267).
+    # Advanced Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24252190590093-Customer
+    # -Details).
     # ## Required Country Format
-    # Chargify requires that you use the ISO Standard Country codes when
+    # Advanced Billing requires that you use the ISO Standard Country codes when
     # formatting country attribute of the customer.
     # Countries should be formatted as 2 characters. For more information,
     # please see the following wikipedia article on
     # [ISO_3166-1.](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes)
     # ## Required State Format
-    # Chargify requires that you use the ISO Standard State codes when
+    # Advanced Billing requires that you use the ISO Standard State codes when
     # formatting state attribute of the customer.
     # + US States (2 characters):
     # [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2:US)
@@ -35,11 +36,11 @@ module AdvancedBilling
     # click on the link in the “ISO 3166-2 codes” column next to country you
     # wish to populate.
     # ## Locale
-    # Chargify allows you to attribute a language/region to your customer to
-    # deliver invoices in any required language.
+    # Advanced Billing allows you to attribute a language/region to your
+    # customer to deliver invoices in any required language.
     # For more: [Customer
-    # Locale](https://chargify.zendesk.com/hc/en-us/articles/4407870384283#custo
-    # mer-locale)
+    # Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672013709-Custome
+    # r-Locale)
     # @param [CreateCustomerRequest] body Optional parameter: Example:
     # @return [CustomerResponse] response from the API call
     def create_customer(body: nil)
@@ -53,12 +54,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         CustomerErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          CustomerErrorResponseException))
         .execute
     end
 
@@ -68,7 +69,7 @@ module AdvancedBilling
     # of customers that matches the search query.
     # Common use cases are:
     # + Search by an email
-    # + Search by a Chargify ID
+    # + Search by an Advanced Billing ID
     # + Search by an organization
     # + Search by a reference value from your application
     # + Search by a first or last name
@@ -129,15 +130,16 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
-    # This method allows to retrieve the Customer properties by
-    # Chargify-generated Customer ID.
-    # @param [Integer] id Required parameter: The Chargify id of the customer
+    # This method allows to retrieve the Customer properties by Advanced
+    # Billing-generated Customer ID.
+    # @param [Integer] id Required parameter: The Advanced Billing id of the
+    # customer
     # @return [CustomerResponse] response from the API call
     def read_customer(id)
       new_api_call_builder
@@ -150,13 +152,14 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerResponse.method(:from_hash)))
         .execute
     end
 
     # This method allows to update the Customer.
-    # @param [Integer] id Required parameter: The Chargify id of the customer
+    # @param [Integer] id Required parameter: The Advanced Billing id of the
+    # customer
     # @param [UpdateCustomerRequest] body Optional parameter: Example:
     # @return [CustomerResponse] response from the API call
     def update_customer(id,
@@ -174,20 +177,21 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         CustomerErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          CustomerErrorResponseException))
         .execute
     end
 
     # This method allows you to delete the Customer.
-    # @param [Integer] id Required parameter: The Chargify id of the customer
+    # @param [Integer] id Required parameter: The Advanced Billing id of the
+    # customer
     # @return [void] response from the API call
     def delete_customer(id)
       new_api_call_builder
@@ -199,7 +203,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
@@ -217,8 +221,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerResponse.method(:from_hash)))
         .execute
     end
 
@@ -237,9 +241,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
   end

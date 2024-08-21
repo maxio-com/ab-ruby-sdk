@@ -76,8 +76,8 @@ module AdvancedBilling
     attr_accessor :expiration_interval
 
     # A string representing the expiration interval unit for this product price
-    # point, either month or day
-    # @return [IntervalUnit]
+    # point, either month, day or never
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # The product id this price point belongs to

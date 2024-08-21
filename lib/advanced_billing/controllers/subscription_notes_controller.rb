@@ -12,9 +12,10 @@ module AdvancedBilling
     # free text format.
     # If you have structured data such as birth date, color, etc., consider
     # using Metadata instead.
-    # Full documentation on how to use Notes in the Chargify UI can be located
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404434903181-
-    # Subscription-Summary#notes).
+    # Full documentation on how to use Notes in the Advanced Billing UI can be
+    # located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24251712214413-Subscrip
+    # tion-Summary-Overview).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: Example:
@@ -34,8 +35,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
         .execute
     end
 
@@ -68,9 +69,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionNoteResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionNoteResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -78,7 +79,8 @@ module AdvancedBilling
     # method to show a particular note attached to a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] note_id Required parameter: The Chargify id of the note
+    # @param [Integer] note_id Required parameter: The Advanced Billing id of
+    # the note
     # @return [SubscriptionNoteResponse] response from the API call
     def read_subscription_note(subscription_id,
                                note_id)
@@ -95,15 +97,16 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
         .execute
     end
 
     # Use the following method to update a note for a Subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] note_id Required parameter: The Chargify id of the note
+    # @param [Integer] note_id Required parameter: The Advanced Billing id of
+    # the note
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: Example:
     # @return [SubscriptionNoteResponse] response from the API call
     def update_subscription_note(subscription_id,
@@ -125,15 +128,16 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionNoteResponse.method(:from_hash)))
         .execute
     end
 
     # Use the following method to delete a note for a Subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] note_id Required parameter: The Chargify id of the note
+    # @param [Integer] note_id Required parameter: The Advanced Billing id of
+    # the note
     # @return [void] response from the API call
     def delete_subscription_note(subscription_id,
                                  note_id)
@@ -149,7 +153,7 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
   end

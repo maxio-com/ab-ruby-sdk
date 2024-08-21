@@ -7,13 +7,14 @@ module AdvancedBilling
   # EventsController
   class EventsController < BaseController
     # ## Events Intro
-    # Chargify Events include various activity that happens around a Site. This
-    # information is **especially** useful to track down issues that arise when
-    # subscriptions are not created due to errors.
-    # Within the Chargify UI, "Events" are referred to as "Site Activity".  Full
-    # documentation on how to record view Events / Site Activty in the Chargify
-    # UI can be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407864698139).
+    # Advanced Billing Events include various activity that happens around a
+    # Site. This information is **especially** useful to track down issues that
+    # arise when subscriptions are not created due to errors.
+    # Within the Advanced Billing UI, "Events" are referred to as "Site
+    # Activity".  Full documentation on how to record view Events / Site Activty
+    # in the Advanced Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-Act
+    # ivity).
     # ## List Events for a Site
     # This method will retrieve a list of events for a site. Use query string
     # filters to narrow down results. You may use the `key` filter as part of
@@ -126,9 +127,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EventResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(EventResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -175,9 +176,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EventResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(EventResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -218,8 +219,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CountResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CountResponse.method(:from_hash)))
         .execute
     end
   end

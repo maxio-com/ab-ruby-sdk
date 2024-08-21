@@ -147,8 +147,8 @@ module AdvancedBilling
 
     # An array of origin invoices for the credit note. Learn more about [Origin
     # Invoice from our
-    # docs](https://chargify.zendesk.com/hc/en-us/articles/4407753036699#origin-
-    # invoices)
+    # docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-No
+    # tes-Proration#origin-invoices)
     # @return [Array[OriginInvoice]]
     attr_accessor :origin_invoices
 

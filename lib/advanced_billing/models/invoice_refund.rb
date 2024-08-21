@@ -41,6 +41,10 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :gateway_handle
 
+    # The transaction ID for the refund as returned from the payment gateway
+    # @return [TrueClass | FalseClass]
+    attr_accessor :ach_late_reject
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -52,6 +56,7 @@ module AdvancedBilling
       @_hash['gateway_transaction_id'] = 'gateway_transaction_id'
       @_hash['gateway_used'] = 'gateway_used'
       @_hash['gateway_handle'] = 'gateway_handle'
+      @_hash['ach_late_reject'] = 'ach_late_reject'
       @_hash
     end
 
@@ -66,6 +71,7 @@ module AdvancedBilling
         gateway_transaction_id
         gateway_used
         gateway_handle
+        ach_late_reject
       ]
     end
 
@@ -74,13 +80,15 @@ module AdvancedBilling
       %w[
         gateway_transaction_id
         gateway_handle
+        ach_late_reject
       ]
     end
 
     def initialize(transaction_id: SKIP, payment_id: SKIP, memo: SKIP,
                    original_amount: SKIP, applied_amount: SKIP,
                    gateway_transaction_id: SKIP, gateway_used: SKIP,
-                   gateway_handle: SKIP, additional_properties: {})
+                   gateway_handle: SKIP, ach_late_reject: SKIP,
+                   additional_properties: {})
       @transaction_id = transaction_id unless transaction_id == SKIP
       @payment_id = payment_id unless payment_id == SKIP
       @memo = memo unless memo == SKIP
@@ -89,6 +97,7 @@ module AdvancedBilling
       @gateway_transaction_id = gateway_transaction_id unless gateway_transaction_id == SKIP
       @gateway_used = gateway_used unless gateway_used == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
+      @ach_late_reject = ach_late_reject unless ach_late_reject == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -114,6 +123,8 @@ module AdvancedBilling
       gateway_used = hash.key?('gateway_used') ? hash['gateway_used'] : SKIP
       gateway_handle =
         hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
+      ach_late_reject =
+        hash.key?('ach_late_reject') ? hash['ach_late_reject'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -127,6 +138,7 @@ module AdvancedBilling
                         gateway_transaction_id: gateway_transaction_id,
                         gateway_used: gateway_used,
                         gateway_handle: gateway_handle,
+                        ach_late_reject: ach_late_reject,
                         additional_properties: hash)
     end
 

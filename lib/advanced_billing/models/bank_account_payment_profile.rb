@@ -29,6 +29,7 @@ module AdvancedBilling
     attr_accessor :customer_id
 
     # The vault that stores the payment profile with the provided vault_token.
+    # Use `bogus` for testing.
     # @return [BankAccountVault]
     attr_accessor :current_vault
 
@@ -153,9 +154,9 @@ module AdvancedBilling
         customer_vault_token
         billing_address_2
         bank_name
+        masked_bank_routing_number
         bank_account_type
         bank_account_holder_type
-        payment_type
         verified
         site_gateway_setting_id
         gateway_handle
@@ -177,15 +178,16 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(masked_bank_routing_number:, masked_bank_account_number:,
-                   id: SKIP, first_name: SKIP, last_name: SKIP,
-                   customer_id: SKIP, current_vault: SKIP, vault_token: SKIP,
+    def initialize(masked_bank_account_number:,
+                   payment_type: PaymentType::BANK_ACCOUNT, id: SKIP,
+                   first_name: SKIP, last_name: SKIP, customer_id: SKIP,
+                   current_vault: SKIP, vault_token: SKIP,
                    billing_address: SKIP, billing_city: SKIP,
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, customer_vault_token: SKIP,
                    billing_address_2: SKIP, bank_name: SKIP,
-                   bank_account_type: SKIP, bank_account_holder_type: SKIP,
-                   payment_type: SKIP, verified: false,
+                   masked_bank_routing_number: SKIP, bank_account_type: SKIP,
+                   bank_account_holder_type: SKIP, verified: false,
                    site_gateway_setting_id: SKIP, gateway_handle: SKIP,
                    additional_properties: {})
       @id = id unless id == SKIP
@@ -202,11 +204,14 @@ module AdvancedBilling
       @customer_vault_token = customer_vault_token unless customer_vault_token == SKIP
       @billing_address_2 = billing_address_2 unless billing_address_2 == SKIP
       @bank_name = bank_name unless bank_name == SKIP
-      @masked_bank_routing_number = masked_bank_routing_number
+      unless masked_bank_routing_number == SKIP
+        @masked_bank_routing_number =
+          masked_bank_routing_number
+      end
       @masked_bank_account_number = masked_bank_account_number
       @bank_account_type = bank_account_type unless bank_account_type == SKIP
       @bank_account_holder_type = bank_account_holder_type unless bank_account_holder_type == SKIP
-      @payment_type = payment_type unless payment_type == SKIP
+      @payment_type = payment_type
       @verified = verified unless verified == SKIP
       @site_gateway_setting_id = site_gateway_setting_id unless site_gateway_setting_id == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
@@ -222,10 +227,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      masked_bank_routing_number =
-        hash.key?('masked_bank_routing_number') ? hash['masked_bank_routing_number'] : nil
       masked_bank_account_number =
         hash.key?('masked_bank_account_number') ? hash['masked_bank_account_number'] : nil
+      payment_type = hash['payment_type'] ||= PaymentType::BANK_ACCOUNT
       id = hash.key?('id') ? hash['id'] : SKIP
       first_name = hash.key?('first_name') ? hash['first_name'] : SKIP
       last_name = hash.key?('last_name') ? hash['last_name'] : SKIP
@@ -244,11 +248,12 @@ module AdvancedBilling
       billing_address_2 =
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
       bank_name = hash.key?('bank_name') ? hash['bank_name'] : SKIP
+      masked_bank_routing_number =
+        hash.key?('masked_bank_routing_number') ? hash['masked_bank_routing_number'] : SKIP
       bank_account_type =
         hash.key?('bank_account_type') ? hash['bank_account_type'] : SKIP
       bank_account_holder_type =
         hash.key?('bank_account_holder_type') ? hash['bank_account_holder_type'] : SKIP
-      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       verified = hash['verified'] ||= false
       site_gateway_setting_id =
         hash.key?('site_gateway_setting_id') ? hash['site_gateway_setting_id'] : SKIP
@@ -259,8 +264,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      BankAccountPaymentProfile.new(masked_bank_routing_number: masked_bank_routing_number,
-                                    masked_bank_account_number: masked_bank_account_number,
+      BankAccountPaymentProfile.new(masked_bank_account_number: masked_bank_account_number,
+                                    payment_type: payment_type,
                                     id: id,
                                     first_name: first_name,
                                     last_name: last_name,
@@ -275,9 +280,9 @@ module AdvancedBilling
                                     customer_vault_token: customer_vault_token,
                                     billing_address_2: billing_address_2,
                                     bank_name: bank_name,
+                                    masked_bank_routing_number: masked_bank_routing_number,
                                     bank_account_type: bank_account_type,
                                     bank_account_holder_type: bank_account_holder_type,
-                                    payment_type: payment_type,
                                     verified: verified,
                                     site_gateway_setting_id: site_gateway_setting_id,
                                     gateway_handle: gateway_handle,
@@ -289,20 +294,20 @@ module AdvancedBilling
     def self.validate(value)
       if value.instance_of? self
         return (
-          APIHelper.valid_type?(value.masked_bank_routing_number,
+          APIHelper.valid_type?(value.masked_bank_account_number,
                                 ->(val) { val.instance_of? String }) and
-            APIHelper.valid_type?(value.masked_bank_account_number,
-                                  ->(val) { val.instance_of? String })
+            APIHelper.valid_type?(value.payment_type,
+                                  ->(val) { PaymentType.validate(val) })
         )
       end
 
       return false unless value.instance_of? Hash
 
       (
-        APIHelper.valid_type?(value['masked_bank_routing_number'],
+        APIHelper.valid_type?(value['masked_bank_account_number'],
                               ->(val) { val.instance_of? String }) and
-          APIHelper.valid_type?(value['masked_bank_account_number'],
-                                ->(val) { val.instance_of? String })
+          APIHelper.valid_type?(value['payment_type'],
+                                ->(val) { PaymentType.validate(val) })
       )
     end
   end

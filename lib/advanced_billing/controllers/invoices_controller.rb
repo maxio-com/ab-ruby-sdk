@@ -32,12 +32,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -148,8 +148,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListInvoicesResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListInvoicesResponse.method(:from_hash)))
         .execute
     end
 
@@ -179,8 +179,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash)))
         .execute
     end
 
@@ -253,8 +253,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListInvoiceEventsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListInvoiceEventsResponse.method(:from_hash)))
         .execute
     end
 
@@ -299,12 +299,12 @@ module AdvancedBilling
     #   }
     # }
     # ```
-    # Note that Chargify will attempt to fully pay the invoice's `due_amount`
-    # from the Subscription's Service Credit account. At this time, partial
-    # payments from a Service Credit Account are only allowed for consolidated
-    # invoices (subscription groups). Therefore, for normal invoices the Service
-    # Credit account balance must be greater than or equal to the invoice's
-    # `due_amount`.
+    # Note that Advanced Billing will attempt to fully pay the invoice's
+    # `due_amount` from the Subscription's Service Credit account. At this time,
+    # partial payments from a Service Credit Account are only allowed for
+    # consolidated invoices (subscription groups). Therefore, for normal
+    # invoices the Service Credit account balance must be greater than or equal
+    # to the invoice's `due_amount`.
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [CreateInvoicePaymentRequest] body Optional parameter: Example:
@@ -324,12 +324,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -373,12 +373,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(MultiInvoicePaymentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(MultiInvoicePaymentResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -389,7 +389,7 @@ module AdvancedBilling
     # `refunds`. To include these arrays, pass the specific field as a key in
     # the query with a value set to `true`.
     # @param [Integer] subscription_id Optional parameter: The subscription's
-    # Chargify id
+    # Advanced Billing id
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -428,8 +428,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListCreditNotesResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListCreditNotesResponse.method(:from_hash)))
         .execute
     end
 
@@ -448,8 +448,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CreditNote.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CreditNote.method(:from_hash)))
         .execute
     end
 
@@ -480,12 +480,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RecordPaymentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(RecordPaymentResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -521,15 +521,15 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -555,15 +555,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -600,8 +600,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConsolidatedInvoice.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConsolidatedInvoice.method(:from_hash)))
         .execute
     end
 
@@ -788,12 +788,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(InvoiceResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorArrayMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(InvoiceResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -829,11 +829,11 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .is_response_void(true)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -857,15 +857,15 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CustomerChangesPreviewResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         ErrorListResponseException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CustomerChangesPreviewResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          ErrorListResponseException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -889,15 +889,15 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         ErrorListResponseException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          ErrorListResponseException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -947,15 +947,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
   end

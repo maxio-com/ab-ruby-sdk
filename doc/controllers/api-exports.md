@@ -47,9 +47,9 @@ def list_exported_proforma_invoices(options = {})
 
 ```ruby
 collect = {
-  'batch_id': 'batch_id8',
-  'per_page': 100,
-  'page': 2
+  'batch_id' => 'batch_id8',
+  'per_page' => 100,
+  'page' => 2
 }
 
 result = api_exports_controller.list_exported_proforma_invoices(collect)
@@ -88,9 +88,9 @@ def list_exported_invoices(options = {})
 
 ```ruby
 collect = {
-  'batch_id': 'batch_id8',
-  'per_page': 100,
-  'page': 2
+  'batch_id' => 'batch_id8',
+  'per_page' => 100,
+  'page' => 2
 }
 
 result = api_exports_controller.list_exported_invoices(collect)
@@ -129,9 +129,9 @@ def list_exported_subscriptions(options = {})
 
 ```ruby
 collect = {
-  'batch_id': 'batch_id8',
-  'per_page': 100,
-  'page': 2
+  'batch_id' => 'batch_id8',
+  'per_page' => 100,
+  'page' => 2
 }
 
 result = api_exports_controller.list_exported_subscriptions(collect)

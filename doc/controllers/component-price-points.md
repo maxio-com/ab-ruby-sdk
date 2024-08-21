@@ -27,7 +27,7 @@ component_price_points_controller = client.component_price_points
 
 Sets a new default price point for the component. This new default will apply to all new subscriptions going forward - existing subscriptions will remain on their current price point.
 
-See [Price Points Documentation](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-points) for more information on price points and moving subscriptions between price points.
+See [Price Points Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Points-Components) for more information on price points and moving subscriptions between price points.
 
 Note: Custom price points are not able to be set as the default for a component.
 
@@ -40,8 +40,8 @@ def promote_component_price_point_to_default(component_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
+| `component_id` | `Integer` | Template, Required | The Advanced Billing id of the component to which the price point belongs |
+| `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
 
@@ -107,7 +107,7 @@ def create_component_price_point(component_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component |
+| `component_id` | `Integer` | Template, Required | The Advanced Billing id of the component |
 | `body` | [`CreateComponentPricePointRequest`](../../doc/models/create-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -164,7 +164,7 @@ def list_component_price_points(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component |
+| `component_id` | `Integer` | Template, Required | The Advanced Billing id of the component |
 | `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | Include an array of currency price data |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
@@ -178,9 +178,9 @@ def list_component_price_points(options = {})
 
 ```ruby
 Liquid error: Value cannot be null. (Parameter 'key')collect = {
-  'component_id': 222,
-  'page': 2,
-  'per_page': 50
+  'component_id' => 222,
+  'page' => 2,
+  'per_page' => 50
 }
 
 result = component_price_points_controller.list_component_price_points(collect)
@@ -249,7 +249,7 @@ def bulk_create_component_price_points(component_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `component_id` | `String` | Template, Required | The Chargify id of the component for which you want to fetch price points. |
+| `component_id` | `String` | Template, Required | The Advanced Billing id of the component for which you want to fetch price points. |
 | `body` | [`CreateComponentPricePointsRequest`](../../doc/models/create-component-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -546,8 +546,8 @@ def unarchive_component_price_point(component_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `component_id` | `Integer` | Template, Required | The Chargify id of the component to which the price point belongs |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
+| `component_id` | `Integer` | Template, Required | The Advanced Billing id of the component to which the price point belongs |
+| `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
 
@@ -618,7 +618,7 @@ def create_currency_prices(price_point_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
+| `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the price point |
 | `body` | [`CreateCurrencyPricesRequest`](../../doc/models/create-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -690,7 +690,7 @@ def update_currency_prices(price_point_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `price_point_id` | `Integer` | Template, Required | The Chargify id of the price point |
+| `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the price point |
 | `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -771,10 +771,10 @@ def list_all_component_price_points(options = {})
 
 ```ruby
 collect = {
-  'include': ListComponentsPricePointsInclude::CURRENCY_PRICES,
-  'page': 2,
-  'per_page': 50,
-  'filter': ListPricePointsFilter.new(
+  'include' => ListComponentsPricePointsInclude::CURRENCY_PRICES,
+  'page' => 2,
+  'per_page' => 50,
+  'filter' => ListPricePointsFilter.new(
     start_date: Date.iso8601('2011-12-17'),
     end_date: Date.iso8601('2011-12-15'),
     start_datetime: DateTimeHelper.from_rfc3339('12/19/2011 09:15:30'),

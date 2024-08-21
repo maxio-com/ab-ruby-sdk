@@ -14,7 +14,10 @@ module AdvancedBilling
       BANK_ACCOUNT = 'bank_account'.freeze,
 
       # TODO: Write general description for PAYPAL_ACCOUNT
-      PAYPAL_ACCOUNT = 'paypal_account'.freeze
+      PAYPAL_ACCOUNT = 'paypal_account'.freeze,
+
+      # TODO: Write general description for APPLE_PAY
+      APPLE_PAY = 'apple_pay'.freeze
     ].freeze
 
     def self.validate(value)

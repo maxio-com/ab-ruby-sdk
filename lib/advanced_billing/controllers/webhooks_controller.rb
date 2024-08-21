@@ -11,21 +11,22 @@ module AdvancedBilling
     # selectively resend individual or groups of webhooks. Webhooks will be sent
     # on endpoints specified by you. Endpoints can be added via API or Web UI.
     # There is also an option to enable / disable webhooks via API request.
-    # We recommend that you review Chargify's webhook documentation located in
-    # our help site. The following resources will help guide you on how to use
-    # webhooks in Chargify, in addition to these webhook endpoints:
+    # We recommend that you review Advanced Billing's webhook documentation
+    # located in our help site. The following resources will help guide you on
+    # how to use webhooks in Advanced Billing, in addition to these webhook
+    # endpoints:
     # + [Adding/editing new
-    # webhooks](https://maxio-chargify.zendesk.com/hc/en-us/articles/54044484503
-    # 17#configure-webhook-url)
+    # webhooks](https://maxio.zendesk.com/hc/en-us/articles/24286723085197-Webho
+    # oks#configure-webhook-url)
     # + [Webhooks introduction and delivery
-    # information](https://maxio-chargify.zendesk.com/hc/en-us/articles/54055680
-    # 68365#webhooks-introduction-0-0)
+    # information](https://maxio.zendesk.com/hc/en-us/articles/24266143173901-We
+    # bhooks-Overview)
     # + [Main webhook
-    # overview](https://maxio-chargify.zendesk.com/hc/en-us/articles/54053575096
-    # 45-Webhooks-Reference#webhooks-reference-0-0)
+    # reference](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webh
+    # ooks-Reference)
     # + [Available webhooks and
-    # payloads](https://maxio-chargify.zendesk.com/hc/en-us/articles/54053575096
-    # 45-Webhooks-Reference#events)
+    # payloads](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webho
+    # oks-Reference#events)
     # ## List Webhooks for a Site
     # This method allows you to fetch data about webhooks. You can pass query
     # parameters if you want to filter webhooks.
@@ -50,8 +51,8 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [WebhookOrder] order Optional parameter: The order in which the
     # Webhooks are returned.
-    # @param [Integer] subscription Optional parameter: The Chargify id of a
-    # subscription you'd like to filter for
+    # @param [Integer] subscription Optional parameter: The Advanced Billing id
+    # of a subscription you'd like to filter for
     # @return [Array[WebhookResponse]] response from the API call
     def list_webhooks(options = {})
       new_api_call_builder
@@ -68,9 +69,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WebhookResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WebhookResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -88,8 +89,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EnableWebhooksResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(EnableWebhooksResponse.method(:from_hash)))
         .execute
     end
 
@@ -111,8 +112,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReplayWebhooksResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReplayWebhooksResponse.method(:from_hash)))
         .execute
     end
 
@@ -120,8 +121,8 @@ module AdvancedBilling
     # webhooks subscriptions (events) to it.
     # You can check available events here.
     # [Event
-    # keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-W
-    # ebhooks-Reference#example-payloads)
+    # keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-
+    # Reference#events)
     # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
     # @return [EndpointResponse] response from the API call
     def create_endpoint(body: nil)
@@ -135,12 +136,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EndpointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(EndpointResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -154,9 +155,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Endpoint.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Endpoint.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -165,15 +166,15 @@ module AdvancedBilling
     # You can change the `url` of your endpoint which consumes webhooks or list
     # of `webhook_subscriptions`.
     # Check available [Event
-    # keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404448450317-W
-    # ebhooks#configure-webhook-url).
+    # keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-
+    # Reference#events).
     # Always send a complete list of events which you want subscribe/watch.
     # Sending an PUT request for existing endpoint with empty list of
     # `webhook_subscriptions` will end with unsubscribe from all events.
     # If you want unsubscribe from specific event, just send a list of
     # `webhook_subscriptions` without the specific event key.
-    # @param [Integer] endpoint_id Required parameter: The Chargify id for the
-    # endpoint that should be updated
+    # @param [Integer] endpoint_id Required parameter: The Advanced Billing id
+    # for the endpoint that should be updated
     # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
     # @return [EndpointResponse] response from the API call
     def update_endpoint(endpoint_id,
@@ -191,15 +192,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EndpointResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(EndpointResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
   end

@@ -24,8 +24,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SiteSummary.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SiteSummary.method(:from_hash)))
         .execute
     end
 
@@ -48,16 +48,16 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(MRRResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(MRRResponse.method(:from_hash)))
         .execute
     end
 
     # This endpoint returns your site's MRR movements.
     # ## Understanding MRR movements
     # This endpoint will aid in accessing your site's [MRR
-    # Report](https://chargify.zendesk.com/hc/en-us/articles/4407838249627)
-    # data.
+    # Report](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-Ana
+    # lytics) data.
     # Whenever a subscription event occurs that causes your site's MRR to change
     # (such as a signup or upgrade), we record an MRR movement. These records
     # are accessible via the MRR Movements endpoint.
@@ -66,9 +66,9 @@ module AdvancedBilling
     # configuration at the time of the movement.
     # ### Plan & Usage Breakouts
     # In the MRR Report UI, we support a setting to [include or
-    # exclude](https://chargify.zendesk.com/hc/en-us/articles/4407838249627#disp
-    # laying-component-based-metered-usage-in-mrr) usage revenue. In the MRR
-    # APIs, responses include `plan` and `usage` breakouts.
+    # exclude](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-An
+    # alytics#displaying-component-based-metered-usage-in-mrr) usage revenue. In
+    # the MRR APIs, responses include `plan` and `usage` breakouts.
     # Plan includes revenue from:
     # * Products
     # * Quantity-Based Components
@@ -105,8 +105,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListMRRResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListMRRResponse.method(:from_hash)))
         .execute
     end
 
@@ -148,12 +148,12 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionMRRResponse.method(:from_hash))
-                   .local_error_template('400',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionsMrrErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionMRRResponse.method(:from_hash))
+                    .local_error_template('400',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionsMrrErrorResponseException))
         .execute
     end
   end

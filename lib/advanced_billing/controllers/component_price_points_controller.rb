@@ -10,15 +10,15 @@ module AdvancedBilling
     # apply to all new subscriptions going forward - existing subscriptions will
     # remain on their current price point.
     # See [Price Points
-    # Documentation](https://chargify.zendesk.com/hc/en-us/articles/440775586588
-    # 3#price-points) for more information on price points and moving
+    # Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-
+    # Price-Points-Components) for more information on price points and moving
     # subscriptions between price points.
     # Note: Custom price points are not able to be set as the default for a
     # component.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Advanced Billing
+    # id of the price point
     # @return [ComponentResponse] response from the API call
     def promote_component_price_point_to_default(component_id,
                                                  price_point_id)
@@ -35,15 +35,15 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash)))
         .execute
     end
 
     # This endpoint can be used to create a new price point for an existing
     # component.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
     # @param [CreateComponentPricePointRequest] body Optional parameter:
     # Example:
     # @return [ComponentPricePointResponse] response from the API call
@@ -62,8 +62,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -78,8 +78,8 @@ module AdvancedBilling
     # If the price point is set to `use_site_exchange_rate: true`, it will
     # return pricing based on the current exchange rate. If the flag is set to
     # false, it will return all of the defined prices for each currency.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
     # @param [TrueClass | FalseClass] currency_prices Optional parameter:
     # Include an array of currency price data
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -112,15 +112,15 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
         .execute
     end
 
     # Use this endpoint to create multiple component price points in one
     # request.
-    # @param [String] component_id Required parameter: The Chargify id of the
-    # component for which you want to fetch price points.
+    # @param [String] component_id Required parameter: The Advanced Billing id
+    # of the component for which you want to fetch price points.
     # @param [CreateComponentPricePointsRequest] body Optional parameter:
     # Example:
     # @return [ComponentPricePointsResponse] response from the API call
@@ -139,8 +139,8 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
         .execute
     end
 
@@ -190,12 +190,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorArrayMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -234,8 +234,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -274,20 +274,20 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
     # Use this endpoint to unarchive a component price point.
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component to which the price point belongs
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component to which the price point belongs
+    # @param [Integer] price_point_id Required parameter: The Advanced Billing
+    # id of the price point
     # @return [ComponentPricePointResponse] response from the API call
     def unarchive_component_price_point(component_id,
                                         price_point_id)
@@ -304,8 +304,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
         .execute
     end
 
@@ -316,8 +316,8 @@ module AdvancedBilling
     # point, there should be a matching price level created in the given
     # currency.
     # Note: Currency Prices are not able to be created for custom price points.
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
+    # @param [Integer] price_point_id Required parameter: The Advanced Billing
+    # id of the price point
     # @param [CreateCurrencyPricesRequest] body Optional parameter: Example:
     # @return [ComponentCurrencyPricesResponse] response from the API call
     def create_currency_prices(price_point_id,
@@ -335,19 +335,19 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentCurrencyPricesResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorArrayMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentCurrencyPricesResponse.method(:from_hash))
+                    .local_error('422',
+                                 'Unprocessable Entity (WebDAV)',
+                                 ErrorArrayMapResponseException))
         .execute
     end
 
     # This endpoint allows you to update currency prices for a given currency
     # that has been defined on the site level in your settings.
     # Note: Currency Prices are not able to be updated for custom price points.
-    # @param [Integer] price_point_id Required parameter: The Chargify id of the
-    # price point
+    # @param [Integer] price_point_id Required parameter: The Advanced Billing
+    # id of the price point
     # @param [UpdateCurrencyPricesRequest] body Optional parameter: Example:
     # @return [ComponentCurrencyPricesResponse] response from the API call
     def update_currency_prices(price_point_id,
@@ -365,11 +365,11 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentCurrencyPricesResponse.method(:from_hash))
-                   .local_error('422',
-                                'Unprocessable Entity (WebDAV)',
-                                ErrorArrayMapResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentCurrencyPricesResponse.method(:from_hash))
+                    .local_error('422',
+                                 'Unprocessable Entity (WebDAV)',
+                                 ErrorArrayMapResponseException))
         .execute
     end
 
@@ -408,12 +408,12 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListComponentsPricePointsResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListComponentsPricePointsResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
   end

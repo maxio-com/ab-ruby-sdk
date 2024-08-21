@@ -6,13 +6,13 @@
 module AdvancedBilling
   # ProductsController
   class ProductsController < BaseController
-    # Use this method to create a product within your Chargify site.
+    # Use this method to create a product within your Advanced Billing site.
     # + [Products
-    # Documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/540556
-    # 1405709)
+    # Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-
+    # Products-Overview)
     # + [Changing a Subscription's
-    # Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/540422533466
-    # 9-Product-Changes-Migrations)
+    # Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Produc
+    # t-Changes-and-Migrations)
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
@@ -32,19 +32,19 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
     # This endpoint allows you to read the current details of a product that
-    # you've created in Chargify.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product
+    # you've created in Advanced Billing.
+    # @param [Integer] product_id Required parameter: The Advanced Billing id of
+    # the product
     # @return [ProductResponse] response from the API call
     def read_product(product_id)
       new_api_call_builder
@@ -57,8 +57,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash)))
         .execute
     end
 
@@ -70,8 +70,8 @@ module AdvancedBilling
     # Updating a product using this endpoint will create a new price point and
     # set it as the default price point for this product. If you should like to
     # update an existing product price point, that must be done separately.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product
+    # @param [Integer] product_id Required parameter: The Advanced Billing id of
+    # the product
     # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
     # @return [ProductResponse] response from the API call
     def update_product(product_id,
@@ -89,12 +89,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -103,8 +103,8 @@ module AdvancedBilling
     # continue to be charged monthly.
     # This will restrict the option to chose the product for purchase via the
     # Billing Portal, as well as disable Public Signup Pages for the product.
-    # @param [Integer] product_id Required parameter: The Chargify id of the
-    # product
+    # @param [Integer] product_id Required parameter: The Advanced Billing id of
+    # the product
     # @return [ProductResponse] response from the API call
     def archive_product(product_id)
       new_api_call_builder
@@ -117,12 +117,12 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -140,8 +140,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash)))
         .execute
     end
 
@@ -206,9 +206,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
   end

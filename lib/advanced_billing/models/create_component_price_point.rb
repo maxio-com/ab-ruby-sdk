@@ -78,7 +78,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        interval_unit
+      ]
     end
 
     def initialize(name:, pricing_scheme:, prices:, handle: SKIP,

@@ -10,8 +10,9 @@ module AdvancedBilling
     # a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component. Alternatively, the component's handle prefixed by `handle:`
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component. Alternatively, the component's handle prefixed by
+    # `handle:`
     # @return [SubscriptionComponentResponse] response from the API call
     def read_subscription_component(subscription_id,
                                     component_id)
@@ -28,11 +29,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
@@ -108,9 +109,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionComponentResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -140,12 +141,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BulkComponentsPricePointAssignment.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ComponentPricePointErrorException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(BulkComponentsPricePointAssignment.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ComponentPricePointErrorException))
         .execute
     end
 
@@ -166,8 +167,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SubscriptionResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
         .execute
     end
 
@@ -176,12 +177,12 @@ module AdvancedBilling
     # **Notice**: Allocations can only be updated for Quantity, On/Off, and
     # Prepaid Components.
     # ## Allocations Documentation
-    # Full documentation on how to record Allocations in the Chargify UI can be
-    # located
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527849997)
-    # . It is focused on how allocations operate within the Chargify UI.It goes
-    # into greater detail on how the user interface will react when recording
-    # allocations.
+    # Full documentation on how to record Allocations in the Advanced Billing UI
+    # can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Componen
+    # t-Allocations-Overview). It is focused on how allocations operate within
+    # the Advanced Billing UI.It goes into greater detail on how the user
+    # interface will react when recording allocations.
     # This documentation also goes into greater detail on how proration is taken
     # into consideration when applying component allocations.
     # ## Proration Schemes
@@ -194,8 +195,8 @@ module AdvancedBilling
     # without proration.
     # For background information on prorated components and upgrade/downgrade
     # schemes, see [Setting Component
-    # Allocations.](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527
-    # 849997#proration-upgrades-vs-downgrades).
+    # Allocations.](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-C
+    # omponent-Allocations-Proration).
     # See the tables below for valid values.
     # | upgrade_charge | Definition
     #            |
@@ -224,24 +225,24 @@ module AdvancedBilling
     # 1. Per allocation in API call (within a single allocation of the
     # `allocations` array)
     # 2. [Component-level default
-    # value](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527849997-
-    # Component-Allocations#component-allocations-0-0)
+    # value](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Componen
+    # t-Allocations-Overview)
     # 3. Allocation API call top level (outside of the `allocations` array)
     # 4. [Site-level default
-    # value](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527849997#
-    # proration-schemes)
+    # value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Componen
+    # t-Allocations-Proration#proration-schemes)
     # ### Order of Resolution for accrue charge
     # 1. Allocation API call top level (outside of the `allocations` array)
     # 2. [Site-level default
-    # value](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527849997#
-    # proration-schemes)
+    # value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Componen
+    # t-Allocations-Proration#proration-schemes)
     # **NOTE: Proration uses the current price of the component as well as the
     # current tax rates. Changes to either may cause the prorated charge/credit
     # to be wrong.**
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
     # @param [CreateAllocationRequest] body Optional parameter: Example:
     # @return [AllocationResponse] response from the API call
     def allocate_component(subscription_id,
@@ -263,12 +264,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AllocationResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AllocationResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -277,8 +278,8 @@ module AdvancedBilling
     # ## On/Off Components
     # When a subscription's on/off component has been toggled to on (`1`) or off
     # (`0`), usage will be logged in this response.
-    # ## Querying data via Chargify gem
-    # You can also query the current quantity via the [official Chargify
+    # ## Querying data via Advanced Billing gem
+    # You can also query the current quantity via the [official Advanced Billing
     # Gem.](http://github.com/chargify/chargify_api_ares)
     # ```# First way
     # component = Chargify::Subscription::Component.find(1, :params =>
@@ -292,8 +293,8 @@ module AdvancedBilling
     # ```
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -319,16 +320,16 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AllocationResponse.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AllocationResponse.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -358,20 +359,20 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AllocationResponse.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AllocationResponse.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
-    # Chargify offers the ability to preview a potential subscription's
+    # Advanced Billing offers the ability to preview a potential subscription's
     # **quantity-based** or **on/off** component allocation in the middle of the
     # current billing period.  This is useful if you want users to be able to
     # see the effect of a component operation before actually doing it.
@@ -402,12 +403,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AllocationPreviewResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ComponentAllocationErrorException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AllocationPreviewResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ComponentAllocationErrorException))
         .execute
     end
 
@@ -427,10 +428,10 @@ module AdvancedBilling
     # it) up to the subscription's current period beginning date.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
-    # @param [Integer] allocation_id Required parameter: The Chargify id of the
-    # allocation
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
+    # @param [Integer] allocation_id Required parameter: The Advanced Billing id
+    # of the allocation
     # @param [UpdateAllocationExpirationDate] body Optional parameter:
     # Example:
     # @return [void] response from the API call
@@ -456,14 +457,14 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionComponentAllocationErrorException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionComponentAllocationErrorException))
         .execute
     end
 
@@ -484,10 +485,10 @@ module AdvancedBilling
     # updated and a refund will be issued along with a Credit Note.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
-    # @param [Integer] allocation_id Required parameter: The Chargify id of the
-    # allocation
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
+    # @param [Integer] allocation_id Required parameter: The Advanced Billing id
+    # of the allocation
     # @param [CreditSchemeRequest] body Optional parameter: Example:
     # @return [void] response from the API call
     def delete_prepaid_usage_allocation(subscription_id,
@@ -512,39 +513,39 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SubscriptionComponentAllocationErrorException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionComponentAllocationErrorException))
         .execute
     end
 
     # ## Documentation
-    # Full documentation on how to create Components in the Chargify UI can be
-    # located
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677#
-    # creating-components). Additionally, for information on how to record
-    # component usage against a subscription, please see the following
+    # Full documentation on how to create Components in the Advanced Billing UI
+    # can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-E
+    # dit-and-Archive-Components). Additionally, for information on how to
+    # record component usage against a subscription, please see the following
     # resources:
     # + [Recording Metered Component
-    # Usage](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527849997#
-    # reporting-metered-component-usage)
+    # Usage](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reportin
+    # g-Component-Allocations#reporting-metered-component-usage)
     # + [Reporting Prepaid Component
-    # Status](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404527849997
-    # #reporting-prepaid-component-status)
-    # You may choose to report metered or prepaid usage to Chargify as often as
-    # you wish. You may report usage as it happens. You may also report usage
-    # periodically, such as each night or once per billing period. If usage
-    # events occur in your system very frequently (on the order of thousands of
-    # times an hour), it is best to accumulate usage into batches on your side,
-    # and then report those batches less frequently, such as daily. This will
-    # ensure you remain below any API throttling limits. If your use case
-    # requires higher rates of usage reporting, we recommend utilizing Events
-    # Based Components.
+    # Status](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporti
+    # ng-Component-Allocations#reporting-prepaid-component-status)
+    # You may choose to report metered or prepaid usage to Advanced Billing as
+    # often as you wish. You may report usage as it happens. You may also report
+    # usage periodically, such as each night or once per billing period. If
+    # usage events occur in your system very frequently (on the order of
+    # thousands of times an hour), it is best to accumulate usage into batches
+    # on your side, and then report those batches less frequently, such as
+    # daily. This will ensure you remain below any API throttling limits. If
+    # your use case requires higher rates of usage reporting, we recommend
+    # utilizing Events Based Components.
     # ## Create Usage for Subscription
     # This endpoint allows you to record an instance of metered or prepaid usage
     # for a subscription. The `quantity` from usage for each component is
@@ -552,7 +553,8 @@ module AdvancedBilling
     # Item](./b3A6MTQxMDgzNzQ-read-subscription-component) for the subscription.
     # ## Price Point ID usage
     # If you are using price points, for metered and prepaid usage components,
-    # Chargify gives you the option to specify a price point in your request.
+    # Advanced Billing gives you the option to specify a price point in your
+    # request.
     # You do not need to specify a price point ID. If a price point is not
     # included, the default price point for the component will be used when the
     # usage is recorded.
@@ -594,8 +596,8 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [Integer | String] component_id Required parameter: Either the
-    # Chargify id for the component or the component's handle prefixed by
-    # `handle:`
+    # Advanced Billing id for the component or the component's handle prefixed
+    # by `handle:`
     # @param [CreateUsageRequest] body Optional parameter: Example:
     # @return [UsageResponse] response from the API call
     def create_usage(subscription_id,
@@ -621,12 +623,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UsageResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UsageResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -649,8 +651,8 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [Integer | String] component_id Required parameter: Either the
-    # Chargify id for the component or the component's handle prefixed by
-    # `handle:`
+    # Advanced Billing id for the component or the component's handle prefixed
+    # by `handle:`
     # @param [Integer] since_id Optional parameter: Returns usages with an id
     # greater than or equal to the one specified
     # @param [Integer] max_id Optional parameter: Returns usages with an id less
@@ -697,9 +699,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UsageResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UsageResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -707,22 +709,24 @@ module AdvancedBilling
     # Events-Based Billing feature, the components must be activated for the
     # subscriber.
     # Learn more about the role of activation in the [Events-Based Billing
-    # docs](https://chargify.zendesk.com/hc/en-us/articles/4407720810907#activat
-    # ing-components-for-subscribers).
+    # docs](https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Ba
+    # sed-Billing-Overview).
     # Use this endpoint to activate an event-based component for a single
-    # subscription. Activating an event-based component causes Chargify to bill
-    # for events when the subscription is renewed.
+    # subscription. Activating an event-based component causes Advanced Billing
+    # to bill for events when the subscription is renewed.
     # *Note: it is possible to stream events for a subscription at any time,
     # regardless of component activation status. The activation status only
     # determines if the subscription should be billed for event-based component
     # usage at renewal.*
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
+    # @param [Integer] subscription_id Required parameter: The Advanced Billing
+    # id of the subscription
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
+    # @param [ActivateEventBasedComponent] body Optional parameter: Example:
     # @return [void] response from the API call
     def activate_event_based_component(subscription_id,
-                                       component_id)
+                                       component_id,
+                                       body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/activate.json',
@@ -733,19 +737,22 @@ module AdvancedBilling
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
     # Use this endpoint to deactivate an event-based component for a single
-    # subscription. Deactivating the event-based component causes Chargify to
-    # ignore related events at subscription renewal.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
-    # @param [Integer] component_id Required parameter: The Chargify id of the
-    # component
+    # subscription. Deactivating the event-based component causes Advanced
+    # Billing to ignore related events at subscription renewal.
+    # @param [Integer] subscription_id Required parameter: The Advanced Billing
+    # id of the subscription
+    # @param [Integer] component_id Required parameter: The Advanced Billing id
+    # of the component
     # @return [void] response from the API call
     def deactivate_event_based_component(subscription_id,
                                          component_id)
@@ -761,23 +768,25 @@ module AdvancedBilling
                                     .should_encode(true))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
     # ## Documentation
     # Events-Based Billing is an evolved form of metered billing that is based
-    # on data-rich events streamed in real-time from your system to Chargify.
+    # on data-rich events streamed in real-time from your system to Advanced
+    # Billing.
     # These events can then be transformed, enriched, or analyzed to form the
     # computed totals of usage charges billed to your customers.
-    # This API allows you to stream events into the Chargify data ingestion
-    # engine.
+    # This API allows you to stream events into the Advanced Billing data
+    # ingestion engine.
     # Learn more about the feature in general in the [Events-Based Billing help
-    # docs](https://chargify.zendesk.com/hc/en-us/articles/4407720613403).
+    # docs](https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Ba
+    # sed-Billing-Overview).
     # ## Record Event
     # Use this endpoint to record a single event.
-    # *Note: this endpoint differs from the standard Chargify endpoints in that
-    # the URL subdomain will be `events` and your site subdomain will be
+    # *Note: this endpoint differs from the standard Chargify API endpoints in
+    # that the URL subdomain will be `events` and your site subdomain will be
     # included in the URL path. For example:*
     # ```
     # https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
@@ -786,8 +795,8 @@ module AdvancedBilling
     # @param [String] api_handle Required parameter: Identifies the Stream for
     # which the event should be published.
     # @param [String] store_uid Optional parameter: If you've attached your own
-    # Keen project as a Chargify event data-store, use this parameter to
-    # indicate the data-store.
+    # Keen project as an Advanced Billing event data-store, use this parameter
+    # to indicate the data-store.
     # @param [EBBEvent] body Optional parameter: Example:
     # @return [void] response from the API call
     def record_event(subdomain,
@@ -810,22 +819,22 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
     # Use this endpoint to record a collection of events.
-    # *Note: this endpoint differs from the standard Chargify endpoints in that
-    # the subdomain will be `events` and your site subdomain will be included in
-    # the URL path.*
+    # *Note: this endpoint differs from the standard Chargify API endpoints in
+    # that the subdomain will be `events` and your site subdomain will be
+    # included in the URL path.*
     # A maximum of 1000 events can be published in a single request. A 422 will
     # be returned if this limit is exceeded.
     # @param [String] subdomain Required parameter: Your site's subdomain
     # @param [String] api_handle Required parameter: Identifies the Stream for
     # which the events should be published.
     # @param [String] store_uid Optional parameter: If you've attached your own
-    # Keen project as a Chargify event data-store, use this parameter to
-    # indicate the data-store.
+    # Keen project as an Advanced Billing event data-store, use this parameter
+    # to indicate the data-store.
     # @param [Array[EBBEvent]] body Optional parameter: Example:
     # @return [void] response from the API call
     def bulk_record_events(subdomain,
@@ -848,7 +857,7 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true))
+                    .is_response_void(true))
         .execute
     end
 
@@ -930,8 +939,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListSubscriptionComponentsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListSubscriptionComponentsResponse.method(:from_hash)))
         .execute
     end
   end

@@ -18,10 +18,10 @@ module AdvancedBilling
     # want to bill for a quantity of something that does not change unless you
     # change it, then you want quantity components, instead.
     # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
+    # ts-Overview).
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [CreateMeteredComponent] body Optional parameter: Example:
     # @return [ComponentResponse] response from the API call
     def create_metered_component(product_family_id,
@@ -39,15 +39,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -67,10 +67,10 @@ module AdvancedBilling
     # The allocated quantity for one-time quantity-based components immediately
     # gets reset back to zero after the allocation is made.
     # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
+    # ts-Overview).
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [CreateQuantityBasedComponent] body Optional parameter: Example:
     # @return [ComponentResponse] response from the API call
     def create_quantity_based_component(product_family_id,
@@ -88,15 +88,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -106,10 +106,10 @@ module AdvancedBilling
     # On/off components are used for any flat fee, recurring add on (think
     # $99/month for tech support or a flat add on shipping fee).
     # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
+    # ts-Overview).
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [CreateOnOffComponent] body Optional parameter: Example:
     # @return [ComponentResponse] response from the API call
     def create_on_off_component(product_family_id,
@@ -127,15 +127,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -149,10 +149,10 @@ module AdvancedBilling
     # the time of purchase, and we subsequently keep track of the usage against
     # the amount purchased.
     # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
+    # ts-Overview).
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [CreatePrepaidComponent] body Optional parameter: Example:
     # @return [ComponentResponse] response from the API call
     def create_prepaid_usage_component(product_family_id,
@@ -170,15 +170,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -195,10 +195,10 @@ module AdvancedBilling
     # with metered components), the usage is derived from analysis of your
     # events.
     # For more information on components, please see our documentation
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677)
-    # .
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
+    # ts-Overview).
+    # @param [String] product_family_id Required parameter: Either the product
+    # family's id or its handle prefixed with `handle:`
     # @param [CreateEBBComponent] body Optional parameter: Example:
     # @return [ComponentResponse] response from the API call
     def create_event_based_component(product_family_id,
@@ -216,15 +216,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -244,8 +244,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash)))
         .execute
     end
 
@@ -253,10 +253,11 @@ module AdvancedBilling
     # product family.
     # You may read the component by either the component's id or handle. When
     # using the handle, it must be prefixed with `handle:`.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
-    # @param [String] component_id Required parameter: Either the Chargify id of
-    # the component or the handle for the component prefixed with `handle:`
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the component belongs
+    # @param [String] component_id Required parameter: Either the Advanced
+    # Billing id of the component or the handle for the component prefixed with
+    # `handle:`
     # @return [ComponentResponse] response from the API call
     def read_component(product_family_id,
                        component_id)
@@ -273,18 +274,19 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash)))
         .execute
     end
 
     # This request will update a component from a specific product family.
     # You may read the component by either the component's id or handle. When
     # using the handle, it must be prefixed with `handle:`.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
-    # @param [String] component_id Required parameter: Either the Chargify id of
-    # the component or the handle for the component prefixed with `handle:`
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the component belongs
+    # @param [String] component_id Required parameter: Either the Advanced
+    # Billing id of the component or the handle for the component prefixed with
+    # `handle:`
     # @param [UpdateComponentRequest] body Optional parameter: Example:
     # @return [ComponentResponse] response from the API call
     def update_product_family_component(product_family_id,
@@ -306,22 +308,23 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
     # Sending a DELETE request to this endpoint will archive the component. All
     # current subscribers will be unffected; their subscription/purchase will
     # continue to be charged as usual.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family to which the component belongs
-    # @param [String] component_id Required parameter: Either the Chargify id of
-    # the component or the handle for the component prefixed with `handle:`
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family to which the component belongs
+    # @param [String] component_id Required parameter: Either the Advanced
+    # Billing id of the component or the handle for the component prefixed with
+    # `handle:`
     # @return [Component] response from the API call
     def archive_component(product_family_id,
                           component_id)
@@ -338,12 +341,12 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Component.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Component.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -403,9 +406,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -431,19 +434,19 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
     # This request will return a list of components for a particular product
     # family.
-    # @param [Integer] product_family_id Required parameter: The Chargify id of
-    # the product family
+    # @param [Integer] product_family_id Required parameter: The Advanced
+    # Billing id of the product family
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
     # Include archived items.
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -503,9 +506,9 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ComponentResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
   end

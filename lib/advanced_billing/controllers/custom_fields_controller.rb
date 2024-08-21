@@ -7,21 +7,21 @@ module AdvancedBilling
   # CustomFieldsController
   class CustomFieldsController < BaseController
     # ## Custom Fields: Metafield Intro
-    # **Chargify refers to Custom Fields in the API documentation as metafields
-    # and metadata.** Within the Chargify UI, metadata and metafields are
-    # grouped together under the umbrella of "Custom Fields." All of our
-    # UI-based documentation that references custom fields will not cite the
-    # terminology metafields or metadata.
+    # **Advanced Billing refers to Custom Fields in the API documentation as
+    # metafields and metadata.** Within the Advanced Billing UI, metadata and
+    # metafields are grouped together under the umbrella of "Custom Fields." All
+    # of our UI-based documentation that references custom fields will not cite
+    # the terminology metafields or metadata.
     # + **Metafield is the custom field**
     # + **Metadata is the data populating the custom field.**
-    # Chargify Metafields are used to add meaningful attributes to subscription
-    # and customer resources. Full documentation on how to create Custom Fields
-    # in the Chargify UI can be located
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405332553613-
-    # Custom-Fields-Reference). For additional documentation on how to record
-    # data within custom fields, please see our subscription-based documentation
-    # [here.](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404434903181
-    # -Subscription-Summary#custom-fields)
+    # Advanced Billing Metafields are used to add meaningful attributes to
+    # subscription and customer resources. Full documentation on how to create
+    # Custom Fields in the Advanced Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/sections/24266118312589-Custom-F
+    # ields). For additional documentation on how to record data within custom
+    # fields, please see our subscription-based documentation
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24251701302925-Subscrip
+    # tion-Summary-Custom-Fields-Tab).
     # Metafield are the place where you will set up your resource to accept
     # additional data. It is scoped to the site instead of a specific customer
     # or subscription. Think of it as the key, and Metadata as the value on
@@ -60,13 +60,13 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Metafield.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SingleErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Metafield.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SingleErrorResponseException))
         .execute
     end
 
@@ -105,8 +105,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListMetafieldsResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListMetafieldsResponse.method(:from_hash)))
         .execute
     end
 
@@ -131,13 +131,13 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Metafield.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SingleErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Metafield.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SingleErrorResponseException))
         .execute
     end
 
@@ -162,29 +162,29 @@ module AdvancedBilling
                    .query_param(new_parameter(name, key: 'name'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
     # ## Custom Fields: Metadata Intro
-    # **Chargify refers to Custom Fields in the API documentation as metafields
-    # and metadata.** Within the Chargify UI, metadata and metafields are
-    # grouped together under the umbrella of "Custom Fields." All of our
-    # UI-based documentation that references custom fields will not cite the
-    # terminology metafields or metadata.
+    # **Advanced Billing refers to Custom Fields in the API documentation as
+    # metafields and metadata.** Within the Advanced Billing UI, metadata and
+    # metafields are grouped together under the umbrella of "Custom Fields." All
+    # of our UI-based documentation that references custom fields will not cite
+    # the terminology metafields or metadata.
     # + **Metafield is the custom field**
     # + **Metadata is the data populating the custom field.**
-    # Chargify Metafields are used to add meaningful attributes to subscription
-    # and customer resources. Full documentation on how to create Custom Fields
-    # in the Chargify UI can be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407659856411). For
-    # additional documentation on how to record data within custom fields,
-    # please see our subscription-based documentation
-    # [here.](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#custo
-    # m-fields)
+    # Advanced Billing Metafields are used to add meaningful attributes to
+    # subscription and customer resources. Full documentation on how to create
+    # Custom Fields in the Advanced Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24266164865677-Custom-F
+    # ields-Overview). For additional documentation on how to record data within
+    # custom fields, please see our subscription-based documentation
+    # [here.](https://maxio.zendesk.com/hc/en-us/articles/24251701302925-Subscri
+    # ption-Summary-Custom-Fields-Tab)
     # Metadata is associated to a customer or subscription, and corresponds to a
     # Metafield. When creating a new metadata object for a given record, **if
     # the metafield is not present it will be created**.
@@ -199,8 +199,8 @@ module AdvancedBilling
     # metadata.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [Integer] resource_id Required parameter: The Chargify id of the
-    # customer or the subscription for which the metadata applies
+    # @param [Integer] resource_id Required parameter: The Advanced Billing id
+    # of the customer or the subscription for which the metadata applies
     # @param [CreateMetadataRequest] body Optional parameter: Example:
     # @return [Array[Metadata]] response from the API call
     def create_metadata(resource_type,
@@ -222,13 +222,13 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Metadata.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SingleErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Metadata.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SingleErrorResponseException))
         .execute
     end
 
@@ -239,8 +239,8 @@ module AdvancedBilling
     # as a tool for pagination.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [Integer] resource_id Required parameter: The Chargify id of the
-    # customer or the subscription for which the metadata applies
+    # @param [Integer] resource_id Required parameter: The Advanced Billing id
+    # of the customer or the subscription for which the metadata applies
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -269,8 +269,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaginatedMetadata.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaginatedMetadata.method(:from_hash)))
         .execute
     end
 
@@ -278,8 +278,8 @@ module AdvancedBilling
     # subscription or customer.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [Integer] resource_id Required parameter: The Chargify id of the
-    # customer or the subscription for which the metadata applies
+    # @param [Integer] resource_id Required parameter: The Advanced Billing id
+    # of the customer or the subscription for which the metadata applies
     # @param [UpdateMetadataRequest] body Optional parameter: Example:
     # @return [Array[Metadata]] response from the API call
     def update_metadata(resource_type,
@@ -301,13 +301,13 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Metadata.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         SingleErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Metadata.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SingleErrorResponseException))
         .execute
     end
 
@@ -332,8 +332,8 @@ module AdvancedBilling
     # and the plain text response of `true`.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [Integer] resource_id Required parameter: The Chargify id of the
-    # customer or the subscription for which the metadata applies
+    # @param [Integer] resource_id Required parameter: The Advanced Billing id
+    # of the customer or the subscription for which the metadata applies
     # @param [String] name Optional parameter: Name of field to be removed.
     # @param [Array[String]] names Optional parameter: Names of fields to be
     # removed. Use in query:
@@ -358,10 +358,10 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
@@ -440,8 +440,8 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(PaginatedMetadata.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(PaginatedMetadata.method(:from_hash)))
         .execute
     end
   end

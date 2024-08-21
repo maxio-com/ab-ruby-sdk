@@ -45,7 +45,7 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       payment_profile = hash.key?('payment_profile') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:PaymentProfileResponsePaymentProfile), hash['payment_profile']
+        UnionTypeLookUp.get(:PaymentProfile), hash['payment_profile']
       ) : nil
 
       # Clean out expected properties from Hash.
@@ -60,13 +60,13 @@ module AdvancedBilling
     # @param [PaymentProfileResponse | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
-        return UnionTypeLookUp.get(:PaymentProfileResponsePaymentProfile)
+        return UnionTypeLookUp.get(:PaymentProfile)
                               .validate(value.payment_profile)
       end
 
       return false unless value.instance_of? Hash
 
-      UnionTypeLookUp.get(:PaymentProfileResponsePaymentProfile)
+      UnionTypeLookUp.get(:PaymentProfile)
                      .validate(value['payment_profile'])
     end
   end

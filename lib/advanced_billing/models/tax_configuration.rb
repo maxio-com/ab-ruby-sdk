@@ -19,8 +19,7 @@ module AdvancedBilling
 
     # Returns `true` when Chargify has been properly configured to charge tax
     # using the specified tax system. More details about taxes:
-    # https://maxio-chargify.zendesk.com/hc/en-us/articles/5405488905869-Taxes-I
-    # ntroduction
+    # https://maxio.zendesk.com/hc/en-us/articles/24287012608909-Taxes-Overview
     # @return [TrueClass | FalseClass]
     attr_accessor :fully_configured
 

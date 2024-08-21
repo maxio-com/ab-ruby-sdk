@@ -5,8 +5,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `'subdomain'` |
-| `domain` | `String` | The Chargify server domain.<br>*Default*: `'chargify.com'` |
+| `subdomain` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `'subdomain'` |
+| `domain` | `String` | The Advanced Billing server domain.<br>*Default*: `'chargify.com'` |
 | `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
@@ -17,7 +17,7 @@ The following parameters are configurable for the API Client:
 | `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `basic_auth_credentials` | [`BasicAuthCredentials`]($a/basic-authentication.md) | The credential object for Basic Authentication |
+| `basic_auth_credentials` | [`BasicAuthCredentials`](auth/basic-authentication.md) | The credential object for Basic Authentication |
 
 The API client can be initialized as follows:
 

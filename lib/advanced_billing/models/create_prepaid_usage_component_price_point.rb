@@ -56,10 +56,9 @@ module AdvancedBilling
     # @return [Float]
     attr_accessor :expiration_interval
 
-    # (only for prepaid usage components where rollover_prepaid_remainder is
-    # true) The number of `expiration_interval_unit`s after which rollover
-    # amounts should expire
-    # @return [IntervalUnit]
+    # A string representing the expiration interval unit for this component,
+    # either month or day
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # A mapping from model property names to API property names.
@@ -92,7 +91,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        expiration_interval_unit
+      ]
     end
 
     def initialize(name:, pricing_scheme:, prices:, overage_pricing:,

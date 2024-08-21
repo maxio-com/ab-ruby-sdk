@@ -23,13 +23,13 @@ reason_codes_controller = client.reason_codes
 
 ReasonCodes are a way to gain a high level view of why your customers are cancelling the subcription to your product or service.
 
-Add a set of churn reason codes to be displayed in-app and/or the Chargify Billing Portal. As your subscribers decide to cancel their subscription, learn why they decided to cancel.
+Add a set of churn reason codes to be displayed in-app and/or the Maxio Billing Portal. As your subscribers decide to cancel their subscription, learn why they decided to cancel.
 
 ## Reason Code Documentation
 
-Full documentation on how Reason Codes operate within Chargify can be located under the following links.
+Full documentation on how Reason Codes operate within Advanced Billing can be located under the following links.
 
-[Churn Reason Codes](https://chargify.zendesk.com/hc/en-us/articles/4407896775579#churn-reason-codes)
+[Churn Reason Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Reason-Codes)
 
 ## Create Reason Code
 
@@ -93,8 +93,8 @@ def list_reason_codes(options = {})
 
 ```ruby
 collect = {
-  'page': 2,
-  'per_page': 50
+  'page' => 2,
+  'per_page' => 50
 }
 
 result = reason_codes_controller.list_reason_codes(collect)
@@ -153,7 +153,7 @@ def read_reason_code(reason_code_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `reason_code_id` | `Integer` | Template, Required | The Chargify id of the reason code |
+| `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 
 ## Response Type
 
@@ -187,7 +187,7 @@ def update_reason_code(reason_code_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `reason_code_id` | `Integer` | Template, Required | The Chargify id of the reason code |
+| `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 | `body` | [`UpdateReasonCodeRequest`](../../doc/models/update-reason-code-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -221,7 +221,7 @@ def delete_reason_code(reason_code_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `reason_code_id` | `Integer` | Template, Required | The Chargify id of the reason code |
+| `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 
 ## Response Type
 

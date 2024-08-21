@@ -48,10 +48,10 @@ module AdvancedBilling
       # Current API environment
       @environment = String(environment)
 
-      # The subdomain for your Chargify site.
+      # The subdomain for your Advanced Billing site.
       @subdomain = subdomain
 
-      # The Chargify server domain.
+      # The Advanced Billing server domain.
       @domain = domain
 
       # The object holding Basic Authentication credentials

@@ -48,7 +48,7 @@ module AdvancedBilling
 
     # The vault that stores the payment profile with the provided `vault_token`.
     # Use `bogus` for testing.
-    # @return [CurrentVault]
+    # @return [CreditCardVault]
     attr_accessor :current_vault
 
     # The “token” provided by your vault storage for an already stored payment
@@ -143,6 +143,7 @@ module AdvancedBilling
         id
         first_name
         last_name
+        masked_card_number
         card_type
         expiration_month
         expiration_year
@@ -156,7 +157,6 @@ module AdvancedBilling
         billing_country
         customer_vault_token
         billing_address_2
-        payment_type
         disabled
         chargify_token
         site_gateway_setting_id
@@ -180,20 +180,21 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(masked_card_number:, id: SKIP, first_name: SKIP,
-                   last_name: SKIP, card_type: SKIP, expiration_month: SKIP,
+    def initialize(payment_type: PaymentType::CREDIT_CARD, id: SKIP,
+                   first_name: SKIP, last_name: SKIP, masked_card_number: SKIP,
+                   card_type: SKIP, expiration_month: SKIP,
                    expiration_year: SKIP, customer_id: SKIP,
                    current_vault: SKIP, vault_token: SKIP,
                    billing_address: SKIP, billing_city: SKIP,
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, customer_vault_token: SKIP,
-                   billing_address_2: SKIP, payment_type: SKIP, disabled: SKIP,
+                   billing_address_2: SKIP, disabled: SKIP,
                    chargify_token: SKIP, site_gateway_setting_id: SKIP,
                    gateway_handle: SKIP, additional_properties: {})
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
-      @masked_card_number = masked_card_number
+      @masked_card_number = masked_card_number unless masked_card_number == SKIP
       @card_type = card_type unless card_type == SKIP
       @expiration_month = expiration_month unless expiration_month == SKIP
       @expiration_year = expiration_year unless expiration_year == SKIP
@@ -207,7 +208,7 @@ module AdvancedBilling
       @billing_country = billing_country unless billing_country == SKIP
       @customer_vault_token = customer_vault_token unless customer_vault_token == SKIP
       @billing_address_2 = billing_address_2 unless billing_address_2 == SKIP
-      @payment_type = payment_type unless payment_type == SKIP
+      @payment_type = payment_type
       @disabled = disabled unless disabled == SKIP
       @chargify_token = chargify_token unless chargify_token == SKIP
       @site_gateway_setting_id = site_gateway_setting_id unless site_gateway_setting_id == SKIP
@@ -224,11 +225,12 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      masked_card_number =
-        hash.key?('masked_card_number') ? hash['masked_card_number'] : nil
+      payment_type = hash['payment_type'] ||= PaymentType::CREDIT_CARD
       id = hash.key?('id') ? hash['id'] : SKIP
       first_name = hash.key?('first_name') ? hash['first_name'] : SKIP
       last_name = hash.key?('last_name') ? hash['last_name'] : SKIP
+      masked_card_number =
+        hash.key?('masked_card_number') ? hash['masked_card_number'] : SKIP
       card_type = hash.key?('card_type') ? hash['card_type'] : SKIP
       expiration_month =
         hash.key?('expiration_month') ? hash['expiration_month'] : SKIP
@@ -248,7 +250,6 @@ module AdvancedBilling
         hash.key?('customer_vault_token') ? hash['customer_vault_token'] : SKIP
       billing_address_2 =
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
-      payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
       disabled = hash.key?('disabled') ? hash['disabled'] : SKIP
       chargify_token =
         hash.key?('chargify_token') ? hash['chargify_token'] : SKIP
@@ -261,10 +262,11 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      CreditCardPaymentProfile.new(masked_card_number: masked_card_number,
+      CreditCardPaymentProfile.new(payment_type: payment_type,
                                    id: id,
                                    first_name: first_name,
                                    last_name: last_name,
+                                   masked_card_number: masked_card_number,
                                    card_type: card_type,
                                    expiration_month: expiration_month,
                                    expiration_year: expiration_year,
@@ -278,7 +280,6 @@ module AdvancedBilling
                                    billing_country: billing_country,
                                    customer_vault_token: customer_vault_token,
                                    billing_address_2: billing_address_2,
-                                   payment_type: payment_type,
                                    disabled: disabled,
                                    chargify_token: chargify_token,
                                    site_gateway_setting_id: site_gateway_setting_id,
@@ -290,14 +291,14 @@ module AdvancedBilling
     # @param [CreditCardPaymentProfile | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
-        return APIHelper.valid_type?(value.masked_card_number,
-                                     ->(val) { val.instance_of? String })
+        return APIHelper.valid_type?(value.payment_type,
+                                     ->(val) { PaymentType.validate(val) })
       end
 
       return false unless value.instance_of? Hash
 
-      APIHelper.valid_type?(value['masked_card_number'],
-                            ->(val) { val.instance_of? String })
+      APIHelper.valid_type?(value['payment_type'],
+                            ->(val) { PaymentType.validate(val) })
     end
   end
 end

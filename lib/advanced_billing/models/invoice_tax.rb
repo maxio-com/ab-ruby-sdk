@@ -53,6 +53,18 @@ module AdvancedBilling
     # @return [Array[InvoiceTaxComponentBreakout]]
     attr_accessor :tax_component_breakouts
 
+    # TODO: Write general description for this method
+    # @return [TrueClass | FalseClass]
+    attr_accessor :eu_vat
+
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :type
+
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :tax_exempt_amount
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -67,6 +79,9 @@ module AdvancedBilling
       @_hash['transaction_id'] = 'transaction_id'
       @_hash['line_item_breakouts'] = 'line_item_breakouts'
       @_hash['tax_component_breakouts'] = 'tax_component_breakouts'
+      @_hash['eu_vat'] = 'eu_vat'
+      @_hash['type'] = 'type'
+      @_hash['tax_exempt_amount'] = 'tax_exempt_amount'
       @_hash
     end
 
@@ -84,6 +99,9 @@ module AdvancedBilling
         transaction_id
         line_item_breakouts
         tax_component_breakouts
+        eu_vat
+        type
+        tax_exempt_amount
       ]
     end
 
@@ -98,6 +116,7 @@ module AdvancedBilling
                    source_id: SKIP, percentage: SKIP, taxable_amount: SKIP,
                    tax_amount: SKIP, transaction_id: SKIP,
                    line_item_breakouts: SKIP, tax_component_breakouts: SKIP,
+                   eu_vat: SKIP, type: SKIP, tax_exempt_amount: SKIP,
                    additional_properties: {})
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
@@ -110,6 +129,9 @@ module AdvancedBilling
       @transaction_id = transaction_id unless transaction_id == SKIP
       @line_item_breakouts = line_item_breakouts unless line_item_breakouts == SKIP
       @tax_component_breakouts = tax_component_breakouts unless tax_component_breakouts == SKIP
+      @eu_vat = eu_vat unless eu_vat == SKIP
+      @type = type unless type == SKIP
+      @tax_exempt_amount = tax_exempt_amount unless tax_exempt_amount == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -153,6 +175,10 @@ module AdvancedBilling
       end
 
       tax_component_breakouts = SKIP unless hash.key?('tax_component_breakouts')
+      eu_vat = hash.key?('eu_vat') ? hash['eu_vat'] : SKIP
+      type = hash.key?('type') ? hash['type'] : SKIP
+      tax_exempt_amount =
+        hash.key?('tax_exempt_amount') ? hash['tax_exempt_amount'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -169,6 +195,9 @@ module AdvancedBilling
                      transaction_id: transaction_id,
                      line_item_breakouts: line_item_breakouts,
                      tax_component_breakouts: tax_component_breakouts,
+                     eu_vat: eu_vat,
+                     type: type,
+                     tax_exempt_amount: tax_exempt_amount,
                      additional_properties: hash)
     end
 

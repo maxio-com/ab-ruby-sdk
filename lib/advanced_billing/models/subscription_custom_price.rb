@@ -55,7 +55,7 @@ module AdvancedBilling
     attr_accessor :expiration_interval
 
     # (Optional)
-    # @return [IntervalUnit]
+    # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
     # (Optional)
@@ -99,7 +99,10 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        interval_unit
+        expiration_interval_unit
+      ]
     end
 
     def initialize(price_in_cents:, interval:, interval_unit:, name: SKIP,

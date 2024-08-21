@@ -10,9 +10,10 @@ module AdvancedBilling
     # within your Site. This method is useful for validating referral codes that
     # are entered by a customer.
     # ## Referrals Documentation
-    # Full documentation on how to use the referrals feature in the Chargify UI
-    # can be located
-    # [here](https://chargify.zendesk.com/hc/en-us/articles/4407802831643).
+    # Full documentation on how to use the referrals feature in the Advanced
+    # Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/sections/24286965611405-Referral
+    # s).
     # ## Server Response
     # If the referral code is valid the status code will be `200` and the
     # referral code will be returned. If the referral code is invalid, a `404`
@@ -30,11 +31,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ReferralValidationResponse.method(:from_hash))
-                   .local_error_template('404',
-                                         'Invalid referral code.',
-                                         SingleStringErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ReferralValidationResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Invalid referral code.',
+                                          SingleStringErrorResponseException))
         .execute
     end
   end

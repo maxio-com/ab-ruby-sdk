@@ -72,22 +72,22 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductResponse.method(:from_hash))
-                   .is_response_array(true)
-                   .local_error('404',
-                                'Not Found',
-                                APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductResponse.method(:from_hash))
+                    .is_response_array(true)
+                    .local_error('404',
+                                 'Not Found',
+                                 APIException))
         .execute
     end
 
-    # This method will create a Product Family within your Chargify site. Create
-    # a Product Family to act as a container for your products, components and
-    # coupons.
-    # Full documentation on how Product Families operate within the Chargify UI
-    # can be located
-    # [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405369633421)
-    # .
+    # This method will create a Product Family within your Advanced Billing
+    # site. Create a Product Family to act as a container for your products,
+    # components and coupons.
+    # Full documentation on how Product Families operate within the Advanced
+    # Billing UI can be located
+    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-
+    # Families).
     # @param [CreateProductFamilyRequest] body Optional parameter: Example:
     # @return [ProductFamilyResponse] response from the API call
     def create_product_family(body: nil)
@@ -101,12 +101,12 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductFamilyResponse.method(:from_hash))
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductFamilyResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -146,9 +146,9 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductFamilyResponse.method(:from_hash))
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductFamilyResponse.method(:from_hash))
+                    .is_response_array(true))
         .execute
     end
 
@@ -156,8 +156,8 @@ module AdvancedBilling
     # `product_family_id`. The response will contain a Product Family object.
     # The product family can be specified either with the id number, or with the
     # `handle:my-family` format.
-    # @param [Integer] id Required parameter: The Chargify id of the product
-    # family
+    # @param [Integer] id Required parameter: The Advanced Billing id of the
+    # product family
     # @return [ProductFamilyResponse] response from the API call
     def read_product_family(id)
       new_api_call_builder
@@ -170,8 +170,8 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ProductFamilyResponse.method(:from_hash)))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProductFamilyResponse.method(:from_hash)))
         .execute
     end
   end

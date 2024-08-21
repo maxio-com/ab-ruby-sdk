@@ -8,11 +8,11 @@ module AdvancedBilling
   class AdvanceInvoiceController < BaseController
     # Generate an invoice in advance for a subscription's next renewal date.
     # [Please see our
-    # docs](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404811062541-I
-    # ssue-Invoice-In-Advance) for more information on advance invoices,
-    # including eligibility on generating one; for the most part, they function
-    # like any other invoice, except they are issued early and have special
-    # behavior upon being voided.
+    # docs](https://maxio.zendesk.com/hc/en-us/articles/24252026404749-Issue-Inv
+    # oice-In-Advance) for more information on advance invoices, including
+    # eligibility on generating one; for the most part, they function like any
+    # other invoice, except they are issued early and have special behavior upon
+    # being voided.
     # A subscription may only have one advance invoice per billing period.
     # Attempting to issue an advance invoice when one already exists will return
     # an error.
@@ -42,15 +42,15 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException)
-                   .local_error_template('422',
-                                         'HTTP Response Not OK. Status code: {$statusCode}.'\
-                                          ' Response: \'{$response.body}\'.',
-                                         ErrorListResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -71,11 +71,11 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
@@ -104,11 +104,11 @@ module AdvancedBilling
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Invoice.method(:from_hash))
-                   .local_error_template('404',
-                                         'Not Found:\'{$response.body}\'',
-                                         APIException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Invoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
   end

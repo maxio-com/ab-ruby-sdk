@@ -10,6 +10,10 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
+    # Whether or not the price point includes tax
+    # @return [TrueClass | FalseClass]
+    attr_accessor :tax_included
+
     # Omit for On/Off components
     # @return [PricingScheme]
     attr_accessor :pricing_scheme
@@ -34,6 +38,7 @@ module AdvancedBilling
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['tax_included'] = 'tax_included'
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
@@ -44,24 +49,28 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
+        tax_included
         pricing_scheme
         interval
         interval_unit
-        prices
       ]
     end
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        interval_unit
+      ]
     end
 
-    def initialize(pricing_scheme: SKIP, interval: SKIP, interval_unit: SKIP,
-                   prices: SKIP, additional_properties: {})
+    def initialize(prices:, tax_included: SKIP, pricing_scheme: SKIP,
+                   interval: SKIP, interval_unit: SKIP,
+                   additional_properties: {})
+      @tax_included = tax_included unless tax_included == SKIP
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-      @prices = prices unless prices == SKIP
+      @prices = prices
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -74,10 +83,6 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      pricing_scheme =
-        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
-      interval = hash.key?('interval') ? hash['interval'] : SKIP
-      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -87,27 +92,41 @@ module AdvancedBilling
         end
       end
 
-      prices = SKIP unless hash.key?('prices')
+      prices = nil unless hash.key?('prices')
+      tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
+      interval = hash.key?('interval') ? hash['interval'] : SKIP
+      interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ComponentCustomPrice.new(pricing_scheme: pricing_scheme,
+      ComponentCustomPrice.new(prices: prices,
+                               tax_included: tax_included,
+                               pricing_scheme: pricing_scheme,
                                interval: interval,
                                interval_unit: interval_unit,
-                               prices: prices,
                                additional_properties: hash)
     end
 
     # Validates an instance of the object from a given value.
     # @param [ComponentCustomPrice | Hash] The value against the validation is performed.
     def self.validate(value)
-      return true if value.instance_of? self
+      if value.instance_of? self
+        return APIHelper.valid_type?(value.prices,
+                                     ->(val) { Price.validate(val) },
+                                     is_model_hash: true,
+                                     is_inner_model_hash: true)
+      end
 
       return false unless value.instance_of? Hash
 
-      true
+      APIHelper.valid_type?(value['prices'],
+                            ->(val) { Price.validate(val) },
+                            is_model_hash: true,
+                            is_inner_model_hash: true)
     end
   end
 end

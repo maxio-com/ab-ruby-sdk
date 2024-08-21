@@ -157,6 +157,7 @@ module AdvancedBilling
       %w[
         upgrade_charge
         downgrade_credit
+        interval_unit
       ]
     end
 
