@@ -129,6 +129,10 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :default_subscription_group_uid
 
+    # The Salesforce ID for the customer
+    # @return [String]
+    attr_accessor :salesforce_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -161,6 +165,7 @@ module AdvancedBilling
       @_hash['locale'] = 'locale'
       @_hash['default_subscription_group_uid'] =
         'default_subscription_group_uid'
+      @_hash['salesforce_id'] = 'salesforce_id'
       @_hash
     end
 
@@ -194,6 +199,7 @@ module AdvancedBilling
         parent_id
         locale
         default_subscription_group_uid
+        salesforce_id
       ]
     end
 
@@ -220,6 +226,7 @@ module AdvancedBilling
         parent_id
         locale
         default_subscription_group_uid
+        salesforce_id
       ]
     end
 
@@ -232,7 +239,7 @@ module AdvancedBilling
                    portal_invite_last_sent_at: SKIP,
                    portal_invite_last_accepted_at: SKIP, tax_exempt: SKIP,
                    vat_number: SKIP, parent_id: SKIP, locale: SKIP,
-                   default_subscription_group_uid: SKIP,
+                   default_subscription_group_uid: SKIP, salesforce_id: SKIP,
                    additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -273,6 +280,7 @@ module AdvancedBilling
         @default_subscription_group_uid =
           default_subscription_group_uid
       end
+      @salesforce_id = salesforce_id unless salesforce_id == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -333,6 +341,7 @@ module AdvancedBilling
       locale = hash.key?('locale') ? hash['locale'] : SKIP
       default_subscription_group_uid =
         hash.key?('default_subscription_group_uid') ? hash['default_subscription_group_uid'] : SKIP
+      salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -365,6 +374,7 @@ module AdvancedBilling
                    parent_id: parent_id,
                    locale: locale,
                    default_subscription_group_uid: default_subscription_group_uid,
+                   salesforce_id: salesforce_id,
                    additional_properties: hash)
     end
 

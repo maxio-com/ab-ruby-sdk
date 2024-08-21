@@ -86,6 +86,10 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :verified
 
+    # The Salesforce ID of the customer
+    # @return [String]
+    attr_accessor :salesforce_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -108,6 +112,7 @@ module AdvancedBilling
       @_hash['tax_exempt_reason'] = 'tax_exempt_reason'
       @_hash['parent_id'] = 'parent_id'
       @_hash['verified'] = 'verified'
+      @_hash['salesforce_id'] = 'salesforce_id'
       @_hash
     end
 
@@ -133,6 +138,7 @@ module AdvancedBilling
         tax_exempt_reason
         parent_id
         verified
+        salesforce_id
       ]
     end
 
@@ -141,6 +147,7 @@ module AdvancedBilling
       %w[
         parent_id
         verified
+        salesforce_id
       ]
     end
 
@@ -149,7 +156,8 @@ module AdvancedBilling
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, phone: SKIP, locale: SKIP,
                    vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
-                   parent_id: SKIP, verified: SKIP, additional_properties: {})
+                   parent_id: SKIP, verified: SKIP, salesforce_id: SKIP,
+                   additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -169,6 +177,7 @@ module AdvancedBilling
       @tax_exempt_reason = tax_exempt_reason unless tax_exempt_reason == SKIP
       @parent_id = parent_id unless parent_id == SKIP
       @verified = verified unless verified == SKIP
+      @salesforce_id = salesforce_id unless salesforce_id == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -201,6 +210,7 @@ module AdvancedBilling
         hash.key?('tax_exempt_reason') ? hash['tax_exempt_reason'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
       verified = hash.key?('verified') ? hash['verified'] : SKIP
+      salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -225,6 +235,7 @@ module AdvancedBilling
                          tax_exempt_reason: tax_exempt_reason,
                          parent_id: parent_id,
                          verified: verified,
+                         salesforce_id: salesforce_id,
                          additional_properties: hash)
     end
   end
