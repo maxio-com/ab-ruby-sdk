@@ -14,7 +14,7 @@ module AdvancedBilling
     # `handle:`
     # @param [CreateProductPricePointRequest] body Optional parameter:
     # Example:
-    # @return [ProductPricePointResponse] response from the API call
+    # @return [ProductPricePointResponse] response from the API call.
     def create_product_price_point(product_id,
                                    body: nil)
       new_api_call_builder
@@ -67,7 +67,7 @@ module AdvancedBilling
     # it will return all of the defined prices for each currency.
     # @param [Array[PricePointType]] filter_type Optional parameter: Use in
     # query: `filter[type]=catalog,default`.
-    # @return [ListProductPricePointsResponse] response from the API call
+    # @return [ListProductPricePointsResponse] response from the API call.
     def list_product_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -105,7 +105,7 @@ module AdvancedBilling
     # `handle:example-product-price-point-handle` for a string handle.
     # @param [UpdateProductPricePointRequest] body Optional parameter:
     # Example:
-    # @return [ProductPricePointResponse] response from the API call
+    # @return [ProductPricePointResponse] response from the API call.
     def update_product_price_point(product_id,
                                    price_point_id,
                                    body: nil)
@@ -155,7 +155,7 @@ module AdvancedBilling
     # product price point is set to use_site_exchange_rate: true, it will return
     # pricing based on the current exchange rate. If the flag is set to false,
     # it will return all of the defined prices for each currency.
-    # @return [ProductPricePointResponse] response from the API call
+    # @return [ProductPricePointResponse] response from the API call.
     def read_product_price_point(product_id,
                                  price_point_id,
                                  currency_prices: nil)
@@ -195,7 +195,7 @@ module AdvancedBilling
     # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`. Example: `123` for an integer ID, or
     # `handle:example-product-price-point-handle` for a string handle.
-    # @return [ProductPricePointResponse] response from the API call
+    # @return [ProductPricePointResponse] response from the API call.
     def archive_product_price_point(product_id,
                                     price_point_id)
       new_api_call_builder
@@ -233,7 +233,7 @@ module AdvancedBilling
     # the product to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
     # id of the product price point
-    # @return [ProductPricePointResponse] response from the API call
+    # @return [ProductPricePointResponse] response from the API call.
     def unarchive_product_price_point(product_id,
                                       price_point_id)
       new_api_call_builder
@@ -262,7 +262,7 @@ module AdvancedBilling
     # the product to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
     # id of the product price point
-    # @return [ProductResponse] response from the API call
+    # @return [ProductResponse] response from the API call.
     def promote_product_price_point_to_default(product_id,
                                                price_point_id)
       new_api_call_builder
@@ -288,7 +288,7 @@ module AdvancedBilling
     # the product to which the price points belong
     # @param [BulkCreateProductPricePointsRequest] body Optional parameter:
     # Example:
-    # @return [BulkCreateProductPricePointsResponse] response from the API call
+    # @return [BulkCreateProductPricePointsResponse] response from the API call.
     def bulk_create_product_price_points(product_id,
                                          body: nil)
       new_api_call_builder
@@ -324,7 +324,7 @@ module AdvancedBilling
     # Billing id of the product price point
     # @param [CreateProductCurrencyPricesRequest] body Optional parameter:
     # Example:
-    # @return [CurrencyPricesResponse] response from the API call
+    # @return [CurrencyPricesResponse] response from the API call.
     def create_product_currency_prices(product_price_point_id,
                                        body: nil)
       new_api_call_builder
@@ -359,7 +359,7 @@ module AdvancedBilling
     # @param [Integer] product_price_point_id Required parameter: The Advanced
     # Billing id of the product price point
     # @param [UpdateCurrencyPricesRequest] body Optional parameter: Example:
-    # @return [CurrencyPricesResponse] response from the API call
+    # @return [CurrencyPricesResponse] response from the API call.
     def update_product_currency_prices(product_price_point_id,
                                        body: nil)
       new_api_call_builder
@@ -404,7 +404,7 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [ListProductPricePointsResponse] response from the API call
+    # @return [ListProductPricePointsResponse] response from the API call.
     def list_all_product_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

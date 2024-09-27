@@ -16,7 +16,7 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [RefundInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def refund_invoice(uid,
                        body: nil)
       new_api_call_builder
@@ -116,7 +116,7 @@ module AdvancedBilling
     # Use in query `product_ids=23,34`.
     # @param [InvoiceSortField] sort Optional parameter: Allows specification of
     # the order of the returned list. Use in query `sort=total_amount`.
-    # @return [ListInvoicesResponse] response from the API call
+    # @return [ListInvoicesResponse] response from the API call.
     def list_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -167,7 +167,7 @@ module AdvancedBilling
     # ```
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def read_invoice(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -236,7 +236,7 @@ module AdvancedBilling
     # @param [Array[InvoiceEventType]] event_types Optional parameter: Filter
     # results by event_type. Supply a comma separated list of event types
     # (listed above). Use in query: `event_types=void_invoice,void_remainder`.
-    # @return [ListInvoiceEventsResponse] response from the API call
+    # @return [ListInvoiceEventsResponse] response from the API call.
     def list_invoice_events(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -308,7 +308,7 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [CreateInvoicePaymentRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def record_payment_for_invoice(uid,
                                    body: nil)
       new_api_call_builder
@@ -361,7 +361,7 @@ module AdvancedBilling
     # must be greater or equal to invoices payment amount sum.
     # @param [CreateMultiInvoicePaymentRequest] body Optional parameter:
     # Example:
-    # @return [MultiInvoicePaymentResponse] response from the API call
+    # @return [MultiInvoicePaymentResponse] response from the API call.
     def record_payment_for_multiple_invoices(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -411,7 +411,7 @@ module AdvancedBilling
     # refunds data
     # @param [TrueClass | FalseClass] applications Optional parameter: Include
     # applications data
-    # @return [ListCreditNotesResponse] response from the API call
+    # @return [ListCreditNotesResponse] response from the API call.
     def list_credit_notes(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -436,7 +436,7 @@ module AdvancedBilling
     # Use this endpoint to retrieve the details for a credit note.
     # @param [String] uid Required parameter: The unique identifier of the
     # credit note
-    # @return [CreditNote] response from the API call
+    # @return [CreditNote] response from the API call.
     def read_credit_note(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -464,7 +464,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [RecordPaymentRequest] body Optional parameter: Example:
-    # @return [RecordPaymentResponse] response from the API call
+    # @return [RecordPaymentResponse] response from the API call.
     def record_payment_for_subscription(subscription_id,
                                         body: nil)
       new_api_call_builder
@@ -509,7 +509,7 @@ module AdvancedBilling
     # also be reopened.
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def reopen_invoice(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -539,7 +539,7 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [VoidInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def void_invoice(uid,
                      body: nil)
       new_api_call_builder
@@ -585,7 +585,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [Direction] direction Optional parameter: Sort direction of the
     # returned segments.
-    # @return [ConsolidatedInvoice] response from the API call
+    # @return [ConsolidatedInvoice] response from the API call.
     def list_consolidated_invoice_segments(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -772,7 +772,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [CreateInvoiceRequest] body Optional parameter: Example:
-    # @return [InvoiceResponse] response from the API call
+    # @return [InvoiceResponse] response from the API call.
     def create_invoice(subscription_id,
                        body: nil)
       new_api_call_builder
@@ -814,7 +814,7 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [SendInvoiceRequest] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def send_invoice(uid,
                      body: nil)
       new_api_call_builder
@@ -845,7 +845,7 @@ module AdvancedBilling
     # differences are calculated on the application side.
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
-    # @return [CustomerChangesPreviewResponse] response from the API call
+    # @return [CustomerChangesPreviewResponse] response from the API call.
     def preview_customer_information_changes(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -877,7 +877,7 @@ module AdvancedBilling
     # differences are calculated on the application side.
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def update_customer_information(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -931,7 +931,7 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [IssueInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def issue_invoice(uid,
                       body: nil)
       new_api_call_builder

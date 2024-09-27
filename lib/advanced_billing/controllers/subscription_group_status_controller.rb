@@ -18,7 +18,7 @@ module AdvancedBilling
     # group
     # @param [CancelGroupedSubscriptionsRequest] body Optional parameter:
     # Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def cancel_subscriptions_in_group(uid,
                                       body: nil)
       new_api_call_builder
@@ -48,7 +48,7 @@ module AdvancedBilling
     # successfully cancel them, and the group must not be in a "past_due" state.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def initiate_delayed_cancellation_for_group(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -73,7 +73,7 @@ module AdvancedBilling
     # member in the group.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def cancel_delayed_cancellation_for_group(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -129,7 +129,7 @@ module AdvancedBilling
     # group
     # @param [ReactivateSubscriptionGroupRequest] body Optional parameter:
     # Example:
-    # @return [ReactivateSubscriptionGroupResponse] response from the API call
+    # @return [ReactivateSubscriptionGroupResponse] response from the API call.
     def reactivate_subscription_group(uid,
                                       body: nil)
       new_api_call_builder

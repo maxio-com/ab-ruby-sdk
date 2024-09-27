@@ -44,7 +44,7 @@ module AdvancedBilling
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
     # @param [CreateMetafieldsRequest] body Optional parameter: Example:
-    # @return [Array[Metafield]] response from the API call
+    # @return [Array[Metafield]] response from the API call.
     def create_metafields(resource_type,
                           body: nil)
       new_api_call_builder
@@ -89,7 +89,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @return [ListMetafieldsResponse] response from the API call
+    # @return [ListMetafieldsResponse] response from the API call.
     def list_metafields(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -115,7 +115,7 @@ module AdvancedBilling
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
     # @param [UpdateMetafieldsRequest] body Optional parameter: Example:
-    # @return [Array[Metafield]] response from the API call
+    # @return [Array[Metafield]] response from the API call.
     def update_metafield(resource_type,
                          body: nil)
       new_api_call_builder
@@ -149,7 +149,7 @@ module AdvancedBilling
     # to which the metafields belong
     # @param [String] name Optional parameter: The name of the metafield to be
     # deleted
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_metafield(resource_type,
                          name: nil)
       new_api_call_builder
@@ -202,7 +202,7 @@ module AdvancedBilling
     # @param [Integer] resource_id Required parameter: The Advanced Billing id
     # of the customer or the subscription for which the metadata applies
     # @param [CreateMetadataRequest] body Optional parameter: Example:
-    # @return [Array[Metadata]] response from the API call
+    # @return [Array[Metadata]] response from the API call.
     def create_metadata(resource_type,
                         resource_id,
                         body: nil)
@@ -252,7 +252,7 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [PaginatedMetadata] response from the API call
+    # @return [PaginatedMetadata] response from the API call.
     def list_metadata(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -281,7 +281,7 @@ module AdvancedBilling
     # @param [Integer] resource_id Required parameter: The Advanced Billing id
     # of the customer or the subscription for which the metadata applies
     # @param [UpdateMetadataRequest] body Optional parameter: Example:
-    # @return [Array[Metadata]] response from the API call
+    # @return [Array[Metadata]] response from the API call.
     def update_metadata(resource_type,
                         resource_id,
                         body: nil)
@@ -338,7 +338,7 @@ module AdvancedBilling
     # @param [Array[String]] names Optional parameter: Names of fields to be
     # removed. Use in query:
     # `names[]=field1&names[]=my-field&names[]=another-field`.
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_metadata(resource_type,
                         resource_id,
                         name: nil,
@@ -417,7 +417,7 @@ module AdvancedBilling
     # `resource_ids[]=122&resource_ids[]=123&resource_ids[]=124`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @return [PaginatedMetadata] response from the API call
+    # @return [PaginatedMetadata] response from the API call.
     def list_metadata_for_resource_type(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

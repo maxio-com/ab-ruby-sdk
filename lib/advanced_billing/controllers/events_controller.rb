@@ -106,7 +106,7 @@ module AdvancedBilling
     # components with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
-    # @return [Array[EventResponse]] response from the API call
+    # @return [Array[EventResponse]] response from the API call.
     def list_events(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -157,7 +157,7 @@ module AdvancedBilling
     # @param [Array[EventType]] filter Optional parameter: You can pass multiple
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
-    # @return [Array[EventResponse]] response from the API call
+    # @return [Array[EventResponse]] response from the API call.
     def list_subscription_events(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -203,7 +203,7 @@ module AdvancedBilling
     # @param [Array[EventType]] filter Optional parameter: You can pass multiple
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
-    # @return [CountResponse] response from the API call
+    # @return [CountResponse] response from the API call.
     def read_events_count(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

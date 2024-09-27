@@ -28,7 +28,7 @@ module AdvancedBilling
     # @param [Integer] product_family_id Required parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
     # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
-    # @return [CouponResponse] response from the API call
+    # @return [CouponResponse] response from the API call.
     def create_coupon(product_family_id,
                       body: nil)
       new_api_call_builder
@@ -77,7 +77,7 @@ module AdvancedBilling
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @return [Array[CouponResponse]] response from the API call
+    # @return [Array[CouponResponse]] response from the API call.
     def list_coupons_for_product_family(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -110,7 +110,7 @@ module AdvancedBilling
     # @param [Integer] product_family_id Optional parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
     # @param [String] code Optional parameter: The code of the coupon
-    # @return [CouponResponse] response from the API call
+    # @return [CouponResponse] response from the API call.
     def find_coupon(product_family_id: nil,
                     code: nil)
       new_api_call_builder
@@ -142,7 +142,7 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @return [CouponResponse] response from the API call
+    # @return [CouponResponse] response from the API call.
     def read_coupon(product_family_id,
                     coupon_id)
       new_api_call_builder
@@ -175,7 +175,7 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
     # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
-    # @return [CouponResponse] response from the API call
+    # @return [CouponResponse] response from the API call.
     def update_coupon(product_family_id,
                       coupon_id,
                       body: nil)
@@ -209,7 +209,7 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @return [CouponResponse] response from the API call
+    # @return [CouponResponse] response from the API call.
     def archive_coupon(product_family_id,
                        coupon_id)
       new_api_call_builder
@@ -252,7 +252,7 @@ module AdvancedBilling
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @return [Array[CouponResponse]] response from the API call
+    # @return [Array[CouponResponse]] response from the API call.
     def list_coupons(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -278,7 +278,7 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @return [Array[CouponUsage]] response from the API call
+    # @return [Array[CouponUsage]] response from the API call.
     def read_coupon_usage(product_family_id,
                           coupon_id)
       new_api_call_builder
@@ -329,7 +329,7 @@ module AdvancedBilling
     # @param [String] code Required parameter: The code of the coupon
     # @param [Integer] product_family_id Optional parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
-    # @return [CouponResponse] response from the API call
+    # @return [CouponResponse] response from the API call.
     def validate_coupon(code,
                         product_family_id: nil)
       new_api_call_builder
@@ -360,7 +360,7 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
     # @param [CouponCurrencyRequest] body Optional parameter: Example:
-    # @return [CouponCurrencyResponse] response from the API call
+    # @return [CouponCurrencyResponse] response from the API call.
     def create_or_update_coupon_currency_prices(coupon_id,
                                                 body: nil)
       new_api_call_builder
@@ -422,7 +422,7 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
     # @param [CouponSubcodes] body Optional parameter: Example:
-    # @return [CouponSubcodesResponse] response from the API call
+    # @return [CouponSubcodesResponse] response from the API call.
     def create_coupon_subcodes(coupon_id,
                                body: nil)
       new_api_call_builder
@@ -458,7 +458,7 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [CouponSubcodes] response from the API call
+    # @return [CouponSubcodes] response from the API call.
     def list_coupon_subcodes(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -489,7 +489,7 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
     # @param [CouponSubcodes] body Optional parameter: Example:
-    # @return [CouponSubcodesResponse] response from the API call
+    # @return [CouponSubcodesResponse] response from the API call.
     def update_coupon_subcodes(coupon_id,
                                body: nil)
       new_api_call_builder
@@ -533,7 +533,7 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon to which the subcode belongs
     # @param [String] subcode Required parameter: The subcode of the coupon
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_coupon_subcode(coupon_id,
                               subcode)
       new_api_call_builder

@@ -23,7 +23,7 @@ module AdvancedBilling
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateMeteredComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def create_metered_component(product_family_id,
                                  body: nil)
       new_api_call_builder
@@ -72,7 +72,7 @@ module AdvancedBilling
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateQuantityBasedComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def create_quantity_based_component(product_family_id,
                                         body: nil)
       new_api_call_builder
@@ -111,7 +111,7 @@ module AdvancedBilling
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateOnOffComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def create_on_off_component(product_family_id,
                                 body: nil)
       new_api_call_builder
@@ -154,7 +154,7 @@ module AdvancedBilling
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreatePrepaidComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def create_prepaid_usage_component(product_family_id,
                                        body: nil)
       new_api_call_builder
@@ -200,7 +200,7 @@ module AdvancedBilling
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateEBBComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def create_event_based_component(product_family_id,
                                      body: nil)
       new_api_call_builder
@@ -233,7 +233,7 @@ module AdvancedBilling
     # don't have to save or reference the IDs we generate.
     # @param [String] handle Required parameter: The handle of the component to
     # find
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def find_component(handle)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -258,7 +258,7 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: Either the Advanced
     # Billing id of the component or the handle for the component prefixed with
     # `handle:`
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def read_component(product_family_id,
                        component_id)
       new_api_call_builder
@@ -288,7 +288,7 @@ module AdvancedBilling
     # Billing id of the component or the handle for the component prefixed with
     # `handle:`
     # @param [UpdateComponentRequest] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def update_product_family_component(product_family_id,
                                         component_id,
                                         body: nil)
@@ -325,7 +325,7 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: Either the Advanced
     # Billing id of the component or the handle for the component prefixed with
     # `handle:`
-    # @return [Component] response from the API call
+    # @return [Component] response from the API call.
     def archive_component(product_family_id,
                           component_id)
       new_api_call_builder
@@ -387,7 +387,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListComponentsFilter] filter Optional parameter: Filter to use for
     # List Components operations
-    # @return [Array[ComponentResponse]] response from the API call
+    # @return [Array[ComponentResponse]] response from the API call.
     def list_components(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -418,7 +418,7 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: The id or handle of the
     # component
     # @param [UpdateComponentRequest] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def update_component(component_id,
                          body: nil)
       new_api_call_builder
@@ -484,7 +484,7 @@ module AdvancedBilling
     # components with a timestamp at or after exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of start_date.
-    # @return [Array[ComponentResponse]] response from the API call
+    # @return [Array[ComponentResponse]] response from the API call.
     def list_components_for_product_family(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

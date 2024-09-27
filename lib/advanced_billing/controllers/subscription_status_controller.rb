@@ -14,7 +14,7 @@ module AdvancedBilling
     # The response will be `422 "Unprocessable Entity`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def retry_subscription(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -40,7 +40,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [CancellationRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def cancel_subscription(subscription_id,
                             body: nil)
       new_api_call_builder
@@ -77,7 +77,7 @@ module AdvancedBilling
     # @param [ResumptionCharge] calendar_billing_resumption_charge Optional
     # parameter: (For calendar billing subscriptions only) The way that the
     # resumed subscription's charge should be handled
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def resume_subscription(subscription_id,
                             calendar_billing_resumption_charge: ResumptionCharge::PRORATED)
       new_api_call_builder
@@ -108,7 +108,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [PauseRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def pause_subscription(subscription_id,
                            body: nil)
       new_api_call_builder
@@ -143,7 +143,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [PauseRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def update_automatic_subscription_resumption(subscription_id,
                                                  body: nil)
       new_api_call_builder
@@ -309,7 +309,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [ReactivateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def reactivate_subscription(subscription_id,
                                 body: nil)
       new_api_call_builder
@@ -343,7 +343,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [CancellationRequest] body Optional parameter: Example:
-    # @return [DelayedCancellationResponse] response from the API call
+    # @return [DelayedCancellationResponse] response from the API call.
     def initiate_delayed_cancellation(subscription_id,
                                       body: nil)
       new_api_call_builder
@@ -375,7 +375,7 @@ module AdvancedBilling
     # will be successful.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [DelayedCancellationResponse] response from the API call
+    # @return [DelayedCancellationResponse] response from the API call.
     def cancel_delayed_cancellation(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -399,7 +399,7 @@ module AdvancedBilling
     # active and the active Dunner will be resolved.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def cancel_dunning(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -451,7 +451,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [RenewalPreviewRequest] body Optional parameter: Example:
-    # @return [RenewalPreviewResponse] response from the API call
+    # @return [RenewalPreviewResponse] response from the API call.
     def preview_renewal(subscription_id,
                         body: nil)
       new_api_call_builder

@@ -24,7 +24,7 @@ module AdvancedBilling
     # `product_price_point_id` is not passed in, the product's default price
     # point will be used.
     # @param [CreateOfferRequest] body Optional parameter: Example:
-    # @return [OfferResponse] response from the API call
+    # @return [OfferResponse] response from the API call.
     def create_offer(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -59,7 +59,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
     # Include archived products. Use in query: `include_archived=true`.
-    # @return [ListOffersResponse] response from the API call
+    # @return [ListOffersResponse] response from the API call.
     def list_offers(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -80,7 +80,7 @@ module AdvancedBilling
     # different than list all offers for a site, as it requires an `offer_id`.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
-    # @return [OfferResponse] response from the API call
+    # @return [OfferResponse] response from the API call.
     def read_offer(offer_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -101,7 +101,7 @@ module AdvancedBilling
     # archive the correct item.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def archive_offer(offer_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -120,7 +120,7 @@ module AdvancedBilling
     # order to un-archive the correct item.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def unarchive_offer(offer_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,

@@ -19,7 +19,7 @@ module AdvancedBilling
     # be in a live state.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def create_consolidated_proforma_invoice(uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -58,7 +58,7 @@ module AdvancedBilling
     # payments data
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
     # custom fields data
-    # @return [ListProformaInvoicesResponse] response from the API call
+    # @return [ListProformaInvoicesResponse] response from the API call.
     def list_subscription_group_proforma_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -89,7 +89,7 @@ module AdvancedBilling
     # Proforma invoices are only available on Relationship Invoicing sites.
     # @param [String] proforma_invoice_uid Required parameter: The uid of the
     # proforma invoice
-    # @return [ProformaInvoice] response from the API call
+    # @return [ProformaInvoice] response from the API call.
     def read_proforma_invoice(proforma_invoice_uid)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -120,7 +120,7 @@ module AdvancedBilling
     # not be prepaid, and must be in a live state.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [ProformaInvoice] response from the API call
+    # @return [ProformaInvoice] response from the API call.
     def create_proforma_invoice(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -179,7 +179,7 @@ module AdvancedBilling
     # payments data
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
     # custom fields data
-    # @return [ListProformaInvoicesResponse] response from the API call
+    # @return [ListProformaInvoicesResponse] response from the API call.
     def list_proforma_invoices(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -220,7 +220,7 @@ module AdvancedBilling
     # @param [String] proforma_invoice_uid Required parameter: The uid of the
     # proforma invoice
     # @param [VoidInvoiceRequest] body Optional parameter: Example:
-    # @return [ProformaInvoice] response from the API call
+    # @return [ProformaInvoice] response from the API call.
     def void_proforma_invoice(proforma_invoice_uid,
                               body: nil)
       new_api_call_builder
@@ -267,7 +267,7 @@ module AdvancedBilling
     # subscription's upcoming renewal has changed.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [ProformaInvoice] response from the API call
+    # @return [ProformaInvoice] response from the API call.
     def preview_proforma_invoice(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -306,7 +306,7 @@ module AdvancedBilling
     # customer_id to easily find their proforma invoices, since the
     # subscription_id will always be blank.
     # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [ProformaInvoice] response from the API call
+    # @return [ProformaInvoice] response from the API call.
     def create_signup_proforma_invoice(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -348,7 +348,7 @@ module AdvancedBilling
     # Choose to include a proforma invoice preview for the first renewal. Use in
     # query `include=next_proforma_invoice`.
     # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SignupProformaPreviewResponse] response from the API call
+    # @return [SignupProformaPreviewResponse] response from the API call.
     def preview_signup_proforma_invoice(include: nil,
                                         body: nil)
       new_api_call_builder

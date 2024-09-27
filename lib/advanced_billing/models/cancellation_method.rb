@@ -21,7 +21,10 @@ module AdvancedBilling
       BILLING_PORTAL = 'billing_portal'.freeze,
 
       # TODO: Write general description for UNKNOWN
-      UNKNOWN = 'unknown'.freeze
+      UNKNOWN = 'unknown'.freeze,
+
+      # TODO: Write general description for IMPORTED
+      IMPORTED = 'imported'.freeze
     ].freeze
 
     def self.validate(value)

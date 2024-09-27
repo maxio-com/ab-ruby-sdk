@@ -42,7 +42,7 @@ module AdvancedBilling
     # Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672013709-Custome
     # r-Locale)
     # @param [CreateCustomerRequest] body Optional parameter: Example:
-    # @return [CustomerResponse] response from the API call
+    # @return [CustomerResponse] response from the API call.
     def create_customer(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -112,7 +112,7 @@ module AdvancedBilling
     # be used. If provided, this parameter will be used instead of end_date.
     # @param [String] q Optional parameter: A search query by which to filter
     # customers (can be an email, an ID, a reference, organization)
-    # @return [Array[CustomerResponse]] response from the API call
+    # @return [Array[CustomerResponse]] response from the API call.
     def list_customers(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -140,7 +140,7 @@ module AdvancedBilling
     # Billing-generated Customer ID.
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # customer
-    # @return [CustomerResponse] response from the API call
+    # @return [CustomerResponse] response from the API call.
     def read_customer(id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -161,7 +161,7 @@ module AdvancedBilling
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # customer
     # @param [UpdateCustomerRequest] body Optional parameter: Example:
-    # @return [CustomerResponse] response from the API call
+    # @return [CustomerResponse] response from the API call.
     def update_customer(id,
                         body: nil)
       new_api_call_builder
@@ -192,7 +192,7 @@ module AdvancedBilling
     # This method allows you to delete the Customer.
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # customer
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_customer(id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -210,7 +210,7 @@ module AdvancedBilling
     # Use this method to return the customer object if you have the unique
     # **Reference ID (Your App)** value handy. It will return a single match.
     # @param [String] reference Required parameter: Customer reference
-    # @return [CustomerResponse] response from the API call
+    # @return [CustomerResponse] response from the API call.
     def read_customer_by_reference(reference)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -229,7 +229,7 @@ module AdvancedBilling
     # This method lists all subscriptions that belong to a customer.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
-    # @return [Array[SubscriptionResponse]] response from the API call
+    # @return [Array[SubscriptionResponse]] response from the API call.
     def list_customer_subscriptions(customer_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

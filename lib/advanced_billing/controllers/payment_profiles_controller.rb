@@ -325,7 +325,7 @@ module AdvancedBilling
     # account and mandate will be created in your current vault. If the
     # customer, bank account, and mandate already exist in your vault, follow
     # the Import example to link the payment profile into Advanced Billing.
-    # @return [PaymentProfileResponse] response from the API call
+    # @return [PaymentProfileResponse] response from the API call.
     def create_payment_profile(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -365,7 +365,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [Integer] customer_id Optional parameter: The ID of the customer
     # for which you wish to list payment profiles
-    # @return [Array[PaymentProfileResponse]] response from the API call
+    # @return [Array[PaymentProfileResponse]] response from the API call.
     def list_payment_profiles(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -418,7 +418,7 @@ module AdvancedBilling
     # ```
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [PaymentProfileResponse] response from the API call
+    # @return [PaymentProfileResponse] response from the API call.
     def read_payment_profile(payment_profile_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -483,7 +483,7 @@ module AdvancedBilling
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @param [UpdatePaymentProfileRequest] body Optional parameter: Example:
-    # @return [PaymentProfileResponse] response from the API call
+    # @return [PaymentProfileResponse] response from the API call.
     def update_payment_profile(payment_profile_id,
                                body: nil)
       new_api_call_builder
@@ -516,7 +516,7 @@ module AdvancedBilling
     # 422 and error message will be returned.
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_unused_payment_profile(payment_profile_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -552,7 +552,7 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_subscriptions_payment_profile(subscription_id,
                                              payment_profile_id)
       new_api_call_builder
@@ -577,7 +577,7 @@ module AdvancedBilling
     # bank account in the system.
     # @param [BankAccountVerificationRequest] body Optional parameter:
     # Example:
-    # @return [BankAccountResponse] response from the API call
+    # @return [BankAccountResponse] response from the API call.
     def verify_bank_account(bank_account_id,
                             body: nil)
       new_api_call_builder
@@ -612,7 +612,7 @@ module AdvancedBilling
     # group
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_subscription_group_payment_profile(uid,
                                                   payment_profile_id)
       new_api_call_builder
@@ -639,7 +639,7 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [PaymentProfileResponse] response from the API call
+    # @return [PaymentProfileResponse] response from the API call.
     def change_subscription_default_payment_profile(subscription_id,
                                                     payment_profile_id)
       new_api_call_builder
@@ -677,7 +677,7 @@ module AdvancedBilling
     # group
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [PaymentProfileResponse] response from the API call
+    # @return [PaymentProfileResponse] response from the API call.
     def change_subscription_group_default_payment_profile(uid,
                                                           payment_profile_id)
       new_api_call_builder
@@ -712,7 +712,7 @@ module AdvancedBilling
     # NjAzNDI0-overview).
     # @param [String] chargify_token Required parameter: Advanced Billing
     # Token
-    # @return [GetOneTimeTokenRequest] response from the API call
+    # @return [GetOneTimeTokenRequest] response from the API call.
     def read_one_time_token(chargify_token)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -749,7 +749,7 @@ module AdvancedBilling
     # encounter errors during the request process.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def send_request_update_payment_email(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,

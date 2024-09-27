@@ -26,7 +26,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [IssueAdvanceInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def issue_advance_invoice(subscription_id,
                               body: nil)
       new_api_call_builder
@@ -59,7 +59,7 @@ module AdvancedBilling
     # advance invoice per subscription per billing cycle.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def read_advance_invoice(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -88,7 +88,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [VoidInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call
+    # @return [Invoice] response from the API call.
     def void_advance_invoice(subscription_id,
                              body: nil)
       new_api_call_builder

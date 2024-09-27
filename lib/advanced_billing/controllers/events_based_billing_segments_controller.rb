@@ -17,7 +17,7 @@ module AdvancedBilling
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
     # @param [CreateSegmentRequest] body Optional parameter: Example:
-    # @return [SegmentResponse] response from the API call
+    # @return [SegmentResponse] response from the API call.
     def create_segment(component_id,
                        price_point_id,
                        body: nil)
@@ -73,7 +73,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListSegmentsFilter] filter Optional parameter: Filter to use for
     # List Segments for a Price Point operation
-    # @return [ListSegmentsResponse] response from the API call
+    # @return [ListSegmentsResponse] response from the API call.
     def list_segments_for_price_point(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -114,7 +114,7 @@ module AdvancedBilling
     # Price Point belonging to the Component
     # @param [Float] id Required parameter: The ID of the Segment
     # @param [UpdateSegmentRequest] body Optional parameter: Example:
-    # @return [SegmentResponse] response from the API call
+    # @return [SegmentResponse] response from the API call.
     def update_segment(component_id,
                        price_point_id,
                        id,
@@ -158,7 +158,7 @@ module AdvancedBilling
     # @param [String] price_point_id Required parameter: ID or Handle of the
     # Price Point belonging to the Component
     # @param [Float] id Required parameter: The ID of the Segment
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_segment(component_id,
                        price_point_id,
                        id)
@@ -201,7 +201,7 @@ module AdvancedBilling
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
     # @param [BulkCreateSegments] body Optional parameter: Example:
-    # @return [ListSegmentsResponse] response from the API call
+    # @return [ListSegmentsResponse] response from the API call.
     def bulk_create_segments(component_id,
                              price_point_id,
                              body: nil)
@@ -246,7 +246,7 @@ module AdvancedBilling
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
     # @param [BulkUpdateSegments] body Optional parameter: Example:
-    # @return [ListSegmentsResponse] response from the API call
+    # @return [ListSegmentsResponse] response from the API call.
     def bulk_update_segments(component_id,
                              price_point_id,
                              body: nil)

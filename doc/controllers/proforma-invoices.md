@@ -75,12 +75,12 @@ def list_subscription_group_proforma_invoices(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data |
-| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data |
-| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data |
-| `credits` | `TrueClass \| FalseClass` | Query, Optional | Include credits data |
-| `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data |
-| `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data |
+| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data<br>**Default**: `false` |
+| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data<br>**Default**: `false` |
+| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data<br>**Default**: `false` |
+| `credits` | `TrueClass \| FalseClass` | Query, Optional | Include credits data<br>**Default**: `false` |
+| `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data<br>**Default**: `false` |
+| `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data<br>**Default**: `false` |
 
 ## Response Type
 
@@ -201,15 +201,15 @@ def list_proforma_invoices(options = {})
 | `start_date` | `String` | Query, Optional | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `end_date` | `String` | Query, Optional | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `status` | [`ProformaInvoiceStatus`](../../doc/models/proforma-invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices. |
-| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data |
-| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data |
-| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data |
-| `credits` | `TrueClass \| FalseClass` | Query, Optional | Include credits data |
-| `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data |
-| `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `Direction::DESC` |
+| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data<br>**Default**: `false` |
+| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data<br>**Default**: `false` |
+| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data<br>**Default**: `false` |
+| `credits` | `TrueClass \| FalseClass` | Query, Optional | Include credits data<br>**Default**: `false` |
+| `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data<br>**Default**: `false` |
+| `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data<br>**Default**: `false` |
 
 ## Response Type
 
