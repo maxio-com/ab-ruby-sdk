@@ -16,7 +16,7 @@ module AdvancedBilling
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
-    # @return [ProductResponse] response from the API call
+    # @return [ProductResponse] response from the API call.
     def create_product(product_family_id,
                        body: nil)
       new_api_call_builder
@@ -45,7 +45,7 @@ module AdvancedBilling
     # you've created in Advanced Billing.
     # @param [Integer] product_id Required parameter: The Advanced Billing id of
     # the product
-    # @return [ProductResponse] response from the API call
+    # @return [ProductResponse] response from the API call.
     def read_product(product_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -73,7 +73,7 @@ module AdvancedBilling
     # @param [Integer] product_id Required parameter: The Advanced Billing id of
     # the product
     # @param [CreateOrUpdateProductRequest] body Optional parameter: Example:
-    # @return [ProductResponse] response from the API call
+    # @return [ProductResponse] response from the API call.
     def update_product(product_id,
                        body: nil)
       new_api_call_builder
@@ -105,7 +105,7 @@ module AdvancedBilling
     # Billing Portal, as well as disable Public Signup Pages for the product.
     # @param [Integer] product_id Required parameter: The Advanced Billing id of
     # the product
-    # @return [ProductResponse] response from the API call
+    # @return [ProductResponse] response from the API call.
     def archive_product(product_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -128,7 +128,7 @@ module AdvancedBilling
 
     # This method allows to retrieve a Product object by its `api_handle`.
     # @param [String] api_handle Required parameter: The handle of the product
-    # @return [ProductResponse] response from the API call
+    # @return [ProductResponse] response from the API call.
     def read_product_by_handle(api_handle)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -186,7 +186,7 @@ module AdvancedBilling
     # @param [ListProductsInclude] include Optional parameter: Allows including
     # additional data in the response. Use in query
     # `include=prepaid_product_price_point`.
-    # @return [Array[ProductResponse]] response from the API call
+    # @return [Array[ProductResponse]] response from the API call.
     def list_products(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

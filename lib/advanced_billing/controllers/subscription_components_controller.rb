@@ -13,7 +13,7 @@ module AdvancedBilling
     # @param [Integer] component_id Required parameter: The Advanced Billing id
     # of the component. Alternatively, the component's handle prefixed by
     # `handle:`
-    # @return [SubscriptionComponentResponse] response from the API call
+    # @return [SubscriptionComponentResponse] response from the API call.
     def read_subscription_component(subscription_id,
                                     component_id)
       new_api_call_builder
@@ -84,7 +84,7 @@ module AdvancedBilling
     # set to true, it returns only components that are currently in use.
     # However, if it's set to false or not provided, it returns all components
     # connected with the subscription.
-    # @return [Array[SubscriptionComponentResponse]] response from the API call
+    # @return [Array[SubscriptionComponentResponse]] response from the API call.
     def list_subscription_components(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -125,7 +125,7 @@ module AdvancedBilling
     # the subscription
     # @param [BulkComponentsPricePointAssignment] body Optional parameter:
     # Example:
-    # @return [BulkComponentsPricePointAssignment] response from the API call
+    # @return [BulkComponentsPricePointAssignment] response from the API call.
     def bulk_update_subscription_components_price_points(subscription_id,
                                                          body: nil)
       new_api_call_builder
@@ -155,7 +155,7 @@ module AdvancedBilling
     # components, even ones that have not been allocated yet.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def bulk_reset_subscription_components_price_points(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -244,7 +244,7 @@ module AdvancedBilling
     # @param [Integer] component_id Required parameter: The Advanced Billing id
     # of the component
     # @param [CreateAllocationRequest] body Optional parameter: Example:
-    # @return [AllocationResponse] response from the API call
+    # @return [AllocationResponse] response from the API call.
     def allocate_component(subscription_id,
                            component_id,
                            body: nil)
@@ -302,7 +302,7 @@ module AdvancedBilling
     # passing in a page parameter. Retrieve the next page by adding ?page=2 to
     # the query string. If there are no results to return, then an empty result
     # set will be returned. Use in query `page=1`.
-    # @return [Array[AllocationResponse]] response from the API call
+    # @return [Array[AllocationResponse]] response from the API call.
     def list_allocations(subscription_id,
                          component_id,
                          page: 1)
@@ -343,7 +343,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [AllocateComponents] body Optional parameter: Example:
-    # @return [Array[AllocationResponse]] response from the API call
+    # @return [Array[AllocationResponse]] response from the API call.
     def allocate_components(subscription_id,
                             body: nil)
       new_api_call_builder
@@ -387,7 +387,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [PreviewAllocationsRequest] body Optional parameter: Example:
-    # @return [AllocationPreviewResponse] response from the API call
+    # @return [AllocationPreviewResponse] response from the API call.
     def preview_allocations(subscription_id,
                             body: nil)
       new_api_call_builder
@@ -434,7 +434,7 @@ module AdvancedBilling
     # of the allocation
     # @param [UpdateAllocationExpirationDate] body Optional parameter:
     # Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def update_prepaid_usage_allocation_expiration_date(subscription_id,
                                                         component_id,
                                                         allocation_id,
@@ -490,7 +490,7 @@ module AdvancedBilling
     # @param [Integer] allocation_id Required parameter: The Advanced Billing id
     # of the allocation
     # @param [CreditSchemeRequest] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_prepaid_usage_allocation(subscription_id,
                                         component_id,
                                         allocation_id,
@@ -599,7 +599,7 @@ module AdvancedBilling
     # Advanced Billing id for the component or the component's handle prefixed
     # by `handle:`
     # @param [CreateUsageRequest] body Optional parameter: Example:
-    # @return [UsageResponse] response from the API call
+    # @return [UsageResponse] response from the API call.
     def create_usage(subscription_id,
                      component_id,
                      body: nil)
@@ -674,7 +674,7 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [Array[UsageResponse]] response from the API call
+    # @return [Array[UsageResponse]] response from the API call.
     def list_usages(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -723,7 +723,7 @@ module AdvancedBilling
     # @param [Integer] component_id Required parameter: The Advanced Billing id
     # of the component
     # @param [ActivateEventBasedComponent] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def activate_event_based_component(subscription_id,
                                        component_id,
                                        body: nil)
@@ -753,7 +753,7 @@ module AdvancedBilling
     # id of the subscription
     # @param [Integer] component_id Required parameter: The Advanced Billing id
     # of the component
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def deactivate_event_based_component(subscription_id,
                                          component_id)
       new_api_call_builder
@@ -798,7 +798,7 @@ module AdvancedBilling
     # Keen project as an Advanced Billing event data-store, use this parameter
     # to indicate the data-store.
     # @param [EBBEvent] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def record_event(subdomain,
                      api_handle,
                      store_uid: nil,
@@ -836,7 +836,7 @@ module AdvancedBilling
     # Keen project as an Advanced Billing event data-store, use this parameter
     # to indicate the data-store.
     # @param [Array[EBBEvent]] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def bulk_record_events(subdomain,
                            api_handle,
                            store_uid: nil,
@@ -915,7 +915,7 @@ module AdvancedBilling
     # @param [ListSubscriptionComponentsInclude] include Optional parameter:
     # Allows including additional data in the response. Use in query
     # `include=subscription,historic_usages`.
-    # @return [ListSubscriptionComponentsResponse] response from the API call
+    # @return [ListSubscriptionComponentsResponse] response from the API call.
     def list_subscription_components_for_site(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

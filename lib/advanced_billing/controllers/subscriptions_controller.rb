@@ -795,7 +795,7 @@ module AdvancedBilling
     #   }
     # ```
     # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def create_subscription(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -881,7 +881,7 @@ module AdvancedBilling
     # @param [Array[SubscriptionListInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=self_service_page_token`.
-    # @return [Array[SubscriptionResponse]] response from the API call
+    # @return [Array[SubscriptionResponse]] response from the API call.
     def list_subscriptions(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -977,7 +977,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [UpdateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def update_subscription(subscription_id,
                             body: nil)
       new_api_call_builder
@@ -1012,7 +1012,7 @@ module AdvancedBilling
     # @param [Array[SubscriptionInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=coupons&include[]=self_service_page_token`.
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def read_subscription(subscription_id,
                           include: nil)
       new_api_call_builder
@@ -1068,7 +1068,7 @@ module AdvancedBilling
     # the subscription
     # @param [OverrideSubscriptionRequest] body Optional parameter: Only these
     # fields are available to be set.
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def override_subscription(subscription_id,
                               body: nil)
       new_api_call_builder
@@ -1093,7 +1093,7 @@ module AdvancedBilling
 
     # Use this endpoint to find a subscription by its reference.
     # @param [String] reference Optional parameter: Subscription reference
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def find_subscription(reference: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -1125,7 +1125,7 @@ module AdvancedBilling
     # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
     # are "customer" or "payment_profile". Use in query:
     # `cascade[]=customer&cascade[]=payment_profile`.
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def purge_subscription(subscription_id,
                            ack,
                            cascade: nil)
@@ -1151,7 +1151,7 @@ module AdvancedBilling
     # the subscription
     # @param [UpsertPrepaidConfigurationRequest] body Optional parameter:
     # Example:
-    # @return [PrepaidConfigurationResponse] response from the API call
+    # @return [PrepaidConfigurationResponse] response from the API call.
     def update_prepaid_subscription_configuration(subscription_id,
                                                   body: nil)
       new_api_call_builder
@@ -1208,7 +1208,7 @@ module AdvancedBilling
     # If you'd like to calculate subscriptions that do not include tax, please
     # feel free to leave off the billing information.
     # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionPreviewResponse] response from the API call
+    # @return [SubscriptionPreviewResponse] response from the API call.
     def preview_subscription(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -1243,7 +1243,7 @@ module AdvancedBilling
     # @param [String] code Optional parameter: A code for the coupon that would
     # be applied to a subscription
     # @param [AddCouponsRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def apply_coupons_to_subscription(subscription_id,
                                       code: nil,
                                       body: nil)
@@ -1278,7 +1278,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [String] coupon_code Optional parameter: The coupon code
-    # @return [String] response from the API call
+    # @return [String] response from the API call.
     def remove_coupon_from_subscription(subscription_id,
                                         coupon_code: nil)
       new_api_call_builder
@@ -1355,7 +1355,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [ActivateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def activate_subscription(subscription_id,
                               body: nil)
       new_api_call_builder

@@ -53,7 +53,7 @@ module AdvancedBilling
     # Webhooks are returned.
     # @param [Integer] subscription Optional parameter: The Advanced Billing id
     # of a subscription you'd like to filter for
-    # @return [Array[WebhookResponse]] response from the API call
+    # @return [Array[WebhookResponse]] response from the API call.
     def list_webhooks(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -77,7 +77,7 @@ module AdvancedBilling
 
     # This method allows you to enable webhooks via API for your site
     # @param [EnableWebhooksRequest] body Optional parameter: Example:
-    # @return [EnableWebhooksResponse] response from the API call
+    # @return [EnableWebhooksResponse] response from the API call.
     def enable_webhooks(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -100,7 +100,7 @@ module AdvancedBilling
     # You may submit an array of up to 1000 webhook IDs to replay in the
     # request.
     # @param [ReplayWebhooksRequest] body Optional parameter: Example:
-    # @return [ReplayWebhooksResponse] response from the API call
+    # @return [ReplayWebhooksResponse] response from the API call.
     def replay_webhooks(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -124,7 +124,7 @@ module AdvancedBilling
     # keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-
     # Reference#events)
     # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
-    # @return [EndpointResponse] response from the API call
+    # @return [EndpointResponse] response from the API call.
     def create_endpoint(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -146,7 +146,7 @@ module AdvancedBilling
     end
 
     # This method returns created endpoints for site.
-    # @return [Array[Endpoint]] response from the API call
+    # @return [Array[Endpoint]] response from the API call.
     def list_endpoints
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -176,7 +176,7 @@ module AdvancedBilling
     # @param [Integer] endpoint_id Required parameter: The Advanced Billing id
     # for the endpoint that should be updated
     # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
-    # @return [EndpointResponse] response from the API call
+    # @return [EndpointResponse] response from the API call.
     def update_endpoint(endpoint_id,
                         body: nil)
       new_api_call_builder

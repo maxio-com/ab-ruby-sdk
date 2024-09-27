@@ -21,7 +21,7 @@ module AdvancedBilling
     #  [Who Pays & Customer
     # Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Cust
     # omer-Hierarchies-WhoPays)
-    # @return [SiteResponse] response from the API call
+    # @return [SiteResponse] response from the API call.
     def read_site
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -47,7 +47,7 @@ module AdvancedBilling
     # `customers`: Will clear only customers and related subscriptions (leaving
     # the products untouched) for the site.  Revenue will also be reset to 0.
     # Use in query `cleanup_scope=all`.
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def clear_site(cleanup_scope: CleanupScope::ALL)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -72,7 +72,7 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [ListPublicKeysResponse] response from the API call
+    # @return [ListPublicKeysResponse] response from the API call.
     def list_chargify_js_public_keys(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

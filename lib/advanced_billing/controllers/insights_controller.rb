@@ -15,7 +15,7 @@ module AdvancedBilling
     # ```
     # https://subdomain.chargify.com/dashboard
     # ```
-    # @return [SiteSummary] response from the API call
+    # @return [SiteSummary] response from the API call.
     def read_site_stats
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -35,7 +35,7 @@ module AdvancedBilling
     # ISO8601 format to request MRR for a historic time
     # @param [Integer] subscription_id Optional parameter: submit the id of a
     # subscription in order to limit results
-    # @return [MRRResponse] response from the API call
+    # @return [MRRResponse] response from the API call.
     def read_mrr(at_time: nil,
                  subscription_id: nil)
       warn 'Endpoint read_mrr in InsightsController is deprecated'
@@ -91,7 +91,7 @@ module AdvancedBilling
     # Use in query `per_page=20`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @return [ListMRRResponse] response from the API call
+    # @return [ListMRRResponse] response from the API call.
     def list_mrr_movements(options = {})
       warn 'Endpoint list_mrr_movements in InsightsController is deprecated'
       new_api_call_builder
@@ -131,7 +131,7 @@ module AdvancedBilling
     # @param [Direction] direction Optional parameter: Controls the order in
     # which results are returned. Records are ordered by subscription_id in
     # ascending order by default. Use in query `direction=desc`.
-    # @return [SubscriptionMRRResponse] response from the API call
+    # @return [SubscriptionMRRResponse] response from the API call.
     def list_mrr_per_subscription(options = {})
       warn 'Endpoint list_mrr_per_subscription in InsightsController is deprec'\
            'ated'

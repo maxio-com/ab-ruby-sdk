@@ -49,7 +49,7 @@ module AdvancedBilling
     # @param [ListProductsInclude] include Optional parameter: Allows including
     # additional data in the response. Use in query
     # `include=prepaid_product_price_point`.
-    # @return [Array[ProductResponse]] response from the API call
+    # @return [Array[ProductResponse]] response from the API call.
     def list_products_for_product_family(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -89,7 +89,7 @@ module AdvancedBilling
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-
     # Families).
     # @param [CreateProductFamilyRequest] body Optional parameter: Example:
-    # @return [ProductFamilyResponse] response from the API call
+    # @return [ProductFamilyResponse] response from the API call.
     def create_product_family(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -132,7 +132,7 @@ module AdvancedBilling
     # products with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
-    # @return [Array[ProductFamilyResponse]] response from the API call
+    # @return [Array[ProductFamilyResponse]] response from the API call.
     def list_product_families(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -158,7 +158,7 @@ module AdvancedBilling
     # `handle:my-family` format.
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # product family
-    # @return [ProductFamilyResponse] response from the API call
+    # @return [ProductFamilyResponse] response from the API call.
     def read_product_family(id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

@@ -11,7 +11,7 @@ module AdvancedBilling
     # Subscription's open, payable invoices.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [AccountBalances] response from the API call
+    # @return [AccountBalances] response from the API call.
     def read_account_balances(subscription_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -39,7 +39,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [CreatePrepaymentRequest] body Optional parameter: Example:
-    # @return [CreatePrepaymentResponse] response from the API call
+    # @return [CreatePrepaymentResponse] response from the API call.
     def create_prepayment(subscription_id,
                           body: nil)
       new_api_call_builder
@@ -80,7 +80,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListPrepaymentsFilter] filter Optional parameter: Filter to use
     # for List Prepayments operations
-    # @return [PrepaymentsResponse] response from the API call
+    # @return [PrepaymentsResponse] response from the API call.
     def list_prepayments(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -110,7 +110,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [IssueServiceCreditRequest] body Optional parameter: Example:
-    # @return [ServiceCredit] response from the API call
+    # @return [ServiceCredit] response from the API call.
     def issue_service_credit(subscription_id,
                              body: nil)
       new_api_call_builder
@@ -141,7 +141,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [DeductServiceCreditRequest] body Optional parameter: Example:
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def deduct_service_credit(subscription_id,
                               body: nil)
       new_api_call_builder
@@ -174,7 +174,7 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] prepayment_id Required parameter: id of prepayment
     # @param [RefundPrepaymentRequest] body Optional parameter: Example:
-    # @return [PrepaymentResponse] response from the API call
+    # @return [PrepaymentResponse] response from the API call.
     def refund_prepayment(subscription_id,
                           prepayment_id,
                           body: nil)

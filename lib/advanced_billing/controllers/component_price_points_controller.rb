@@ -19,7 +19,7 @@ module AdvancedBilling
     # of the component to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
     # id of the price point
-    # @return [ComponentResponse] response from the API call
+    # @return [ComponentResponse] response from the API call.
     def promote_component_price_point_to_default(component_id,
                                                  price_point_id)
       new_api_call_builder
@@ -46,7 +46,7 @@ module AdvancedBilling
     # of the component
     # @param [CreateComponentPricePointRequest] body Optional parameter:
     # Example:
-    # @return [ComponentPricePointResponse] response from the API call
+    # @return [ComponentPricePointResponse] response from the API call.
     def create_component_price_point(component_id,
                                      body: nil)
       new_api_call_builder
@@ -95,7 +95,7 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [Array[PricePointType]] filter_type Optional parameter: Use in
     # query: `filter[type]=catalog,default`.
-    # @return [ComponentPricePointsResponse] response from the API call
+    # @return [ComponentPricePointsResponse] response from the API call.
     def list_component_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -123,7 +123,7 @@ module AdvancedBilling
     # of the component for which you want to fetch price points.
     # @param [CreateComponentPricePointsRequest] body Optional parameter:
     # Example:
-    # @return [ComponentPricePointsResponse] response from the API call
+    # @return [ComponentPricePointsResponse] response from the API call.
     def bulk_create_component_price_points(component_id,
                                            body: nil)
       new_api_call_builder
@@ -162,7 +162,7 @@ module AdvancedBilling
     # `handle:example-price_point-handle` for a string handle.
     # @param [UpdateComponentPricePointRequest] body Optional parameter:
     # Example:
-    # @return [ComponentPricePointResponse] response from the API call
+    # @return [ComponentPricePointResponse] response from the API call.
     def update_component_price_point(component_id,
                                      price_point_id,
                                      body: nil)
@@ -210,7 +210,7 @@ module AdvancedBilling
     # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`. Example: `123` for an integer ID, or
     # `handle:example-price_point-handle` for a string handle.
-    # @return [ComponentPricePointResponse] response from the API call
+    # @return [ComponentPricePointResponse] response from the API call.
     def read_component_price_point(component_id,
                                    price_point_id)
       new_api_call_builder
@@ -250,7 +250,7 @@ module AdvancedBilling
     # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`. Example: `123` for an integer ID, or
     # `handle:example-price_point-handle` for a string handle.
-    # @return [ComponentPricePointResponse] response from the API call
+    # @return [ComponentPricePointResponse] response from the API call.
     def archive_component_price_point(component_id,
                                       price_point_id)
       new_api_call_builder
@@ -288,7 +288,7 @@ module AdvancedBilling
     # of the component to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
     # id of the price point
-    # @return [ComponentPricePointResponse] response from the API call
+    # @return [ComponentPricePointResponse] response from the API call.
     def unarchive_component_price_point(component_id,
                                         price_point_id)
       new_api_call_builder
@@ -319,7 +319,7 @@ module AdvancedBilling
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
     # id of the price point
     # @param [CreateCurrencyPricesRequest] body Optional parameter: Example:
-    # @return [ComponentCurrencyPricesResponse] response from the API call
+    # @return [ComponentCurrencyPricesResponse] response from the API call.
     def create_currency_prices(price_point_id,
                                body: nil)
       new_api_call_builder
@@ -349,7 +349,7 @@ module AdvancedBilling
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
     # id of the price point
     # @param [UpdateCurrencyPricesRequest] body Optional parameter: Example:
-    # @return [ComponentCurrencyPricesResponse] response from the API call
+    # @return [ComponentCurrencyPricesResponse] response from the API call.
     def update_currency_prices(price_point_id,
                                body: nil)
       new_api_call_builder
@@ -393,7 +393,7 @@ module AdvancedBilling
     # in which results are returned. Use in query `direction=asc`.
     # @param [ListPricePointsFilter] filter Optional parameter: Filter to use
     # for List PricePoints operations
-    # @return [ListComponentsPricePointsResponse] response from the API call
+    # @return [ListComponentsPricePointsResponse] response from the API call.
     def list_all_component_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,

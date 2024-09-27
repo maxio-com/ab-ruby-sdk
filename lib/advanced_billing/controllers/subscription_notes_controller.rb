@@ -19,7 +19,7 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: Example:
-    # @return [SubscriptionNoteResponse] response from the API call
+    # @return [SubscriptionNoteResponse] response from the API call.
     def create_subscription_note(subscription_id,
                                  body: nil)
       new_api_call_builder
@@ -55,7 +55,7 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [Array[SubscriptionNoteResponse]] response from the API call
+    # @return [Array[SubscriptionNoteResponse]] response from the API call.
     def list_subscription_notes(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -81,7 +81,7 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
     # the note
-    # @return [SubscriptionNoteResponse] response from the API call
+    # @return [SubscriptionNoteResponse] response from the API call.
     def read_subscription_note(subscription_id,
                                note_id)
       new_api_call_builder
@@ -108,7 +108,7 @@ module AdvancedBilling
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
     # the note
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: Example:
-    # @return [SubscriptionNoteResponse] response from the API call
+    # @return [SubscriptionNoteResponse] response from the API call.
     def update_subscription_note(subscription_id,
                                  note_id,
                                  body: nil)
@@ -138,7 +138,7 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
     # the note
-    # @return [void] response from the API call
+    # @return [void] response from the API call.
     def delete_subscription_note(subscription_id,
                                  note_id)
       new_api_call_builder

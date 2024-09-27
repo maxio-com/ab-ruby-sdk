@@ -103,7 +103,7 @@ module AdvancedBilling
     # the subscription
     # @param [SubscriptionProductMigrationRequest] body Optional parameter:
     # Example:
-    # @return [SubscriptionResponse] response from the API call
+    # @return [SubscriptionResponse] response from the API call.
     def migrate_subscription_product(subscription_id,
                                      body: nil)
       new_api_call_builder
@@ -140,7 +140,7 @@ module AdvancedBilling
     # the subscription
     # @param [SubscriptionMigrationPreviewRequest] body Optional parameter:
     # Example:
-    # @return [SubscriptionMigrationPreviewResponse] response from the API call
+    # @return [SubscriptionMigrationPreviewResponse] response from the API call.
     def preview_subscription_product_migration(subscription_id,
                                                body: nil)
       new_api_call_builder
