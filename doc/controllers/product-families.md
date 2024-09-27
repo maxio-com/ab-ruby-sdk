@@ -52,6 +52,13 @@ collect = {
   'page' => 2,
   'per_page' => 50,
   'date_field' => BasicDateField::UPDATED_AT,
+  'filter' => ListProductsFilter.new(
+    ids: [
+      1,
+      2,
+      3
+    ]
+  ),
   'include' => ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
 }
 

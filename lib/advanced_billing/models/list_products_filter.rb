@@ -9,6 +9,11 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
+    # Allows fetching products with matching id based on provided values. Use in
+    # query `filter[ids]=1,2,3`.
+    # @return [Array[Integer]]
+    attr_accessor :ids
+
     # Allows fetching products only if a prepaid product price point is present
     # or not. To use this filter you also have to include the following param in
     # the request `include=prepaid_product_price_point`. Use in query
@@ -25,6 +30,7 @@ module AdvancedBilling
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['ids'] = 'ids'
       @_hash['prepaid_product_price_point'] = 'prepaid_product_price_point'
       @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
       @_hash
@@ -33,6 +39,7 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
+        ids
         prepaid_product_price_point
         use_site_exchange_rate
       ]
@@ -43,8 +50,9 @@ module AdvancedBilling
       []
     end
 
-    def initialize(prepaid_product_price_point: SKIP,
+    def initialize(ids: SKIP, prepaid_product_price_point: SKIP,
                    use_site_exchange_rate: SKIP, additional_properties: {})
+      @ids = ids unless ids == SKIP
       unless prepaid_product_price_point == SKIP
         @prepaid_product_price_point =
           prepaid_product_price_point
@@ -62,6 +70,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
+      ids = hash.key?('ids') ? hash['ids'] : SKIP
       if hash['prepaid_product_price_point']
         prepaid_product_price_point = PrepaidProductPricePointFilter.from_hash(hash['prepaid_product_price_point'])
       end
@@ -72,7 +81,8 @@ module AdvancedBilling
       names.each_value { |k| hash.delete(k) }
 
       # Create object from extracted values.
-      ListProductsFilter.new(prepaid_product_price_point: prepaid_product_price_point,
+      ListProductsFilter.new(ids: ids,
+                             prepaid_product_price_point: prepaid_product_price_point,
                              use_site_exchange_rate: use_site_exchange_rate,
                              additional_properties: hash)
     end

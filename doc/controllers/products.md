@@ -489,6 +489,13 @@ def list_products(options = {})
 ```ruby
 collect = {
   'date_field' => BasicDateField::UPDATED_AT,
+  'filter' => ListProductsFilter.new(
+    ids: [
+      1,
+      2,
+      3
+    ]
+  ),
   'page' => 2,
   'per_page' => 50,
   'include_archived' => true,
