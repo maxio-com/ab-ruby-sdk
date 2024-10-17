@@ -19,6 +19,8 @@
 | `gateway_handle` | `String` | Optional | - |
 | `gateway_used` | `String` | Optional | - |
 | `gateway_transaction_id` | `String` | Optional | The transaction ID for the payment as returned from the payment gateway |
+| `received_on` | `Date` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. Applicable only to<br>`external` payments. |
+| `uid` | `String` | Optional | - |
 
 ## Example (as JSON)
 

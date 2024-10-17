@@ -90,6 +90,14 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :dunning_communication_delay_time_zone
 
+    # Set to change the current product's price point.
+    # @return [Integer]
+    attr_accessor :product_price_point_id
+
+    # Set to change the current product's price point.
+    # @return [String]
+    attr_accessor :product_price_point_handle
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -113,6 +121,8 @@ module AdvancedBilling
         'dunning_communication_delay_enabled'
       @_hash['dunning_communication_delay_time_zone'] =
         'dunning_communication_delay_time_zone'
+      @_hash['product_price_point_id'] = 'product_price_point_id'
+      @_hash['product_price_point_handle'] = 'product_price_point_handle'
       @_hash
     end
 
@@ -136,6 +146,8 @@ module AdvancedBilling
         components
         dunning_communication_delay_enabled
         dunning_communication_delay_time_zone
+        product_price_point_id
+        product_price_point_handle
       ]
     end
 
@@ -157,7 +169,8 @@ module AdvancedBilling
                    custom_price: SKIP, components: SKIP,
                    dunning_communication_delay_enabled: SKIP,
                    dunning_communication_delay_time_zone: SKIP,
-                   additional_properties: {})
+                   product_price_point_id: SKIP,
+                   product_price_point_handle: SKIP, additional_properties: {})
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -189,6 +202,11 @@ module AdvancedBilling
       unless dunning_communication_delay_time_zone == SKIP
         @dunning_communication_delay_time_zone =
           dunning_communication_delay_time_zone
+      end
+      @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
+      unless product_price_point_handle == SKIP
+        @product_price_point_handle =
+          product_price_point_handle
       end
 
       # Add additional model properties to the instance.
@@ -247,6 +265,10 @@ module AdvancedBilling
         hash.key?('dunning_communication_delay_enabled') ? hash['dunning_communication_delay_enabled'] : SKIP
       dunning_communication_delay_time_zone =
         hash.key?('dunning_communication_delay_time_zone') ? hash['dunning_communication_delay_time_zone'] : SKIP
+      product_price_point_id =
+        hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
+      product_price_point_handle =
+        hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -269,6 +291,8 @@ module AdvancedBilling
                              components: components,
                              dunning_communication_delay_enabled: dunning_communication_delay_enabled,
                              dunning_communication_delay_time_zone: dunning_communication_delay_time_zone,
+                             product_price_point_id: product_price_point_id,
+                             product_price_point_handle: product_price_point_handle,
                              additional_properties: hash)
     end
 

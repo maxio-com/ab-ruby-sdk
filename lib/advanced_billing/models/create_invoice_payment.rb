@@ -13,7 +13,8 @@ module AdvancedBilling
     # @return [Object]
     attr_accessor :amount
 
-    # A description to be attached to the payment.
+    # A description to be attached to the payment. Applicable only to `external`
+    # payments.
     # @return [String]
     attr_accessor :memo
 
@@ -21,13 +22,20 @@ module AdvancedBilling
     # @return [InvoicePaymentMethodType]
     attr_accessor :method
 
-    # Additional information related to the payment method (eg. Check #)
+    # Additional information related to the payment method (eg. Check #).
+    # Applicable only to `external` payments.
     # @return [String]
     attr_accessor :details
 
     # The ID of the payment profile to be used for the payment.
     # @return [Integer]
     attr_accessor :payment_profile_id
+
+    # Date reflecting when the payment was received from a customer. Must be in
+    # the past. Applicable only to 
+    # `external` payments.
+    # @return [Date]
+    attr_accessor :received_on
 
     # A mapping from model property names to API property names.
     def self.names
@@ -37,6 +45,7 @@ module AdvancedBilling
       @_hash['method'] = 'method'
       @_hash['details'] = 'details'
       @_hash['payment_profile_id'] = 'payment_profile_id'
+      @_hash['received_on'] = 'received_on'
       @_hash
     end
 
@@ -48,6 +57,7 @@ module AdvancedBilling
         method
         details
         payment_profile_id
+        received_on
       ]
     end
 
@@ -57,12 +67,14 @@ module AdvancedBilling
     end
 
     def initialize(amount: SKIP, memo: SKIP, method: SKIP, details: SKIP,
-                   payment_profile_id: SKIP, additional_properties: {})
+                   payment_profile_id: SKIP, received_on: SKIP,
+                   additional_properties: {})
       @amount = amount unless amount == SKIP
       @memo = memo unless memo == SKIP
       @method = method unless method == SKIP
       @details = details unless details == SKIP
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
+      @received_on = received_on unless received_on == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -83,6 +95,7 @@ module AdvancedBilling
       details = hash.key?('details') ? hash['details'] : SKIP
       payment_profile_id =
         hash.key?('payment_profile_id') ? hash['payment_profile_id'] : SKIP
+      received_on = hash.key?('received_on') ? hash['received_on'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -93,6 +106,7 @@ module AdvancedBilling
                                method: method,
                                details: details,
                                payment_profile_id: payment_profile_id,
+                               received_on: received_on,
                                additional_properties: hash)
     end
 

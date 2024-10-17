@@ -105,6 +105,10 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :salesforce_id
 
+    # (Optional) The default auto-renewal profile ID for the customer
+    # @return [Integer]
+    attr_accessor :default_auto_renewal_profile_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -127,6 +131,8 @@ module AdvancedBilling
       @_hash['metafields'] = 'metafields'
       @_hash['parent_id'] = 'parent_id'
       @_hash['salesforce_id'] = 'salesforce_id'
+      @_hash['default_auto_renewal_profile_id'] =
+        'default_auto_renewal_profile_id'
       @_hash
     end
 
@@ -152,6 +158,7 @@ module AdvancedBilling
         metafields
         parent_id
         salesforce_id
+        default_auto_renewal_profile_id
       ]
     end
 
@@ -161,6 +168,7 @@ module AdvancedBilling
         address_2
         parent_id
         salesforce_id
+        default_auto_renewal_profile_id
       ]
     end
 
@@ -170,6 +178,7 @@ module AdvancedBilling
                    zip: SKIP, country: SKIP, phone: SKIP, verified: SKIP,
                    tax_exempt: SKIP, vat_number: SKIP, metafields: SKIP,
                    parent_id: SKIP, salesforce_id: SKIP,
+                   default_auto_renewal_profile_id: SKIP,
                    additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -190,6 +199,10 @@ module AdvancedBilling
       @metafields = metafields unless metafields == SKIP
       @parent_id = parent_id unless parent_id == SKIP
       @salesforce_id = salesforce_id unless salesforce_id == SKIP
+      unless default_auto_renewal_profile_id == SKIP
+        @default_auto_renewal_profile_id =
+          default_auto_renewal_profile_id
+      end
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -221,6 +234,8 @@ module AdvancedBilling
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
       salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
+      default_auto_renewal_profile_id =
+        hash.key?('default_auto_renewal_profile_id') ? hash['default_auto_renewal_profile_id'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -245,6 +260,7 @@ module AdvancedBilling
                              metafields: metafields,
                              parent_id: parent_id,
                              salesforce_id: salesforce_id,
+                             default_auto_renewal_profile_id: default_auto_renewal_profile_id,
                              additional_properties: hash)
     end
 

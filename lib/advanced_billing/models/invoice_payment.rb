@@ -50,6 +50,18 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :gateway_transaction_id
 
+    # Date reflecting when the payment was received from a customer. Must be in
+    # the past. Applicable only to 
+    # `external` payments.
+    # @return [Date]
+    attr_accessor :received_on
+
+    # Date reflecting when the payment was received from a customer. Must be in
+    # the past. Applicable only to 
+    # `external` payments.
+    # @return [String]
+    attr_accessor :uid
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -63,6 +75,8 @@ module AdvancedBilling
       @_hash['gateway_handle'] = 'gateway_handle'
       @_hash['gateway_used'] = 'gateway_used'
       @_hash['gateway_transaction_id'] = 'gateway_transaction_id'
+      @_hash['received_on'] = 'received_on'
+      @_hash['uid'] = 'uid'
       @_hash
     end
 
@@ -79,6 +93,8 @@ module AdvancedBilling
         gateway_handle
         gateway_used
         gateway_transaction_id
+        received_on
+        uid
       ]
     end
 
@@ -87,6 +103,7 @@ module AdvancedBilling
       %w[
         gateway_handle
         gateway_transaction_id
+        received_on
       ]
     end
 
@@ -94,7 +111,7 @@ module AdvancedBilling
                    applied_amount: SKIP, payment_method: SKIP,
                    transaction_id: SKIP, prepayment: SKIP, gateway_handle: SKIP,
                    gateway_used: SKIP, gateway_transaction_id: SKIP,
-                   additional_properties: {})
+                   received_on: SKIP, uid: SKIP, additional_properties: {})
       @transaction_time = transaction_time unless transaction_time == SKIP
       @memo = memo unless memo == SKIP
       @original_amount = original_amount unless original_amount == SKIP
@@ -105,6 +122,8 @@ module AdvancedBilling
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
       @gateway_used = gateway_used unless gateway_used == SKIP
       @gateway_transaction_id = gateway_transaction_id unless gateway_transaction_id == SKIP
+      @received_on = received_on unless received_on == SKIP
+      @uid = uid unless uid == SKIP
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -137,6 +156,8 @@ module AdvancedBilling
       gateway_used = hash.key?('gateway_used') ? hash['gateway_used'] : SKIP
       gateway_transaction_id =
         hash.key?('gateway_transaction_id') ? hash['gateway_transaction_id'] : SKIP
+      received_on = hash.key?('received_on') ? hash['received_on'] : SKIP
+      uid = hash.key?('uid') ? hash['uid'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -152,6 +173,8 @@ module AdvancedBilling
                          gateway_handle: gateway_handle,
                          gateway_used: gateway_used,
                          gateway_transaction_id: gateway_transaction_id,
+                         received_on: received_on,
+                         uid: uid,
                          additional_properties: hash)
     end
 

@@ -85,8 +85,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :phone
 
-    # Is the customer verified to use ACH as a payment method. Available only on
-    # Authorize.Net gateway
+    # Is the customer verified to use ACH as a payment method.
     # @return [TrueClass | FalseClass]
     attr_accessor :verified
 
@@ -133,6 +132,14 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :salesforce_id
 
+    # The Tax Exemption Reason Code for the customer
+    # @return [String]
+    attr_accessor :tax_exempt_reason
+
+    # The default auto-renewal profile ID for the customer
+    # @return [Integer]
+    attr_accessor :default_auto_renewal_profile_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -166,6 +173,9 @@ module AdvancedBilling
       @_hash['default_subscription_group_uid'] =
         'default_subscription_group_uid'
       @_hash['salesforce_id'] = 'salesforce_id'
+      @_hash['tax_exempt_reason'] = 'tax_exempt_reason'
+      @_hash['default_auto_renewal_profile_id'] =
+        'default_auto_renewal_profile_id'
       @_hash
     end
 
@@ -200,6 +210,8 @@ module AdvancedBilling
         locale
         default_subscription_group_uid
         salesforce_id
+        tax_exempt_reason
+        default_auto_renewal_profile_id
       ]
     end
 
@@ -227,6 +239,8 @@ module AdvancedBilling
         locale
         default_subscription_group_uid
         salesforce_id
+        tax_exempt_reason
+        default_auto_renewal_profile_id
       ]
     end
 
@@ -240,6 +254,8 @@ module AdvancedBilling
                    portal_invite_last_accepted_at: SKIP, tax_exempt: SKIP,
                    vat_number: SKIP, parent_id: SKIP, locale: SKIP,
                    default_subscription_group_uid: SKIP, salesforce_id: SKIP,
+                   tax_exempt_reason: SKIP,
+                   default_auto_renewal_profile_id: SKIP,
                    additional_properties: {})
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -281,6 +297,11 @@ module AdvancedBilling
           default_subscription_group_uid
       end
       @salesforce_id = salesforce_id unless salesforce_id == SKIP
+      @tax_exempt_reason = tax_exempt_reason unless tax_exempt_reason == SKIP
+      unless default_auto_renewal_profile_id == SKIP
+        @default_auto_renewal_profile_id =
+          default_auto_renewal_profile_id
+      end
 
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -342,6 +363,10 @@ module AdvancedBilling
       default_subscription_group_uid =
         hash.key?('default_subscription_group_uid') ? hash['default_subscription_group_uid'] : SKIP
       salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
+      tax_exempt_reason =
+        hash.key?('tax_exempt_reason') ? hash['tax_exempt_reason'] : SKIP
+      default_auto_renewal_profile_id =
+        hash.key?('default_auto_renewal_profile_id') ? hash['default_auto_renewal_profile_id'] : SKIP
 
       # Clean out expected properties from Hash.
       names.each_value { |k| hash.delete(k) }
@@ -375,6 +400,8 @@ module AdvancedBilling
                    locale: locale,
                    default_subscription_group_uid: default_subscription_group_uid,
                    salesforce_id: salesforce_id,
+                   tax_exempt_reason: tax_exempt_reason,
+                   default_auto_renewal_profile_id: default_auto_renewal_profile_id,
                    additional_properties: hash)
     end
 
