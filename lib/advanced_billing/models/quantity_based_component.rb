@@ -89,23 +89,27 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :hide_date_range_on_invoice
 
-    # deprecated May 2011 - use unit_price instead
-    # @return [String]
-    attr_accessor :price_in_cents
-
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [TrueClass | FalseClass]
     attr_accessor :recurring
 
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [TrueClass | FalseClass]
     attr_accessor :display_on_hosted_page
 
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [TrueClass | FalseClass]
     attr_accessor :allow_fractional_quantities
 
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [Array[Integer]]
     attr_accessor :public_signup_page_ids
 
@@ -138,7 +142,6 @@ module AdvancedBilling
       @_hash['unit_price'] = 'unit_price'
       @_hash['tax_code'] = 'tax_code'
       @_hash['hide_date_range_on_invoice'] = 'hide_date_range_on_invoice'
-      @_hash['price_in_cents'] = 'price_in_cents'
       @_hash['recurring'] = 'recurring'
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['allow_fractional_quantities'] = 'allow_fractional_quantities'
@@ -161,7 +164,6 @@ module AdvancedBilling
         unit_price
         tax_code
         hide_date_range_on_invoice
-        price_in_cents
         recurring
         display_on_hosted_page
         allow_fractional_quantities
@@ -184,11 +186,16 @@ module AdvancedBilling
                    handle: SKIP, taxable: SKIP, prices: SKIP,
                    upgrade_charge: SKIP, downgrade_credit: SKIP,
                    price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
-                   hide_date_range_on_invoice: SKIP, price_in_cents: SKIP,
-                   recurring: SKIP, display_on_hosted_page: SKIP,
+                   hide_date_range_on_invoice: SKIP, recurring: SKIP,
+                   display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
                    public_signup_page_ids: SKIP, interval: SKIP,
-                   interval_unit: SKIP, additional_properties: {})
+                   interval_unit: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @unit_name = unit_name
       @description = description unless description == SKIP
@@ -205,7 +212,6 @@ module AdvancedBilling
         @hide_date_range_on_invoice =
           hide_date_range_on_invoice
       end
-      @price_in_cents = price_in_cents unless price_in_cents == SKIP
       @recurring = recurring unless recurring == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       unless allow_fractional_quantities == SKIP
@@ -215,11 +221,6 @@ module AdvancedBilling
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -264,8 +265,6 @@ module AdvancedBilling
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
       hide_date_range_on_invoice =
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
-      price_in_cents =
-        hash.key?('price_in_cents') ? hash['price_in_cents'] : SKIP
       recurring = hash.key?('recurring') ? hash['recurring'] : SKIP
       display_on_hosted_page =
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
@@ -277,7 +276,7 @@ module AdvancedBilling
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       QuantityBasedComponent.new(name: name,
@@ -293,14 +292,13 @@ module AdvancedBilling
                                  unit_price: unit_price,
                                  tax_code: tax_code,
                                  hide_date_range_on_invoice: hide_date_range_on_invoice,
-                                 price_in_cents: price_in_cents,
                                  recurring: recurring,
                                  display_on_hosted_page: display_on_hosted_page,
                                  allow_fractional_quantities: allow_fractional_quantities,
                                  public_signup_page_ids: public_signup_page_ids,
                                  interval: interval,
                                  interval_unit: interval_unit,
-                                 additional_properties: hash)
+                                 additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

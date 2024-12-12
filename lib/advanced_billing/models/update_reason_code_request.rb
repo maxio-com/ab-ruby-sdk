@@ -30,13 +30,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(reason_code:, additional_properties: {})
-      @reason_code = reason_code
-
+    def initialize(reason_code:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @reason_code = reason_code
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       reason_code = UpdateReasonCode.from_hash(hash['reason_code']) if hash['reason_code']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateReasonCodeRequest.new(reason_code: reason_code,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

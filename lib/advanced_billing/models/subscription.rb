@@ -602,7 +602,12 @@ module AdvancedBilling
                    credit_balance_in_cents: SKIP,
                    prepayment_balance_in_cents: SKIP,
                    prepaid_configuration: SKIP, self_service_page_token: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @state = state unless state == SKIP
       @balance_in_cents = balance_in_cents unless balance_in_cents == SKIP
@@ -692,11 +697,6 @@ module AdvancedBilling
       end
       @prepaid_configuration = prepaid_configuration unless prepaid_configuration == SKIP
       @self_service_page_token = self_service_page_token unless self_service_page_token == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -862,7 +862,7 @@ module AdvancedBilling
         hash.key?('self_service_page_token') ? hash['self_service_page_token'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Subscription.new(id: id,
@@ -927,7 +927,7 @@ module AdvancedBilling
                        prepayment_balance_in_cents: prepayment_balance_in_cents,
                        prepaid_configuration: prepaid_configuration,
                        self_service_page_token: self_service_page_token,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     def to_custom_current_period_ends_at

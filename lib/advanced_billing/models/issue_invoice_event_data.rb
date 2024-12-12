@@ -68,17 +68,17 @@ module AdvancedBilling
     end
 
     def initialize(consolidation_level:, from_status:, to_status:, due_amount:,
-                   total_amount:, additional_properties: {})
+                   total_amount:, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @consolidation_level = consolidation_level
       @from_status = from_status
       @to_status = to_status
       @due_amount = due_amount
       @total_amount = total_amount
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -94,7 +94,7 @@ module AdvancedBilling
       total_amount = hash.key?('total_amount') ? hash['total_amount'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       IssueInvoiceEventData.new(consolidation_level: consolidation_level,
@@ -102,7 +102,7 @@ module AdvancedBilling
                                 to_status: to_status,
                                 due_amount: due_amount,
                                 total_amount: total_amount,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

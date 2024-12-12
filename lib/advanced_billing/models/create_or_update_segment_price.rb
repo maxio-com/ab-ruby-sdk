@@ -45,15 +45,15 @@ module AdvancedBilling
     end
 
     def initialize(unit_price:, starting_quantity: SKIP, ending_quantity: SKIP,
-                   additional_properties: {})
-      @starting_quantity = starting_quantity unless starting_quantity == SKIP
-      @ending_quantity = ending_quantity unless ending_quantity == SKIP
-      @unit_price = unit_price
-
+                   additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @starting_quantity = starting_quantity unless starting_quantity == SKIP
+      @ending_quantity = ending_quantity unless ending_quantity == SKIP
+      @unit_price = unit_price
     end
 
     # Creates an instance of the object from a hash.
@@ -70,13 +70,13 @@ module AdvancedBilling
         hash.key?('ending_quantity') ? hash['ending_quantity'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateOrUpdateSegmentPrice.new(unit_price: unit_price,
                                      starting_quantity: starting_quantity,
                                      ending_quantity: ending_quantity,
-                                     additional_properties: hash)
+                                     additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

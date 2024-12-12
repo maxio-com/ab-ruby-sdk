@@ -163,7 +163,12 @@ module AdvancedBilling
                    tax_code: SKIP, tax_amount: SKIP, product_id: SKIP,
                    product_price_point_id: SKIP, price_point_id: SKIP,
                    component_id: SKIP, billing_schedule_item_id: SKIP,
-                   custom_item: SKIP, additional_properties: {})
+                   custom_item: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -184,11 +189,6 @@ module AdvancedBilling
       @component_id = component_id unless component_id == SKIP
       @billing_schedule_item_id = billing_schedule_item_id unless billing_schedule_item_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -235,7 +235,7 @@ module AdvancedBilling
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceLineItemEventData.new(uid: uid,
@@ -258,7 +258,7 @@ module AdvancedBilling
                                    component_id: component_id,
                                    billing_schedule_item_id: billing_schedule_item_id,
                                    custom_item: custom_item,
-                                   additional_properties: hash)
+                                   additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

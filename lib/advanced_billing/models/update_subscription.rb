@@ -154,7 +154,6 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
-        dunning_communication_delay_enabled
         dunning_communication_delay_time_zone
       ]
     end
@@ -170,7 +169,13 @@ module AdvancedBilling
                    dunning_communication_delay_enabled: SKIP,
                    dunning_communication_delay_time_zone: SKIP,
                    product_price_point_id: SKIP,
-                   product_price_point_handle: SKIP, additional_properties: {})
+                   product_price_point_handle: SKIP,
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -207,11 +212,6 @@ module AdvancedBilling
       unless product_price_point_handle == SKIP
         @product_price_point_handle =
           product_price_point_handle
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -271,7 +271,7 @@ module AdvancedBilling
         hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateSubscription.new(credit_card_attributes: credit_card_attributes,
@@ -293,7 +293,7 @@ module AdvancedBilling
                              dunning_communication_delay_time_zone: dunning_communication_delay_time_zone,
                              product_price_point_id: product_price_point_id,
                              product_price_point_handle: product_price_point_handle,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
 
     def to_custom_next_billing_at

@@ -57,16 +57,16 @@ module AdvancedBilling
 
     def initialize(agreement_terms: SKIP, authorizer_first_name: SKIP,
                    authorizer_last_name: SKIP, ip_address: SKIP,
-                   additional_properties: {})
-      @agreement_terms = agreement_terms unless agreement_terms == SKIP
-      @authorizer_first_name = authorizer_first_name unless authorizer_first_name == SKIP
-      @authorizer_last_name = authorizer_last_name unless authorizer_last_name == SKIP
-      @ip_address = ip_address unless ip_address == SKIP
-
+                   additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @agreement_terms = agreement_terms unless agreement_terms == SKIP
+      @authorizer_first_name = authorizer_first_name unless authorizer_first_name == SKIP
+      @authorizer_last_name = authorizer_last_name unless authorizer_last_name == SKIP
+      @ip_address = ip_address unless ip_address == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -83,14 +83,14 @@ module AdvancedBilling
       ip_address = hash.key?('ip_address') ? hash['ip_address'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ACHAgreement.new(agreement_terms: agreement_terms,
                        authorizer_first_name: authorizer_first_name,
                        authorizer_last_name: authorizer_last_name,
                        ip_address: ip_address,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

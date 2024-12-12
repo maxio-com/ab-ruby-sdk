@@ -45,15 +45,15 @@ module AdvancedBilling
     end
 
     def initialize(currency: SKIP, price: SKIP, price_id: SKIP,
-                   additional_properties: {})
-      @currency = currency unless currency == SKIP
-      @price = price unless price == SKIP
-      @price_id = price_id unless price_id == SKIP
-
+                   additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @currency = currency unless currency == SKIP
+      @price = price unless price == SKIP
+      @price_id = price_id unless price_id == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -66,13 +66,13 @@ module AdvancedBilling
       price_id = hash.key?('price_id') ? hash['price_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateCurrencyPrice.new(currency: currency,
                               price: price,
                               price_id: price_id,
-                              additional_properties: hash)
+                              additional_properties: additional_properties)
     end
   end
 end

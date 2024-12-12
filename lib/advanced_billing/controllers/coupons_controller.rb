@@ -17,24 +17,22 @@ module AdvancedBilling
     # and-Subscriptions).
     # ## Create Coupon
     # This request will create a coupon, based on the provided information.
-    # When creating a coupon, you must specify a product family using the
-    # `product_family_id`. If no `product_family_id` is passed, the first
-    # product family available is used. You will also need to formulate your URL
-    # to cite the Product Family ID in your request.
+    # You can create either a flat amount coupon, by specyfing
+    # `amount_in_cents`, or percentage coupon by specyfing `percentage`.
     # You can restrict a coupon to only apply to specific products / components
-    # by optionally passing in hashes of `restricted_products` and/or
-    # `restricted_components` in the format:
-    # `{ "<product/component_id>": boolean_value }`
+    # by optionally passing in `restricted_products` and/or
+    # `restricted_components` objects in the format:
+    # `{ "<product_id/component_id>": boolean_value }`
     # @param [Integer] product_family_id Required parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
-    # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
+    # @param [CouponRequest] body Optional parameter: Example:
     # @return [CouponResponse] response from the API call.
     def create_coupon(product_family_id,
                       body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/coupons.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -82,7 +80,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -110,15 +108,21 @@ module AdvancedBilling
     # @param [Integer] product_family_id Optional parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
     # @param [String] code Optional parameter: The code of the coupon
+    # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
+    # fetching coupons, if you have defined multiple currencies at the site
+    # level, you can optionally pass the `?currency_prices=true` query param to
+    # include an array of currency price data in the response.
     # @return [CouponResponse] response from the API call.
     def find_coupon(product_family_id: nil,
-                    code: nil)
+                    code: nil,
+                    currency_prices: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/find.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(product_family_id, key: 'product_family_id'))
                    .query_param(new_parameter(code, key: 'code'))
+                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -142,19 +146,25 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
+    # @param [TrueClass | FalseClass] currency_prices Optional parameter: When
+    # fetching coupons, if you have defined multiple currencies at the site
+    # level, you can optionally pass the `?currency_prices=true` query param to
+    # include an array of currency price data in the response.
     # @return [CouponResponse] response from the API call.
     def read_coupon(product_family_id,
-                    coupon_id)
+                    coupon_id,
+                    currency_prices: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
                    .template_param(new_parameter(coupon_id, key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))
+                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -174,7 +184,7 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @param [CreateOrUpdateCoupon] body Optional parameter: Example:
+    # @param [CouponRequest] body Optional parameter: Example:
     # @return [CouponResponse] response from the API call.
     def update_coupon(product_family_id,
                       coupon_id,
@@ -182,7 +192,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -196,7 +206,11 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(CouponResponse.method(:from_hash)))
+                    .deserialize_into(CouponResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -215,7 +229,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -257,7 +271,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['filter'], key: 'filter'))
@@ -284,7 +298,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}/usage.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -335,7 +349,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/validate.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(code, key: 'code')
                                  .is_required(true))
                    .query_param(new_parameter(product_family_id, key: 'product_family_id'))
@@ -366,7 +380,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/coupons/{coupon_id}/currency_prices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(coupon_id, key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -377,7 +391,11 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(CouponCurrencyResponse.method(:from_hash)))
+                    .deserialize_into(CouponCurrencyResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorStringMapResponseException))
         .execute
     end
 
@@ -428,7 +446,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/coupons/{coupon_id}/codes.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(coupon_id, key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -463,7 +481,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/{coupon_id}/codes.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['coupon_id'], key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -495,7 +513,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/coupons/{coupon_id}/codes.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(coupon_id, key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -539,7 +557,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/coupons/{coupon_id}/codes/{subcode}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(coupon_id, key: 'coupon_id')
                                     .is_required(true)
                                     .should_encode(true))

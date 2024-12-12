@@ -30,13 +30,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product:, additional_properties: {})
-      @product = product
-
+    def initialize(product:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @product = product
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       product = Product.from_hash(hash['product']) if hash['product']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProductResponse.new(product: product,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
   end
 end

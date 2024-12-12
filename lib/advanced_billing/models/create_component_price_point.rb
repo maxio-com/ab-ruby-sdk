@@ -30,11 +30,13 @@ module AdvancedBilling
     attr_accessor :prices
 
     # Whether to use the site level exchange rate or define your own prices for
-    # each currency if you have multiple currencies defined on the site.
+    # each currency if you have multiple currencies defined on the site. Setting
+    # not supported when creating price points in bulk.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
-    # Whether or not the price point includes tax
+    # Whether or not the price point includes tax. Setting not supported when
+    # creating price points in bulk.
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_included
 
@@ -86,7 +88,12 @@ module AdvancedBilling
     def initialize(name:, pricing_scheme:, prices:, handle: SKIP,
                    use_site_exchange_rate: true, tax_included: SKIP,
                    interval: SKIP, interval_unit: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
@@ -95,11 +102,6 @@ module AdvancedBilling
       @tax_included = tax_included unless tax_included == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -127,7 +129,7 @@ module AdvancedBilling
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateComponentPricePoint.new(name: name,
@@ -138,7 +140,7 @@ module AdvancedBilling
                                     tax_included: tax_included,
                                     interval: interval,
                                     interval_unit: interval_unit,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

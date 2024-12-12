@@ -30,13 +30,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(subscription:, additional_properties: {})
-      @subscription = subscription
-
+    def initialize(subscription:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @subscription = subscription
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       subscription = OverrideSubscription.from_hash(hash['subscription']) if hash['subscription']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       OverrideSubscriptionRequest.new(subscription: subscription,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
   end
 end

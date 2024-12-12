@@ -68,18 +68,18 @@ module AdvancedBilling
 
     def initialize(amount: SKIP, memo: SKIP, method: SKIP, details: SKIP,
                    payment_profile_id: SKIP, received_on: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @amount = amount unless amount == SKIP
       @memo = memo unless memo == SKIP
       @method = method unless method == SKIP
       @details = details unless details == SKIP
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
       @received_on = received_on unless received_on == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -98,7 +98,7 @@ module AdvancedBilling
       received_on = hash.key?('received_on') ? hash['received_on'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateInvoicePayment.new(amount: amount,
@@ -107,7 +107,7 @@ module AdvancedBilling
                                details: details,
                                payment_profile_id: payment_profile_id,
                                received_on: received_on,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

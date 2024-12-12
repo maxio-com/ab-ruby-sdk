@@ -53,15 +53,15 @@ module AdvancedBilling
     end
 
     def initialize(date_field: SKIP, start_date: SKIP, end_date: SKIP,
-                   additional_properties: {})
-      @date_field = date_field unless date_field == SKIP
-      @start_date = start_date unless start_date == SKIP
-      @end_date = end_date unless end_date == SKIP
-
+                   additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @date_field = date_field unless date_field == SKIP
+      @start_date = start_date unless start_date == SKIP
+      @end_date = end_date unless end_date == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -74,13 +74,13 @@ module AdvancedBilling
       end_date = hash.key?('end_date') ? hash['end_date'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListPrepaymentsFilter.new(date_field: date_field,
                                 start_date: start_date,
                                 end_date: end_date,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

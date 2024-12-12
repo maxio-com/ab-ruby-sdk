@@ -229,7 +229,12 @@ module AdvancedBilling
                    initiate_dunning: SKIP, upgrade_charge: SKIP,
                    downgrade_credit: SKIP, payment: SKIP, expires_at: SKIP,
                    used_quantity: SKIP, charge_id: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @allocation_id = allocation_id unless allocation_id == SKIP
       @component_id = component_id unless component_id == SKIP
       @component_handle = component_handle unless component_handle == SKIP
@@ -258,11 +263,6 @@ module AdvancedBilling
       @expires_at = expires_at unless expires_at == SKIP
       @used_quantity = used_quantity unless used_quantity == SKIP
       @charge_id = charge_id unless charge_id == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -324,7 +324,7 @@ module AdvancedBilling
       charge_id = hash.key?('charge_id') ? hash['charge_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Allocation.new(allocation_id: allocation_id,
@@ -352,7 +352,7 @@ module AdvancedBilling
                      expires_at: expires_at,
                      used_quantity: used_quantity,
                      charge_id: charge_id,
-                     additional_properties: hash)
+                     additional_properties: additional_properties)
     end
 
     def to_custom_timestamp

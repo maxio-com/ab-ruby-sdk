@@ -81,7 +81,13 @@ module AdvancedBilling
                    payment_profile: SKIP, payment_profile_chargify_token: SKIP,
                    base: SKIP, payment_profile_expiration_month: SKIP,
                    payment_profile_expiration_year: SKIP,
-                   payment_profile_full_number: SKIP, additional_properties: {})
+                   payment_profile_full_number: SKIP,
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @product = product unless product == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
@@ -101,11 +107,6 @@ module AdvancedBilling
       unless payment_profile_full_number == SKIP
         @payment_profile_full_number =
           payment_profile_full_number
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -130,7 +131,7 @@ module AdvancedBilling
         hash.key?('payment_profile.full_number') ? hash['payment_profile.full_number'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupSubscriptionError.new(product: product,
@@ -141,7 +142,7 @@ module AdvancedBilling
                                              payment_profile_expiration_month: payment_profile_expiration_month,
                                              payment_profile_expiration_year: payment_profile_expiration_year,
                                              payment_profile_full_number: payment_profile_full_number,
-                                             additional_properties: hash)
+                                             additional_properties: additional_properties)
     end
   end
 end

@@ -70,18 +70,18 @@ module AdvancedBilling
     end
 
     def initialize(street: SKIP, line2: SKIP, city: SKIP, state: SKIP,
-                   zip: SKIP, country: SKIP, additional_properties: {})
+                   zip: SKIP, country: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @street = street unless street == SKIP
       @line2 = line2 unless line2 == SKIP
       @city = city unless city == SKIP
       @state = state unless state == SKIP
       @zip = zip unless zip == SKIP
       @country = country unless country == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -97,7 +97,7 @@ module AdvancedBilling
       country = hash.key?('country') ? hash['country'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceAddress.new(street: street,
@@ -106,7 +106,7 @@ module AdvancedBilling
                          state: state,
                          zip: zip,
                          country: country,
-                         additional_properties: hash)
+                         additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

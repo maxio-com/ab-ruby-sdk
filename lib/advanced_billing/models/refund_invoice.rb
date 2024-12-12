@@ -66,18 +66,18 @@ module AdvancedBilling
 
     def initialize(amount:, memo:, payment_id:, external: SKIP,
                    apply_credit: SKIP, void_invoice: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @amount = amount
       @memo = memo
       @payment_id = payment_id
       @external = external unless external == SKIP
       @apply_credit = apply_credit unless apply_credit == SKIP
       @void_invoice = void_invoice unless void_invoice == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -93,7 +93,7 @@ module AdvancedBilling
       void_invoice = hash.key?('void_invoice') ? hash['void_invoice'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       RefundInvoice.new(amount: amount,
@@ -102,7 +102,7 @@ module AdvancedBilling
                         external: external,
                         apply_credit: apply_credit,
                         void_invoice: void_invoice,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

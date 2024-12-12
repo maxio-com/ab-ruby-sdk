@@ -89,7 +89,12 @@ module AdvancedBilling
     def initialize(name: SKIP, handle: SKIP, pricing_scheme: SKIP,
                    use_site_exchange_rate: SKIP, tax_included: SKIP,
                    interval: SKIP, interval_unit: SKIP, prices: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
@@ -98,11 +103,6 @@ module AdvancedBilling
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @prices = prices unless prices == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -131,7 +131,7 @@ module AdvancedBilling
       prices = SKIP unless hash.key?('prices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateComponentPricePoint.new(name: name,
@@ -142,7 +142,7 @@ module AdvancedBilling
                                     interval: interval,
                                     interval_unit: interval_unit,
                                     prices: prices,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
   end
 end

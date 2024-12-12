@@ -29,7 +29,11 @@ module AdvancedBilling
     # @return [Object]
     attr_accessor :product_family_id
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [CompoundingStrategy]
     attr_accessor :compounding_strategy
 
@@ -64,18 +68,18 @@ module AdvancedBilling
 
     def initialize(code: SKIP, percentage: SKIP, amount: SKIP,
                    description: SKIP, product_family_id: SKIP,
-                   compounding_strategy: SKIP, additional_properties: {})
+                   compounding_strategy: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @code = code unless code == SKIP
       @percentage = percentage unless percentage == SKIP
       @amount = amount unless amount == SKIP
       @description = description unless description == SKIP
       @product_family_id = product_family_id unless product_family_id == SKIP
       @compounding_strategy = compounding_strategy unless compounding_strategy == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -98,7 +102,7 @@ module AdvancedBilling
         hash.key?('compounding_strategy') ? hash['compounding_strategy'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateInvoiceCoupon.new(code: code,
@@ -107,7 +111,7 @@ module AdvancedBilling
                               description: description,
                               product_family_id: product_family_id,
                               compounding_strategy: compounding_strategy,
-                              additional_properties: hash)
+                              additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

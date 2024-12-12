@@ -29,7 +29,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/proforma_invoices/{batch_id}/rows.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['batch_id'], key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -70,7 +70,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/invoices/{batch_id}/rows.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['batch_id'], key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -111,7 +111,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/subscriptions/{batch_id}/rows.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['batch_id'], key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -136,7 +136,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/api_exports/proforma_invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -158,7 +158,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/api_exports/invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -180,7 +180,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/api_exports/subscriptions.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -200,7 +200,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/proforma_invoices/{batch_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(batch_id, key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -222,7 +222,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/invoices/{batch_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(batch_id, key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -244,7 +244,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api_exports/subscriptions/{batch_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(batch_id, key: 'batch_id')
                                     .is_required(true)
                                     .should_encode(true))

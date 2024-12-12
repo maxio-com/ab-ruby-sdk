@@ -88,7 +88,12 @@ module AdvancedBilling
                    proration_downgrade_scheme: SKIP, allocations: SKIP,
                    accrue_charge: SKIP, upgrade_charge: SKIP,
                    downgrade_credit: SKIP, payment_collection_method: SKIP,
-                   initiate_dunning: SKIP, additional_properties: {})
+                   initiate_dunning: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @proration_upgrade_scheme = proration_upgrade_scheme unless proration_upgrade_scheme == SKIP
       unless proration_downgrade_scheme == SKIP
         @proration_downgrade_scheme =
@@ -103,11 +108,6 @@ module AdvancedBilling
           payment_collection_method
       end
       @initiate_dunning = initiate_dunning unless initiate_dunning == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -140,7 +140,7 @@ module AdvancedBilling
         hash.key?('initiate_dunning') ? hash['initiate_dunning'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AllocateComponents.new(proration_upgrade_scheme: proration_upgrade_scheme,
@@ -151,7 +151,7 @@ module AdvancedBilling
                              downgrade_credit: downgrade_credit,
                              payment_collection_method: payment_collection_method,
                              initiate_dunning: initiate_dunning,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
   end
 end

@@ -50,16 +50,16 @@ module AdvancedBilling
 
     def initialize(reason:, current_account_balance_in_cents:,
                    prepayment_account_balance_in_cents:,
-                   current_usage_amount_in_cents:, additional_properties: {})
-      @reason = reason
-      @current_account_balance_in_cents = current_account_balance_in_cents
-      @prepayment_account_balance_in_cents = prepayment_account_balance_in_cents
-      @current_usage_amount_in_cents = current_usage_amount_in_cents
-
+                   current_usage_amount_in_cents:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @reason = reason
+      @current_account_balance_in_cents = current_account_balance_in_cents
+      @prepayment_account_balance_in_cents = prepayment_account_balance_in_cents
+      @current_usage_amount_in_cents = current_usage_amount_in_cents
     end
 
     # Creates an instance of the object from a hash.
@@ -76,14 +76,14 @@ module AdvancedBilling
         hash.key?('current_usage_amount_in_cents') ? hash['current_usage_amount_in_cents'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PrepaidSubscriptionBalanceChanged.new(reason: reason,
                                             current_account_balance_in_cents: current_account_balance_in_cents,
                                             prepayment_account_balance_in_cents: prepayment_account_balance_in_cents,
                                             current_usage_amount_in_cents: current_usage_amount_in_cents,
-                                            additional_properties: hash)
+                                            additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

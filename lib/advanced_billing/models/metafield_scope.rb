@@ -73,7 +73,12 @@ module AdvancedBilling
 
     def initialize(csv: SKIP, invoices: SKIP, statements: SKIP, portal: SKIP,
                    public_show: SKIP, public_edit: SKIP, hosted: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @csv = csv unless csv == SKIP
       @invoices = invoices unless invoices == SKIP
       @statements = statements unless statements == SKIP
@@ -81,11 +86,6 @@ module AdvancedBilling
       @public_show = public_show unless public_show == SKIP
       @public_edit = public_edit unless public_edit == SKIP
       @hosted = hosted unless hosted == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -102,7 +102,7 @@ module AdvancedBilling
       hosted = hash.key?('hosted') ? hash['hosted'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       MetafieldScope.new(csv: csv,
@@ -112,7 +112,7 @@ module AdvancedBilling
                          public_show: public_show,
                          public_edit: public_edit,
                          hosted: hosted,
-                         additional_properties: hash)
+                         additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

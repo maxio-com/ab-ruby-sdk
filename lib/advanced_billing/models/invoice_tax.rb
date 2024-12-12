@@ -117,7 +117,12 @@ module AdvancedBilling
                    tax_amount: SKIP, transaction_id: SKIP,
                    line_item_breakouts: SKIP, tax_component_breakouts: SKIP,
                    eu_vat: SKIP, type: SKIP, tax_exempt_amount: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -132,11 +137,6 @@ module AdvancedBilling
       @eu_vat = eu_vat unless eu_vat == SKIP
       @type = type unless type == SKIP
       @tax_exempt_amount = tax_exempt_amount unless tax_exempt_amount == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -181,7 +181,7 @@ module AdvancedBilling
         hash.key?('tax_exempt_amount') ? hash['tax_exempt_amount'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceTax.new(uid: uid,
@@ -198,7 +198,7 @@ module AdvancedBilling
                      eu_vat: eu_vat,
                      type: type,
                      tax_exempt_amount: tax_exempt_amount,
-                     additional_properties: hash)
+                     additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

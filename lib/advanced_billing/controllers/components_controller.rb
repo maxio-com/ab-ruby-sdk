@@ -29,7 +29,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/metered_components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -78,7 +78,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/quantity_based_components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -117,7 +117,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/on_off_components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -160,7 +160,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/prepaid_usage_components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -206,7 +206,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/event_based_components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -238,7 +238,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/lookup.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(handle, key: 'handle')
                                  .is_required(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -264,7 +264,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -295,7 +295,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -331,7 +331,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -392,7 +392,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
@@ -424,7 +424,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -489,7 +489,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))

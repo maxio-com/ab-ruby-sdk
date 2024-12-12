@@ -79,7 +79,12 @@ module AdvancedBilling
     def initialize(id: SKIP, component_id: SKIP, starting_quantity: SKIP,
                    ending_quantity: SKIP, unit_price: SKIP,
                    price_point_id: SKIP, formatted_unit_price: SKIP,
-                   segment_id: SKIP, additional_properties: {})
+                   segment_id: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @component_id = component_id unless component_id == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
@@ -88,11 +93,6 @@ module AdvancedBilling
       @price_point_id = price_point_id unless price_point_id == SKIP
       @formatted_unit_price = formatted_unit_price unless formatted_unit_price == SKIP
       @segment_id = segment_id unless segment_id == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -114,7 +114,7 @@ module AdvancedBilling
       segment_id = hash.key?('segment_id') ? hash['segment_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SegmentPrice.new(id: id,
@@ -125,7 +125,7 @@ module AdvancedBilling
                        price_point_id: price_point_id,
                        formatted_unit_price: formatted_unit_price,
                        segment_id: segment_id,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

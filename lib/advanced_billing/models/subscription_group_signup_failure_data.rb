@@ -78,7 +78,12 @@ module AdvancedBilling
                    payment_profile_id: SKIP, payment_collection_method: SKIP,
                    payer_attributes: SKIP, credit_card_attributes: SKIP,
                    bank_account_attributes: SKIP, subscriptions: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @payer_id = payer_id unless payer_id == SKIP
       @payer_reference = payer_reference unless payer_reference == SKIP
       @payment_profile_id = payment_profile_id unless payment_profile_id == SKIP
@@ -90,11 +95,6 @@ module AdvancedBilling
       @credit_card_attributes = credit_card_attributes unless credit_card_attributes == SKIP
       @bank_account_attributes = bank_account_attributes unless bank_account_attributes == SKIP
       @subscriptions = subscriptions unless subscriptions == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -129,7 +129,7 @@ module AdvancedBilling
       subscriptions = SKIP unless hash.key?('subscriptions')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupSignupFailureData.new(payer_id: payer_id,
@@ -140,7 +140,7 @@ module AdvancedBilling
                                              credit_card_attributes: credit_card_attributes,
                                              bank_account_attributes: bank_account_attributes,
                                              subscriptions: subscriptions,
-                                             additional_properties: hash)
+                                             additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

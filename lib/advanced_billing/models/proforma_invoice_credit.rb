@@ -51,16 +51,16 @@ module AdvancedBilling
     end
 
     def initialize(uid: SKIP, memo: SKIP, original_amount: SKIP,
-                   applied_amount: SKIP, additional_properties: {})
-      @uid = uid unless uid == SKIP
-      @memo = memo unless memo == SKIP
-      @original_amount = original_amount unless original_amount == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
-
+                   applied_amount: SKIP, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @uid = uid unless uid == SKIP
+      @memo = memo unless memo == SKIP
+      @original_amount = original_amount unless original_amount == SKIP
+      @applied_amount = applied_amount unless applied_amount == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -76,14 +76,14 @@ module AdvancedBilling
         hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProformaInvoiceCredit.new(uid: uid,
                                 memo: memo,
                                 original_amount: original_amount,
                                 applied_amount: applied_amount,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

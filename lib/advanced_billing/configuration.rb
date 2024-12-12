@@ -6,18 +6,19 @@
 module AdvancedBilling
   # An enum for SDK environments.
   class Environment
-    # PRODUCTION: Production server
-    # ENVIRONMENT2: Production server
+    # US: Default Advanced Billing environment hosted in US. Valid for the majority of our customers.
+    # EU: Advanced Billing environment hosted in EU. Use only when you requested EU hosting for your AB account.
     ENVIRONMENT = [
-      PRODUCTION = 'production'.freeze,
-      ENVIRONMENT2 = 'environment2'.freeze
+      US = 'US'.freeze,
+      EU = 'EU'.freeze
     ].freeze
   end
 
   # An enum for API servers.
   class Server
     SERVER = [
-      DEFAULT = 'default'.freeze
+      PRODUCTION = 'production'.freeze,
+      EBB = 'ebb'.freeze
     ].freeze
   end
 
@@ -25,7 +26,7 @@ module AdvancedBilling
   # are configured in this class.
   class Configuration < CoreLibrary::HttpClientConfiguration
     # The attribute readers for properties.
-    attr_reader :environment, :subdomain, :domain, :basic_auth_credentials
+    attr_reader :environment, :site, :basic_auth_credentials
 
     class << self
       attr_reader :environments
@@ -36,8 +37,8 @@ module AdvancedBilling
       max_retries: 0, retry_interval: 1, backoff_factor: 2,
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       retry_methods: %i[get put], http_callback: nil,
-      environment: Environment::PRODUCTION, subdomain: 'subdomain',
-      domain: 'chargify.com', basic_auth_credentials: nil
+      environment: Environment::US, site: 'subdomain',
+      basic_auth_credentials: nil
     )
 
       super connection: connection, adapter: adapter, timeout: timeout,
@@ -49,10 +50,7 @@ module AdvancedBilling
       @environment = String(environment)
 
       # The subdomain for your Advanced Billing site.
-      @subdomain = subdomain
-
-      # The Advanced Billing server domain.
-      @domain = domain
+      @site = site
 
       # The object holding Basic Authentication credentials
       @basic_auth_credentials = basic_auth_credentials
@@ -67,8 +65,7 @@ module AdvancedBilling
     def clone_with(connection: nil, adapter: nil, timeout: nil,
                    max_retries: nil, retry_interval: nil, backoff_factor: nil,
                    retry_statuses: nil, retry_methods: nil, http_callback: nil,
-                   environment: nil, subdomain: nil, domain: nil,
-                   basic_auth_credentials: nil)
+                   environment: nil, site: nil, basic_auth_credentials: nil)
       connection ||= self.connection
       adapter ||= self.adapter
       timeout ||= self.timeout
@@ -79,8 +76,7 @@ module AdvancedBilling
       retry_methods ||= self.retry_methods
       http_callback ||= self.http_callback
       environment ||= self.environment
-      subdomain ||= self.subdomain
-      domain ||= self.domain
+      site ||= self.site
       basic_auth_credentials ||= basic_auth_credentials
 
       Configuration.new(connection: connection, adapter: adapter,
@@ -90,18 +86,20 @@ module AdvancedBilling
                         retry_statuses: retry_statuses,
                         retry_methods: retry_methods,
                         http_callback: http_callback, environment: environment,
-                        subdomain: subdomain, domain: domain,
+                        site: site,
                         basic_auth_credentials: basic_auth_credentials)
     end
 
 
     # All the environments the SDK can run in.
     ENVIRONMENTS = {
-      Environment::PRODUCTION => {
-        Server::DEFAULT => 'https://{subdomain}.{domain}'
+      Environment::US => {
+        Server::PRODUCTION => 'https://{site}.chargify.com',
+        Server::EBB => 'https://events.chargify.com/{site}'
       },
-      Environment::ENVIRONMENT2 => {
-        Server::DEFAULT => 'https://events.chargify.com'
+      Environment::EU => {
+        Server::PRODUCTION => 'https://{site}.ebilling.maxio.com',
+        Server::EBB => 'https://events.chargify.com/{site}'
       }
     }.freeze
 
@@ -109,10 +107,9 @@ module AdvancedBilling
     # @param [Configuration::Server] server The server enum for which the base URI is
     # required.
     # @return [String] The base URI.
-    def get_base_uri(server = Server::DEFAULT)
+    def get_base_uri(server = Server::PRODUCTION)
       parameters = {
-        'subdomain' => { 'value' => subdomain, 'encode' => false },
-        'domain' => { 'value' => domain, 'encode' => false }
+        'site' => { 'value' => site, 'encode' => false }
       }
       APIHelper.append_url_with_template_parameters(
         ENVIRONMENTS[environment][server], parameters

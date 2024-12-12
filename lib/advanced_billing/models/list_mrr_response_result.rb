@@ -70,7 +70,12 @@ module AdvancedBilling
 
     def initialize(page: SKIP, per_page: SKIP, total_pages: SKIP,
                    total_entries: SKIP, currency: SKIP, currency_symbol: SKIP,
-                   movements: SKIP, additional_properties: {})
+                   movements: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @page = page unless page == SKIP
       @per_page = per_page unless per_page == SKIP
       @total_pages = total_pages unless total_pages == SKIP
@@ -78,11 +83,6 @@ module AdvancedBilling
       @currency = currency unless currency == SKIP
       @currency_symbol = currency_symbol unless currency_symbol == SKIP
       @movements = movements unless movements == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -109,7 +109,7 @@ module AdvancedBilling
       movements = SKIP unless hash.key?('movements')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListMRRResponseResult.new(page: page,
@@ -119,7 +119,7 @@ module AdvancedBilling
                                 currency: currency,
                                 currency_symbol: currency_symbol,
                                 movements: movements,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

@@ -47,15 +47,15 @@ module AdvancedBilling
     end
 
     def initialize(invoice_uid: SKIP, application_uid: SKIP,
-                   applied_amount: SKIP, additional_properties: {})
-      @invoice_uid = invoice_uid unless invoice_uid == SKIP
-      @application_uid = application_uid unless application_uid == SKIP
-      @applied_amount = applied_amount unless applied_amount == SKIP
-
+                   applied_amount: SKIP, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @invoice_uid = invoice_uid unless invoice_uid == SKIP
+      @application_uid = application_uid unless application_uid == SKIP
+      @applied_amount = applied_amount unless applied_amount == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -70,13 +70,13 @@ module AdvancedBilling
         hash.key?('applied_amount') ? hash['applied_amount'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoicePaymentApplication.new(invoice_uid: invoice_uid,
                                     application_uid: application_uid,
                                     applied_amount: applied_amount,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
   end
 end

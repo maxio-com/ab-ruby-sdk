@@ -88,7 +88,12 @@ module AdvancedBilling
                    original_amount: SKIP, applied_amount: SKIP,
                    gateway_transaction_id: SKIP, gateway_used: SKIP,
                    gateway_handle: SKIP, ach_late_reject: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @transaction_id = transaction_id unless transaction_id == SKIP
       @payment_id = payment_id unless payment_id == SKIP
       @memo = memo unless memo == SKIP
@@ -98,11 +103,6 @@ module AdvancedBilling
       @gateway_used = gateway_used unless gateway_used == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
       @ach_late_reject = ach_late_reject unless ach_late_reject == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -127,7 +127,7 @@ module AdvancedBilling
         hash.key?('ach_late_reject') ? hash['ach_late_reject'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceRefund.new(transaction_id: transaction_id,
@@ -139,7 +139,7 @@ module AdvancedBilling
                         gateway_used: gateway_used,
                         gateway_handle: gateway_handle,
                         ach_late_reject: ach_late_reject,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

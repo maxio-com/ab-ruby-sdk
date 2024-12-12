@@ -72,7 +72,12 @@ module AdvancedBilling
     def initialize(id: SKIP, subscription_id: SKIP, amount_in_cents: SKIP,
                    memo: SKIP, created_at: SKIP,
                    starting_balance_in_cents: SKIP,
-                   ending_balance_in_cents: SKIP, additional_properties: {})
+                   ending_balance_in_cents: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -83,11 +88,6 @@ module AdvancedBilling
           starting_balance_in_cents
       end
       @ending_balance_in_cents = ending_balance_in_cents unless ending_balance_in_cents == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -112,7 +112,7 @@ module AdvancedBilling
         hash.key?('ending_balance_in_cents') ? hash['ending_balance_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreatedPrepayment.new(id: id,
@@ -122,7 +122,7 @@ module AdvancedBilling
                             created_at: created_at,
                             starting_balance_in_cents: starting_balance_in_cents,
                             ending_balance_in_cents: ending_balance_in_cents,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
 
     def to_custom_created_at

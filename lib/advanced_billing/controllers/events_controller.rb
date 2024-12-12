@@ -29,9 +29,17 @@ module AdvancedBilling
     # integration)
     # + `zferral_revenue_post_success` - (Specific to the deprecated Zferral
     # integration)
+    # ## Event Key
+    # The event type is identified by the key property. You can check supported
+    # keys [here]($m/Event%20Key).
     # ## Event Specific Data
-    # Event Specific Data
-    # Each event type has its own `event_specific_data` specified.
+    # Different event types may include additional data in `event_specific_data`
+    # property.
+    # While some events share the same schema for `event_specific_data`, others
+    # may not include it at all.
+    # For precise mappings from key to event_specific_data, refer to
+    # [Event]($m/Event).
+    # ### Example
     # Here’s an example event for the `subscription_product_change` event:
     # ```
     # {
@@ -83,7 +91,7 @@ module AdvancedBilling
     # than or equal to the one specified
     # @param [Direction] direction Optional parameter: The sort direction of the
     # returned events.
-    # @param [Array[EventType]] filter Optional parameter: You can pass multiple
+    # @param [Array[EventKey]] filter Optional parameter: You can pass multiple
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
     # @param [ListEventsDateField] date_field Optional parameter: The type of
@@ -111,7 +119,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/events.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['since_id'], key: 'since_id'))
@@ -134,7 +142,16 @@ module AdvancedBilling
     end
 
     # The following request will return a list of events for a subscription.
-    # Each event type has its own `event_specific_data` specified.
+    # ## Event Key
+    # The event type is identified by the key property. You can check supported
+    # keys [here]($m/Event%20Key).
+    # ## Event Specific Data
+    # Different event types may include additional data in `event_specific_data`
+    # property.
+    # While some events share the same schema for `event_specific_data`, others
+    # may not include it at all.
+    # For precise mappings from key to event_specific_data, refer to
+    # [Event]($m/Event).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -154,7 +171,7 @@ module AdvancedBilling
     # than or equal to the one specified
     # @param [Direction] direction Optional parameter: The sort direction of the
     # returned events.
-    # @param [Array[EventType]] filter Optional parameter: You can pass multiple
+    # @param [Array[EventKey]] filter Optional parameter: You can pass multiple
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
     # @return [Array[EventResponse]] response from the API call.
@@ -162,7 +179,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/events.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -200,7 +217,7 @@ module AdvancedBilling
     # than or equal to the one specified
     # @param [Direction] direction Optional parameter: The sort direction of the
     # returned events.
-    # @param [Array[EventType]] filter Optional parameter: You can pass multiple
+    # @param [Array[EventKey]] filter Optional parameter: You can pass multiple
     # event keys after comma. Use in query
     # `filter=signup_success,payment_success`.
     # @return [CountResponse] response from the API call.
@@ -208,7 +225,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/events/count.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['since_id'], key: 'since_id'))

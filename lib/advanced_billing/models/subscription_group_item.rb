@@ -94,7 +94,12 @@ module AdvancedBilling
                    product_handle: SKIP, product_price_point_id: SKIP,
                    product_price_point_handle: SKIP, currency: SKIP,
                    coupon_code: SKIP, total_revenue_in_cents: SKIP,
-                   balance_in_cents: SKIP, additional_properties: {})
+                   balance_in_cents: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @reference = reference unless reference == SKIP
       @product_id = product_id unless product_id == SKIP
@@ -108,11 +113,6 @@ module AdvancedBilling
       @coupon_code = coupon_code unless coupon_code == SKIP
       @total_revenue_in_cents = total_revenue_in_cents unless total_revenue_in_cents == SKIP
       @balance_in_cents = balance_in_cents unless balance_in_cents == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -137,7 +137,7 @@ module AdvancedBilling
         hash.key?('balance_in_cents') ? hash['balance_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupItem.new(id: id,
@@ -150,7 +150,7 @@ module AdvancedBilling
                                 coupon_code: coupon_code,
                                 total_revenue_in_cents: total_revenue_in_cents,
                                 balance_in_cents: balance_in_cents,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

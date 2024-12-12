@@ -55,7 +55,12 @@ module AdvancedBilling
 
     def initialize(prorated_adjustment_in_cents: SKIP, charge_in_cents: SKIP,
                    payment_due_in_cents: SKIP, credit_applied_in_cents: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       unless prorated_adjustment_in_cents == SKIP
         @prorated_adjustment_in_cents =
           prorated_adjustment_in_cents
@@ -63,11 +68,6 @@ module AdvancedBilling
       @charge_in_cents = charge_in_cents unless charge_in_cents == SKIP
       @payment_due_in_cents = payment_due_in_cents unless payment_due_in_cents == SKIP
       @credit_applied_in_cents = credit_applied_in_cents unless credit_applied_in_cents == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -85,14 +85,14 @@ module AdvancedBilling
         hash.key?('credit_applied_in_cents') ? hash['credit_applied_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionMigrationPreview.new(prorated_adjustment_in_cents: prorated_adjustment_in_cents,
                                        charge_in_cents: charge_in_cents,
                                        payment_due_in_cents: payment_due_in_cents,
                                        credit_applied_in_cents: credit_applied_in_cents,
-                                       additional_properties: hash)
+                                       additional_properties: additional_properties)
     end
   end
 end

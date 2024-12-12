@@ -30,13 +30,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(chargeback_status:, additional_properties: {})
-      @chargeback_status = chargeback_status
-
+    def initialize(chargeback_status:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @chargeback_status = chargeback_status
     end
 
     # Creates an instance of the object from a hash.
@@ -48,11 +48,11 @@ module AdvancedBilling
         hash.key?('chargeback_status') ? hash['chargeback_status'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ChangeChargebackStatusEventData.new(chargeback_status: chargeback_status,
-                                          additional_properties: hash)
+                                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

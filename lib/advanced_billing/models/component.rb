@@ -70,8 +70,8 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :default_price_point_id
 
-    # An array of price brackets. If the component uses the ‘per_unit’ pricing
-    # scheme, this array will be empty.
+    # Applicable only to prepaid usage components. An array of overage price
+    # brackets.
     # @return [Array[ComponentPrice]]
     attr_accessor :overage_prices
 
@@ -291,7 +291,12 @@ module AdvancedBilling
                    allow_fractional_quantities: SKIP, item_category: SKIP,
                    use_site_exchange_rate: SKIP, accounting_code: SKIP,
                    event_based_billing_metric_id: SKIP, interval: SKIP,
-                   interval_unit: SKIP, additional_properties: {})
+                   interval_unit: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
@@ -335,11 +340,6 @@ module AdvancedBilling
       end
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -428,7 +428,7 @@ module AdvancedBilling
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Component.new(id: id,
@@ -465,7 +465,7 @@ module AdvancedBilling
                     event_based_billing_metric_id: event_based_billing_metric_id,
                     interval: interval,
                     interval_unit: interval_unit,
-                    additional_properties: hash)
+                    additional_properties: additional_properties)
     end
 
     def to_custom_created_at

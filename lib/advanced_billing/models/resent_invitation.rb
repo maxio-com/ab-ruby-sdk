@@ -66,18 +66,18 @@ module AdvancedBilling
     def initialize(last_sent_at: SKIP, last_accepted_at: SKIP,
                    send_invite_link_text: SKIP, uninvited_count: SKIP,
                    last_invite_sent_at: SKIP, last_invite_accepted_at: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @last_sent_at = last_sent_at unless last_sent_at == SKIP
       @last_accepted_at = last_accepted_at unless last_accepted_at == SKIP
       @send_invite_link_text = send_invite_link_text unless send_invite_link_text == SKIP
       @uninvited_count = uninvited_count unless uninvited_count == SKIP
       @last_invite_sent_at = last_invite_sent_at unless last_invite_sent_at == SKIP
       @last_invite_accepted_at = last_invite_accepted_at unless last_invite_accepted_at == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -104,7 +104,7 @@ module AdvancedBilling
                                 end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ResentInvitation.new(last_sent_at: last_sent_at,
@@ -113,7 +113,7 @@ module AdvancedBilling
                            uninvited_count: uninvited_count,
                            last_invite_sent_at: last_invite_sent_at,
                            last_invite_accepted_at: last_invite_accepted_at,
-                           additional_properties: hash)
+                           additional_properties: additional_properties)
     end
 
     def to_custom_last_invite_sent_at

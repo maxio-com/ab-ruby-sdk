@@ -168,7 +168,12 @@ module AdvancedBilling
                    price_point_id: SKIP, interval: SKIP, interval_unit: SKIP,
                    previous_price_point_id: SKIP, price_point_handle: SKIP,
                    price_point_name: SKIP, component_handle: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @component_id = component_id unless component_id == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @quantity = quantity unless quantity == SKIP
@@ -190,11 +195,6 @@ module AdvancedBilling
       @price_point_handle = price_point_handle unless price_point_handle == SKIP
       @price_point_name = price_point_name unless price_point_name == SKIP
       @component_handle = component_handle unless component_handle == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -236,7 +236,7 @@ module AdvancedBilling
         hash.key?('component_handle') ? hash['component_handle'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AllocationPreviewItem.new(component_id: component_id,
@@ -257,7 +257,7 @@ module AdvancedBilling
                                 price_point_handle: price_point_handle,
                                 price_point_name: price_point_name,
                                 component_handle: component_handle,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

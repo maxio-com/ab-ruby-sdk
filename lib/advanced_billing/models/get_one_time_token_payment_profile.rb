@@ -161,7 +161,12 @@ module AdvancedBilling
                    payment_type:, disabled:, site_gateway_setting_id:, id: SKIP,
                    customer_id: SKIP, billing_address_2: SKIP,
                    customer_vault_token: SKIP, gateway_handle: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @first_name = first_name
       @last_name = last_name
@@ -183,11 +188,6 @@ module AdvancedBilling
       @site_gateway_setting_id = site_gateway_setting_id
       @customer_vault_token = customer_vault_token unless customer_vault_token == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -227,7 +227,7 @@ module AdvancedBilling
         hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       GetOneTimeTokenPaymentProfile.new(first_name: first_name,
@@ -251,7 +251,7 @@ module AdvancedBilling
                                         billing_address_2: billing_address_2,
                                         customer_vault_token: customer_vault_token,
                                         gateway_handle: gateway_handle,
-                                        additional_properties: hash)
+                                        additional_properties: additional_properties)
     end
   end
 end

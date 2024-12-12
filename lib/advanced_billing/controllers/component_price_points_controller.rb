@@ -25,7 +25,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}/default.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -52,7 +52,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -63,7 +63,11 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
+                    .deserialize_into(ComponentPricePointResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -100,7 +104,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/{component_id}/price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['component_id'], key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -129,7 +133,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points/bulk.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -140,7 +144,11 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash)))
+                    .deserialize_into(ComponentPricePointsResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -169,7 +177,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -210,13 +218,16 @@ module AdvancedBilling
     # handle of the price point. When using the handle, it must be prefixed with
     # `handle:`. Example: `123` for an integer ID, or
     # `handle:example-price_point-handle` for a string handle.
+    # @param [TrueClass | FalseClass] currency_prices Optional parameter:
+    # Include an array of currency price data
     # @return [ComponentPricePointResponse] response from the API call.
     def read_component_price_point(component_id,
-                                   price_point_id)
+                                   price_point_id,
+                                   currency_prices: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/{component_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -231,6 +242,7 @@ module AdvancedBilling
                                       UnionTypeLookUp.get(:ReadComponentPricePointPricePointId)
                                                      .validate(value)
                                     end))
+                   .query_param(new_parameter(currency_prices, key: 'currency_prices'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -256,7 +268,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/components/{component_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -294,7 +306,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}/unarchive.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -325,7 +337,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/price_points/{price_point_id}/currency_prices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(price_point_id, key: 'price_point_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -337,9 +349,10 @@ module AdvancedBilling
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
                     .deserialize_into(ComponentCurrencyPricesResponse.method(:from_hash))
-                    .local_error('422',
-                                 'Unprocessable Entity (WebDAV)',
-                                 ErrorArrayMapResponseException))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -355,7 +368,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/price_points/{price_point_id}/currency_prices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(price_point_id, key: 'price_point_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -367,9 +380,10 @@ module AdvancedBilling
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
                     .deserialize_into(ComponentCurrencyPricesResponse.method(:from_hash))
-                    .local_error('422',
-                                 'Unprocessable Entity (WebDAV)',
-                                 ErrorArrayMapResponseException))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
         .execute
     end
 
@@ -398,7 +412,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components_price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['include'], key: 'include'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))

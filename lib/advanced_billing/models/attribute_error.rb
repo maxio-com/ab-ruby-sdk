@@ -30,13 +30,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(attribute:, additional_properties: {})
-      @attribute = attribute
-
+    def initialize(attribute:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @attribute = attribute
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       attribute = hash.key?('attribute') ? hash['attribute'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AttributeError.new(attribute: attribute,
-                         additional_properties: hash)
+                         additional_properties: additional_properties)
     end
   end
 end

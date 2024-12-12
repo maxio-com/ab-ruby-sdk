@@ -61,7 +61,12 @@ module AdvancedBilling
     def initialize(id: SKIP, initial_funding_amount_in_cents: SKIP,
                    replenish_to_amount_in_cents: SKIP, auto_replenish: SKIP,
                    replenish_threshold_amount_in_cents: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       unless initial_funding_amount_in_cents == SKIP
         @initial_funding_amount_in_cents =
@@ -75,11 +80,6 @@ module AdvancedBilling
       unless replenish_threshold_amount_in_cents == SKIP
         @replenish_threshold_amount_in_cents =
           replenish_threshold_amount_in_cents
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -99,7 +99,7 @@ module AdvancedBilling
         hash.key?('replenish_threshold_amount_in_cents') ? hash['replenish_threshold_amount_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PrepaidConfiguration.new(id: id,
@@ -107,7 +107,7 @@ module AdvancedBilling
                                replenish_to_amount_in_cents: replenish_to_amount_in_cents,
                                auto_replenish: auto_replenish,
                                replenish_threshold_amount_in_cents: replenish_threshold_amount_in_cents,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
   end
 end

@@ -140,6 +140,12 @@ result = reason_codes_controller.list_reason_codes(collect)
 ]
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
 
 # Read Reason Code
 
@@ -207,6 +213,7 @@ result = reason_codes_controller.update_reason_code(reason_code_id)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Delete Reason Code
@@ -225,7 +232,7 @@ def delete_reason_code(reason_code_id)
 
 ## Response Type
 
-[`ReasonCodesJsonResponse`](../../doc/models/reason-codes-json-response.md)
+[`OkResponse`](../../doc/models/ok-response.md)
 
 ## Example Usage
 

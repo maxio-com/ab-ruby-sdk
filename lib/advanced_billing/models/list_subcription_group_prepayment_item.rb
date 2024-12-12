@@ -85,7 +85,12 @@ module AdvancedBilling
                    amount_in_cents: SKIP, remaining_amount_in_cents: SKIP,
                    details: SKIP, external: SKIP, memo: SKIP,
                    payment_type: SKIP, created_at: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @subscription_group_uid = subscription_group_uid unless subscription_group_uid == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -98,11 +103,6 @@ module AdvancedBilling
       @memo = memo unless memo == SKIP
       @payment_type = payment_type unless payment_type == SKIP
       @created_at = created_at unless created_at == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -128,7 +128,7 @@ module AdvancedBilling
                    end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListSubcriptionGroupPrepaymentItem.new(id: id,
@@ -140,7 +140,7 @@ module AdvancedBilling
                                              memo: memo,
                                              payment_type: payment_type,
                                              created_at: created_at,
-                                             additional_properties: hash)
+                                             additional_properties: additional_properties)
     end
 
     def to_custom_created_at

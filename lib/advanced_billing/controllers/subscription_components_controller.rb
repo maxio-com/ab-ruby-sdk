@@ -19,7 +19,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/components/{component_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -89,7 +89,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -131,7 +131,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -160,7 +160,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/price_points/reset.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -251,7 +251,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/components/{component_id}/allocations.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -309,7 +309,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/components/{component_id}/allocations.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -349,7 +349,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/allocations.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -393,7 +393,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/allocations/preview.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -442,7 +442,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -498,7 +498,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -606,7 +606,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/components/{component_id}/usages.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -679,7 +679,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/components/{component_id}/usages.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -730,7 +730,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/activate.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -759,7 +759,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/deactivate.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -791,7 +791,6 @@ module AdvancedBilling
     # ```
     # https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
     # ```
-    # @param [String] subdomain Required parameter: Your site's subdomain
     # @param [String] api_handle Required parameter: Identifies the Stream for
     # which the event should be published.
     # @param [String] store_uid Optional parameter: If you've attached your own
@@ -799,17 +798,13 @@ module AdvancedBilling
     # to indicate the data-store.
     # @param [EBBEvent] body Optional parameter: Example:
     # @return [void] response from the API call.
-    def record_event(subdomain,
-                     api_handle,
+    def record_event(api_handle,
                      store_uid: nil,
                      body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/{subdomain}/events/{api_handle}.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subdomain, key: 'subdomain')
-                                    .is_required(true)
-                                    .should_encode(true))
+                                     '/events/{api_handle}.json',
+                                     Server::EBB)
                    .template_param(new_parameter(api_handle, key: 'api_handle')
                                     .is_required(true)
                                     .should_encode(true))
@@ -829,7 +824,6 @@ module AdvancedBilling
     # included in the URL path.*
     # A maximum of 1000 events can be published in a single request. A 422 will
     # be returned if this limit is exceeded.
-    # @param [String] subdomain Required parameter: Your site's subdomain
     # @param [String] api_handle Required parameter: Identifies the Stream for
     # which the events should be published.
     # @param [String] store_uid Optional parameter: If you've attached your own
@@ -837,17 +831,13 @@ module AdvancedBilling
     # to indicate the data-store.
     # @param [Array[EBBEvent]] body Optional parameter: Example:
     # @return [void] response from the API call.
-    def bulk_record_events(subdomain,
-                           api_handle,
+    def bulk_record_events(api_handle,
                            store_uid: nil,
                            body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/{subdomain}/events/{api_handle}/bulk.json',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(subdomain, key: 'subdomain')
-                                    .is_required(true)
-                                    .should_encode(true))
+                                     '/events/{api_handle}/bulk.json',
+                                     Server::EBB)
                    .template_param(new_parameter(api_handle, key: 'api_handle')
                                     .is_required(true)
                                     .should_encode(true))
@@ -920,7 +910,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions_components.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['sort'], key: 'sort'))

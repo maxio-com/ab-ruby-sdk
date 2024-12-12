@@ -110,6 +110,39 @@ module AdvancedBilling
     # @return [Array[ComponentCurrencyPrice]]
     attr_accessor :currency_prices
 
+    # Applicable only to prepaid usage components. An array of overage price
+    # brackets.
+    # @return [Array[ComponentPrice]]
+    attr_accessor :overage_prices
+
+    # Applicable only to prepaid usage components. Pricing scheme for overage
+    # pricing.
+    # @return [PricingScheme]
+    attr_accessor :overage_pricing_scheme
+
+    # Applicable only to prepaid usage components. Boolean which controls
+    # whether or not the allocated quantity should be renewed at the beginning
+    # of each period.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :renew_prepaid_allocation
+
+    # Applicable only to prepaid usage components. Boolean which controls
+    # whether or not remaining units should be rolled over to the next period.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :rollover_prepaid_remainder
+
+    # Applicable only to prepaid usage components where
+    # rollover_prepaid_remainder is true. The number of
+    # `expiration_interval_unit`s after which rollover amounts should expire.
+    # @return [Integer]
+    attr_accessor :expiration_interval
+
+    # Applicable only to prepaid usage components where
+    # rollover_prepaid_remainder is true. A string representing the expiration
+    # interval unit for this component, either month or day.
+    # @return [ExpirationIntervalUnit]
+    attr_accessor :expiration_interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -130,6 +163,12 @@ module AdvancedBilling
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['currency_prices'] = 'currency_prices'
+      @_hash['overage_prices'] = 'overage_prices'
+      @_hash['overage_pricing_scheme'] = 'overage_pricing_scheme'
+      @_hash['renew_prepaid_allocation'] = 'renew_prepaid_allocation'
+      @_hash['rollover_prepaid_remainder'] = 'rollover_prepaid_remainder'
+      @_hash['expiration_interval'] = 'expiration_interval'
+      @_hash['expiration_interval_unit'] = 'expiration_interval_unit'
       @_hash
     end
 
@@ -153,6 +192,12 @@ module AdvancedBilling
         interval
         interval_unit
         currency_prices
+        overage_prices
+        overage_pricing_scheme
+        renew_prepaid_allocation
+        rollover_prepaid_remainder
+        expiration_interval
+        expiration_interval_unit
       ]
     end
 
@@ -163,6 +208,8 @@ module AdvancedBilling
         archived_at
         interval
         interval_unit
+        expiration_interval
+        expiration_interval_unit
       ]
     end
 
@@ -172,7 +219,15 @@ module AdvancedBilling
                    prices: SKIP, use_site_exchange_rate: SKIP,
                    subscription_id: SKIP, tax_included: SKIP, interval: SKIP,
                    interval_unit: SKIP, currency_prices: SKIP,
-                   additional_properties: {})
+                   overage_prices: SKIP, overage_pricing_scheme: SKIP,
+                   renew_prepaid_allocation: SKIP,
+                   rollover_prepaid_remainder: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @type = type unless type == SKIP
       @default = default unless default == SKIP
@@ -190,11 +245,15 @@ module AdvancedBilling
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @currency_prices = currency_prices unless currency_prices == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
+      @overage_prices = overage_prices unless overage_prices == SKIP
+      @overage_pricing_scheme = overage_pricing_scheme unless overage_pricing_scheme == SKIP
+      @renew_prepaid_allocation = renew_prepaid_allocation unless renew_prepaid_allocation == SKIP
+      unless rollover_prepaid_remainder == SKIP
+        @rollover_prepaid_remainder =
+          rollover_prepaid_remainder
       end
+      @expiration_interval = expiration_interval unless expiration_interval == SKIP
+      @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -252,9 +311,29 @@ module AdvancedBilling
       end
 
       currency_prices = SKIP unless hash.key?('currency_prices')
+      # Parameter is an array, so we need to iterate through it
+      overage_prices = nil
+      unless hash['overage_prices'].nil?
+        overage_prices = []
+        hash['overage_prices'].each do |structure|
+          overage_prices << (ComponentPrice.from_hash(structure) if structure)
+        end
+      end
+
+      overage_prices = SKIP unless hash.key?('overage_prices')
+      overage_pricing_scheme =
+        hash.key?('overage_pricing_scheme') ? hash['overage_pricing_scheme'] : SKIP
+      renew_prepaid_allocation =
+        hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
+      rollover_prepaid_remainder =
+        hash.key?('rollover_prepaid_remainder') ? hash['rollover_prepaid_remainder'] : SKIP
+      expiration_interval =
+        hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ComponentPricePoint.new(id: id,
@@ -274,7 +353,13 @@ module AdvancedBilling
                               interval: interval,
                               interval_unit: interval_unit,
                               currency_prices: currency_prices,
-                              additional_properties: hash)
+                              overage_prices: overage_prices,
+                              overage_pricing_scheme: overage_pricing_scheme,
+                              renew_prepaid_allocation: renew_prepaid_allocation,
+                              rollover_prepaid_remainder: rollover_prepaid_remainder,
+                              expiration_interval: expiration_interval,
+                              expiration_interval_unit: expiration_interval_unit,
+                              additional_properties: additional_properties)
     end
 
     def to_custom_archived_at

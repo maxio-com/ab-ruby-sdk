@@ -48,16 +48,16 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(details:, kind:, memo:, type:, additional_properties: {})
-      @details = details
-      @kind = kind
-      @memo = memo
-      @type = type
-
+    def initialize(details:, kind:, memo:, type:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @details = details
+      @kind = kind
+      @memo = memo
+      @type = type
     end
 
     # Creates an instance of the object from a hash.
@@ -71,14 +71,14 @@ module AdvancedBilling
       type = hash.key?('type') ? hash['type'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PaymentMethodExternal.new(details: details,
                                 kind: kind,
                                 memo: memo,
                                 type: type,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

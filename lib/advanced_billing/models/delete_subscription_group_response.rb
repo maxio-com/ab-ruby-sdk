@@ -38,14 +38,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(uid: SKIP, deleted: SKIP, additional_properties: {})
-      @uid = uid unless uid == SKIP
-      @deleted = deleted unless deleted == SKIP
-
+    def initialize(uid: SKIP, deleted: SKIP, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @uid = uid unless uid == SKIP
+      @deleted = deleted unless deleted == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -57,12 +57,12 @@ module AdvancedBilling
       deleted = hash.key?('deleted') ? hash['deleted'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       DeleteSubscriptionGroupResponse.new(uid: uid,
                                           deleted: deleted,
-                                          additional_properties: hash)
+                                          additional_properties: additional_properties)
     end
   end
 end

@@ -77,18 +77,18 @@ module AdvancedBilling
                    segment_property_2_value: SKIP,
                    segment_property_3_value: SKIP,
                    segment_property_4_value: SKIP, prices: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @segment_property_1_value = segment_property_1_value unless segment_property_1_value == SKIP
       @segment_property_2_value = segment_property_2_value unless segment_property_2_value == SKIP
       @segment_property_3_value = segment_property_3_value unless segment_property_3_value == SKIP
       @segment_property_4_value = segment_property_4_value unless segment_property_4_value == SKIP
       @pricing_scheme = pricing_scheme
       @prices = prices unless prices == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -122,7 +122,7 @@ module AdvancedBilling
       prices = SKIP unless hash.key?('prices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateSegment.new(pricing_scheme: pricing_scheme,
@@ -131,7 +131,7 @@ module AdvancedBilling
                         segment_property_3_value: segment_property_3_value,
                         segment_property_4_value: segment_property_4_value,
                         prices: prices,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

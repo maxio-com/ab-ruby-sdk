@@ -1340,8 +1340,7 @@ https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
 ```
 
 ```ruby
-def record_event(subdomain,
-                 api_handle,
+def record_event(api_handle,
                  store_uid: nil,
                  body: nil)
 ```
@@ -1350,10 +1349,13 @@ def record_event(subdomain,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subdomain` | `String` | Template, Required | Your site's subdomain |
 | `api_handle` | `String` | Template, Required | Identifies the Stream for which the event should be published. |
 | `store_uid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
 | `body` | [`EBBEvent`](../../doc/models/ebb-event.md) | Body, Optional | - |
+
+## Server
+
+`Server::EBB`
 
 ## Response Type
 
@@ -1362,8 +1364,6 @@ def record_event(subdomain,
 ## Example Usage
 
 ```ruby
-subdomain = 'subdomain4'
-
 api_handle = 'api_handle6'
 
 body = EBBEvent.new(
@@ -1374,7 +1374,6 @@ body = EBBEvent.new(
 )
 
 subscription_components_controller.record_event(
-  subdomain,
   api_handle,
   body: body
 )
@@ -1390,8 +1389,7 @@ Use this endpoint to record a collection of events.
 A maximum of 1000 events can be published in a single request. A 422 will be returned if this limit is exceeded.
 
 ```ruby
-def bulk_record_events(subdomain,
-                       api_handle,
+def bulk_record_events(api_handle,
                        store_uid: nil,
                        body: nil)
 ```
@@ -1400,10 +1398,13 @@ def bulk_record_events(subdomain,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subdomain` | `String` | Template, Required | Your site's subdomain |
 | `api_handle` | `String` | Template, Required | Identifies the Stream for which the events should be published. |
 | `store_uid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
 | `body` | [`Array<EBBEvent>`](../../doc/models/ebb-event.md) | Body, Optional | - |
+
+## Server
+
+`Server::EBB`
 
 ## Response Type
 
@@ -1412,8 +1413,6 @@ def bulk_record_events(subdomain,
 ## Example Usage
 
 ```ruby
-subdomain = 'subdomain4'
-
 api_handle = 'api_handle6'
 
 body = [
@@ -1426,7 +1425,6 @@ body = [
 ]
 
 subscription_components_controller.bulk_record_events(
-  subdomain,
   api_handle,
   body: body
 )

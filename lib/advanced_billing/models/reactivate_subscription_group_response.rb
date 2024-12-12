@@ -85,7 +85,12 @@ module AdvancedBilling
                    payment_profile_id: SKIP, subscription_ids: SKIP,
                    primary_subscription_id: SKIP, next_assessment_at: SKIP,
                    state: SKIP, cancel_at_end_of_period: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -95,11 +100,6 @@ module AdvancedBilling
       @next_assessment_at = next_assessment_at unless next_assessment_at == SKIP
       @state = state unless state == SKIP
       @cancel_at_end_of_period = cancel_at_end_of_period unless cancel_at_end_of_period == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -126,7 +126,7 @@ module AdvancedBilling
         hash.key?('cancel_at_end_of_period') ? hash['cancel_at_end_of_period'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ReactivateSubscriptionGroupResponse.new(uid: uid,
@@ -138,7 +138,7 @@ module AdvancedBilling
                                               next_assessment_at: next_assessment_at,
                                               state: state,
                                               cancel_at_end_of_period: cancel_at_end_of_period,
-                                              additional_properties: hash)
+                                              additional_properties: additional_properties)
     end
 
     def to_custom_next_assessment_at

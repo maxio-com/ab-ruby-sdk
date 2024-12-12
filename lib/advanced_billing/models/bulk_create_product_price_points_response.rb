@@ -32,13 +32,13 @@ module AdvancedBilling
       []
     end
 
-    def initialize(price_points: SKIP, additional_properties: {})
-      @price_points = price_points unless price_points == SKIP
-
+    def initialize(price_points: SKIP, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @price_points = price_points unless price_points == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -58,11 +58,11 @@ module AdvancedBilling
       price_points = SKIP unless hash.key?('price_points')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       BulkCreateProductPricePointsResponse.new(price_points: price_points,
-                                               additional_properties: hash)
+                                               additional_properties: additional_properties)
     end
   end
 end

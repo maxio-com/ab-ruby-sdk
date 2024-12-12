@@ -179,7 +179,12 @@ module AdvancedBilling
                    tax_exempt: SKIP, vat_number: SKIP, metafields: SKIP,
                    parent_id: SKIP, salesforce_id: SKIP,
                    default_auto_renewal_profile_id: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -202,11 +207,6 @@ module AdvancedBilling
       unless default_auto_renewal_profile_id == SKIP
         @default_auto_renewal_profile_id =
           default_auto_renewal_profile_id
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -238,7 +238,7 @@ module AdvancedBilling
         hash.key?('default_auto_renewal_profile_id') ? hash['default_auto_renewal_profile_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CustomerAttributes.new(first_name: first_name,
@@ -261,7 +261,7 @@ module AdvancedBilling
                              parent_id: parent_id,
                              salesforce_id: salesforce_id,
                              default_auto_renewal_profile_id: default_auto_renewal_profile_id,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

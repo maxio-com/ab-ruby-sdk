@@ -67,18 +67,18 @@ module AdvancedBilling
 
     def initialize(debit_note_number:, debit_note_uid:, original_amount:,
                    applied_amount:, memo: SKIP, transaction_time: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @debit_note_number = debit_note_number
       @debit_note_uid = debit_note_uid
       @original_amount = original_amount
       @applied_amount = applied_amount
       @memo = memo unless memo == SKIP
       @transaction_time = transaction_time unless transaction_time == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -102,7 +102,7 @@ module AdvancedBilling
                          end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ApplyDebitNoteEventData.new(debit_note_number: debit_note_number,
@@ -111,7 +111,7 @@ module AdvancedBilling
                                   applied_amount: applied_amount,
                                   memo: memo,
                                   transaction_time: transaction_time,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
 
     def to_custom_transaction_time

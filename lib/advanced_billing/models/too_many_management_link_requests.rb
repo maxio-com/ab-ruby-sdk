@@ -36,14 +36,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(error:, new_link_available_at:, additional_properties: {})
-      @error = error
-      @new_link_available_at = new_link_available_at
-
+    def initialize(error:, new_link_available_at:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @error = error
+      @new_link_available_at = new_link_available_at
     end
 
     # Creates an instance of the object from a hash.
@@ -57,12 +57,12 @@ module AdvancedBilling
                               end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       TooManyManagementLinkRequests.new(error: error,
                                         new_link_available_at: new_link_available_at,
-                                        additional_properties: hash)
+                                        additional_properties: additional_properties)
     end
 
     def to_custom_new_link_available_at

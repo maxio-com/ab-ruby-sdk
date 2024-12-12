@@ -56,16 +56,16 @@ module AdvancedBilling
     end
 
     def initialize(payer: SKIP, shipping_address: SKIP, billing_address: SKIP,
-                   custom_fields: SKIP, additional_properties: {})
-      @payer = payer unless payer == SKIP
-      @shipping_address = shipping_address unless shipping_address == SKIP
-      @billing_address = billing_address unless billing_address == SKIP
-      @custom_fields = custom_fields unless custom_fields == SKIP
-
+                   custom_fields: SKIP, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @payer = payer unless payer == SKIP
+      @shipping_address = shipping_address unless shipping_address == SKIP
+      @billing_address = billing_address unless billing_address == SKIP
+      @custom_fields = custom_fields unless custom_fields == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -82,14 +82,14 @@ module AdvancedBilling
         hash['custom_fields']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CustomerChange.new(payer: payer,
                          shipping_address: shipping_address,
                          billing_address: billing_address,
                          custom_fields: custom_fields,
-                         additional_properties: hash)
+                         additional_properties: additional_properties)
     end
   end
 end

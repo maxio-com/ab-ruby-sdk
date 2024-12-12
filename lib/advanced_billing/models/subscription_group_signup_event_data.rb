@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # SubscriptionGroupSignupFailure Model.
-  class SubscriptionGroupSignupFailure < BaseModel
+  # SubscriptionGroupSignupEventData Model.
+  class SubscriptionGroupSignupEventData < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :subscription_group
 
     # TODO: Write general description for this method
-    # @return [String]
+    # @return [Customer]
     attr_accessor :customer
 
     # A mapping from model property names to API property names.
@@ -37,14 +37,14 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(subscription_group:, customer:, additional_properties: {})
-      @subscription_group = subscription_group
-      @customer = customer
-
+    def initialize(subscription_group:, customer:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @subscription_group = subscription_group
+      @customer = customer
     end
 
     # Creates an instance of the object from a hash.
@@ -55,19 +55,19 @@ module AdvancedBilling
       if hash['subscription_group']
         subscription_group = SubscriptionGroupSignupFailureData.from_hash(hash['subscription_group'])
       end
-      customer = hash.key?('customer') ? hash['customer'] : nil
+      customer = Customer.from_hash(hash['customer']) if hash['customer']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSignupFailure.new(subscription_group: subscription_group,
-                                         customer: customer,
-                                         additional_properties: hash)
+      SubscriptionGroupSignupEventData.new(subscription_group: subscription_group,
+                                           customer: customer,
+                                           additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [SubscriptionGroupSignupFailure | Hash] The value against the validation is performed.
+    # @param [SubscriptionGroupSignupEventData | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
         return (
@@ -75,7 +75,8 @@ module AdvancedBilling
                                 ->(val) { SubscriptionGroupSignupFailureData.validate(val) },
                                 is_model_hash: true) and
             APIHelper.valid_type?(value.customer,
-                                  ->(val) { val.instance_of? String })
+                                  ->(val) { Customer.validate(val) },
+                                  is_model_hash: true)
         )
       end
 
@@ -86,7 +87,8 @@ module AdvancedBilling
                               ->(val) { SubscriptionGroupSignupFailureData.validate(val) },
                               is_model_hash: true) and
           APIHelper.valid_type?(value['customer'],
-                                ->(val) { val.instance_of? String })
+                                ->(val) { Customer.validate(val) },
+                                is_model_hash: true)
       )
     end
   end

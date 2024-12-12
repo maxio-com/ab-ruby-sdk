@@ -67,18 +67,18 @@ module AdvancedBilling
 
     def initialize(chargify_id: SKIP, first_name: SKIP, last_name: SKIP,
                    organization: SKIP, email: SKIP, vat_number: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @chargify_id = chargify_id unless chargify_id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @organization = organization unless organization == SKIP
       @email = email unless email == SKIP
       @vat_number = vat_number unless vat_number == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -94,7 +94,7 @@ module AdvancedBilling
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoicePayer.new(chargify_id: chargify_id,
@@ -103,7 +103,7 @@ module AdvancedBilling
                        organization: organization,
                        email: email,
                        vat_number: vat_number,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

@@ -70,7 +70,12 @@ module AdvancedBilling
 
     def initialize(uid: SKIP, title: SKIP, source_type: SKIP, percentage: SKIP,
                    taxable_amount: SKIP, tax_amount: SKIP,
-                   line_item_breakouts: SKIP, additional_properties: {})
+                   line_item_breakouts: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @source_type = source_type unless source_type == SKIP
@@ -78,11 +83,6 @@ module AdvancedBilling
       @taxable_amount = taxable_amount unless taxable_amount == SKIP
       @tax_amount = tax_amount unless tax_amount == SKIP
       @line_item_breakouts = line_item_breakouts unless line_item_breakouts == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -109,7 +109,7 @@ module AdvancedBilling
       line_item_breakouts = SKIP unless hash.key?('line_item_breakouts')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProformaInvoiceTax.new(uid: uid,
@@ -119,7 +119,7 @@ module AdvancedBilling
                              taxable_amount: taxable_amount,
                              tax_amount: tax_amount,
                              line_item_breakouts: line_item_breakouts,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
   end
 end

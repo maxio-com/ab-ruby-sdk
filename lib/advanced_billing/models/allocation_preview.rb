@@ -110,7 +110,12 @@ module AdvancedBilling
                    total_in_cents: SKIP, direction: SKIP,
                    proration_scheme: SKIP, line_items: SKIP,
                    accrue_charge: SKIP, allocations: SKIP, period_type: SKIP,
-                   existing_balance_in_cents: SKIP, additional_properties: {})
+                   existing_balance_in_cents: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
       @subtotal_in_cents = subtotal_in_cents unless subtotal_in_cents == SKIP
@@ -126,11 +131,6 @@ module AdvancedBilling
       unless existing_balance_in_cents == SKIP
         @existing_balance_in_cents =
           existing_balance_in_cents
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -186,7 +186,7 @@ module AdvancedBilling
         hash.key?('existing_balance_in_cents') ? hash['existing_balance_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AllocationPreview.new(start_date: start_date,
@@ -202,7 +202,7 @@ module AdvancedBilling
                             allocations: allocations,
                             period_type: period_type,
                             existing_balance_in_cents: existing_balance_in_cents,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
 
     def to_custom_start_date

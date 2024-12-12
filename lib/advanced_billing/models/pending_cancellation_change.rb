@@ -36,14 +36,15 @@ module AdvancedBilling
       []
     end
 
-    def initialize(cancellation_state:, cancels_at:, additional_properties: {})
-      @cancellation_state = cancellation_state
-      @cancels_at = cancels_at
-
+    def initialize(cancellation_state:, cancels_at:,
+                   additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @cancellation_state = cancellation_state
+      @cancels_at = cancels_at
     end
 
     # Creates an instance of the object from a hash.
@@ -58,12 +59,12 @@ module AdvancedBilling
                    end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PendingCancellationChange.new(cancellation_state: cancellation_state,
                                     cancels_at: cancels_at,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
 
     def to_custom_cancels_at

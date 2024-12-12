@@ -36,14 +36,14 @@ module AdvancedBilling
       []
     end
 
-    def initialize(invoice_uid:, amount:, additional_properties: {})
-      @invoice_uid = invoice_uid
-      @amount = amount
-
+    def initialize(invoice_uid:, amount:, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @invoice_uid = invoice_uid
+      @amount = amount
     end
 
     # Creates an instance of the object from a hash.
@@ -55,12 +55,12 @@ module AdvancedBilling
       amount = hash.key?('amount') ? hash['amount'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateInvoicePaymentApplication.new(invoice_uid: invoice_uid,
                                           amount: amount,
-                                          additional_properties: hash)
+                                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

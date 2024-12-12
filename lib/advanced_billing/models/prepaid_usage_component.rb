@@ -66,7 +66,7 @@ module AdvancedBilling
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
     # Available values: `full`, `prorated`, `none`.
-    # @return [Array[PrepaidComponentPricePoint]]
+    # @return [Array[CreatePrepaidUsageComponentPricePoint]]
     attr_accessor :price_points
 
     # The amount the customer will be charged per unit when the pricing scheme
@@ -89,11 +89,9 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :hide_date_range_on_invoice
 
-    # deprecated May 2011 - use unit_price instead
-    # @return [String]
-    attr_accessor :price_in_cents
-
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [OveragePricing]
     attr_accessor :overage_pricing
 
@@ -153,7 +151,6 @@ module AdvancedBilling
       @_hash['unit_price'] = 'unit_price'
       @_hash['tax_code'] = 'tax_code'
       @_hash['hide_date_range_on_invoice'] = 'hide_date_range_on_invoice'
-      @_hash['price_in_cents'] = 'price_in_cents'
       @_hash['overage_pricing'] = 'overage_pricing'
       @_hash['rollover_prepaid_remainder'] = 'rollover_prepaid_remainder'
       @_hash['renew_prepaid_allocation'] = 'renew_prepaid_allocation'
@@ -168,11 +165,9 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
-        unit_name
         description
         handle
         taxable
-        pricing_scheme
         prices
         upgrade_charge
         downgrade_credit
@@ -180,8 +175,6 @@ module AdvancedBilling
         unit_price
         tax_code
         hide_date_range_on_invoice
-        price_in_cents
-        overage_pricing
         rollover_prepaid_remainder
         renew_prepaid_allocation
         expiration_interval
@@ -201,22 +194,27 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name:, unit_name: SKIP, description: SKIP, handle: SKIP,
-                   taxable: SKIP, pricing_scheme: SKIP, prices: SKIP,
+    def initialize(name:, unit_name:, pricing_scheme:, overage_pricing:,
+                   description: SKIP, handle: SKIP, taxable: SKIP, prices: SKIP,
                    upgrade_charge: SKIP, downgrade_credit: SKIP,
                    price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
-                   hide_date_range_on_invoice: SKIP, price_in_cents: SKIP,
-                   overage_pricing: SKIP, rollover_prepaid_remainder: SKIP,
+                   hide_date_range_on_invoice: SKIP,
+                   rollover_prepaid_remainder: SKIP,
                    renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
-                   public_signup_page_ids: SKIP, additional_properties: {})
+                   public_signup_page_ids: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
-      @unit_name = unit_name unless unit_name == SKIP
+      @unit_name = unit_name
       @description = description unless description == SKIP
       @handle = handle unless handle == SKIP
       @taxable = taxable unless taxable == SKIP
-      @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
+      @pricing_scheme = pricing_scheme
       @prices = prices unless prices == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
@@ -227,8 +225,7 @@ module AdvancedBilling
         @hide_date_range_on_invoice =
           hide_date_range_on_invoice
       end
-      @price_in_cents = price_in_cents unless price_in_cents == SKIP
-      @overage_pricing = overage_pricing unless overage_pricing == SKIP
+      @overage_pricing = overage_pricing
       unless rollover_prepaid_remainder == SKIP
         @rollover_prepaid_remainder =
           rollover_prepaid_remainder
@@ -242,11 +239,6 @@ module AdvancedBilling
           allow_fractional_quantities
       end
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -255,12 +247,14 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : nil
-      unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
+      unit_name = hash.key?('unit_name') ? hash['unit_name'] : nil
+      pricing_scheme =
+        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : nil
+      overage_pricing = OveragePricing.from_hash(hash['overage_pricing']) if
+        hash['overage_pricing']
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
-      pricing_scheme =
-        hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       # Parameter is an array, so we need to iterate through it
       prices = nil
       unless hash['prices'].nil?
@@ -280,7 +274,7 @@ module AdvancedBilling
       unless hash['price_points'].nil?
         price_points = []
         hash['price_points'].each do |structure|
-          price_points << (PrepaidComponentPricePoint.from_hash(structure) if structure)
+          price_points << (CreatePrepaidUsageComponentPricePoint.from_hash(structure) if structure)
         end
       end
 
@@ -291,10 +285,6 @@ module AdvancedBilling
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
       hide_date_range_on_invoice =
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
-      price_in_cents =
-        hash.key?('price_in_cents') ? hash['price_in_cents'] : SKIP
-      overage_pricing = OveragePricing.from_hash(hash['overage_pricing']) if
-        hash['overage_pricing']
       rollover_prepaid_remainder =
         hash.key?('rollover_prepaid_remainder') ? hash['rollover_prepaid_remainder'] : SKIP
       renew_prepaid_allocation =
@@ -311,15 +301,16 @@ module AdvancedBilling
         hash.key?('public_signup_page_ids') ? hash['public_signup_page_ids'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PrepaidUsageComponent.new(name: name,
                                 unit_name: unit_name,
+                                pricing_scheme: pricing_scheme,
+                                overage_pricing: overage_pricing,
                                 description: description,
                                 handle: handle,
                                 taxable: taxable,
-                                pricing_scheme: pricing_scheme,
                                 prices: prices,
                                 upgrade_charge: upgrade_charge,
                                 downgrade_credit: downgrade_credit,
@@ -327,8 +318,6 @@ module AdvancedBilling
                                 unit_price: unit_price,
                                 tax_code: tax_code,
                                 hide_date_range_on_invoice: hide_date_range_on_invoice,
-                                price_in_cents: price_in_cents,
-                                overage_pricing: overage_pricing,
                                 rollover_prepaid_remainder: rollover_prepaid_remainder,
                                 renew_prepaid_allocation: renew_prepaid_allocation,
                                 expiration_interval: expiration_interval,
@@ -336,21 +325,39 @@ module AdvancedBilling
                                 display_on_hosted_page: display_on_hosted_page,
                                 allow_fractional_quantities: allow_fractional_quantities,
                                 public_signup_page_ids: public_signup_page_ids,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.
     # @param [PrepaidUsageComponent | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
-        return APIHelper.valid_type?(value.name,
-                                     ->(val) { val.instance_of? String })
+        return (
+          APIHelper.valid_type?(value.name,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.unit_name,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.pricing_scheme,
+                                  ->(val) { PricingScheme.validate(val) }) and
+            APIHelper.valid_type?(value.overage_pricing,
+                                  ->(val) { OveragePricing.validate(val) },
+                                  is_model_hash: true)
+        )
       end
 
       return false unless value.instance_of? Hash
 
-      APIHelper.valid_type?(value['name'],
-                            ->(val) { val.instance_of? String })
+      (
+        APIHelper.valid_type?(value['name'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['unit_name'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['pricing_scheme'],
+                                ->(val) { PricingScheme.validate(val) }) and
+          APIHelper.valid_type?(value['overage_pricing'],
+                                ->(val) { OveragePricing.validate(val) },
+                                is_model_hash: true)
+      )
     end
   end
 end

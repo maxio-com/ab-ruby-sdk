@@ -5,9 +5,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `'subdomain'` |
-| `domain` | `String` | The Advanced Billing server domain.<br>*Default*: `'chargify.com'` |
-| `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
+| `site` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `'subdomain'` |
+| `environment` | `Environment` | The API environment. <br> **Default: `Environment.US`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
 | `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 120** |
@@ -27,9 +26,8 @@ client = AdvancedBilling::Client.new(
     username: 'BasicAuthUserName',
     password: 'BasicAuthPassword'
   ),
-  environment: Environment::PRODUCTION,
-  subdomain: 'subdomain',
-  domain: 'chargify.com'
+  environment: Environment::US,
+  site: 'subdomain'
 )
 ```
 

@@ -20,7 +20,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/stats.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -42,7 +42,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/mrr.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(at_time, key: 'at_time'))
                    .query_param(new_parameter(subscription_id, key: 'subscription_id'))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -97,7 +97,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/mrr_movements.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['subscription_id'], key: 'subscription_id'))
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
@@ -138,7 +138,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions_mrr.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['at_time'], key: 'at_time'))
                    .query_param(new_parameter(options['page'], key: 'page'))

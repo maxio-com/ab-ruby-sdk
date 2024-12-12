@@ -45,6 +45,16 @@ module AdvancedBilling
     # ACH and Direct Debit. That said, when you read the subscription after
     # creation, we return the profile details under `credit_card` or
     # `bank_account`.
+    # ## Bulk creation of subscriptions
+    # Bulk creation of subscriptions is currently not supported. For scenarios
+    # where multiple subscriptions must be added, particularly when assigning to
+    # the same subscription group, it is essential to switch to a
+    # single-threaded approach.
+    # To avoid data conflicts or inaccuracies, incorporate a sleep interval
+    # between requests.
+    # While this single-threaded approach may impact performance, it ensures
+    # data consistency and accuracy in cases where concurrent creation attempts
+    # could otherwise lead to issues with subscription alignment and integrity.
     # ## Taxable Subscriptions
     # If your intent is to charge your subscribers tax via [Avalara
     # Taxes](https://maxio.zendesk.com/hc/en-us/articles/24287043035661-Avalara-
@@ -800,7 +810,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -886,7 +896,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['state'], key: 'state'))
@@ -983,7 +993,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -1018,7 +1028,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -1074,7 +1084,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}/override.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -1098,13 +1108,16 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/lookup.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(reference, key: 'reference'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(SubscriptionResponse.method(:from_hash)))
+                    .deserialize_into(SubscriptionResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException))
         .execute
     end
 
@@ -1125,24 +1138,30 @@ module AdvancedBilling
     # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
     # are "customer" or "payment_profile". Use in query:
     # `cascade[]=customer&cascade[]=payment_profile`.
-    # @return [void] response from the API call.
+    # @return [SubscriptionResponse] response from the API call.
     def purge_subscription(subscription_id,
                            ack,
                            cascade: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/purge.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
                    .query_param(new_parameter(ack, key: 'ack')
                                  .is_required(true))
                    .query_param(new_parameter(cascade, key: 'cascade'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
-                   .array_serialization_format(ArraySerializationFormat::CSV))
+                   .array_serialization_format(ArraySerializationFormat::UN_INDEXED))
         .response(new_response_handler
-                    .is_response_void(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SubscriptionResponse.method(:from_hash))
+                    .local_error_template('400',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          SubscriptionResponseErrorException))
         .execute
     end
 
@@ -1157,7 +1176,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/prepaid_configurations.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -1168,7 +1187,11 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(PrepaidConfigurationResponse.method(:from_hash)))
+                    .deserialize_into(PrepaidConfigurationResponse.method(:from_hash))
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          APIException))
         .execute
     end
 
@@ -1213,7 +1236,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/preview.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -1250,7 +1273,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/add_coupon.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -1284,7 +1307,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscriptions/{subscription_id}/remove_coupon.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -1361,7 +1384,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}/activate.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))

@@ -26,20 +26,21 @@ module AdvancedBilling
     # `date_field=created_at`.
     # @param [ListProductsFilter] filter Optional parameter: Filter to use for
     # List Products operations
-    # @param [String] start_date Optional parameter: The start date (format
+    # @param [Date] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
     # the date specified.
-    # @param [String] end_date Optional parameter: The end date (format
+    # @param [Date] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [String] start_datetime Optional parameter: The start date and time
-    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
-    # products with a timestamp at or after exact time provided in query. You
-    # can specify timezone in query - otherwise your site's time zone will be
-    # used. If provided, this parameter will be used instead of start_date.
-    # @param [String] end_datetime Optional parameter: The end date and time
+    # @param [DateTime] start_datetime Optional parameter: The start date and
+    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns products with a timestamp at or after exact time provided in
+    # query. You can specify timezone in query - otherwise your site's time zone
+    # will be used. If provided, this parameter will be used instead of
+    # start_date.
+    # @param [DateTime] end_datetime Optional parameter: The end date and time
     # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
     # products with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
@@ -54,7 +55,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/products.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['product_family_id'], key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -94,7 +95,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -114,20 +115,21 @@ module AdvancedBilling
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query:
     # `date_field=created_at`.
-    # @param [String] start_date Optional parameter: The start date (format
+    # @param [Date] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
     # the date specified.
-    # @param [String] end_date Optional parameter: The end date (format
+    # @param [Date] end_date Optional parameter: The end date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns products with a
     # timestamp up to and including 11:59:59PM in your site’s time zone on the
     # date specified.
-    # @param [String] start_datetime Optional parameter: The start date and time
-    # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
-    # products with a timestamp at or after exact time provided in query. You
-    # can specify timezone in query - otherwise your site's time zone will be
-    # used. If provided, this parameter will be used instead of start_date.
-    # @param [String] end_datetime Optional parameter: The end date and time
+    # @param [DateTime] start_datetime Optional parameter: The start date and
+    # time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+    # Returns products with a timestamp at or after exact time provided in
+    # query. You can specify timezone in query - otherwise your site's time zone
+    # will be used. If provided, this parameter will be used instead of
+    # start_date.
+    # @param [DateTime] end_datetime Optional parameter: The end date and time
     # (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
     # products with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
@@ -137,7 +139,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
@@ -163,7 +165,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(id, key: 'id')
                                     .is_required(true)
                                     .should_encode(true))

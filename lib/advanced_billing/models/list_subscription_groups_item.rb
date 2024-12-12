@@ -98,7 +98,12 @@ module AdvancedBilling
                    primary_subscription_id: SKIP, next_assessment_at: SKIP,
                    state: SKIP, cancel_at_end_of_period: SKIP,
                    account_balances: SKIP, group_type: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -110,11 +115,6 @@ module AdvancedBilling
       @cancel_at_end_of_period = cancel_at_end_of_period unless cancel_at_end_of_period == SKIP
       @account_balances = account_balances unless account_balances == SKIP
       @group_type = group_type unless group_type == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -144,7 +144,7 @@ module AdvancedBilling
       group_type = hash.key?('group_type') ? hash['group_type'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListSubscriptionGroupsItem.new(uid: uid,
@@ -158,7 +158,7 @@ module AdvancedBilling
                                      cancel_at_end_of_period: cancel_at_end_of_period,
                                      account_balances: account_balances,
                                      group_type: group_type,
-                                     additional_properties: hash)
+                                     additional_properties: additional_properties)
     end
 
     def to_custom_next_assessment_at

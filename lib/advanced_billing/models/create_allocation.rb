@@ -120,7 +120,12 @@ module AdvancedBilling
                    proration_upgrade_scheme: SKIP, accrue_charge: SKIP,
                    downgrade_credit: SKIP, upgrade_charge: SKIP,
                    initiate_dunning: SKIP, price_point_id: SKIP,
-                   billing_schedule: SKIP, additional_properties: {})
+                   billing_schedule: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @quantity = quantity
       @component_id = component_id unless component_id == SKIP
       @memo = memo unless memo == SKIP
@@ -135,11 +140,6 @@ module AdvancedBilling
       @initiate_dunning = initiate_dunning unless initiate_dunning == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @billing_schedule = billing_schedule unless billing_schedule == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -168,7 +168,7 @@ module AdvancedBilling
         hash['billing_schedule']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateAllocation.new(quantity: quantity,
@@ -182,7 +182,7 @@ module AdvancedBilling
                            initiate_dunning: initiate_dunning,
                            price_point_id: price_point_id,
                            billing_schedule: billing_schedule,
-                           additional_properties: hash)
+                           additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

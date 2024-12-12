@@ -139,7 +139,12 @@ module AdvancedBilling
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, chargify_token: SKIP,
                    current_vault: SKIP, gateway_handle: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @bank_name = bank_name unless bank_name == SKIP
       @bank_account_number = bank_account_number unless bank_account_number == SKIP
       @bank_routing_number = bank_routing_number unless bank_routing_number == SKIP
@@ -156,11 +161,6 @@ module AdvancedBilling
       @chargify_token = chargify_token unless chargify_token == SKIP
       @current_vault = current_vault unless current_vault == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -195,7 +195,7 @@ module AdvancedBilling
         hash.key?('gateway_handle') ? hash['gateway_handle'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupBankAccount.new(bank_name: bank_name,
@@ -214,7 +214,7 @@ module AdvancedBilling
                                        chargify_token: chargify_token,
                                        current_vault: current_vault,
                                        gateway_handle: gateway_handle,
-                                       additional_properties: hash)
+                                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

@@ -46,89 +46,149 @@ module AdvancedBilling
     # @return [DateTime]
     attr_accessor :start_date
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [DateTime]
     attr_accessor :end_date
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [String]
     attr_accessor :percentage
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [TrueClass | FalseClass]
     attr_accessor :recurring
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [RecurringScheme]
     attr_accessor :recurring_scheme
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [Integer]
     attr_accessor :duration_period_count
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [Integer]
     attr_accessor :duration_interval
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [String]
     attr_accessor :duration_interval_unit
 
-    # TODO: Write general description for this method
+    # After the given time, this coupon code will be invalid for new signups.
+    # Recurring discounts started before this date will continue to recur even
+    # after this date.
     # @return [String]
     attr_accessor :duration_interval_span
 
-    # TODO: Write general description for this method
+    # If set to true, discount is not limited (credits will carry forward to
+    # next billing).
     # @return [TrueClass | FalseClass]
     attr_accessor :allow_negative_balance
 
-    # TODO: Write general description for this method
+    # If set to true, discount is not limited (credits will carry forward to
+    # next billing).
     # @return [DateTime]
     attr_accessor :archived_at
 
-    # TODO: Write general description for this method
+    # If set to true, discount is not limited (credits will carry forward to
+    # next billing).
     # @return [String]
     attr_accessor :conversion_limit
 
-    # TODO: Write general description for this method
+    # A stackable coupon can be combined with other coupons on a Subscription.
     # @return [TrueClass | FalseClass]
     attr_accessor :stackable
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [CompoundingStrategy]
     attr_accessor :compounding_strategy
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [DateTime]
     attr_accessor :created_at
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [DateTime]
     attr_accessor :updated_at
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [DiscountType]
     attr_accessor :discount_type
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [TrueClass | FalseClass]
     attr_accessor :exclude_mid_period_allocations
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [TrueClass | FalseClass]
     attr_accessor :apply_on_cancel_at_end_of_period
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [TrueClass | FalseClass]
     attr_accessor :apply_on_subscription_expiration
 
-    # TODO: Write general description for this method
+    # Applicable only to stackable coupons. For `compound`, Percentage-based
+    # discounts will be calculated against the remaining price, after prior
+    # discounts have been calculated. For `full-price`, Percentage-based
+    # discounts will always be calculated against the original item price,
+    # before other discounts are applied.
     # @return [Array[CouponRestriction]]
     attr_accessor :coupon_restrictions
+
+    # Returned in read, find, and list endpoints if the query parameter is
+    # provided.
+    # @return [Array[CouponCurrency]]
+    attr_accessor :currency_prices
 
     # A mapping from model property names to API property names.
     def self.names
@@ -166,6 +226,7 @@ module AdvancedBilling
       @_hash['apply_on_subscription_expiration'] =
         'apply_on_subscription_expiration'
       @_hash['coupon_restrictions'] = 'coupon_restrictions'
+      @_hash['currency_prices'] = 'currency_prices'
       @_hash
     end
 
@@ -202,6 +263,7 @@ module AdvancedBilling
         apply_on_cancel_at_end_of_period
         apply_on_subscription_expiration
         coupon_restrictions
+        currency_prices
       ]
     end
 
@@ -236,7 +298,13 @@ module AdvancedBilling
                    exclude_mid_period_allocations: SKIP,
                    apply_on_cancel_at_end_of_period: SKIP,
                    apply_on_subscription_expiration: SKIP,
-                   coupon_restrictions: SKIP, additional_properties: {})
+                   coupon_restrictions: SKIP, currency_prices: SKIP,
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @code = code unless code == SKIP
@@ -276,11 +344,7 @@ module AdvancedBilling
           apply_on_subscription_expiration
       end
       @coupon_restrictions = coupon_restrictions unless coupon_restrictions == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
+      @currency_prices = currency_prices unless currency_prices == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -362,9 +426,19 @@ module AdvancedBilling
       end
 
       coupon_restrictions = SKIP unless hash.key?('coupon_restrictions')
+      # Parameter is an array, so we need to iterate through it
+      currency_prices = nil
+      unless hash['currency_prices'].nil?
+        currency_prices = []
+        hash['currency_prices'].each do |structure|
+          currency_prices << (CouponCurrency.from_hash(structure) if structure)
+        end
+      end
+
+      currency_prices = SKIP unless hash.key?('currency_prices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Coupon.new(id: id,
@@ -397,7 +471,8 @@ module AdvancedBilling
                  apply_on_cancel_at_end_of_period: apply_on_cancel_at_end_of_period,
                  apply_on_subscription_expiration: apply_on_subscription_expiration,
                  coupon_restrictions: coupon_restrictions,
-                 additional_properties: hash)
+                 currency_prices: currency_prices,
+                 additional_properties: additional_properties)
     end
 
     def to_custom_start_date

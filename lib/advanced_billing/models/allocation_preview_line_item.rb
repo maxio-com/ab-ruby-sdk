@@ -84,7 +84,12 @@ module AdvancedBilling
                    memo: SKIP, discount_amount_in_cents: SKIP,
                    taxable_amount_in_cents: SKIP, component_id: SKIP,
                    component_handle: SKIP, direction: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @transaction_type = transaction_type unless transaction_type == SKIP
       @kind = kind unless kind == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
@@ -94,11 +99,6 @@ module AdvancedBilling
       @component_id = component_id unless component_id == SKIP
       @component_handle = component_handle unless component_handle == SKIP
       @direction = direction unless direction == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -122,7 +122,7 @@ module AdvancedBilling
       direction = hash.key?('direction') ? hash['direction'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AllocationPreviewLineItem.new(transaction_type: transaction_type,
@@ -134,7 +134,7 @@ module AdvancedBilling
                                     component_id: component_id,
                                     component_handle: component_handle,
                                     direction: direction,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
   end
 end

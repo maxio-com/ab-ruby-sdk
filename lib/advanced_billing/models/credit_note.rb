@@ -232,7 +232,12 @@ module AdvancedBilling
                    tax_amount: SKIP, total_amount: SKIP, applied_amount: SKIP,
                    remaining_amount: SKIP, line_items: SKIP, discounts: SKIP,
                    taxes: SKIP, applications: SKIP, refunds: SKIP,
-                   origin_invoices: SKIP, additional_properties: {})
+                   origin_invoices: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -260,11 +265,6 @@ module AdvancedBilling
       @applications = applications unless applications == SKIP
       @refunds = refunds unless refunds == SKIP
       @origin_invoices = origin_invoices unless origin_invoices == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -363,7 +363,7 @@ module AdvancedBilling
       origin_invoices = SKIP unless hash.key?('origin_invoices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreditNote.new(uid: uid,
@@ -393,7 +393,7 @@ module AdvancedBilling
                      applications: applications,
                      refunds: refunds,
                      origin_invoices: origin_invoices,
-                     additional_properties: hash)
+                     additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

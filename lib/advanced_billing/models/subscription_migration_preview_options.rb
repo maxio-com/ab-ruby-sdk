@@ -108,7 +108,12 @@ module AdvancedBilling
                    include_coupons: true, preserve_period: false,
                    product_handle: SKIP, product_price_point_handle: SKIP,
                    proration: SKIP, proration_date: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @product_id = product_id unless product_id == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @include_trial = include_trial unless include_trial == SKIP
@@ -122,11 +127,6 @@ module AdvancedBilling
       end
       @proration = proration unless proration == SKIP
       @proration_date = proration_date unless proration_date == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -153,7 +153,7 @@ module AdvancedBilling
                        end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionMigrationPreviewOptions.new(product_id: product_id,
@@ -166,7 +166,7 @@ module AdvancedBilling
                                               product_price_point_handle: product_price_point_handle,
                                               proration: proration,
                                               proration_date: proration_date,
-                                              additional_properties: hash)
+                                              additional_properties: additional_properties)
     end
 
     def to_custom_proration_date

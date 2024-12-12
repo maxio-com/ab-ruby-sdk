@@ -45,27 +45,17 @@ module AdvancedBilling
 
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
-    # Rules](https://help.chargify.com/products/product-components.html#general-
-    # price-bracket-rules) for an overview of how price brackets work for
-    # different pricing schemes.
+    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Componen
+    # t-Pricing-Schemes#price-bracket-rules) for an overview of how price
+    # brackets work for different pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
 
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
-    # @return [CreditType]
-    attr_accessor :upgrade_charge
-
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
-    # @return [CreditType]
-    attr_accessor :downgrade_credit
-
-    # The type of credit to be created when upgrading/downgrading. Defaults to
-    # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
+    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
+    # See [Price Bracket
+    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Componen
+    # t-Pricing-Schemes#price-bracket-rules) for an overview of how price
+    # brackets work for different pricing schemes.
     # @return [Array[ComponentPricePointItem]]
     attr_accessor :price_points
 
@@ -86,10 +76,6 @@ module AdvancedBilling
     # invoices.
     # @return [TrueClass | FalseClass]
     attr_accessor :hide_date_range_on_invoice
-
-    # deprecated May 2011 - use unit_price instead
-    # @return [String]
-    attr_accessor :price_in_cents
 
     # The ID of an event based billing metric that will be attached to this
     # component.
@@ -119,13 +105,10 @@ module AdvancedBilling
       @_hash['taxable'] = 'taxable'
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['prices'] = 'prices'
-      @_hash['upgrade_charge'] = 'upgrade_charge'
-      @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['price_points'] = 'price_points'
       @_hash['unit_price'] = 'unit_price'
       @_hash['tax_code'] = 'tax_code'
       @_hash['hide_date_range_on_invoice'] = 'hide_date_range_on_invoice'
-      @_hash['price_in_cents'] = 'price_in_cents'
       @_hash['event_based_billing_metric_id'] =
         'event_based_billing_metric_id'
       @_hash['interval'] = 'interval'
@@ -140,13 +123,10 @@ module AdvancedBilling
         handle
         taxable
         prices
-        upgrade_charge
-        downgrade_credit
         price_points
         unit_price
         tax_code
         hide_date_range_on_invoice
-        price_in_cents
         interval
         interval_unit
       ]
@@ -155,8 +135,6 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
-        upgrade_charge
-        downgrade_credit
         interval_unit
       ]
     end
@@ -164,11 +142,14 @@ module AdvancedBilling
     def initialize(name:, unit_name:, pricing_scheme:,
                    event_based_billing_metric_id:, description: SKIP,
                    handle: SKIP, taxable: SKIP, prices: SKIP,
-                   upgrade_charge: SKIP, downgrade_credit: SKIP,
                    price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
-                   hide_date_range_on_invoice: SKIP, price_in_cents: SKIP,
-                   interval: SKIP, interval_unit: SKIP,
-                   additional_properties: {})
+                   hide_date_range_on_invoice: SKIP, interval: SKIP,
+                   interval_unit: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @unit_name = unit_name
       @description = description unless description == SKIP
@@ -176,8 +157,6 @@ module AdvancedBilling
       @taxable = taxable unless taxable == SKIP
       @pricing_scheme = pricing_scheme
       @prices = prices unless prices == SKIP
-      @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
-      @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @price_points = price_points unless price_points == SKIP
       @unit_price = unit_price unless unit_price == SKIP
       @tax_code = tax_code unless tax_code == SKIP
@@ -185,15 +164,9 @@ module AdvancedBilling
         @hide_date_range_on_invoice =
           hide_date_range_on_invoice
       end
-      @price_in_cents = price_in_cents unless price_in_cents == SKIP
       @event_based_billing_metric_id = event_based_billing_metric_id
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -220,10 +193,6 @@ module AdvancedBilling
       end
 
       prices = SKIP unless hash.key?('prices')
-      upgrade_charge =
-        hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
-      downgrade_credit =
-        hash.key?('downgrade_credit') ? hash['downgrade_credit'] : SKIP
       # Parameter is an array, so we need to iterate through it
       price_points = nil
       unless hash['price_points'].nil?
@@ -240,13 +209,11 @@ module AdvancedBilling
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
       hide_date_range_on_invoice =
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
-      price_in_cents =
-        hash.key?('price_in_cents') ? hash['price_in_cents'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       EBBComponent.new(name: name,
@@ -257,16 +224,13 @@ module AdvancedBilling
                        handle: handle,
                        taxable: taxable,
                        prices: prices,
-                       upgrade_charge: upgrade_charge,
-                       downgrade_credit: downgrade_credit,
                        price_points: price_points,
                        unit_price: unit_price,
                        tax_code: tax_code,
                        hide_date_range_on_invoice: hide_date_range_on_invoice,
-                       price_in_cents: price_in_cents,
                        interval: interval,
                        interval_unit: interval_unit,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

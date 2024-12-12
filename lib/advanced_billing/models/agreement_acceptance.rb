@@ -74,7 +74,13 @@ module AdvancedBilling
 
     def initialize(ip_address: SKIP, terms_url: SKIP, privacy_policy_url: SKIP,
                    return_refund_policy_url: SKIP, delivery_policy_url: SKIP,
-                   secure_checkout_policy_url: SKIP, additional_properties: {})
+                   secure_checkout_policy_url: SKIP,
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @ip_address = ip_address unless ip_address == SKIP
       @terms_url = terms_url unless terms_url == SKIP
       @privacy_policy_url = privacy_policy_url unless privacy_policy_url == SKIP
@@ -83,11 +89,6 @@ module AdvancedBilling
       unless secure_checkout_policy_url == SKIP
         @secure_checkout_policy_url =
           secure_checkout_policy_url
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -108,7 +109,7 @@ module AdvancedBilling
         hash.key?('secure_checkout_policy_url') ? hash['secure_checkout_policy_url'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AgreementAcceptance.new(ip_address: ip_address,
@@ -117,7 +118,7 @@ module AdvancedBilling
                               return_refund_policy_url: return_refund_policy_url,
                               delivery_policy_url: delivery_policy_url,
                               secure_checkout_policy_url: secure_checkout_policy_url,
-                              additional_properties: hash)
+                              additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

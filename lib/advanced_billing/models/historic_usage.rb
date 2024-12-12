@@ -47,15 +47,15 @@ module AdvancedBilling
     end
 
     def initialize(total_usage_quantity: SKIP, billing_period_starts_at: SKIP,
-                   billing_period_ends_at: SKIP, additional_properties: {})
-      @total_usage_quantity = total_usage_quantity unless total_usage_quantity == SKIP
-      @billing_period_starts_at = billing_period_starts_at unless billing_period_starts_at == SKIP
-      @billing_period_ends_at = billing_period_ends_at unless billing_period_ends_at == SKIP
-
+                   billing_period_ends_at: SKIP, additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @total_usage_quantity = total_usage_quantity unless total_usage_quantity == SKIP
+      @billing_period_starts_at = billing_period_starts_at unless billing_period_starts_at == SKIP
+      @billing_period_ends_at = billing_period_ends_at unless billing_period_ends_at == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -77,13 +77,13 @@ module AdvancedBilling
                                end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       HistoricUsage.new(total_usage_quantity: total_usage_quantity,
                         billing_period_starts_at: billing_period_starts_at,
                         billing_period_ends_at: billing_period_ends_at,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
 
     def to_custom_billing_period_starts_at

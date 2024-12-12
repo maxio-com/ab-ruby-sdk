@@ -24,7 +24,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/proforma_invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(uid, key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
@@ -63,7 +63,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}/proforma_invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['uid'], key: 'uid')
                                     .is_required(true)
                                     .should_encode(true))
@@ -94,7 +94,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/proforma_invoices/{proforma_invoice_uid}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
                                     .is_required(true)
                                     .should_encode(true))
@@ -125,7 +125,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/proforma_invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -184,7 +184,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/proforma_invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -226,7 +226,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/proforma_invoices/{proforma_invoice_uid}/void.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
                                     .is_required(true)
                                     .should_encode(true))
@@ -272,7 +272,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/proforma_invoices/preview.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(subscription_id, key: 'subscription_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -311,7 +311,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/proforma_invoices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -354,7 +354,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/proforma_invoices/preview.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .query_param(new_parameter(include, key: 'include'))
                    .body_param(new_parameter(body))

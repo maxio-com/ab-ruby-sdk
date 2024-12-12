@@ -427,7 +427,6 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
-        dunning_communication_delay_enabled
         dunning_communication_delay_time_zone
       ]
     end
@@ -459,7 +458,12 @@ module AdvancedBilling
                    dunning_communication_delay_enabled: false,
                    dunning_communication_delay_time_zone: SKIP,
                    skip_billing_manifest_taxes: false,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
       unless product_price_point_handle == SKIP
@@ -535,11 +539,6 @@ module AdvancedBilling
       unless skip_billing_manifest_taxes == SKIP
         @skip_billing_manifest_taxes =
           skip_billing_manifest_taxes
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -662,7 +661,7 @@ module AdvancedBilling
         hash['skip_billing_manifest_taxes'] ||= false
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateSubscription.new(product_handle: product_handle,
@@ -714,7 +713,7 @@ module AdvancedBilling
                              dunning_communication_delay_enabled: dunning_communication_delay_enabled,
                              dunning_communication_delay_time_zone: dunning_communication_delay_time_zone,
                              skip_billing_manifest_taxes: skip_billing_manifest_taxes,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
 
     def to_custom_next_billing_at

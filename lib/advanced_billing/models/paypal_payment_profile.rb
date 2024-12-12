@@ -147,7 +147,12 @@ module AdvancedBilling
                    billing_country: SKIP, customer_vault_token: SKIP,
                    billing_address_2: SKIP, site_gateway_setting_id: SKIP,
                    gateway_handle: SKIP, paypal_email: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -165,11 +170,6 @@ module AdvancedBilling
       @site_gateway_setting_id = site_gateway_setting_id unless site_gateway_setting_id == SKIP
       @gateway_handle = gateway_handle unless gateway_handle == SKIP
       @paypal_email = paypal_email unless paypal_email == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -202,7 +202,7 @@ module AdvancedBilling
       paypal_email = hash.key?('paypal_email') ? hash['paypal_email'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PaypalPaymentProfile.new(payment_type: payment_type,
@@ -222,7 +222,7 @@ module AdvancedBilling
                                site_gateway_setting_id: site_gateway_setting_id,
                                gateway_handle: gateway_handle,
                                paypal_email: paypal_email,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

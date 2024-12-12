@@ -141,7 +141,12 @@ module AdvancedBilling
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, phone: SKIP, locale: SKIP,
                    vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
-                   metafields: SKIP, additional_properties: {})
+                   metafields: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -160,11 +165,6 @@ module AdvancedBilling
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
       @tax_exempt_reason = tax_exempt_reason unless tax_exempt_reason == SKIP
       @metafields = metafields unless metafields == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -193,7 +193,7 @@ module AdvancedBilling
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PayerAttributes.new(first_name: first_name,
@@ -214,7 +214,7 @@ module AdvancedBilling
                           tax_exempt: tax_exempt,
                           tax_exempt_reason: tax_exempt_reason,
                           metafields: metafields,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

@@ -55,17 +55,17 @@ module AdvancedBilling
 
     def initialize(reason:, service_credit_account_balance_in_cents:,
                    service_credit_balance_change_in_cents:, currency_code:,
-                   at_time:, additional_properties: {})
+                   at_time:, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @reason = reason
       @service_credit_account_balance_in_cents = service_credit_account_balance_in_cents
       @service_credit_balance_change_in_cents = service_credit_balance_change_in_cents
       @currency_code = currency_code
       @at_time = at_time
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -84,7 +84,7 @@ module AdvancedBilling
                 end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreditAccountBalanceChanged.new(reason: reason,
@@ -92,7 +92,7 @@ module AdvancedBilling
                                       service_credit_balance_change_in_cents: service_credit_balance_change_in_cents,
                                       currency_code: currency_code,
                                       at_time: at_time,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
 
     def to_custom_at_time

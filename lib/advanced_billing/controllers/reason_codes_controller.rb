@@ -27,7 +27,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/reason_codes.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -61,7 +61,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/reason_codes.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .header_param(new_parameter('application/json', key: 'accept'))
@@ -69,7 +69,11 @@ module AdvancedBilling
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
                     .deserialize_into(ReasonCodeResponse.method(:from_hash))
-                    .is_response_array(true))
+                    .is_response_array(true)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -82,7 +86,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/reason_codes/{reason_code_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(reason_code_id, key: 'reason_code_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -108,7 +112,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/reason_codes/{reason_code_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(reason_code_id, key: 'reason_code_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -122,7 +126,11 @@ module AdvancedBilling
                     .deserialize_into(ReasonCodeResponse.method(:from_hash))
                     .local_error_template('404',
                                           'Not Found:\'{$response.body}\'',
-                                          APIException))
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
         .execute
     end
 
@@ -131,12 +139,12 @@ module AdvancedBilling
     # not reversable.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
-    # @return [ReasonCodesJsonResponse] response from the API call.
+    # @return [OkResponse] response from the API call.
     def delete_reason_code(reason_code_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/reason_codes/{reason_code_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(reason_code_id, key: 'reason_code_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -144,7 +152,7 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(ReasonCodesJsonResponse.method(:from_hash))
+                    .deserialize_into(OkResponse.method(:from_hash))
                     .local_error_template('404',
                                           'Not Found:\'{$response.body}\'',
                                           APIException))

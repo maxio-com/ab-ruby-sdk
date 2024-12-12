@@ -120,7 +120,12 @@ module AdvancedBilling
                    reference: SKIP, primary: SKIP, currency: SKIP,
                    coupon_codes: SKIP, components: SKIP, custom_price: SKIP,
                    calendar_billing: SKIP, metafields: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @product_handle = product_handle unless product_handle == SKIP
       @product_id = product_id unless product_id == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
@@ -137,11 +142,6 @@ module AdvancedBilling
       @custom_price = custom_price unless custom_price == SKIP
       @calendar_billing = calendar_billing unless calendar_billing == SKIP
       @metafields = metafields unless metafields == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -178,7 +178,7 @@ module AdvancedBilling
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupSignupItem.new(product_handle: product_handle,
@@ -194,7 +194,7 @@ module AdvancedBilling
                                       custom_price: custom_price,
                                       calendar_billing: calendar_billing,
                                       metafields: metafields,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

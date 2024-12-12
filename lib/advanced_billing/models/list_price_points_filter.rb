@@ -93,7 +93,12 @@ module AdvancedBilling
 
     def initialize(date_field: SKIP, start_date: SKIP, end_date: SKIP,
                    start_datetime: SKIP, end_datetime: SKIP, type: SKIP,
-                   ids: SKIP, archived_at: SKIP, additional_properties: {})
+                   ids: SKIP, archived_at: SKIP, additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @date_field = date_field unless date_field == SKIP
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
@@ -102,11 +107,6 @@ module AdvancedBilling
       @type = type unless type == SKIP
       @ids = ids unless ids == SKIP
       @archived_at = archived_at unless archived_at == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -132,7 +132,7 @@ module AdvancedBilling
       archived_at = hash.key?('archived_at') ? hash['archived_at'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListPricePointsFilter.new(date_field: date_field,
@@ -143,7 +143,7 @@ module AdvancedBilling
                                 type: type,
                                 ids: ids,
                                 archived_at: archived_at,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     def to_custom_start_datetime

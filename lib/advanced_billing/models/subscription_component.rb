@@ -297,7 +297,12 @@ module AdvancedBilling
                    allow_fractional_quantities: SKIP, subscription: SKIP,
                    historic_usages: SKIP, display_on_hosted_page: SKIP,
                    interval: SKIP, interval_unit: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @kind = kind unless kind == SKIP
@@ -333,11 +338,6 @@ module AdvancedBilling
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -417,7 +417,7 @@ module AdvancedBilling
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionComponent.new(id: id,
@@ -452,7 +452,7 @@ module AdvancedBilling
                                 display_on_hosted_page: display_on_hosted_page,
                                 interval: interval,
                                 interval_unit: interval_unit,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     def to_custom_archived_at

@@ -224,6 +224,11 @@ module AdvancedBilling
     # The amount of credit (from credit notes) applied to this invoice.
     # Credits offset the amount due from the customer.
     # @return [String]
+    attr_accessor :debit_amount
+
+    # The amount of credit (from credit notes) applied to this invoice.
+    # Credits offset the amount due from the customer.
+    # @return [String]
     attr_accessor :refund_amount
 
     # The amount paid on the invoice by the customer.
@@ -252,6 +257,10 @@ module AdvancedBilling
     attr_accessor :credits
 
     # Line items on the invoice.
+    # @return [Array[InvoiceDebit]]
+    attr_accessor :debits
+
+    # Line items on the invoice.
     # @return [Array[InvoiceRefund]]
     attr_accessor :refunds
 
@@ -266,6 +275,10 @@ module AdvancedBilling
     # Line items on the invoice.
     # @return [InvoiceDisplaySettings]
     attr_accessor :display_settings
+
+    # Line items on the invoice.
+    # @return [InvoiceAvataxDetails]
+    attr_accessor :avatax_details
 
     # The public URL of the invoice
     # @return [String]
@@ -322,6 +335,7 @@ module AdvancedBilling
       @_hash['tax_amount'] = 'tax_amount'
       @_hash['total_amount'] = 'total_amount'
       @_hash['credit_amount'] = 'credit_amount'
+      @_hash['debit_amount'] = 'debit_amount'
       @_hash['refund_amount'] = 'refund_amount'
       @_hash['paid_amount'] = 'paid_amount'
       @_hash['due_amount'] = 'due_amount'
@@ -329,10 +343,12 @@ module AdvancedBilling
       @_hash['discounts'] = 'discounts'
       @_hash['taxes'] = 'taxes'
       @_hash['credits'] = 'credits'
+      @_hash['debits'] = 'debits'
       @_hash['refunds'] = 'refunds'
       @_hash['payments'] = 'payments'
       @_hash['custom_fields'] = 'custom_fields'
       @_hash['display_settings'] = 'display_settings'
+      @_hash['avatax_details'] = 'avatax_details'
       @_hash['public_url'] = 'public_url'
       @_hash['previous_balance_data'] = 'previous_balance_data'
       @_hash['public_url_expires_on'] = 'public_url_expires_on'
@@ -381,6 +397,7 @@ module AdvancedBilling
         tax_amount
         total_amount
         credit_amount
+        debit_amount
         refund_amount
         paid_amount
         due_amount
@@ -388,10 +405,12 @@ module AdvancedBilling
         discounts
         taxes
         credits
+        debits
         refunds
         payments
         custom_fields
         display_settings
+        avatax_details
         public_url
         previous_balance_data
         public_url_expires_on
@@ -425,12 +444,18 @@ module AdvancedBilling
                    memo: SKIP, billing_address: SKIP, shipping_address: SKIP,
                    subtotal_amount: SKIP, discount_amount: SKIP,
                    tax_amount: SKIP, total_amount: SKIP, credit_amount: SKIP,
-                   refund_amount: SKIP, paid_amount: SKIP, due_amount: SKIP,
-                   line_items: SKIP, discounts: SKIP, taxes: SKIP,
-                   credits: SKIP, refunds: SKIP, payments: SKIP,
-                   custom_fields: SKIP, display_settings: SKIP,
-                   public_url: SKIP, previous_balance_data: SKIP,
-                   public_url_expires_on: SKIP, additional_properties: {})
+                   debit_amount: SKIP, refund_amount: SKIP, paid_amount: SKIP,
+                   due_amount: SKIP, line_items: SKIP, discounts: SKIP,
+                   taxes: SKIP, credits: SKIP, debits: SKIP, refunds: SKIP,
+                   payments: SKIP, custom_fields: SKIP, display_settings: SKIP,
+                   avatax_details: SKIP, public_url: SKIP,
+                   previous_balance_data: SKIP, public_url_expires_on: SKIP,
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
@@ -473,6 +498,7 @@ module AdvancedBilling
       @tax_amount = tax_amount unless tax_amount == SKIP
       @total_amount = total_amount unless total_amount == SKIP
       @credit_amount = credit_amount unless credit_amount == SKIP
+      @debit_amount = debit_amount unless debit_amount == SKIP
       @refund_amount = refund_amount unless refund_amount == SKIP
       @paid_amount = paid_amount unless paid_amount == SKIP
       @due_amount = due_amount unless due_amount == SKIP
@@ -480,18 +506,15 @@ module AdvancedBilling
       @discounts = discounts unless discounts == SKIP
       @taxes = taxes unless taxes == SKIP
       @credits = credits unless credits == SKIP
+      @debits = debits unless debits == SKIP
       @refunds = refunds unless refunds == SKIP
       @payments = payments unless payments == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @display_settings = display_settings unless display_settings == SKIP
+      @avatax_details = avatax_details unless avatax_details == SKIP
       @public_url = public_url unless public_url == SKIP
       @previous_balance_data = previous_balance_data unless previous_balance_data == SKIP
       @public_url_expires_on = public_url_expires_on unless public_url_expires_on == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -566,6 +589,7 @@ module AdvancedBilling
       tax_amount = hash.key?('tax_amount') ? hash['tax_amount'] : SKIP
       total_amount = hash.key?('total_amount') ? hash['total_amount'] : SKIP
       credit_amount = hash.key?('credit_amount') ? hash['credit_amount'] : SKIP
+      debit_amount = hash.key?('debit_amount') ? hash['debit_amount'] : SKIP
       refund_amount = hash.key?('refund_amount') ? hash['refund_amount'] : SKIP
       paid_amount = hash.key?('paid_amount') ? hash['paid_amount'] : SKIP
       due_amount = hash.key?('due_amount') ? hash['due_amount'] : SKIP
@@ -610,6 +634,16 @@ module AdvancedBilling
 
       credits = SKIP unless hash.key?('credits')
       # Parameter is an array, so we need to iterate through it
+      debits = nil
+      unless hash['debits'].nil?
+        debits = []
+        hash['debits'].each do |structure|
+          debits << (InvoiceDebit.from_hash(structure) if structure)
+        end
+      end
+
+      debits = SKIP unless hash.key?('debits')
+      # Parameter is an array, so we need to iterate through it
       refunds = nil
       unless hash['refunds'].nil?
         refunds = []
@@ -641,6 +675,8 @@ module AdvancedBilling
       custom_fields = SKIP unless hash.key?('custom_fields')
       display_settings = InvoiceDisplaySettings.from_hash(hash['display_settings']) if
         hash['display_settings']
+      avatax_details = InvoiceAvataxDetails.from_hash(hash['avatax_details']) if
+        hash['avatax_details']
       public_url = hash.key?('public_url') ? hash['public_url'] : SKIP
       previous_balance_data = InvoicePreviousBalance.from_hash(hash['previous_balance_data']) if
         hash['previous_balance_data']
@@ -648,7 +684,7 @@ module AdvancedBilling
         hash.key?('public_url_expires_on') ? hash['public_url_expires_on'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Invoice.new(id: id,
@@ -690,6 +726,7 @@ module AdvancedBilling
                   tax_amount: tax_amount,
                   total_amount: total_amount,
                   credit_amount: credit_amount,
+                  debit_amount: debit_amount,
                   refund_amount: refund_amount,
                   paid_amount: paid_amount,
                   due_amount: due_amount,
@@ -697,14 +734,16 @@ module AdvancedBilling
                   discounts: discounts,
                   taxes: taxes,
                   credits: credits,
+                  debits: debits,
                   refunds: refunds,
                   payments: payments,
                   custom_fields: custom_fields,
                   display_settings: display_settings,
+                  avatax_details: avatax_details,
                   public_url: public_url,
                   previous_balance_data: previous_balance_data,
                   public_url_expires_on: public_url_expires_on,
-                  additional_properties: hash)
+                  additional_properties: additional_properties)
     end
 
     def to_custom_transaction_time

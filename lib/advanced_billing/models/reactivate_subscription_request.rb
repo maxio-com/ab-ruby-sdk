@@ -72,7 +72,12 @@ module AdvancedBilling
     def initialize(calendar_billing: SKIP, include_trial: SKIP,
                    preserve_balance: SKIP, coupon_code: SKIP,
                    use_credits_and_prepayments: SKIP, resume: SKIP,
-                   additional_properties: {})
+                   additional_properties = nil)
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @calendar_billing = calendar_billing unless calendar_billing == SKIP
       @include_trial = include_trial unless include_trial == SKIP
       @preserve_balance = preserve_balance unless preserve_balance == SKIP
@@ -82,11 +87,6 @@ module AdvancedBilling
           use_credits_and_prepayments
       end
       @resume = resume unless resume == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -107,7 +107,7 @@ module AdvancedBilling
       ) : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ReactivateSubscriptionRequest.new(calendar_billing: calendar_billing,
@@ -116,7 +116,7 @@ module AdvancedBilling
                                         coupon_code: coupon_code,
                                         use_credits_and_prepayments: use_credits_and_prepayments,
                                         resume: resume,
-                                        additional_properties: hash)
+                                        additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

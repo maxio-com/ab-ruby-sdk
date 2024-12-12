@@ -39,14 +39,14 @@ module AdvancedBilling
     end
 
     def initialize(current_proforma_invoice: SKIP, next_proforma_invoice: SKIP,
-                   additional_properties: {})
-      @current_proforma_invoice = current_proforma_invoice unless current_proforma_invoice == SKIP
-      @next_proforma_invoice = next_proforma_invoice unless next_proforma_invoice == SKIP
-
+                   additional_properties = nil)
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @current_proforma_invoice = current_proforma_invoice unless current_proforma_invoice == SKIP
+      @next_proforma_invoice = next_proforma_invoice unless next_proforma_invoice == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -60,12 +60,12 @@ module AdvancedBilling
         hash['next_proforma_invoice']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SignupProformaPreview.new(current_proforma_invoice: current_proforma_invoice,
                                 next_proforma_invoice: next_proforma_invoice,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end
