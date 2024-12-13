@@ -141,7 +141,7 @@ module AdvancedBilling
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, phone: SKIP, locale: SKIP,
                    vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
-                   metafields: SKIP, additional_properties : {})
+                   metafields: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

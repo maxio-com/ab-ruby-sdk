@@ -62,7 +62,7 @@ module AdvancedBilling
     def initialize(segment_property_1_value: SKIP,
                    segment_property_2_value: SKIP,
                    segment_property_3_value: SKIP,
-                   segment_property_4_value: SKIP, additional_properties : {})
+                   segment_property_4_value: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -48,8 +48,7 @@ module AdvancedBilling
     end
 
     def initialize(balance_in_cents: SKIP, automatic_balance_in_cents: SKIP,
-                   remittance_balance_in_cents: SKIP,
-                   additional_properties : {})
+                   remittance_balance_in_cents: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

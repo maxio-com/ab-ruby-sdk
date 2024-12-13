@@ -95,8 +95,7 @@ module AdvancedBilling
     def initialize(line_items: SKIP, issue_date: SKIP, net_terms: SKIP,
                    payment_instructions: SKIP, memo: SKIP, seller_address: SKIP,
                    billing_address: SKIP, shipping_address: SKIP, coupons: SKIP,
-                   status: CreateInvoiceStatus::OPEN,
-                   additional_properties : {})
+                   status: CreateInvoiceStatus::OPEN, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

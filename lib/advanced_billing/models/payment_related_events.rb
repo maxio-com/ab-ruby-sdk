@@ -36,7 +36,7 @@ module AdvancedBilling
     end
 
     def initialize(product_id:, account_transaction_id:,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

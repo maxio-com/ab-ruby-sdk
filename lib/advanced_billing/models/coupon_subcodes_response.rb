@@ -45,7 +45,7 @@ module AdvancedBilling
     end
 
     def initialize(created_codes: SKIP, duplicate_codes: SKIP,
-                   invalid_codes: SKIP, additional_properties : {})
+                   invalid_codes: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

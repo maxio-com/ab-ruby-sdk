@@ -165,7 +165,7 @@ module AdvancedBilling
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, last_four: SKIP, card_type: SKIP,
                    customer_vault_token: SKIP, cvv: SKIP, payment_type: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -222,7 +222,7 @@ module AdvancedBilling
                    overage_prices: SKIP, overage_pricing_scheme: SKIP,
                    renew_prepaid_allocation: SKIP,
                    rollover_prepaid_remainder: SKIP, expiration_interval: SKIP,
-                   expiration_interval_unit: SKIP, additional_properties : {})
+                   expiration_interval_unit: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

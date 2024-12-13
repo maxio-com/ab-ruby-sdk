@@ -450,7 +450,7 @@ module AdvancedBilling
                    payments: SKIP, custom_fields: SKIP, display_settings: SKIP,
                    avatax_details: SKIP, public_url: SKIP,
                    previous_balance_data: SKIP, public_url_expires_on: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

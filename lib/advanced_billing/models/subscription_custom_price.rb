@@ -111,7 +111,7 @@ module AdvancedBilling
                    initial_charge_in_cents: SKIP,
                    initial_charge_after_trial: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, tax_included: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

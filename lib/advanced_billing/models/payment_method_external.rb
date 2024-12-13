@@ -48,7 +48,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(details:, kind:, memo:, type:, additional_properties : {})
+    def initialize(details:, kind:, memo:, type:, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

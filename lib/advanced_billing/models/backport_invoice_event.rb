@@ -53,7 +53,7 @@ module AdvancedBilling
 
     def initialize(id:, timestamp:, invoice:,
                    event_type: InvoiceEventType::BACKPORT_INVOICE, event_data:,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

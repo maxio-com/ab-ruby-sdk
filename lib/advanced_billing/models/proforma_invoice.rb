@@ -325,7 +325,7 @@ module AdvancedBilling
                    paid_amount: SKIP, refund_amount: SKIP, due_amount: SKIP,
                    line_items: SKIP, discounts: SKIP, taxes: SKIP,
                    credits: SKIP, payments: SKIP, custom_fields: SKIP,
-                   public_url: SKIP, additional_properties : {})
+                   public_url: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

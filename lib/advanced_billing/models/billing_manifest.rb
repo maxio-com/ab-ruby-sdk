@@ -89,7 +89,7 @@ module AdvancedBilling
                    total_discount_in_cents: SKIP, total_tax_in_cents: SKIP,
                    subtotal_in_cents: SKIP, start_date: SKIP, end_date: SKIP,
                    period_type: SKIP, existing_balance_in_cents: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -203,7 +203,7 @@ module AdvancedBilling
                    renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
-                   public_signup_page_ids: SKIP, additional_properties : {})
+                   public_signup_page_ids: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

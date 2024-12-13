@@ -111,7 +111,7 @@ module AdvancedBilling
                    applied_amount: SKIP, payment_method: SKIP,
                    transaction_id: SKIP, prepayment: SKIP, gateway_handle: SKIP,
                    gateway_used: SKIP, gateway_transaction_id: SKIP,
-                   received_on: SKIP, uid: SKIP, additional_properties : {})
+                   received_on: SKIP, uid: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

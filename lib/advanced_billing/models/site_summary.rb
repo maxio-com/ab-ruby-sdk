@@ -57,7 +57,7 @@ module AdvancedBilling
     end
 
     def initialize(seller_name: SKIP, site_name: SKIP, site_id: SKIP,
-                   site_currency: SKIP, stats: SKIP, additional_properties : {})
+                   site_currency: SKIP, stats: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

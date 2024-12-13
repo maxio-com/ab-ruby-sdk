@@ -131,7 +131,7 @@ module AdvancedBilling
                    whopays_default_payer: SKIP, allocation_settings: SKIP,
                    default_payment_collection_method: SKIP,
                    organization_address: SKIP, tax_configuration: SKIP,
-                   net_terms: SKIP, test: SKIP, additional_properties : {})
+                   net_terms: SKIP, test: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

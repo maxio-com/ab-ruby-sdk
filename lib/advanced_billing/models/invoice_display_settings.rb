@@ -39,7 +39,7 @@ module AdvancedBilling
     end
 
     def initialize(hide_zero_subtotal_lines: SKIP,
-                   include_discounts_on_lines: SKIP, additional_properties : {})
+                   include_discounts_on_lines: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

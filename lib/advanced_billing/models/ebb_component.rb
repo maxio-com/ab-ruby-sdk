@@ -144,7 +144,7 @@ module AdvancedBilling
                    handle: SKIP, taxable: SKIP, prices: SKIP,
                    price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
                    hide_date_range_on_invoice: SKIP, interval: SKIP,
-                   interval_unit: SKIP, additional_properties : {})
+                   interval_unit: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

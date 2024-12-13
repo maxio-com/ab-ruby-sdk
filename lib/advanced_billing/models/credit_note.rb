@@ -232,7 +232,7 @@ module AdvancedBilling
                    tax_amount: SKIP, total_amount: SKIP, applied_amount: SKIP,
                    remaining_amount: SKIP, line_items: SKIP, discounts: SKIP,
                    taxes: SKIP, applications: SKIP, refunds: SKIP,
-                   origin_invoices: SKIP, additional_properties : {})
+                   origin_invoices: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

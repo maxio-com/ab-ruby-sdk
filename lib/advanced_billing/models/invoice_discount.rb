@@ -104,7 +104,7 @@ module AdvancedBilling
                    source_type: SKIP, source_id: SKIP, discount_type: SKIP,
                    percentage: SKIP, eligible_amount: SKIP,
                    discount_amount: SKIP, transaction_id: SKIP,
-                   line_item_breakouts: SKIP, additional_properties : {})
+                   line_item_breakouts: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

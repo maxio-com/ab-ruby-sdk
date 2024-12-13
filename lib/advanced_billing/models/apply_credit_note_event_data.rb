@@ -93,7 +93,7 @@ module AdvancedBilling
     def initialize(uid:, credit_note_number:, credit_note_uid:,
                    original_amount:, applied_amount:, transaction_time: SKIP,
                    memo: SKIP, role: SKIP, consolidated_invoice: SKIP,
-                   applied_credit_notes: SKIP, additional_properties : {})
+                   applied_credit_notes: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

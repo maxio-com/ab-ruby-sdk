@@ -30,7 +30,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(bank_account_verification:, additional_properties : {})
+    def initialize(bank_account_verification:, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

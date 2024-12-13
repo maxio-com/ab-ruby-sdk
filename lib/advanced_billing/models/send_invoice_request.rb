@@ -45,7 +45,7 @@ module AdvancedBilling
     end
 
     def initialize(recipient_emails: SKIP, cc_recipient_emails: SKIP,
-                   bcc_recipient_emails: SKIP, additional_properties : {})
+                   bcc_recipient_emails: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

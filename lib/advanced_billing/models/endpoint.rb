@@ -57,7 +57,7 @@ module AdvancedBilling
     end
 
     def initialize(id: SKIP, url: SKIP, site_id: SKIP, status: SKIP,
-                   webhook_subscriptions: SKIP, additional_properties : {})
+                   webhook_subscriptions: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

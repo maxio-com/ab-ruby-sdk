@@ -108,7 +108,7 @@ module AdvancedBilling
                    include_coupons: true, preserve_period: false,
                    product_handle: SKIP, product_price_point_handle: SKIP,
                    proration: SKIP, proration_date: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

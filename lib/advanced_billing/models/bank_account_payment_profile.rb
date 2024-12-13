@@ -189,7 +189,7 @@ module AdvancedBilling
                    masked_bank_routing_number: SKIP, bank_account_type: SKIP,
                    bank_account_holder_type: SKIP, verified: false,
                    site_gateway_setting_id: SKIP, gateway_handle: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

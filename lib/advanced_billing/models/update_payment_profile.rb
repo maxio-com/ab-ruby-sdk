@@ -129,7 +129,7 @@ module AdvancedBilling
                    billing_address: SKIP, billing_city: SKIP,
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, billing_address_2: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

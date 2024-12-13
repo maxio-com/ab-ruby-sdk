@@ -55,7 +55,7 @@ module AdvancedBilling
     def initialize(initial_funding_amount_in_cents: SKIP,
                    replenish_to_amount_in_cents: SKIP, auto_replenish: SKIP,
                    replenish_threshold_amount_in_cents: SKIP,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

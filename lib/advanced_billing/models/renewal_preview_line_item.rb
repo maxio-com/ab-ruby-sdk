@@ -116,7 +116,7 @@ module AdvancedBilling
                    product_name: SKIP, component_id: SKIP,
                    component_handle: SKIP, component_name: SKIP,
                    product_handle: SKIP, period_range_start: SKIP,
-                   period_range_end: SKIP, additional_properties : {})
+                   period_range_end: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

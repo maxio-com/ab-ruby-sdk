@@ -274,7 +274,7 @@ module AdvancedBilling
                    bank_iban: SKIP, bank_routing_number: SKIP,
                    bank_account_number: SKIP, bank_branch_code: SKIP,
                    bank_account_type: SKIP, bank_account_holder_type: SKIP,
-                   last_four: SKIP, additional_properties : {})
+                   last_four: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

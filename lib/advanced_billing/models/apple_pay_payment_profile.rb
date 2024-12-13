@@ -140,7 +140,7 @@ module AdvancedBilling
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, customer_vault_token: SKIP,
                    billing_address_2: SKIP, site_gateway_setting_id: SKIP,
-                   gateway_handle: SKIP, additional_properties : {})
+                   gateway_handle: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

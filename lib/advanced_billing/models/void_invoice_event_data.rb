@@ -64,7 +64,7 @@ module AdvancedBilling
 
     def initialize(credit_note_attributes:, memo:, applied_amount:,
                    transaction_time:, is_advance_invoice:, reason:,
-                   additional_properties : {})
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
