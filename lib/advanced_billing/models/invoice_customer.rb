@@ -77,6 +77,11 @@ module AdvancedBilling
     def initialize(chargify_id: SKIP, first_name: SKIP, last_name: SKIP,
                    organization: SKIP, email: SKIP, vat_number: SKIP,
                    reference: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @chargify_id = chargify_id unless chargify_id == SKIP
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
@@ -84,11 +89,6 @@ module AdvancedBilling
       @email = email unless email == SKIP
       @vat_number = vat_number unless vat_number == SKIP
       @reference = reference unless reference == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -105,7 +105,7 @@ module AdvancedBilling
       reference = hash.key?('reference') ? hash['reference'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceCustomer.new(chargify_id: chargify_id,
@@ -115,7 +115,7 @@ module AdvancedBilling
                           email: email,
                           vat_number: vat_number,
                           reference: reference,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

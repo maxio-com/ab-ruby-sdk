@@ -50,14 +50,14 @@ module AdvancedBilling
 
     def initialize(price_point_id: SKIP, billing_schedule: SKIP,
                    custom_price: SKIP, additional_properties: {})
-      @price_point_id = price_point_id unless price_point_id == SKIP
-      @billing_schedule = billing_schedule unless billing_schedule == SKIP
-      @custom_price = custom_price unless custom_price == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @price_point_id = price_point_id unless price_point_id == SKIP
+      @billing_schedule = billing_schedule unless billing_schedule == SKIP
+      @custom_price = custom_price unless custom_price == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -72,13 +72,13 @@ module AdvancedBilling
       custom_price = ComponentCustomPrice.from_hash(hash['custom_price']) if hash['custom_price']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ActivateEventBasedComponent.new(price_point_id: price_point_id,
                                       billing_schedule: billing_schedule,
                                       custom_price: custom_price,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
   end
 end

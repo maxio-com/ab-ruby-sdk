@@ -131,6 +131,11 @@ module AdvancedBilling
 
     # The price point ID of the component being billed. Will be `nil` for
     # non-component charges.
+    # @return [Integer]
+    attr_accessor :billing_schedule_item_id
+
+    # The price point ID of the component being billed. Will be `nil` for
+    # non-component charges.
     # @return [TrueClass | FalseClass]
     attr_accessor :hide
 
@@ -171,6 +176,7 @@ module AdvancedBilling
       @_hash['product_version'] = 'product_version'
       @_hash['component_id'] = 'component_id'
       @_hash['price_point_id'] = 'price_point_id'
+      @_hash['billing_schedule_item_id'] = 'billing_schedule_item_id'
       @_hash['hide'] = 'hide'
       @_hash['component_cost_data'] = 'component_cost_data'
       @_hash['product_price_point_id'] = 'product_price_point_id'
@@ -199,6 +205,7 @@ module AdvancedBilling
         product_version
         component_id
         price_point_id
+        billing_schedule_item_id
         hide
         component_cost_data
         product_price_point_id
@@ -214,6 +221,7 @@ module AdvancedBilling
         product_version
         component_id
         price_point_id
+        billing_schedule_item_id
         component_cost_data
         product_price_point_id
       ]
@@ -225,9 +233,15 @@ module AdvancedBilling
                    tiered_unit_price: SKIP, period_range_start: SKIP,
                    period_range_end: SKIP, transaction_id: SKIP,
                    product_id: SKIP, product_version: SKIP, component_id: SKIP,
-                   price_point_id: SKIP, hide: SKIP, component_cost_data: SKIP,
+                   price_point_id: SKIP, billing_schedule_item_id: SKIP,
+                   hide: SKIP, component_cost_data: SKIP,
                    product_price_point_id: SKIP, custom_item: SKIP, kind: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @description = description unless description == SKIP
@@ -245,16 +259,12 @@ module AdvancedBilling
       @product_version = product_version unless product_version == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+      @billing_schedule_item_id = billing_schedule_item_id unless billing_schedule_item_id == SKIP
       @hide = hide unless hide == SKIP
       @component_cost_data = component_cost_data unless component_cost_data == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
       @kind = kind unless kind == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -287,6 +297,8 @@ module AdvancedBilling
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
+      billing_schedule_item_id =
+        hash.key?('billing_schedule_item_id') ? hash['billing_schedule_item_id'] : SKIP
       hide = hash.key?('hide') ? hash['hide'] : SKIP
       if hash['component_cost_data']
         component_cost_data = InvoiceLineItemComponentCostData.from_hash(hash['component_cost_data'])
@@ -297,7 +309,7 @@ module AdvancedBilling
       kind = hash.key?('kind') ? hash['kind'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceLineItem.new(uid: uid,
@@ -317,12 +329,13 @@ module AdvancedBilling
                           product_version: product_version,
                           component_id: component_id,
                           price_point_id: price_point_id,
+                          billing_schedule_item_id: billing_schedule_item_id,
                           hide: hide,
                           component_cost_data: component_cost_data,
                           product_price_point_id: product_price_point_id,
                           custom_item: custom_item,
                           kind: kind,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

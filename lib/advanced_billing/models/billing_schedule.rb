@@ -37,12 +37,12 @@ module AdvancedBilling
     end
 
     def initialize(initial_billing_at: SKIP, additional_properties: {})
-      @initial_billing_at = initial_billing_at unless initial_billing_at == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @initial_billing_at = initial_billing_at unless initial_billing_at == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -54,11 +54,11 @@ module AdvancedBilling
         hash.key?('initial_billing_at') ? hash['initial_billing_at'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       BillingSchedule.new(initial_billing_at: initial_billing_at,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

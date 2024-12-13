@@ -40,13 +40,13 @@ module AdvancedBilling
     end
 
     def initialize(captured_at: SKIP, invoices: SKIP, additional_properties: {})
-      @captured_at = captured_at unless captured_at == SKIP
-      @invoices = invoices unless invoices == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @captured_at = captured_at unless captured_at == SKIP
+      @invoices = invoices unless invoices == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -71,12 +71,12 @@ module AdvancedBilling
       invoices = SKIP unless hash.key?('invoices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoicePreviousBalance.new(captured_at: captured_at,
                                  invoices: invoices,
-                                 additional_properties: hash)
+                                 additional_properties: additional_properties)
     end
 
     def to_custom_captured_at

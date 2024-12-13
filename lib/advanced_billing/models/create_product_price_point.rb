@@ -126,6 +126,11 @@ module AdvancedBilling
                    initial_charge_after_trial: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, use_site_exchange_rate: true,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @handle = handle unless handle == SKIP
       @price_in_cents = price_in_cents
@@ -143,11 +148,6 @@ module AdvancedBilling
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -179,7 +179,7 @@ module AdvancedBilling
       use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateProductPricePoint.new(name: name,
@@ -196,7 +196,7 @@ module AdvancedBilling
                                   expiration_interval: expiration_interval,
                                   expiration_interval_unit: expiration_interval_unit,
                                   use_site_exchange_rate: use_site_exchange_rate,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

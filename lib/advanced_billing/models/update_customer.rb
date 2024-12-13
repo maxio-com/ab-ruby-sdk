@@ -158,6 +158,11 @@ module AdvancedBilling
                    vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
                    parent_id: SKIP, verified: SKIP, salesforce_id: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @email = email unless email == SKIP
@@ -178,11 +183,6 @@ module AdvancedBilling
       @parent_id = parent_id unless parent_id == SKIP
       @verified = verified unless verified == SKIP
       @salesforce_id = salesforce_id unless salesforce_id == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -213,7 +213,7 @@ module AdvancedBilling
       salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateCustomer.new(first_name: first_name,
@@ -236,7 +236,7 @@ module AdvancedBilling
                          parent_id: parent_id,
                          verified: verified,
                          salesforce_id: salesforce_id,
-                         additional_properties: hash)
+                         additional_properties: additional_properties)
     end
   end
 end

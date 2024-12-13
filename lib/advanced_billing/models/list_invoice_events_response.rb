@@ -52,15 +52,15 @@ module AdvancedBilling
 
     def initialize(events: SKIP, page: SKIP, per_page: SKIP, total_pages: SKIP,
                    additional_properties: {})
-      @events = events unless events == SKIP
-      @page = page unless page == SKIP
-      @per_page = per_page unless per_page == SKIP
-      @total_pages = total_pages unless total_pages == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @events = events unless events == SKIP
+      @page = page unless page == SKIP
+      @per_page = per_page unless per_page == SKIP
+      @total_pages = total_pages unless total_pages == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -76,14 +76,14 @@ module AdvancedBilling
       total_pages = hash.key?('total_pages') ? hash['total_pages'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListInvoiceEventsResponse.new(events: events,
                                     page: page,
                                     per_page: per_page,
                                     total_pages: total_pages,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

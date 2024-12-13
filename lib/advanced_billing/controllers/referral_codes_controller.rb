@@ -25,7 +25,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/referral_codes/validate.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(code, key: 'code')
                                  .is_required(true))
                    .header_param(new_parameter('application/json', key: 'accept'))

@@ -55,15 +55,15 @@ module AdvancedBilling
 
     def initialize(uid: SKIP, scheme: SKIP, primary_subscription_id: SKIP,
                    primary: SKIP, additional_properties: {})
-      @uid = uid unless uid == SKIP
-      @scheme = scheme unless scheme == SKIP
-      @primary_subscription_id = primary_subscription_id unless primary_subscription_id == SKIP
-      @primary = primary unless primary == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @uid = uid unless uid == SKIP
+      @scheme = scheme unless scheme == SKIP
+      @primary_subscription_id = primary_subscription_id unless primary_subscription_id == SKIP
+      @primary = primary unless primary == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -78,14 +78,14 @@ module AdvancedBilling
       primary = hash.key?('primary') ? hash['primary'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       NestedSubscriptionGroup.new(uid: uid,
                                   scheme: scheme,
                                   primary_subscription_id: primary_subscription_id,
                                   primary: primary,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

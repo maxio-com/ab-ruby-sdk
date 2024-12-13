@@ -142,6 +142,11 @@ module AdvancedBilling
                    expiration_interval_unit: SKIP,
                    auto_create_signup_page: SKIP, tax_code: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @handle = handle unless handle == SKIP
       @description = description
@@ -158,11 +163,6 @@ module AdvancedBilling
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
       @auto_create_signup_page = auto_create_signup_page unless auto_create_signup_page == SKIP
       @tax_code = tax_code unless tax_code == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -197,7 +197,7 @@ module AdvancedBilling
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateOrUpdateProduct.new(name: name,
@@ -216,7 +216,7 @@ module AdvancedBilling
                                 expiration_interval_unit: expiration_interval_unit,
                                 auto_create_signup_page: auto_create_signup_page,
                                 tax_code: tax_code,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

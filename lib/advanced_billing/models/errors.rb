@@ -39,13 +39,13 @@ module AdvancedBilling
     end
 
     def initialize(per_page: SKIP, price_point: SKIP, additional_properties: {})
-      @per_page = per_page unless per_page == SKIP
-      @price_point = price_point unless price_point == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @per_page = per_page unless per_page == SKIP
+      @price_point = price_point unless price_point == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -57,12 +57,12 @@ module AdvancedBilling
       price_point = hash.key?('price_point') ? hash['price_point'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Errors.new(per_page: per_page,
                  price_point: price_point,
-                 additional_properties: hash)
+                 additional_properties: additional_properties)
     end
   end
 end

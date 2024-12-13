@@ -40,13 +40,13 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
-    # Boolean which controls whether or not remaining units should be rolled
-    # over to the next period
+    # (only for prepaid usage components) Boolean which controls whether or not
+    # remaining units should be rolled over to the next period
     # @return [TrueClass | FalseClass]
     attr_accessor :rollover_prepaid_remainder
 
-    # Boolean which controls whether or not the allocated quantity should be
-    # renewed at the beginning of each period
+    # (only for prepaid usage components) Boolean which controls whether or not
+    # the allocated quantity should be renewed at the beginning of each period
     # @return [TrueClass | FalseClass]
     attr_accessor :renew_prepaid_allocation
 
@@ -56,8 +56,9 @@ module AdvancedBilling
     # @return [Float]
     attr_accessor :expiration_interval
 
-    # A string representing the expiration interval unit for this component,
-    # either month or day
+    # (only for prepaid usage components where rollover_prepaid_remainder is
+    # true) A string representing the expiration interval unit for this
+    # component, either month or day
     # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
@@ -101,6 +102,11 @@ module AdvancedBilling
                    rollover_prepaid_remainder: SKIP,
                    renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
@@ -114,11 +120,6 @@ module AdvancedBilling
       @renew_prepaid_allocation = renew_prepaid_allocation unless renew_prepaid_allocation == SKIP
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -153,7 +154,7 @@ module AdvancedBilling
         hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreatePrepaidUsageComponentPricePoint.new(name: name,
@@ -166,7 +167,7 @@ module AdvancedBilling
                                                 renew_prepaid_allocation: renew_prepaid_allocation,
                                                 expiration_interval: expiration_interval,
                                                 expiration_interval_unit: expiration_interval_unit,
-                                                additional_properties: hash)
+                                                additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

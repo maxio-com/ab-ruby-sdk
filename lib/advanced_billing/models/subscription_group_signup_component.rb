@@ -60,16 +60,16 @@ module AdvancedBilling
     def initialize(component_id: SKIP, allocated_quantity: SKIP,
                    unit_balance: SKIP, price_point_id: SKIP, custom_price: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @component_id = component_id unless component_id == SKIP
       @allocated_quantity = allocated_quantity unless allocated_quantity == SKIP
       @unit_balance = unit_balance unless unit_balance == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @custom_price = custom_price unless custom_price == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -93,7 +93,7 @@ module AdvancedBilling
         hash['custom_price']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupSignupComponent.new(component_id: component_id,
@@ -101,7 +101,7 @@ module AdvancedBilling
                                            unit_balance: unit_balance,
                                            price_point_id: price_point_id,
                                            custom_price: custom_price,
-                                           additional_properties: hash)
+                                           additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

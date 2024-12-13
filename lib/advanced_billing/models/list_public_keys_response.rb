@@ -40,13 +40,13 @@ module AdvancedBilling
 
     def initialize(chargify_js_keys: SKIP, meta: SKIP,
                    additional_properties: {})
-      @chargify_js_keys = chargify_js_keys unless chargify_js_keys == SKIP
-      @meta = meta unless meta == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @chargify_js_keys = chargify_js_keys unless chargify_js_keys == SKIP
+      @meta = meta unless meta == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -67,12 +67,12 @@ module AdvancedBilling
       meta = ListPublicKeysMeta.from_hash(hash['meta']) if hash['meta']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListPublicKeysResponse.new(chargify_js_keys: chargify_js_keys,
                                  meta: meta,
-                                 additional_properties: hash)
+                                 additional_properties: additional_properties)
     end
   end
 end

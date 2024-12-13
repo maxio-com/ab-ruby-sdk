@@ -42,13 +42,13 @@ module AdvancedBilling
 
     def initialize(paid_invoices: SKIP, prepayment: SKIP,
                    additional_properties: {})
-      @paid_invoices = paid_invoices unless paid_invoices == SKIP
-      @prepayment = prepayment unless prepayment == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @paid_invoices = paid_invoices unless paid_invoices == SKIP
+      @prepayment = prepayment unless prepayment == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -69,12 +69,12 @@ module AdvancedBilling
       prepayment = InvoicePrePayment.from_hash(hash['prepayment']) if hash['prepayment']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       RecordPaymentResponse.new(paid_invoices: paid_invoices,
                                 prepayment: prepayment,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

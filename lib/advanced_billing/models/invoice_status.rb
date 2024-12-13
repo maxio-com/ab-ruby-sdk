@@ -25,7 +25,10 @@ module AdvancedBilling
       VOIDED = 'voided'.freeze,
 
       # TODO: Write general description for CANCELED
-      CANCELED = 'canceled'.freeze
+      CANCELED = 'canceled'.freeze,
+
+      # TODO: Write general description for PROCESSING
+      PROCESSING = 'processing'.freeze
     ].freeze
 
     def self.validate(value)

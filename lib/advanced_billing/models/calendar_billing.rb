@@ -43,15 +43,15 @@ module AdvancedBilling
 
     def initialize(snap_day: SKIP, calendar_billing_first_charge: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @snap_day = snap_day unless snap_day == SKIP
       unless calendar_billing_first_charge == SKIP
         @calendar_billing_first_charge =
           calendar_billing_first_charge
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -67,12 +67,12 @@ module AdvancedBilling
         hash.key?('calendar_billing_first_charge') ? hash['calendar_billing_first_charge'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CalendarBilling.new(snap_day: snap_day,
                           calendar_billing_first_charge: calendar_billing_first_charge,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

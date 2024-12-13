@@ -46,14 +46,14 @@ module AdvancedBilling
 
     def initialize(created_codes: SKIP, duplicate_codes: SKIP,
                    invalid_codes: SKIP, additional_properties: {})
-      @created_codes = created_codes unless created_codes == SKIP
-      @duplicate_codes = duplicate_codes unless duplicate_codes == SKIP
-      @invalid_codes = invalid_codes unless invalid_codes == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @created_codes = created_codes unless created_codes == SKIP
+      @duplicate_codes = duplicate_codes unless duplicate_codes == SKIP
+      @invalid_codes = invalid_codes unless invalid_codes == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -67,13 +67,13 @@ module AdvancedBilling
       invalid_codes = hash.key?('invalid_codes') ? hash['invalid_codes'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CouponSubcodesResponse.new(created_codes: created_codes,
                                  duplicate_codes: duplicate_codes,
                                  invalid_codes: invalid_codes,
-                                 additional_properties: hash)
+                                 additional_properties: additional_properties)
     end
   end
 end

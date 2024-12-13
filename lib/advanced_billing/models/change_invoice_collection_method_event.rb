@@ -56,16 +56,16 @@ module AdvancedBilling
       event_type: InvoiceEventType::CHANGE_INVOICE_COLLECTION_METHOD,
       event_data:, additional_properties: {}
     )
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id
       @timestamp = timestamp
       @invoice = invoice
       @event_type = event_type
       @event_data = event_data
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -84,7 +84,7 @@ module AdvancedBilling
         hash['event_data']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ChangeInvoiceCollectionMethodEvent.new(id: id,
@@ -92,7 +92,7 @@ module AdvancedBilling
                                              invoice: invoice,
                                              event_type: event_type,
                                              event_data: event_data,
-                                             additional_properties: hash)
+                                             additional_properties: additional_properties)
     end
 
     def to_custom_timestamp

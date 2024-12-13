@@ -49,14 +49,14 @@ module AdvancedBilling
     def initialize(kind: TaxConfigurationKind::CUSTOM,
                    destination_address: SKIP, fully_configured: false,
                    additional_properties: {})
-      @kind = kind unless kind == SKIP
-      @destination_address = destination_address unless destination_address == SKIP
-      @fully_configured = fully_configured unless fully_configured == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @kind = kind unless kind == SKIP
+      @destination_address = destination_address unless destination_address == SKIP
+      @fully_configured = fully_configured unless fully_configured == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -70,13 +70,13 @@ module AdvancedBilling
       fully_configured = hash['fully_configured'] ||= false
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       TaxConfiguration.new(kind: kind,
                            destination_address: destination_address,
                            fully_configured: fully_configured,
-                           additional_properties: hash)
+                           additional_properties: additional_properties)
     end
   end
 end

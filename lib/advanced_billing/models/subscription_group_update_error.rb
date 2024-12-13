@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[SubscriptionGroupMemberError]]
+    # @return [Array[String]]
     attr_accessor :members
 
     # A mapping from model property names to API property names.
@@ -33,12 +33,12 @@ module AdvancedBilling
     end
 
     def initialize(members: SKIP, additional_properties: {})
-      @members = members unless members == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @members = members unless members == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -46,23 +46,14 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      # Parameter is an array, so we need to iterate through it
-      members = nil
-      unless hash['members'].nil?
-        members = []
-        hash['members'].each do |structure|
-          members << (SubscriptionGroupMemberError.from_hash(structure) if structure)
-        end
-      end
-
-      members = SKIP unless hash.key?('members')
+      members = hash.key?('members') ? hash['members'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupUpdateError.new(members: members,
-                                       additional_properties: hash)
+                                       additional_properties: additional_properties)
     end
   end
 end

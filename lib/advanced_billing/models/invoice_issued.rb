@@ -106,6 +106,11 @@ module AdvancedBilling
                    due_amount:, paid_amount:, tax_amount:, refund_amount:,
                    total_amount:, status_amount:, product_name:,
                    consolidation_level:, line_items:, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid
       @number = number
       @role = role
@@ -121,11 +126,6 @@ module AdvancedBilling
       @product_name = product_name
       @consolidation_level = consolidation_level
       @line_items = line_items
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -160,7 +160,7 @@ module AdvancedBilling
       line_items = nil unless hash.key?('line_items')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceIssued.new(uid: uid,
@@ -178,7 +178,7 @@ module AdvancedBilling
                         product_name: product_name,
                         consolidation_level: consolidation_level,
                         line_items: line_items,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

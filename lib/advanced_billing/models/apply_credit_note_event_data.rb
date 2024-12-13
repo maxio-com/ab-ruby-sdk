@@ -94,6 +94,11 @@ module AdvancedBilling
                    original_amount:, applied_amount:, transaction_time: SKIP,
                    memo: SKIP, role: SKIP, consolidated_invoice: SKIP,
                    applied_credit_notes: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid
       @credit_note_number = credit_note_number
       @credit_note_uid = credit_note_uid
@@ -104,11 +109,6 @@ module AdvancedBilling
       @role = role unless role == SKIP
       @consolidated_invoice = consolidated_invoice unless consolidated_invoice == SKIP
       @applied_credit_notes = applied_credit_notes unless applied_credit_notes == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -146,7 +146,7 @@ module AdvancedBilling
       applied_credit_notes = SKIP unless hash.key?('applied_credit_notes')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ApplyCreditNoteEventData.new(uid: uid,
@@ -159,7 +159,7 @@ module AdvancedBilling
                                    role: role,
                                    consolidated_invoice: consolidated_invoice,
                                    applied_credit_notes: applied_credit_notes,
-                                   additional_properties: hash)
+                                   additional_properties: additional_properties)
     end
 
     def to_custom_transaction_time

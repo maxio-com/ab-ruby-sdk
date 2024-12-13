@@ -31,12 +31,12 @@ module AdvancedBilling
     end
 
     def initialize(payment_profile:, additional_properties: {})
-      @payment_profile = payment_profile
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @payment_profile = payment_profile
     end
 
     # Creates an instance of the object from a hash.
@@ -48,11 +48,11 @@ module AdvancedBilling
         hash['payment_profile']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdatePaymentProfileRequest.new(payment_profile: payment_profile,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
   end
 end

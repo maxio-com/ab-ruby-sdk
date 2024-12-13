@@ -77,6 +77,11 @@ module AdvancedBilling
     def initialize(id: SKIP, name: SKIP, signups: SKIP, savings: SKIP,
                    savings_in_cents: SKIP, revenue: SKIP,
                    revenue_in_cents: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @signups = signups unless signups == SKIP
@@ -84,11 +89,6 @@ module AdvancedBilling
       @savings_in_cents = savings_in_cents unless savings_in_cents == SKIP
       @revenue = revenue unless revenue == SKIP
       @revenue_in_cents = revenue_in_cents unless revenue_in_cents == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -107,7 +107,7 @@ module AdvancedBilling
         hash.key?('revenue_in_cents') ? hash['revenue_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CouponUsage.new(id: id,
@@ -117,7 +117,7 @@ module AdvancedBilling
                       savings_in_cents: savings_in_cents,
                       revenue: revenue,
                       revenue_in_cents: revenue_in_cents,
-                      additional_properties: hash)
+                      additional_properties: additional_properties)
     end
   end
 end

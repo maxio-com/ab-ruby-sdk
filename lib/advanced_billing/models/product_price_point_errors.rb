@@ -65,17 +65,17 @@ module AdvancedBilling
     def initialize(price_point: SKIP, interval: SKIP, interval_unit: SKIP,
                    name: SKIP, price: SKIP, price_in_cents: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @price_point = price_point unless price_point == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @name = name unless name == SKIP
       @price = price unless price == SKIP
       @price_in_cents = price_in_cents unless price_in_cents == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -92,7 +92,7 @@ module AdvancedBilling
         hash.key?('price_in_cents') ? hash['price_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProductPricePointErrors.new(price_point: price_point,
@@ -101,7 +101,7 @@ module AdvancedBilling
                                   name: name,
                                   price: price,
                                   price_in_cents: price_in_cents,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

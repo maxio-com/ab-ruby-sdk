@@ -53,14 +53,14 @@ module AdvancedBilling
 
     def initialize(accrue: false, align_date: false, prorate: false,
                    additional_properties: {})
-      @accrue = accrue unless accrue == SKIP
-      @align_date = align_date unless align_date == SKIP
-      @prorate = prorate unless prorate == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @accrue = accrue unless accrue == SKIP
+      @align_date = align_date unless align_date == SKIP
+      @prorate = prorate unless prorate == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -73,13 +73,13 @@ module AdvancedBilling
       prorate = hash['prorate'] ||= false
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       GroupBilling.new(accrue: accrue,
                        align_date: align_date,
                        prorate: prorate,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

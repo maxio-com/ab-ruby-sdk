@@ -328,6 +328,11 @@ module AdvancedBilling
                    use_site_exchange_rate: SKIP, item_category: SKIP,
                    product_price_point_id: SKIP,
                    product_price_point_handle: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
@@ -373,11 +378,6 @@ module AdvancedBilling
       unless product_price_point_handle == SKIP
         @product_price_point_handle =
           product_price_point_handle
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -468,7 +468,7 @@ module AdvancedBilling
         hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Product.new(id: id,
@@ -508,7 +508,7 @@ module AdvancedBilling
                   item_category: item_category,
                   product_price_point_id: product_price_point_id,
                   product_price_point_handle: product_price_point_handle,
-                  additional_properties: hash)
+                  additional_properties: additional_properties)
     end
 
     def to_custom_created_at

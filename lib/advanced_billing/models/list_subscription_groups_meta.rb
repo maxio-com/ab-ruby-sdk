@@ -40,13 +40,13 @@ module AdvancedBilling
 
     def initialize(current_page: SKIP, total_count: SKIP,
                    additional_properties: {})
-      @current_page = current_page unless current_page == SKIP
-      @total_count = total_count unless total_count == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @current_page = current_page unless current_page == SKIP
+      @total_count = total_count unless total_count == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -58,12 +58,12 @@ module AdvancedBilling
       total_count = hash.key?('total_count') ? hash['total_count'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListSubscriptionGroupsMeta.new(current_page: current_page,
                                      total_count: total_count,
-                                     additional_properties: hash)
+                                     additional_properties: additional_properties)
     end
   end
 end

@@ -40,13 +40,13 @@ module AdvancedBilling
 
     def initialize(deposit_1_in_cents: SKIP, deposit_2_in_cents: SKIP,
                    additional_properties: {})
-      @deposit_1_in_cents = deposit_1_in_cents unless deposit_1_in_cents == SKIP
-      @deposit_2_in_cents = deposit_2_in_cents unless deposit_2_in_cents == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @deposit_1_in_cents = deposit_1_in_cents unless deposit_1_in_cents == SKIP
+      @deposit_2_in_cents = deposit_2_in_cents unless deposit_2_in_cents == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -60,12 +60,12 @@ module AdvancedBilling
         hash.key?('deposit_2_in_cents') ? hash['deposit_2_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       BankAccountVerification.new(deposit_1_in_cents: deposit_1_in_cents,
                                   deposit_2_in_cents: deposit_2_in_cents,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

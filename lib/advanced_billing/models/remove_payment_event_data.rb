@@ -67,6 +67,11 @@ module AdvancedBilling
     def initialize(transaction_id:, memo:, applied_amount:, transaction_time:,
                    payment_method:, prepayment:, original_amount: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @transaction_id = transaction_id
       @memo = memo
       @original_amount = original_amount unless original_amount == SKIP
@@ -74,11 +79,6 @@ module AdvancedBilling
       @transaction_time = transaction_time
       @payment_method = payment_method
       @prepayment = prepayment
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -102,7 +102,7 @@ module AdvancedBilling
         hash.key?('original_amount') ? hash['original_amount'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       RemovePaymentEventData.new(transaction_id: transaction_id,
@@ -112,7 +112,7 @@ module AdvancedBilling
                                  payment_method: payment_method,
                                  prepayment: prepayment,
                                  original_amount: original_amount,
-                                 additional_properties: hash)
+                                 additional_properties: additional_properties)
     end
 
     def to_custom_transaction_time

@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Object]
+    # @return [GroupSettings]
     attr_accessor :group
 
     # A mapping from model property names to API property names.
@@ -33,12 +33,12 @@ module AdvancedBilling
     end
 
     def initialize(group: SKIP, additional_properties: {})
-      @group = group unless group == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @group = group unless group == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -46,26 +46,14 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      group = hash.key?('group') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:AddSubscriptionToAGroupGroup), hash['group']
-      ) : SKIP
+      group = GroupSettings.from_hash(hash['group']) if hash['group']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AddSubscriptionToAGroup.new(group: group,
-                                  additional_properties: hash)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [AddSubscriptionToAGroup | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
+                                  additional_properties: additional_properties)
     end
   end
 end

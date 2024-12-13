@@ -4,8 +4,8 @@
 # ( https://apimatic.io ).
 
 module AdvancedBilling
-  # ReasonCodesJsonResponse Model.
-  class ReasonCodesJsonResponse < BaseModel
+  # OkResponse Model.
+  class OkResponse < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -33,12 +33,12 @@ module AdvancedBilling
     end
 
     def initialize(ok: SKIP, additional_properties: {})
-      @ok = ok unless ok == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @ok = ok unless ok == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -49,11 +49,11 @@ module AdvancedBilling
       ok = hash.key?('ok') ? hash['ok'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
-      ReasonCodesJsonResponse.new(ok: ok,
-                                  additional_properties: hash)
+      OkResponse.new(ok: ok,
+                     additional_properties: additional_properties)
     end
   end
 end

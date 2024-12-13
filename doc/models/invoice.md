@@ -48,6 +48,7 @@
 | `tax_amount` | `String` | Optional | Total tax on the invoice. |
 | `total_amount` | `String` | Optional | The invoice total, which is `subtotal_amount - discount_amount + tax_amount`.' |
 | `credit_amount` | `String` | Optional | The amount of credit (from credit notes) applied to this invoice.<br><br>Credits offset the amount due from the customer. |
+| `debit_amount` | `String` | Optional | - |
 | `refund_amount` | `String` | Optional | - |
 | `paid_amount` | `String` | Optional | The amount paid on the invoice by the customer. |
 | `due_amount` | `String` | Optional | Amount due on the invoice, which is `total_amount - credit_amount - paid_amount`. |
@@ -55,10 +56,12 @@
 | `discounts` | [`Array<InvoiceDiscount>`](../../doc/models/invoice-discount.md) | Optional | - |
 | `taxes` | [`Array<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - |
 | `credits` | [`Array<InvoiceCredit>`](../../doc/models/invoice-credit.md) | Optional | - |
+| `debits` | [`Array<InvoiceDebit>`](../../doc/models/invoice-debit.md) | Optional | - |
 | `refunds` | [`Array<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - |
 | `payments` | [`Array<InvoicePayment>`](../../doc/models/invoice-payment.md) | Optional | - |
 | `custom_fields` | [`Array<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Optional | - |
 | `display_settings` | [`InvoiceDisplaySettings`](../../doc/models/invoice-display-settings.md) | Optional | - |
+| `avatax_details` | [`InvoiceAvataxDetails`](../../doc/models/invoice-avatax-details.md) | Optional | - |
 | `public_url` | `String` | Optional | The public URL of the invoice |
 | `previous_balance_data` | [`InvoicePreviousBalance`](../../doc/models/invoice-previous-balance.md) | Optional | - |
 | `public_url_expires_on` | `Date` | Optional | The format is `"YYYY-MM-DD"`. |

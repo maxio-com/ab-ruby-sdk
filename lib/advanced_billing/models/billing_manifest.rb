@@ -90,6 +90,11 @@ module AdvancedBilling
                    subtotal_in_cents: SKIP, start_date: SKIP, end_date: SKIP,
                    period_type: SKIP, existing_balance_in_cents: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @line_items = line_items unless line_items == SKIP
       @total_in_cents = total_in_cents unless total_in_cents == SKIP
       @total_discount_in_cents = total_discount_in_cents unless total_discount_in_cents == SKIP
@@ -101,11 +106,6 @@ module AdvancedBilling
       unless existing_balance_in_cents == SKIP
         @existing_balance_in_cents =
           existing_balance_in_cents
-      end
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
       end
     end
 
@@ -147,7 +147,7 @@ module AdvancedBilling
         hash.key?('existing_balance_in_cents') ? hash['existing_balance_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       BillingManifest.new(line_items: line_items,
@@ -159,7 +159,7 @@ module AdvancedBilling
                           end_date: end_date,
                           period_type: period_type,
                           existing_balance_in_cents: existing_balance_in_cents,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     def to_custom_start_date

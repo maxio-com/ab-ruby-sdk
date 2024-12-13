@@ -193,16 +193,6 @@ module AdvancedBilling
           )
         ),
 
-        :AddSubscriptionToAGroupGroup => OneOf.new(
-          [
-            LeafType.new(GroupSettings),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :AllocationQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -292,6 +282,16 @@ module AdvancedBilling
           [
             LeafType.new(String),
             LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CouponPayloadPercentage => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -436,23 +436,6 @@ module AdvancedBilling
         ),
 
         :CreateMultiInvoicePaymentAmount => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ]
-        ),
-
-        :CreateOrUpdateCouponCoupon => OneOf.new(
-          [
-            LeafType.new(CreateOrUpdatePercentageCoupon),
-            LeafType.new(CreateOrUpdateFlatAmountCoupon)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateOrUpdatePercentageCouponPercentage => OneOf.new(
           [
             LeafType.new(String),
             LeafType.new(Float)
@@ -617,8 +600,7 @@ module AdvancedBilling
             LeafType.new(PendingCancellationChange),
             LeafType.new(PrepaidSubscriptionBalanceChanged),
             LeafType.new(ProformaInvoiceIssued),
-            LeafType.new(SubscriptionGroupSignupSuccess),
-            LeafType.new(SubscriptionGroupSignupFailure),
+            LeafType.new(SubscriptionGroupSignupEventData),
             LeafType.new(CreditAccountBalanceChanged),
             LeafType.new(PrepaymentAccountBalanceChanged),
             LeafType.new(PaymentCollectionMethodChanged),
@@ -664,10 +646,7 @@ module AdvancedBilling
           [
             LeafType.new(String),
             LeafType.new(Float)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
+          ]
         ),
 
         :PaymentProfileAttributesExpirationMonth => OneOf.new(

@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `id` | `Integer` | Optional | - |
 | `currency` | `String` | Optional | - |
-| `price` | `Integer` | Optional | - |
+| `price` | `Float` | Optional | - |
 | `coupon_id` | `Integer` | Optional | - |
 
 ## Example (as JSON)
@@ -20,7 +20,7 @@
 {
   "id": 228,
   "currency": "currency8",
-  "price": 100,
+  "price": 169.96,
   "coupon_id": 210
 }
 ```

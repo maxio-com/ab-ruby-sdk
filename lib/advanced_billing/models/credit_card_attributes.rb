@@ -46,14 +46,14 @@ module AdvancedBilling
 
     def initialize(full_number: SKIP, expiration_month: SKIP,
                    expiration_year: SKIP, additional_properties: {})
-      @full_number = full_number unless full_number == SKIP
-      @expiration_month = expiration_month unless expiration_month == SKIP
-      @expiration_year = expiration_year unless expiration_year == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @full_number = full_number unless full_number == SKIP
+      @expiration_month = expiration_month unless expiration_month == SKIP
+      @expiration_year = expiration_year unless expiration_year == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -68,13 +68,13 @@ module AdvancedBilling
         hash.key?('expiration_year') ? hash['expiration_year'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreditCardAttributes.new(full_number: full_number,
                                expiration_month: expiration_month,
                                expiration_year: expiration_year,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

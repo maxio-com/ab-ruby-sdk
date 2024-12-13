@@ -30,14 +30,6 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :taxable
 
-    # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
-    # See [Price Bracket
-    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Po
-    # ints-Components) for an overview of how price brackets work for different
-    # pricing schemes.
-    # @return [Array[Price]]
-    attr_accessor :prices
-
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
     # Available values: `full`, `prorated`, `none`.
@@ -56,11 +48,9 @@ module AdvancedBilling
     # @return [Array[ComponentPricePointItem]]
     attr_accessor :price_points
 
-    # The amount the customer will be charged per unit when the pricing scheme
-    # is “per_unit”. For On/Off Components, this is the amount that the customer
-    # will be charged when they turn the component on for the subscription. The
-    # price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
-    # 0.00000065
+    # This is the amount that the customer will be charged when they turn the
+    # component on for the subscription. The price can contain up to 8 decimal
+    # places. i.e. 1.00 or 0.0012 or 0.00000065
     # @return [Object]
     attr_accessor :unit_price
 
@@ -76,19 +66,21 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :hide_date_range_on_invoice
 
-    # deprecated May 2011 - use unit_price instead
-    # @return [String]
-    attr_accessor :price_in_cents
-
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [TrueClass | FalseClass]
     attr_accessor :display_on_hosted_page
 
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [TrueClass | FalseClass]
     attr_accessor :allow_fractional_quantities
 
-    # deprecated May 2011 - use unit_price instead
+    # (Only available on Relationship Invoicing sites) Boolean flag describing
+    # if the service date range should show for the component on generated
+    # invoices.
     # @return [Array[Integer]]
     attr_accessor :public_signup_page_ids
 
@@ -112,14 +104,12 @@ module AdvancedBilling
       @_hash['description'] = 'description'
       @_hash['handle'] = 'handle'
       @_hash['taxable'] = 'taxable'
-      @_hash['prices'] = 'prices'
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['price_points'] = 'price_points'
       @_hash['unit_price'] = 'unit_price'
       @_hash['tax_code'] = 'tax_code'
       @_hash['hide_date_range_on_invoice'] = 'hide_date_range_on_invoice'
-      @_hash['price_in_cents'] = 'price_in_cents'
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['allow_fractional_quantities'] = 'allow_fractional_quantities'
       @_hash['public_signup_page_ids'] = 'public_signup_page_ids'
@@ -134,14 +124,11 @@ module AdvancedBilling
         description
         handle
         taxable
-        prices
         upgrade_charge
         downgrade_credit
         price_points
-        unit_price
         tax_code
         hide_date_range_on_invoice
-        price_in_cents
         display_on_hosted_page
         allow_fractional_quantities
         public_signup_page_ids
@@ -159,29 +146,32 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name:, description: SKIP, handle: SKIP, taxable: SKIP,
-                   prices: SKIP, upgrade_charge: SKIP, downgrade_credit: SKIP,
-                   price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
-                   hide_date_range_on_invoice: SKIP, price_in_cents: SKIP,
+    def initialize(name:, unit_price:, description: SKIP, handle: SKIP,
+                   taxable: SKIP, upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   price_points: SKIP, tax_code: SKIP,
+                   hide_date_range_on_invoice: SKIP,
                    display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
                    public_signup_page_ids: SKIP, interval: SKIP,
                    interval_unit: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @name = name
       @description = description unless description == SKIP
       @handle = handle unless handle == SKIP
       @taxable = taxable unless taxable == SKIP
-      @prices = prices unless prices == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @price_points = price_points unless price_points == SKIP
-      @unit_price = unit_price unless unit_price == SKIP
+      @unit_price = unit_price
       @tax_code = tax_code unless tax_code == SKIP
       unless hide_date_range_on_invoice == SKIP
         @hide_date_range_on_invoice =
           hide_date_range_on_invoice
       end
-      @price_in_cents = price_in_cents unless price_in_cents == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       unless allow_fractional_quantities == SKIP
         @allow_fractional_quantities =
@@ -190,11 +180,6 @@ module AdvancedBilling
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -203,19 +188,12 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       name = hash.key?('name') ? hash['name'] : nil
+      unit_price = hash.key?('unit_price') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:OnOffComponentUnitPrice), hash['unit_price']
+      ) : nil
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
-      # Parameter is an array, so we need to iterate through it
-      prices = nil
-      unless hash['prices'].nil?
-        prices = []
-        hash['prices'].each do |structure|
-          prices << (Price.from_hash(structure) if structure)
-        end
-      end
-
-      prices = SKIP unless hash.key?('prices')
       upgrade_charge =
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
       downgrade_credit =
@@ -230,14 +208,9 @@ module AdvancedBilling
       end
 
       price_points = SKIP unless hash.key?('price_points')
-      unit_price = hash.key?('unit_price') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:OnOffComponentUnitPrice), hash['unit_price']
-      ) : SKIP
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
       hide_date_range_on_invoice =
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
-      price_in_cents =
-        hash.key?('price_in_cents') ? hash['price_in_cents'] : SKIP
       display_on_hosted_page =
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
       allow_fractional_quantities =
@@ -248,41 +221,47 @@ module AdvancedBilling
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       OnOffComponent.new(name: name,
+                         unit_price: unit_price,
                          description: description,
                          handle: handle,
                          taxable: taxable,
-                         prices: prices,
                          upgrade_charge: upgrade_charge,
                          downgrade_credit: downgrade_credit,
                          price_points: price_points,
-                         unit_price: unit_price,
                          tax_code: tax_code,
                          hide_date_range_on_invoice: hide_date_range_on_invoice,
-                         price_in_cents: price_in_cents,
                          display_on_hosted_page: display_on_hosted_page,
                          allow_fractional_quantities: allow_fractional_quantities,
                          public_signup_page_ids: public_signup_page_ids,
                          interval: interval,
                          interval_unit: interval_unit,
-                         additional_properties: hash)
+                         additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.
     # @param [OnOffComponent | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
-        return APIHelper.valid_type?(value.name,
-                                     ->(val) { val.instance_of? String })
+        return (
+          APIHelper.valid_type?(value.name,
+                                ->(val) { val.instance_of? String }) and
+            UnionTypeLookUp.get(:OnOffComponentUnitPrice)
+                           .validate(value.unit_price)
+        )
       end
 
       return false unless value.instance_of? Hash
 
-      APIHelper.valid_type?(value['name'],
-                            ->(val) { val.instance_of? String })
+      (
+        APIHelper.valid_type?(value['name'],
+                              ->(val) { val.instance_of? String }) and
+          UnionTypeLookUp.get(:OnOffComponentUnitPrice)
+                         .validate(value['unit_price'])
+      )
     end
   end
 end

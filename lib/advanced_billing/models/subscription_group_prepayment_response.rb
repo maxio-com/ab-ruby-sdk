@@ -61,16 +61,16 @@ module AdvancedBilling
     def initialize(id: SKIP, amount_in_cents: SKIP,
                    ending_balance_in_cents: SKIP, entry_type: SKIP, memo: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
       @ending_balance_in_cents = ending_balance_in_cents unless ending_balance_in_cents == SKIP
       @entry_type = entry_type unless entry_type == SKIP
       @memo = memo unless memo == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -87,7 +87,7 @@ module AdvancedBilling
       memo = hash.key?('memo') ? hash['memo'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupPrepaymentResponse.new(id: id,
@@ -95,7 +95,7 @@ module AdvancedBilling
                                               ending_balance_in_cents: ending_balance_in_cents,
                                               entry_type: entry_type,
                                               memo: memo,
-                                              additional_properties: hash)
+                                              additional_properties: additional_properties)
     end
   end
 end

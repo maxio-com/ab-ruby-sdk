@@ -43,7 +43,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/portal/customers/{customer_id}/enable.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(customer_id, key: 'customer_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -79,7 +79,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/portal/customers/{customer_id}/management_link.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(customer_id, key: 'customer_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -117,7 +117,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/portal/customers/{customer_id}/invitations/invite.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(customer_id, key: 'customer_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -148,7 +148,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/portal/customers/{customer_id}/invitations/revoke.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(customer_id, key: 'customer_id')
                                     .is_required(true)
                                     .should_encode(true))

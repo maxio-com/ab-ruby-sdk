@@ -114,6 +114,11 @@ module AdvancedBilling
                    bank_iban: SKIP, bank_account_holder_type: SKIP,
                    payment_type: SKIP, current_vault: SKIP, vault_token: SKIP,
                    customer_vault_token: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @chargify_token = chargify_token unless chargify_token == SKIP
       @bank_name = bank_name unless bank_name == SKIP
       @bank_routing_number = bank_routing_number unless bank_routing_number == SKIP
@@ -126,11 +131,6 @@ module AdvancedBilling
       @current_vault = current_vault unless current_vault == SKIP
       @vault_token = vault_token unless vault_token == SKIP
       @customer_vault_token = customer_vault_token unless customer_vault_token == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -159,7 +159,7 @@ module AdvancedBilling
         hash.key?('customer_vault_token') ? hash['customer_vault_token'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       BankAccountAttributes.new(chargify_token: chargify_token,
@@ -174,7 +174,7 @@ module AdvancedBilling
                                 current_vault: current_vault,
                                 vault_token: vault_token,
                                 customer_vault_token: customer_vault_token,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

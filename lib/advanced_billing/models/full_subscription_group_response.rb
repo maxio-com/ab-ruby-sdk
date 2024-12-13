@@ -461,6 +461,11 @@ module AdvancedBilling
                    state: SKIP, cancel_at_end_of_period: SKIP,
                    current_billing_amount_in_cents: SKIP, customer: SKIP,
                    account_balances: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @scheme = scheme unless scheme == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -476,11 +481,6 @@ module AdvancedBilling
       end
       @customer = customer unless customer == SKIP
       @account_balances = account_balances unless account_balances == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -512,7 +512,7 @@ module AdvancedBilling
         hash['account_balances']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       FullSubscriptionGroupResponse.new(uid: uid,
@@ -527,7 +527,7 @@ module AdvancedBilling
                                         current_billing_amount_in_cents: current_billing_amount_in_cents,
                                         customer: customer,
                                         account_balances: account_balances,
-                                        additional_properties: hash)
+                                        additional_properties: additional_properties)
     end
 
     def to_custom_next_assessment_at

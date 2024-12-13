@@ -46,14 +46,14 @@ module AdvancedBilling
 
     def initialize(uid: SKIP, eligible_amount: SKIP, discount_amount: SKIP,
                    additional_properties: {})
-      @uid = uid unless uid == SKIP
-      @eligible_amount = eligible_amount unless eligible_amount == SKIP
-      @discount_amount = discount_amount unless discount_amount == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @uid = uid unless uid == SKIP
+      @eligible_amount = eligible_amount unless eligible_amount == SKIP
+      @discount_amount = discount_amount unless discount_amount == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -68,13 +68,13 @@ module AdvancedBilling
         hash.key?('discount_amount') ? hash['discount_amount'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceDiscountBreakout.new(uid: uid,
                                   eligible_amount: eligible_amount,
                                   discount_amount: discount_amount,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

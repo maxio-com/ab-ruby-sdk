@@ -99,6 +99,11 @@ module AdvancedBilling
                    price_point_name: SKIP, currency_prices: SKIP,
                    interval: SKIP, interval_unit: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
@@ -109,11 +114,6 @@ module AdvancedBilling
       @currency_prices = currency_prices unless currency_prices == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -147,7 +147,7 @@ module AdvancedBilling
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       OfferItem.new(component_id: component_id,
@@ -160,7 +160,7 @@ module AdvancedBilling
                     currency_prices: currency_prices,
                     interval: interval,
                     interval_unit: interval_unit,
-                    additional_properties: hash)
+                    additional_properties: additional_properties)
     end
   end
 end

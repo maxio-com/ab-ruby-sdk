@@ -209,6 +209,11 @@ module AdvancedBilling
                    use_site_exchange_rate: SKIP, type: SKIP, tax_included: SKIP,
                    subscription_id: SKIP, currency_prices: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
@@ -236,11 +241,6 @@ module AdvancedBilling
       @tax_included = tax_included unless tax_included == SKIP
       @subscription_id = subscription_id unless subscription_id == SKIP
       @currency_prices = currency_prices unless currency_prices == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -306,7 +306,7 @@ module AdvancedBilling
       currency_prices = SKIP unless hash.key?('currency_prices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProductPricePoint.new(id: id,
@@ -333,7 +333,7 @@ module AdvancedBilling
                             tax_included: tax_included,
                             subscription_id: subscription_id,
                             currency_prices: currency_prices,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
 
     def to_custom_archived_at

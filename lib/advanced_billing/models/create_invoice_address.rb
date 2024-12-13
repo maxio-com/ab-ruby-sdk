@@ -83,6 +83,11 @@ module AdvancedBilling
     def initialize(first_name: SKIP, last_name: SKIP, phone: SKIP,
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @phone = phone unless phone == SKIP
@@ -92,11 +97,6 @@ module AdvancedBilling
       @state = state unless state == SKIP
       @zip = zip unless zip == SKIP
       @country = country unless country == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -115,7 +115,7 @@ module AdvancedBilling
       country = hash.key?('country') ? hash['country'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateInvoiceAddress.new(first_name: first_name,
@@ -127,7 +127,7 @@ module AdvancedBilling
                                state: state,
                                zip: zip,
                                country: country,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
   end
 end

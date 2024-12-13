@@ -116,6 +116,11 @@ module AdvancedBilling
                    last_sent_url: SKIP, successful: SKIP, body: SKIP,
                    signature: SKIP, signature_hmac_sha_256: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @event = event unless event == SKIP
       @id = id unless id == SKIP
       @created_at = created_at unless created_at == SKIP
@@ -128,11 +133,6 @@ module AdvancedBilling
       @body = body unless body == SKIP
       @signature = signature unless signature == SKIP
       @signature_hmac_sha_256 = signature_hmac_sha_256 unless signature_hmac_sha_256 == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -171,7 +171,7 @@ module AdvancedBilling
         hash.key?('signature_hmac_sha_256') ? hash['signature_hmac_sha_256'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Webhook.new(event: event,
@@ -186,7 +186,7 @@ module AdvancedBilling
                   body: body,
                   signature: signature,
                   signature_hmac_sha_256: signature_hmac_sha_256,
-                  additional_properties: hash)
+                  additional_properties: additional_properties)
     end
 
     def to_custom_created_at

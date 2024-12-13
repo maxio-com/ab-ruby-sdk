@@ -81,6 +81,11 @@ module AdvancedBilling
                    usage_quantity:, overage_usage_quantity:, component_id:,
                    component_handle:, memo:, allocation_details:,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @previous_unit_balance = previous_unit_balance
       @previous_overage_unit_balance = previous_overage_unit_balance
       @new_unit_balance = new_unit_balance
@@ -91,11 +96,6 @@ module AdvancedBilling
       @component_handle = component_handle
       @memo = memo
       @allocation_details = allocation_details
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -131,7 +131,7 @@ module AdvancedBilling
       allocation_details = nil unless hash.key?('allocation_details')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PrepaidUsage.new(previous_unit_balance: previous_unit_balance,
@@ -144,7 +144,7 @@ module AdvancedBilling
                        component_handle: component_handle,
                        memo: memo,
                        allocation_details: allocation_details,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

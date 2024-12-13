@@ -111,6 +111,11 @@ module AdvancedBilling
                    period_range_end: SKIP, product_id: SKIP, component_id: SKIP,
                    price_point_id: SKIP, product_price_point_id: SKIP,
                    description: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @title = title unless title == SKIP
       @quantity = quantity unless quantity == SKIP
       @unit_price = unit_price unless unit_price == SKIP
@@ -123,11 +128,6 @@ module AdvancedBilling
       @price_point_id = price_point_id unless price_point_id == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @description = description unless description == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -163,7 +163,7 @@ module AdvancedBilling
       description = hash.key?('description') ? hash['description'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateInvoiceItem.new(title: title,
@@ -178,7 +178,7 @@ module AdvancedBilling
                             price_point_id: price_point_id,
                             product_price_point_id: product_price_point_id,
                             description: description,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

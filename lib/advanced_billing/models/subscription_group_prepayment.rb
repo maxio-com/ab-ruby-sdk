@@ -46,15 +46,15 @@ module AdvancedBilling
     end
 
     def initialize(amount:, details:, memo:, method:, additional_properties: {})
-      @amount = amount
-      @details = details
-      @memo = memo
-      @method = method
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @amount = amount
+      @details = details
+      @memo = memo
+      @method = method
     end
 
     # Creates an instance of the object from a hash.
@@ -68,14 +68,14 @@ module AdvancedBilling
       method = hash.key?('method') ? hash['method'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupPrepayment.new(amount: amount,
                                       details: details,
                                       memo: memo,
                                       method: method,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
   end
 end

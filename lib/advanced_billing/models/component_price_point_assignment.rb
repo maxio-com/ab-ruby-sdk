@@ -40,13 +40,13 @@ module AdvancedBilling
 
     def initialize(component_id: SKIP, price_point: SKIP,
                    additional_properties: {})
-      @component_id = component_id unless component_id == SKIP
-      @price_point = price_point unless price_point == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @component_id = component_id unless component_id == SKIP
+      @price_point = price_point unless price_point == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -60,12 +60,12 @@ module AdvancedBilling
       ) : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ComponentPricePointAssignment.new(component_id: component_id,
                                         price_point: price_point,
-                                        additional_properties: hash)
+                                        additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

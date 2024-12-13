@@ -326,6 +326,11 @@ module AdvancedBilling
                    line_items: SKIP, discounts: SKIP, taxes: SKIP,
                    credits: SKIP, payments: SKIP, custom_fields: SKIP,
                    public_url: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -362,11 +367,6 @@ module AdvancedBilling
       @payments = payments unless payments == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @public_url = public_url unless public_url == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -480,7 +480,7 @@ module AdvancedBilling
       public_url = hash.key?('public_url') ? hash['public_url'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProformaInvoice.new(uid: uid,
@@ -519,7 +519,7 @@ module AdvancedBilling
                           payments: payments,
                           custom_fields: custom_fields,
                           public_url: public_url,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     def to_custom_created_at

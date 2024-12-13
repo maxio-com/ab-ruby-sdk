@@ -60,16 +60,16 @@ module AdvancedBilling
 
     def initialize(id: SKIP, item_type: SKIP, item_id: SKIP, name: SKIP,
                    handle: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @item_type = item_type unless item_type == SKIP
       @item_id = item_id unless item_id == SKIP
       @name = name unless name == SKIP
       @handle = handle unless handle == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -84,7 +84,7 @@ module AdvancedBilling
       handle = hash.key?('handle') ? hash['handle'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CouponRestriction.new(id: id,
@@ -92,7 +92,7 @@ module AdvancedBilling
                             item_id: item_id,
                             name: name,
                             handle: handle,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
   end
 end

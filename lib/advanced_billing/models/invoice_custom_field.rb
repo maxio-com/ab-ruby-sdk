@@ -58,16 +58,16 @@ module AdvancedBilling
 
     def initialize(owner_id: SKIP, owner_type: SKIP, name: SKIP, value: SKIP,
                    metadatum_id: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @owner_id = owner_id unless owner_id == SKIP
       @owner_type = owner_type unless owner_type == SKIP
       @name = name unless name == SKIP
       @value = value unless value == SKIP
       @metadatum_id = metadatum_id unless metadatum_id == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -82,7 +82,7 @@ module AdvancedBilling
       metadatum_id = hash.key?('metadatum_id') ? hash['metadatum_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoiceCustomField.new(owner_id: owner_id,
@@ -90,7 +90,7 @@ module AdvancedBilling
                              name: name,
                              value: value,
                              metadatum_id: metadatum_id,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

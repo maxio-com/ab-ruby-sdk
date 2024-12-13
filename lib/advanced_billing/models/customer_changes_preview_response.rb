@@ -31,12 +31,12 @@ module AdvancedBilling
     end
 
     def initialize(changes:, additional_properties: {})
-      @changes = changes
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @changes = changes
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       changes = CustomerChange.from_hash(hash['changes']) if hash['changes']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CustomerChangesPreviewResponse.new(changes: changes,
-                                         additional_properties: hash)
+                                         additional_properties: additional_properties)
     end
   end
 end

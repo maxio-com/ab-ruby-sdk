@@ -58,16 +58,16 @@ module AdvancedBilling
 
     def initialize(first_name: SKIP, last_name: SKIP, organization: SKIP,
                    email: SKIP, reference: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @organization = organization unless organization == SKIP
       @email = email unless email == SKIP
       @reference = reference unless reference == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -82,7 +82,7 @@ module AdvancedBilling
       reference = hash.key?('reference') ? hash['reference'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupCustomer.new(first_name: first_name,
@@ -90,7 +90,7 @@ module AdvancedBilling
                                     organization: organization,
                                     email: email,
                                     reference: reference,
-                                    additional_properties: hash)
+                                    additional_properties: additional_properties)
     end
   end
 end

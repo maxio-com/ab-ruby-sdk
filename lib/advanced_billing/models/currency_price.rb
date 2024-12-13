@@ -27,6 +27,14 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [Integer]
+    attr_accessor :price_id
+
+    # TODO: Write general description for this method
+    # @return [Integer]
+    attr_accessor :price_point_id
+
+    # TODO: Write general description for this method
+    # @return [Integer]
     attr_accessor :product_price_point_id
 
     # Role for the price.
@@ -40,6 +48,8 @@ module AdvancedBilling
       @_hash['currency'] = 'currency'
       @_hash['price'] = 'price'
       @_hash['formatted_price'] = 'formatted_price'
+      @_hash['price_id'] = 'price_id'
+      @_hash['price_point_id'] = 'price_point_id'
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['role'] = 'role'
       @_hash
@@ -52,6 +62,8 @@ module AdvancedBilling
         currency
         price
         formatted_price
+        price_id
+        price_point_id
         product_price_point_id
         role
       ]
@@ -63,19 +75,22 @@ module AdvancedBilling
     end
 
     def initialize(id: SKIP, currency: SKIP, price: SKIP, formatted_price: SKIP,
+                   price_id: SKIP, price_point_id: SKIP,
                    product_price_point_id: SKIP, role: SKIP,
                    additional_properties: {})
-      @id = id unless id == SKIP
-      @currency = currency unless currency == SKIP
-      @price = price unless price == SKIP
-      @formatted_price = formatted_price unless formatted_price == SKIP
-      @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
-      @role = role unless role == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @id = id unless id == SKIP
+      @currency = currency unless currency == SKIP
+      @price = price unless price == SKIP
+      @formatted_price = formatted_price unless formatted_price == SKIP
+      @price_id = price_id unless price_id == SKIP
+      @price_point_id = price_point_id unless price_point_id == SKIP
+      @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
+      @role = role unless role == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -88,21 +103,26 @@ module AdvancedBilling
       price = hash.key?('price') ? hash['price'] : SKIP
       formatted_price =
         hash.key?('formatted_price') ? hash['formatted_price'] : SKIP
+      price_id = hash.key?('price_id') ? hash['price_id'] : SKIP
+      price_point_id =
+        hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       role = hash.key?('role') ? hash['role'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CurrencyPrice.new(id: id,
                         currency: currency,
                         price: price,
                         formatted_price: formatted_price,
+                        price_id: price_id,
+                        price_point_id: price_point_id,
                         product_price_point_id: product_price_point_id,
                         role: role,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
   end
 end

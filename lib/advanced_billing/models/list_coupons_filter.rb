@@ -99,6 +99,11 @@ module AdvancedBilling
                    start_datetime: SKIP, end_datetime: SKIP, ids: SKIP,
                    codes: SKIP, use_site_exchange_rate: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @date_field = date_field unless date_field == SKIP
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
@@ -107,11 +112,6 @@ module AdvancedBilling
       @ids = ids unless ids == SKIP
       @codes = codes unless codes == SKIP
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -138,7 +138,7 @@ module AdvancedBilling
         hash.key?('use_site_exchange_rate') ? hash['use_site_exchange_rate'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListCouponsFilter.new(date_field: date_field,
@@ -149,7 +149,7 @@ module AdvancedBilling
                             ids: ids,
                             codes: codes,
                             use_site_exchange_rate: use_site_exchange_rate,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
 
     def to_custom_start_datetime

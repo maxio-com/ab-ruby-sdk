@@ -40,13 +40,13 @@ module AdvancedBilling
 
     def initialize(current_billing_manifest: SKIP, next_billing_manifest: SKIP,
                    additional_properties: {})
-      @current_billing_manifest = current_billing_manifest unless current_billing_manifest == SKIP
-      @next_billing_manifest = next_billing_manifest unless next_billing_manifest == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @current_billing_manifest = current_billing_manifest unless current_billing_manifest == SKIP
+      @next_billing_manifest = next_billing_manifest unless next_billing_manifest == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -60,12 +60,12 @@ module AdvancedBilling
         hash['next_billing_manifest']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionPreview.new(current_billing_manifest: current_billing_manifest,
                               next_billing_manifest: next_billing_manifest,
-                              additional_properties: hash)
+                              additional_properties: additional_properties)
     end
   end
 end

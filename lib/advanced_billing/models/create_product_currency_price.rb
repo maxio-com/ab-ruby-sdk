@@ -41,14 +41,14 @@ module AdvancedBilling
     end
 
     def initialize(currency:, price:, role:, additional_properties: {})
-      @currency = currency
-      @price = price
-      @role = role
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @currency = currency
+      @price = price
+      @role = role
     end
 
     # Creates an instance of the object from a hash.
@@ -61,13 +61,13 @@ module AdvancedBilling
       role = hash.key?('role') ? hash['role'] : nil
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       CreateProductCurrencyPrice.new(currency: currency,
                                      price: price,
                                      role: role,
-                                     additional_properties: hash)
+                                     additional_properties: additional_properties)
     end
   end
 end

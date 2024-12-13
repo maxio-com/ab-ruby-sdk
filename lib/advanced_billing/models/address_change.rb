@@ -36,13 +36,13 @@ module AdvancedBilling
     end
 
     def initialize(before:, after:, additional_properties: {})
-      @before = before
-      @after = after
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @before = before
+      @after = after
     end
 
     # Creates an instance of the object from a hash.
@@ -54,12 +54,12 @@ module AdvancedBilling
       after = InvoiceAddress.from_hash(hash['after']) if hash['after']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AddressChange.new(before: before,
                         after: after,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
   end
 end

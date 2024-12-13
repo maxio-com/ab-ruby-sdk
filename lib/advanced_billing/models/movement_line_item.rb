@@ -92,6 +92,11 @@ module AdvancedBilling
                    name: SKIP, mrr: SKIP, mrr_movements: SKIP, quantity: SKIP,
                    prev_quantity: SKIP, recurring: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @product_id = product_id unless product_id == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
@@ -101,11 +106,6 @@ module AdvancedBilling
       @quantity = quantity unless quantity == SKIP
       @prev_quantity = prev_quantity unless prev_quantity == SKIP
       @recurring = recurring unless recurring == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -134,7 +134,7 @@ module AdvancedBilling
       recurring = hash.key?('recurring') ? hash['recurring'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       MovementLineItem.new(product_id: product_id,
@@ -146,7 +146,7 @@ module AdvancedBilling
                            quantity: quantity,
                            prev_quantity: prev_quantity,
                            recurring: recurring,
-                           additional_properties: hash)
+                           additional_properties: additional_properties)
     end
   end
 end

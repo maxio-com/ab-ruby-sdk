@@ -285,14 +285,9 @@ product_family_id = 'product_family_id4'
 body = CreateOnOffComponent.new(
   on_off_component: OnOffComponent.new(
     name: 'Annual Support Services',
+    unit_price: '100.00',
     description: 'Prepay for support services',
     taxable: true,
-    prices: [
-      Price.new(
-        starting_quantity: '0',
-        unit_price: '100.00'
-      )
-    ],
     display_on_hosted_page: true,
     public_signup_page_ids: [
       320495
@@ -386,7 +381,6 @@ body = CreatePrepaidComponent.new(
     name: 'Minutes',
     unit_name: 'minutes',
     pricing_scheme: PricingScheme::PER_UNIT,
-    unit_price: 2,
     overage_pricing: OveragePricing.new(
       pricing_scheme: PricingScheme::STAIRSTEP,
       prices: [
@@ -401,6 +395,7 @@ body = CreatePrepaidComponent.new(
         )
       ]
     ),
+    unit_price: 2,
     rollover_prepaid_remainder: true,
     renew_prepaid_allocation: true,
     expiration_interval: 15,

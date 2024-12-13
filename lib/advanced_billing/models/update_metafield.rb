@@ -64,16 +64,16 @@ module AdvancedBilling
 
     def initialize(current_name: SKIP, name: SKIP, scope: SKIP,
                    input_type: SKIP, enum: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @current_name = current_name unless current_name == SKIP
       @name = name unless name == SKIP
       @scope = scope unless scope == SKIP
       @input_type = input_type unless input_type == SKIP
       @enum = enum unless enum == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -88,7 +88,7 @@ module AdvancedBilling
       enum = hash.key?('enum') ? hash['enum'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateMetafield.new(current_name: current_name,
@@ -96,7 +96,7 @@ module AdvancedBilling
                           scope: scope,
                           input_type: input_type,
                           enum: enum,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

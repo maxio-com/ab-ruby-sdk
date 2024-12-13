@@ -62,16 +62,16 @@ module AdvancedBilling
     def initialize(id: SKIP, ending_quantity: SKIP, unit_price: SKIP,
                    destroy: SKIP, starting_quantity: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @ending_quantity = ending_quantity unless ending_quantity == SKIP
       @unit_price = unit_price unless unit_price == SKIP
       @destroy = destroy unless destroy == SKIP
       @starting_quantity = starting_quantity unless starting_quantity == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -92,7 +92,7 @@ module AdvancedBilling
       ) : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdatePrice.new(id: id,
@@ -100,7 +100,7 @@ module AdvancedBilling
                       unit_price: unit_price,
                       destroy: destroy,
                       starting_quantity: starting_quantity,
-                      additional_properties: hash)
+                      additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

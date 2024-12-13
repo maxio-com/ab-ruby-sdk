@@ -31,12 +31,12 @@ module AdvancedBilling
     end
 
     def initialize(subscriptions_mrr:, additional_properties: {})
-      @subscriptions_mrr = subscriptions_mrr
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @subscriptions_mrr = subscriptions_mrr
     end
 
     # Creates an instance of the object from a hash.
@@ -56,11 +56,11 @@ module AdvancedBilling
       subscriptions_mrr = nil unless hash.key?('subscriptions_mrr')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionMRRResponse.new(subscriptions_mrr: subscriptions_mrr,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

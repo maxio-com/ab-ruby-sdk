@@ -65,17 +65,17 @@ module AdvancedBilling
     def initialize(id: SKIP, currency: SKIP, price: SKIP, formatted_price: SKIP,
                    price_id: SKIP, price_point_id: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @currency = currency unless currency == SKIP
       @price = price unless price == SKIP
       @formatted_price = formatted_price unless formatted_price == SKIP
       @price_id = price_id unless price_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -93,7 +93,7 @@ module AdvancedBilling
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ComponentCurrencyPrice.new(id: id,
@@ -102,7 +102,7 @@ module AdvancedBilling
                                  formatted_price: formatted_price,
                                  price_id: price_id,
                                  price_point_id: price_point_id,
-                                 additional_properties: hash)
+                                 additional_properties: additional_properties)
     end
   end
 end

@@ -69,6 +69,11 @@ module AdvancedBilling
     def initialize(customer_id: SKIP, payment_profile: SKIP,
                    payment_collection_method: SKIP, subscription_ids: SKIP,
                    created_at: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @customer_id = customer_id unless customer_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
       unless payment_collection_method == SKIP
@@ -77,11 +82,6 @@ module AdvancedBilling
       end
       @subscription_ids = subscription_ids unless subscription_ids == SKIP
       @created_at = created_at unless created_at == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -103,7 +103,7 @@ module AdvancedBilling
                    end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroup.new(customer_id: customer_id,
@@ -111,7 +111,7 @@ module AdvancedBilling
                             payment_collection_method: payment_collection_method,
                             subscription_ids: subscription_ids,
                             created_at: created_at,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
 
     def to_custom_created_at

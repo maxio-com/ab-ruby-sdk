@@ -92,17 +92,17 @@ module AdvancedBilling
     def initialize(states: SKIP, date_field: SKIP, start_date: SKIP,
                    end_date: SKIP, start_datetime: SKIP, end_datetime: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @states = states unless states == SKIP
       @date_field = date_field unless date_field == SKIP
       @start_date = start_date unless start_date == SKIP
       @end_date = end_date unless end_date == SKIP
       @start_datetime = start_datetime unless start_datetime == SKIP
       @end_datetime = end_datetime unless end_datetime == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -126,7 +126,7 @@ module AdvancedBilling
                      end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionFilter.new(states: states,
@@ -135,7 +135,7 @@ module AdvancedBilling
                              end_date: end_date,
                              start_datetime: start_datetime,
                              end_datetime: end_datetime,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
 
     def to_custom_start_datetime

@@ -132,6 +132,11 @@ module AdvancedBilling
                    default_payment_collection_method: SKIP,
                    organization_address: SKIP, tax_configuration: SKIP,
                    net_terms: SKIP, test: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @id = id unless id == SKIP
       @name = name unless name == SKIP
       @subdomain = subdomain unless subdomain == SKIP
@@ -157,11 +162,6 @@ module AdvancedBilling
       @tax_configuration = tax_configuration unless tax_configuration == SKIP
       @net_terms = net_terms unless net_terms == SKIP
       @test = test unless test == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -196,7 +196,7 @@ module AdvancedBilling
       test = hash.key?('test') ? hash['test'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       Site.new(id: id,
@@ -215,7 +215,7 @@ module AdvancedBilling
                tax_configuration: tax_configuration,
                net_terms: net_terms,
                test: test,
-               additional_properties: hash)
+               additional_properties: additional_properties)
     end
   end
 end

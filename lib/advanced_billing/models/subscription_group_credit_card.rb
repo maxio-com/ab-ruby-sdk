@@ -166,6 +166,11 @@ module AdvancedBilling
                    billing_country: SKIP, last_four: SKIP, card_type: SKIP,
                    customer_vault_token: SKIP, cvv: SKIP, payment_type: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @full_number = full_number unless full_number == SKIP
       @expiration_month = expiration_month unless expiration_month == SKIP
       @expiration_year = expiration_year unless expiration_year == SKIP
@@ -186,11 +191,6 @@ module AdvancedBilling
       @customer_vault_token = customer_vault_token unless customer_vault_token == SKIP
       @cvv = cvv unless cvv == SKIP
       @payment_type = payment_type unless payment_type == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -232,7 +232,7 @@ module AdvancedBilling
       payment_type = hash.key?('payment_type') ? hash['payment_type'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SubscriptionGroupCreditCard.new(full_number: full_number,
@@ -255,7 +255,7 @@ module AdvancedBilling
                                       customer_vault_token: customer_vault_token,
                                       cvv: cvv,
                                       payment_type: payment_type,
-                                      additional_properties: hash)
+                                      additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

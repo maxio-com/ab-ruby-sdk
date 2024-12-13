@@ -22,7 +22,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/products.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_family_id, key: 'product_family_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -50,7 +50,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products/{product_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -79,7 +79,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/products/{product_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -110,7 +110,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/products/{product_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -133,7 +133,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products/handle/{api_handle}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(api_handle, key: 'api_handle')
                                     .is_required(true)
                                     .should_encode(true))
@@ -191,7 +191,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))

@@ -78,6 +78,11 @@ module AdvancedBilling
                    discount_type: SKIP, eligible_amount: SKIP,
                    discount_amount: SKIP, line_item_breakouts: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @title = title unless title == SKIP
       @code = code unless code == SKIP
@@ -86,11 +91,6 @@ module AdvancedBilling
       @eligible_amount = eligible_amount unless eligible_amount == SKIP
       @discount_amount = discount_amount unless discount_amount == SKIP
       @line_item_breakouts = line_item_breakouts unless line_item_breakouts == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -119,7 +119,7 @@ module AdvancedBilling
       line_item_breakouts = SKIP unless hash.key?('line_item_breakouts')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ProformaInvoiceDiscount.new(uid: uid,
@@ -130,7 +130,7 @@ module AdvancedBilling
                                   eligible_amount: eligible_amount,
                                   discount_amount: discount_amount,
                                   line_item_breakouts: line_item_breakouts,
-                                  additional_properties: hash)
+                                  additional_properties: additional_properties)
     end
   end
 end

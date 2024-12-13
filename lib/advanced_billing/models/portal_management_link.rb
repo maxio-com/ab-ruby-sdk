@@ -68,17 +68,17 @@ module AdvancedBilling
     def initialize(url: SKIP, fetch_count: SKIP, created_at: SKIP,
                    new_link_available_at: SKIP, expires_at: SKIP,
                    last_invite_sent_at: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @url = url unless url == SKIP
       @fetch_count = fetch_count unless fetch_count == SKIP
       @created_at = created_at unless created_at == SKIP
       @new_link_available_at = new_link_available_at unless new_link_available_at == SKIP
       @expires_at = expires_at unless expires_at == SKIP
       @last_invite_sent_at = last_invite_sent_at unless last_invite_sent_at == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -110,7 +110,7 @@ module AdvancedBilling
                             end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       PortalManagementLink.new(url: url,
@@ -119,7 +119,7 @@ module AdvancedBilling
                                new_link_available_at: new_link_available_at,
                                expires_at: expires_at,
                                last_invite_sent_at: last_invite_sent_at,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
 
     def to_custom_created_at

@@ -189,6 +189,11 @@ module AdvancedBilling
                    billing_address: SKIP, shipping_address: SKIP,
                    line_items: SKIP, discounts: SKIP, taxes: SKIP,
                    refunds: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @uid = uid unless uid == SKIP
       @site_id = site_id unless site_id == SKIP
       @customer_id = customer_id unless customer_id == SKIP
@@ -215,11 +220,6 @@ module AdvancedBilling
       @discounts = discounts unless discounts == SKIP
       @taxes = taxes unless taxes == SKIP
       @refunds = refunds unless refunds == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -294,7 +294,7 @@ module AdvancedBilling
       refunds = SKIP unless hash.key?('refunds')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       DebitNote.new(uid: uid,
@@ -320,7 +320,7 @@ module AdvancedBilling
                     discounts: discounts,
                     taxes: taxes,
                     refunds: refunds,
-                    additional_properties: hash)
+                    additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

@@ -130,6 +130,11 @@ module AdvancedBilling
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, billing_address_2: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @first_name = first_name unless first_name == SKIP
       @last_name = last_name unless last_name == SKIP
       @full_number = full_number unless full_number == SKIP
@@ -143,11 +148,6 @@ module AdvancedBilling
       @billing_zip = billing_zip unless billing_zip == SKIP
       @billing_country = billing_country unless billing_country == SKIP
       @billing_address_2 = billing_address_2 unless billing_address_2 == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -175,7 +175,7 @@ module AdvancedBilling
         hash.key?('billing_address_2') ? hash['billing_address_2'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdatePaymentProfile.new(first_name: first_name,
@@ -191,7 +191,7 @@ module AdvancedBilling
                                billing_zip: billing_zip,
                                billing_country: billing_country,
                                billing_address_2: billing_address_2,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
   end
 end

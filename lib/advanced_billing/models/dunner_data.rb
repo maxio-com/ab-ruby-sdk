@@ -59,17 +59,17 @@ module AdvancedBilling
     def initialize(state:, subscription_id:, revenue_at_risk_in_cents:,
                    created_at:, attempts:, last_attempted_at:,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @state = state
       @subscription_id = subscription_id
       @revenue_at_risk_in_cents = revenue_at_risk_in_cents
       @created_at = created_at
       @attempts = attempts
       @last_attempted_at = last_attempted_at
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -91,7 +91,7 @@ module AdvancedBilling
                           end
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       DunnerData.new(state: state,
@@ -100,7 +100,7 @@ module AdvancedBilling
                      created_at: created_at,
                      attempts: attempts,
                      last_attempted_at: last_attempted_at,
-                     additional_properties: hash)
+                     additional_properties: additional_properties)
     end
 
     def to_custom_created_at

@@ -52,15 +52,15 @@ module AdvancedBilling
 
     def initialize(total_count: SKIP, current_page: SKIP, total_pages: SKIP,
                    status_code: SKIP, additional_properties: {})
-      @total_count = total_count unless total_count == SKIP
-      @current_page = current_page unless current_page == SKIP
-      @total_pages = total_pages unless total_pages == SKIP
-      @status_code = status_code unless status_code == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @total_count = total_count unless total_count == SKIP
+      @current_page = current_page unless current_page == SKIP
+      @total_pages = total_pages unless total_pages == SKIP
+      @status_code = status_code unless status_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -74,14 +74,14 @@ module AdvancedBilling
       status_code = hash.key?('status_code') ? hash['status_code'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListProformaInvoicesMeta.new(total_count: total_count,
                                    current_page: current_page,
                                    total_pages: total_pages,
                                    status_code: status_code,
-                                   additional_properties: hash)
+                                   additional_properties: additional_properties)
     end
   end
 end

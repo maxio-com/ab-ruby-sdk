@@ -48,14 +48,14 @@ module AdvancedBilling
 
     def initialize(subscription_id: SKIP, amount_in_cents: SKIP,
                    ending_balance_in_cents: SKIP, additional_properties: {})
-      @subscription_id = subscription_id unless subscription_id == SKIP
-      @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
-      @ending_balance_in_cents = ending_balance_in_cents unless ending_balance_in_cents == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @subscription_id = subscription_id unless subscription_id == SKIP
+      @amount_in_cents = amount_in_cents unless amount_in_cents == SKIP
+      @ending_balance_in_cents = ending_balance_in_cents unless ending_balance_in_cents == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -71,13 +71,13 @@ module AdvancedBilling
         hash.key?('ending_balance_in_cents') ? hash['ending_balance_in_cents'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       InvoicePrePayment.new(subscription_id: subscription_id,
                             amount_in_cents: amount_in_cents,
                             ending_balance_in_cents: ending_balance_in_cents,
-                            additional_properties: hash)
+                            additional_properties: additional_properties)
     end
   end
 end

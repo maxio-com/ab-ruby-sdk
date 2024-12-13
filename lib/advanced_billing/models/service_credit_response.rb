@@ -31,12 +31,12 @@ module AdvancedBilling
     end
 
     def initialize(service_credit:, additional_properties: {})
-      @service_credit = service_credit
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @service_credit = service_credit
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       service_credit = ServiceCredit.from_hash(hash['service_credit']) if hash['service_credit']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ServiceCreditResponse.new(service_credit: service_credit,
-                                additional_properties: hash)
+                                additional_properties: additional_properties)
     end
   end
 end

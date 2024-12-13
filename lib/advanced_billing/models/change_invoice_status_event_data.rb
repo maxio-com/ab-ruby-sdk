@@ -66,16 +66,16 @@ module AdvancedBilling
     def initialize(from_status:, to_status:, gateway_trans_id: SKIP,
                    amount: SKIP, consolidation_level: SKIP,
                    additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @gateway_trans_id = gateway_trans_id unless gateway_trans_id == SKIP
       @amount = amount unless amount == SKIP
       @from_status = from_status
       @to_status = to_status
       @consolidation_level = consolidation_level unless consolidation_level == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -92,7 +92,7 @@ module AdvancedBilling
         hash.key?('consolidation_level') ? hash['consolidation_level'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ChangeInvoiceStatusEventData.new(from_status: from_status,
@@ -100,7 +100,7 @@ module AdvancedBilling
                                        gateway_trans_id: gateway_trans_id,
                                        amount: amount,
                                        consolidation_level: consolidation_level,
-                                       additional_properties: hash)
+                                       additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

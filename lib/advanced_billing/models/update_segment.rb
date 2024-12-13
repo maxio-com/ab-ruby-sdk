@@ -42,13 +42,13 @@ module AdvancedBilling
     end
 
     def initialize(pricing_scheme:, prices: SKIP, additional_properties: {})
-      @pricing_scheme = pricing_scheme
-      @prices = prices unless prices == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @pricing_scheme = pricing_scheme
+      @prices = prices unless prices == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -70,12 +70,12 @@ module AdvancedBilling
       prices = SKIP unless hash.key?('prices')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateSegment.new(pricing_scheme: pricing_scheme,
                         prices: prices,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
   end
 end

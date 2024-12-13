@@ -61,16 +61,16 @@ module AdvancedBilling
     def initialize(open_invoices: SKIP, pending_invoices: SKIP,
                    pending_discounts: SKIP, service_credits: SKIP,
                    prepayments: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @open_invoices = open_invoices unless open_invoices == SKIP
       @pending_invoices = pending_invoices unless pending_invoices == SKIP
       @pending_discounts = pending_discounts unless pending_discounts == SKIP
       @service_credits = service_credits unless service_credits == SKIP
       @prepayments = prepayments unless prepayments == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -88,7 +88,7 @@ module AdvancedBilling
       prepayments = AccountBalance.from_hash(hash['prepayments']) if hash['prepayments']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       AccountBalances.new(open_invoices: open_invoices,
@@ -96,7 +96,7 @@ module AdvancedBilling
                           pending_discounts: pending_discounts,
                           service_credits: service_credits,
                           prepayments: prepayments,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
   end
 end

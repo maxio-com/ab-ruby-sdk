@@ -31,12 +31,12 @@ module AdvancedBilling
     end
 
     def initialize(event:, additional_properties: {})
-      @event = event
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @event = event
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       event = Event.from_hash(hash['event']) if hash['event']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       EventResponse.new(event: event,
-                        additional_properties: hash)
+                        additional_properties: additional_properties)
     end
   end
 end

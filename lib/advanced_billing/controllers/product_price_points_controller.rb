@@ -20,7 +20,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/products/{product_id}/price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -67,12 +67,14 @@ module AdvancedBilling
     # it will return all of the defined prices for each currency.
     # @param [Array[PricePointType]] filter_type Optional parameter: Use in
     # query: `filter[type]=catalog,default`.
+    # @param [TrueClass | FalseClass] archived Optional parameter: Set to
+    # include archived price points in the response.
     # @return [ListProductPricePointsResponse] response from the API call.
     def list_product_price_points(options = {})
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products/{product_id}/price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['product_id'], key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -84,6 +86,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
                    .query_param(new_parameter(options['filter_type'], key: 'filter[type]'))
+                   .query_param(new_parameter(options['archived'], key: 'archived'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
@@ -112,7 +115,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/products/{product_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -162,7 +165,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products/{product_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -201,7 +204,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/products/{product_id}/price_points/{price_point_id}.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -239,7 +242,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PATCH,
                                      '/products/{product_id}/price_points/{price_point_id}/unarchive.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -268,7 +271,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PATCH,
                                      '/products/{product_id}/price_points/{price_point_id}/default.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -294,7 +297,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/products/{product_id}/price_points/bulk.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -330,7 +333,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_price_points/{product_price_point_id}/currency_prices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_price_point_id, key: 'product_price_point_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -365,7 +368,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/product_price_points/{product_price_point_id}/currency_prices.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(product_price_point_id, key: 'product_price_point_id')
                                     .is_required(true)
                                     .should_encode(true))
@@ -409,7 +412,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products_price_points.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['filter'], key: 'filter'))
                    .query_param(new_parameter(options['include'], key: 'include'))

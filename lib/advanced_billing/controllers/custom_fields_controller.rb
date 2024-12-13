@@ -50,7 +50,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -94,7 +94,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['resource_type'], key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -121,7 +121,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -155,7 +155,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/{resource_type}/metafields.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -209,7 +209,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/{resource_type}/{resource_id}/metadata.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -257,7 +257,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/{resource_id}/metadata.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['resource_type'], key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -288,7 +288,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/{resource_type}/{resource_id}/metadata.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -346,7 +346,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/{resource_type}/{resource_id}/metadata.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(resource_type, key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))
@@ -422,7 +422,7 @@ module AdvancedBilling
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metadata.json',
-                                     Server::DEFAULT)
+                                     Server::PRODUCTION)
                    .template_param(new_parameter(options['resource_type'], key: 'resource_type')
                                     .is_required(true)
                                     .should_encode(true))

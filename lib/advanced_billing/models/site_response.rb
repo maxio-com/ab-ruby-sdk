@@ -31,12 +31,12 @@ module AdvancedBilling
     end
 
     def initialize(site:, additional_properties: {})
-      @site = site
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @site = site
     end
 
     # Creates an instance of the object from a hash.
@@ -47,11 +47,11 @@ module AdvancedBilling
       site = Site.from_hash(hash['site']) if hash['site']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       SiteResponse.new(site: site,
-                       additional_properties: hash)
+                       additional_properties: additional_properties)
     end
   end
 end

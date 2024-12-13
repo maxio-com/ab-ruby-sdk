@@ -42,14 +42,14 @@ module AdvancedBilling
 
     def initialize(dunner:, current_step:, next_step:,
                    additional_properties: {})
-      @dunner = dunner
-      @current_step = current_step
-      @next_step = next_step
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @dunner = dunner
+      @current_step = current_step
+      @next_step = next_step
     end
 
     # Creates an instance of the object from a hash.
@@ -62,13 +62,13 @@ module AdvancedBilling
       next_step = DunningStepData.from_hash(hash['next_step']) if hash['next_step']
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       DunningStepReached.new(dunner: dunner,
                              current_step: current_step,
                              next_step: next_step,
-                             additional_properties: hash)
+                             additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.

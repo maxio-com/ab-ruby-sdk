@@ -97,6 +97,11 @@ module AdvancedBilling
                    accounting_code: SKIP, taxable: SKIP, tax_code: SKIP,
                    item_category: SKIP, display_on_hosted_page: SKIP,
                    upgrade_charge: SKIP, additional_properties: {})
+      # Add additional model properties to the instance.
+      additional_properties.each do |_name, _value|
+        instance_variable_set("@#{_name}", _value)
+      end
+
       @handle = handle unless handle == SKIP
       @name = name unless name == SKIP
       @description = description unless description == SKIP
@@ -106,11 +111,6 @@ module AdvancedBilling
       @item_category = item_category unless item_category == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
-
-      # Add additional model properties to the instance.
-      additional_properties.each do |_name, _value|
-        instance_variable_set("@#{_name}", _value)
-      end
     end
 
     # Creates an instance of the object from a hash.
@@ -132,7 +132,7 @@ module AdvancedBilling
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       UpdateComponent.new(handle: handle,
@@ -144,7 +144,7 @@ module AdvancedBilling
                           item_category: item_category,
                           display_on_hosted_page: display_on_hosted_page,
                           upgrade_charge: upgrade_charge,
-                          additional_properties: hash)
+                          additional_properties: additional_properties)
     end
   end
 end

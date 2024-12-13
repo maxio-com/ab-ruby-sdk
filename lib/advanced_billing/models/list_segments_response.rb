@@ -33,12 +33,12 @@ module AdvancedBilling
     end
 
     def initialize(segments: SKIP, additional_properties: {})
-      @segments = segments unless segments == SKIP
-
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
       end
+
+      @segments = segments unless segments == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -58,11 +58,11 @@ module AdvancedBilling
       segments = SKIP unless hash.key?('segments')
 
       # Clean out expected properties from Hash.
-      names.each_value { |k| hash.delete(k) }
+      additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
       ListSegmentsResponse.new(segments: segments,
-                               additional_properties: hash)
+                               additional_properties: additional_properties)
     end
   end
 end
