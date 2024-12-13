@@ -54,7 +54,7 @@ module AdvancedBilling
     end
 
     def initialize(uid: SKIP, scheme: SKIP, primary_subscription_id: SKIP,
-                   primary: SKIP, additional_properties = nil)
+                   primary: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

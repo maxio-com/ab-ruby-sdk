@@ -36,8 +36,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(cancellation_state:, cancels_at:,
-                   additional_properties = nil)
+    def initialize(cancellation_state:, cancels_at:, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

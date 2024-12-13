@@ -55,7 +55,7 @@ module AdvancedBilling
 
     def initialize(prorated_adjustment_in_cents: SKIP, charge_in_cents: SKIP,
                    payment_due_in_cents: SKIP, credit_applied_in_cents: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

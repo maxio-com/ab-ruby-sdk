@@ -151,7 +151,7 @@ module AdvancedBilling
                    archived_at: SKIP, offer_items: SKIP, offer_discounts: SKIP,
                    product_family_name: SKIP, product_name: SKIP,
                    product_price_point_name: SKIP, product_price_in_cents: SKIP,
-                   offer_signup_pages: SKIP, additional_properties = nil)
+                   offer_signup_pages: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -188,7 +188,7 @@ module AdvancedBilling
                    role: SKIP, currency: SKIP, seller: SKIP, customer: SKIP,
                    billing_address: SKIP, shipping_address: SKIP,
                    line_items: SKIP, discounts: SKIP, taxes: SKIP,
-                   refunds: SKIP, additional_properties = nil)
+                   refunds: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

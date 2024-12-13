@@ -110,7 +110,7 @@ module AdvancedBilling
                    total_in_cents: SKIP, direction: SKIP,
                    proration_scheme: SKIP, line_items: SKIP,
                    accrue_charge: SKIP, allocations: SKIP, period_type: SKIP,
-                   existing_balance_in_cents: SKIP, additional_properties = nil)
+                   existing_balance_in_cents: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

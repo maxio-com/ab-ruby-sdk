@@ -458,7 +458,7 @@ module AdvancedBilling
                    dunning_communication_delay_enabled: false,
                    dunning_communication_delay_time_zone: SKIP,
                    skip_billing_manifest_taxes: false,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

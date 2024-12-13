@@ -72,7 +72,7 @@ module AdvancedBilling
     def initialize(calendar_billing: SKIP, include_trial: SKIP,
                    preserve_balance: SKIP, coupon_code: SKIP,
                    use_credits_and_prepayments: SKIP, resume: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

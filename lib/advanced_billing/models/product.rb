@@ -327,8 +327,7 @@ module AdvancedBilling
                    default_product_price_point_id: SKIP,
                    use_site_exchange_rate: SKIP, item_category: SKIP,
                    product_price_point_id: SKIP,
-                   product_price_point_handle: SKIP,
-                   additional_properties = nil)
+                   product_price_point_handle: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

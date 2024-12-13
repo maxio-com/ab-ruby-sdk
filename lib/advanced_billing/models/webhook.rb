@@ -115,7 +115,7 @@ module AdvancedBilling
                    last_error_at: SKIP, accepted_at: SKIP, last_sent_at: SKIP,
                    last_sent_url: SKIP, successful: SKIP, body: SKIP,
                    signature: SKIP, signature_hmac_sha_256: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

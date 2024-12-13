@@ -161,7 +161,7 @@ module AdvancedBilling
                    payment_type:, disabled:, site_gateway_setting_id:, id: SKIP,
                    customer_id: SKIP, billing_address_2: SKIP,
                    customer_vault_token: SKIP, gateway_handle: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -157,7 +157,7 @@ module AdvancedBilling
                    zip: SKIP, country: SKIP, phone: SKIP, locale: SKIP,
                    vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
                    parent_id: SKIP, verified: SKIP, salesforce_id: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

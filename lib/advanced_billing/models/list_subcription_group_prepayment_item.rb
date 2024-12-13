@@ -85,7 +85,7 @@ module AdvancedBilling
                    amount_in_cents: SKIP, remaining_amount_in_cents: SKIP,
                    details: SKIP, external: SKIP, memo: SKIP,
                    payment_type: SKIP, created_at: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -75,7 +75,7 @@ module AdvancedBilling
 
     def initialize(day_threshold:, action:, send_email:, send_bcc_email:,
                    send_sms:, email_body: SKIP, email_subject: SKIP,
-                   sms_body: SKIP, additional_properties = nil)
+                   sms_body: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

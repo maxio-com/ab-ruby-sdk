@@ -150,7 +150,7 @@ module AdvancedBilling
                    exclude_mid_period_allocations: SKIP,
                    apply_on_cancel_at_end_of_period: SKIP,
                    apply_on_subscription_expiration: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -55,7 +55,7 @@ module AdvancedBilling
 
     def initialize(reason:, service_credit_account_balance_in_cents:,
                    service_credit_balance_change_in_cents:, currency_code:,
-                   at_time:, additional_properties = nil)
+                   at_time:, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -52,7 +52,7 @@ module AdvancedBilling
     end
 
     def initialize(upgrade_charge: SKIP, downgrade_credit: SKIP,
-                   accrue_charge: SKIP, additional_properties = nil)
+                   accrue_charge: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

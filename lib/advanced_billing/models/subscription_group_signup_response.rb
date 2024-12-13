@@ -314,7 +314,7 @@ module AdvancedBilling
                    primary_subscription_id: SKIP, next_assessment_at: SKIP,
                    state: SKIP, cancel_at_end_of_period: SKIP,
                    subscriptions: SKIP, payment_collection_method: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

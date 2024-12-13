@@ -82,7 +82,7 @@ module AdvancedBilling
                    base: SKIP, payment_profile_expiration_month: SKIP,
                    payment_profile_expiration_year: SKIP,
                    payment_profile_full_number: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

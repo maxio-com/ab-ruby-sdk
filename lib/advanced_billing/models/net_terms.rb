@@ -60,7 +60,7 @@ module AdvancedBilling
     def initialize(default_net_terms: 0, automatic_net_terms: 0,
                    remittance_net_terms: 0,
                    net_terms_on_remittance_signups_enabled: false,
-                   custom_net_terms_enabled: false, additional_properties = nil)
+                   custom_net_terms_enabled: false, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

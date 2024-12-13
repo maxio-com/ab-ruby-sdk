@@ -65,7 +65,7 @@ module AdvancedBilling
 
     def initialize(event_type:, metafield_name:, metafield_id:, old_value:,
                    new_value:, resource_type:, resource_id:,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

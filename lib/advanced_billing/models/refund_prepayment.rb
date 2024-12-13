@@ -52,7 +52,7 @@ module AdvancedBilling
     end
 
     def initialize(amount_in_cents:, amount:, memo:, external: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

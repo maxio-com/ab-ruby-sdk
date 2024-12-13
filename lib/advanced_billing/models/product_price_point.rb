@@ -208,7 +208,7 @@ module AdvancedBilling
                    archived_at: SKIP, created_at: SKIP, updated_at: SKIP,
                    use_site_exchange_rate: SKIP, type: SKIP, tax_included: SKIP,
                    subscription_id: SKIP, currency_prices: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

@@ -57,8 +57,7 @@ module AdvancedBilling
     end
 
     def initialize(total_count: SKIP, current_page: SKIP, total_pages: SKIP,
-                   per_page: SKIP, metafields: SKIP,
-                   additional_properties = nil)
+                   per_page: SKIP, metafields: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

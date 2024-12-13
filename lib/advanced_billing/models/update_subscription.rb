@@ -169,8 +169,7 @@ module AdvancedBilling
                    dunning_communication_delay_enabled: SKIP,
                    dunning_communication_delay_time_zone: SKIP,
                    product_price_point_id: SKIP,
-                   product_price_point_handle: SKIP,
-                   additional_properties = nil)
+                   product_price_point_handle: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

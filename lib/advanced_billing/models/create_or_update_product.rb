@@ -141,7 +141,7 @@ module AdvancedBilling
                    trial_type: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP,
                    auto_create_signup_page: SKIP, tax_code: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

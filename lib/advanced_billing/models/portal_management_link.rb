@@ -67,7 +67,7 @@ module AdvancedBilling
 
     def initialize(url: SKIP, fetch_count: SKIP, created_at: SKIP,
                    new_link_available_at: SKIP, expires_at: SKIP,
-                   last_invite_sent_at: SKIP, additional_properties = nil)
+                   last_invite_sent_at: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

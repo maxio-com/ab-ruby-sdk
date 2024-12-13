@@ -49,7 +49,7 @@ module AdvancedBilling
 
     def initialize(reason:, prepayment_account_balance_in_cents:,
                    prepayment_balance_change_in_cents:, currency_code:,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

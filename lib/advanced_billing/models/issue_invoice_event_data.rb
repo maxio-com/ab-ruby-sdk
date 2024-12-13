@@ -68,7 +68,7 @@ module AdvancedBilling
     end
 
     def initialize(consolidation_level:, from_status:, to_status:, due_amount:,
-                   total_amount:, additional_properties = nil)
+                   total_amount:, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

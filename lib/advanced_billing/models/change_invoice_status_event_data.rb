@@ -65,7 +65,7 @@ module AdvancedBilling
 
     def initialize(from_status:, to_status:, gateway_trans_id: SKIP,
                    amount: SKIP, consolidation_level: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

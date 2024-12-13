@@ -117,7 +117,7 @@ module AdvancedBilling
                    tax_amount: SKIP, transaction_id: SKIP,
                    line_item_breakouts: SKIP, tax_component_breakouts: SKIP,
                    eu_vat: SKIP, type: SKIP, tax_exempt_amount: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

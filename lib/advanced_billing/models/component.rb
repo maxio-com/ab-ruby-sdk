@@ -291,7 +291,7 @@ module AdvancedBilling
                    allow_fractional_quantities: SKIP, item_category: SKIP,
                    use_site_exchange_rate: SKIP, accounting_code: SKIP,
                    event_based_billing_metric_id: SKIP, interval: SKIP,
-                   interval_unit: SKIP, additional_properties = nil)
+                   interval_unit: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

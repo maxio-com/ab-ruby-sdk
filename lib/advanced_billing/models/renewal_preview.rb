@@ -93,7 +93,7 @@ module AdvancedBilling
                    total_tax_in_cents: SKIP, total_discount_in_cents: SKIP,
                    total_in_cents: SKIP, existing_balance_in_cents: SKIP,
                    total_amount_due_in_cents: SKIP, uncalculated_taxes: SKIP,
-                   line_items: SKIP, additional_properties = nil)
+                   line_items: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

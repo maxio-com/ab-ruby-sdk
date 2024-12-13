@@ -74,8 +74,7 @@ module AdvancedBilling
 
     def initialize(ip_address: SKIP, terms_url: SKIP, privacy_policy_url: SKIP,
                    return_refund_policy_url: SKIP, delivery_policy_url: SKIP,
-                   secure_checkout_policy_url: SKIP,
-                   additional_properties = nil)
+                   secure_checkout_policy_url: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

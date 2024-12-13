@@ -101,7 +101,7 @@ module AdvancedBilling
                    handle: SKIP, use_site_exchange_rate: true,
                    rollover_prepaid_remainder: SKIP,
                    renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
-                   expiration_interval_unit: SKIP, additional_properties = nil)
+                   expiration_interval_unit: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

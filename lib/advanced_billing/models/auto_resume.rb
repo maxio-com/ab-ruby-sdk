@@ -35,7 +35,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(automatically_resume_at: SKIP, additional_properties = nil)
+    def initialize(automatically_resume_at: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

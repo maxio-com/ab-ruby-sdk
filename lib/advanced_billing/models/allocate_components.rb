@@ -88,7 +88,7 @@ module AdvancedBilling
                    proration_downgrade_scheme: SKIP, allocations: SKIP,
                    accrue_charge: SKIP, upgrade_charge: SKIP,
                    downgrade_credit: SKIP, payment_collection_method: SKIP,
-                   initiate_dunning: SKIP, additional_properties = nil)
+                   initiate_dunning: SKIP, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

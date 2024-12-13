@@ -83,7 +83,7 @@ module AdvancedBilling
 
     def initialize(uid:, number:, role:, delivery_date:, created_at:,
                    due_amount:, paid_amount:, tax_amount:, total_amount:,
-                   product_name:, line_items:, additional_properties = nil)
+                   product_name:, line_items:, additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)

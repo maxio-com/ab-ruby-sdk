@@ -116,7 +116,7 @@ module AdvancedBilling
                    non_taxable_amount: SKIP, tax_name: SKIP, tax_type: SKIP,
                    rate_type: SKIP, tax_authority_type: SKIP,
                    state_assigned_no: SKIP, tax_sub_type: SKIP,
-                   additional_properties = nil)
+                   additional_properties : {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
