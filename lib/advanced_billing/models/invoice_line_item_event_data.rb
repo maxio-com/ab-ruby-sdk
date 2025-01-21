@@ -270,5 +270,35 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, title: #{@title}, description: #{@description}, quantity:"\
+      " #{@quantity}, quantity_delta: #{@quantity_delta}, unit_price: #{@unit_price},"\
+      " period_range_start: #{@period_range_start}, period_range_end: #{@period_range_end},"\
+      " amount: #{@amount}, line_references: #{@line_references}, pricing_details_index:"\
+      " #{@pricing_details_index}, pricing_details: #{@pricing_details}, tax_code: #{@tax_code},"\
+      " tax_amount: #{@tax_amount}, product_id: #{@product_id}, product_price_point_id:"\
+      " #{@product_price_point_id}, price_point_id: #{@price_point_id}, component_id:"\
+      " #{@component_id}, billing_schedule_item_id: #{@billing_schedule_item_id}, custom_item:"\
+      " #{@custom_item}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, title: #{@title.inspect}, description:"\
+      " #{@description.inspect}, quantity: #{@quantity.inspect}, quantity_delta:"\
+      " #{@quantity_delta.inspect}, unit_price: #{@unit_price.inspect}, period_range_start:"\
+      " #{@period_range_start.inspect}, period_range_end: #{@period_range_end.inspect}, amount:"\
+      " #{@amount.inspect}, line_references: #{@line_references.inspect}, pricing_details_index:"\
+      " #{@pricing_details_index.inspect}, pricing_details: #{@pricing_details.inspect}, tax_code:"\
+      " #{@tax_code.inspect}, tax_amount: #{@tax_amount.inspect}, product_id:"\
+      " #{@product_id.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
+      " price_point_id: #{@price_point_id.inspect}, component_id: #{@component_id.inspect},"\
+      " billing_schedule_item_id: #{@billing_schedule_item_id.inspect}, custom_item:"\
+      " #{@custom_item.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

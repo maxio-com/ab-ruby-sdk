@@ -170,5 +170,28 @@ module AdvancedBilling
     def to_custom_next_assessment_at
       DateTimeHelper.to_rfc3339(next_assessment_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} next_assessment_at: #{@next_assessment_at}, subtotal_in_cents:"\
+      " #{@subtotal_in_cents}, total_tax_in_cents: #{@total_tax_in_cents},"\
+      " total_discount_in_cents: #{@total_discount_in_cents}, total_in_cents: #{@total_in_cents},"\
+      " existing_balance_in_cents: #{@existing_balance_in_cents}, total_amount_due_in_cents:"\
+      " #{@total_amount_due_in_cents}, uncalculated_taxes: #{@uncalculated_taxes}, line_items:"\
+      " #{@line_items}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} next_assessment_at: #{@next_assessment_at.inspect}, subtotal_in_cents:"\
+      " #{@subtotal_in_cents.inspect}, total_tax_in_cents: #{@total_tax_in_cents.inspect},"\
+      " total_discount_in_cents: #{@total_discount_in_cents.inspect}, total_in_cents:"\
+      " #{@total_in_cents.inspect}, existing_balance_in_cents:"\
+      " #{@existing_balance_in_cents.inspect}, total_amount_due_in_cents:"\
+      " #{@total_amount_due_in_cents.inspect}, uncalculated_taxes: #{@uncalculated_taxes.inspect},"\
+      " line_items: #{@line_items.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -94,5 +94,23 @@ module AdvancedBilling
                                        credit_applied_in_cents: credit_applied_in_cents,
                                        additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} prorated_adjustment_in_cents: #{@prorated_adjustment_in_cents},"\
+      " charge_in_cents: #{@charge_in_cents}, payment_due_in_cents: #{@payment_due_in_cents},"\
+      " credit_applied_in_cents: #{@credit_applied_in_cents}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} prorated_adjustment_in_cents: #{@prorated_adjustment_in_cents.inspect},"\
+      " charge_in_cents: #{@charge_in_cents.inspect}, payment_due_in_cents:"\
+      " #{@payment_due_in_cents.inspect}, credit_applied_in_cents:"\
+      " #{@credit_applied_in_cents.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -153,5 +153,27 @@ module AdvancedBilling
                              initiate_dunning: initiate_dunning,
                              additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} proration_upgrade_scheme: #{@proration_upgrade_scheme},"\
+      " proration_downgrade_scheme: #{@proration_downgrade_scheme}, allocations: #{@allocations},"\
+      " accrue_charge: #{@accrue_charge}, upgrade_charge: #{@upgrade_charge}, downgrade_credit:"\
+      " #{@downgrade_credit}, payment_collection_method: #{@payment_collection_method},"\
+      " initiate_dunning: #{@initiate_dunning}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} proration_upgrade_scheme: #{@proration_upgrade_scheme.inspect},"\
+      " proration_downgrade_scheme: #{@proration_downgrade_scheme.inspect}, allocations:"\
+      " #{@allocations.inspect}, accrue_charge: #{@accrue_charge.inspect}, upgrade_charge:"\
+      " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect},"\
+      " payment_collection_method: #{@payment_collection_method.inspect}, initiate_dunning:"\
+      " #{@initiate_dunning.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

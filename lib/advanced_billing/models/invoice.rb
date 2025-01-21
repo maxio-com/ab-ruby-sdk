@@ -767,5 +767,67 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, uid: #{@uid}, site_id: #{@site_id}, customer_id:"\
+      " #{@customer_id}, subscription_id: #{@subscription_id}, number: #{@number},"\
+      " sequence_number: #{@sequence_number}, transaction_time: #{@transaction_time}, created_at:"\
+      " #{@created_at}, updated_at: #{@updated_at}, issue_date: #{@issue_date}, due_date:"\
+      " #{@due_date}, paid_date: #{@paid_date}, status: #{@status}, role: #{@role},"\
+      " parent_invoice_id: #{@parent_invoice_id}, collection_method: #{@collection_method},"\
+      " payment_instructions: #{@payment_instructions}, currency: #{@currency},"\
+      " consolidation_level: #{@consolidation_level}, parent_invoice_uid: #{@parent_invoice_uid},"\
+      " subscription_group_id: #{@subscription_group_id}, parent_invoice_number:"\
+      " #{@parent_invoice_number}, group_primary_subscription_id:"\
+      " #{@group_primary_subscription_id}, product_name: #{@product_name}, product_family_name:"\
+      " #{@product_family_name}, seller: #{@seller}, customer: #{@customer}, payer: #{@payer},"\
+      " recipient_emails: #{@recipient_emails}, net_terms: #{@net_terms}, memo: #{@memo},"\
+      " billing_address: #{@billing_address}, shipping_address: #{@shipping_address},"\
+      " subtotal_amount: #{@subtotal_amount}, discount_amount: #{@discount_amount}, tax_amount:"\
+      " #{@tax_amount}, total_amount: #{@total_amount}, credit_amount: #{@credit_amount},"\
+      " debit_amount: #{@debit_amount}, refund_amount: #{@refund_amount}, paid_amount:"\
+      " #{@paid_amount}, due_amount: #{@due_amount}, line_items: #{@line_items}, discounts:"\
+      " #{@discounts}, taxes: #{@taxes}, credits: #{@credits}, debits: #{@debits}, refunds:"\
+      " #{@refunds}, payments: #{@payments}, custom_fields: #{@custom_fields}, display_settings:"\
+      " #{@display_settings}, avatax_details: #{@avatax_details}, public_url: #{@public_url},"\
+      " previous_balance_data: #{@previous_balance_data}, public_url_expires_on:"\
+      " #{@public_url_expires_on}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, uid: #{@uid.inspect}, site_id: #{@site_id.inspect},"\
+      " customer_id: #{@customer_id.inspect}, subscription_id: #{@subscription_id.inspect},"\
+      " number: #{@number.inspect}, sequence_number: #{@sequence_number.inspect},"\
+      " transaction_time: #{@transaction_time.inspect}, created_at: #{@created_at.inspect},"\
+      " updated_at: #{@updated_at.inspect}, issue_date: #{@issue_date.inspect}, due_date:"\
+      " #{@due_date.inspect}, paid_date: #{@paid_date.inspect}, status: #{@status.inspect}, role:"\
+      " #{@role.inspect}, parent_invoice_id: #{@parent_invoice_id.inspect}, collection_method:"\
+      " #{@collection_method.inspect}, payment_instructions: #{@payment_instructions.inspect},"\
+      " currency: #{@currency.inspect}, consolidation_level: #{@consolidation_level.inspect},"\
+      " parent_invoice_uid: #{@parent_invoice_uid.inspect}, subscription_group_id:"\
+      " #{@subscription_group_id.inspect}, parent_invoice_number:"\
+      " #{@parent_invoice_number.inspect}, group_primary_subscription_id:"\
+      " #{@group_primary_subscription_id.inspect}, product_name: #{@product_name.inspect},"\
+      " product_family_name: #{@product_family_name.inspect}, seller: #{@seller.inspect},"\
+      " customer: #{@customer.inspect}, payer: #{@payer.inspect}, recipient_emails:"\
+      " #{@recipient_emails.inspect}, net_terms: #{@net_terms.inspect}, memo: #{@memo.inspect},"\
+      " billing_address: #{@billing_address.inspect}, shipping_address:"\
+      " #{@shipping_address.inspect}, subtotal_amount: #{@subtotal_amount.inspect},"\
+      " discount_amount: #{@discount_amount.inspect}, tax_amount: #{@tax_amount.inspect},"\
+      " total_amount: #{@total_amount.inspect}, credit_amount: #{@credit_amount.inspect},"\
+      " debit_amount: #{@debit_amount.inspect}, refund_amount: #{@refund_amount.inspect},"\
+      " paid_amount: #{@paid_amount.inspect}, due_amount: #{@due_amount.inspect}, line_items:"\
+      " #{@line_items.inspect}, discounts: #{@discounts.inspect}, taxes: #{@taxes.inspect},"\
+      " credits: #{@credits.inspect}, debits: #{@debits.inspect}, refunds: #{@refunds.inspect},"\
+      " payments: #{@payments.inspect}, custom_fields: #{@custom_fields.inspect},"\
+      " display_settings: #{@display_settings.inspect}, avatax_details:"\
+      " #{@avatax_details.inspect}, public_url: #{@public_url.inspect}, previous_balance_data:"\
+      " #{@previous_balance_data.inspect}, public_url_expires_on:"\
+      " #{@public_url_expires_on.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

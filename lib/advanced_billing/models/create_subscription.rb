@@ -749,5 +749,77 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_handle: #{@product_handle}, product_id: #{@product_id},"\
+      " product_price_point_handle: #{@product_price_point_handle}, product_price_point_id:"\
+      " #{@product_price_point_id}, custom_price: #{@custom_price}, coupon_code: #{@coupon_code},"\
+      " coupon_codes: #{@coupon_codes}, payment_collection_method: #{@payment_collection_method},"\
+      " receives_invoice_emails: #{@receives_invoice_emails}, net_terms: #{@net_terms},"\
+      " customer_id: #{@customer_id}, next_billing_at: #{@next_billing_at}, initial_billing_at:"\
+      " #{@initial_billing_at}, stored_credential_transaction_id:"\
+      " #{@stored_credential_transaction_id}, sales_rep_id: #{@sales_rep_id}, payment_profile_id:"\
+      " #{@payment_profile_id}, reference: #{@reference}, customer_attributes:"\
+      " #{@customer_attributes}, payment_profile_attributes: #{@payment_profile_attributes},"\
+      " credit_card_attributes: #{@credit_card_attributes}, bank_account_attributes:"\
+      " #{@bank_account_attributes}, components: #{@components}, calendar_billing:"\
+      " #{@calendar_billing}, metafields: #{@metafields}, customer_reference:"\
+      " #{@customer_reference}, group: #{@group}, ref: #{@ref}, cancellation_message:"\
+      " #{@cancellation_message}, cancellation_method: #{@cancellation_method}, currency:"\
+      " #{@currency}, expires_at: #{@expires_at}, expiration_tracks_next_billing_change:"\
+      " #{@expiration_tracks_next_billing_change}, agreement_terms: #{@agreement_terms},"\
+      " authorizer_first_name: #{@authorizer_first_name}, authorizer_last_name:"\
+      " #{@authorizer_last_name}, calendar_billing_first_charge:"\
+      " #{@calendar_billing_first_charge}, reason_code: #{@reason_code}, product_change_delayed:"\
+      " #{@product_change_delayed}, offer_id: #{@offer_id}, prepaid_configuration:"\
+      " #{@prepaid_configuration}, previous_billing_at: #{@previous_billing_at}, import_mrr:"\
+      " #{@import_mrr}, canceled_at: #{@canceled_at}, activated_at: #{@activated_at},"\
+      " agreement_acceptance: #{@agreement_acceptance}, ach_agreement: #{@ach_agreement},"\
+      " dunning_communication_delay_enabled: #{@dunning_communication_delay_enabled},"\
+      " dunning_communication_delay_time_zone: #{@dunning_communication_delay_time_zone},"\
+      " skip_billing_manifest_taxes: #{@skip_billing_manifest_taxes}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_handle: #{@product_handle.inspect}, product_id:"\
+      " #{@product_id.inspect}, product_price_point_handle:"\
+      " #{@product_price_point_handle.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, custom_price: #{@custom_price.inspect}, coupon_code:"\
+      " #{@coupon_code.inspect}, coupon_codes: #{@coupon_codes.inspect},"\
+      " payment_collection_method: #{@payment_collection_method.inspect}, receives_invoice_emails:"\
+      " #{@receives_invoice_emails.inspect}, net_terms: #{@net_terms.inspect}, customer_id:"\
+      " #{@customer_id.inspect}, next_billing_at: #{@next_billing_at.inspect}, initial_billing_at:"\
+      " #{@initial_billing_at.inspect}, stored_credential_transaction_id:"\
+      " #{@stored_credential_transaction_id.inspect}, sales_rep_id: #{@sales_rep_id.inspect},"\
+      " payment_profile_id: #{@payment_profile_id.inspect}, reference: #{@reference.inspect},"\
+      " customer_attributes: #{@customer_attributes.inspect}, payment_profile_attributes:"\
+      " #{@payment_profile_attributes.inspect}, credit_card_attributes:"\
+      " #{@credit_card_attributes.inspect}, bank_account_attributes:"\
+      " #{@bank_account_attributes.inspect}, components: #{@components.inspect}, calendar_billing:"\
+      " #{@calendar_billing.inspect}, metafields: #{@metafields.inspect}, customer_reference:"\
+      " #{@customer_reference.inspect}, group: #{@group.inspect}, ref: #{@ref.inspect},"\
+      " cancellation_message: #{@cancellation_message.inspect}, cancellation_method:"\
+      " #{@cancellation_method.inspect}, currency: #{@currency.inspect}, expires_at:"\
+      " #{@expires_at.inspect}, expiration_tracks_next_billing_change:"\
+      " #{@expiration_tracks_next_billing_change.inspect}, agreement_terms:"\
+      " #{@agreement_terms.inspect}, authorizer_first_name: #{@authorizer_first_name.inspect},"\
+      " authorizer_last_name: #{@authorizer_last_name.inspect}, calendar_billing_first_charge:"\
+      " #{@calendar_billing_first_charge.inspect}, reason_code: #{@reason_code.inspect},"\
+      " product_change_delayed: #{@product_change_delayed.inspect}, offer_id:"\
+      " #{@offer_id.inspect}, prepaid_configuration: #{@prepaid_configuration.inspect},"\
+      " previous_billing_at: #{@previous_billing_at.inspect}, import_mrr: #{@import_mrr.inspect},"\
+      " canceled_at: #{@canceled_at.inspect}, activated_at: #{@activated_at.inspect},"\
+      " agreement_acceptance: #{@agreement_acceptance.inspect}, ach_agreement:"\
+      " #{@ach_agreement.inspect}, dunning_communication_delay_enabled:"\
+      " #{@dunning_communication_delay_enabled.inspect}, dunning_communication_delay_time_zone:"\
+      " #{@dunning_communication_delay_time_zone.inspect}, skip_billing_manifest_taxes:"\
+      " #{@skip_billing_manifest_taxes.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

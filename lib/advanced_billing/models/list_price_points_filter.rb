@@ -153,5 +153,23 @@ module AdvancedBilling
     def to_custom_end_datetime
       DateTimeHelper.to_rfc3339(end_datetime)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} date_field: #{@date_field}, start_date: #{@start_date}, end_date:"\
+      " #{@end_date}, start_datetime: #{@start_datetime}, end_datetime: #{@end_datetime}, type:"\
+      " #{@type}, ids: #{@ids}, archived_at: #{@archived_at}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} date_field: #{@date_field.inspect}, start_date: #{@start_date.inspect},"\
+      " end_date: #{@end_date.inspect}, start_datetime: #{@start_datetime.inspect}, end_datetime:"\
+      " #{@end_datetime.inspect}, type: #{@type.inspect}, ids: #{@ids.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

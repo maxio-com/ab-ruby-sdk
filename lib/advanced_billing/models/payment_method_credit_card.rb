@@ -120,5 +120,22 @@ module AdvancedBilling
                                 ->(val) { InvoiceEventPaymentMethod.validate(val) })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} card_brand: #{@card_brand}, card_expiration: #{@card_expiration},"\
+      " last_four: #{@last_four}, masked_card_number: #{@masked_card_number}, type: #{@type},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} card_brand: #{@card_brand.inspect}, card_expiration:"\
+      " #{@card_expiration.inspect}, last_four: #{@last_four.inspect}, masked_card_number:"\
+      " #{@masked_card_number.inspect}, type: #{@type.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

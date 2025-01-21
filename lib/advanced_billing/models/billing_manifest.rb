@@ -169,5 +169,28 @@ module AdvancedBilling
     def to_custom_end_date
       DateTimeHelper.to_rfc3339(end_date)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} line_items: #{@line_items}, total_in_cents: #{@total_in_cents},"\
+      " total_discount_in_cents: #{@total_discount_in_cents}, total_tax_in_cents:"\
+      " #{@total_tax_in_cents}, subtotal_in_cents: #{@subtotal_in_cents}, start_date:"\
+      " #{@start_date}, end_date: #{@end_date}, period_type: #{@period_type},"\
+      " existing_balance_in_cents: #{@existing_balance_in_cents}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} line_items: #{@line_items.inspect}, total_in_cents:"\
+      " #{@total_in_cents.inspect}, total_discount_in_cents: #{@total_discount_in_cents.inspect},"\
+      " total_tax_in_cents: #{@total_tax_in_cents.inspect}, subtotal_in_cents:"\
+      " #{@subtotal_in_cents.inspect}, start_date: #{@start_date.inspect}, end_date:"\
+      " #{@end_date.inspect}, period_type: #{@period_type.inspect}, existing_balance_in_cents:"\
+      " #{@existing_balance_in_cents.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

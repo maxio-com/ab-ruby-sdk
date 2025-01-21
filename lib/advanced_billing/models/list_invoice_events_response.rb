@@ -95,5 +95,20 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} events: #{@events}, page: #{@page}, per_page: #{@per_page}, total_pages:"\
+      " #{@total_pages}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} events: #{@events.inspect}, page: #{@page.inspect}, per_page:"\
+      " #{@per_page.inspect}, total_pages: #{@total_pages.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

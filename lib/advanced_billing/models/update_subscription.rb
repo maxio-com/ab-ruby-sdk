@@ -308,5 +308,43 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} credit_card_attributes: #{@credit_card_attributes}, product_handle:"\
+      " #{@product_handle}, product_id: #{@product_id}, product_change_delayed:"\
+      " #{@product_change_delayed}, next_product_id: #{@next_product_id},"\
+      " next_product_price_point_id: #{@next_product_price_point_id}, snap_day: #{@snap_day},"\
+      " next_billing_at: #{@next_billing_at}, payment_collection_method:"\
+      " #{@payment_collection_method}, receives_invoice_emails: #{@receives_invoice_emails},"\
+      " net_terms: #{@net_terms}, stored_credential_transaction_id:"\
+      " #{@stored_credential_transaction_id}, reference: #{@reference}, custom_price:"\
+      " #{@custom_price}, components: #{@components}, dunning_communication_delay_enabled:"\
+      " #{@dunning_communication_delay_enabled}, dunning_communication_delay_time_zone:"\
+      " #{@dunning_communication_delay_time_zone}, product_price_point_id:"\
+      " #{@product_price_point_id}, product_price_point_handle: #{@product_price_point_handle},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} credit_card_attributes: #{@credit_card_attributes.inspect}, product_handle:"\
+      " #{@product_handle.inspect}, product_id: #{@product_id.inspect}, product_change_delayed:"\
+      " #{@product_change_delayed.inspect}, next_product_id: #{@next_product_id.inspect},"\
+      " next_product_price_point_id: #{@next_product_price_point_id.inspect}, snap_day:"\
+      " #{@snap_day.inspect}, next_billing_at: #{@next_billing_at.inspect},"\
+      " payment_collection_method: #{@payment_collection_method.inspect}, receives_invoice_emails:"\
+      " #{@receives_invoice_emails.inspect}, net_terms: #{@net_terms.inspect},"\
+      " stored_credential_transaction_id: #{@stored_credential_transaction_id.inspect}, reference:"\
+      " #{@reference.inspect}, custom_price: #{@custom_price.inspect}, components:"\
+      " #{@components.inspect}, dunning_communication_delay_enabled:"\
+      " #{@dunning_communication_delay_enabled.inspect}, dunning_communication_delay_time_zone:"\
+      " #{@dunning_communication_delay_time_zone.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, product_price_point_handle:"\
+      " #{@product_price_point_handle.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -187,5 +187,32 @@ module AdvancedBilling
                                  period_range_end: period_range_end,
                                  additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_type: #{@transaction_type}, kind: #{@kind}, amount_in_cents:"\
+      " #{@amount_in_cents}, memo: #{@memo}, discount_amount_in_cents:"\
+      " #{@discount_amount_in_cents}, taxable_amount_in_cents: #{@taxable_amount_in_cents},"\
+      " product_id: #{@product_id}, product_name: #{@product_name}, component_id:"\
+      " #{@component_id}, component_handle: #{@component_handle}, component_name:"\
+      " #{@component_name}, product_handle: #{@product_handle}, period_range_start:"\
+      " #{@period_range_start}, period_range_end: #{@period_range_end}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_type: #{@transaction_type.inspect}, kind: #{@kind.inspect},"\
+      " amount_in_cents: #{@amount_in_cents.inspect}, memo: #{@memo.inspect},"\
+      " discount_amount_in_cents: #{@discount_amount_in_cents.inspect}, taxable_amount_in_cents:"\
+      " #{@taxable_amount_in_cents.inspect}, product_id: #{@product_id.inspect}, product_name:"\
+      " #{@product_name.inspect}, component_id: #{@component_id.inspect}, component_handle:"\
+      " #{@component_handle.inspect}, component_name: #{@component_name.inspect}, product_handle:"\
+      " #{@product_handle.inspect}, period_range_start: #{@period_range_start.inspect},"\
+      " period_range_end: #{@period_range_end.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

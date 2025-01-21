@@ -83,5 +83,19 @@ module AdvancedBilling
                                  prices: prices,
                                  additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, pricing_scheme: #{@pricing_scheme}, prices: #{@prices},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, pricing_scheme: #{@pricing_scheme.inspect}, prices:"\
+      " #{@prices.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

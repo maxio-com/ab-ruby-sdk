@@ -392,5 +392,29 @@ module AdvancedBilling
     def to_custom_next_assessment_at
       DateTimeHelper.to_rfc3339(next_assessment_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, scheme: #{@scheme}, customer_id: #{@customer_id},"\
+      " payment_profile_id: #{@payment_profile_id}, subscription_ids: #{@subscription_ids},"\
+      " primary_subscription_id: #{@primary_subscription_id}, next_assessment_at:"\
+      " #{@next_assessment_at}, state: #{@state}, cancel_at_end_of_period:"\
+      " #{@cancel_at_end_of_period}, subscriptions: #{@subscriptions}, payment_collection_method:"\
+      " #{@payment_collection_method}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, scheme: #{@scheme.inspect}, customer_id:"\
+      " #{@customer_id.inspect}, payment_profile_id: #{@payment_profile_id.inspect},"\
+      " subscription_ids: #{@subscription_ids.inspect}, primary_subscription_id:"\
+      " #{@primary_subscription_id.inspect}, next_assessment_at: #{@next_assessment_at.inspect},"\
+      " state: #{@state.inspect}, cancel_at_end_of_period: #{@cancel_at_end_of_period.inspect},"\
+      " subscriptions: #{@subscriptions.inspect}, payment_collection_method:"\
+      " #{@payment_collection_method.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -67,5 +67,21 @@ module AdvancedBilling
                                 next_proforma_invoice: next_proforma_invoice,
                                 additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} current_proforma_invoice: #{@current_proforma_invoice},"\
+      " next_proforma_invoice: #{@next_proforma_invoice}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} current_proforma_invoice: #{@current_proforma_invoice.inspect},"\
+      " next_proforma_invoice: #{@next_proforma_invoice.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

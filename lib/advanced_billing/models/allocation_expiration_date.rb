@@ -64,5 +64,19 @@ module AdvancedBilling
     def to_custom_expires_at
       DateTimeHelper.to_rfc3339(expires_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} expires_at: #{@expires_at}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} expires_at: #{@expires_at.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -214,5 +214,32 @@ module AdvancedBilling
                                 ->(val) { IntervalUnit.validate(val) })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, handle: #{@handle}, price_in_cents: #{@price_in_cents},"\
+      " interval: #{@interval}, interval_unit: #{@interval_unit}, trial_price_in_cents:"\
+      " #{@trial_price_in_cents}, trial_interval: #{@trial_interval}, trial_interval_unit:"\
+      " #{@trial_interval_unit}, initial_charge_in_cents: #{@initial_charge_in_cents},"\
+      " initial_charge_after_trial: #{@initial_charge_after_trial}, expiration_interval:"\
+      " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit},"\
+      " tax_included: #{@tax_included}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, handle: #{@handle.inspect}, price_in_cents:"\
+      " #{@price_in_cents.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, trial_price_in_cents: #{@trial_price_in_cents.inspect},"\
+      " trial_interval: #{@trial_interval.inspect}, trial_interval_unit:"\
+      " #{@trial_interval_unit.inspect}, initial_charge_in_cents:"\
+      " #{@initial_charge_in_cents.inspect}, initial_charge_after_trial:"\
+      " #{@initial_charge_after_trial.inspect}, expiration_interval:"\
+      " #{@expiration_interval.inspect}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit.inspect}, tax_included: #{@tax_included.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

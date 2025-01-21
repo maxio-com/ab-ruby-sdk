@@ -69,5 +69,19 @@ module AdvancedBilling
       IssueInvoiceRequest.new(on_failed_payment: on_failed_payment,
                               additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} on_failed_payment: #{@on_failed_payment}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} on_failed_payment: #{@on_failed_payment.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

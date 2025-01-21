@@ -479,5 +479,50 @@ module AdvancedBilling
     def to_custom_archived_at
       DateTimeHelper.to_rfc3339(archived_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, pricing_scheme:"\
+      " #{@pricing_scheme}, unit_name: #{@unit_name}, unit_price: #{@unit_price},"\
+      " product_family_id: #{@product_family_id}, product_family_name: #{@product_family_name},"\
+      " price_per_unit_in_cents: #{@price_per_unit_in_cents}, kind: #{@kind}, archived:"\
+      " #{@archived}, taxable: #{@taxable}, description: #{@description}, default_price_point_id:"\
+      " #{@default_price_point_id}, overage_prices: #{@overage_prices}, prices: #{@prices},"\
+      " price_point_count: #{@price_point_count}, price_points_url: #{@price_points_url},"\
+      " default_price_point_name: #{@default_price_point_name}, tax_code: #{@tax_code}, recurring:"\
+      " #{@recurring}, upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit},"\
+      " created_at: #{@created_at}, updated_at: #{@updated_at}, archived_at: #{@archived_at},"\
+      " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities}, item_category: #{@item_category}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate}, accounting_code: #{@accounting_code},"\
+      " event_based_billing_metric_id: #{@event_based_billing_metric_id}, interval: #{@interval},"\
+      " interval_unit: #{@interval_unit}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
+      " pricing_scheme: #{@pricing_scheme.inspect}, unit_name: #{@unit_name.inspect}, unit_price:"\
+      " #{@unit_price.inspect}, product_family_id: #{@product_family_id.inspect},"\
+      " product_family_name: #{@product_family_name.inspect}, price_per_unit_in_cents:"\
+      " #{@price_per_unit_in_cents.inspect}, kind: #{@kind.inspect}, archived:"\
+      " #{@archived.inspect}, taxable: #{@taxable.inspect}, description: #{@description.inspect},"\
+      " default_price_point_id: #{@default_price_point_id.inspect}, overage_prices:"\
+      " #{@overage_prices.inspect}, prices: #{@prices.inspect}, price_point_count:"\
+      " #{@price_point_count.inspect}, price_points_url: #{@price_points_url.inspect},"\
+      " default_price_point_name: #{@default_price_point_name.inspect}, tax_code:"\
+      " #{@tax_code.inspect}, recurring: #{@recurring.inspect}, upgrade_charge:"\
+      " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect}, created_at:"\
+      " #{@created_at.inspect}, updated_at: #{@updated_at.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, hide_date_range_on_invoice:"\
+      " #{@hide_date_range_on_invoice.inspect}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities.inspect}, item_category: #{@item_category.inspect},"\
+      " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, accounting_code:"\
+      " #{@accounting_code.inspect}, event_based_billing_metric_id:"\
+      " #{@event_based_billing_metric_id.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

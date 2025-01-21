@@ -85,5 +85,19 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? Integer })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_id: #{@product_id}, account_transaction_id:"\
+      " #{@account_transaction_id}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_id: #{@product_id.inspect}, account_transaction_id:"\
+      " #{@account_transaction_id.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

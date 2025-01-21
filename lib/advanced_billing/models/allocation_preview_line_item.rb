@@ -136,5 +136,26 @@ module AdvancedBilling
                                     direction: direction,
                                     additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_type: #{@transaction_type}, kind: #{@kind}, amount_in_cents:"\
+      " #{@amount_in_cents}, memo: #{@memo}, discount_amount_in_cents:"\
+      " #{@discount_amount_in_cents}, taxable_amount_in_cents: #{@taxable_amount_in_cents},"\
+      " component_id: #{@component_id}, component_handle: #{@component_handle}, direction:"\
+      " #{@direction}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_type: #{@transaction_type.inspect}, kind: #{@kind.inspect},"\
+      " amount_in_cents: #{@amount_in_cents.inspect}, memo: #{@memo.inspect},"\
+      " discount_amount_in_cents: #{@discount_amount_in_cents.inspect}, taxable_amount_in_cents:"\
+      " #{@taxable_amount_in_cents.inspect}, component_id: #{@component_id.inspect},"\
+      " component_handle: #{@component_handle.inspect}, direction: #{@direction.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

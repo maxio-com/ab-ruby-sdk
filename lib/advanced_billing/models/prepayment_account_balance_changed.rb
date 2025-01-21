@@ -113,5 +113,23 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} reason: #{@reason}, prepayment_account_balance_in_cents:"\
+      " #{@prepayment_account_balance_in_cents}, prepayment_balance_change_in_cents:"\
+      " #{@prepayment_balance_change_in_cents}, currency_code: #{@currency_code},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} reason: #{@reason.inspect}, prepayment_account_balance_in_cents:"\
+      " #{@prepayment_account_balance_in_cents.inspect}, prepayment_balance_change_in_cents:"\
+      " #{@prepayment_balance_change_in_cents.inspect}, currency_code: #{@currency_code.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -361,5 +361,40 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} chargify_token: #{@chargify_token}, id: #{@id}, payment_type:"\
+      " #{@payment_type}, first_name: #{@first_name}, last_name: #{@last_name},"\
+      " masked_card_number: #{@masked_card_number}, full_number: #{@full_number}, card_type:"\
+      " #{@card_type}, expiration_month: #{@expiration_month}, expiration_year:"\
+      " #{@expiration_year}, billing_address: #{@billing_address}, billing_address_2:"\
+      " #{@billing_address_2}, billing_city: #{@billing_city}, billing_state: #{@billing_state},"\
+      " billing_country: #{@billing_country}, billing_zip: #{@billing_zip}, current_vault:"\
+      " #{@current_vault}, vault_token: #{@vault_token}, customer_vault_token:"\
+      " #{@customer_vault_token}, customer_id: #{@customer_id}, paypal_email: #{@paypal_email},"\
+      " payment_method_nonce: #{@payment_method_nonce}, gateway_handle: #{@gateway_handle}, cvv:"\
+      " #{@cvv}, last_four: #{@last_four}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} chargify_token: #{@chargify_token.inspect}, id: #{@id.inspect},"\
+      " payment_type: #{@payment_type.inspect}, first_name: #{@first_name.inspect}, last_name:"\
+      " #{@last_name.inspect}, masked_card_number: #{@masked_card_number.inspect}, full_number:"\
+      " #{@full_number.inspect}, card_type: #{@card_type.inspect}, expiration_month:"\
+      " #{@expiration_month.inspect}, expiration_year: #{@expiration_year.inspect},"\
+      " billing_address: #{@billing_address.inspect}, billing_address_2:"\
+      " #{@billing_address_2.inspect}, billing_city: #{@billing_city.inspect}, billing_state:"\
+      " #{@billing_state.inspect}, billing_country: #{@billing_country.inspect}, billing_zip:"\
+      " #{@billing_zip.inspect}, current_vault: #{@current_vault.inspect}, vault_token:"\
+      " #{@vault_token.inspect}, customer_vault_token: #{@customer_vault_token.inspect},"\
+      " customer_id: #{@customer_id.inspect}, paypal_email: #{@paypal_email.inspect},"\
+      " payment_method_nonce: #{@payment_method_nonce.inspect}, gateway_handle:"\
+      " #{@gateway_handle.inspect}, cvv: #{@cvv.inspect}, last_four: #{@last_four.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

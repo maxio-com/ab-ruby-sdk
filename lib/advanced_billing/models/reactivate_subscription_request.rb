@@ -128,5 +128,24 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} calendar_billing: #{@calendar_billing}, include_trial: #{@include_trial},"\
+      " preserve_balance: #{@preserve_balance}, coupon_code: #{@coupon_code},"\
+      " use_credits_and_prepayments: #{@use_credits_and_prepayments}, resume: #{@resume},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} calendar_billing: #{@calendar_billing.inspect}, include_trial:"\
+      " #{@include_trial.inspect}, preserve_balance: #{@preserve_balance.inspect}, coupon_code:"\
+      " #{@coupon_code.inspect}, use_credits_and_prepayments:"\
+      " #{@use_credits_and_prepayments.inspect}, resume: #{@resume.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

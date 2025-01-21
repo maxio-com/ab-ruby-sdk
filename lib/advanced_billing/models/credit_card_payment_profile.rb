@@ -300,5 +300,37 @@ module AdvancedBilling
       APIHelper.valid_type?(value['payment_type'],
                             ->(val) { PaymentType.validate(val) })
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, first_name: #{@first_name}, last_name: #{@last_name},"\
+      " masked_card_number: #{@masked_card_number}, card_type: #{@card_type}, expiration_month:"\
+      " #{@expiration_month}, expiration_year: #{@expiration_year}, customer_id: #{@customer_id},"\
+      " current_vault: #{@current_vault}, vault_token: #{@vault_token}, billing_address:"\
+      " #{@billing_address}, billing_city: #{@billing_city}, billing_state: #{@billing_state},"\
+      " billing_zip: #{@billing_zip}, billing_country: #{@billing_country}, customer_vault_token:"\
+      " #{@customer_vault_token}, billing_address_2: #{@billing_address_2}, payment_type:"\
+      " #{@payment_type}, disabled: #{@disabled}, chargify_token: #{@chargify_token},"\
+      " site_gateway_setting_id: #{@site_gateway_setting_id}, gateway_handle: #{@gateway_handle},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, first_name: #{@first_name.inspect}, last_name:"\
+      " #{@last_name.inspect}, masked_card_number: #{@masked_card_number.inspect}, card_type:"\
+      " #{@card_type.inspect}, expiration_month: #{@expiration_month.inspect}, expiration_year:"\
+      " #{@expiration_year.inspect}, customer_id: #{@customer_id.inspect}, current_vault:"\
+      " #{@current_vault.inspect}, vault_token: #{@vault_token.inspect}, billing_address:"\
+      " #{@billing_address.inspect}, billing_city: #{@billing_city.inspect}, billing_state:"\
+      " #{@billing_state.inspect}, billing_zip: #{@billing_zip.inspect}, billing_country:"\
+      " #{@billing_country.inspect}, customer_vault_token: #{@customer_vault_token.inspect},"\
+      " billing_address_2: #{@billing_address_2.inspect}, payment_type: #{@payment_type.inspect},"\
+      " disabled: #{@disabled.inspect}, chargify_token: #{@chargify_token.inspect},"\
+      " site_gateway_setting_id: #{@site_gateway_setting_id.inspect}, gateway_handle:"\
+      " #{@gateway_handle.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

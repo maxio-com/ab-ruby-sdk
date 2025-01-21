@@ -102,5 +102,19 @@ module AdvancedBilling
                                 is_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} dunner: #{@dunner}, current_step: #{@current_step}, next_step:"\
+      " #{@next_step}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} dunner: #{@dunner.inspect}, current_step: #{@current_step.inspect},"\
+      " next_step: #{@next_step.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

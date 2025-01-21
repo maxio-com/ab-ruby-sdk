@@ -525,5 +525,47 @@ module AdvancedBilling
     def to_custom_created_at
       DateTimeHelper.to_rfc3339(created_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, site_id: #{@site_id}, customer_id: #{@customer_id},"\
+      " subscription_id: #{@subscription_id}, number: #{@number}, sequence_number:"\
+      " #{@sequence_number}, created_at: #{@created_at}, delivery_date: #{@delivery_date}, status:"\
+      " #{@status}, collection_method: #{@collection_method}, payment_instructions:"\
+      " #{@payment_instructions}, currency: #{@currency}, consolidation_level:"\
+      " #{@consolidation_level}, product_name: #{@product_name}, product_family_name:"\
+      " #{@product_family_name}, role: #{@role}, seller: #{@seller}, customer: #{@customer}, memo:"\
+      " #{@memo}, billing_address: #{@billing_address}, shipping_address: #{@shipping_address},"\
+      " subtotal_amount: #{@subtotal_amount}, discount_amount: #{@discount_amount}, tax_amount:"\
+      " #{@tax_amount}, total_amount: #{@total_amount}, credit_amount: #{@credit_amount},"\
+      " paid_amount: #{@paid_amount}, refund_amount: #{@refund_amount}, due_amount:"\
+      " #{@due_amount}, line_items: #{@line_items}, discounts: #{@discounts}, taxes: #{@taxes},"\
+      " credits: #{@credits}, payments: #{@payments}, custom_fields: #{@custom_fields},"\
+      " public_url: #{@public_url}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, site_id: #{@site_id.inspect}, customer_id:"\
+      " #{@customer_id.inspect}, subscription_id: #{@subscription_id.inspect}, number:"\
+      " #{@number.inspect}, sequence_number: #{@sequence_number.inspect}, created_at:"\
+      " #{@created_at.inspect}, delivery_date: #{@delivery_date.inspect}, status:"\
+      " #{@status.inspect}, collection_method: #{@collection_method.inspect},"\
+      " payment_instructions: #{@payment_instructions.inspect}, currency: #{@currency.inspect},"\
+      " consolidation_level: #{@consolidation_level.inspect}, product_name:"\
+      " #{@product_name.inspect}, product_family_name: #{@product_family_name.inspect}, role:"\
+      " #{@role.inspect}, seller: #{@seller.inspect}, customer: #{@customer.inspect}, memo:"\
+      " #{@memo.inspect}, billing_address: #{@billing_address.inspect}, shipping_address:"\
+      " #{@shipping_address.inspect}, subtotal_amount: #{@subtotal_amount.inspect},"\
+      " discount_amount: #{@discount_amount.inspect}, tax_amount: #{@tax_amount.inspect},"\
+      " total_amount: #{@total_amount.inspect}, credit_amount: #{@credit_amount.inspect},"\
+      " paid_amount: #{@paid_amount.inspect}, refund_amount: #{@refund_amount.inspect},"\
+      " due_amount: #{@due_amount.inspect}, line_items: #{@line_items.inspect}, discounts:"\
+      " #{@discounts.inspect}, taxes: #{@taxes.inspect}, credits: #{@credits.inspect}, payments:"\
+      " #{@payments.inspect}, custom_fields: #{@custom_fields.inspect}, public_url:"\
+      " #{@public_url.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

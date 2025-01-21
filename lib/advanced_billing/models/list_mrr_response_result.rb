@@ -121,5 +121,23 @@ module AdvancedBilling
                                 movements: movements,
                                 additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} page: #{@page}, per_page: #{@per_page}, total_pages: #{@total_pages},"\
+      " total_entries: #{@total_entries}, currency: #{@currency}, currency_symbol:"\
+      " #{@currency_symbol}, movements: #{@movements}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} page: #{@page.inspect}, per_page: #{@per_page.inspect}, total_pages:"\
+      " #{@total_pages.inspect}, total_entries: #{@total_entries.inspect}, currency:"\
+      " #{@currency.inspect}, currency_symbol: #{@currency_symbol.inspect}, movements:"\
+      " #{@movements.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

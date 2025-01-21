@@ -67,5 +67,19 @@ module AdvancedBilling
                                   deposit_2_in_cents: deposit_2_in_cents,
                                   additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} deposit_1_in_cents: #{@deposit_1_in_cents}, deposit_2_in_cents:"\
+      " #{@deposit_2_in_cents}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} deposit_1_in_cents: #{@deposit_1_in_cents.inspect}, deposit_2_in_cents:"\
+      " #{@deposit_2_in_cents.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

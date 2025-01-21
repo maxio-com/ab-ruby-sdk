@@ -262,5 +262,29 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? Integer })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, unit_name: #{@unit_name}, description: #{@description},"\
+      " handle: #{@handle}, taxable: #{@taxable}, pricing_scheme: #{@pricing_scheme}, prices:"\
+      " #{@prices}, price_points: #{@price_points}, unit_price: #{@unit_price}, tax_code:"\
+      " #{@tax_code}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice},"\
+      " event_based_billing_metric_id: #{@event_based_billing_metric_id}, interval: #{@interval},"\
+      " interval_unit: #{@interval_unit}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, unit_name: #{@unit_name.inspect}, description:"\
+      " #{@description.inspect}, handle: #{@handle.inspect}, taxable: #{@taxable.inspect},"\
+      " pricing_scheme: #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, price_points:"\
+      " #{@price_points.inspect}, unit_price: #{@unit_price.inspect}, tax_code:"\
+      " #{@tax_code.inspect}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect},"\
+      " event_based_billing_metric_id: #{@event_based_billing_metric_id.inspect}, interval:"\
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

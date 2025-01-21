@@ -143,5 +143,29 @@ module AdvancedBilling
                                              payment_profile_full_number: payment_profile_full_number,
                                              additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product: #{@product}, product_price_point_id: #{@product_price_point_id},"\
+      " payment_profile: #{@payment_profile}, payment_profile_chargify_token:"\
+      " #{@payment_profile_chargify_token}, base: #{@base}, payment_profile_expiration_month:"\
+      " #{@payment_profile_expiration_month}, payment_profile_expiration_year:"\
+      " #{@payment_profile_expiration_year}, payment_profile_full_number:"\
+      " #{@payment_profile_full_number}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product: #{@product.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, payment_profile: #{@payment_profile.inspect},"\
+      " payment_profile_chargify_token: #{@payment_profile_chargify_token.inspect}, base:"\
+      " #{@base.inspect}, payment_profile_expiration_month:"\
+      " #{@payment_profile_expiration_month.inspect}, payment_profile_expiration_year:"\
+      " #{@payment_profile_expiration_year.inspect}, payment_profile_full_number:"\
+      " #{@payment_profile_full_number.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

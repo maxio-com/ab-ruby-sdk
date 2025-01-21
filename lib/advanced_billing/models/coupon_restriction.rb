@@ -94,5 +94,20 @@ module AdvancedBilling
                             handle: handle,
                             additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, item_type: #{@item_type}, item_id: #{@item_id}, name: #{@name},"\
+      " handle: #{@handle}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, item_type: #{@item_type.inspect}, item_id:"\
+      " #{@item_id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

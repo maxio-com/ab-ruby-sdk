@@ -347,5 +347,42 @@ module AdvancedBilling
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, price_in_cents:"\
+      " #{@price_in_cents}, interval: #{@interval}, interval_unit: #{@interval_unit},"\
+      " trial_price_in_cents: #{@trial_price_in_cents}, trial_interval: #{@trial_interval},"\
+      " trial_interval_unit: #{@trial_interval_unit}, trial_type: #{@trial_type},"\
+      " introductory_offer: #{@introductory_offer}, initial_charge_in_cents:"\
+      " #{@initial_charge_in_cents}, initial_charge_after_trial: #{@initial_charge_after_trial},"\
+      " expiration_interval: #{@expiration_interval}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit}, product_id: #{@product_id}, archived_at: #{@archived_at},"\
+      " created_at: #{@created_at}, updated_at: #{@updated_at}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate}, type: #{@type}, tax_included: #{@tax_included},"\
+      " subscription_id: #{@subscription_id}, currency_prices: #{@currency_prices},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
+      " price_in_cents: #{@price_in_cents.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, trial_price_in_cents: #{@trial_price_in_cents.inspect},"\
+      " trial_interval: #{@trial_interval.inspect}, trial_interval_unit:"\
+      " #{@trial_interval_unit.inspect}, trial_type: #{@trial_type.inspect}, introductory_offer:"\
+      " #{@introductory_offer.inspect}, initial_charge_in_cents:"\
+      " #{@initial_charge_in_cents.inspect}, initial_charge_after_trial:"\
+      " #{@initial_charge_after_trial.inspect}, expiration_interval:"\
+      " #{@expiration_interval.inspect}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit.inspect}, product_id: #{@product_id.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, type:"\
+      " #{@type.inspect}, tax_included: #{@tax_included.inspect}, subscription_id:"\
+      " #{@subscription_id.inspect}, currency_prices: #{@currency_prices.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

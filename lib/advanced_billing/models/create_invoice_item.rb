@@ -190,5 +190,28 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} title: #{@title}, quantity: #{@quantity}, unit_price: #{@unit_price},"\
+      " taxable: #{@taxable}, tax_code: #{@tax_code}, period_range_start: #{@period_range_start},"\
+      " period_range_end: #{@period_range_end}, product_id: #{@product_id}, component_id:"\
+      " #{@component_id}, price_point_id: #{@price_point_id}, product_price_point_id:"\
+      " #{@product_price_point_id}, description: #{@description}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} title: #{@title.inspect}, quantity: #{@quantity.inspect}, unit_price:"\
+      " #{@unit_price.inspect}, taxable: #{@taxable.inspect}, tax_code: #{@tax_code.inspect},"\
+      " period_range_start: #{@period_range_start.inspect}, period_range_end:"\
+      " #{@period_range_end.inspect}, product_id: #{@product_id.inspect}, component_id:"\
+      " #{@component_id.inspect}, price_point_id: #{@price_point_id.inspect},"\
+      " product_price_point_id: #{@product_price_point_id.inspect}, description:"\
+      " #{@description.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -66,5 +66,19 @@ module AdvancedBilling
     def to_custom_automatically_resume_at
       DateTimeHelper.to_rfc3339(automatically_resume_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} automatically_resume_at: #{@automatically_resume_at},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} automatically_resume_at: #{@automatically_resume_at.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

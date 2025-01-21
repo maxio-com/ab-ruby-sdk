@@ -193,5 +193,28 @@ module AdvancedBilling
                                billing_address_2: billing_address_2,
                                additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} first_name: #{@first_name}, last_name: #{@last_name}, full_number:"\
+      " #{@full_number}, card_type: #{@card_type}, expiration_month: #{@expiration_month},"\
+      " expiration_year: #{@expiration_year}, current_vault: #{@current_vault}, billing_address:"\
+      " #{@billing_address}, billing_city: #{@billing_city}, billing_state: #{@billing_state},"\
+      " billing_zip: #{@billing_zip}, billing_country: #{@billing_country}, billing_address_2:"\
+      " #{@billing_address_2}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} first_name: #{@first_name.inspect}, last_name: #{@last_name.inspect},"\
+      " full_number: #{@full_number.inspect}, card_type: #{@card_type.inspect}, expiration_month:"\
+      " #{@expiration_month.inspect}, expiration_year: #{@expiration_year.inspect}, current_vault:"\
+      " #{@current_vault.inspect}, billing_address: #{@billing_address.inspect}, billing_city:"\
+      " #{@billing_city.inspect}, billing_state: #{@billing_state.inspect}, billing_zip:"\
+      " #{@billing_zip.inspect}, billing_country: #{@billing_country.inspect}, billing_address_2:"\
+      " #{@billing_address_2.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

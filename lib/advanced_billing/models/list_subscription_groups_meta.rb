@@ -65,5 +65,19 @@ module AdvancedBilling
                                      total_count: total_count,
                                      additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} current_page: #{@current_page}, total_count: #{@total_count},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} current_page: #{@current_page.inspect}, total_count:"\
+      " #{@total_count.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

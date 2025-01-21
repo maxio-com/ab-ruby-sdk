@@ -139,5 +139,24 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_code_id: #{@component_code_id}, price_point_id:"\
+      " #{@price_point_id}, product_id: #{@product_id}, quantity: #{@quantity}, amount:"\
+      " #{@amount}, pricing_scheme: #{@pricing_scheme}, tiers: #{@tiers}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_code_id: #{@component_code_id.inspect}, price_point_id:"\
+      " #{@price_point_id.inspect}, product_id: #{@product_id.inspect}, quantity:"\
+      " #{@quantity.inspect}, amount: #{@amount.inspect}, pricing_scheme:"\
+      " #{@pricing_scheme.inspect}, tiers: #{@tiers.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

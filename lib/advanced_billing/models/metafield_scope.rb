@@ -124,5 +124,22 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} csv: #{@csv}, invoices: #{@invoices}, statements: #{@statements}, portal:"\
+      " #{@portal}, public_show: #{@public_show}, public_edit: #{@public_edit}, hosted:"\
+      " #{@hosted}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} csv: #{@csv.inspect}, invoices: #{@invoices.inspect}, statements:"\
+      " #{@statements.inspect}, portal: #{@portal.inspect}, public_show: #{@public_show.inspect},"\
+      " public_edit: #{@public_edit.inspect}, hosted: #{@hosted.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

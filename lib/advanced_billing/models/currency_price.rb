@@ -124,5 +124,24 @@ module AdvancedBilling
                         role: role,
                         additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, currency: #{@currency}, price: #{@price}, formatted_price:"\
+      " #{@formatted_price}, price_id: #{@price_id}, price_point_id: #{@price_point_id},"\
+      " product_price_point_id: #{@product_price_point_id}, role: #{@role}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, currency: #{@currency.inspect}, price:"\
+      " #{@price.inspect}, formatted_price: #{@formatted_price.inspect}, price_id:"\
+      " #{@price_id.inspect}, price_point_id: #{@price_point_id.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, role: #{@role.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -93,5 +93,21 @@ module AdvancedBilling
                    webhook_subscriptions: webhook_subscriptions,
                    additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, url: #{@url}, site_id: #{@site_id}, status: #{@status},"\
+      " webhook_subscriptions: #{@webhook_subscriptions}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, url: #{@url.inspect}, site_id: #{@site_id.inspect},"\
+      " status: #{@status.inspect}, webhook_subscriptions: #{@webhook_subscriptions.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

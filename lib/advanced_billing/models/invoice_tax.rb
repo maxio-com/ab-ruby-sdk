@@ -210,5 +210,29 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, title: #{@title}, description: #{@description}, source_type:"\
+      " #{@source_type}, source_id: #{@source_id}, percentage: #{@percentage}, taxable_amount:"\
+      " #{@taxable_amount}, tax_amount: #{@tax_amount}, transaction_id: #{@transaction_id},"\
+      " line_item_breakouts: #{@line_item_breakouts}, tax_component_breakouts:"\
+      " #{@tax_component_breakouts}, eu_vat: #{@eu_vat}, type: #{@type}, tax_exempt_amount:"\
+      " #{@tax_exempt_amount}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, title: #{@title.inspect}, description:"\
+      " #{@description.inspect}, source_type: #{@source_type.inspect}, source_id:"\
+      " #{@source_id.inspect}, percentage: #{@percentage.inspect}, taxable_amount:"\
+      " #{@taxable_amount.inspect}, tax_amount: #{@tax_amount.inspect}, transaction_id:"\
+      " #{@transaction_id.inspect}, line_item_breakouts: #{@line_item_breakouts.inspect},"\
+      " tax_component_breakouts: #{@tax_component_breakouts.inspect}, eu_vat: #{@eu_vat.inspect},"\
+      " type: #{@type.inspect}, tax_exempt_amount: #{@tax_exempt_amount.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

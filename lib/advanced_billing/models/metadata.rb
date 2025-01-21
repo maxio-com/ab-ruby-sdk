@@ -117,5 +117,22 @@ module AdvancedBilling
     def to_custom_deleted_at
       DateTimeHelper.to_rfc3339(deleted_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, value: #{@value}, resource_id: #{@resource_id}, name: #{@name},"\
+      " deleted_at: #{@deleted_at}, metafield_id: #{@metafield_id}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, value: #{@value.inspect}, resource_id:"\
+      " #{@resource_id.inspect}, name: #{@name.inspect}, deleted_at: #{@deleted_at.inspect},"\
+      " metafield_id: #{@metafield_id.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

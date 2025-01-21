@@ -121,5 +121,23 @@ module AdvancedBilling
                              line_item_breakouts: line_item_breakouts,
                              additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, title: #{@title}, source_type: #{@source_type}, percentage:"\
+      " #{@percentage}, taxable_amount: #{@taxable_amount}, tax_amount: #{@tax_amount},"\
+      " line_item_breakouts: #{@line_item_breakouts}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, title: #{@title.inspect}, source_type:"\
+      " #{@source_type.inspect}, percentage: #{@percentage.inspect}, taxable_amount:"\
+      " #{@taxable_amount.inspect}, tax_amount: #{@tax_amount.inspect}, line_item_breakouts:"\
+      " #{@line_item_breakouts.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

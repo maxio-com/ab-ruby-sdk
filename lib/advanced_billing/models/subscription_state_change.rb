@@ -86,5 +86,21 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} previous_subscription_state: #{@previous_subscription_state},"\
+      " new_subscription_state: #{@new_subscription_state}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} previous_subscription_state: #{@previous_subscription_state.inspect},"\
+      " new_subscription_state: #{@new_subscription_state.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

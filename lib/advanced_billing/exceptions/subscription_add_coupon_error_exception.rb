@@ -43,5 +43,19 @@ module AdvancedBilling
       @coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
       @subscription = hash.key?('subscription') ? hash['subscription'] : SKIP
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} codes: #{@codes}, coupon_code: #{@coupon_code}, coupon_codes:"\
+      " #{@coupon_codes}, subscription: #{@subscription}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} codes: #{@codes.inspect}, coupon_code: #{@coupon_code.inspect},"\
+      " coupon_codes: #{@coupon_codes.inspect}, subscription: #{@subscription.inspect}>"
+    end
   end
 end

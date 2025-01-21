@@ -68,5 +68,19 @@ module AdvancedBilling
       APIHelper.valid_type?(value['chargeback_status'],
                             ->(val) { ChargebackStatus.validate(val) })
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} chargeback_status: #{@chargeback_status}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} chargeback_status: #{@chargeback_status.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

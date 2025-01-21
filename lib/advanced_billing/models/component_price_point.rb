@@ -373,5 +373,40 @@ module AdvancedBilling
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, type: #{@type}, default: #{@default}, name: #{@name},"\
+      " pricing_scheme: #{@pricing_scheme}, component_id: #{@component_id}, handle: #{@handle},"\
+      " archived_at: #{@archived_at}, created_at: #{@created_at}, updated_at: #{@updated_at},"\
+      " prices: #{@prices}, use_site_exchange_rate: #{@use_site_exchange_rate}, subscription_id:"\
+      " #{@subscription_id}, tax_included: #{@tax_included}, interval: #{@interval},"\
+      " interval_unit: #{@interval_unit}, currency_prices: #{@currency_prices}, overage_prices:"\
+      " #{@overage_prices}, overage_pricing_scheme: #{@overage_pricing_scheme},"\
+      " renew_prepaid_allocation: #{@renew_prepaid_allocation}, rollover_prepaid_remainder:"\
+      " #{@rollover_prepaid_remainder}, expiration_interval: #{@expiration_interval},"\
+      " expiration_interval_unit: #{@expiration_interval_unit}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, type: #{@type.inspect}, default: #{@default.inspect},"\
+      " name: #{@name.inspect}, pricing_scheme: #{@pricing_scheme.inspect}, component_id:"\
+      " #{@component_id.inspect}, handle: #{@handle.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, prices: #{@prices.inspect}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate.inspect}, subscription_id: #{@subscription_id.inspect},"\
+      " tax_included: #{@tax_included.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, currency_prices: #{@currency_prices.inspect}, overage_prices:"\
+      " #{@overage_prices.inspect}, overage_pricing_scheme: #{@overage_pricing_scheme.inspect},"\
+      " renew_prepaid_allocation: #{@renew_prepaid_allocation.inspect},"\
+      " rollover_prepaid_remainder: #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
+      " #{@expiration_interval.inspect}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

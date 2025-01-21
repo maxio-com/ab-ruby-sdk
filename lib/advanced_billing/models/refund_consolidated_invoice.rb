@@ -130,5 +130,22 @@ module AdvancedBilling
                          .validate(value['segment_uids'])
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} memo: #{@memo}, payment_id: #{@payment_id}, segment_uids: #{@segment_uids},"\
+      " external: #{@external}, apply_credit: #{@apply_credit}, amount: #{@amount},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} memo: #{@memo.inspect}, payment_id: #{@payment_id.inspect}, segment_uids:"\
+      " #{@segment_uids.inspect}, external: #{@external.inspect}, apply_credit:"\
+      " #{@apply_credit.inspect}, amount: #{@amount.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

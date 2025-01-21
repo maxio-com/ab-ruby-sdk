@@ -109,5 +109,25 @@ module AdvancedBilling
                                replenish_threshold_amount_in_cents: replenish_threshold_amount_in_cents,
                                additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, initial_funding_amount_in_cents:"\
+      " #{@initial_funding_amount_in_cents}, replenish_to_amount_in_cents:"\
+      " #{@replenish_to_amount_in_cents}, auto_replenish: #{@auto_replenish},"\
+      " replenish_threshold_amount_in_cents: #{@replenish_threshold_amount_in_cents},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, initial_funding_amount_in_cents:"\
+      " #{@initial_funding_amount_in_cents.inspect}, replenish_to_amount_in_cents:"\
+      " #{@replenish_to_amount_in_cents.inspect}, auto_replenish: #{@auto_replenish.inspect},"\
+      " replenish_threshold_amount_in_cents: #{@replenish_threshold_amount_in_cents.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

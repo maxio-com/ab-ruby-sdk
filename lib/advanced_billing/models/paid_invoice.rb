@@ -85,5 +85,20 @@ module AdvancedBilling
                       paid_amount: paid_amount,
                       additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} invoice_id: #{@invoice_id}, status: #{@status}, due_amount: #{@due_amount},"\
+      " paid_amount: #{@paid_amount}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} invoice_id: #{@invoice_id.inspect}, status: #{@status.inspect}, due_amount:"\
+      " #{@due_amount.inspect}, paid_amount: #{@paid_amount.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -142,5 +142,24 @@ module AdvancedBilling
                               churn_date: churn_date,
                               additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, site_name: #{@site_name}, subscription_url:"\
+      " #{@subscription_url}, customer_name: #{@customer_name}, created_at: #{@created_at}, mrr:"\
+      " #{@mrr}, usage: #{@usage}, recurring: #{@recurring}, last_payment: #{@last_payment},"\
+      " churn_date: #{@churn_date}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, site_name: #{@site_name.inspect}, subscription_url:"\
+      " #{@subscription_url.inspect}, customer_name: #{@customer_name.inspect}, created_at:"\
+      " #{@created_at.inspect}, mrr: #{@mrr.inspect}, usage: #{@usage.inspect}, recurring:"\
+      " #{@recurring.inspect}, last_payment: #{@last_payment.inspect}, churn_date:"\
+      " #{@churn_date.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

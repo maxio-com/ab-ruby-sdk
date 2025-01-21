@@ -64,5 +64,20 @@ module AdvancedBilling
                                   usage_amount_in_cents: usage_amount_in_cents,
                                   additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} plan_amount_in_cents: #{@plan_amount_in_cents}, usage_amount_in_cents:"\
+      " #{@usage_amount_in_cents}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} plan_amount_in_cents: #{@plan_amount_in_cents.inspect},"\
+      " usage_amount_in_cents: #{@usage_amount_in_cents.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

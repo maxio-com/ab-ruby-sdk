@@ -269,5 +269,36 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_id: #{@component_id}, subscription_id: #{@subscription_id},"\
+      " quantity: #{@quantity}, previous_quantity: #{@previous_quantity}, memo: #{@memo},"\
+      " timestamp: #{@timestamp}, proration_upgrade_scheme: #{@proration_upgrade_scheme},"\
+      " proration_downgrade_scheme: #{@proration_downgrade_scheme}, accrue_charge:"\
+      " #{@accrue_charge}, upgrade_charge: #{@upgrade_charge}, downgrade_credit:"\
+      " #{@downgrade_credit}, price_point_id: #{@price_point_id}, interval: #{@interval},"\
+      " interval_unit: #{@interval_unit}, previous_price_point_id: #{@previous_price_point_id},"\
+      " price_point_handle: #{@price_point_handle}, price_point_name: #{@price_point_name},"\
+      " component_handle: #{@component_handle}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_id: #{@component_id.inspect}, subscription_id:"\
+      " #{@subscription_id.inspect}, quantity: #{@quantity.inspect}, previous_quantity:"\
+      " #{@previous_quantity.inspect}, memo: #{@memo.inspect}, timestamp: #{@timestamp.inspect},"\
+      " proration_upgrade_scheme: #{@proration_upgrade_scheme.inspect},"\
+      " proration_downgrade_scheme: #{@proration_downgrade_scheme.inspect}, accrue_charge:"\
+      " #{@accrue_charge.inspect}, upgrade_charge: #{@upgrade_charge.inspect}, downgrade_credit:"\
+      " #{@downgrade_credit.inspect}, price_point_id: #{@price_point_id.inspect}, interval:"\
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, previous_price_point_id:"\
+      " #{@previous_price_point_id.inspect}, price_point_handle: #{@price_point_handle.inspect},"\
+      " price_point_name: #{@price_point_name.inspect}, component_handle:"\
+      " #{@component_handle.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

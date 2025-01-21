@@ -218,5 +218,23 @@ module AdvancedBilling
                          .validate(value['event_specific_data'])
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, key: #{@key}, message: #{@message}, subscription_id:"\
+      " #{@subscription_id}, customer_id: #{@customer_id}, created_at: #{@created_at},"\
+      " event_specific_data: #{@event_specific_data}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, key: #{@key.inspect}, message: #{@message.inspect},"\
+      " subscription_id: #{@subscription_id.inspect}, customer_id: #{@customer_id.inspect},"\
+      " created_at: #{@created_at.inspect}, event_specific_data: #{@event_specific_data.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

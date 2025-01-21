@@ -476,5 +476,48 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, kind: #{@kind}, unit_name: #{@unit_name},"\
+      " enabled: #{@enabled}, unit_balance: #{@unit_balance}, currency: #{@currency},"\
+      " allocated_quantity: #{@allocated_quantity}, pricing_scheme: #{@pricing_scheme},"\
+      " component_id: #{@component_id}, component_handle: #{@component_handle}, subscription_id:"\
+      " #{@subscription_id}, recurring: #{@recurring}, upgrade_charge: #{@upgrade_charge},"\
+      " downgrade_credit: #{@downgrade_credit}, archived_at: #{@archived_at}, price_point_id:"\
+      " #{@price_point_id}, price_point_handle: #{@price_point_handle}, price_point_type:"\
+      " #{@price_point_type}, price_point_name: #{@price_point_name}, product_family_id:"\
+      " #{@product_family_id}, product_family_handle: #{@product_family_handle}, created_at:"\
+      " #{@created_at}, updated_at: #{@updated_at}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate}, description: #{@description}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities}, subscription: #{@subscription}, historic_usages:"\
+      " #{@historic_usages}, display_on_hosted_page: #{@display_on_hosted_page}, interval:"\
+      " #{@interval}, interval_unit: #{@interval_unit}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, kind: #{@kind.inspect},"\
+      " unit_name: #{@unit_name.inspect}, enabled: #{@enabled.inspect}, unit_balance:"\
+      " #{@unit_balance.inspect}, currency: #{@currency.inspect}, allocated_quantity:"\
+      " #{@allocated_quantity.inspect}, pricing_scheme: #{@pricing_scheme.inspect}, component_id:"\
+      " #{@component_id.inspect}, component_handle: #{@component_handle.inspect}, subscription_id:"\
+      " #{@subscription_id.inspect}, recurring: #{@recurring.inspect}, upgrade_charge:"\
+      " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, price_point_id: #{@price_point_id.inspect}, price_point_handle:"\
+      " #{@price_point_handle.inspect}, price_point_type: #{@price_point_type.inspect},"\
+      " price_point_name: #{@price_point_name.inspect}, product_family_id:"\
+      " #{@product_family_id.inspect}, product_family_handle: #{@product_family_handle.inspect},"\
+      " created_at: #{@created_at.inspect}, updated_at: #{@updated_at.inspect},"\
+      " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, description:"\
+      " #{@description.inspect}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities.inspect}, subscription: #{@subscription.inspect},"\
+      " historic_usages: #{@historic_usages.inspect}, display_on_hosted_page:"\
+      " #{@display_on_hosted_page.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

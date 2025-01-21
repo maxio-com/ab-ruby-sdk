@@ -69,5 +69,19 @@ module AdvancedBilling
       UnionTypeLookUp.get(:CreateComponentPricePointsRequestPricePoints)
                      .validate(value['price_points'])
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} price_points: #{@price_points}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} price_points: #{@price_points.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

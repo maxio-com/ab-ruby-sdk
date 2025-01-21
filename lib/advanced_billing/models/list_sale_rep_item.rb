@@ -95,5 +95,21 @@ module AdvancedBilling
                           test_mode: test_mode,
                           additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, full_name: #{@full_name}, subscriptions_count:"\
+      " #{@subscriptions_count}, mrr_data: #{@mrr_data}, test_mode: #{@test_mode},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, full_name: #{@full_name.inspect}, subscriptions_count:"\
+      " #{@subscriptions_count.inspect}, mrr_data: #{@mrr_data.inspect}, test_mode:"\
+      " #{@test_mode.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

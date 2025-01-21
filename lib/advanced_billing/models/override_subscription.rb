@@ -137,5 +137,24 @@ module AdvancedBilling
     def to_custom_current_period_starts_at
       DateTimeHelper.to_rfc3339(current_period_starts_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} activated_at: #{@activated_at}, canceled_at: #{@canceled_at},"\
+      " cancellation_message: #{@cancellation_message}, expires_at: #{@expires_at},"\
+      " current_period_starts_at: #{@current_period_starts_at}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} activated_at: #{@activated_at.inspect}, canceled_at:"\
+      " #{@canceled_at.inspect}, cancellation_message: #{@cancellation_message.inspect},"\
+      " expires_at: #{@expires_at.inspect}, current_period_starts_at:"\
+      " #{@current_period_starts_at.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

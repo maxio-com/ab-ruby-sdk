@@ -522,5 +522,60 @@ module AdvancedBilling
     def to_custom_archived_at
       DateTimeHelper.to_rfc3339(archived_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, description:"\
+      " #{@description}, accounting_code: #{@accounting_code}, request_credit_card:"\
+      " #{@request_credit_card}, expiration_interval: #{@expiration_interval},"\
+      " expiration_interval_unit: #{@expiration_interval_unit}, created_at: #{@created_at},"\
+      " updated_at: #{@updated_at}, price_in_cents: #{@price_in_cents}, interval: #{@interval},"\
+      " interval_unit: #{@interval_unit}, initial_charge_in_cents: #{@initial_charge_in_cents},"\
+      " trial_price_in_cents: #{@trial_price_in_cents}, trial_interval: #{@trial_interval},"\
+      " trial_interval_unit: #{@trial_interval_unit}, archived_at: #{@archived_at},"\
+      " require_credit_card: #{@require_credit_card}, return_params: #{@return_params}, taxable:"\
+      " #{@taxable}, update_return_url: #{@update_return_url}, initial_charge_after_trial:"\
+      " #{@initial_charge_after_trial}, version_number: #{@version_number}, update_return_params:"\
+      " #{@update_return_params}, product_family: #{@product_family}, public_signup_pages:"\
+      " #{@public_signup_pages}, product_price_point_name: #{@product_price_point_name},"\
+      " request_billing_address: #{@request_billing_address}, require_billing_address:"\
+      " #{@require_billing_address}, require_shipping_address: #{@require_shipping_address},"\
+      " tax_code: #{@tax_code}, default_product_price_point_id:"\
+      " #{@default_product_price_point_id}, use_site_exchange_rate: #{@use_site_exchange_rate},"\
+      " item_category: #{@item_category}, product_price_point_id: #{@product_price_point_id},"\
+      " product_price_point_handle: #{@product_price_point_handle}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
+      " description: #{@description.inspect}, accounting_code: #{@accounting_code.inspect},"\
+      " request_credit_card: #{@request_credit_card.inspect}, expiration_interval:"\
+      " #{@expiration_interval.inspect}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, price_in_cents: #{@price_in_cents.inspect}, interval:"\
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, initial_charge_in_cents:"\
+      " #{@initial_charge_in_cents.inspect}, trial_price_in_cents:"\
+      " #{@trial_price_in_cents.inspect}, trial_interval: #{@trial_interval.inspect},"\
+      " trial_interval_unit: #{@trial_interval_unit.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, require_credit_card: #{@require_credit_card.inspect},"\
+      " return_params: #{@return_params.inspect}, taxable: #{@taxable.inspect}, update_return_url:"\
+      " #{@update_return_url.inspect}, initial_charge_after_trial:"\
+      " #{@initial_charge_after_trial.inspect}, version_number: #{@version_number.inspect},"\
+      " update_return_params: #{@update_return_params.inspect}, product_family:"\
+      " #{@product_family.inspect}, public_signup_pages: #{@public_signup_pages.inspect},"\
+      " product_price_point_name: #{@product_price_point_name.inspect}, request_billing_address:"\
+      " #{@request_billing_address.inspect}, require_billing_address:"\
+      " #{@require_billing_address.inspect}, require_shipping_address:"\
+      " #{@require_shipping_address.inspect}, tax_code: #{@tax_code.inspect},"\
+      " default_product_price_point_id: #{@default_product_price_point_id.inspect},"\
+      " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, item_category:"\
+      " #{@item_category.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
+      " product_price_point_handle: #{@product_price_point_handle.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -154,5 +154,24 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} day_threshold: #{@day_threshold}, action: #{@action}, email_body:"\
+      " #{@email_body}, email_subject: #{@email_subject}, send_email: #{@send_email},"\
+      " send_bcc_email: #{@send_bcc_email}, send_sms: #{@send_sms}, sms_body: #{@sms_body},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} day_threshold: #{@day_threshold.inspect}, action: #{@action.inspect},"\
+      " email_body: #{@email_body.inspect}, email_subject: #{@email_subject.inspect}, send_email:"\
+      " #{@send_email.inspect}, send_bcc_email: #{@send_bcc_email.inspect}, send_sms:"\
+      " #{@send_sms.inspect}, sms_body: #{@sms_body.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

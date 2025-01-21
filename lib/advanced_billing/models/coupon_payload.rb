@@ -240,5 +240,34 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, code: #{@code}, description: #{@description}, percentage:"\
+      " #{@percentage}, amount_in_cents: #{@amount_in_cents}, allow_negative_balance:"\
+      " #{@allow_negative_balance}, recurring: #{@recurring}, end_date: #{@end_date},"\
+      " product_family_id: #{@product_family_id}, stackable: #{@stackable}, compounding_strategy:"\
+      " #{@compounding_strategy}, exclude_mid_period_allocations:"\
+      " #{@exclude_mid_period_allocations}, apply_on_cancel_at_end_of_period:"\
+      " #{@apply_on_cancel_at_end_of_period}, apply_on_subscription_expiration:"\
+      " #{@apply_on_subscription_expiration}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, code: #{@code.inspect}, description:"\
+      " #{@description.inspect}, percentage: #{@percentage.inspect}, amount_in_cents:"\
+      " #{@amount_in_cents.inspect}, allow_negative_balance: #{@allow_negative_balance.inspect},"\
+      " recurring: #{@recurring.inspect}, end_date: #{@end_date.inspect}, product_family_id:"\
+      " #{@product_family_id.inspect}, stackable: #{@stackable.inspect}, compounding_strategy:"\
+      " #{@compounding_strategy.inspect}, exclude_mid_period_allocations:"\
+      " #{@exclude_mid_period_allocations.inspect}, apply_on_cancel_at_end_of_period:"\
+      " #{@apply_on_cancel_at_end_of_period.inspect}, apply_on_subscription_expiration:"\
+      " #{@apply_on_subscription_expiration.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

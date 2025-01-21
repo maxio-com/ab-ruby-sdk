@@ -204,5 +204,30 @@ module AdvancedBilling
                                 is_inner_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} previous_unit_balance: #{@previous_unit_balance},"\
+      " previous_overage_unit_balance: #{@previous_overage_unit_balance}, new_unit_balance:"\
+      " #{@new_unit_balance}, new_overage_unit_balance: #{@new_overage_unit_balance},"\
+      " usage_quantity: #{@usage_quantity}, overage_usage_quantity: #{@overage_usage_quantity},"\
+      " component_id: #{@component_id}, component_handle: #{@component_handle}, memo: #{@memo},"\
+      " allocation_details: #{@allocation_details}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} previous_unit_balance: #{@previous_unit_balance.inspect},"\
+      " previous_overage_unit_balance: #{@previous_overage_unit_balance.inspect},"\
+      " new_unit_balance: #{@new_unit_balance.inspect}, new_overage_unit_balance:"\
+      " #{@new_overage_unit_balance.inspect}, usage_quantity: #{@usage_quantity.inspect},"\
+      " overage_usage_quantity: #{@overage_usage_quantity.inspect}, component_id:"\
+      " #{@component_id.inspect}, component_handle: #{@component_handle.inspect}, memo:"\
+      " #{@memo.inspect}, allocation_details: #{@allocation_details.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

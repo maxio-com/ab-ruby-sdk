@@ -103,5 +103,21 @@ module AdvancedBilling
                          .validate(value['unit_price'])
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} starting_quantity: #{@starting_quantity}, ending_quantity:"\
+      " #{@ending_quantity}, unit_price: #{@unit_price}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} starting_quantity: #{@starting_quantity.inspect}, ending_quantity:"\
+      " #{@ending_quantity.inspect}, unit_price: #{@unit_price.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

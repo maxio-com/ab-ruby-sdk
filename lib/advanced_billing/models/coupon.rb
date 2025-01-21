@@ -494,5 +494,51 @@ module AdvancedBilling
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, code: #{@code}, description: #{@description},"\
+      " amount: #{@amount}, amount_in_cents: #{@amount_in_cents}, product_family_id:"\
+      " #{@product_family_id}, product_family_name: #{@product_family_name}, start_date:"\
+      " #{@start_date}, end_date: #{@end_date}, percentage: #{@percentage}, recurring:"\
+      " #{@recurring}, recurring_scheme: #{@recurring_scheme}, duration_period_count:"\
+      " #{@duration_period_count}, duration_interval: #{@duration_interval},"\
+      " duration_interval_unit: #{@duration_interval_unit}, duration_interval_span:"\
+      " #{@duration_interval_span}, allow_negative_balance: #{@allow_negative_balance},"\
+      " archived_at: #{@archived_at}, conversion_limit: #{@conversion_limit}, stackable:"\
+      " #{@stackable}, compounding_strategy: #{@compounding_strategy}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate}, created_at: #{@created_at}, updated_at: #{@updated_at},"\
+      " discount_type: #{@discount_type}, exclude_mid_period_allocations:"\
+      " #{@exclude_mid_period_allocations}, apply_on_cancel_at_end_of_period:"\
+      " #{@apply_on_cancel_at_end_of_period}, apply_on_subscription_expiration:"\
+      " #{@apply_on_subscription_expiration}, coupon_restrictions: #{@coupon_restrictions},"\
+      " currency_prices: #{@currency_prices}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, code: #{@code.inspect},"\
+      " description: #{@description.inspect}, amount: #{@amount.inspect}, amount_in_cents:"\
+      " #{@amount_in_cents.inspect}, product_family_id: #{@product_family_id.inspect},"\
+      " product_family_name: #{@product_family_name.inspect}, start_date: #{@start_date.inspect},"\
+      " end_date: #{@end_date.inspect}, percentage: #{@percentage.inspect}, recurring:"\
+      " #{@recurring.inspect}, recurring_scheme: #{@recurring_scheme.inspect},"\
+      " duration_period_count: #{@duration_period_count.inspect}, duration_interval:"\
+      " #{@duration_interval.inspect}, duration_interval_unit: #{@duration_interval_unit.inspect},"\
+      " duration_interval_span: #{@duration_interval_span.inspect}, allow_negative_balance:"\
+      " #{@allow_negative_balance.inspect}, archived_at: #{@archived_at.inspect},"\
+      " conversion_limit: #{@conversion_limit.inspect}, stackable: #{@stackable.inspect},"\
+      " compounding_strategy: #{@compounding_strategy.inspect}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, discount_type: #{@discount_type.inspect},"\
+      " exclude_mid_period_allocations: #{@exclude_mid_period_allocations.inspect},"\
+      " apply_on_cancel_at_end_of_period: #{@apply_on_cancel_at_end_of_period.inspect},"\
+      " apply_on_subscription_expiration: #{@apply_on_subscription_expiration.inspect},"\
+      " coupon_restrictions: #{@coupon_restrictions.inspect}, currency_prices:"\
+      " #{@currency_prices.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

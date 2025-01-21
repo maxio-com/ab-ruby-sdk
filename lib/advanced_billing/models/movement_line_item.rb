@@ -148,5 +148,24 @@ module AdvancedBilling
                            recurring: recurring,
                            additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_id: #{@product_id}, component_id: #{@component_id}, price_point_id:"\
+      " #{@price_point_id}, name: #{@name}, mrr: #{@mrr}, mrr_movements: #{@mrr_movements},"\
+      " quantity: #{@quantity}, prev_quantity: #{@prev_quantity}, recurring: #{@recurring},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_id: #{@product_id.inspect}, component_id: #{@component_id.inspect},"\
+      " price_point_id: #{@price_point_id.inspect}, name: #{@name.inspect}, mrr: #{@mrr.inspect},"\
+      " mrr_movements: #{@mrr_movements.inspect}, quantity: #{@quantity.inspect}, prev_quantity:"\
+      " #{@prev_quantity.inspect}, recurring: #{@recurring.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

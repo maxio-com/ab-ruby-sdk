@@ -151,5 +151,26 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_id: #{@transaction_id}, payment_id: #{@payment_id}, memo:"\
+      " #{@memo}, original_amount: #{@original_amount}, applied_amount: #{@applied_amount},"\
+      " gateway_transaction_id: #{@gateway_transaction_id}, gateway_used: #{@gateway_used},"\
+      " gateway_handle: #{@gateway_handle}, ach_late_reject: #{@ach_late_reject},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_id: #{@transaction_id.inspect}, payment_id:"\
+      " #{@payment_id.inspect}, memo: #{@memo.inspect}, original_amount:"\
+      " #{@original_amount.inspect}, applied_amount: #{@applied_amount.inspect},"\
+      " gateway_transaction_id: #{@gateway_transaction_id.inspect}, gateway_used:"\
+      " #{@gateway_used.inspect}, gateway_handle: #{@gateway_handle.inspect}, ach_late_reject:"\
+      " #{@ach_late_reject.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

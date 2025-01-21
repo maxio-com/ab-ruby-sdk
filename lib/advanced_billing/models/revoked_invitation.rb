@@ -76,5 +76,21 @@ module AdvancedBilling
                             uninvited_count: uninvited_count,
                             additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} last_sent_at: #{@last_sent_at}, last_accepted_at: #{@last_accepted_at},"\
+      " uninvited_count: #{@uninvited_count}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} last_sent_at: #{@last_sent_at.inspect}, last_accepted_at:"\
+      " #{@last_accepted_at.inspect}, uninvited_count: #{@uninvited_count.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

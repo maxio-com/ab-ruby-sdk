@@ -91,5 +91,21 @@ module AdvancedBilling
                          custom_fields: custom_fields,
                          additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} payer: #{@payer}, shipping_address: #{@shipping_address}, billing_address:"\
+      " #{@billing_address}, custom_fields: #{@custom_fields}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} payer: #{@payer.inspect}, shipping_address: #{@shipping_address.inspect},"\
+      " billing_address: #{@billing_address.inspect}, custom_fields: #{@custom_fields.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

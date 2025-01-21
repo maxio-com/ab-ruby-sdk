@@ -74,5 +74,21 @@ module AdvancedBilling
                           breakouts: breakouts,
                           additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} subscription_id: #{@subscription_id}, mrr_amount_in_cents:"\
+      " #{@mrr_amount_in_cents}, breakouts: #{@breakouts}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} subscription_id: #{@subscription_id.inspect}, mrr_amount_in_cents:"\
+      " #{@mrr_amount_in_cents.inspect}, breakouts: #{@breakouts.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

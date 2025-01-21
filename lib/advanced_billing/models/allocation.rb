@@ -376,5 +376,42 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} allocation_id: #{@allocation_id}, component_id: #{@component_id},"\
+      " component_handle: #{@component_handle}, subscription_id: #{@subscription_id}, quantity:"\
+      " #{@quantity}, previous_quantity: #{@previous_quantity}, memo: #{@memo}, timestamp:"\
+      " #{@timestamp}, created_at: #{@created_at}, proration_upgrade_scheme:"\
+      " #{@proration_upgrade_scheme}, proration_downgrade_scheme: #{@proration_downgrade_scheme},"\
+      " price_point_id: #{@price_point_id}, price_point_name: #{@price_point_name},"\
+      " price_point_handle: #{@price_point_handle}, interval: #{@interval}, interval_unit:"\
+      " #{@interval_unit}, previous_price_point_id: #{@previous_price_point_id}, accrue_charge:"\
+      " #{@accrue_charge}, initiate_dunning: #{@initiate_dunning}, upgrade_charge:"\
+      " #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit}, payment: #{@payment},"\
+      " expires_at: #{@expires_at}, used_quantity: #{@used_quantity}, charge_id: #{@charge_id},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} allocation_id: #{@allocation_id.inspect}, component_id:"\
+      " #{@component_id.inspect}, component_handle: #{@component_handle.inspect}, subscription_id:"\
+      " #{@subscription_id.inspect}, quantity: #{@quantity.inspect}, previous_quantity:"\
+      " #{@previous_quantity.inspect}, memo: #{@memo.inspect}, timestamp: #{@timestamp.inspect},"\
+      " created_at: #{@created_at.inspect}, proration_upgrade_scheme:"\
+      " #{@proration_upgrade_scheme.inspect}, proration_downgrade_scheme:"\
+      " #{@proration_downgrade_scheme.inspect}, price_point_id: #{@price_point_id.inspect},"\
+      " price_point_name: #{@price_point_name.inspect}, price_point_handle:"\
+      " #{@price_point_handle.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, previous_price_point_id: #{@previous_price_point_id.inspect},"\
+      " accrue_charge: #{@accrue_charge.inspect}, initiate_dunning: #{@initiate_dunning.inspect},"\
+      " upgrade_charge: #{@upgrade_charge.inspect}, downgrade_credit:"\
+      " #{@downgrade_credit.inspect}, payment: #{@payment.inspect}, expires_at:"\
+      " #{@expires_at.inspect}, used_quantity: #{@used_quantity.inspect}, charge_id:"\
+      " #{@charge_id.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end
