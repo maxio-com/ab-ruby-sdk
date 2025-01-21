@@ -285,5 +285,35 @@ module AdvancedBilling
     def to_custom_archived_at
       DateTimeHelper.to_rfc3339(archived_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, site_id: #{@site_id}, product_family_id: #{@product_family_id},"\
+      " product_id: #{@product_id}, product_price_point_id: #{@product_price_point_id},"\
+      " product_revisable_number: #{@product_revisable_number}, name: #{@name}, handle:"\
+      " #{@handle}, description: #{@description}, created_at: #{@created_at}, updated_at:"\
+      " #{@updated_at}, archived_at: #{@archived_at}, offer_items: #{@offer_items},"\
+      " offer_discounts: #{@offer_discounts}, product_family_name: #{@product_family_name},"\
+      " product_name: #{@product_name}, product_price_point_name: #{@product_price_point_name},"\
+      " product_price_in_cents: #{@product_price_in_cents}, offer_signup_pages:"\
+      " #{@offer_signup_pages}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, site_id: #{@site_id.inspect}, product_family_id:"\
+      " #{@product_family_id.inspect}, product_id: #{@product_id.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, product_revisable_number:"\
+      " #{@product_revisable_number.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
+      " description: #{@description.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, archived_at: #{@archived_at.inspect}, offer_items:"\
+      " #{@offer_items.inspect}, offer_discounts: #{@offer_discounts.inspect},"\
+      " product_family_name: #{@product_family_name.inspect}, product_name:"\
+      " #{@product_name.inspect}, product_price_point_name: #{@product_price_point_name.inspect},"\
+      " product_price_in_cents: #{@product_price_in_cents.inspect}, offer_signup_pages:"\
+      " #{@offer_signup_pages.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

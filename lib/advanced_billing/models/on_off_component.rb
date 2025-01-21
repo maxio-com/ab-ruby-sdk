@@ -263,5 +263,31 @@ module AdvancedBilling
                          .validate(value['unit_price'])
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, description: #{@description}, handle: #{@handle}, taxable:"\
+      " #{@taxable}, upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit},"\
+      " price_points: #{@price_points}, unit_price: #{@unit_price}, tax_code: #{@tax_code},"\
+      " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, display_on_hosted_page:"\
+      " #{@display_on_hosted_page}, allow_fractional_quantities: #{@allow_fractional_quantities},"\
+      " public_signup_page_ids: #{@public_signup_page_ids}, interval: #{@interval}, interval_unit:"\
+      " #{@interval_unit}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, description: #{@description.inspect}, handle:"\
+      " #{@handle.inspect}, taxable: #{@taxable.inspect}, upgrade_charge:"\
+      " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect}, price_points:"\
+      " #{@price_points.inspect}, unit_price: #{@unit_price.inspect}, tax_code:"\
+      " #{@tax_code.inspect}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect},"\
+      " display_on_hosted_page: #{@display_on_hosted_page.inspect}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities.inspect}, public_signup_page_ids:"\
+      " #{@public_signup_page_ids.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

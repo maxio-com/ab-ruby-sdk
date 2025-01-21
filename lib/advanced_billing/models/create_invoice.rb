@@ -167,5 +167,26 @@ module AdvancedBilling
                         status: status,
                         additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} line_items: #{@line_items}, issue_date: #{@issue_date}, net_terms:"\
+      " #{@net_terms}, payment_instructions: #{@payment_instructions}, memo: #{@memo},"\
+      " seller_address: #{@seller_address}, billing_address: #{@billing_address},"\
+      " shipping_address: #{@shipping_address}, coupons: #{@coupons}, status: #{@status},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} line_items: #{@line_items.inspect}, issue_date: #{@issue_date.inspect},"\
+      " net_terms: #{@net_terms.inspect}, payment_instructions: #{@payment_instructions.inspect},"\
+      " memo: #{@memo.inspect}, seller_address: #{@seller_address.inspect}, billing_address:"\
+      " #{@billing_address.inspect}, shipping_address: #{@shipping_address.inspect}, coupons:"\
+      " #{@coupons.inspect}, status: #{@status.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -153,5 +153,28 @@ module AdvancedBilling
                                        proration: proration,
                                        additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_id: #{@product_id}, product_price_point_id:"\
+      " #{@product_price_point_id}, include_trial: #{@include_trial}, include_initial_charge:"\
+      " #{@include_initial_charge}, include_coupons: #{@include_coupons}, preserve_period:"\
+      " #{@preserve_period}, product_handle: #{@product_handle}, product_price_point_handle:"\
+      " #{@product_price_point_handle}, proration: #{@proration}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_id: #{@product_id.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, include_trial: #{@include_trial.inspect},"\
+      " include_initial_charge: #{@include_initial_charge.inspect}, include_coupons:"\
+      " #{@include_coupons.inspect}, preserve_period: #{@preserve_period.inspect}, product_handle:"\
+      " #{@product_handle.inspect}, product_price_point_handle:"\
+      " #{@product_price_point_handle.inspect}, proration: #{@proration.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -267,5 +267,35 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} full_number: #{@full_number}, expiration_month: #{@expiration_month},"\
+      " expiration_year: #{@expiration_year}, chargify_token: #{@chargify_token}, vault_token:"\
+      " #{@vault_token}, current_vault: #{@current_vault}, gateway_handle: #{@gateway_handle},"\
+      " first_name: #{@first_name}, last_name: #{@last_name}, billing_address:"\
+      " #{@billing_address}, billing_address_2: #{@billing_address_2}, billing_city:"\
+      " #{@billing_city}, billing_state: #{@billing_state}, billing_zip: #{@billing_zip},"\
+      " billing_country: #{@billing_country}, last_four: #{@last_four}, card_type: #{@card_type},"\
+      " customer_vault_token: #{@customer_vault_token}, cvv: #{@cvv}, payment_type:"\
+      " #{@payment_type}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} full_number: #{@full_number.inspect}, expiration_month:"\
+      " #{@expiration_month.inspect}, expiration_year: #{@expiration_year.inspect},"\
+      " chargify_token: #{@chargify_token.inspect}, vault_token: #{@vault_token.inspect},"\
+      " current_vault: #{@current_vault.inspect}, gateway_handle: #{@gateway_handle.inspect},"\
+      " first_name: #{@first_name.inspect}, last_name: #{@last_name.inspect}, billing_address:"\
+      " #{@billing_address.inspect}, billing_address_2: #{@billing_address_2.inspect},"\
+      " billing_city: #{@billing_city.inspect}, billing_state: #{@billing_state.inspect},"\
+      " billing_zip: #{@billing_zip.inspect}, billing_country: #{@billing_country.inspect},"\
+      " last_four: #{@last_four.inspect}, card_type: #{@card_type.inspect}, customer_vault_token:"\
+      " #{@customer_vault_token.inspect}, cvv: #{@cvv.inspect}, payment_type:"\
+      " #{@payment_type.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

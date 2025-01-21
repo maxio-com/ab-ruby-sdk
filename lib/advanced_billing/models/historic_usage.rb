@@ -103,5 +103,21 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} total_usage_quantity: #{@total_usage_quantity}, billing_period_starts_at:"\
+      " #{@billing_period_starts_at}, billing_period_ends_at: #{@billing_period_ends_at},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} total_usage_quantity: #{@total_usage_quantity.inspect},"\
+      " billing_period_starts_at: #{@billing_period_starts_at.inspect}, billing_period_ends_at:"\
+      " #{@billing_period_ends_at.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

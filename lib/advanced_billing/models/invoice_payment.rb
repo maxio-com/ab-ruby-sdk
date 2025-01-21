@@ -191,5 +191,28 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_time: #{@transaction_time}, memo: #{@memo}, original_amount:"\
+      " #{@original_amount}, applied_amount: #{@applied_amount}, payment_method:"\
+      " #{@payment_method}, transaction_id: #{@transaction_id}, prepayment: #{@prepayment},"\
+      " gateway_handle: #{@gateway_handle}, gateway_used: #{@gateway_used},"\
+      " gateway_transaction_id: #{@gateway_transaction_id}, received_on: #{@received_on}, uid:"\
+      " #{@uid}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_time: #{@transaction_time.inspect}, memo: #{@memo.inspect},"\
+      " original_amount: #{@original_amount.inspect}, applied_amount: #{@applied_amount.inspect},"\
+      " payment_method: #{@payment_method.inspect}, transaction_id: #{@transaction_id.inspect},"\
+      " prepayment: #{@prepayment.inspect}, gateway_handle: #{@gateway_handle.inspect},"\
+      " gateway_used: #{@gateway_used.inspect}, gateway_transaction_id:"\
+      " #{@gateway_transaction_id.inspect}, received_on: #{@received_on.inspect}, uid:"\
+      " #{@uid.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -68,5 +68,19 @@ module AdvancedBilling
     def to_custom_new_link_available_at
       DateTimeHelper.to_rfc3339(new_link_available_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} error: #{@error}, new_link_available_at: #{@new_link_available_at},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} error: #{@error.inspect}, new_link_available_at:"\
+      " #{@new_link_available_at.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

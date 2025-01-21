@@ -81,5 +81,19 @@ module AdvancedBilling
                             ->(val) { GroupTarget.validate(val) },
                             is_model_hash: true)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} target: #{@target}, billing: #{@billing}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} target: #{@target.inspect}, billing: #{@billing.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

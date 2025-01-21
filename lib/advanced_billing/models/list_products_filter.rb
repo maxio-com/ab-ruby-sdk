@@ -86,5 +86,21 @@ module AdvancedBilling
                              use_site_exchange_rate: use_site_exchange_rate,
                              additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} ids: #{@ids}, prepaid_product_price_point: #{@prepaid_product_price_point},"\
+      " use_site_exchange_rate: #{@use_site_exchange_rate}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} ids: #{@ids.inspect}, prepaid_product_price_point:"\
+      " #{@prepaid_product_price_point.inspect}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

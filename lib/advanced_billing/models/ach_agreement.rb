@@ -102,5 +102,21 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} agreement_terms: #{@agreement_terms}, authorizer_first_name:"\
+      " #{@authorizer_first_name}, authorizer_last_name: #{@authorizer_last_name}, ip_address:"\
+      " #{@ip_address}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} agreement_terms: #{@agreement_terms.inspect}, authorizer_first_name:"\
+      " #{@authorizer_first_name.inspect}, authorizer_last_name: #{@authorizer_last_name.inspect},"\
+      " ip_address: #{@ip_address.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

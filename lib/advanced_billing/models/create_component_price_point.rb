@@ -172,5 +172,24 @@ module AdvancedBilling
                                 is_inner_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, handle: #{@handle}, pricing_scheme: #{@pricing_scheme},"\
+      " prices: #{@prices}, use_site_exchange_rate: #{@use_site_exchange_rate}, tax_included:"\
+      " #{@tax_included}, interval: #{@interval}, interval_unit: #{@interval_unit},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, handle: #{@handle.inspect}, pricing_scheme:"\
+      " #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, use_site_exchange_rate:"\
+      " #{@use_site_exchange_rate.inspect}, tax_included: #{@tax_included.inspect}, interval:"\
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

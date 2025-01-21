@@ -28,5 +28,17 @@ module AdvancedBilling
     def unbox(hash)
       @errors = SubscriptionGroupSignupError.from_hash(hash['errors']) if hash['errors']
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} errors: #{@errors}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} errors: #{@errors.inspect}>"
+    end
   end
 end

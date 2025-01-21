@@ -211,5 +211,28 @@ module AdvancedBilling
                          .validate(value['payment_method'])
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} consolidation_level: #{@consolidation_level}, memo: #{@memo},"\
+      " original_amount: #{@original_amount}, applied_amount: #{@applied_amount},"\
+      " transaction_time: #{@transaction_time}, payment_method: #{@payment_method},"\
+      " transaction_id: #{@transaction_id}, parent_invoice_number: #{@parent_invoice_number},"\
+      " remaining_prepayment_amount: #{@remaining_prepayment_amount}, prepayment: #{@prepayment},"\
+      " external: #{@external}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} consolidation_level: #{@consolidation_level.inspect}, memo:"\
+      " #{@memo.inspect}, original_amount: #{@original_amount.inspect}, applied_amount:"\
+      " #{@applied_amount.inspect}, transaction_time: #{@transaction_time.inspect},"\
+      " payment_method: #{@payment_method.inspect}, transaction_id: #{@transaction_id.inspect},"\
+      " parent_invoice_number: #{@parent_invoice_number.inspect}, remaining_prepayment_amount:"\
+      " #{@remaining_prepayment_amount.inspect}, prepayment: #{@prepayment.inspect}, external:"\
+      " #{@external.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

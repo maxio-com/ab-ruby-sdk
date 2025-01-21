@@ -86,5 +86,21 @@ module AdvancedBilling
                                     pending_discounts: pending_discounts,
                                     additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} prepayments: #{@prepayments}, service_credits: #{@service_credits},"\
+      " open_invoices: #{@open_invoices}, pending_discounts: #{@pending_discounts},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} prepayments: #{@prepayments.inspect}, service_credits:"\
+      " #{@service_credits.inspect}, open_invoices: #{@open_invoices.inspect}, pending_discounts:"\
+      " #{@pending_discounts.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

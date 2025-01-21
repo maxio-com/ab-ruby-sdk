@@ -80,5 +80,21 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} hide_zero_subtotal_lines: #{@hide_zero_subtotal_lines},"\
+      " include_discounts_on_lines: #{@include_discounts_on_lines}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} hide_zero_subtotal_lines: #{@hide_zero_subtotal_lines.inspect},"\
+      " include_discounts_on_lines: #{@include_discounts_on_lines.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

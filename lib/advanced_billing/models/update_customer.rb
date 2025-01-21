@@ -238,5 +238,31 @@ module AdvancedBilling
                          salesforce_id: salesforce_id,
                          additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} first_name: #{@first_name}, last_name: #{@last_name}, email: #{@email},"\
+      " cc_emails: #{@cc_emails}, organization: #{@organization}, reference: #{@reference},"\
+      " address: #{@address}, address_2: #{@address_2}, city: #{@city}, state: #{@state}, zip:"\
+      " #{@zip}, country: #{@country}, phone: #{@phone}, locale: #{@locale}, vat_number:"\
+      " #{@vat_number}, tax_exempt: #{@tax_exempt}, tax_exempt_reason: #{@tax_exempt_reason},"\
+      " parent_id: #{@parent_id}, verified: #{@verified}, salesforce_id: #{@salesforce_id},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} first_name: #{@first_name.inspect}, last_name: #{@last_name.inspect},"\
+      " email: #{@email.inspect}, cc_emails: #{@cc_emails.inspect}, organization:"\
+      " #{@organization.inspect}, reference: #{@reference.inspect}, address: #{@address.inspect},"\
+      " address_2: #{@address_2.inspect}, city: #{@city.inspect}, state: #{@state.inspect}, zip:"\
+      " #{@zip.inspect}, country: #{@country.inspect}, phone: #{@phone.inspect}, locale:"\
+      " #{@locale.inspect}, vat_number: #{@vat_number.inspect}, tax_exempt:"\
+      " #{@tax_exempt.inspect}, tax_exempt_reason: #{@tax_exempt_reason.inspect}, parent_id:"\
+      " #{@parent_id.inspect}, verified: #{@verified.inspect}, salesforce_id:"\
+      " #{@salesforce_id.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

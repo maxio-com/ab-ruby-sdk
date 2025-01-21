@@ -118,5 +118,23 @@ module AdvancedBilling
                       coupons: coupons,
                       additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, handle: #{@handle}, description: #{@description},"\
+      " product_id: #{@product_id}, product_price_point_id: #{@product_price_point_id},"\
+      " components: #{@components}, coupons: #{@coupons}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, handle: #{@handle.inspect}, description:"\
+      " #{@description.inspect}, product_id: #{@product_id.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, components: #{@components.inspect}, coupons:"\
+      " #{@coupons.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

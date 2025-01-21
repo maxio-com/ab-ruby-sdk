@@ -176,5 +176,33 @@ module AdvancedBilling
                          total_dunning_subscriptions: total_dunning_subscriptions,
                          additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} total_subscriptions: #{@total_subscriptions}, subscriptions_today:"\
+      " #{@subscriptions_today}, total_revenue: #{@total_revenue}, revenue_today:"\
+      " #{@revenue_today}, revenue_this_month: #{@revenue_this_month}, revenue_this_year:"\
+      " #{@revenue_this_year}, total_canceled_subscriptions: #{@total_canceled_subscriptions},"\
+      " total_active_subscriptions: #{@total_active_subscriptions}, total_past_due_subscriptions:"\
+      " #{@total_past_due_subscriptions}, total_unpaid_subscriptions:"\
+      " #{@total_unpaid_subscriptions}, total_dunning_subscriptions:"\
+      " #{@total_dunning_subscriptions}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} total_subscriptions: #{@total_subscriptions.inspect}, subscriptions_today:"\
+      " #{@subscriptions_today.inspect}, total_revenue: #{@total_revenue.inspect}, revenue_today:"\
+      " #{@revenue_today.inspect}, revenue_this_month: #{@revenue_this_month.inspect},"\
+      " revenue_this_year: #{@revenue_this_year.inspect}, total_canceled_subscriptions:"\
+      " #{@total_canceled_subscriptions.inspect}, total_active_subscriptions:"\
+      " #{@total_active_subscriptions.inspect}, total_past_due_subscriptions:"\
+      " #{@total_past_due_subscriptions.inspect}, total_unpaid_subscriptions:"\
+      " #{@total_unpaid_subscriptions.inspect}, total_dunning_subscriptions:"\
+      " #{@total_dunning_subscriptions.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

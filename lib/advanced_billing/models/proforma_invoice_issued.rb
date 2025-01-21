@@ -213,5 +213,26 @@ module AdvancedBilling
                                 is_inner_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, number: #{@number}, role: #{@role}, delivery_date:"\
+      " #{@delivery_date}, created_at: #{@created_at}, due_amount: #{@due_amount}, paid_amount:"\
+      " #{@paid_amount}, tax_amount: #{@tax_amount}, total_amount: #{@total_amount}, product_name:"\
+      " #{@product_name}, line_items: #{@line_items}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, number: #{@number.inspect}, role: #{@role.inspect},"\
+      " delivery_date: #{@delivery_date.inspect}, created_at: #{@created_at.inspect}, due_amount:"\
+      " #{@due_amount.inspect}, paid_amount: #{@paid_amount.inspect}, tax_amount:"\
+      " #{@tax_amount.inspect}, total_amount: #{@total_amount.inspect}, product_name:"\
+      " #{@product_name.inspect}, line_items: #{@line_items.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

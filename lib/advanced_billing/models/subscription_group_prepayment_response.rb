@@ -97,5 +97,22 @@ module AdvancedBilling
                                               memo: memo,
                                               additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, amount_in_cents: #{@amount_in_cents}, ending_balance_in_cents:"\
+      " #{@ending_balance_in_cents}, entry_type: #{@entry_type}, memo: #{@memo},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, amount_in_cents: #{@amount_in_cents.inspect},"\
+      " ending_balance_in_cents: #{@ending_balance_in_cents.inspect}, entry_type:"\
+      " #{@entry_type.inspect}, memo: #{@memo.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

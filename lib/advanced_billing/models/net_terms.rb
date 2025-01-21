@@ -99,5 +99,26 @@ module AdvancedBilling
                    custom_net_terms_enabled: custom_net_terms_enabled,
                    additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} default_net_terms: #{@default_net_terms}, automatic_net_terms:"\
+      " #{@automatic_net_terms}, remittance_net_terms: #{@remittance_net_terms},"\
+      " net_terms_on_remittance_signups_enabled: #{@net_terms_on_remittance_signups_enabled},"\
+      " custom_net_terms_enabled: #{@custom_net_terms_enabled}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} default_net_terms: #{@default_net_terms.inspect}, automatic_net_terms:"\
+      " #{@automatic_net_terms.inspect}, remittance_net_terms: #{@remittance_net_terms.inspect},"\
+      ' net_terms_on_remittance_signups_enabled:'\
+      " #{@net_terms_on_remittance_signups_enabled.inspect}, custom_net_terms_enabled:"\
+      " #{@custom_net_terms_enabled.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

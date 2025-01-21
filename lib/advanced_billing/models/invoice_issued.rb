@@ -258,5 +258,29 @@ module AdvancedBilling
                                 is_inner_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, number: #{@number}, role: #{@role}, due_date: #{@due_date},"\
+      " issue_date: #{@issue_date}, paid_date: #{@paid_date}, due_amount: #{@due_amount},"\
+      " paid_amount: #{@paid_amount}, tax_amount: #{@tax_amount}, refund_amount:"\
+      " #{@refund_amount}, total_amount: #{@total_amount}, status_amount: #{@status_amount},"\
+      " product_name: #{@product_name}, consolidation_level: #{@consolidation_level}, line_items:"\
+      " #{@line_items}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, number: #{@number.inspect}, role: #{@role.inspect},"\
+      " due_date: #{@due_date.inspect}, issue_date: #{@issue_date.inspect}, paid_date:"\
+      " #{@paid_date.inspect}, due_amount: #{@due_amount.inspect}, paid_amount:"\
+      " #{@paid_amount.inspect}, tax_amount: #{@tax_amount.inspect}, refund_amount:"\
+      " #{@refund_amount.inspect}, total_amount: #{@total_amount.inspect}, status_amount:"\
+      " #{@status_amount.inspect}, product_name: #{@product_name.inspect}, consolidation_level:"\
+      " #{@consolidation_level.inspect}, line_items: #{@line_items.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -80,5 +80,19 @@ module AdvancedBilling
       APIHelper.valid_type?(value['type'],
                             ->(val) { GroupTargetType.validate(val) })
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} type: #{@type}, id: #{@id}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} type: #{@type.inspect}, id: #{@id.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

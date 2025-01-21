@@ -103,5 +103,22 @@ module AdvancedBilling
                                   price_in_cents: price_in_cents,
                                   additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} price_point: #{@price_point}, interval: #{@interval}, interval_unit:"\
+      " #{@interval_unit}, name: #{@name}, price: #{@price}, price_in_cents: #{@price_in_cents},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} price_point: #{@price_point.inspect}, interval: #{@interval.inspect},"\
+      " interval_unit: #{@interval_unit.inspect}, name: #{@name.inspect}, price:"\
+      " #{@price.inspect}, price_in_cents: #{@price_in_cents.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

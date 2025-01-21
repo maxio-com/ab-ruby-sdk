@@ -332,5 +332,35 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, site_id: #{@site_id}, customer_id: #{@customer_id},"\
+      " subscription_id: #{@subscription_id}, number: #{@number}, sequence_number:"\
+      " #{@sequence_number}, origin_credit_note_uid: #{@origin_credit_note_uid},"\
+      " origin_credit_note_number: #{@origin_credit_note_number}, issue_date: #{@issue_date},"\
+      " applied_date: #{@applied_date}, due_date: #{@due_date}, status: #{@status}, memo:"\
+      " #{@memo}, role: #{@role}, currency: #{@currency}, seller: #{@seller}, customer:"\
+      " #{@customer}, billing_address: #{@billing_address}, shipping_address:"\
+      " #{@shipping_address}, line_items: #{@line_items}, discounts: #{@discounts}, taxes:"\
+      " #{@taxes}, refunds: #{@refunds}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, site_id: #{@site_id.inspect}, customer_id:"\
+      " #{@customer_id.inspect}, subscription_id: #{@subscription_id.inspect}, number:"\
+      " #{@number.inspect}, sequence_number: #{@sequence_number.inspect}, origin_credit_note_uid:"\
+      " #{@origin_credit_note_uid.inspect}, origin_credit_note_number:"\
+      " #{@origin_credit_note_number.inspect}, issue_date: #{@issue_date.inspect}, applied_date:"\
+      " #{@applied_date.inspect}, due_date: #{@due_date.inspect}, status: #{@status.inspect},"\
+      " memo: #{@memo.inspect}, role: #{@role.inspect}, currency: #{@currency.inspect}, seller:"\
+      " #{@seller.inspect}, customer: #{@customer.inspect}, billing_address:"\
+      " #{@billing_address.inspect}, shipping_address: #{@shipping_address.inspect}, line_items:"\
+      " #{@line_items.inspect}, discounts: #{@discounts.inspect}, taxes: #{@taxes.inspect},"\
+      " refunds: #{@refunds.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

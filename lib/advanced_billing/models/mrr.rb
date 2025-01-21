@@ -114,5 +114,23 @@ module AdvancedBilling
     def to_custom_at_time
       DateTimeHelper.to_rfc3339(at_time)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} amount_in_cents: #{@amount_in_cents}, amount_formatted:"\
+      " #{@amount_formatted}, currency: #{@currency}, currency_symbol: #{@currency_symbol},"\
+      " breakouts: #{@breakouts}, at_time: #{@at_time}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} amount_in_cents: #{@amount_in_cents.inspect}, amount_formatted:"\
+      " #{@amount_formatted.inspect}, currency: #{@currency.inspect}, currency_symbol:"\
+      " #{@currency_symbol.inspect}, breakouts: #{@breakouts.inspect}, at_time:"\
+      " #{@at_time.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

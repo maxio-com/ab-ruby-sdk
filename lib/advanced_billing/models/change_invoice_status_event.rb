@@ -134,5 +134,21 @@ module AdvancedBilling
                                 is_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, timestamp: #{@timestamp}, invoice: #{@invoice}, event_type:"\
+      " #{@event_type}, event_data: #{@event_data}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, timestamp: #{@timestamp.inspect}, invoice:"\
+      " #{@invoice.inspect}, event_type: #{@event_type.inspect}, event_data:"\
+      " #{@event_data.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

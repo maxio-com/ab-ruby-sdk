@@ -152,5 +152,27 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} payer_id: #{@payer_id}, payer_reference: #{@payer_reference},"\
+      " payment_profile_id: #{@payment_profile_id}, payment_collection_method:"\
+      " #{@payment_collection_method}, payer_attributes: #{@payer_attributes},"\
+      " credit_card_attributes: #{@credit_card_attributes}, bank_account_attributes:"\
+      " #{@bank_account_attributes}, subscriptions: #{@subscriptions}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} payer_id: #{@payer_id.inspect}, payer_reference:"\
+      " #{@payer_reference.inspect}, payment_profile_id: #{@payment_profile_id.inspect},"\
+      " payment_collection_method: #{@payment_collection_method.inspect}, payer_attributes:"\
+      " #{@payer_attributes.inspect}, credit_card_attributes: #{@credit_card_attributes.inspect},"\
+      " bank_account_attributes: #{@bank_account_attributes.inspect}, subscriptions:"\
+      " #{@subscriptions.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

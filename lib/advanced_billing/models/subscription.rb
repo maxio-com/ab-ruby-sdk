@@ -985,5 +985,89 @@ module AdvancedBilling
     def to_custom_scheduled_cancellation_at
       DateTimeHelper.to_rfc3339(scheduled_cancellation_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, state: #{@state}, balance_in_cents: #{@balance_in_cents},"\
+      " total_revenue_in_cents: #{@total_revenue_in_cents}, product_price_in_cents:"\
+      " #{@product_price_in_cents}, product_version_number: #{@product_version_number},"\
+      " current_period_ends_at: #{@current_period_ends_at}, next_assessment_at:"\
+      " #{@next_assessment_at}, trial_started_at: #{@trial_started_at}, trial_ended_at:"\
+      " #{@trial_ended_at}, activated_at: #{@activated_at}, expires_at: #{@expires_at},"\
+      " created_at: #{@created_at}, updated_at: #{@updated_at}, cancellation_message:"\
+      " #{@cancellation_message}, cancellation_method: #{@cancellation_method},"\
+      " cancel_at_end_of_period: #{@cancel_at_end_of_period}, canceled_at: #{@canceled_at},"\
+      " current_period_started_at: #{@current_period_started_at}, previous_state:"\
+      " #{@previous_state}, signup_payment_id: #{@signup_payment_id}, signup_revenue:"\
+      " #{@signup_revenue}, delayed_cancel_at: #{@delayed_cancel_at}, coupon_code:"\
+      " #{@coupon_code}, snap_day: #{@snap_day}, payment_collection_method:"\
+      " #{@payment_collection_method}, customer: #{@customer}, product: #{@product}, credit_card:"\
+      " #{@credit_card}, group: #{@group}, bank_account: #{@bank_account}, payment_type:"\
+      " #{@payment_type}, referral_code: #{@referral_code}, next_product_id: #{@next_product_id},"\
+      " next_product_handle: #{@next_product_handle}, coupon_use_count: #{@coupon_use_count},"\
+      " coupon_uses_allowed: #{@coupon_uses_allowed}, reason_code: #{@reason_code},"\
+      " automatically_resume_at: #{@automatically_resume_at}, coupon_codes: #{@coupon_codes},"\
+      " offer_id: #{@offer_id}, payer_id: #{@payer_id}, current_billing_amount_in_cents:"\
+      " #{@current_billing_amount_in_cents}, product_price_point_id: #{@product_price_point_id},"\
+      " product_price_point_type: #{@product_price_point_type}, next_product_price_point_id:"\
+      " #{@next_product_price_point_id}, net_terms: #{@net_terms},"\
+      " stored_credential_transaction_id: #{@stored_credential_transaction_id}, reference:"\
+      " #{@reference}, on_hold_at: #{@on_hold_at}, prepaid_dunning: #{@prepaid_dunning}, coupons:"\
+      " #{@coupons}, dunning_communication_delay_enabled: #{@dunning_communication_delay_enabled},"\
+      " dunning_communication_delay_time_zone: #{@dunning_communication_delay_time_zone},"\
+      " receives_invoice_emails: #{@receives_invoice_emails}, locale: #{@locale}, currency:"\
+      " #{@currency}, scheduled_cancellation_at: #{@scheduled_cancellation_at},"\
+      " credit_balance_in_cents: #{@credit_balance_in_cents}, prepayment_balance_in_cents:"\
+      " #{@prepayment_balance_in_cents}, prepaid_configuration: #{@prepaid_configuration},"\
+      " self_service_page_token: #{@self_service_page_token}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, state: #{@state.inspect}, balance_in_cents:"\
+      " #{@balance_in_cents.inspect}, total_revenue_in_cents: #{@total_revenue_in_cents.inspect},"\
+      " product_price_in_cents: #{@product_price_in_cents.inspect}, product_version_number:"\
+      " #{@product_version_number.inspect}, current_period_ends_at:"\
+      " #{@current_period_ends_at.inspect}, next_assessment_at: #{@next_assessment_at.inspect},"\
+      " trial_started_at: #{@trial_started_at.inspect}, trial_ended_at:"\
+      " #{@trial_ended_at.inspect}, activated_at: #{@activated_at.inspect}, expires_at:"\
+      " #{@expires_at.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, cancellation_message: #{@cancellation_message.inspect},"\
+      " cancellation_method: #{@cancellation_method.inspect}, cancel_at_end_of_period:"\
+      " #{@cancel_at_end_of_period.inspect}, canceled_at: #{@canceled_at.inspect},"\
+      " current_period_started_at: #{@current_period_started_at.inspect}, previous_state:"\
+      " #{@previous_state.inspect}, signup_payment_id: #{@signup_payment_id.inspect},"\
+      " signup_revenue: #{@signup_revenue.inspect}, delayed_cancel_at:"\
+      " #{@delayed_cancel_at.inspect}, coupon_code: #{@coupon_code.inspect}, snap_day:"\
+      " #{@snap_day.inspect}, payment_collection_method: #{@payment_collection_method.inspect},"\
+      " customer: #{@customer.inspect}, product: #{@product.inspect}, credit_card:"\
+      " #{@credit_card.inspect}, group: #{@group.inspect}, bank_account: #{@bank_account.inspect},"\
+      " payment_type: #{@payment_type.inspect}, referral_code: #{@referral_code.inspect},"\
+      " next_product_id: #{@next_product_id.inspect}, next_product_handle:"\
+      " #{@next_product_handle.inspect}, coupon_use_count: #{@coupon_use_count.inspect},"\
+      " coupon_uses_allowed: #{@coupon_uses_allowed.inspect}, reason_code:"\
+      " #{@reason_code.inspect}, automatically_resume_at: #{@automatically_resume_at.inspect},"\
+      " coupon_codes: #{@coupon_codes.inspect}, offer_id: #{@offer_id.inspect}, payer_id:"\
+      " #{@payer_id.inspect}, current_billing_amount_in_cents:"\
+      " #{@current_billing_amount_in_cents.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, product_price_point_type:"\
+      " #{@product_price_point_type.inspect}, next_product_price_point_id:"\
+      " #{@next_product_price_point_id.inspect}, net_terms: #{@net_terms.inspect},"\
+      " stored_credential_transaction_id: #{@stored_credential_transaction_id.inspect}, reference:"\
+      " #{@reference.inspect}, on_hold_at: #{@on_hold_at.inspect}, prepaid_dunning:"\
+      " #{@prepaid_dunning.inspect}, coupons: #{@coupons.inspect},"\
+      " dunning_communication_delay_enabled: #{@dunning_communication_delay_enabled.inspect},"\
+      " dunning_communication_delay_time_zone: #{@dunning_communication_delay_time_zone.inspect},"\
+      " receives_invoice_emails: #{@receives_invoice_emails.inspect}, locale: #{@locale.inspect},"\
+      " currency: #{@currency.inspect}, scheduled_cancellation_at:"\
+      " #{@scheduled_cancellation_at.inspect}, credit_balance_in_cents:"\
+      " #{@credit_balance_in_cents.inspect}, prepayment_balance_in_cents:"\
+      " #{@prepayment_balance_in_cents.inspect}, prepaid_configuration:"\
+      " #{@prepaid_configuration.inspect}, self_service_page_token:"\
+      " #{@self_service_page_token.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

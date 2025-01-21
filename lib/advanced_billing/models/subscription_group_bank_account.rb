@@ -226,5 +226,33 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} bank_name: #{@bank_name}, bank_account_number: #{@bank_account_number},"\
+      " bank_routing_number: #{@bank_routing_number}, bank_iban: #{@bank_iban}, bank_branch_code:"\
+      " #{@bank_branch_code}, bank_account_type: #{@bank_account_type}, bank_account_holder_type:"\
+      " #{@bank_account_holder_type}, payment_type: #{@payment_type}, billing_address:"\
+      " #{@billing_address}, billing_city: #{@billing_city}, billing_state: #{@billing_state},"\
+      " billing_zip: #{@billing_zip}, billing_country: #{@billing_country}, chargify_token:"\
+      " #{@chargify_token}, current_vault: #{@current_vault}, gateway_handle: #{@gateway_handle},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} bank_name: #{@bank_name.inspect}, bank_account_number:"\
+      " #{@bank_account_number.inspect}, bank_routing_number: #{@bank_routing_number.inspect},"\
+      " bank_iban: #{@bank_iban.inspect}, bank_branch_code: #{@bank_branch_code.inspect},"\
+      " bank_account_type: #{@bank_account_type.inspect}, bank_account_holder_type:"\
+      " #{@bank_account_holder_type.inspect}, payment_type: #{@payment_type.inspect},"\
+      " billing_address: #{@billing_address.inspect}, billing_city: #{@billing_city.inspect},"\
+      " billing_state: #{@billing_state.inspect}, billing_zip: #{@billing_zip.inspect},"\
+      " billing_country: #{@billing_country.inspect}, chargify_token: #{@chargify_token.inspect},"\
+      " current_vault: #{@current_vault.inspect}, gateway_handle: #{@gateway_handle.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

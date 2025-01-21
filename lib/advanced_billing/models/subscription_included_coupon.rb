@@ -116,5 +116,23 @@ module AdvancedBilling
                                      percentage: percentage,
                                      additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} code: #{@code}, use_count: #{@use_count}, uses_allowed: #{@uses_allowed},"\
+      " expires_at: #{@expires_at}, recurring: #{@recurring}, amount_in_cents:"\
+      " #{@amount_in_cents}, percentage: #{@percentage}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} code: #{@code.inspect}, use_count: #{@use_count.inspect}, uses_allowed:"\
+      " #{@uses_allowed.inspect}, expires_at: #{@expires_at.inspect}, recurring:"\
+      " #{@recurring.inspect}, amount_in_cents: #{@amount_in_cents.inspect}, percentage:"\
+      " #{@percentage.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

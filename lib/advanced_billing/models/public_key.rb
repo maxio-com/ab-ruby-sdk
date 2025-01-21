@@ -84,5 +84,21 @@ module AdvancedBilling
     def to_custom_created_at
       DateTimeHelper.to_rfc3339(created_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} public_key: #{@public_key}, requires_security_token:"\
+      " #{@requires_security_token}, created_at: #{@created_at}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} public_key: #{@public_key.inspect}, requires_security_token:"\
+      " #{@requires_security_token.inspect}, created_at: #{@created_at.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

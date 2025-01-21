@@ -101,5 +101,22 @@ module AdvancedBilling
                                  metafields: metafields,
                                  additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} total_count: #{@total_count}, current_page: #{@current_page}, total_pages:"\
+      " #{@total_pages}, per_page: #{@per_page}, metafields: #{@metafields},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} total_count: #{@total_count.inspect}, current_page:"\
+      " #{@current_page.inspect}, total_pages: #{@total_pages.inspect}, per_page:"\
+      " #{@per_page.inspect}, metafields: #{@metafields.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

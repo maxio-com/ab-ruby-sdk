@@ -114,5 +114,23 @@ module AdvancedBilling
                                        payer_id: payer_id,
                                        additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} subscriptions: #{@subscriptions}, payer_reference: #{@payer_reference},"\
+      " payer: #{@payer}, subscription_group: #{@subscription_group}, payment_profile_id:"\
+      " #{@payment_profile_id}, payer_id: #{@payer_id}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} subscriptions: #{@subscriptions.inspect}, payer_reference:"\
+      " #{@payer_reference.inspect}, payer: #{@payer.inspect}, subscription_group:"\
+      " #{@subscription_group.inspect}, payment_profile_id: #{@payment_profile_id.inspect},"\
+      " payer_id: #{@payer_id.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

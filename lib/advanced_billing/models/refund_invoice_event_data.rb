@@ -197,5 +197,26 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} apply_credit: #{@apply_credit}, consolidation_level:"\
+      " #{@consolidation_level}, credit_note_attributes: #{@credit_note_attributes}, memo:"\
+      " #{@memo}, original_amount: #{@original_amount}, payment_id: #{@payment_id}, refund_amount:"\
+      " #{@refund_amount}, refund_id: #{@refund_id}, transaction_time: #{@transaction_time},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} apply_credit: #{@apply_credit.inspect}, consolidation_level:"\
+      " #{@consolidation_level.inspect}, credit_note_attributes:"\
+      " #{@credit_note_attributes.inspect}, memo: #{@memo.inspect}, original_amount:"\
+      " #{@original_amount.inspect}, payment_id: #{@payment_id.inspect}, refund_amount:"\
+      " #{@refund_amount.inspect}, refund_id: #{@refund_id.inspect}, transaction_time:"\
+      " #{@transaction_time.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

@@ -156,5 +156,24 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_id: #{@transaction_id}, memo: #{@memo}, original_amount:"\
+      " #{@original_amount}, applied_amount: #{@applied_amount}, transaction_time:"\
+      " #{@transaction_time}, payment_method: #{@payment_method}, prepayment: #{@prepayment},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_id: #{@transaction_id.inspect}, memo: #{@memo.inspect},"\
+      " original_amount: #{@original_amount.inspect}, applied_amount: #{@applied_amount.inspect},"\
+      " transaction_time: #{@transaction_time.inspect}, payment_method:"\
+      " #{@payment_method.inspect}, prepayment: #{@prepayment.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

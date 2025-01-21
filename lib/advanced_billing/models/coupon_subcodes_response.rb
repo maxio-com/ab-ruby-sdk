@@ -75,5 +75,20 @@ module AdvancedBilling
                                  invalid_codes: invalid_codes,
                                  additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} created_codes: #{@created_codes}, duplicate_codes: #{@duplicate_codes},"\
+      " invalid_codes: #{@invalid_codes}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} created_codes: #{@created_codes.inspect}, duplicate_codes:"\
+      " #{@duplicate_codes.inspect}, invalid_codes: #{@invalid_codes.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

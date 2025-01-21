@@ -359,5 +359,40 @@ module AdvancedBilling
                                 is_model_hash: true)
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name}, unit_name: #{@unit_name}, description: #{@description},"\
+      " handle: #{@handle}, taxable: #{@taxable}, pricing_scheme: #{@pricing_scheme}, prices:"\
+      " #{@prices}, upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit},"\
+      " price_points: #{@price_points}, unit_price: #{@unit_price}, tax_code: #{@tax_code},"\
+      " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, overage_pricing:"\
+      " #{@overage_pricing}, rollover_prepaid_remainder: #{@rollover_prepaid_remainder},"\
+      " renew_prepaid_allocation: #{@renew_prepaid_allocation}, expiration_interval:"\
+      " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit},"\
+      " display_on_hosted_page: #{@display_on_hosted_page}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities}, public_signup_page_ids: #{@public_signup_page_ids},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} name: #{@name.inspect}, unit_name: #{@unit_name.inspect}, description:"\
+      " #{@description.inspect}, handle: #{@handle.inspect}, taxable: #{@taxable.inspect},"\
+      " pricing_scheme: #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, upgrade_charge:"\
+      " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect}, price_points:"\
+      " #{@price_points.inspect}, unit_price: #{@unit_price.inspect}, tax_code:"\
+      " #{@tax_code.inspect}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect},"\
+      " overage_pricing: #{@overage_pricing.inspect}, rollover_prepaid_remainder:"\
+      " #{@rollover_prepaid_remainder.inspect}, renew_prepaid_allocation:"\
+      " #{@renew_prepaid_allocation.inspect}, expiration_interval:"\
+      " #{@expiration_interval.inspect}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit.inspect}, display_on_hosted_page:"\
+      " #{@display_on_hosted_page.inspect}, allow_fractional_quantities:"\
+      " #{@allow_fractional_quantities.inspect}, public_signup_page_ids:"\
+      " #{@public_signup_page_ids.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

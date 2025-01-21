@@ -123,5 +123,24 @@ module AdvancedBilling
     def to_custom_last_invite_accepted_at
       DateTimeHelper.to_rfc3339(last_invite_accepted_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} last_sent_at: #{@last_sent_at}, last_accepted_at: #{@last_accepted_at},"\
+      " send_invite_link_text: #{@send_invite_link_text}, uninvited_count: #{@uninvited_count},"\
+      " last_invite_sent_at: #{@last_invite_sent_at}, last_invite_accepted_at:"\
+      " #{@last_invite_accepted_at}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} last_sent_at: #{@last_sent_at.inspect}, last_accepted_at:"\
+      " #{@last_accepted_at.inspect}, send_invite_link_text: #{@send_invite_link_text.inspect},"\
+      " uninvited_count: #{@uninvited_count.inspect}, last_invite_sent_at:"\
+      " #{@last_invite_sent_at.inspect}, last_invite_accepted_at:"\
+      " #{@last_invite_accepted_at.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

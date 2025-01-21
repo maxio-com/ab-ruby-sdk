@@ -67,5 +67,21 @@ module AdvancedBilling
                               next_billing_manifest: next_billing_manifest,
                               additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} current_billing_manifest: #{@current_billing_manifest},"\
+      " next_billing_manifest: #{@next_billing_manifest}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} current_billing_manifest: #{@current_billing_manifest.inspect},"\
+      " next_billing_manifest: #{@next_billing_manifest.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -98,5 +98,24 @@ module AdvancedBilling
                              segment_property_4_value: segment_property_4_value,
                              additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} segment_property_1_value: #{@segment_property_1_value},"\
+      " segment_property_2_value: #{@segment_property_2_value}, segment_property_3_value:"\
+      " #{@segment_property_3_value}, segment_property_4_value: #{@segment_property_4_value},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} segment_property_1_value: #{@segment_property_1_value.inspect},"\
+      " segment_property_2_value: #{@segment_property_2_value.inspect}, segment_property_3_value:"\
+      " #{@segment_property_3_value.inspect}, segment_property_4_value:"\
+      " #{@segment_property_4_value.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

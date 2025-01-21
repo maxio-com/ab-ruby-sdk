@@ -118,5 +118,20 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} street: #{@street}, line2: #{@line2}, city: #{@city}, state: #{@state},"\
+      " zip: #{@zip}, country: #{@country}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} street: #{@street.inspect}, line2: #{@line2.inspect}, city:"\
+      " #{@city.inspect}, state: #{@state.inspect}, zip: #{@zip.inspect}, country:"\
+      " #{@country.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

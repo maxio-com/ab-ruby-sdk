@@ -80,5 +80,20 @@ module AdvancedBilling
                         payment_method: payment_method,
                         additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} amount: #{@amount}, memo: #{@memo}, payment_details: #{@payment_details},"\
+      " payment_method: #{@payment_method}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} amount: #{@amount.inspect}, memo: #{@memo.inspect}, payment_details:"\
+      " #{@payment_details.inspect}, payment_method: #{@payment_method.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

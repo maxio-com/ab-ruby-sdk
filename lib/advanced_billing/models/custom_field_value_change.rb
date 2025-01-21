@@ -149,5 +149,24 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? Integer })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} event_type: #{@event_type}, metafield_name: #{@metafield_name},"\
+      " metafield_id: #{@metafield_id}, old_value: #{@old_value}, new_value: #{@new_value},"\
+      " resource_type: #{@resource_type}, resource_id: #{@resource_id}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} event_type: #{@event_type.inspect}, metafield_name:"\
+      " #{@metafield_name.inspect}, metafield_id: #{@metafield_id.inspect}, old_value:"\
+      " #{@old_value.inspect}, new_value: #{@new_value.inspect}, resource_type:"\
+      " #{@resource_type.inspect}, resource_id: #{@resource_id.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

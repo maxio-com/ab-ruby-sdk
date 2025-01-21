@@ -146,5 +146,25 @@ module AdvancedBilling
                           upgrade_charge: upgrade_charge,
                           additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} handle: #{@handle}, name: #{@name}, description: #{@description},"\
+      " accounting_code: #{@accounting_code}, taxable: #{@taxable}, tax_code: #{@tax_code},"\
+      " item_category: #{@item_category}, display_on_hosted_page: #{@display_on_hosted_page},"\
+      " upgrade_charge: #{@upgrade_charge}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} handle: #{@handle.inspect}, name: #{@name.inspect}, description:"\
+      " #{@description.inspect}, accounting_code: #{@accounting_code.inspect}, taxable:"\
+      " #{@taxable.inspect}, tax_code: #{@tax_code.inspect}, item_category:"\
+      " #{@item_category.inspect}, display_on_hosted_page: #{@display_on_hosted_page.inspect},"\
+      " upgrade_charge: #{@upgrade_charge.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

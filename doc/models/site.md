@@ -16,6 +16,7 @@
 | `seller_id` | `Integer` | Optional | - |
 | `non_primary_currencies` | `Array<String>` | Optional | - |
 | `relationship_invoicing_enabled` | `TrueClass \| FalseClass` | Optional | - |
+| `schedule_subscription_cancellation_enabled` | `TrueClass \| FalseClass` | Optional | - |
 | `customer_hierarchy_enabled` | `TrueClass \| FalseClass` | Optional | - |
 | `whopays_enabled` | `TrueClass \| FalseClass` | Optional | - |
 | `whopays_default_payer` | `String` | Optional | - |

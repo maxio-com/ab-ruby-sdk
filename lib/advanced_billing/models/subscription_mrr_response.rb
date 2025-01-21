@@ -62,5 +62,19 @@ module AdvancedBilling
       SubscriptionMRRResponse.new(subscriptions_mrr: subscriptions_mrr,
                                   additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} subscriptions_mrr: #{@subscriptions_mrr}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} subscriptions_mrr: #{@subscriptions_mrr.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

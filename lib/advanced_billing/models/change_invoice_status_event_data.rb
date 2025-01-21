@@ -124,5 +124,22 @@ module AdvancedBilling
                                 ->(val) { InvoiceStatus.validate(val) })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} gateway_trans_id: #{@gateway_trans_id}, amount: #{@amount}, from_status:"\
+      " #{@from_status}, to_status: #{@to_status}, consolidation_level: #{@consolidation_level},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} gateway_trans_id: #{@gateway_trans_id.inspect}, amount: #{@amount.inspect},"\
+      " from_status: #{@from_status.inspect}, to_status: #{@to_status.inspect},"\
+      " consolidation_level: #{@consolidation_level.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

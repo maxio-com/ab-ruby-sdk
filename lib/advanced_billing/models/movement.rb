@@ -152,5 +152,26 @@ module AdvancedBilling
     def to_custom_timestamp
       DateTimeHelper.to_rfc3339(timestamp)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} timestamp: #{@timestamp}, amount_in_cents: #{@amount_in_cents},"\
+      " amount_formatted: #{@amount_formatted}, description: #{@description}, category:"\
+      " #{@category}, breakouts: #{@breakouts}, line_items: #{@line_items}, subscription_id:"\
+      " #{@subscription_id}, subscriber_name: #{@subscriber_name}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} timestamp: #{@timestamp.inspect}, amount_in_cents:"\
+      " #{@amount_in_cents.inspect}, amount_formatted: #{@amount_formatted.inspect}, description:"\
+      " #{@description.inspect}, category: #{@category.inspect}, breakouts: #{@breakouts.inspect},"\
+      " line_items: #{@line_items.inspect}, subscription_id: #{@subscription_id.inspect},"\
+      " subscriber_name: #{@subscriber_name.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

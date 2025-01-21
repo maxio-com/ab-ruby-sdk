@@ -152,5 +152,28 @@ module AdvancedBilling
                                 balance_in_cents: balance_in_cents,
                                 additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, reference: #{@reference}, product_id: #{@product_id},"\
+      " product_handle: #{@product_handle}, product_price_point_id: #{@product_price_point_id},"\
+      " product_price_point_handle: #{@product_price_point_handle}, currency: #{@currency},"\
+      " coupon_code: #{@coupon_code}, total_revenue_in_cents: #{@total_revenue_in_cents},"\
+      " balance_in_cents: #{@balance_in_cents}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, reference: #{@reference.inspect}, product_id:"\
+      " #{@product_id.inspect}, product_handle: #{@product_handle.inspect},"\
+      " product_price_point_id: #{@product_price_point_id.inspect}, product_price_point_handle:"\
+      " #{@product_price_point_handle.inspect}, currency: #{@currency.inspect}, coupon_code:"\
+      " #{@coupon_code.inspect}, total_revenue_in_cents: #{@total_revenue_in_cents.inspect},"\
+      " balance_in_cents: #{@balance_in_cents.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

@@ -194,5 +194,31 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} tax_rule_id: #{@tax_rule_id}, percentage: #{@percentage}, country_code:"\
+      " #{@country_code}, subdivision_code: #{@subdivision_code}, tax_amount: #{@tax_amount},"\
+      " taxable_amount: #{@taxable_amount}, tax_exempt_amount: #{@tax_exempt_amount},"\
+      " non_taxable_amount: #{@non_taxable_amount}, tax_name: #{@tax_name}, tax_type:"\
+      " #{@tax_type}, rate_type: #{@rate_type}, tax_authority_type: #{@tax_authority_type},"\
+      " state_assigned_no: #{@state_assigned_no}, tax_sub_type: #{@tax_sub_type},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} tax_rule_id: #{@tax_rule_id.inspect}, percentage: #{@percentage.inspect},"\
+      " country_code: #{@country_code.inspect}, subdivision_code: #{@subdivision_code.inspect},"\
+      " tax_amount: #{@tax_amount.inspect}, taxable_amount: #{@taxable_amount.inspect},"\
+      " tax_exempt_amount: #{@tax_exempt_amount.inspect}, non_taxable_amount:"\
+      " #{@non_taxable_amount.inspect}, tax_name: #{@tax_name.inspect}, tax_type:"\
+      " #{@tax_type.inspect}, rate_type: #{@rate_type.inspect}, tax_authority_type:"\
+      " #{@tax_authority_type.inspect}, state_assigned_no: #{@state_assigned_no.inspect},"\
+      " tax_sub_type: #{@tax_sub_type.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

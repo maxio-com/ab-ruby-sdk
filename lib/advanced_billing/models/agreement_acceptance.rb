@@ -129,5 +129,25 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} ip_address: #{@ip_address}, terms_url: #{@terms_url}, privacy_policy_url:"\
+      " #{@privacy_policy_url}, return_refund_policy_url: #{@return_refund_policy_url},"\
+      " delivery_policy_url: #{@delivery_policy_url}, secure_checkout_policy_url:"\
+      " #{@secure_checkout_policy_url}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} ip_address: #{@ip_address.inspect}, terms_url: #{@terms_url.inspect},"\
+      " privacy_policy_url: #{@privacy_policy_url.inspect}, return_refund_policy_url:"\
+      " #{@return_refund_policy_url.inspect}, delivery_policy_url:"\
+      " #{@delivery_policy_url.inspect}, secure_checkout_policy_url:"\
+      " #{@secure_checkout_policy_url.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

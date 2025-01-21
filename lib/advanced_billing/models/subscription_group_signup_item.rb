@@ -206,5 +206,29 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_handle: #{@product_handle}, product_id: #{@product_id},"\
+      " product_price_point_id: #{@product_price_point_id}, product_price_point_handle:"\
+      " #{@product_price_point_handle}, offer_id: #{@offer_id}, reference: #{@reference}, primary:"\
+      " #{@primary}, currency: #{@currency}, coupon_codes: #{@coupon_codes}, components:"\
+      " #{@components}, custom_price: #{@custom_price}, calendar_billing: #{@calendar_billing},"\
+      " metafields: #{@metafields}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} product_handle: #{@product_handle.inspect}, product_id:"\
+      " #{@product_id.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
+      " product_price_point_handle: #{@product_price_point_handle.inspect}, offer_id:"\
+      " #{@offer_id.inspect}, reference: #{@reference.inspect}, primary: #{@primary.inspect},"\
+      " currency: #{@currency.inspect}, coupon_codes: #{@coupon_codes.inspect}, components:"\
+      " #{@components.inspect}, custom_price: #{@custom_price.inspect}, calendar_billing:"\
+      " #{@calendar_billing.inspect}, metafields: #{@metafields.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

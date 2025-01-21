@@ -204,5 +204,27 @@ module AdvancedBilling
     def to_custom_last_sent_at
       DateTimeHelper.to_rfc3339(last_sent_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} event: #{@event}, id: #{@id}, created_at: #{@created_at}, last_error:"\
+      " #{@last_error}, last_error_at: #{@last_error_at}, accepted_at: #{@accepted_at},"\
+      " last_sent_at: #{@last_sent_at}, last_sent_url: #{@last_sent_url}, successful:"\
+      " #{@successful}, body: #{@body}, signature: #{@signature}, signature_hmac_sha_256:"\
+      " #{@signature_hmac_sha_256}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} event: #{@event.inspect}, id: #{@id.inspect}, created_at:"\
+      " #{@created_at.inspect}, last_error: #{@last_error.inspect}, last_error_at:"\
+      " #{@last_error_at.inspect}, accepted_at: #{@accepted_at.inspect}, last_sent_at:"\
+      " #{@last_sent_at.inspect}, last_sent_url: #{@last_sent_url.inspect}, successful:"\
+      " #{@successful.inspect}, body: #{@body.inspect}, signature: #{@signature.inspect},"\
+      " signature_hmac_sha_256: #{@signature_hmac_sha_256.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

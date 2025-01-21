@@ -146,5 +146,26 @@ module AdvancedBilling
     def to_custom_created_at
       DateTimeHelper.to_rfc3339(created_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, subscription_group_uid: #{@subscription_group_uid},"\
+      " amount_in_cents: #{@amount_in_cents}, remaining_amount_in_cents:"\
+      " #{@remaining_amount_in_cents}, details: #{@details}, external: #{@external}, memo:"\
+      " #{@memo}, payment_type: #{@payment_type}, created_at: #{@created_at},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, subscription_group_uid:"\
+      " #{@subscription_group_uid.inspect}, amount_in_cents: #{@amount_in_cents.inspect},"\
+      " remaining_amount_in_cents: #{@remaining_amount_in_cents.inspect}, details:"\
+      " #{@details.inspect}, external: #{@external.inspect}, memo: #{@memo.inspect}, payment_type:"\
+      " #{@payment_type.inspect}, created_at: #{@created_at.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

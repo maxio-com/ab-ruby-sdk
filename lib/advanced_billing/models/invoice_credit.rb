@@ -134,5 +134,24 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, credit_note_number: #{@credit_note_number}, credit_note_uid:"\
+      " #{@credit_note_uid}, transaction_time: #{@transaction_time}, memo: #{@memo},"\
+      " original_amount: #{@original_amount}, applied_amount: #{@applied_amount},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, credit_note_number: #{@credit_note_number.inspect},"\
+      " credit_note_uid: #{@credit_note_uid.inspect}, transaction_time:"\
+      " #{@transaction_time.inspect}, memo: #{@memo.inspect}, original_amount:"\
+      " #{@original_amount.inspect}, applied_amount: #{@applied_amount.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

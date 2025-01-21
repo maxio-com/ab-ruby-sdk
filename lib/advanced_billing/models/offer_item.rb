@@ -162,5 +162,27 @@ module AdvancedBilling
                     interval_unit: interval_unit,
                     additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_id: #{@component_id}, price_point_id: #{@price_point_id},"\
+      " starting_quantity: #{@starting_quantity}, editable: #{@editable}, component_unit_price:"\
+      " #{@component_unit_price}, component_name: #{@component_name}, price_point_name:"\
+      " #{@price_point_name}, currency_prices: #{@currency_prices}, interval: #{@interval},"\
+      " interval_unit: #{@interval_unit}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_id: #{@component_id.inspect}, price_point_id:"\
+      " #{@price_point_id.inspect}, starting_quantity: #{@starting_quantity.inspect}, editable:"\
+      " #{@editable.inspect}, component_unit_price: #{@component_unit_price.inspect},"\
+      " component_name: #{@component_name.inspect}, price_point_name:"\
+      " #{@price_point_name.inspect}, currency_prices: #{@currency_prices.inspect}, interval:"\
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

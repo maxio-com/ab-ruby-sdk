@@ -114,5 +114,24 @@ module AdvancedBilling
                           sales_rep_name: sales_rep_name,
                           additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} customer_name: #{@customer_name}, subscription_id: #{@subscription_id},"\
+      " site_link: #{@site_link}, site_name: #{@site_name}, subscription_mrr:"\
+      " #{@subscription_mrr}, sales_rep_id: #{@sales_rep_id}, sales_rep_name: #{@sales_rep_name},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} customer_name: #{@customer_name.inspect}, subscription_id:"\
+      " #{@subscription_id.inspect}, site_link: #{@site_link.inspect}, site_name:"\
+      " #{@site_name.inspect}, subscription_mrr: #{@subscription_mrr.inspect}, sales_rep_id:"\
+      " #{@sales_rep_id.inspect}, sales_rep_name: #{@sales_rep_name.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

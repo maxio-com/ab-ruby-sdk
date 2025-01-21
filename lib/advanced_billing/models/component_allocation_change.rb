@@ -148,5 +148,25 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? Integer })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} previous_allocation: #{@previous_allocation}, new_allocation:"\
+      " #{@new_allocation}, component_id: #{@component_id}, component_handle:"\
+      " #{@component_handle}, memo: #{@memo}, allocation_id: #{@allocation_id},"\
+      " allocated_quantity: #{@allocated_quantity}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} previous_allocation: #{@previous_allocation.inspect}, new_allocation:"\
+      " #{@new_allocation.inspect}, component_id: #{@component_id.inspect}, component_handle:"\
+      " #{@component_handle.inspect}, memo: #{@memo.inspect}, allocation_id:"\
+      " #{@allocation_id.inspect}, allocated_quantity: #{@allocated_quantity.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

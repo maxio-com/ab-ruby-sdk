@@ -84,5 +84,21 @@ module AdvancedBilling
                                           masked_card_number: masked_card_number,
                                           additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, first_name: #{@first_name}, last_name: #{@last_name},"\
+      " masked_card_number: #{@masked_card_number}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, first_name: #{@first_name.inspect}, last_name:"\
+      " #{@last_name.inspect}, masked_card_number: #{@masked_card_number.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

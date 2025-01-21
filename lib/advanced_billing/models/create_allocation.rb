@@ -198,5 +198,29 @@ module AdvancedBilling
       APIHelper.valid_type?(value['quantity'],
                             ->(val) { val.instance_of? Float })
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} quantity: #{@quantity}, component_id: #{@component_id}, memo: #{@memo},"\
+      " proration_downgrade_scheme: #{@proration_downgrade_scheme}, proration_upgrade_scheme:"\
+      " #{@proration_upgrade_scheme}, accrue_charge: #{@accrue_charge}, downgrade_credit:"\
+      " #{@downgrade_credit}, upgrade_charge: #{@upgrade_charge}, initiate_dunning:"\
+      " #{@initiate_dunning}, price_point_id: #{@price_point_id}, billing_schedule:"\
+      " #{@billing_schedule}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} quantity: #{@quantity.inspect}, component_id: #{@component_id.inspect},"\
+      " memo: #{@memo.inspect}, proration_downgrade_scheme:"\
+      " #{@proration_downgrade_scheme.inspect}, proration_upgrade_scheme:"\
+      " #{@proration_upgrade_scheme.inspect}, accrue_charge: #{@accrue_charge.inspect},"\
+      " downgrade_credit: #{@downgrade_credit.inspect}, upgrade_charge:"\
+      " #{@upgrade_charge.inspect}, initiate_dunning: #{@initiate_dunning.inspect},"\
+      " price_point_id: #{@price_point_id.inspect}, billing_schedule:"\
+      " #{@billing_schedule.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

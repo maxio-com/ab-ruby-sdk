@@ -39,6 +39,10 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [TrueClass | FalseClass]
+    attr_accessor :schedule_subscription_cancellation_enabled
+
+    # TODO: Write general description for this method
+    # @return [TrueClass | FalseClass]
     attr_accessor :customer_hierarchy_enabled
 
     # TODO: Write general description for this method
@@ -84,6 +88,8 @@ module AdvancedBilling
       @_hash['non_primary_currencies'] = 'non_primary_currencies'
       @_hash['relationship_invoicing_enabled'] =
         'relationship_invoicing_enabled'
+      @_hash['schedule_subscription_cancellation_enabled'] =
+        'schedule_subscription_cancellation_enabled'
       @_hash['customer_hierarchy_enabled'] = 'customer_hierarchy_enabled'
       @_hash['whopays_enabled'] = 'whopays_enabled'
       @_hash['whopays_default_payer'] = 'whopays_default_payer'
@@ -107,6 +113,7 @@ module AdvancedBilling
         seller_id
         non_primary_currencies
         relationship_invoicing_enabled
+        schedule_subscription_cancellation_enabled
         customer_hierarchy_enabled
         whopays_enabled
         whopays_default_payer
@@ -127,6 +134,7 @@ module AdvancedBilling
     def initialize(id: SKIP, name: SKIP, subdomain: SKIP, currency: SKIP,
                    seller_id: SKIP, non_primary_currencies: SKIP,
                    relationship_invoicing_enabled: SKIP,
+                   schedule_subscription_cancellation_enabled: SKIP,
                    customer_hierarchy_enabled: SKIP, whopays_enabled: SKIP,
                    whopays_default_payer: SKIP, allocation_settings: SKIP,
                    default_payment_collection_method: SKIP,
@@ -146,6 +154,10 @@ module AdvancedBilling
       unless relationship_invoicing_enabled == SKIP
         @relationship_invoicing_enabled =
           relationship_invoicing_enabled
+      end
+      unless schedule_subscription_cancellation_enabled == SKIP
+        @schedule_subscription_cancellation_enabled =
+          schedule_subscription_cancellation_enabled
       end
       unless customer_hierarchy_enabled == SKIP
         @customer_hierarchy_enabled =
@@ -178,6 +190,8 @@ module AdvancedBilling
         hash.key?('non_primary_currencies') ? hash['non_primary_currencies'] : SKIP
       relationship_invoicing_enabled =
         hash.key?('relationship_invoicing_enabled') ? hash['relationship_invoicing_enabled'] : SKIP
+      schedule_subscription_cancellation_enabled =
+        hash.key?('schedule_subscription_cancellation_enabled') ? hash['schedule_subscription_cancellation_enabled'] : SKIP
       customer_hierarchy_enabled =
         hash.key?('customer_hierarchy_enabled') ? hash['customer_hierarchy_enabled'] : SKIP
       whopays_enabled =
@@ -206,6 +220,7 @@ module AdvancedBilling
                seller_id: seller_id,
                non_primary_currencies: non_primary_currencies,
                relationship_invoicing_enabled: relationship_invoicing_enabled,
+               schedule_subscription_cancellation_enabled: schedule_subscription_cancellation_enabled,
                customer_hierarchy_enabled: customer_hierarchy_enabled,
                whopays_enabled: whopays_enabled,
                whopays_default_payer: whopays_default_payer,
@@ -216,6 +231,40 @@ module AdvancedBilling
                net_terms: net_terms,
                test: test,
                additional_properties: additional_properties)
+    end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, subdomain: #{@subdomain}, currency:"\
+      " #{@currency}, seller_id: #{@seller_id}, non_primary_currencies:"\
+      " #{@non_primary_currencies}, relationship_invoicing_enabled:"\
+      " #{@relationship_invoicing_enabled}, schedule_subscription_cancellation_enabled:"\
+      " #{@schedule_subscription_cancellation_enabled}, customer_hierarchy_enabled:"\
+      " #{@customer_hierarchy_enabled}, whopays_enabled: #{@whopays_enabled},"\
+      " whopays_default_payer: #{@whopays_default_payer}, allocation_settings:"\
+      " #{@allocation_settings}, default_payment_collection_method:"\
+      " #{@default_payment_collection_method}, organization_address: #{@organization_address},"\
+      " tax_configuration: #{@tax_configuration}, net_terms: #{@net_terms}, test: #{@test},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, subdomain:"\
+      " #{@subdomain.inspect}, currency: #{@currency.inspect}, seller_id: #{@seller_id.inspect},"\
+      " non_primary_currencies: #{@non_primary_currencies.inspect},"\
+      " relationship_invoicing_enabled: #{@relationship_invoicing_enabled.inspect},"\
+      ' schedule_subscription_cancellation_enabled:'\
+      " #{@schedule_subscription_cancellation_enabled.inspect}, customer_hierarchy_enabled:"\
+      " #{@customer_hierarchy_enabled.inspect}, whopays_enabled: #{@whopays_enabled.inspect},"\
+      " whopays_default_payer: #{@whopays_default_payer.inspect}, allocation_settings:"\
+      " #{@allocation_settings.inspect}, default_payment_collection_method:"\
+      " #{@default_payment_collection_method.inspect}, organization_address:"\
+      " #{@organization_address.inspect}, tax_configuration: #{@tax_configuration.inspect},"\
+      " net_terms: #{@net_terms.inspect}, test: #{@test.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

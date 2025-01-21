@@ -199,5 +199,26 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String })
       )
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, credit_note_number: #{@credit_note_number}, credit_note_uid:"\
+      " #{@credit_note_uid}, original_amount: #{@original_amount}, applied_amount:"\
+      " #{@applied_amount}, transaction_time: #{@transaction_time}, memo: #{@memo}, role:"\
+      " #{@role}, consolidated_invoice: #{@consolidated_invoice}, applied_credit_notes:"\
+      " #{@applied_credit_notes}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, credit_note_number: #{@credit_note_number.inspect},"\
+      " credit_note_uid: #{@credit_note_uid.inspect}, original_amount:"\
+      " #{@original_amount.inspect}, applied_amount: #{@applied_amount.inspect}, transaction_time:"\
+      " #{@transaction_time.inspect}, memo: #{@memo.inspect}, role: #{@role.inspect},"\
+      " consolidated_invoice: #{@consolidated_invoice.inspect}, applied_credit_notes:"\
+      " #{@applied_credit_notes.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

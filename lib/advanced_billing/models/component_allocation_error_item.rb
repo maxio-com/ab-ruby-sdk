@@ -83,5 +83,20 @@ module AdvancedBilling
                                        on: on,
                                        additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_id: #{@component_id}, message: #{@message}, kind: #{@kind}, on:"\
+      " #{@on}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} component_id: #{@component_id.inspect}, message: #{@message.inspect}, kind:"\
+      " #{@kind.inspect}, on: #{@on.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

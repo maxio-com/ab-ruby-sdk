@@ -96,5 +96,21 @@ module AdvancedBilling
                               applications: applications,
                               additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_id: #{@transaction_id}, total_amount: #{@total_amount},"\
+      " currency_code: #{@currency_code}, applications: #{@applications}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} transaction_id: #{@transaction_id.inspect}, total_amount:"\
+      " #{@total_amount.inspect}, currency_code: #{@currency_code.inspect}, applications:"\
+      " #{@applications.inspect}, additional_properties: #{get_additional_properties}>"
+    end
   end
 end

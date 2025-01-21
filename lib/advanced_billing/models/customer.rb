@@ -434,5 +434,45 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} first_name: #{@first_name}, last_name: #{@last_name}, email: #{@email},"\
+      " cc_emails: #{@cc_emails}, organization: #{@organization}, reference: #{@reference}, id:"\
+      " #{@id}, created_at: #{@created_at}, updated_at: #{@updated_at}, address: #{@address},"\
+      " address_2: #{@address_2}, city: #{@city}, state: #{@state}, state_name: #{@state_name},"\
+      " zip: #{@zip}, country: #{@country}, country_name: #{@country_name}, phone: #{@phone},"\
+      " verified: #{@verified}, portal_customer_created_at: #{@portal_customer_created_at},"\
+      " portal_invite_last_sent_at: #{@portal_invite_last_sent_at},"\
+      " portal_invite_last_accepted_at: #{@portal_invite_last_accepted_at}, tax_exempt:"\
+      " #{@tax_exempt}, vat_number: #{@vat_number}, parent_id: #{@parent_id}, locale: #{@locale},"\
+      " default_subscription_group_uid: #{@default_subscription_group_uid}, salesforce_id:"\
+      " #{@salesforce_id}, tax_exempt_reason: #{@tax_exempt_reason},"\
+      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} first_name: #{@first_name.inspect}, last_name: #{@last_name.inspect},"\
+      " email: #{@email.inspect}, cc_emails: #{@cc_emails.inspect}, organization:"\
+      " #{@organization.inspect}, reference: #{@reference.inspect}, id: #{@id.inspect},"\
+      " created_at: #{@created_at.inspect}, updated_at: #{@updated_at.inspect}, address:"\
+      " #{@address.inspect}, address_2: #{@address_2.inspect}, city: #{@city.inspect}, state:"\
+      " #{@state.inspect}, state_name: #{@state_name.inspect}, zip: #{@zip.inspect}, country:"\
+      " #{@country.inspect}, country_name: #{@country_name.inspect}, phone: #{@phone.inspect},"\
+      " verified: #{@verified.inspect}, portal_customer_created_at:"\
+      " #{@portal_customer_created_at.inspect}, portal_invite_last_sent_at:"\
+      " #{@portal_invite_last_sent_at.inspect}, portal_invite_last_accepted_at:"\
+      " #{@portal_invite_last_accepted_at.inspect}, tax_exempt: #{@tax_exempt.inspect},"\
+      " vat_number: #{@vat_number.inspect}, parent_id: #{@parent_id.inspect}, locale:"\
+      " #{@locale.inspect}, default_subscription_group_uid:"\
+      " #{@default_subscription_group_uid.inspect}, salesforce_id: #{@salesforce_id.inspect},"\
+      " tax_exempt_reason: #{@tax_exempt_reason.inspect}, default_auto_renewal_profile_id:"\
+      " #{@default_auto_renewal_profile_id.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

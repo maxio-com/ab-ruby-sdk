@@ -132,5 +132,24 @@ module AdvancedBilling
                                   line_item_breakouts: line_item_breakouts,
                                   additional_properties: additional_properties)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid}, title: #{@title}, code: #{@code}, source_type:"\
+      " #{@source_type}, discount_type: #{@discount_type}, eligible_amount: #{@eligible_amount},"\
+      " discount_amount: #{@discount_amount}, line_item_breakouts: #{@line_item_breakouts},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} uid: #{@uid.inspect}, title: #{@title.inspect}, code: #{@code.inspect},"\
+      " source_type: #{@source_type.inspect}, discount_type: #{@discount_type.inspect},"\
+      " eligible_amount: #{@eligible_amount.inspect}, discount_amount:"\
+      " #{@discount_amount.inspect}, line_item_breakouts: #{@line_item_breakouts.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

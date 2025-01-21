@@ -132,5 +132,22 @@ module AdvancedBilling
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, accounting_code:"\
+      " #{@accounting_code}, description: #{@description}, created_at: #{@created_at}, updated_at:"\
+      " #{@updated_at}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
+      " accounting_code: #{@accounting_code.inspect}, description: #{@description.inspect},"\
+      " created_at: #{@created_at.inspect}, updated_at: #{@updated_at.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
+    end
   end
 end

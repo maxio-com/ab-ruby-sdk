@@ -227,5 +227,31 @@ module AdvancedBilling
 
       true
     end
+
+    # Provides a human-readable string representation of the object.
+    def to_s
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id}, component_id: #{@component_id}, price_point_id:"\
+      " #{@price_point_id}, event_based_billing_metric_id: #{@event_based_billing_metric_id},"\
+      " pricing_scheme: #{@pricing_scheme}, segment_property_1_value:"\
+      " #{@segment_property_1_value}, segment_property_2_value: #{@segment_property_2_value},"\
+      " segment_property_3_value: #{@segment_property_3_value}, segment_property_4_value:"\
+      " #{@segment_property_4_value}, created_at: #{@created_at}, updated_at: #{@updated_at},"\
+      " prices: #{@prices}, additional_properties: #{get_additional_properties}>"
+    end
+
+    # Provides a debugging-friendly string with detailed object information.
+    def inspect
+      class_name = self.class.name.split('::').last
+      "<#{class_name} id: #{@id.inspect}, component_id: #{@component_id.inspect}, price_point_id:"\
+      " #{@price_point_id.inspect}, event_based_billing_metric_id:"\
+      " #{@event_based_billing_metric_id.inspect}, pricing_scheme: #{@pricing_scheme.inspect},"\
+      " segment_property_1_value: #{@segment_property_1_value.inspect}, segment_property_2_value:"\
+      " #{@segment_property_2_value.inspect}, segment_property_3_value:"\
+      " #{@segment_property_3_value.inspect}, segment_property_4_value:"\
+      " #{@segment_property_4_value.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, prices: #{@prices.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
+    end
   end
 end

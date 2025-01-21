@@ -105,6 +105,18 @@ module AdvancedBilling
       hash = to_hash
       hash.to_json(options)
     end
+
+    def get_additional_properties      
+      # Collect all additional properties
+      additional_props = instance_variables.each_with_object({}) do |var, hash|
+        var_name = var.to_s.delete('@').to_sym
+        if !self.class.names.key?(var_name.to_s)
+          hash[var_name] = instance_variable_get(var)
+        end
+      end
+
+      additional_props
+    end
   end
   # rubocop:enable all
 end
