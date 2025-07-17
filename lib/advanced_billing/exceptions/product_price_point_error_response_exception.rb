@@ -14,8 +14,8 @@ module AdvancedBilling
     attr_accessor :errors
 
     # The constructor.
-    # @param [String] The reason for raising an exception.
-    # @param [HttpResponse] The HttpReponse of the API call.
+    # @param [String] reason The reason for raising an exception.
+    # @param [HttpResponse] response The HttpReponse of the API call.
     def initialize(reason, response)
       super(reason, response)
       hash = APIHelper.json_deserialize(@response.raw_body)
@@ -23,9 +23,11 @@ module AdvancedBilling
     end
 
     # Populates this object by extracting properties from a hash.
-    # @param [Hash] The deserialized response sent by the server in the
+    # @param [Hash] hash The deserialized response sent by the server in the
     # response body.
     def unbox(hash)
+      return nil unless hash
+
       @errors = ProductPricePointErrors.from_hash(hash['errors']) if hash['errors']
     end
 

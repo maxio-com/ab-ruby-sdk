@@ -12,12 +12,12 @@ module AdvancedBilling
     # balance.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [SubscriptionGroupPrepaymentRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionGroupPrepaymentResponse] response from the API call.
+    # @param [SubscriptionGroupPrepaymentRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [SubscriptionGroupPrepaymentResponse] Response from the API call.
     def create_subscription_group_prepayment(uid,
                                              body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/prepayments.json',
                                      Server::PRODUCTION)
@@ -55,9 +55,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListPrepaymentsFilter] filter Optional parameter: Filter to use
     # for List Prepayments operations
-    # @return [ListSubscriptionGroupPrepaymentResponse] response from the API call.
+    # @return [ListSubscriptionGroupPrepaymentResponse] Response from the API call.
     def list_prepayments_for_subscription_group(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}/prepayments.json',
                                      Server::PRODUCTION)
@@ -85,11 +85,12 @@ module AdvancedBilling
     # are generated.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [IssueServiceCreditRequest] body Optional parameter: Example:
-    # @return [ServiceCreditResponse] response from the API call.
+    # @param [IssueServiceCreditRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ServiceCreditResponse] Response from the API call.
     def issue_subscription_group_service_credit(uid,
                                                 body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/service_credits.json',
                                      Server::PRODUCTION)
@@ -116,11 +117,12 @@ module AdvancedBilling
     # the request body.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [DeductServiceCreditRequest] body Optional parameter: Example:
-    # @return [ServiceCredit] response from the API call.
+    # @param [DeductServiceCreditRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ServiceCredit] Response from the API call.
     def deduct_subscription_group_service_credit(uid,
                                                  body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/service_credit_deductions.json',
                                      Server::PRODUCTION)

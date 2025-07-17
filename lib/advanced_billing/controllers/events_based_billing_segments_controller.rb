@@ -16,12 +16,13 @@ module AdvancedBilling
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
-    # @param [CreateSegmentRequest] body Optional parameter: Example:
-    # @return [SegmentResponse] response from the API call.
+    # @param [CreateSegmentRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SegmentResponse] Response from the API call.
     def create_segment(component_id,
                        price_point_id,
                        body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points/{price_point_id}/segments.json',
                                      Server::PRODUCTION)
@@ -73,9 +74,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListSegmentsFilter] filter Optional parameter: Filter to use for
     # List Segments for a Price Point operation
-    # @return [ListSegmentsResponse] response from the API call.
+    # @return [ListSegmentsResponse] Response from the API call.
     def list_segments_for_price_point(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/{component_id}/price_points/{price_point_id}/segments.json',
                                      Server::PRODUCTION)
@@ -113,13 +114,14 @@ module AdvancedBilling
     # @param [String] price_point_id Required parameter: ID or Handle of the
     # Price Point belonging to the Component
     # @param [Float] id Required parameter: The ID of the Segment
-    # @param [UpdateSegmentRequest] body Optional parameter: Example:
-    # @return [SegmentResponse] response from the API call.
+    # @param [UpdateSegmentRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SegmentResponse] Response from the API call.
     def update_segment(component_id,
                        price_point_id,
                        id,
                        body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/{id}.json',
                                      Server::PRODUCTION)
@@ -158,11 +160,11 @@ module AdvancedBilling
     # @param [String] price_point_id Required parameter: ID or Handle of the
     # Price Point belonging to the Component
     # @param [Float] id Required parameter: The ID of the Segment
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_segment(component_id,
                        price_point_id,
                        id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/{id}.json',
                                      Server::PRODUCTION)
@@ -200,12 +202,13 @@ module AdvancedBilling
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
-    # @param [BulkCreateSegments] body Optional parameter: Example:
-    # @return [ListSegmentsResponse] response from the API call.
+    # @param [BulkCreateSegments] body Optional parameter: TODO: type
+    # description here
+    # @return [ListSegmentsResponse] Response from the API call.
     def bulk_create_segments(component_id,
                              price_point_id,
                              body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/bulk.json',
                                      Server::PRODUCTION)
@@ -245,12 +248,13 @@ module AdvancedBilling
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
     # Price Point belonging to the Component
-    # @param [BulkUpdateSegments] body Optional parameter: Example:
-    # @return [ListSegmentsResponse] response from the API call.
+    # @param [BulkUpdateSegments] body Optional parameter: TODO: type
+    # description here
+    # @return [ListSegmentsResponse] Response from the API call.
     def bulk_update_segments(component_id,
                              price_point_id,
                              body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}/price_points/{price_point_id}/segments/bulk.json',
                                      Server::PRODUCTION)

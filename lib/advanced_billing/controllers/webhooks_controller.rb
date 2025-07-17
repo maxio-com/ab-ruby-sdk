@@ -53,9 +53,9 @@ module AdvancedBilling
     # Webhooks are returned.
     # @param [Integer] subscription Optional parameter: The Advanced Billing id
     # of a subscription you'd like to filter for
-    # @return [Array[WebhookResponse]] response from the API call.
+    # @return [Array[WebhookResponse]] Response from the API call.
     def list_webhooks(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/webhooks.json',
                                      Server::PRODUCTION)
@@ -76,10 +76,11 @@ module AdvancedBilling
     end
 
     # This method allows you to enable webhooks via API for your site
-    # @param [EnableWebhooksRequest] body Optional parameter: Example:
-    # @return [EnableWebhooksResponse] response from the API call.
+    # @param [EnableWebhooksRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [EnableWebhooksResponse] Response from the API call.
     def enable_webhooks(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/webhooks/settings.json',
                                      Server::PRODUCTION)
@@ -99,10 +100,11 @@ module AdvancedBilling
     # on available system resources.
     # You may submit an array of up to 1000 webhook IDs to replay in the
     # request.
-    # @param [ReplayWebhooksRequest] body Optional parameter: Example:
-    # @return [ReplayWebhooksResponse] response from the API call.
+    # @param [ReplayWebhooksRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ReplayWebhooksResponse] Response from the API call.
     def replay_webhooks(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/webhooks/replay.json',
                                      Server::PRODUCTION)
@@ -123,10 +125,11 @@ module AdvancedBilling
     # [Event
     # keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-
     # Reference#events)
-    # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
-    # @return [EndpointResponse] response from the API call.
+    # @param [CreateOrUpdateEndpointRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [EndpointResponse] Response from the API call.
     def create_endpoint(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/endpoints.json',
                                      Server::PRODUCTION)
@@ -146,9 +149,9 @@ module AdvancedBilling
     end
 
     # This method returns created endpoints for site.
-    # @return [Array[Endpoint]] response from the API call.
+    # @return [Array[Endpoint]] Response from the API call.
     def list_endpoints
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/endpoints.json',
                                      Server::PRODUCTION)
@@ -175,11 +178,12 @@ module AdvancedBilling
     # `webhook_subscriptions` without the specific event key.
     # @param [Integer] endpoint_id Required parameter: The Advanced Billing id
     # for the endpoint that should be updated
-    # @param [CreateOrUpdateEndpointRequest] body Optional parameter: Example:
-    # @return [EndpointResponse] response from the API call.
+    # @param [CreateOrUpdateEndpointRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [EndpointResponse] Response from the API call.
     def update_endpoint(endpoint_id,
                         body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/endpoints/{endpoint_id}.json',
                                      Server::PRODUCTION)

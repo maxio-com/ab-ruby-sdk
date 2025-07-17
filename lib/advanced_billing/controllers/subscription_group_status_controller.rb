@@ -16,12 +16,12 @@ module AdvancedBilling
     # `charge_unbilled_usage=true` parameter must be included in the request.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [CancelGroupedSubscriptionsRequest] body Optional parameter:
-    # Example:
-    # @return [void] response from the API call.
+    # @param [CancelGroupedSubscriptionsRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [void] Response from the API call.
     def cancel_subscriptions_in_group(uid,
                                       body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/cancel.json',
                                      Server::PRODUCTION)
@@ -48,9 +48,9 @@ module AdvancedBilling
     # successfully cancel them, and the group must not be in a "past_due" state.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def initiate_delayed_cancellation_for_group(uid)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/delayed_cancel.json',
                                      Server::PRODUCTION)
@@ -73,9 +73,9 @@ module AdvancedBilling
     # member in the group.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def cancel_delayed_cancellation_for_group(uid)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscription_groups/{uid}/delayed_cancel.json',
                                      Server::PRODUCTION)
@@ -127,12 +127,12 @@ module AdvancedBilling
     # corresponding calendar renewal date.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [ReactivateSubscriptionGroupRequest] body Optional parameter:
-    # Example:
-    # @return [ReactivateSubscriptionGroupResponse] response from the API call.
+    # @param [ReactivateSubscriptionGroupRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [ReactivateSubscriptionGroupResponse] Response from the API call.
     def reactivate_subscription_group(uid,
                                       body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/reactivate.json',
                                      Server::PRODUCTION)

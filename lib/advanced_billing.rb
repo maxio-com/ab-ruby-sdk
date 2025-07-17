@@ -24,7 +24,7 @@ require_relative 'advanced_billing/http/http_method_enum'
 require_relative 'advanced_billing/http/http_request'
 require_relative 'advanced_billing/http/http_response'
 
-# Logger
+
 require_relative 'advanced_billing/http/auth/basic_auth'
 
 # Models
@@ -301,6 +301,7 @@ require_relative 'advanced_billing/models/list_public_keys_response'
 require_relative 'advanced_billing/models/list_sale_rep_item'
 require_relative 'advanced_billing/models/list_segments_filter'
 require_relative 'advanced_billing/models/list_segments_response'
+require_relative 'advanced_billing/models/list_service_credits_response'
 require_relative 'advanced_billing/models/' \
                  'list_subcription_group_prepayment_item'
 require_relative 'advanced_billing/models/list_subscription_components_filter'
@@ -422,6 +423,7 @@ require_relative 'advanced_billing/models/segment_response'
 require_relative 'advanced_billing/models/send_invoice_request'
 require_relative 'advanced_billing/models/service_credit'
 require_relative 'advanced_billing/models/service_credit_response'
+require_relative 'advanced_billing/models/service_credit1'
 require_relative 'advanced_billing/models/signup_proforma_preview'
 require_relative 'advanced_billing/models/signup_proforma_preview_response'
 require_relative 'advanced_billing/models/site'

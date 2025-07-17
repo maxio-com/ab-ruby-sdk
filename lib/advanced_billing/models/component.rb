@@ -46,6 +46,10 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :product_family_name
 
+    # The handle of the Product Family to which the Component belongs
+    # @return [String]
+    attr_accessor :product_family_handle
+
     # deprecated - use unit_price instead
     # @return [Integer]
     attr_accessor :price_per_unit_in_cents
@@ -185,6 +189,7 @@ module AdvancedBilling
       @_hash['unit_price'] = 'unit_price'
       @_hash['product_family_id'] = 'product_family_id'
       @_hash['product_family_name'] = 'product_family_name'
+      @_hash['product_family_handle'] = 'product_family_handle'
       @_hash['price_per_unit_in_cents'] = 'price_per_unit_in_cents'
       @_hash['kind'] = 'kind'
       @_hash['archived'] = 'archived'
@@ -226,6 +231,7 @@ module AdvancedBilling
         unit_price
         product_family_id
         product_family_name
+        product_family_handle
         price_per_unit_in_cents
         kind
         archived
@@ -280,8 +286,9 @@ module AdvancedBilling
 
     def initialize(id: SKIP, name: SKIP, handle: SKIP, pricing_scheme: SKIP,
                    unit_name: SKIP, unit_price: SKIP, product_family_id: SKIP,
-                   product_family_name: SKIP, price_per_unit_in_cents: SKIP,
-                   kind: SKIP, archived: SKIP, taxable: SKIP, description: SKIP,
+                   product_family_name: SKIP, product_family_handle: SKIP,
+                   price_per_unit_in_cents: SKIP, kind: SKIP, archived: SKIP,
+                   taxable: SKIP, description: SKIP,
                    default_price_point_id: SKIP, overage_prices: SKIP,
                    prices: SKIP, price_point_count: SKIP,
                    price_points_url: SKIP, default_price_point_name: SKIP,
@@ -305,6 +312,7 @@ module AdvancedBilling
       @unit_price = unit_price unless unit_price == SKIP
       @product_family_id = product_family_id unless product_family_id == SKIP
       @product_family_name = product_family_name unless product_family_name == SKIP
+      @product_family_handle = product_family_handle unless product_family_handle == SKIP
       @price_per_unit_in_cents = price_per_unit_in_cents unless price_per_unit_in_cents == SKIP
       @kind = kind unless kind == SKIP
       @archived = archived unless archived == SKIP
@@ -358,6 +366,8 @@ module AdvancedBilling
         hash.key?('product_family_id') ? hash['product_family_id'] : SKIP
       product_family_name =
         hash.key?('product_family_name') ? hash['product_family_name'] : SKIP
+      product_family_handle =
+        hash.key?('product_family_handle') ? hash['product_family_handle'] : SKIP
       price_per_unit_in_cents =
         hash.key?('price_per_unit_in_cents') ? hash['price_per_unit_in_cents'] : SKIP
       kind = hash.key?('kind') ? hash['kind'] : SKIP
@@ -439,6 +449,7 @@ module AdvancedBilling
                     unit_price: unit_price,
                     product_family_id: product_family_id,
                     product_family_name: product_family_name,
+                    product_family_handle: product_family_handle,
                     price_per_unit_in_cents: price_per_unit_in_cents,
                     kind: kind,
                     archived: archived,
@@ -486,13 +497,14 @@ module AdvancedBilling
       "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, pricing_scheme:"\
       " #{@pricing_scheme}, unit_name: #{@unit_name}, unit_price: #{@unit_price},"\
       " product_family_id: #{@product_family_id}, product_family_name: #{@product_family_name},"\
-      " price_per_unit_in_cents: #{@price_per_unit_in_cents}, kind: #{@kind}, archived:"\
-      " #{@archived}, taxable: #{@taxable}, description: #{@description}, default_price_point_id:"\
-      " #{@default_price_point_id}, overage_prices: #{@overage_prices}, prices: #{@prices},"\
-      " price_point_count: #{@price_point_count}, price_points_url: #{@price_points_url},"\
-      " default_price_point_name: #{@default_price_point_name}, tax_code: #{@tax_code}, recurring:"\
-      " #{@recurring}, upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit},"\
-      " created_at: #{@created_at}, updated_at: #{@updated_at}, archived_at: #{@archived_at},"\
+      " product_family_handle: #{@product_family_handle}, price_per_unit_in_cents:"\
+      " #{@price_per_unit_in_cents}, kind: #{@kind}, archived: #{@archived}, taxable: #{@taxable},"\
+      " description: #{@description}, default_price_point_id: #{@default_price_point_id},"\
+      " overage_prices: #{@overage_prices}, prices: #{@prices}, price_point_count:"\
+      " #{@price_point_count}, price_points_url: #{@price_points_url}, default_price_point_name:"\
+      " #{@default_price_point_name}, tax_code: #{@tax_code}, recurring: #{@recurring},"\
+      " upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit}, created_at:"\
+      " #{@created_at}, updated_at: #{@updated_at}, archived_at: #{@archived_at},"\
       " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities}, item_category: #{@item_category}, use_site_exchange_rate:"\
       " #{@use_site_exchange_rate}, accounting_code: #{@accounting_code},"\
@@ -506,7 +518,8 @@ module AdvancedBilling
       "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
       " pricing_scheme: #{@pricing_scheme.inspect}, unit_name: #{@unit_name.inspect}, unit_price:"\
       " #{@unit_price.inspect}, product_family_id: #{@product_family_id.inspect},"\
-      " product_family_name: #{@product_family_name.inspect}, price_per_unit_in_cents:"\
+      " product_family_name: #{@product_family_name.inspect}, product_family_handle:"\
+      " #{@product_family_handle.inspect}, price_per_unit_in_cents:"\
       " #{@price_per_unit_in_cents.inspect}, kind: #{@kind.inspect}, archived:"\
       " #{@archived.inspect}, taxable: #{@taxable.inspect}, description: #{@description.inspect},"\
       " default_price_point_id: #{@default_price_point_id.inspect}, overage_prices:"\

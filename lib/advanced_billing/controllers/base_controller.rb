@@ -10,7 +10,7 @@ module AdvancedBilling
     attr_accessor :config, :http_call_back
 
     def self.user_agent
-      'AB SDK Ruby:6.1.0 on OS {os-info}'
+      'AB SDK Ruby:7.0.0 on OS {os-info}'
     end
 
     def self.user_agent_parameters
@@ -37,12 +37,6 @@ module AdvancedBilling
       @config = @global_configuration.client_configuration
       @http_call_back = @config.http_callback
       @api_call = ApiCall.new(@global_configuration)
-    end
-
-    # Creates a new builder for the Api Call instance.
-    # @return [ApiCall] The instance of ApiCall.
-    def new_api_call_builder
-      @api_call.new_builder
     end
 
     # Creates a new instance of the request builder.

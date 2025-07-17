@@ -25,11 +25,12 @@ module AdvancedBilling
     # generate it.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [IssueAdvanceInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call.
+    # @param [IssueAdvanceInvoiceRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [Invoice] Response from the API call.
     def issue_advance_invoice(subscription_id,
                               body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/advance_invoice/issue.json',
                                      Server::PRODUCTION)
@@ -59,9 +60,9 @@ module AdvancedBilling
     # advance invoice per subscription per billing cycle.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [Invoice] response from the API call.
+    # @return [Invoice] Response from the API call.
     def read_advance_invoice(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/advance_invoice.json',
                                      Server::PRODUCTION)
@@ -87,11 +88,12 @@ module AdvancedBilling
     # the impact of voiding, please [see our help docs]($m/Invoice).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [VoidInvoiceRequest] body Optional parameter: Example:
-    # @return [Invoice] response from the API call.
+    # @param [VoidInvoiceRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [Invoice] Response from the API call.
     def void_advance_invoice(subscription_id,
                              body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/advance_invoice/void.json',
                                      Server::PRODUCTION)

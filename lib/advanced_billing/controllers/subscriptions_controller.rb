@@ -187,40 +187,6 @@ module AdvancedBilling
     #   }
     # }
     # ```
-    # ## Subscription with Credit Card
-    # ```json
-    # "subscription": {
-    #     "product_handle": "basic",
-    #     "customer_attributes": {
-    #       "first_name": "Joe",
-    #       "last_name": "Blow",
-    #       "email": "joe@example.com",
-    #       "zip": "02120",
-    #       "state": "MA",
-    #       "reference": "XYZ",
-    #       "phone": "(617) 111 - 0000",
-    #       "organization": "Acme",
-    #       "country": "US",
-    #       "city": "Boston",
-    #       "address_2": null,
-    #       "address": "123 Mass Ave."
-    #     },
-    #     "credit_card_attributes": {
-    #       "last_name": "Smith",
-    #       "first_name": "Joe",
-    #       "full_number": "4111111111111111",
-    #       "expiration_year": "2021",
-    #       "expiration_month": "1",
-    #       "card_type": "visa",
-    #       "billing_zip": "02120",
-    #       "billing_state": "MA",
-    #       "billing_country": "US",
-    #       "billing_city": "Boston",
-    #       "billing_address_2": null,
-    #       "billing_address": "123 Mass Ave."
-    #     }
-    # }
-    # ```
     # ## Subscription with ACH as Payment Profile
     # ```json
     # {
@@ -804,10 +770,11 @@ module AdvancedBilling
     #     }
     #   }
     # ```
-    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call.
+    # @param [CreateSubscriptionRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SubscriptionResponse] Response from the API call.
     def create_subscription(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions.json',
                                      Server::PRODUCTION)
@@ -856,6 +823,8 @@ module AdvancedBilling
     # @param [Integer] coupon Optional parameter: The numeric id of the coupon
     # currently applied to the subscription. (This can be found in the URL when
     # editing a coupon. Note that the coupon code cannot be used.)
+    # @param [String] coupon_code Optional parameter: The coupon code currently
+    # applied to the subscription
     # @param [SubscriptionDateField] date_field Optional parameter: The type of
     # filter you'd like to apply to your search.  Allowed Values: ,
     # current_period_ends_at, current_period_starts_at, created_at,
@@ -891,9 +860,9 @@ module AdvancedBilling
     # @param [Array[SubscriptionListInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=self_service_page_token`.
-    # @return [Array[SubscriptionResponse]] response from the API call.
+    # @return [Array[SubscriptionResponse]] Response from the API call.
     def list_subscriptions(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions.json',
                                      Server::PRODUCTION)
@@ -903,6 +872,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['product'], key: 'product'))
                    .query_param(new_parameter(options['product_price_point_id'], key: 'product_price_point_id'))
                    .query_param(new_parameter(options['coupon'], key: 'coupon'))
+                   .query_param(new_parameter(options['coupon_code'], key: 'coupon_code'))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
@@ -986,11 +956,12 @@ module AdvancedBilling
     # `null`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [UpdateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call.
+    # @param [UpdateSubscriptionRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SubscriptionResponse] Response from the API call.
     def update_subscription(subscription_id,
                             body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}.json',
                                      Server::PRODUCTION)
@@ -1022,10 +993,10 @@ module AdvancedBilling
     # @param [Array[SubscriptionInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=coupons&include[]=self_service_page_token`.
-    # @return [SubscriptionResponse] response from the API call.
+    # @return [SubscriptionResponse] Response from the API call.
     def read_subscription(subscription_id,
                           include: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}.json',
                                      Server::PRODUCTION)
@@ -1078,10 +1049,10 @@ module AdvancedBilling
     # the subscription
     # @param [OverrideSubscriptionRequest] body Optional parameter: Only these
     # fields are available to be set.
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def override_subscription(subscription_id,
                               body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}/override.json',
                                      Server::PRODUCTION)
@@ -1103,9 +1074,9 @@ module AdvancedBilling
 
     # Use this endpoint to find a subscription by its reference.
     # @param [String] reference Optional parameter: Subscription reference
-    # @return [SubscriptionResponse] response from the API call.
+    # @return [SubscriptionResponse] Response from the API call.
     def find_subscription(reference: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/lookup.json',
                                      Server::PRODUCTION)
@@ -1138,11 +1109,11 @@ module AdvancedBilling
     # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
     # are "customer" or "payment_profile". Use in query:
     # `cascade[]=customer&cascade[]=payment_profile`.
-    # @return [SubscriptionResponse] response from the API call.
+    # @return [SubscriptionResponse] Response from the API call.
     def purge_subscription(subscription_id,
                            ack,
                            cascade: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/purge.json',
                                      Server::PRODUCTION)
@@ -1168,12 +1139,12 @@ module AdvancedBilling
     # Use this endpoint to update a subscription's prepaid configuration.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [UpsertPrepaidConfigurationRequest] body Optional parameter:
-    # Example:
-    # @return [PrepaidConfigurationResponse] response from the API call.
+    # @param [UpsertPrepaidConfigurationRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [PrepaidConfigurationResponse] Response from the API call.
     def update_prepaid_subscription_configuration(subscription_id,
                                                   body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/prepaid_configurations.json',
                                      Server::PRODUCTION)
@@ -1198,12 +1169,12 @@ module AdvancedBilling
     # The Chargify API allows you to preview a subscription by POSTing the same
     # JSON or XML as for a subscription creation.
     # The "Next Billing" amount and "Next Billing" date are represented in each
-    # Subscriber's Summary. For more information, please see our documentation
+    # Subscriber's Summary.
+    # A subscription will not be created by utilizing this endpoint; it is meant
+    # to serve as a prediction.
+    # For more information, please see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscrib
     # er-Interface-Overview).
-    # ## Side effects
-    # A subscription will not be created by sending a POST to this endpoint. It
-    # is meant to serve as a prediction.
     # ## Taxable Subscriptions
     # This endpoint will preview taxes applicable to a purchase. In order for
     # taxes to be previewed, the following conditions must be met:
@@ -1230,10 +1201,11 @@ module AdvancedBilling
     # ## Non-taxable Subscriptions
     # If you'd like to calculate subscriptions that do not include tax, please
     # feel free to leave off the billing information.
-    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionPreviewResponse] response from the API call.
+    # @param [CreateSubscriptionRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SubscriptionPreviewResponse] Response from the API call.
     def preview_subscription(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/preview.json',
                                      Server::PRODUCTION)
@@ -1265,12 +1237,13 @@ module AdvancedBilling
     # the subscription
     # @param [String] code Optional parameter: A code for the coupon that would
     # be applied to a subscription
-    # @param [AddCouponsRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call.
+    # @param [AddCouponsRequest] body Optional parameter: TODO: type description
+    # here
+    # @return [SubscriptionResponse] Response from the API call.
     def apply_coupons_to_subscription(subscription_id,
                                       code: nil,
                                       body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/add_coupon.json',
                                      Server::PRODUCTION)
@@ -1301,10 +1274,10 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [String] coupon_code Optional parameter: The coupon code
-    # @return [String] response from the API call.
+    # @return [String] Response from the API call.
     def remove_coupon_from_subscription(subscription_id,
                                         coupon_code: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscriptions/{subscription_id}/remove_coupon.json',
                                      Server::PRODUCTION)
@@ -1377,11 +1350,12 @@ module AdvancedBilling
     # invoice back to the subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [ActivateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SubscriptionResponse] response from the API call.
+    # @param [ActivateSubscriptionRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SubscriptionResponse] Response from the API call.
     def activate_subscription(subscription_id,
                               body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscriptions/{subscription_id}/activate.json',
                                      Server::PRODUCTION)

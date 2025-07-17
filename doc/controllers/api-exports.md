@@ -36,8 +36,8 @@ def list_exported_proforma_invoices(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `batch_id` | `String` | Template, Required | Id of a Batch Job. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request.<br>Default value is 100.<br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br>**Default**: `100`<br>**Constraints**: `>= 1`, `<= 10000` |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request.<br>Default value is 100.<br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br><br>**Default**: `100`<br><br>**Constraints**: `>= 1`, `<= 10000` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
 
@@ -53,6 +53,7 @@ collect = {
 }
 
 result = api_exports_controller.list_exported_proforma_invoices(collect)
+puts result
 ```
 
 ## Errors
@@ -77,8 +78,8 @@ def list_exported_invoices(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `batch_id` | `String` | Template, Required | Id of a Batch Job. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request.<br>Default value is 100.<br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br>**Default**: `100`<br>**Constraints**: `>= 1`, `<= 10000` |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request.<br>Default value is 100.<br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br><br>**Default**: `100`<br><br>**Constraints**: `>= 1`, `<= 10000` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
 
@@ -94,6 +95,7 @@ collect = {
 }
 
 result = api_exports_controller.list_exported_invoices(collect)
+puts result
 ```
 
 ## Errors
@@ -118,8 +120,8 @@ def list_exported_subscriptions(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `batch_id` | `String` | Template, Required | Id of a Batch Job. |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request.<br>Default value is 100.<br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br>**Default**: `100`<br>**Constraints**: `>= 1`, `<= 10000` |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request.<br>Default value is 100.<br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br><br>**Default**: `100`<br><br>**Constraints**: `>= 1`, `<= 10000` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
 
@@ -135,6 +137,7 @@ collect = {
 }
 
 result = api_exports_controller.list_exported_subscriptions(collect)
+puts result
 ```
 
 ## Errors
@@ -162,6 +165,7 @@ def export_proforma_invoices
 
 ```ruby
 result = api_exports_controller.export_proforma_invoices
+puts result
 ```
 
 ## Errors
@@ -188,6 +192,7 @@ def export_invoices
 
 ```ruby
 result = api_exports_controller.export_invoices
+puts result
 ```
 
 ## Errors
@@ -214,6 +219,7 @@ def export_subscriptions
 
 ```ruby
 result = api_exports_controller.export_subscriptions
+puts result
 ```
 
 ## Errors
@@ -247,6 +253,7 @@ def read_proforma_invoices_export(batch_id)
 batch_id = 'batch_id8'
 
 result = api_exports_controller.read_proforma_invoices_export(batch_id)
+puts result
 ```
 
 ## Errors
@@ -280,6 +287,7 @@ def read_invoices_export(batch_id)
 batch_id = 'batch_id8'
 
 result = api_exports_controller.read_invoices_export(batch_id)
+puts result
 ```
 
 ## Errors
@@ -313,6 +321,7 @@ def read_subscriptions_export(batch_id)
 batch_id = 'batch_id8'
 
 result = api_exports_controller.read_subscriptions_export(batch_id)
+puts result
 ```
 
 ## Errors

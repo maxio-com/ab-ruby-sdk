@@ -8,7 +8,7 @@ module AdvancedBilling
   class ReasonCodesController < BaseController
     # # Reason Codes Intro
     # ReasonCodes are a way to gain a high level view of why your customers are
-    # cancelling the subcription to your product or service.
+    # cancelling the subscription to your product or service.
     # Add a set of churn reason codes to be displayed in-app and/or the Maxio
     # Billing Portal. As your subscribers decide to cancel their subscription,
     # learn why they decided to cancel.
@@ -21,10 +21,11 @@ module AdvancedBilling
     # ## Create Reason Code
     # This method gives a merchant the option to create a reason codes for a
     # given Site.
-    # @param [CreateReasonCodeRequest] body Optional parameter: Example:
-    # @return [ReasonCodeResponse] response from the API call.
+    # @param [CreateReasonCodeRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ReasonCodeResponse] Response from the API call.
     def create_reason_code(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/reason_codes.json',
                                      Server::PRODUCTION)
@@ -56,9 +57,9 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [Array[ReasonCodeResponse]] response from the API call.
+    # @return [Array[ReasonCodeResponse]] Response from the API call.
     def list_reason_codes(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/reason_codes.json',
                                      Server::PRODUCTION)
@@ -81,9 +82,9 @@ module AdvancedBilling
     # code for a given Site by providing the unique numerical ID of the code.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
-    # @return [ReasonCodeResponse] response from the API call.
+    # @return [ReasonCodeResponse] Response from the API call.
     def read_reason_code(reason_code_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/reason_codes/{reason_code_id}.json',
                                      Server::PRODUCTION)
@@ -105,11 +106,12 @@ module AdvancedBilling
     # for a given site.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
-    # @param [UpdateReasonCodeRequest] body Optional parameter: Example:
-    # @return [ReasonCodeResponse] response from the API call.
+    # @param [UpdateReasonCodeRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ReasonCodeResponse] Response from the API call.
     def update_reason_code(reason_code_id,
                            body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/reason_codes/{reason_code_id}.json',
                                      Server::PRODUCTION)
@@ -136,12 +138,12 @@ module AdvancedBilling
 
     # This method gives a merchant the option to delete one reason code from the
     # Churn Reason Codes. This code will be immediately removed. This action is
-    # not reversable.
+    # not reversible.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
-    # @return [OkResponse] response from the API call.
+    # @return [OkResponse] Response from the API call.
     def delete_reason_code(reason_code_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/reason_codes/{reason_code_id}.json',
                                      Server::PRODUCTION)

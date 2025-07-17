@@ -40,7 +40,6 @@ module AdvancedBilling
       environment: Environment::US, site: 'subdomain',
       basic_auth_credentials: nil
     )
-
       super connection: connection, adapter: adapter, timeout: timeout,
             max_retries: max_retries, retry_interval: retry_interval,
             backoff_factor: backoff_factor, retry_statuses: retry_statuses,
@@ -56,7 +55,7 @@ module AdvancedBilling
       @basic_auth_credentials = basic_auth_credentials
 
       # Initializing Basic Authentication credentials with the provided auth parameters
-     @basic_auth_credentials = basic_auth_credentials
+      @basic_auth_credentials = basic_auth_credentials
 
       # The Http Client to use for making requests.
       set_http_client CoreLibrary::FaradayClient.new(self)
@@ -77,7 +76,7 @@ module AdvancedBilling
       http_callback ||= self.http_callback
       environment ||= self.environment
       site ||= self.site
-      basic_auth_credentials ||= basic_auth_credentials
+      basic_auth_credentials ||= self.basic_auth_credentials
 
       Configuration.new(connection: connection, adapter: adapter,
                         timeout: timeout, max_retries: max_retries,

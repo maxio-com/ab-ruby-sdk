@@ -40,33 +40,80 @@ module AdvancedBilling
     # @return [Object]
     attr_accessor :snap_day
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # (Optional) Set this attribute to a future date/time to update a
+    # subscription in the Awaiting Signup Date state, to Awaiting Signup. In the
+    # Awaiting Signup state, a subscription behaves like any other. It can be
+    # canceled, allocated to, or have its billing date changed. etc. When the
+    # `initial_billing_at` date hits, the subscription will transition to the
+    # expected state. If the product has a trial, the subscription will enter a
+    # trial, otherwise it will go active. Setup fees will be respected either
+    # before or after the trial, as configured on the price point. If the
+    # payment is due at the initial_billing_at and it fails the subscription
+    # will be immediately canceled. You can omit the initial_billing_at date to
+    # activate the subscription immediately. See the [subscription
+    # import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advance
+    # d-Billing-Subscription-Imports#date-format) documentation for more
+    # information about Date/Time formats.
+    # @return [DateTime]
+    attr_accessor :initial_billing_at
+
+    # (Optional) Set this attribute to true to move the subscription from
+    # Awaiting Signup, to Awaiting Signup Date. Use this when you want to update
+    # a subscription that has an unknown initial billing date. When the first
+    # billing date is known, update a subscription to set the
+    # `initial_billing_at` date. The subscription moves to the awaiting signup
+    # with a scheduled initial billing date. You can omit the initial_billing_at
+    # date to activate the subscription immediately. See [Subscription
+    # States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773
+    # -Subscription-States) for more information.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :defer_signup
+
+    # (Optional) Set this attribute to true to move the subscription from
+    # Awaiting Signup, to Awaiting Signup Date. Use this when you want to update
+    # a subscription that has an unknown initial billing date. When the first
+    # billing date is known, update a subscription to set the
+    # `initial_billing_at` date. The subscription moves to the awaiting signup
+    # with a scheduled initial billing date. You can omit the initial_billing_at
+    # date to activate the subscription immediately. See [Subscription
+    # States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773
+    # -Subscription-States) for more information.
     # @return [DateTime]
     attr_accessor :next_billing_at
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # Timestamp giving the expiration date of this subscription (if any). You
+    # may manually change the expiration date at any point during a subscription
+    # period.
+    # @return [DateTime]
+    attr_accessor :expires_at
+
+    # Timestamp giving the expiration date of this subscription (if any). You
+    # may manually change the expiration date at any point during a subscription
+    # period.
     # @return [String]
     attr_accessor :payment_collection_method
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # Timestamp giving the expiration date of this subscription (if any). You
+    # may manually change the expiration date at any point during a subscription
+    # period.
     # @return [TrueClass | FalseClass]
     attr_accessor :receives_invoice_emails
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # Timestamp giving the expiration date of this subscription (if any). You
+    # may manually change the expiration date at any point during a subscription
+    # period.
     # @return [Object]
     attr_accessor :net_terms
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # Timestamp giving the expiration date of this subscription (if any). You
+    # may manually change the expiration date at any point during a subscription
+    # period.
     # @return [Integer]
     attr_accessor :stored_credential_transaction_id
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # Timestamp giving the expiration date of this subscription (if any). You
+    # may manually change the expiration date at any point during a subscription
+    # period.
     # @return [String]
     attr_accessor :reference
 
@@ -108,7 +155,10 @@ module AdvancedBilling
       @_hash['next_product_id'] = 'next_product_id'
       @_hash['next_product_price_point_id'] = 'next_product_price_point_id'
       @_hash['snap_day'] = 'snap_day'
+      @_hash['initial_billing_at'] = 'initial_billing_at'
+      @_hash['defer_signup'] = 'defer_signup'
       @_hash['next_billing_at'] = 'next_billing_at'
+      @_hash['expires_at'] = 'expires_at'
       @_hash['payment_collection_method'] = 'payment_collection_method'
       @_hash['receives_invoice_emails'] = 'receives_invoice_emails'
       @_hash['net_terms'] = 'net_terms'
@@ -136,7 +186,10 @@ module AdvancedBilling
         next_product_id
         next_product_price_point_id
         snap_day
+        initial_billing_at
+        defer_signup
         next_billing_at
+        expires_at
         payment_collection_method
         receives_invoice_emails
         net_terms
@@ -161,7 +214,8 @@ module AdvancedBilling
     def initialize(credit_card_attributes: SKIP, product_handle: SKIP,
                    product_id: SKIP, product_change_delayed: SKIP,
                    next_product_id: SKIP, next_product_price_point_id: SKIP,
-                   snap_day: SKIP, next_billing_at: SKIP,
+                   snap_day: SKIP, initial_billing_at: SKIP,
+                   defer_signup: false, next_billing_at: SKIP, expires_at: SKIP,
                    payment_collection_method: SKIP,
                    receives_invoice_emails: SKIP, net_terms: SKIP,
                    stored_credential_transaction_id: SKIP, reference: SKIP,
@@ -185,7 +239,10 @@ module AdvancedBilling
           next_product_price_point_id
       end
       @snap_day = snap_day unless snap_day == SKIP
+      @initial_billing_at = initial_billing_at unless initial_billing_at == SKIP
+      @defer_signup = defer_signup unless defer_signup == SKIP
       @next_billing_at = next_billing_at unless next_billing_at == SKIP
+      @expires_at = expires_at unless expires_at == SKIP
       unless payment_collection_method == SKIP
         @payment_collection_method =
           payment_collection_method
@@ -233,11 +290,22 @@ module AdvancedBilling
       snap_day = hash.key?('snap_day') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:UpdateSubscriptionSnapDay), hash['snap_day']
       ) : SKIP
+      initial_billing_at = if hash.key?('initial_billing_at')
+                             (DateTimeHelper.from_rfc3339(hash['initial_billing_at']) if hash['initial_billing_at'])
+                           else
+                             SKIP
+                           end
+      defer_signup = hash['defer_signup'] ||= false
       next_billing_at = if hash.key?('next_billing_at')
                           (DateTimeHelper.from_rfc3339(hash['next_billing_at']) if hash['next_billing_at'])
                         else
                           SKIP
                         end
+      expires_at = if hash.key?('expires_at')
+                     (DateTimeHelper.from_rfc3339(hash['expires_at']) if hash['expires_at'])
+                   else
+                     SKIP
+                   end
       payment_collection_method =
         hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       receives_invoice_emails =
@@ -280,7 +348,10 @@ module AdvancedBilling
                              next_product_id: next_product_id,
                              next_product_price_point_id: next_product_price_point_id,
                              snap_day: snap_day,
+                             initial_billing_at: initial_billing_at,
+                             defer_signup: defer_signup,
                              next_billing_at: next_billing_at,
+                             expires_at: expires_at,
                              payment_collection_method: payment_collection_method,
                              receives_invoice_emails: receives_invoice_emails,
                              net_terms: net_terms,
@@ -295,8 +366,16 @@ module AdvancedBilling
                              additional_properties: additional_properties)
     end
 
+    def to_custom_initial_billing_at
+      DateTimeHelper.to_rfc3339(initial_billing_at)
+    end
+
     def to_custom_next_billing_at
       DateTimeHelper.to_rfc3339(next_billing_at)
+    end
+
+    def to_custom_expires_at
+      DateTimeHelper.to_rfc3339(expires_at)
     end
 
     # Validates an instance of the object from a given value.
@@ -316,9 +395,10 @@ module AdvancedBilling
       " #{@product_handle}, product_id: #{@product_id}, product_change_delayed:"\
       " #{@product_change_delayed}, next_product_id: #{@next_product_id},"\
       " next_product_price_point_id: #{@next_product_price_point_id}, snap_day: #{@snap_day},"\
-      " next_billing_at: #{@next_billing_at}, payment_collection_method:"\
-      " #{@payment_collection_method}, receives_invoice_emails: #{@receives_invoice_emails},"\
-      " net_terms: #{@net_terms}, stored_credential_transaction_id:"\
+      " initial_billing_at: #{@initial_billing_at}, defer_signup: #{@defer_signup},"\
+      " next_billing_at: #{@next_billing_at}, expires_at: #{@expires_at},"\
+      " payment_collection_method: #{@payment_collection_method}, receives_invoice_emails:"\
+      " #{@receives_invoice_emails}, net_terms: #{@net_terms}, stored_credential_transaction_id:"\
       " #{@stored_credential_transaction_id}, reference: #{@reference}, custom_price:"\
       " #{@custom_price}, components: #{@components}, dunning_communication_delay_enabled:"\
       " #{@dunning_communication_delay_enabled}, dunning_communication_delay_time_zone:"\
@@ -334,15 +414,16 @@ module AdvancedBilling
       " #{@product_handle.inspect}, product_id: #{@product_id.inspect}, product_change_delayed:"\
       " #{@product_change_delayed.inspect}, next_product_id: #{@next_product_id.inspect},"\
       " next_product_price_point_id: #{@next_product_price_point_id.inspect}, snap_day:"\
-      " #{@snap_day.inspect}, next_billing_at: #{@next_billing_at.inspect},"\
-      " payment_collection_method: #{@payment_collection_method.inspect}, receives_invoice_emails:"\
-      " #{@receives_invoice_emails.inspect}, net_terms: #{@net_terms.inspect},"\
-      " stored_credential_transaction_id: #{@stored_credential_transaction_id.inspect}, reference:"\
-      " #{@reference.inspect}, custom_price: #{@custom_price.inspect}, components:"\
-      " #{@components.inspect}, dunning_communication_delay_enabled:"\
-      " #{@dunning_communication_delay_enabled.inspect}, dunning_communication_delay_time_zone:"\
-      " #{@dunning_communication_delay_time_zone.inspect}, product_price_point_id:"\
-      " #{@product_price_point_id.inspect}, product_price_point_handle:"\
+      " #{@snap_day.inspect}, initial_billing_at: #{@initial_billing_at.inspect}, defer_signup:"\
+      " #{@defer_signup.inspect}, next_billing_at: #{@next_billing_at.inspect}, expires_at:"\
+      " #{@expires_at.inspect}, payment_collection_method: #{@payment_collection_method.inspect},"\
+      " receives_invoice_emails: #{@receives_invoice_emails.inspect}, net_terms:"\
+      " #{@net_terms.inspect}, stored_credential_transaction_id:"\
+      " #{@stored_credential_transaction_id.inspect}, reference: #{@reference.inspect},"\
+      " custom_price: #{@custom_price.inspect}, components: #{@components.inspect},"\
+      " dunning_communication_delay_enabled: #{@dunning_communication_delay_enabled.inspect},"\
+      " dunning_communication_delay_time_zone: #{@dunning_communication_delay_time_zone.inspect},"\
+      " product_price_point_id: #{@product_price_point_id.inspect}, product_price_point_handle:"\
       " #{@product_price_point_handle.inspect}, additional_properties:"\
       " #{get_additional_properties}>"
     end

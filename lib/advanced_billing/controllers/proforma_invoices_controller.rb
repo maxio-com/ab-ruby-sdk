@@ -19,9 +19,9 @@ module AdvancedBilling
     # be in a live state.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def create_consolidated_proforma_invoice(uid)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/proforma_invoices.json',
                                      Server::PRODUCTION)
@@ -58,9 +58,9 @@ module AdvancedBilling
     # payments data
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
     # custom fields data
-    # @return [ListProformaInvoicesResponse] response from the API call.
+    # @return [ListProformaInvoicesResponse] Response from the API call.
     def list_subscription_group_proforma_invoices(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}/proforma_invoices.json',
                                      Server::PRODUCTION)
@@ -89,9 +89,9 @@ module AdvancedBilling
     # Proforma invoices are only available on Relationship Invoicing sites.
     # @param [String] proforma_invoice_uid Required parameter: The uid of the
     # proforma invoice
-    # @return [ProformaInvoice] response from the API call.
+    # @return [ProformaInvoice] Response from the API call.
     def read_proforma_invoice(proforma_invoice_uid)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/proforma_invoices/{proforma_invoice_uid}.json',
                                      Server::PRODUCTION)
@@ -120,9 +120,9 @@ module AdvancedBilling
     # not be prepaid, and must be in a live state.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [ProformaInvoice] response from the API call.
+    # @return [ProformaInvoice] Response from the API call.
     def create_proforma_invoice(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/proforma_invoices.json',
                                      Server::PRODUCTION)
@@ -179,9 +179,9 @@ module AdvancedBilling
     # payments data
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
     # custom fields data
-    # @return [ListProformaInvoicesResponse] response from the API call.
+    # @return [ListProformaInvoicesResponse] Response from the API call.
     def list_proforma_invoices(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/proforma_invoices.json',
                                      Server::PRODUCTION)
@@ -219,11 +219,12 @@ module AdvancedBilling
     # and an error message.
     # @param [String] proforma_invoice_uid Required parameter: The uid of the
     # proforma invoice
-    # @param [VoidInvoiceRequest] body Optional parameter: Example:
-    # @return [ProformaInvoice] response from the API call.
+    # @param [VoidInvoiceRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ProformaInvoice] Response from the API call.
     def void_proforma_invoice(proforma_invoice_uid,
                               body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/proforma_invoices/{proforma_invoice_uid}/void.json',
                                      Server::PRODUCTION)
@@ -267,9 +268,9 @@ module AdvancedBilling
     # subscription's upcoming renewal has changed.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [ProformaInvoice] response from the API call.
+    # @return [ProformaInvoice] Response from the API call.
     def preview_proforma_invoice(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/proforma_invoices/preview.json',
                                      Server::PRODUCTION)
@@ -305,10 +306,11 @@ module AdvancedBilling
     # requirements. We recommend associating the proforma invoice with a
     # customer_id to easily find their proforma invoices, since the
     # subscription_id will always be blank.
-    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [ProformaInvoice] response from the API call.
+    # @param [CreateSubscriptionRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ProformaInvoice] Response from the API call.
     def create_signup_proforma_invoice(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/proforma_invoices.json',
                                      Server::PRODUCTION)
@@ -347,11 +349,12 @@ module AdvancedBilling
     # @param [CreateSignupProformaPreviewInclude] include Optional parameter:
     # Choose to include a proforma invoice preview for the first renewal. Use in
     # query `include=next_proforma_invoice`.
-    # @param [CreateSubscriptionRequest] body Optional parameter: Example:
-    # @return [SignupProformaPreviewResponse] response from the API call.
+    # @param [CreateSubscriptionRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [SignupProformaPreviewResponse] Response from the API call.
     def preview_signup_proforma_invoice(include: nil,
                                         body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/proforma_invoices/preview.json',
                                      Server::PRODUCTION)

@@ -42,6 +42,7 @@ def create_subscription_group_prepayment(uid,
 uid = 'uid0'
 
 result = subscription_group_invoice_account_controller.create_subscription_group_prepayment(uid)
+puts result
 ```
 
 ## Example Response *(as JSON)*
@@ -76,8 +77,8 @@ def list_prepayments_for_subscription_group(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 | `filter` | [`ListPrepaymentsFilter`](../../doc/models/list-prepayments-filter.md) | Query, Optional | Filter to use for List Prepayments operations |
 
 ## Response Type
@@ -99,6 +100,7 @@ collect = {
 }
 
 result = subscription_group_invoice_account_controller.list_prepayments_for_subscription_group(collect)
+puts result
 ```
 
 ## Example Response *(as JSON)*
@@ -166,6 +168,7 @@ result = subscription_group_invoice_account_controller.issue_subscription_group_
   uid,
   body: body
 )
+puts result
 ```
 
 ## Example Response *(as JSON)*
@@ -225,6 +228,7 @@ result = subscription_group_invoice_account_controller.deduct_subscription_group
   uid,
   body: body
 )
+puts result
 ```
 
 ## Example Response *(as JSON)*

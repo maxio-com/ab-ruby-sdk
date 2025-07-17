@@ -4,22 +4,21 @@
 ## Introduction
 
 Maxio Advanced Billing (formerly Chargify) provides an HTTP-based API that conforms to the principles of REST.
-One of the many reasons to use Advanced Billing is the immense feature set and surrounding community [client libraries](page:development-tools/client-libraries).
-The Maxio API returns JSON responses as the primary and recommended format, but XML is also provided as a backwards compatible option for Merchants who require it.
+One of the many reasons to use Advanced Billing is the immense feature set and [client libraries](page:development-tools/client-libraries).
+The Maxio API returns JSON responses as the primary and recommended format, but XML is also provided as a backwards compatible option for merchants who require it.
 
 ### Steps to make your first Maxio Advanced Billing API call
 
 1. [Sign-up](https://app.chargify.com/signup/maxio-billing-sandbox) or [log-in](https://app.chargify.com/login.html) to your [test site](https://maxio.zendesk.com/hc/en-us/articles/24250712113165-Testing-Overview) account.
-2. [Setup and configure authentication](https://maxio.zendesk.com/hc/en-us/articles/24294819360525-API-Keys) credentials.
-3. Submit your API request and try it out.
-4. Verify results through response.
-5. Test our integrations.
+2. [Setup authentication](https://maxio.zendesk.com/hc/en-us/articles/24294819360525-API-Keys) credentials.
+3. [Submit an API request and verify the response](page:development-tools/client-libraries#make-your-first-maxio-advanced-billing-api-request).
+4. Test the Advanced Billing [integrations](https://www.maxio.com/integrations).
 
-We strongly suggest exploring the developer portal, our [integrations](https://www.maxio.com/integrations) and the API guide, as well as the entire set of application-based documentation to aid in your discovery of the product.
+Next, you can explore [authentication methods](page:introduction/authentication), [basic concepts](page:introduction/basic-concepts/connected-sites) for interacting with Advanced Billing via the API, and the entire set of [application-based documentation](https://docs.maxio.com/hc/en-us) to aid in your discovery of the product.
 
-#### Example
+#### Request Example
 
-The following example uses the curl command-line tool to execute API requests.
+The following example uses the curl command-line tool to make an API request.
 
 **Request**
 
@@ -30,37 +29,37 @@ curl -u <api_key>:x -H Accept:application/json -H Content-Type:application/json 
 Install the gem from the command line:
 
 ```bash
-gem install maxio-advanced-billing-sdk -v 6.1.0
+gem install maxio-advanced-billing-sdk -v 7.0.0
 ```
 
 Or add the gem to your Gemfile and run `bundle`:
 
 ```ruby
-gem 'maxio-advanced-billing-sdk', '6.1.0'
+gem 'maxio-advanced-billing-sdk', '7.0.0'
 ```
 
-For additional gem details, see the [RubyGems page for the maxio-advanced-billing-sdk gem](https://rubygems.org/gems/maxio-advanced-billing-sdk/versions/6.1.0).
+For additional gem details, see the [RubyGems page for the maxio-advanced-billing-sdk gem](https://rubygems.org/gems/maxio-advanced-billing-sdk/versions/7.0.0).
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `site` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `'subdomain'` |
-| `environment` | `Environment` | The API environment. <br> **Default: `Environment.US`** |
-| `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
-| `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
-| `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 120** |
-| `max_retries` | `Integer` | The number of times to retry an endpoint call if it fails. <br> **Default: 0** |
-| `retry_interval` | `Float` | Pause in seconds between retries. <br> **Default: 1** |
-| `backoff_factor` | `Float` | The amount to multiply each successive retry's interval amount by in order to provide backoff. <br> **Default: 2** |
-| `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
-| `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
-| `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `basic_auth_credentials` | [`BasicAuthCredentials`](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/auth/basic-authentication.md) | The credential object for Basic Authentication |
+| site | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `'subdomain'` |
+| environment | `Environment` | The API environment. <br> **Default: `Environment.US`** |
+| connection | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
+| adapter | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
+| timeout | `Float` | The value to use for connection timeout. <br> **Default: 120** |
+| max_retries | `Integer` | The number of times to retry an endpoint call if it fails. <br> **Default: 0** |
+| retry_interval | `Float` | Pause in seconds between retries. <br> **Default: 1** |
+| backoff_factor | `Float` | The amount to multiply each successive retry's interval amount by in order to provide backoff. <br> **Default: 2** |
+| retry_statuses | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
+| retry_methods | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
+| http_callback | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
+| basic_auth_credentials | [`BasicAuthCredentials`](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/auth/basic-authentication.md) | The credential object for Basic Authentication |
 
 The API client can be initialized as follows:
 
@@ -90,46 +89,52 @@ The SDK can be configured to use a different environment for making API calls. A
 
 This API uses the following authentication schemes.
 
-* [`BasicAuth (Basic Authentication)`](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/auth/basic-authentication.md)
+* [`BasicAuth (Basic Authentication)`](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/auth/basic-authentication.md)
 
 ## List of APIs
 
-* [API Exports](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/api-exports.md)
-* [Advance Invoice](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/advance-invoice.md)
-* [Billing Portal](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/billing-portal.md)
-* [Component Price Points](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/component-price-points.md)
-* [Custom Fields](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/custom-fields.md)
-* [Events-Based Billing Segments](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/events-based-billing-segments.md)
-* [Payment Profiles](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/payment-profiles.md)
-* [Product Families](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/product-families.md)
-* [Product Price Points](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/product-price-points.md)
-* [Proforma Invoices](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/proforma-invoices.md)
-* [Reason Codes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/reason-codes.md)
-* [Referral Codes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/referral-codes.md)
-* [Sales Commissions](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/sales-commissions.md)
-* [Subscription Components](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-components.md)
-* [Subscription Groups](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-groups.md)
-* [Subscription Group Invoice Account](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-group-invoice-account.md)
-* [Subscription Group Status](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-group-status.md)
-* [Subscription Invoice Account](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-invoice-account.md)
-* [Subscription Notes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-notes.md)
-* [Subscription Products](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-products.md)
-* [Subscription Status](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscription-status.md)
-* [Coupons](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/coupons.md)
-* [Components](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/components.md)
-* [Customers](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/customers.md)
-* [Events](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/events.md)
-* [Insights](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/insights.md)
-* [Invoices](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/invoices.md)
-* [Offers](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/offers.md)
-* [Products](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/products.md)
-* [Sites](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/sites.md)
-* [Subscriptions](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/subscriptions.md)
-* [Webhooks](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/controllers/webhooks.md)
+* [API Exports](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/api-exports.md)
+* [Advance Invoice](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/advance-invoice.md)
+* [Billing Portal](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/billing-portal.md)
+* [Component Price Points](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/component-price-points.md)
+* [Custom Fields](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/custom-fields.md)
+* [Events-Based Billing Segments](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/events-based-billing-segments.md)
+* [Payment Profiles](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/payment-profiles.md)
+* [Product Families](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/product-families.md)
+* [Product Price Points](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/product-price-points.md)
+* [Proforma Invoices](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/proforma-invoices.md)
+* [Reason Codes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/reason-codes.md)
+* [Referral Codes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/referral-codes.md)
+* [Sales Commissions](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/sales-commissions.md)
+* [Subscription Components](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-components.md)
+* [Subscription Groups](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-groups.md)
+* [Subscription Group Invoice Account](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-group-invoice-account.md)
+* [Subscription Group Status](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-group-status.md)
+* [Subscription Invoice Account](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-invoice-account.md)
+* [Subscription Notes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-notes.md)
+* [Subscription Products](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-products.md)
+* [Subscription Status](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscription-status.md)
+* [Coupons](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/coupons.md)
+* [Components](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/components.md)
+* [Customers](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/customers.md)
+* [Events](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/events.md)
+* [Insights](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/insights.md)
+* [Invoices](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/invoices.md)
+* [Offers](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/offers.md)
+* [Products](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/products.md)
+* [Sites](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/sites.md)
+* [Subscriptions](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/subscriptions.md)
+* [Webhooks](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/controllers/webhooks.md)
 
-## Classes Documentation
+## SDK Infrastructure
 
-* [Utility Classes](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/utility-classes.md)
-* [HttpResponse](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/http-response.md)
-* [HttpRequest](https://www.github.com/maxio-com/ab-ruby-sdk/tree/6.1.0/doc/http-request.md)
+### HTTP
+
+* [HttpResponse](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/http-response.md)
+* [HttpRequest](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/http-request.md)
+
+### Utilities
+
+* [ApiHelper](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/api-helper.md)
+* [DateTimeHelper](https://www.github.com/maxio-com/ab-ruby-sdk/tree/7.0.0/doc/date-time-helper.md)
 
