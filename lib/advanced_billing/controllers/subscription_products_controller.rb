@@ -102,11 +102,11 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [SubscriptionProductMigrationRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionResponse] response from the API call.
+    # TODO: type description here
+    # @return [SubscriptionResponse] Response from the API call.
     def migrate_subscription_product(subscription_id,
                                      body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/migrations.json',
                                      Server::PRODUCTION)
@@ -139,11 +139,11 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [SubscriptionMigrationPreviewRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionMigrationPreviewResponse] response from the API call.
+    # TODO: type description here
+    # @return [SubscriptionMigrationPreviewResponse] Response from the API call.
     def preview_subscription_product_migration(subscription_id,
                                                body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/migrations/preview.json',
                                      Server::PRODUCTION)

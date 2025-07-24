@@ -25,11 +25,12 @@ module AdvancedBilling
     # `{ "<product_id/component_id>": boolean_value }`
     # @param [Integer] product_family_id Required parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
-    # @param [CouponRequest] body Optional parameter: Example:
-    # @return [CouponResponse] response from the API call.
+    # @param [CouponRequest] body Optional parameter: TODO: type description
+    # here
+    # @return [CouponResponse] Response from the API call.
     def create_coupon(product_family_id,
                       body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/coupons.json',
                                      Server::PRODUCTION)
@@ -75,9 +76,9 @@ module AdvancedBilling
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @return [Array[CouponResponse]] response from the API call.
+    # @return [Array[CouponResponse]] Response from the API call.
     def list_coupons_for_product_family(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons.json',
                                      Server::PRODUCTION)
@@ -112,11 +113,11 @@ module AdvancedBilling
     # fetching coupons, if you have defined multiple currencies at the site
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response.
-    # @return [CouponResponse] response from the API call.
+    # @return [CouponResponse] Response from the API call.
     def find_coupon(product_family_id: nil,
                     code: nil,
                     currency_prices: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/find.json',
                                      Server::PRODUCTION)
@@ -150,11 +151,11 @@ module AdvancedBilling
     # fetching coupons, if you have defined multiple currencies at the site
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response.
-    # @return [CouponResponse] response from the API call.
+    # @return [CouponResponse] Response from the API call.
     def read_coupon(product_family_id,
                     coupon_id,
                     currency_prices: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}.json',
                                      Server::PRODUCTION)
@@ -184,12 +185,13 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @param [CouponRequest] body Optional parameter: Example:
-    # @return [CouponResponse] response from the API call.
+    # @param [CouponRequest] body Optional parameter: TODO: type description
+    # here
+    # @return [CouponResponse] Response from the API call.
     def update_coupon(product_family_id,
                       coupon_id,
                       body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}.json',
                                      Server::PRODUCTION)
@@ -223,10 +225,10 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @return [CouponResponse] response from the API call.
+    # @return [CouponResponse] Response from the API call.
     def archive_coupon(product_family_id,
                        coupon_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}.json',
                                      Server::PRODUCTION)
@@ -266,9 +268,9 @@ module AdvancedBilling
     # level, you can optionally pass the `?currency_prices=true` query param to
     # include an array of currency price data in the response. Use in query
     # `currency_prices=true`.
-    # @return [Array[CouponResponse]] response from the API call.
+    # @return [Array[CouponResponse]] Response from the API call.
     def list_coupons(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons.json',
                                      Server::PRODUCTION)
@@ -292,10 +294,10 @@ module AdvancedBilling
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @return [Array[CouponUsage]] response from the API call.
+    # @return [Array[CouponUsage]] Response from the API call.
     def read_coupon_usage(product_family_id,
                           coupon_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/coupons/{coupon_id}/usage.json',
                                      Server::PRODUCTION)
@@ -343,10 +345,10 @@ module AdvancedBilling
     # @param [String] code Required parameter: The code of the coupon
     # @param [Integer] product_family_id Optional parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
-    # @return [CouponResponse] response from the API call.
+    # @return [CouponResponse] Response from the API call.
     def validate_coupon(code,
                         product_family_id: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/validate.json',
                                      Server::PRODUCTION)
@@ -358,9 +360,9 @@ module AdvancedBilling
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
                     .deserialize_into(CouponResponse.method(:from_hash))
-                    .local_error('404',
-                                 'Not Found',
-                                 SingleStringErrorResponseException))
+                    .local_error_template('404',
+                                          'Not Found: \'{$response.body}\'',
+                                          SingleStringErrorResponseException))
         .execute
     end
 
@@ -373,11 +375,12 @@ module AdvancedBilling
     # to define pricing in non-primary currencies.
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @param [CouponCurrencyRequest] body Optional parameter: Example:
-    # @return [CouponCurrencyResponse] response from the API call.
+    # @param [CouponCurrencyRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [CouponCurrencyResponse] Response from the API call.
     def create_or_update_coupon_currency_prices(coupon_id,
                                                 body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/coupons/{coupon_id}/currency_prices.json',
                                      Server::PRODUCTION)
@@ -439,11 +442,12 @@ module AdvancedBilling
     # `https://<subdomain>.chargify.com/coupons/567/codes/20%25OFF.<format>`
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @param [CouponSubcodes] body Optional parameter: Example:
-    # @return [CouponSubcodesResponse] response from the API call.
+    # @param [CouponSubcodes] body Optional parameter: TODO: type description
+    # here
+    # @return [CouponSubcodesResponse] Response from the API call.
     def create_coupon_subcodes(coupon_id,
                                body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/coupons/{coupon_id}/codes.json',
                                      Server::PRODUCTION)
@@ -476,9 +480,9 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [CouponSubcodes] response from the API call.
+    # @return [CouponSubcodes] Response from the API call.
     def list_coupon_subcodes(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/coupons/{coupon_id}/codes.json',
                                      Server::PRODUCTION)
@@ -506,11 +510,12 @@ module AdvancedBilling
     # + Any subcodes not created because they are invalid.
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon
-    # @param [CouponSubcodes] body Optional parameter: Example:
-    # @return [CouponSubcodesResponse] response from the API call.
+    # @param [CouponSubcodes] body Optional parameter: TODO: type description
+    # here
+    # @return [CouponSubcodesResponse] Response from the API call.
     def update_coupon_subcodes(coupon_id,
                                body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/coupons/{coupon_id}/codes.json',
                                      Server::PRODUCTION)
@@ -551,10 +556,10 @@ module AdvancedBilling
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
     # the coupon to which the subcode belongs
     # @param [String] subcode Required parameter: The subcode of the coupon
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_coupon_subcode(coupon_id,
                               subcode)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/coupons/{coupon_id}/codes/{subcode}.json',
                                      Server::PRODUCTION)

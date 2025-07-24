@@ -41,6 +41,7 @@ def validate_referral_code(code)
 code = 'code8'
 
 result = referral_codes_controller.validate_referral_code(code)
+puts result
 ```
 
 ## Example Response *(as JSON)*

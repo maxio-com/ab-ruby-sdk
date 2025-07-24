@@ -28,7 +28,9 @@ module AdvancedBilling
 
     # Can be used to record an external expiration date. Chargify sets this
     # field automatically when a subscription expires (ceases billing) after a
-    # prescribed amount of time. Only ISO8601 format is supported.
+    # prescribed amount of time. Only ISO8601 format is supported. This field is
+    # not supported when Multi-frequency is enabled for the Site. To change the
+    # Term End of a Subscription, use the Update Subscription endpoint.
     # @return [DateTime]
     attr_accessor :expires_at
 

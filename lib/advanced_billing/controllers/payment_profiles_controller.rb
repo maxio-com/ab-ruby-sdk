@@ -325,9 +325,9 @@ module AdvancedBilling
     # account and mandate will be created in your current vault. If the
     # customer, bank account, and mandate already exist in your vault, follow
     # the Import example to link the payment profile into Advanced Billing.
-    # @return [PaymentProfileResponse] response from the API call.
+    # @return [PaymentProfileResponse] Response from the API call.
     def create_payment_profile(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/payment_profiles.json',
                                      Server::PRODUCTION)
@@ -365,9 +365,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [Integer] customer_id Optional parameter: The ID of the customer
     # for which you wish to list payment profiles
-    # @return [Array[PaymentProfileResponse]] response from the API call.
+    # @return [Array[PaymentProfileResponse]] Response from the API call.
     def list_payment_profiles(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/payment_profiles.json',
                                      Server::PRODUCTION)
@@ -395,6 +395,8 @@ module AdvancedBilling
     #     "id": 10089892,
     #     "first_name": "Chester",
     #     "last_name": "Tester",
+    #     "created_at": "2025-01-01T00:00:00-05:00",
+    #     "updated_at": "2025-01-01T00:00:00-05:00",
     #     "customer_id": 14543792,
     #     "current_vault": "bogus",
     #     "vault_token": "0011223344",
@@ -418,9 +420,9 @@ module AdvancedBilling
     # ```
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [PaymentProfileResponse] response from the API call.
+    # @return [PaymentProfileResponse] Response from the API call.
     def read_payment_profile(payment_profile_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/payment_profiles/{payment_profile_id}.json',
                                      Server::PRODUCTION)
@@ -482,11 +484,12 @@ module AdvancedBilling
     # trigger a retry for a past due subscription after a partial update.
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @param [UpdatePaymentProfileRequest] body Optional parameter: Example:
-    # @return [PaymentProfileResponse] response from the API call.
+    # @param [UpdatePaymentProfileRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [PaymentProfileResponse] Response from the API call.
     def update_payment_profile(payment_profile_id,
                                body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/payment_profiles/{payment_profile_id}.json',
                                      Server::PRODUCTION)
@@ -516,9 +519,9 @@ module AdvancedBilling
     # 422 and error message will be returned.
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_unused_payment_profile(payment_profile_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/payment_profiles/{payment_profile_id}.json',
                                      Server::PRODUCTION)
@@ -552,10 +555,10 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_subscriptions_payment_profile(subscription_id,
                                              payment_profile_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json',
                                      Server::PRODUCTION)
@@ -575,12 +578,12 @@ module AdvancedBilling
     # account in order to verify the bank account. (Stripe only)
     # @param [Integer] bank_account_id Required parameter: Identifier of the
     # bank account in the system.
-    # @param [BankAccountVerificationRequest] body Optional parameter:
-    # Example:
-    # @return [BankAccountResponse] response from the API call.
+    # @param [BankAccountVerificationRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [BankAccountResponse] Response from the API call.
     def verify_bank_account(bank_account_id,
                             body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/bank_accounts/{bank_account_id}/verification.json',
                                      Server::PRODUCTION)
@@ -612,10 +615,10 @@ module AdvancedBilling
     # group
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_subscription_group_payment_profile(uid,
                                                   payment_profile_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json',
                                      Server::PRODUCTION)
@@ -639,10 +642,10 @@ module AdvancedBilling
     # the subscription
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [PaymentProfileResponse] response from the API call.
+    # @return [PaymentProfileResponse] Response from the API call.
     def change_subscription_default_payment_profile(subscription_id,
                                                     payment_profile_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}/change_payment_profile.json',
                                      Server::PRODUCTION)
@@ -677,10 +680,10 @@ module AdvancedBilling
     # group
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
-    # @return [PaymentProfileResponse] response from the API call.
+    # @return [PaymentProfileResponse] Response from the API call.
     def change_subscription_group_default_payment_profile(uid,
                                                           payment_profile_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/{uid}/payment_profiles/{payment_profile_id}/change_payment_profile.json',
                                      Server::PRODUCTION)
@@ -712,9 +715,9 @@ module AdvancedBilling
     # NjAzNDI0-overview).
     # @param [String] chargify_token Required parameter: Advanced Billing
     # Token
-    # @return [GetOneTimeTokenRequest] response from the API call.
+    # @return [GetOneTimeTokenRequest] Response from the API call.
     def read_one_time_token(chargify_token)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/one_time_tokens/{chargify_token}.json',
                                      Server::PRODUCTION)
@@ -749,9 +752,9 @@ module AdvancedBilling
     # encounter errors during the request process.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def send_request_update_payment_email(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/request_payment_profiles_update.json',
                                      Server::PRODUCTION)

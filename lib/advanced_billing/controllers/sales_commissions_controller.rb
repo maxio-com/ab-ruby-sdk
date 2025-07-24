@@ -41,9 +41,9 @@ module AdvancedBilling
     # set will be returned. Use in query `page=1`.
     # @param [Integer] per_page Optional parameter: This parameter indicates how
     # many records to fetch in each request. Default value is 100.
-    # @return [Array[SaleRepSettings]] response from the API call.
+    # @return [Array[SaleRepSettings]] Response from the API call.
     def list_sales_commission_settings(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/sellers/{seller_id}/sales_commission_settings.json',
                                      Server::PRODUCTION)
@@ -98,9 +98,9 @@ module AdvancedBilling
     # set will be returned. Use in query `page=1`.
     # @param [Integer] per_page Optional parameter: This parameter indicates how
     # many records to fetch in each request. Default value is 100.
-    # @return [Array[ListSaleRepItem]] response from the API call.
+    # @return [Array[ListSaleRepItem]] Response from the API call.
     def list_sales_reps(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/sellers/{seller_id}/sales_reps.json',
                                      Server::PRODUCTION)
@@ -157,14 +157,14 @@ module AdvancedBilling
     # set will be returned. Use in query `page=1`.
     # @param [Integer] per_page Optional parameter: This parameter indicates how
     # many records to fetch in each request. Default value is 100.
-    # @return [SaleRep] response from the API call.
+    # @return [SaleRep] Response from the API call.
     def read_sales_rep(seller_id,
                        sales_rep_id,
                        authorization: 'Bearer <<apiKey>>',
                        live_mode: nil,
                        page: 1,
                        per_page: 100)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/sellers/{seller_id}/sales_reps/{sales_rep_id}.json',
                                      Server::PRODUCTION)

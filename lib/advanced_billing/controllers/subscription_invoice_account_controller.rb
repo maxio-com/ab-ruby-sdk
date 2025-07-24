@@ -11,9 +11,9 @@ module AdvancedBilling
     # Subscription's open, payable invoices.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [AccountBalances] response from the API call.
+    # @return [AccountBalances] Response from the API call.
     def read_account_balances(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/account_balances.json',
                                      Server::PRODUCTION)
@@ -38,11 +38,12 @@ module AdvancedBilling
     # Please note that you **can't** pass `amount_in_cents`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [CreatePrepaymentRequest] body Optional parameter: Example:
-    # @return [CreatePrepaymentResponse] response from the API call.
+    # @param [CreatePrepaymentRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [CreatePrepaymentResponse] Response from the API call.
     def create_prepayment(subscription_id,
                           body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/prepayments.json',
                                      Server::PRODUCTION)
@@ -80,9 +81,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListPrepaymentsFilter] filter Optional parameter: Filter to use
     # for List Prepayments operations
-    # @return [PrepaymentsResponse] response from the API call.
+    # @return [PrepaymentsResponse] Response from the API call.
     def list_prepayments(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscriptions/{subscription_id}/prepayments.json',
                                      Server::PRODUCTION)
@@ -109,11 +110,12 @@ module AdvancedBilling
     # invoice.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [IssueServiceCreditRequest] body Optional parameter: Example:
-    # @return [ServiceCredit] response from the API call.
+    # @param [IssueServiceCreditRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ServiceCredit] Response from the API call.
     def issue_service_credit(subscription_id,
                              body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/service_credits.json',
                                      Server::PRODUCTION)
@@ -140,11 +142,12 @@ module AdvancedBilling
     # less than the current credit balance.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [DeductServiceCreditRequest] body Optional parameter: Example:
-    # @return [void] response from the API call.
+    # @param [DeductServiceCreditRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [void] Response from the API call.
     def deduct_service_credit(subscription_id,
                               body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/service_credit_deductions.json',
                                      Server::PRODUCTION)
@@ -164,6 +167,52 @@ module AdvancedBilling
         .execute
     end
 
+    # This request will list a subscription's service credits.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription
+    # @param [Integer] page Optional parameter: Result records are organized in
+    # pages. By default, the first page of results is displayed. The page
+    # parameter specifies a page number of results to fetch. You can start
+    # navigating through the pages to consume the results. You do this by
+    # passing in a page parameter. Retrieve the next page by adding ?page=2 to
+    # the query string. If there are no results to return, then an empty result
+    # set will be returned. Use in query `page=1`.
+    # @param [Integer] per_page Optional parameter: This parameter indicates how
+    # many records to fetch in each request. Default value is 20. The maximum
+    # allowed values is 200; any per_page value over 200 will be changed to 200.
+    # Use in query `per_page=200`.
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
+    # @return [ListServiceCreditsResponse] Response from the API call.
+    def list_service_credits(subscription_id,
+                             page: 1,
+                             per_page: 20,
+                             direction: nil)
+      @api_call
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions/{subscription_id}/service_credits/list.json',
+                                     Server::PRODUCTION)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .query_param(new_parameter(page, key: 'page'))
+                   .query_param(new_parameter(per_page, key: 'per_page'))
+                   .query_param(new_parameter(direction, key: 'direction'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('BasicAuth')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListServiceCreditsResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
+        .execute
+    end
+
     # This endpoint will refund, completely or partially, a particular
     # prepayment applied to a subscription. The `prepayment_id` will be the
     # account transaction ID of the original payment. The prepayment must have
@@ -173,12 +222,13 @@ module AdvancedBilling
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [Integer] prepayment_id Required parameter: id of prepayment
-    # @param [RefundPrepaymentRequest] body Optional parameter: Example:
-    # @return [PrepaymentResponse] response from the API call.
+    # @param [RefundPrepaymentRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [PrepaymentResponse] Response from the API call.
     def refund_prepayment(subscription_id,
                           prepayment_id,
                           body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/prepayments/{prepayment_id}/refunds.json',
                                      Server::PRODUCTION)

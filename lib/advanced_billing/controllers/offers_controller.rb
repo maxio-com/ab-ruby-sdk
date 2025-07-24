@@ -23,10 +23,11 @@ module AdvancedBilling
     # with the `product_id` and the offer will use that price point. If a
     # `product_price_point_id` is not passed in, the product's default price
     # point will be used.
-    # @param [CreateOfferRequest] body Optional parameter: Example:
-    # @return [OfferResponse] response from the API call.
+    # @param [CreateOfferRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [OfferResponse] Response from the API call.
     def create_offer(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/offers.json',
                                      Server::PRODUCTION)
@@ -59,9 +60,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
     # Include archived products. Use in query: `include_archived=true`.
-    # @return [ListOffersResponse] response from the API call.
+    # @return [ListOffersResponse] Response from the API call.
     def list_offers(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/offers.json',
                                      Server::PRODUCTION)
@@ -84,9 +85,9 @@ module AdvancedBilling
     # different than list all offers for a site, as it requires an `offer_id`.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
-    # @return [OfferResponse] response from the API call.
+    # @return [OfferResponse] Response from the API call.
     def read_offer(offer_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/offers/{offer_id}.json',
                                      Server::PRODUCTION)
@@ -105,9 +106,9 @@ module AdvancedBilling
     # archive the correct item.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def archive_offer(offer_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/offers/{offer_id}/archive.json',
                                      Server::PRODUCTION)
@@ -124,9 +125,9 @@ module AdvancedBilling
     # order to un-archive the correct item.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def unarchive_offer(offer_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/offers/{offer_id}/unarchive.json',
                                      Server::PRODUCTION)

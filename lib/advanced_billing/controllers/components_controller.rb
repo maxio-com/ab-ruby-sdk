@@ -22,11 +22,12 @@ module AdvancedBilling
     # ts-Overview).
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
-    # @param [CreateMeteredComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [CreateMeteredComponent] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def create_metered_component(product_family_id,
                                  body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/metered_components.json',
                                      Server::PRODUCTION)
@@ -71,11 +72,12 @@ module AdvancedBilling
     # ts-Overview).
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
-    # @param [CreateQuantityBasedComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [CreateQuantityBasedComponent] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def create_quantity_based_component(product_family_id,
                                         body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/quantity_based_components.json',
                                      Server::PRODUCTION)
@@ -110,11 +112,12 @@ module AdvancedBilling
     # ts-Overview).
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
-    # @param [CreateOnOffComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [CreateOnOffComponent] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def create_on_off_component(product_family_id,
                                 body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/on_off_components.json',
                                      Server::PRODUCTION)
@@ -153,11 +156,12 @@ module AdvancedBilling
     # ts-Overview).
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
-    # @param [CreatePrepaidComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [CreatePrepaidComponent] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def create_prepaid_usage_component(product_family_id,
                                        body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/prepaid_usage_components.json',
                                      Server::PRODUCTION)
@@ -199,11 +203,12 @@ module AdvancedBilling
     # ts-Overview).
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
-    # @param [CreateEBBComponent] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [CreateEBBComponent] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def create_event_based_component(product_family_id,
                                      body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/product_families/{product_family_id}/event_based_components.json',
                                      Server::PRODUCTION)
@@ -233,9 +238,9 @@ module AdvancedBilling
     # don't have to save or reference the IDs we generate.
     # @param [String] handle Required parameter: The handle of the component to
     # find
-    # @return [ComponentResponse] response from the API call.
+    # @return [ComponentResponse] Response from the API call.
     def find_component(handle)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components/lookup.json',
                                      Server::PRODUCTION)
@@ -258,10 +263,10 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: Either the Advanced
     # Billing id of the component or the handle for the component prefixed with
     # `handle:`
-    # @return [ComponentResponse] response from the API call.
+    # @return [ComponentResponse] Response from the API call.
     def read_component(product_family_id,
                        component_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
                                      Server::PRODUCTION)
@@ -287,12 +292,13 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: Either the Advanced
     # Billing id of the component or the handle for the component prefixed with
     # `handle:`
-    # @param [UpdateComponentRequest] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [UpdateComponentRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def update_product_family_component(product_family_id,
                                         component_id,
                                         body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
                                      Server::PRODUCTION)
@@ -325,10 +331,10 @@ module AdvancedBilling
     # @param [String] component_id Required parameter: Either the Advanced
     # Billing id of the component or the handle for the component prefixed with
     # `handle:`
-    # @return [Component] response from the API call.
+    # @return [Component] Response from the API call.
     def archive_component(product_family_id,
                           component_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/product_families/{product_family_id}/components/{component_id}.json',
                                      Server::PRODUCTION)
@@ -387,9 +393,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListComponentsFilter] filter Optional parameter: Filter to use for
     # List Components operations
-    # @return [Array[ComponentResponse]] response from the API call.
+    # @return [Array[ComponentResponse]] Response from the API call.
     def list_components(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/components.json',
                                      Server::PRODUCTION)
@@ -417,11 +423,12 @@ module AdvancedBilling
     # using the handle, it must be prefixed with `handle:`.
     # @param [String] component_id Required parameter: The id or handle of the
     # component
-    # @param [UpdateComponentRequest] body Optional parameter: Example:
-    # @return [ComponentResponse] response from the API call.
+    # @param [UpdateComponentRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ComponentResponse] Response from the API call.
     def update_component(component_id,
                          body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/components/{component_id}.json',
                                      Server::PRODUCTION)
@@ -484,9 +491,9 @@ module AdvancedBilling
     # components with a timestamp at or after exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of start_date.
-    # @return [Array[ComponentResponse]] response from the API call.
+    # @return [Array[ComponentResponse]] Response from the API call.
     def list_components_for_product_family(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/product_families/{product_family_id}/components.json',
                                      Server::PRODUCTION)

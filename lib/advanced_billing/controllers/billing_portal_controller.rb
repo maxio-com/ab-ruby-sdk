@@ -37,10 +37,10 @@ module AdvancedBilling
     # @param [AutoInvite] auto_invite Optional parameter: When set to 1, an
     # Invitation email will be sent to the Customer. When set to 0, or not sent,
     # an email will not be sent. Use in query: `auto_invite=1`.
-    # @return [CustomerResponse] response from the API call.
+    # @return [CustomerResponse] Response from the API call.
     def enable_billing_portal_for_customer(customer_id,
                                            auto_invite: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/portal/customers/{customer_id}/enable.json',
                                      Server::PRODUCTION)
@@ -74,9 +74,9 @@ module AdvancedBilling
     # further Management URL requests (with a response code `429`)
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
-    # @return [PortalManagementLink] response from the API call.
+    # @return [PortalManagementLink] Response from the API call.
     def read_billing_portal_link(customer_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/portal/customers/{customer_id}/management_link.json',
                                      Server::PRODUCTION)
@@ -112,9 +112,9 @@ module AdvancedBilling
     # This endpoint will only return a JSON response.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
-    # @return [ResentInvitation] response from the API call.
+    # @return [ResentInvitation] Response from the API call.
     def resend_billing_portal_invitation(customer_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/portal/customers/{customer_id}/invitations/invite.json',
                                      Server::PRODUCTION)
@@ -143,9 +143,9 @@ module AdvancedBilling
     # This endpoint will only return a JSON response.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
-    # @return [RevokedInvitation] response from the API call.
+    # @return [RevokedInvitation] Response from the API call.
     def revoke_billing_portal_access(customer_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/portal/customers/{customer_id}/invitations/revoke.json',
                                      Server::PRODUCTION)

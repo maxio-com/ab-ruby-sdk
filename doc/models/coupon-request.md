@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `coupon` | [`CouponPayload`](../../doc/models/coupon-payload.md) | Optional | - |
-| `restricted_products` | `Hash[String, TrueClass \| FalseClass]` | Optional | An object where the keys are product_ids and the values are booleans indicating if the coupon should be applicable to the product |
-| `restricted_components` | `Hash[String, TrueClass \| FalseClass]` | Optional | An object where the keys are component_ids and the values are booleans indicating if the coupon should be applicable to the component |
+| `restricted_products` | `Hash[String, TrueClass \| FalseClass]` | Optional | An object where the keys are product IDs or handles (prefixed with 'handle:'), and the values are booleans indicating if the coupon should be applicable to the product |
+| `restricted_components` | `Hash[String, TrueClass \| FalseClass]` | Optional | An object where the keys are component IDs or handles (prefixed with 'handle:'), and the values are booleans indicating if the coupon should be applicable to the component |
 
 ## Example (as JSON)
 

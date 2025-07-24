@@ -36,10 +36,10 @@ def list_sales_commission_settings(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `seller_id` | `String` | Template, Required | The Chargify id of your seller account |
-| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: `'Bearer <<apiKey>>'` |
+| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br><br>**Default**: `'Bearer <<apiKey>>'` |
 | `live_mode` | `TrueClass \| FalseClass` | Query, Optional | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: `100` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
 
@@ -56,6 +56,7 @@ collect = {
 }
 
 result = sales_commissions_controller.list_sales_commission_settings(collect)
+puts result
 ```
 
 ## Example Response *(as JSON)*
@@ -114,10 +115,10 @@ def list_sales_reps(options = {})
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `seller_id` | `String` | Template, Required | The Chargify id of your seller account |
-| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: `'Bearer <<apiKey>>'` |
+| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br><br>**Default**: `'Bearer <<apiKey>>'` |
 | `live_mode` | `TrueClass \| FalseClass` | Query, Optional | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: `100` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
 
@@ -134,6 +135,7 @@ collect = {
 }
 
 result = sales_commissions_controller.list_sales_reps(collect)
+puts result
 ```
 
 ## Example Response *(as JSON)*
@@ -247,10 +249,10 @@ def read_sales_rep(seller_id,
 |  --- | --- | --- | --- |
 | `seller_id` | `String` | Template, Required | The Chargify id of your seller account |
 | `sales_rep_id` | `String` | Template, Required | The Advanced Billing id of sales rep. |
-| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: `'Bearer <<apiKey>>'` |
+| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br><br>**Default**: `'Bearer <<apiKey>>'` |
 | `live_mode` | `TrueClass \| FalseClass` | Query, Optional | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: `100` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
+| `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
 
@@ -276,6 +278,7 @@ result = sales_commissions_controller.read_sales_rep(
   page: page,
   per_page: per_page
 )
+puts result
 ```
 
 ## Example Response *(as JSON)*

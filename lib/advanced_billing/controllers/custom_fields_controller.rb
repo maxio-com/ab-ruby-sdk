@@ -34,7 +34,7 @@ module AdvancedBilling
     # another 100 for Customer.
     # ### Metafields "On-the-Fly"
     # It is possible to create Metafields “on the fly” when you create your
-    # Metadata – if a non-existant name is passed when creating Metadata, a
+    # Metadata – if a non-existent name is passed when creating Metadata, a
     # Metafield for that key will be automatically created. The Metafield API,
     # however, gives you more control over your “keys”.
     # ### Metafield Scope Warning
@@ -43,11 +43,12 @@ module AdvancedBilling
     # update is sent it will overwrite the current configuration**.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [CreateMetafieldsRequest] body Optional parameter: Example:
-    # @return [Array[Metafield]] response from the API call.
+    # @param [CreateMetafieldsRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [Array[Metafield]] Response from the API call.
     def create_metafields(resource_type,
                           body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/{resource_type}/metafields.json',
                                      Server::PRODUCTION)
@@ -89,9 +90,9 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @return [ListMetafieldsResponse] response from the API call.
+    # @return [ListMetafieldsResponse] Response from the API call.
     def list_metafields(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metafields.json',
                                      Server::PRODUCTION)
@@ -114,11 +115,12 @@ module AdvancedBilling
     # can be populated with metadata after the fact.
     # @param [ResourceType] resource_type Required parameter: the resource type
     # to which the metafields belong
-    # @param [UpdateMetafieldsRequest] body Optional parameter: Example:
-    # @return [Array[Metafield]] response from the API call.
+    # @param [UpdateMetafieldsRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [Array[Metafield]] Response from the API call.
     def update_metafield(resource_type,
                          body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/{resource_type}/metafields.json',
                                      Server::PRODUCTION)
@@ -149,10 +151,10 @@ module AdvancedBilling
     # to which the metafields belong
     # @param [String] name Optional parameter: The name of the metafield to be
     # deleted
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_metafield(resource_type,
                          name: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/{resource_type}/metafields.json',
                                      Server::PRODUCTION)
@@ -201,12 +203,13 @@ module AdvancedBilling
     # to which the metafields belong
     # @param [Integer] resource_id Required parameter: The Advanced Billing id
     # of the customer or the subscription for which the metadata applies
-    # @param [CreateMetadataRequest] body Optional parameter: Example:
-    # @return [Array[Metadata]] response from the API call.
+    # @param [CreateMetadataRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [Array[Metadata]] Response from the API call.
     def create_metadata(resource_type,
                         resource_id,
                         body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/{resource_type}/{resource_id}/metadata.json',
                                      Server::PRODUCTION)
@@ -252,9 +255,9 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
-    # @return [PaginatedMetadata] response from the API call.
+    # @return [PaginatedMetadata] Response from the API call.
     def list_metadata(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/{resource_id}/metadata.json',
                                      Server::PRODUCTION)
@@ -280,12 +283,13 @@ module AdvancedBilling
     # to which the metafields belong
     # @param [Integer] resource_id Required parameter: The Advanced Billing id
     # of the customer or the subscription for which the metadata applies
-    # @param [UpdateMetadataRequest] body Optional parameter: Example:
-    # @return [Array[Metadata]] response from the API call.
+    # @param [UpdateMetadataRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [Array[Metadata]] Response from the API call.
     def update_metadata(resource_type,
                         resource_id,
                         body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/{resource_type}/{resource_id}/metadata.json',
                                      Server::PRODUCTION)
@@ -338,12 +342,12 @@ module AdvancedBilling
     # @param [Array[String]] names Optional parameter: Names of fields to be
     # removed. Use in query:
     # `names[]=field1&names[]=my-field&names[]=another-field`.
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def delete_metadata(resource_type,
                         resource_id,
                         name: nil,
                         names: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/{resource_type}/{resource_id}/metadata.json',
                                      Server::PRODUCTION)
@@ -417,9 +421,9 @@ module AdvancedBilling
     # `resource_ids[]=122&resource_ids[]=123&resource_ids[]=124`.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
-    # @return [PaginatedMetadata] response from the API call.
+    # @return [PaginatedMetadata] Response from the API call.
     def list_metadata_for_resource_type(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/{resource_type}/metadata.json',
                                      Server::PRODUCTION)

@@ -17,11 +17,11 @@ module AdvancedBilling
     # Only one of the `subscriptions` can have `"primary": true` attribute set.
     # When passing product to a subscription you can use either `product_id` or
     # `product_handle` or `offer_id`. You can also use `custom_price` instead.
-    # @param [SubscriptionGroupSignupRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionGroupSignupResponse] response from the API call.
+    # @param [SubscriptionGroupSignupRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [SubscriptionGroupSignupResponse] Response from the API call.
     def signup_with_subscription_group(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups/signup.json',
                                      Server::PRODUCTION)
@@ -41,11 +41,11 @@ module AdvancedBilling
     end
 
     # Creates a subscription group with given members.
-    # @param [CreateSubscriptionGroupRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionGroupResponse] response from the API call.
+    # @param [CreateSubscriptionGroupRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [SubscriptionGroupResponse] Response from the API call.
     def create_subscription_group(body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscription_groups.json',
                                      Server::PRODUCTION)
@@ -85,9 +85,9 @@ module AdvancedBilling
     # A list of additional information to include in the response. The following
     # values are supported:  - `account_balances`: Account balance information
     # for the subscription groups. Use in query: `include[]=account_balances`
-    # @return [ListSubscriptionGroupsResponse] response from the API call.
+    # @return [ListSubscriptionGroupsResponse] Response from the API call.
     def list_subscription_groups(options = {})
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups.json',
                                      Server::PRODUCTION)
@@ -114,10 +114,10 @@ module AdvancedBilling
     # @param [Array[SubscriptionGroupInclude]] include Optional parameter:
     # Allows including additional data in the response. Use in query:
     # `include[]=current_billing_amount_in_cents`.
-    # @return [FullSubscriptionGroupResponse] response from the API call.
+    # @return [FullSubscriptionGroupResponse] Response from the API call.
     def read_subscription_group(uid,
                                 include: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/{uid}.json',
                                      Server::PRODUCTION)
@@ -141,12 +141,12 @@ module AdvancedBilling
     # clean up members, just leave the array empty.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @param [UpdateSubscriptionGroupRequest] body Optional parameter:
-    # Example:
-    # @return [SubscriptionGroupResponse] response from the API call.
+    # @param [UpdateSubscriptionGroupRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [SubscriptionGroupResponse] Response from the API call.
     def update_subscription_group_members(uid,
                                           body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/subscription_groups/{uid}.json',
                                      Server::PRODUCTION)
@@ -172,9 +172,9 @@ module AdvancedBilling
     # Only groups without members can be deleted
     # @param [String] uid Required parameter: The uid of the subscription
     # group
-    # @return [DeleteSubscriptionGroupResponse] response from the API call.
+    # @return [DeleteSubscriptionGroupResponse] Response from the API call.
     def delete_subscription_group(uid)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscription_groups/{uid}.json',
                                      Server::PRODUCTION)
@@ -196,9 +196,9 @@ module AdvancedBilling
     # If the subscription is not in a group endpoint will return 404 code.
     # @param [String] subscription_id Required parameter: The Advanced Billing
     # id of the subscription associated with the subscription group
-    # @return [FullSubscriptionGroupResponse] response from the API call.
+    # @return [FullSubscriptionGroupResponse] Response from the API call.
     def find_subscription_group(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/subscription_groups/lookup.json',
                                      Server::PRODUCTION)
@@ -247,11 +247,12 @@ module AdvancedBilling
     # subscription#subscription-in-a-subscription-group)
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @param [AddSubscriptionToAGroup] body Optional parameter: Example:
-    # @return [SubscriptionGroupResponse] response from the API call.
+    # @param [AddSubscriptionToAGroup] body Optional parameter: TODO: type
+    # description here
+    # @return [SubscriptionGroupResponse] Response from the API call.
     def add_subscription_to_group(subscription_id,
                                   body: nil)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/subscriptions/{subscription_id}/group.json',
                                      Server::PRODUCTION)
@@ -277,9 +278,9 @@ module AdvancedBilling
     # remove existing subscription from subscription group.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
-    # @return [void] response from the API call.
+    # @return [void] Response from the API call.
     def remove_subscription_from_group(subscription_id)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/subscriptions/{subscription_id}/group.json',
                                      Server::PRODUCTION)

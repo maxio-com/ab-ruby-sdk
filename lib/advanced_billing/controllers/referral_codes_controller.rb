@@ -20,9 +20,9 @@ module AdvancedBilling
     # response will be returned.
     # @param [String] code Required parameter: The referral code you are trying
     # to validate
-    # @return [ReferralValidationResponse] response from the API call.
+    # @return [ReferralValidationResponse] Response from the API call.
     def validate_referral_code(code)
-      new_api_call_builder
+      @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/referral_codes/validate.json',
                                      Server::PRODUCTION)

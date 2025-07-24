@@ -17,6 +17,7 @@
 | `unit_price` | `String` | Optional | The amount the customer will be charged per unit. This field is only populated for ‘per_unit’ pricing schemes, otherwise it may be null. |
 | `product_family_id` | `Integer` | Optional | The id of the Product Family to which the Component belongs |
 | `product_family_name` | `String` | Optional | The name of the Product Family to which the Component belongs |
+| `product_family_handle` | `String` | Optional | The handle of the Product Family to which the Component belongs |
 | `price_per_unit_in_cents` | `Integer` | Optional | deprecated - use unit_price instead |
 | `kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type |
 | `archived` | `TrueClass \| FalseClass` | Optional | Boolean flag describing whether a component is archived or not. |
