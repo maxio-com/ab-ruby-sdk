@@ -1275,7 +1275,8 @@ body = ActivateEventBasedComponent.new(
     prices: [
       Price.new(
         starting_quantity: 1,
-        unit_price: '5.0'
+        unit_price: '5.0',
+        ending_quantity: nil
       )
     ],
     tax_included: false,

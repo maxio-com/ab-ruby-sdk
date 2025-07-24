@@ -132,7 +132,8 @@ body = CreateComponentPricePointRequest.new(
       ),
       Price.new(
         starting_quantity: '101',
-        unit_price: '4.00'
+        unit_price: '4.00',
+        ending_quantity: nil
       )
     ],
     handle: 'wholesale-handle',
