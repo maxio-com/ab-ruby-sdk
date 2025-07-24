@@ -398,7 +398,7 @@ def resume_subscription(subscription_id,
 ```ruby
 subscription_id = 222
 
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')result = subscription_status_controller.resume_subscription(subscription_id)
+result = subscription_status_controller.resume_subscription(subscription_id)
 puts result
 ```
 
