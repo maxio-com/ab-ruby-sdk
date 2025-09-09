@@ -40,8 +40,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint can be used to create a new price point for an existing
-    # component.
+    # Creates a price point for an existing component.
     # @param [Integer] component_id Required parameter: The Advanced Billing id
     # of the component
     # @param [CreateComponentPricePointRequest] body Optional parameter: TODO:
