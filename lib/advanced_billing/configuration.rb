@@ -36,14 +36,15 @@ module AdvancedBilling
       connection: nil, adapter: :net_http_persistent, timeout: 120,
       max_retries: 0, retry_interval: 1, backoff_factor: 2,
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-      retry_methods: %i[get put], http_callback: nil,
+      retry_methods: %i[get put], http_callback: nil, proxy_settings: nil,
       environment: Environment::US, site: 'subdomain',
       basic_auth_credentials: nil
     )
       super connection: connection, adapter: adapter, timeout: timeout,
             max_retries: max_retries, retry_interval: retry_interval,
             backoff_factor: backoff_factor, retry_statuses: retry_statuses,
-            retry_methods: retry_methods, http_callback: http_callback
+            retry_methods: retry_methods, http_callback: http_callback,
+            proxy_settings: proxy_settings
 
       # Current API environment
       @environment = String(environment)
@@ -64,7 +65,8 @@ module AdvancedBilling
     def clone_with(connection: nil, adapter: nil, timeout: nil,
                    max_retries: nil, retry_interval: nil, backoff_factor: nil,
                    retry_statuses: nil, retry_methods: nil, http_callback: nil,
-                   environment: nil, site: nil, basic_auth_credentials: nil)
+                   proxy_settings: nil, environment: nil, site: nil,
+                   basic_auth_credentials: nil)
       connection ||= self.connection
       adapter ||= self.adapter
       timeout ||= self.timeout
@@ -74,6 +76,7 @@ module AdvancedBilling
       retry_statuses ||= self.retry_statuses
       retry_methods ||= self.retry_methods
       http_callback ||= self.http_callback
+      proxy_settings ||= self.proxy_settings
       environment ||= self.environment
       site ||= self.site
       basic_auth_credentials ||= self.basic_auth_credentials
@@ -84,8 +87,9 @@ module AdvancedBilling
                         backoff_factor: backoff_factor,
                         retry_statuses: retry_statuses,
                         retry_methods: retry_methods,
-                        http_callback: http_callback, environment: environment,
-                        site: site,
+                        http_callback: http_callback,
+                        proxy_settings: proxy_settings,
+                        environment: environment, site: site,
                         basic_auth_credentials: basic_auth_credentials)
     end
 

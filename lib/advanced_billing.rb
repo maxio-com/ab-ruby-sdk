@@ -23,6 +23,7 @@ require_relative 'advanced_billing/http/http_call_back'
 require_relative 'advanced_billing/http/http_method_enum'
 require_relative 'advanced_billing/http/http_request'
 require_relative 'advanced_billing/http/http_response'
+require_relative 'advanced_billing/http/proxy_settings'
 
 
 require_relative 'advanced_billing/http/auth/basic_auth'

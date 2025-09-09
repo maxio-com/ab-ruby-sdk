@@ -597,24 +597,33 @@ module AdvancedBilling
     # A. No. Usage should be reported as one API call per component on a single
     # subscription. For example, to record that a subscriber has sent both an
     # SMS Message and an Email, send an API call for each.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # @param [Integer | String] subscription_id_or_reference Required parameter:
+    # Either the Advanced Billing subscription ID (integer) or the subscription
+    # reference (string). Important: In cases where a numeric string value
+    # matches both an existing subscription ID and an existing subscription
+    # reference, the system will prioritize the subscription ID lookup. For
+    # example, if both subscription ID 123 and subscription reference "123"
+    # exist, passing "123" will return the subscription with ID 123.
     # @param [Integer | String] component_id Required parameter: Either the
     # Advanced Billing id for the component or the component's handle prefixed
     # by `handle:`
     # @param [CreateUsageRequest] body Optional parameter: TODO: type
     # description here
     # @return [UsageResponse] Response from the API call.
-    def create_usage(subscription_id,
+    def create_usage(subscription_id_or_reference,
                      component_id,
                      body: nil)
       @api_call
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/subscriptions/{subscription_id}/components/{component_id}/usages.json',
+                                     '/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json',
                                      Server::PRODUCTION)
-                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                   .template_param(new_parameter(subscription_id_or_reference, key: 'subscription_id_or_reference')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:CreateUsageSubscriptionIdOrReference)
+                                                     .validate(value)
+                                    end))
                    .template_param(new_parameter(component_id, key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true)
@@ -653,8 +662,13 @@ module AdvancedBilling
     # subscription.  You can now specify either the component id (integer) or
     # the component handle prefixed by "handle:" to specify the unique
     # identifier for the component you are working with.
-    # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # @param [Integer | String] subscription_id_or_reference Required parameter:
+    # Either the Advanced Billing subscription ID (integer) or the subscription
+    # reference (string). Important: In cases where a numeric string value
+    # matches both an existing subscription ID and an existing subscription
+    # reference, the system will prioritize the subscription ID lookup. For
+    # example, if both subscription ID 123 and subscription reference "123"
+    # exist, passing "123" will return the subscription with ID 123.
     # @param [Integer | String] component_id Required parameter: Either the
     # Advanced Billing id for the component or the component's handle prefixed
     # by `handle:`
@@ -683,11 +697,15 @@ module AdvancedBilling
     def list_usages(options = {})
       @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/{subscription_id}/components/{component_id}/usages.json',
+                                     '/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json',
                                      Server::PRODUCTION)
-                   .template_param(new_parameter(options['subscription_id'], key: 'subscription_id')
+                   .template_param(new_parameter(options['subscription_id_or_reference'], key: 'subscription_id_or_reference')
                                     .is_required(true)
-                                    .should_encode(true))
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:ListUsagesInputSubscriptionIdOrReference)
+                                                     .validate(value)
+                                    end))
                    .template_param(new_parameter(options['component_id'], key: 'component_id')
                                     .is_required(true)
                                     .should_encode(true)
