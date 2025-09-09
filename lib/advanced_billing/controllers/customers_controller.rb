@@ -137,8 +137,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows to retrieve the Customer properties by Advanced
-    # Billing-generated Customer ID.
+    # Retrieves the Customer properties by Advanced Billing-generated Customer
+    # ID.
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # customer
     # @return [CustomerResponse] Response from the API call.

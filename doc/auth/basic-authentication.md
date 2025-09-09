@@ -23,7 +23,10 @@ Documentation for accessing and setting credentials for BasicAuth.
 You must provide credentials in the client as shown in the following code snippet.
 
 ```ruby
-client = AdvancedBilling::Client.new(
+require 'advanced_billing'
+include AdvancedBilling
+
+client = Client.new(
   basic_auth_credentials: BasicAuthCredentials.new(
     username: 'BasicAuthUserName',
     password: 'BasicAuthPassword'

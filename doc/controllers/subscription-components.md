@@ -1082,7 +1082,7 @@ Q. Is it possible to record metered usage for more than one component at a time?
 A. No. Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
 
 ```ruby
-def create_usage(subscription_id,
+def create_usage(subscription_id_or_reference,
                  component_id,
                  body: nil)
 ```
@@ -1091,7 +1091,7 @@ def create_usage(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id_or_reference` | Integer \| String | Template, Required | This is a container for one-of cases. |
 | `component_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
 | `body` | [`CreateUsageRequest`](../../doc/models/create-usage-request.md) | Body, Optional | - |
 
@@ -1102,7 +1102,7 @@ def create_usage(subscription_id,
 ## Example Usage
 
 ```ruby
-subscription_id = 222
+subscription_id_or_reference = 234
 
 component_id = 144
 
@@ -1115,7 +1115,7 @@ body = CreateUsageRequest.new(
 )
 
 result = subscription_components_controller.create_usage(
-  subscription_id,
+  subscription_id_or_reference,
   component_id,
   body: body
 )
@@ -1172,7 +1172,7 @@ def list_usages(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id_or_reference` | Integer \| String | Template, Required | This is a container for one-of cases. |
 | `component_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
 | `since_id` | `Integer` | Query, Optional | Returns usages with an id greater than or equal to the one specified |
 | `max_id` | `Integer` | Query, Optional | Returns usages with an id less than or equal to the one specified |
@@ -1189,7 +1189,7 @@ def list_usages(options = {})
 
 ```ruby
 collect = {
-  'subscription_id' => 222,
+  'subscription_id_or_reference' => 234,
   'component_id' => 144,
   'page' => 2,
   'per_page' => 50
