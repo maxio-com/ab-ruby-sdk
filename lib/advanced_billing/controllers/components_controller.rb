@@ -254,9 +254,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This request will return information regarding a component from a specific
-    # product family.
-    # You may read the component by either the component's id or handle. When
+    # Returns information regarding a component from a specific product family.
+    # You can read the component by either the component's id or handle. When
     # using the handle, it must be prefixed with `handle:`.
     # @param [Integer] product_family_id Required parameter: The Advanced
     # Billing id of the product family to which the component belongs

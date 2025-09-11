@@ -205,7 +205,7 @@ module AdvancedBilling
       connection: nil, adapter: :net_http_persistent, timeout: 120,
       max_retries: 0, retry_interval: 1, backoff_factor: 2,
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-      retry_methods: %i[get put], http_callback: nil,
+      retry_methods: %i[get put], http_callback: nil, proxy_settings: nil,
       environment: Environment::US, site: 'subdomain',
       basic_auth_credentials: nil, config: nil
     )
@@ -216,8 +216,8 @@ module AdvancedBilling
                     backoff_factor: backoff_factor,
                     retry_statuses: retry_statuses,
                     retry_methods: retry_methods, http_callback: http_callback,
-                    environment: environment, site: site,
-                    basic_auth_credentials: basic_auth_credentials
+                    proxy_settings: proxy_settings, environment: environment,
+                    site: site, basic_auth_credentials: basic_auth_credentials
                   )
                 else
                   config

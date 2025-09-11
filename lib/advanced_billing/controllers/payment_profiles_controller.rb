@@ -90,11 +90,11 @@ module AdvancedBilling
     # GoCardless](https://maxio.zendesk.com/hc/en-us/articles/24176159136909-GoC
     # ardless)
     # + [Using Chargify.js with GoCardless - minimal
-    # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
-    # DIy-examples#minimal-example-with-direct-debit-gocardless-gateway)
+    # example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#
+    # h_01K0PJ15QQZKCER8CFK40MR6XJ)
     # + [Using Chargify.js with GoCardless - full
-    # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
-    # DIy-examples#full-example-with-direct-debit-gocardless-gateway)
+    # example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#
+    # h_01K0PJ15QR09JVHWW0MCA7HVJV)
     # ### GoCardless with Local Bank Details
     # Following examples create customer, bank account and mandate in
     # GoCardless:
@@ -165,12 +165,11 @@ module AdvancedBilling
     # Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-S
     # EPA-and-BECS-Direct-Debit)
     # + [Using Chargify.js with Stripe Direct Debit - minimal
-    # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
-    # DIy-examples#minimal-example-with-sepa-or-becs-direct-debit-stripe-gateway
-    # )
+    # example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#
+    # h_01K0PJ15QQFKKN8Z7B7DZ9AJS5)
     # + [Using Chargify.js with Stripe Direct Debit - full
-    # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
-    # DIy-examples#full-example-with-sepa-direct-debit-stripe-gateway)
+    # example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#
+    # h_01K0PJ15QRECQQ4ECS3ZA55GY7)
     # ### Stripe SEPA Direct Debit Payment Profiles
     # The following example creates a customer, bank account and mandate in
     # Stripe:
@@ -711,8 +710,8 @@ module AdvancedBilling
     # profile instead of passing all bank account or credit card data directly
     # to a given API endpoint.
     # To obtain a One Time Token you have to use
-    # [Chargify.js](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0
-    # NjAzNDI0-overview).
+    # [Chargify.js](https://docs.maxio.com/hc/en-us/articles/38163190843789-Char
+    # gify-js-Overview#chargify-js-overview-0-0).
     # @param [String] chargify_token Required parameter: Advanced Billing
     # Token
     # @return [GetOneTimeTokenRequest] Response from the API call.

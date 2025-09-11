@@ -110,7 +110,21 @@ module AdvancedBilling
           ]
         ),
 
+        :CreateUsageSubscriptionIdOrReference => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
         :CreateUsageComponentId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :ListUsagesInputSubscriptionIdOrReference => OneOf.new(
           [
             LeafType.new(Integer),
             LeafType.new(String)

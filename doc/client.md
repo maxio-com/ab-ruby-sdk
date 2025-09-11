@@ -16,12 +16,16 @@ The following parameters are configurable for the API Client:
 | retry_statuses | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | retry_methods | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | http_callback | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
+| proxy_settings | [`ProxySettings`](../doc/proxy-settings.md) | Optional proxy configuration to route HTTP requests through a proxy server. |
 | basic_auth_credentials | [`BasicAuthCredentials`](auth/basic-authentication.md) | The credential object for Basic Authentication |
 
 The API client can be initialized as follows:
 
 ```ruby
-client = AdvancedBilling::Client.new(
+require 'advanced_billing'
+include AdvancedBilling
+
+client = Client.new(
   basic_auth_credentials: BasicAuthCredentials.new(
     username: 'BasicAuthUserName',
     password: 'BasicAuthPassword'
