@@ -10,11 +10,11 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `price_point` | `String` | Optional | - |
-| `interval` | `Array<String>` | Optional | - |
-| `interval_unit` | `Array<String>` | Optional | - |
-| `name` | `Array<String>` | Optional | - |
-| `price` | `Array<String>` | Optional | - |
-| `price_in_cents` | `Array<String>` | Optional | - |
+| `interval` | `Array[String]` | Optional | - |
+| `interval_unit` | `Array[String]` | Optional | - |
+| `name` | `Array[String]` | Optional | - |
+| `price` | `Array[String]` | Optional | - |
+| `price_in_cents` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

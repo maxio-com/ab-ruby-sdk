@@ -22,5 +22,18 @@ module AdvancedBilling
 
       CLEANUP_SCOPE.include?(value)
     end
+
+    def self.from_value(value, default_value = ALL)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'all' then ALL
+      when 'customers' then CUSTOMERS
+      else
+        default_value
+      end
+    end
   end
 end

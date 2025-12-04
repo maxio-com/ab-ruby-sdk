@@ -38,12 +38,12 @@
 | `paid_amount` | `String` | Optional | - |
 | `refund_amount` | `String` | Optional | - |
 | `due_amount` | `String` | Optional | - |
-| `line_items` | [`Array<InvoiceLineItem>`](../../doc/models/invoice-line-item.md) | Optional | - |
-| `discounts` | [`Array<ProformaInvoiceDiscount>`](../../doc/models/proforma-invoice-discount.md) | Optional | - |
-| `taxes` | [`Array<ProformaInvoiceTax>`](../../doc/models/proforma-invoice-tax.md) | Optional | - |
-| `credits` | [`Array<ProformaInvoiceCredit>`](../../doc/models/proforma-invoice-credit.md) | Optional | - |
-| `payments` | [`Array<ProformaInvoicePayment>`](../../doc/models/proforma-invoice-payment.md) | Optional | - |
-| `custom_fields` | [`Array<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Optional | - |
+| `line_items` | [`Array[InvoiceLineItem]`](../../doc/models/invoice-line-item.md) | Optional | - |
+| `discounts` | [`Array[ProformaInvoiceDiscount]`](../../doc/models/proforma-invoice-discount.md) | Optional | - |
+| `taxes` | [`Array[ProformaInvoiceTax]`](../../doc/models/proforma-invoice-tax.md) | Optional | - |
+| `credits` | [`Array[ProformaInvoiceCredit]`](../../doc/models/proforma-invoice-credit.md) | Optional | - |
+| `payments` | [`Array[ProformaInvoicePayment]`](../../doc/models/proforma-invoice-payment.md) | Optional | - |
+| `custom_fields` | [`Array[InvoiceCustomField]`](../../doc/models/invoice-custom-field.md) | Optional | - |
 | `public_url` | `String` | Optional | - |
 
 ## Example (as JSON)

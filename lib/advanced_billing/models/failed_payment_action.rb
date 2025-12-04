@@ -33,5 +33,19 @@ module AdvancedBilling
 
       FAILED_PAYMENT_ACTION.include?(value)
     end
+
+    def self.from_value(value, default_value = LEAVE_OPEN_INVOICE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'leave_open_invoice' then LEAVE_OPEN_INVOICE
+      when 'rollback_to_pending' then ROLLBACK_TO_PENDING
+      when 'initiate_dunning' then INITIATE_DUNNING
+      else
+        default_value
+      end
+    end
   end
 end

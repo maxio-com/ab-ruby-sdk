@@ -28,10 +28,10 @@
 | `customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the debited subscription. |
 | `billing_address` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | The billing address of the debited subscription. |
 | `shipping_address` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | The shipping address of the debited subscription. |
-| `line_items` | [`Array<CreditNoteLineItem>`](../../doc/models/credit-note-line-item.md) | Optional | Line items on the debit note. |
-| `discounts` | [`Array<InvoiceDiscount>`](../../doc/models/invoice-discount.md) | Optional | - |
-| `taxes` | [`Array<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - |
-| `refunds` | [`Array<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - |
+| `line_items` | [`Array[CreditNoteLineItem]`](../../doc/models/credit-note-line-item.md) | Optional | Line items on the debit note. |
+| `discounts` | [`Array[InvoiceDiscount]`](../../doc/models/invoice-discount.md) | Optional | - |
+| `taxes` | [`Array[InvoiceTax]`](../../doc/models/invoice-tax.md) | Optional | - |
+| `refunds` | [`Array[InvoiceRefund]`](../../doc/models/invoice-refund.md) | Optional | - |
 
 ## Example (as JSON)
 

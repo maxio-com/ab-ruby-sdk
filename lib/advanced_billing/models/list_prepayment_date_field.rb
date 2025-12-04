@@ -19,5 +19,18 @@ module AdvancedBilling
 
       LIST_PREPAYMENT_DATE_FIELD.include?(value)
     end
+
+    def self.from_value(value, default_value = CREATED_AT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'created_at' then CREATED_AT
+      when 'application_at' then APPLICATION_AT
+      else
+        default_value
+      end
+    end
   end
 end

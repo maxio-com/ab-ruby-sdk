@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `components` | [`Array<ComponentPricePointAssignment>`](../../doc/models/component-price-point-assignment.md) | Optional | - |
+| `components` | [`Array[ComponentPricePointAssignment]`](../../doc/models/component-price-point-assignment.md) | Optional | - |
 
 ## Example (as JSON)
 

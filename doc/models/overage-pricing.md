@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
-| `prices` | [`Array<Price>`](../../doc/models/price.md) | Optional | - |
+| `prices` | [`Array[Price]`](../../doc/models/price.md) | Optional | - |
 
 ## Example (as JSON)
 

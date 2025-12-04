@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptions_components` | [`Array<SubscriptionComponent>`](../../doc/models/subscription-component.md) | Required | - |
+| `subscriptions_components` | [`Array[SubscriptionComponent]`](../../doc/models/subscription-component.md) | Required | - |
 
 ## Example (as JSON)
 

@@ -12,8 +12,8 @@ Used in place of `price_point_id` to define a custom price point unique to the s
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
-| `prices` | [`Array<Price>`](../../doc/models/price.md) | Optional | - |
-| `overage_pricing` | [`Array<ComponentCustomPrice>`](../../doc/models/component-custom-price.md) | Optional | - |
+| `prices` | [`Array[Price]`](../../doc/models/price.md) | Optional | - |
+| `overage_pricing` | [`Array[ComponentCustomPrice]`](../../doc/models/component-custom-price.md) | Optional | - |
 
 ## Example (as JSON)
 
@@ -39,7 +39,8 @@ Used in place of `price_point_id` to define a custom price point unique to the s
           "ending_quantity": 40,
           "unit_price": 23.26
         }
-      ]
+      ],
+      "renew_prepaid_allocation": false
     }
   ]
 }

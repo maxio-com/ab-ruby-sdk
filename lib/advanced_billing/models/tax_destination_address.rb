@@ -25,5 +25,20 @@ module AdvancedBilling
 
       TAX_DESTINATION_ADDRESS.include?(value)
     end
+
+    def self.from_value(value, default_value = SHIPPING_THEN_BILLING)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'shipping_then_billing' then SHIPPING_THEN_BILLING
+      when 'billing_then_shipping' then BILLING_THEN_SHIPPING
+      when 'shipping_only' then SHIPPING_ONLY
+      when 'billing_only' then BILLING_ONLY
+      else
+        default_value
+      end
+    end
   end
 end

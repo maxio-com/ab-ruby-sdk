@@ -16,5 +16,11 @@ module AdvancedBilling
 
       LIST_EVENTS_DATE_FIELD.include?(value)
     end
+
+    def self.from_value(value, default_value = CREATED_AT)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

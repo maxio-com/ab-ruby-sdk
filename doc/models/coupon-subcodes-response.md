@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `created_codes` | `Array<String>` | Optional | - |
-| `duplicate_codes` | `Array<String>` | Optional | - |
-| `invalid_codes` | `Array<String>` | Optional | - |
+| `created_codes` | `Array[String]` | Optional | - |
+| `duplicate_codes` | `Array[String]` | Optional | - |
+| `invalid_codes` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

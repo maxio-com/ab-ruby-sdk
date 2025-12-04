@@ -16,5 +16,11 @@ module AdvancedBilling
 
       LIST_COMPONENTS_PRICE_POINTS_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = CURRENCY_PRICES)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

@@ -22,5 +22,19 @@ module AdvancedBilling
 
       CURRENCY_PRICE_ROLE.include?(value)
     end
+
+    def self.from_value(value, default_value = BASELINE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'baseline' then BASELINE
+      when 'trial' then TRIAL
+      when 'initial' then INITIAL
+      else
+        default_value
+      end
+    end
   end
 end

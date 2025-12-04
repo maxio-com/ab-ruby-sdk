@@ -19,5 +19,18 @@ module AdvancedBilling
 
       SUBSCRIPTION_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = COUPONS)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'coupons' then COUPONS
+      when 'self_service_page_token' then SELF_SERVICE_PAGE_TOKEN
+      else
+        default_value
+      end
+    end
   end
 end

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rates` | [`Array<ComponentCostData>`](../../doc/models/component-cost-data.md) | Optional | - |
+| `rates` | [`Array[ComponentCostData]`](../../doc/models/component-cost-data.md) | Optional | - |
 
 ## Example (as JSON)
 

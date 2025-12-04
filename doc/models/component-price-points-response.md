@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `price_points` | [`Array<ComponentPricePoint>`](../../doc/models/component-price-point.md) | Optional | - |
+| `price_points` | [`Array[ComponentPricePoint]`](../../doc/models/component-price-point.md) | Optional | - |
 | `meta` | [`ListPublicKeysMeta`](../../doc/models/list-public-keys-meta.md) | Optional | - |
 
 ## Example (as JSON)

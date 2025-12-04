@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `service_credits` | [`Array<ServiceCredit1>`](../../doc/models/service-credit-1.md) | Optional | - |
+| `service_credits` | [`Array[ServiceCredit1]`](../../doc/models/service-credit-1.md) | Optional | - |
 
 ## Example (as JSON)
 

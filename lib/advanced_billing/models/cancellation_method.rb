@@ -32,5 +32,22 @@ module AdvancedBilling
 
       CANCELLATION_METHOD.include?(value)
     end
+
+    def self.from_value(value, default_value = MERCHANT_UI)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'merchant_ui' then MERCHANT_UI
+      when 'merchant_api' then MERCHANT_API
+      when 'dunning' then DUNNING
+      when 'billing_portal' then BILLING_PORTAL
+      when 'unknown' then UNKNOWN
+      when 'imported' then IMPORTED
+      else
+        default_value
+      end
+    end
   end
 end

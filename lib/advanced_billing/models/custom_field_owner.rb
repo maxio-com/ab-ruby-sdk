@@ -19,5 +19,18 @@ module AdvancedBilling
 
       CUSTOM_FIELD_OWNER.include?(value)
     end
+
+    def self.from_value(value, default_value = CUSTOMER)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'customer' then CUSTOMER
+      when 'subscription' then SUBSCRIPTION
+      else
+        default_value
+      end
+    end
   end
 end

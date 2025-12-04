@@ -14,7 +14,7 @@
 | `price_point_id` | `Integer` | Optional | - |
 | `name` | `String` | Optional | - |
 | `mrr` | `Integer` | Optional | - |
-| `mrr_movements` | [`Array<MRRMovement>`](../../doc/models/mrr-movement.md) | Optional | - |
+| `mrr_movements` | [`Array[MRRMovement]`](../../doc/models/mrr-movement.md) | Optional | - |
 | `quantity` | `Integer` | Optional | - |
 | `prev_quantity` | `Integer` | Optional | - |
 | `recurring` | `TrueClass \| FalseClass` | Optional | When `true`, the line item's MRR value will contribute to the `plan` breakout. When `false`, the line item contributes to the `usage` breakout. |

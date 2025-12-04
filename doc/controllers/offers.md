@@ -146,7 +146,7 @@ def list_offers(options = {})
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'include_archived' => true
 }

@@ -26,14 +26,14 @@ module AdvancedBilling
     attr_accessor :unit_price
 
     # Set to true to automatically calculate taxes. Site must be configured to
-    # use and calculate taxes.
-    # If using Avalara, a tax_code parameter must also be sent.
+    # use and calculate taxes. If using AvaTax, a tax_code parameter must also
+    # be sent.
     # @return [TrueClass | FalseClass]
     attr_accessor :taxable
 
-    # Set to true to automatically calculate taxes. Site must be configured to
-    # use and calculate taxes.
-    # If using Avalara, a tax_code parameter must also be sent.
+    # A string representing the tax code related to the product type. This is
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [String]
     attr_accessor :tax_code
 

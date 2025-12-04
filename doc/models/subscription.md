@@ -33,7 +33,7 @@
 | `signup_revenue` | `String` | Optional | The revenue, formatted as a string of decimal separated dollars and,cents, from the subscription signup ($50.00 would be formatted as,50.00) |
 | `delayed_cancel_at` | `DateTime` | Optional | Timestamp for when the subscription is currently set to cancel. |
 | `coupon_code` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. |
-| `snap_day` | `String` | Optional | The day of the month that the subscription will charge according to calendar billing rules, if used. |
+| `snap_day` | Integer \| [SnapDay](../../doc/models/snap-day.md) \| nil | Optional | This is a container for one-of cases. |
 | `payment_collection_method` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`. |
 | `customer` | [`Customer`](../../doc/models/customer.md) | Optional | - |
 | `product` | [`Product`](../../doc/models/product.md) | Optional | - |
@@ -48,10 +48,10 @@
 | `coupon_uses_allowed` | `Integer` | Optional | (deprecated) How many times the subscription's single coupon may be used. This field has no replacement for multiple coupons. |
 | `reason_code` | `String` | Optional | If the subscription is canceled, this is their churn code. |
 | `automatically_resume_at` | `DateTime` | Optional | The date the subscription is scheduled to automatically resume from the on_hold state. |
-| `coupon_codes` | `Array<String>` | Optional | An array for all the coupons attached to the subscription. |
+| `coupon_codes` | `Array[String]` | Optional | An array for all the coupons attached to the subscription. |
 | `offer_id` | `Integer` | Optional | The ID of the offer associated with the subscription. |
 | `payer_id` | `Integer` | Optional | On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to the Customer ID unless the 'Customer Hierarchies & WhoPays' feature is enabled. |
-| `current_billing_amount_in_cents` | `Integer` | Optional | The balance in cents plus the estimated renewal amount in cents. Returned ONLY for readSubscription operation as it's compute intensive operation. |
+| `current_billing_amount_in_cents` | `Integer` | Optional | The balance in cents plus the estimated renewal amount in cents. Returned ONLY for the readSubscription operation as it's a compute intensive operation. |
 | `product_price_point_id` | `Integer` | Optional | The product price point currently subscribed to. |
 | `product_price_point_type` | [`PricePointType`](../../doc/models/price-point-type.md) | Optional | Price point type. We expose the following types:<br><br>1. **default**: a price point that is marked as a default price for a certain product.<br>2. **custom**: a custom price point.<br>3. **catalog**: a price point that is **not** marked as a default price for a certain product and is **not** a custom one. |
 | `next_product_price_point_id` | `Integer` | Optional | If a delayed product change is scheduled, the ID of the product price point that the subscription will be changed to at the next renewal. |
@@ -60,7 +60,7 @@
 | `reference` | `String` | Optional | The reference value (provided by your app) for the subscription itelf. |
 | `on_hold_at` | `DateTime` | Optional | The timestamp of the most recent on hold action. |
 | `prepaid_dunning` | `TrueClass \| FalseClass` | Optional | Boolean representing whether the subscription is prepaid and currently in dunning. Only returned for Relationship Invoicing sites with the feature enabled |
-| `coupons` | [`Array<SubscriptionIncludedCoupon>`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. |
+| `coupons` | [`Array[SubscriptionIncludedCoupon]`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. |
 | `dunning_communication_delay_enabled` | `TrueClass \| FalseClass` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute. |
 | `dunning_communication_delay_time_zone` | `String` | Optional | Time zone for the Dunning Communication Delay feature. |
 | `receives_invoice_emails` | `TrueClass \| FalseClass` | Optional | - |

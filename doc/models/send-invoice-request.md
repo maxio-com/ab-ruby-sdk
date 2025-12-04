@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `recipient_emails` | `Array<String>` | Optional | **Constraints**: *Maximum Items*: `5` |
-| `cc_recipient_emails` | `Array<String>` | Optional | **Constraints**: *Maximum Items*: `5` |
-| `bcc_recipient_emails` | `Array<String>` | Optional | **Constraints**: *Maximum Items*: `5` |
+| `recipient_emails` | `Array[String]` | Optional | **Constraints**: *Maximum Items*: `5` |
+| `cc_recipient_emails` | `Array[String]` | Optional | **Constraints**: *Maximum Items*: `5` |
+| `bcc_recipient_emails` | `Array[String]` | Optional | **Constraints**: *Maximum Items*: `5` |
 
 ## Example (as JSON)
 

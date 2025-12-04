@@ -13,7 +13,7 @@
 | `url` | `String` | Optional | - |
 | `site_id` | `Integer` | Optional | - |
 | `status` | `String` | Optional | - |
-| `webhook_subscriptions` | `Array<String>` | Optional | - |
+| `webhook_subscriptions` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

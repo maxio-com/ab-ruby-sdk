@@ -19,5 +19,18 @@ module AdvancedBilling
 
       INCLUDE_OPTION.include?(value)
     end
+
+    def self.from_value(value, default_value = EXCLUDE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'exclude' then EXCLUDE
+      when 'include' then INCLUDE
+      else
+        default_value
+      end
+    end
   end
 end

@@ -21,13 +21,13 @@
 | `created_at` | `DateTime` | Optional | - |
 | `updated_at` | `DateTime` | Optional | - |
 | `archived_at` | `DateTime` | Optional | - |
-| `offer_items` | [`Array<OfferItem>`](../../doc/models/offer-item.md) | Optional | - |
-| `offer_discounts` | [`Array<OfferDiscount>`](../../doc/models/offer-discount.md) | Optional | - |
+| `offer_items` | [`Array[OfferItem]`](../../doc/models/offer-item.md) | Optional | - |
+| `offer_discounts` | [`Array[OfferDiscount]`](../../doc/models/offer-discount.md) | Optional | - |
 | `product_family_name` | `String` | Optional | - |
 | `product_name` | `String` | Optional | - |
 | `product_price_point_name` | `String` | Optional | - |
 | `product_price_in_cents` | `Integer` | Optional | - |
-| `offer_signup_pages` | [`Array<OfferSignupPage>`](../../doc/models/offer-signup-page.md) | Optional | - |
+| `offer_signup_pages` | [`Array[OfferSignupPage]`](../../doc/models/offer-signup-page.md) | Optional | - |
 
 ## Example (as JSON)
 

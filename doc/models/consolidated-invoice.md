@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `invoices` | [`Array<Invoice>`](../../doc/models/invoice.md) | Optional | - |
+| `invoices` | [`Array[Invoice]`](../../doc/models/invoice.md) | Optional | - |
 
 ## Example (as JSON)
 

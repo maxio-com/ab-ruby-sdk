@@ -15,7 +15,7 @@
 | `product_price_point_id` | `Integer` | Optional | The ID of the particular price point on the product. |
 | `custom_price` | [`SubscriptionCustomPrice`](../../doc/models/subscription-custom-price.md) | Optional | (Optional) Used in place of `product_price_point_id` to define a custom price point unique to the subscription |
 | `coupon_code` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. |
-| `coupon_codes` | `Array<String>` | Optional | An array for all the coupons attached to the subscription. |
+| `coupon_codes` | `Array[String]` | Optional | An array for all the coupons attached to the subscription. |
 | `payment_collection_method` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`. |
 | `receives_invoice_emails` | `String` | Optional | (Optional) Default: True - Whether or not this subscription is set to receive emails related to this subscription. |
 | `net_terms` | `String` | Optional | (Optional) Default: null The number of days after renewal (on invoice billing) that a subscription is due. A value between 0 (due immediately) and 180. |
@@ -31,7 +31,7 @@
 | `payment_profile_attributes` | [`PaymentProfileAttributes`](../../doc/models/payment-profile-attributes.md) | Optional | alias to credit_card_attributes |
 | `credit_card_attributes` | [`PaymentProfileAttributes`](../../doc/models/payment-profile-attributes.md) | Optional | Credit Card data to create a new Subscription. Interchangeable with `payment_profile_attributes` property. |
 | `bank_account_attributes` | [`BankAccountAttributes`](../../doc/models/bank-account-attributes.md) | Optional | - |
-| `components` | [`Array<CreateSubscriptionComponent>`](../../doc/models/create-subscription-component.md) | Optional | (Optional) An array of component ids and quantities to be added to the subscription. See [Components](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview) for more information. |
+| `components` | [`Array[CreateSubscriptionComponent]`](../../doc/models/create-subscription-component.md) | Optional | (Optional) An array of component ids and quantities to be added to the subscription. See [Components](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview) for more information. |
 | `calendar_billing` | [`CalendarBilling`](../../doc/models/calendar-billing.md) | Optional | (Optional). Cannot be used when also specifying next_billing_at |
 | `metafields` | `Hash[String, String]` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. |
 | `customer_reference` | `String` | Optional | The reference value (provided by your app) of an existing customer within Chargify. Required, unless a `customer_id` or a set of `customer_attributes` is given. |

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `price_points` | [`Array<ComponentPricePoint>`](../../doc/models/component-price-point.md) | Required | - |
+| `price_points` | [`Array[ComponentPricePoint]`](../../doc/models/component-price-point.md) | Required | - |
 
 ## Example (as JSON)
 

@@ -19,7 +19,7 @@
 | `tax_amount` | `String` | Required | - |
 | `total_amount` | `String` | Required | - |
 | `product_name` | `String` | Required | - |
-| `line_items` | [`Array<InvoiceLineItemEventData>`](../../doc/models/invoice-line-item-event-data.md) | Required | - |
+| `line_items` | [`Array[InvoiceLineItemEventData]`](../../doc/models/invoice-line-item-event-data.md) | Required | - |
 
 ## Example (as JSON)
 

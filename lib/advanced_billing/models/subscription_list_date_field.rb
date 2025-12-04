@@ -16,5 +16,11 @@ module AdvancedBilling
 
       SUBSCRIPTION_LIST_DATE_FIELD.include?(value)
     end
+
+    def self.from_value(value, default_value = UPDATED_AT)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

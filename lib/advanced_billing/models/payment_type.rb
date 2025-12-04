@@ -25,5 +25,20 @@ module AdvancedBilling
 
       PAYMENT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = CREDIT_CARD)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'credit_card' then CREDIT_CARD
+      when 'bank_account' then BANK_ACCOUNT
+      when 'paypal_account' then PAYPAL_ACCOUNT
+      when 'apple_pay' then APPLE_PAY
+      else
+        default_value
+      end
+    end
   end
 end

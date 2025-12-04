@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `price_points` | [`Array<ProductPricePoint>`](../../doc/models/product-price-point.md) | Optional | - |
+| `price_points` | [`Array[ProductPricePoint]`](../../doc/models/product-price-point.md) | Optional | - |
 
 ## Example (as JSON)
 

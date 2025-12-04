@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `members` | `Array<String>` | Required | - |
+| `members` | `Array[String]` | Required | - |
 
 ## Example (as JSON)
 

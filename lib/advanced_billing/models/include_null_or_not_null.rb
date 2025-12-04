@@ -19,5 +19,18 @@ module AdvancedBilling
 
       INCLUDE_NULL_OR_NOT_NULL.include?(value)
     end
+
+    def self.from_value(value, default_value = NOT_NULL)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'not_null' then NOT_NULL
+      when 'null' then NULL
+      else
+        default_value
+      end
+    end
   end
 end

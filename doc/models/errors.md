@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `per_page` | `Array<String>` | Optional | - |
-| `price_point` | `Array<String>` | Optional | - |
+| `per_page` | `Array[String]` | Optional | - |
+| `price_point` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

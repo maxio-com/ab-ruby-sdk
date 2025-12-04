@@ -9,6 +9,10 @@ module AdvancedBilling
     include CoreLibrary
     attr_reader :config, :auth_managers
 
+    def user_agent_detail
+      config.user_agent_detail
+    end
+
     # Access to api_exports controller.
     # @return [APIExportsController] Returns the controller instance.
     def api_exports
@@ -241,6 +245,13 @@ module AdvancedBilling
       http_client_config = global_config.client_configuration
       %w[BasicAuth].each { |auth| @auth_managers[auth] = nil }
       @auth_managers['BasicAuth'] = BasicAuth.new(http_client_config.basic_auth_credentials)
+    end
+
+    # Creates a client directly from environment variables.
+    def self.from_env(**overrides)
+      default_config = Configuration.build_default_config_from_env
+      new_config = default_config.clone_with(**overrides)
+      new(config: new_config)
     end
   end
 end

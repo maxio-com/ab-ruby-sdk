@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `captured_at` | `DateTime` | Optional | - |
-| `invoices` | [`Array<InvoiceBalanceItem>`](../../doc/models/invoice-balance-item.md) | Optional | - |
+| `invoices` | [`Array[InvoiceBalanceItem]`](../../doc/models/invoice-balance-item.md) | Optional | - |
 
 ## Example (as JSON)
 

@@ -58,5 +58,31 @@ module AdvancedBilling
 
       INVOICE_EVENT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = ISSUE_INVOICE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'issue_invoice' then ISSUE_INVOICE
+      when 'apply_credit_note' then APPLY_CREDIT_NOTE
+      when 'create_credit_note' then CREATE_CREDIT_NOTE
+      when 'apply_payment' then APPLY_PAYMENT
+      when 'apply_debit_note' then APPLY_DEBIT_NOTE
+      when 'create_debit_note' then CREATE_DEBIT_NOTE
+      when 'refund_invoice' then REFUND_INVOICE
+      when 'void_invoice' then VOID_INVOICE
+      when 'void_remainder' then VOID_REMAINDER
+      when 'backport_invoice' then BACKPORT_INVOICE
+      when 'change_invoice_status' then CHANGE_INVOICE_STATUS
+      when 'change_invoice_collection_method' then CHANGE_INVOICE_COLLECTION_METHOD
+      when 'remove_payment' then REMOVE_PAYMENT
+      when 'failed_payment' then FAILED_PAYMENT
+      when 'change_chargeback_status' then CHANGE_CHARGEBACK_STATUS
+      else
+        default_value
+      end
+    end
   end
 end

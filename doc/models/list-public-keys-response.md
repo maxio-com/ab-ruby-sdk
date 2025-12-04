@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `chargify_js_keys` | [`Array<PublicKey>`](../../doc/models/public-key.md) | Optional | - |
+| `chargify_js_keys` | [`Array[PublicKey]`](../../doc/models/public-key.md) | Optional | - |
 | `meta` | [`ListPublicKeysMeta`](../../doc/models/list-public-keys-meta.md) | Optional | - |
 
 ## Example (as JSON)

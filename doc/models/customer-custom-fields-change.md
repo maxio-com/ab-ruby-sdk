@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `before` | [`Array<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Required | - |
-| `after` | [`Array<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Required | - |
+| `before` | [`Array[InvoiceCustomField]`](../../doc/models/invoice-custom-field.md) | Required | - |
+| `after` | [`Array[InvoiceCustomField]`](../../doc/models/invoice-custom-field.md) | Required | - |
 
 ## Example (as JSON)
 

@@ -52,9 +52,13 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
-    # A string representing the trial interval unit for this product price
-    # point, either month or day
-    # @return [String]
+    # Indicates how a trial is handled when the trail period ends and there is
+    # no credit card on file. For `no_obligation`, the subscription transitions
+    # to a Trial Ended state. Maxio will not send any emails or statements. For
+    # `payment_expected`, the subscription transitions to a Past Due state.
+    # Maxio will send normal dunning emails and statements according to your
+    # other settings.
+    # @return [TrialType]
     attr_accessor :trial_type
 
     # reserved for future use
@@ -188,6 +192,7 @@ module AdvancedBilling
         trial_price_in_cents
         trial_interval
         trial_interval_unit
+        trial_type
         introductory_offer
         initial_charge_in_cents
         initial_charge_after_trial

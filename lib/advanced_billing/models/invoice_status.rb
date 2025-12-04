@@ -36,5 +36,23 @@ module AdvancedBilling
 
       INVOICE_STATUS.include?(value)
     end
+
+    def self.from_value(value, default_value = DRAFT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'draft' then DRAFT
+      when 'open' then OPEN
+      when 'paid' then PAID
+      when 'pending' then PENDING
+      when 'voided' then VOIDED
+      when 'canceled' then CANCELED
+      when 'processing' then PROCESSING
+      else
+        default_value
+      end
+    end
   end
 end

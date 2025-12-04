@@ -43,5 +43,26 @@ module AdvancedBilling
 
       LINE_ITEM_KIND.include?(value)
     end
+
+    def self.from_value(value, default_value = BASELINE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'baseline' then BASELINE
+      when 'initial' then INITIAL
+      when 'trial' then TRIAL
+      when 'quantity_based_component' then QUANTITY_BASED_COMPONENT
+      when 'prepaid_usage_component' then PREPAID_USAGE_COMPONENT
+      when 'on_off_component' then ON_OFF_COMPONENT
+      when 'metered_component' then METERED_COMPONENT
+      when 'event_based_component' then EVENT_BASED_COMPONENT
+      when 'coupon' then COUPON
+      when 'tax' then TAX
+      else
+        default_value
+      end
+    end
   end
 end

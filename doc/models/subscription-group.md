@@ -12,7 +12,7 @@
 | `customer_id` | `Integer` | Optional | - |
 | `payment_profile` | [`SubscriptionGroupPaymentProfile`](../../doc/models/subscription-group-payment-profile.md) | Optional | - |
 | `payment_collection_method` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`. |
-| `subscription_ids` | `Array<Integer>` | Optional | - |
+| `subscription_ids` | `Array[Integer]` | Optional | - |
 | `created_at` | `DateTime` | Optional | - |
 
 ## Example (as JSON)

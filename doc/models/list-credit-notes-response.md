@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `credit_notes` | [`Array<CreditNote>`](../../doc/models/credit-note.md) | Required | - |
+| `credit_notes` | [`Array[CreditNote]`](../../doc/models/credit-note.md) | Required | - |
 
 ## Example (as JSON)
 

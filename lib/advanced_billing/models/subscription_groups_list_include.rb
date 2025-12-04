@@ -16,5 +16,11 @@ module AdvancedBilling
 
       SUBSCRIPTION_GROUPS_LIST_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = ACCOUNT_BALANCES)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

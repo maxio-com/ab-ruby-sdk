@@ -22,5 +22,19 @@ module AdvancedBilling
 
       CREDIT_SCHEME.include?(value)
     end
+
+    def self.from_value(value, default_value = NONE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'none' then NONE
+      when 'credit' then CREDIT
+      when 'refund' then REFUND
+      else
+        default_value
+      end
+    end
   end
 end

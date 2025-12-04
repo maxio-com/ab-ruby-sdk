@@ -198,7 +198,7 @@ module AdvancedBilling
 
     # The day of the month that the subscription will charge according to
     # calendar billing rules, if used.
-    # @return [String]
+    # @return [Object]
     attr_accessor :snap_day
 
     # The type of payment collection to be used in the subscription. For legacy
@@ -295,7 +295,8 @@ module AdvancedBilling
     attr_accessor :payer_id
 
     # The balance in cents plus the estimated renewal amount in cents. Returned
-    # ONLY for readSubscription operation as it's compute intensive operation.
+    # ONLY for the readSubscription operation as it's a compute intensive
+    # operation.
     # @return [Integer]
     attr_accessor :current_billing_amount_in_cents
 
@@ -782,7 +783,9 @@ module AdvancedBilling
                             SKIP
                           end
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
-      snap_day = hash.key?('snap_day') ? hash['snap_day'] : SKIP
+      snap_day = hash.key?('snap_day') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:SubscriptionSnapDay), hash['snap_day']
+      ) : SKIP
       payment_collection_method =
         hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       customer = Customer.from_hash(hash['customer']) if hash['customer']
@@ -984,6 +987,16 @@ module AdvancedBilling
 
     def to_custom_scheduled_cancellation_at
       DateTimeHelper.to_rfc3339(scheduled_cancellation_at)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [Subscription | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
 
     # Provides a human-readable string representation of the object.

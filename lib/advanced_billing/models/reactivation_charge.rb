@@ -26,5 +26,19 @@ module AdvancedBilling
 
       REACTIVATION_CHARGE.include?(value)
     end
+
+    def self.from_value(value, default_value = PRORATED)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'prorated' then PRORATED
+      when 'immediate' then IMMEDIATE
+      when 'delayed' then DELAYED
+      else
+        default_value
+      end
+    end
   end
 end

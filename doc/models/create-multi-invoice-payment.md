@@ -14,7 +14,7 @@
 | `method` | [`InvoicePaymentMethodType`](../../doc/models/invoice-payment-method-type.md) | Optional | The type of payment method used. Defaults to other. |
 | `amount` | String \| Float | Required | This is a container for one-of cases. |
 | `received_on` | `String` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. |
-| `applications` | [`Array<CreateInvoicePaymentApplication>`](../../doc/models/create-invoice-payment-application.md) | Required | - |
+| `applications` | [`Array[CreateInvoicePaymentApplication]`](../../doc/models/create-invoice-payment-application.md) | Required | - |
 
 ## Example (as JSON)
 

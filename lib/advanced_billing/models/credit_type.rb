@@ -24,5 +24,19 @@ module AdvancedBilling
 
       CREDIT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = FULL)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'full' then FULL
+      when 'prorated' then PRORATED
+      when 'none' then NONE
+      else
+        default_value
+      end
+    end
   end
 end

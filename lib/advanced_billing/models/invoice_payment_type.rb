@@ -25,5 +25,20 @@ module AdvancedBilling
 
       INVOICE_PAYMENT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = EXTERNAL)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'external' then EXTERNAL
+      when 'prepayment' then PREPAYMENT
+      when 'service_credit' then SERVICE_CREDIT
+      when 'payment' then PAYMENT
+      else
+        default_value
+      end
+    end
   end
 end

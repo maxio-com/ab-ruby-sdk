@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ids` | `Array<Integer>` | Required | - |
+| `ids` | `Array[Integer]` | Required | - |
 
 ## Example (as JSON)
 

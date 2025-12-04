@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `currency_prices` | [`Array<CurrencyPrice>`](../../doc/models/currency-price.md) | Required | - |
+| `currency_prices` | [`Array[CurrencyPrice]`](../../doc/models/currency-price.md) | Required | - |
 
 ## Example (as JSON)
 

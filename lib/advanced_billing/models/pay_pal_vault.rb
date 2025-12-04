@@ -25,5 +25,20 @@ module AdvancedBilling
 
       PAY_PAL_VAULT.include?(value)
     end
+
+    def self.from_value(value, default_value = BRAINTREE_BLUE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'braintree_blue' then BRAINTREE_BLUE
+      when 'paypal' then PAYPAL
+      when 'moduslink' then MODUSLINK
+      when 'paypal_complete' then PAYPAL_COMPLETE
+      else
+        default_value
+      end
+    end
   end
 end

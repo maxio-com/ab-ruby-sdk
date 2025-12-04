@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_groups` | [`Array<ListSubscriptionGroupsItem>`](../../doc/models/list-subscription-groups-item.md) | Optional | - |
+| `subscription_groups` | [`Array[ListSubscriptionGroupsItem]`](../../doc/models/list-subscription-groups-item.md) | Optional | - |
 | `meta` | [`ListSubscriptionGroupsMeta`](../../doc/models/list-subscription-groups-meta.md) | Optional | - |
 
 ## Example (as JSON)

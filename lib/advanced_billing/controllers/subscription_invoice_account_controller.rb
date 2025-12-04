@@ -35,7 +35,7 @@ module AdvancedBilling
     # amount will be collected using the default credit card payment profile and
     # applied to the prepayment account balance.  This is especially useful for
     # manual replenishment of prepaid subscriptions.
-    # Please note that you **can't** pass `amount_in_cents`.
+    # Note that passing `amount_in_cents` is now allowed.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
     # @param [CreatePrepaymentRequest] body Optional parameter: TODO: type

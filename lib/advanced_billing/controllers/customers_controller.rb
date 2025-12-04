@@ -22,8 +22,8 @@ module AdvancedBilling
     # ## Required Country Format
     # Advanced Billing requires that you use the ISO Standard Country codes when
     # formatting country attribute of the customer.
-    # Countries should be formatted as 2 characters. For more information,
-    # please see the following wikipedia article on
+    # Countries should be formatted as 2 characters. For more information, see
+    # the following wikipedia article on
     # [ISO_3166-1.](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes)
     # ## Required State Format
     # Advanced Billing requires that you use the ISO Standard State codes when
@@ -31,7 +31,7 @@ module AdvancedBilling
     # + US States (2 characters):
     # [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2:US)
     # + States Outside the US (2-3 characters): To find the correct state codes
-    # outside of the US, please go to
+    # outside of the US, go to
     # [ISO_3166-1](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) and
     # click on the link in the “ISO 3166-2 codes” column next to country you
     # wish to populate.
@@ -74,7 +74,7 @@ module AdvancedBilling
     # + Search by an organization
     # + Search by a reference value from your application
     # + Search by a first or last name
-    # To retrieve a single, exact match by reference, please use the [lookup
+    # To retrieve a single, exact match by reference, use the [lookup
     # endpoint](https://developers.chargify.com/docs/api-docs/b710d8fbef104-read
     # -customer-by-reference).
     # @param [SortingDirection] direction Optional parameter: Direction to sort

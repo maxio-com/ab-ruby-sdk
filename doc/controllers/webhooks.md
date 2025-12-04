@@ -40,13 +40,13 @@ def list_webhooks(options = {})
 
 ## Response Type
 
-[`Array<WebhookResponse>`](../../doc/models/webhook-response.md)
+[`Array[WebhookResponse]`](../../doc/models/webhook-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50
 }
 
@@ -243,7 +243,7 @@ def list_endpoints
 
 ## Response Type
 
-[`Array<Endpoint>`](../../doc/models/endpoint.md)
+[`Array[Endpoint]`](../../doc/models/endpoint.md)
 
 ## Example Usage
 

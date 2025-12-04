@@ -25,5 +25,20 @@ module AdvancedBilling
 
       ALLOCATION_PREVIEW_LINE_ITEM_KIND.include?(value)
     end
+
+    def self.from_value(value, default_value = QUANTITY_BASED_COMPONENT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'quantity_based_component' then QUANTITY_BASED_COMPONENT
+      when 'on_off_component' then ON_OFF_COMPONENT
+      when 'coupon' then COUPON
+      when 'tax' then TAX
+      else
+        default_value
+      end
+    end
   end
 end

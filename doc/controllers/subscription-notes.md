@@ -89,14 +89,14 @@ def list_subscription_notes(options = {})
 
 ## Response Type
 
-[`Array<SubscriptionNoteResponse>`](../../doc/models/subscription-note-response.md)
+[`Array[SubscriptionNoteResponse]`](../../doc/models/subscription-note-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
   'subscription_id' => 222,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50
 }
 

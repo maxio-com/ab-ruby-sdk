@@ -16,5 +16,11 @@ module AdvancedBilling
 
       CREATE_SIGNUP_PROFORMA_PREVIEW_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = NEXT_PROFORMA_INVOICE)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

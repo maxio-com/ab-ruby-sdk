@@ -16,5 +16,11 @@ module AdvancedBilling
 
       LIST_PRODUCTS_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = PREPAID_PRODUCT_PRICE_POINT)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

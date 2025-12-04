@@ -31,5 +31,22 @@ module AdvancedBilling
 
       SUBSCRIPTION_SORT.include?(value)
     end
+
+    def self.from_value(value, default_value = SIGNUP_DATE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'signup_date' then SIGNUP_DATE
+      when 'period_start' then PERIOD_START
+      when 'period_end' then PERIOD_END
+      when 'next_assessment' then NEXT_ASSESSMENT
+      when 'updated_at' then UPDATED_AT
+      when 'created_at' then CREATED_AT
+      else
+        default_value
+      end
+    end
   end
 end

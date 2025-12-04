@@ -22,5 +22,19 @@ module AdvancedBilling
 
       INVOICE_DISCOUNT_SOURCE_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = COUPON)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'coupon' then COUPON
+      when 'referral' then REFERRAL
+      when 'enum_ad_hoc_coupon' then ENUM_AD_HOC_COUPON
+      else
+        default_value
+      end
+    end
   end
 end

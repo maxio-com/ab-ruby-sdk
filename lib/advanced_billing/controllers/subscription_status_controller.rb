@@ -104,7 +104,7 @@ module AdvancedBilling
     # This will place the subscription in the on_hold state and it will not
     # renew.
     # ## Limitations
-    # You may not place a subscription on hold if the `next_billing` date is
+    # You may not place a subscription on hold if the `next_billing_at` date is
     # within 24 hours.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription
@@ -176,10 +176,9 @@ module AdvancedBilling
     # reactivate subscriptions through the application, see
     # [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-
     # Reactivating-and-Resuming).
-    # **Please note: The term
-    # "resume" is used also during another process in Advanced Billing. This
-    # occurs when an on-hold subscription is "resumed". This returns the
-    # subscription to an active state.**
+    # **Note: The term "resume" is used also during another process in Advanced
+    # Billing. This occurs when an on-hold subscription is "resumed". This
+    # returns the subscription to an active state.**
     # + The response returns the subscription object in the `active` or
     # `trialing` state.
     # + The `canceled_at` and `cancellation_message` fields do not have values.
@@ -434,8 +433,8 @@ module AdvancedBilling
     # subscription’s next assessment. You can retrieve it to see a snapshot of
     # how much your customer will be charged on their next renewal.
     # The "Next Billing" amount and "Next Billing" date are already represented
-    # in the UI on each Subscriber's Summary. For more information, please see
-    # our documentation
+    # in the UI on each Subscriber's Summary. For more information, see our
+    # documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscrib
     # er-Interface-Overview).
     # ## Optional Component Fields

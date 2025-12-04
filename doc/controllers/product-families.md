@@ -18,7 +18,7 @@ product_families_controller = client.product_families
 
 # List Products for Product Family
 
-This method allows to retrieve a list of Products belonging to a Product Family.
+Retrieves a list of Products belonging to a Product Family.
 
 ```ruby
 def list_products_for_product_family(options = {})
@@ -42,14 +42,14 @@ def list_products_for_product_family(options = {})
 
 ## Response Type
 
-[`Array<ProductResponse>`](../../doc/models/product-response.md)
+[`Array[ProductResponse]`](../../doc/models/product-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
   'product_family_id' => 'product_family_id4',
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'date_field' => BasicDateField::UPDATED_AT,
   'filter' => ListProductsFilter.new(
@@ -174,7 +174,7 @@ puts result
 
 # Create Product Family
 
-This method will create a Product Family within your Advanced Billing site. Create a Product Family to act as a container for your products, components and coupons.
+Creates a Product Family within your Advanced Billing site. Create a Product Family to act as a container for your products, components and coupons.
 
 Full documentation on how Product Families operate within the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
 
@@ -229,7 +229,7 @@ puts result
 
 # List Product Families
 
-This method allows to retrieve a list of Product Families for a site.
+Retrieve a list of Product Families for a site.
 
 ```ruby
 def list_product_families(options = {})
@@ -247,7 +247,7 @@ def list_product_families(options = {})
 
 ## Response Type
 
-[`Array<ProductFamilyResponse>`](../../doc/models/product-family-response.md)
+[`Array[ProductFamilyResponse]`](../../doc/models/product-family-response.md)
 
 ## Example Usage
 
@@ -292,7 +292,7 @@ puts result
 
 # Read Product Family
 
-This method allows to retrieve a Product Family via the `product_family_id`. The response will contain a Product Family object.
+Retrieves a Product Family via the `product_family_id`. The response will contain a Product Family object.
 
 The product family can be specified either with the id number, or with the `handle:my-family` format.
 

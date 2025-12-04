@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `segments` | [`Array<BulkUpdateSegmentsItem>`](../../doc/models/bulk-update-segments-item.md) | Optional | **Constraints**: *Maximum Items*: `1000` |
+| `segments` | [`Array[BulkUpdateSegmentsItem]`](../../doc/models/bulk-update-segments-item.md) | Optional | **Constraints**: *Maximum Items*: `1000` |
 
 ## Example (as JSON)
 

@@ -38,7 +38,7 @@
 | `seller` | [`InvoiceSeller`](../../doc/models/invoice-seller.md) | Optional | Information about the seller (merchant) listed on the masthead of the invoice. |
 | `customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the invoiced subscription. |
 | `payer` | [`InvoicePayer`](../../doc/models/invoice-payer.md) | Optional | - |
-| `recipient_emails` | `Array<String>` | Optional | **Constraints**: *Maximum Items*: `5` |
+| `recipient_emails` | `Array[String]` | Optional | **Constraints**: *Maximum Items*: `5` |
 | `net_terms` | `Integer` | Optional | - |
 | `memo` | `String` | Optional | The memo printed on invoices of any collection type.  This message is in control of the merchant. |
 | `billing_address` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | The invoice billing address. |
@@ -52,14 +52,14 @@
 | `refund_amount` | `String` | Optional | - |
 | `paid_amount` | `String` | Optional | The amount paid on the invoice by the customer. |
 | `due_amount` | `String` | Optional | Amount due on the invoice, which is `total_amount - credit_amount - paid_amount`. |
-| `line_items` | [`Array<InvoiceLineItem>`](../../doc/models/invoice-line-item.md) | Optional | Line items on the invoice. |
-| `discounts` | [`Array<InvoiceDiscount>`](../../doc/models/invoice-discount.md) | Optional | - |
-| `taxes` | [`Array<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - |
-| `credits` | [`Array<InvoiceCredit>`](../../doc/models/invoice-credit.md) | Optional | - |
-| `debits` | [`Array<InvoiceDebit>`](../../doc/models/invoice-debit.md) | Optional | - |
-| `refunds` | [`Array<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - |
-| `payments` | [`Array<InvoicePayment>`](../../doc/models/invoice-payment.md) | Optional | - |
-| `custom_fields` | [`Array<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Optional | - |
+| `line_items` | [`Array[InvoiceLineItem]`](../../doc/models/invoice-line-item.md) | Optional | Line items on the invoice. |
+| `discounts` | [`Array[InvoiceDiscount]`](../../doc/models/invoice-discount.md) | Optional | - |
+| `taxes` | [`Array[InvoiceTax]`](../../doc/models/invoice-tax.md) | Optional | - |
+| `credits` | [`Array[InvoiceCredit]`](../../doc/models/invoice-credit.md) | Optional | - |
+| `debits` | [`Array[InvoiceDebit]`](../../doc/models/invoice-debit.md) | Optional | - |
+| `refunds` | [`Array[InvoiceRefund]`](../../doc/models/invoice-refund.md) | Optional | - |
+| `payments` | [`Array[InvoicePayment]`](../../doc/models/invoice-payment.md) | Optional | - |
+| `custom_fields` | [`Array[InvoiceCustomField]`](../../doc/models/invoice-custom-field.md) | Optional | - |
 | `display_settings` | [`InvoiceDisplaySettings`](../../doc/models/invoice-display-settings.md) | Optional | - |
 | `avatax_details` | [`InvoiceAvataxDetails`](../../doc/models/invoice-avatax-details.md) | Optional | - |
 | `public_url` | `String` | Optional | The public URL of the invoice |

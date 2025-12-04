@@ -121,5 +121,52 @@ module AdvancedBilling
 
       CARD_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = VISA)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'visa' then VISA
+      when 'master' then MASTER
+      when 'elo' then ELO
+      when 'cabal' then CABAL
+      when 'alelo' then ALELO
+      when 'discover' then DISCOVER
+      when 'american_express' then AMERICAN_EXPRESS
+      when 'naranja' then NARANJA
+      when 'diners_club' then DINERS_CLUB
+      when 'jcb' then JCB
+      when 'dankort' then DANKORT
+      when 'maestro' then MAESTRO
+      when 'maestro_no_luhn' then MAESTRO_NO_LUHN
+      when 'forbrugsforeningen' then FORBRUGSFORENINGEN
+      when 'sodexo' then SODEXO
+      when 'alia' then ALIA
+      when 'vr' then VR
+      when 'unionpay' then UNIONPAY
+      when 'carnet' then CARNET
+      when 'cartes_bancaires' then CARTES_BANCAIRES
+      when 'olimpica' then OLIMPICA
+      when 'creditel' then CREDITEL
+      when 'confiable' then CONFIABLE
+      when 'synchrony' then SYNCHRONY
+      when 'routex' then ROUTEX
+      when 'mada' then MADA
+      when 'bp_plus' then BP_PLUS
+      when 'passcard' then PASSCARD
+      when 'edenred' then EDENRED
+      when 'anda' then ANDA
+      when 'tarjetad' then TARJETAD
+      when 'hipercard' then HIPERCARD
+      when 'bogus' then BOGUS
+      when 'switch' then SWITCH
+      when 'solo' then SOLO
+      when 'laser' then LASER
+      else
+        default_value
+      end
+    end
   end
 end

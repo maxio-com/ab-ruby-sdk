@@ -31,8 +31,8 @@ module AdvancedBilling
     attr_accessor :accounting_code
 
     # Deprecated value that can be ignored unless you have legacy hosted pages.
-    # For Public Signup Page users, please read this attribute from under the
-    # signup page.
+    # For Public Signup Page users, read this attribute from under the signup
+    # page.
     # @return [TrueClass | FalseClass]
     attr_accessor :request_credit_card
 
@@ -167,20 +167,20 @@ module AdvancedBilling
     attr_accessor :require_shipping_address
 
     # A string representing the tax code related to the product type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [String]
     attr_accessor :tax_code
 
     # A string representing the tax code related to the product type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [Integer]
     attr_accessor :default_product_price_point_id
 
     # A string representing the tax code related to the product type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
@@ -521,6 +521,16 @@ module AdvancedBilling
 
     def to_custom_archived_at
       DateTimeHelper.to_rfc3339(archived_at)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [Product | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
 
     # Provides a human-readable string representation of the object.

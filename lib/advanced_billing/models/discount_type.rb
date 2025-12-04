@@ -19,5 +19,18 @@ module AdvancedBilling
 
       DISCOUNT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = AMOUNT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'amount' then AMOUNT
+      when 'percent' then PERCENT
+      else
+        default_value
+      end
+    end
   end
 end

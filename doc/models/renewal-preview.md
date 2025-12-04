@@ -17,7 +17,7 @@
 | `existing_balance_in_cents` | `Integer` | Optional | An integer representing the amount of the subscription’s current balance |
 | `total_amount_due_in_cents` | `Integer` | Optional | An integer representing the existing_balance_in_cents plus the total_in_cents |
 | `uncalculated_taxes` | `TrueClass \| FalseClass` | Optional | A boolean indicating whether or not additional taxes will be calculated at the time of renewal. This will be true if you are using Avalara and the address of the subscription is in one of your defined taxable regions. |
-| `line_items` | [`Array<RenewalPreviewLineItem>`](../../doc/models/renewal-preview-line-item.md) | Optional | An array of objects representing the individual transactions that will be created at the next renewal |
+| `line_items` | [`Array[RenewalPreviewLineItem]`](../../doc/models/renewal-preview-line-item.md) | Optional | An array of objects representing the individual transactions that will be created at the next renewal |
 
 ## Example (as JSON)
 

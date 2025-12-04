@@ -26,8 +26,8 @@ module AdvancedBilling
     attr_accessor :accounting_code
 
     # Deprecated value that can be ignored unless you have legacy hosted pages.
-    # For Public Signup Page users, please read this attribute from under the
-    # signup page.
+    # For Public Signup Page users, read this attribute from under the signup
+    # page.
     # @return [TrueClass | FalseClass]
     attr_accessor :require_credit_card
 
@@ -60,9 +60,13 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
-    # A string representing the trial interval unit for this product, either
-    # month or day
-    # @return [String]
+    # Indicates how a trial is handled when the trail period ends and there is
+    # no credit card on file. For `no_obligation`, the subscription transitions
+    # to a Trial Ended state. Maxio will not send any emails or statements. For
+    # `payment_expected`, the subscription transitions to a Past Due state.
+    # Maxio will send normal dunning emails and statements according to your
+    # other settings.
+    # @return [TrialType]
     attr_accessor :trial_type
 
     # The numerical expiration interval. i.e. an expiration_interval of ‘30’
@@ -82,8 +86,8 @@ module AdvancedBilling
     attr_accessor :auto_create_signup_page
 
     # A string representing the tax code related to the product type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [String]
     attr_accessor :tax_code
 
@@ -130,6 +134,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         trial_interval_unit
+        trial_type
         expiration_interval_unit
       ]
     end

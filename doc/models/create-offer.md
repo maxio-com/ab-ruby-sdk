@@ -14,8 +14,8 @@
 | `description` | `String` | Optional | - |
 | `product_id` | `Integer` | Required | - |
 | `product_price_point_id` | `Integer` | Optional | - |
-| `components` | [`Array<CreateOfferComponent>`](../../doc/models/create-offer-component.md) | Optional | - |
-| `coupons` | `Array<String>` | Optional | - |
+| `components` | [`Array[CreateOfferComponent]`](../../doc/models/create-offer-component.md) | Optional | - |
+| `coupons` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `currency_prices` | [`Array<CouponCurrency>`](../../doc/models/coupon-currency.md) | Optional | - |
+| `currency_prices` | [`Array[CouponCurrency]`](../../doc/models/coupon-currency.md) | Optional | - |
 
 ## Example (as JSON)
 

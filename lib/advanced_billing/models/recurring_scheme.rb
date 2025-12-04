@@ -22,5 +22,19 @@ module AdvancedBilling
 
       RECURRING_SCHEME.include?(value)
     end
+
+    def self.from_value(value, default_value = DO_NOT_RECUR)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'do_not_recur' then DO_NOT_RECUR
+      when 'recur_indefinitely' then RECUR_INDEFINITELY
+      when 'recur_with_duration' then RECUR_WITH_DURATION
+      else
+        default_value
+      end
+    end
   end
 end

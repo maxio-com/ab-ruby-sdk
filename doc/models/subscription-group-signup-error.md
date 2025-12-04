@@ -12,7 +12,7 @@
 | `subscriptions` | [`Hash[String, SubscriptionGroupSubscriptionError]`](../../doc/models/subscription-group-subscription-error.md) | Optional | Object that as key have subscription position in request subscriptions array and as value subscription errors object. |
 | `payer_reference` | `String` | Optional | - |
 | `payer` | [`PayerError`](../../doc/models/payer-error.md) | Optional | - |
-| `subscription_group` | `Array<String>` | Optional | - |
+| `subscription_group` | `Array[String]` | Optional | - |
 | `payment_profile_id` | `String` | Optional | - |
 | `payer_id` | `String` | Optional | - |
 

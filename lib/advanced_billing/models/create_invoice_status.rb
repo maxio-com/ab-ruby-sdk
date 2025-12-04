@@ -19,5 +19,18 @@ module AdvancedBilling
 
       CREATE_INVOICE_STATUS.include?(value)
     end
+
+    def self.from_value(value, default_value = DRAFT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'draft' then DRAFT
+      when 'open' then OPEN
+      else
+        default_value
+      end
+    end
   end
 end

@@ -19,5 +19,18 @@ module AdvancedBilling
 
       LIST_SUBSCRIPTION_COMPONENTS_SORT.include?(value)
     end
+
+    def self.from_value(value, default_value = ID)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'id' then ID
+      when 'updated_at' then UPDATED_AT
+      else
+        default_value
+      end
+    end
   end
 end

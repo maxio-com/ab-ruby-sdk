@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `last_name` | `Array<String>` | Optional | - |
-| `first_name` | `Array<String>` | Optional | - |
-| `email` | `Array<String>` | Optional | - |
+| `last_name` | `Array[String]` | Optional | - |
+| `first_name` | `Array[String]` | Optional | - |
+| `email` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

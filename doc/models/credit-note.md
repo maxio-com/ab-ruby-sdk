@@ -30,12 +30,12 @@
 | `total_amount` | `String` | Optional | The credit note total, which is `subtotal_amount - discount_amount + tax_amount`.' |
 | `applied_amount` | `String` | Optional | The amount of the credit note that has already been applied to invoices. |
 | `remaining_amount` | `String` | Optional | The amount of the credit note remaining to be applied to invoices, which is `total_amount - applied_amount`. |
-| `line_items` | [`Array<CreditNoteLineItem>`](../../doc/models/credit-note-line-item.md) | Optional | Line items on the credit note. |
-| `discounts` | [`Array<InvoiceDiscount>`](../../doc/models/invoice-discount.md) | Optional | - |
-| `taxes` | [`Array<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - |
-| `applications` | [`Array<CreditNoteApplication>`](../../doc/models/credit-note-application.md) | Optional | - |
-| `refunds` | [`Array<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - |
-| `origin_invoices` | [`Array<OriginInvoice>`](../../doc/models/origin-invoice.md) | Optional | An array of origin invoices for the credit note. Learn more about [Origin Invoice from our docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices) |
+| `line_items` | [`Array[CreditNoteLineItem]`](../../doc/models/credit-note-line-item.md) | Optional | Line items on the credit note. |
+| `discounts` | [`Array[InvoiceDiscount]`](../../doc/models/invoice-discount.md) | Optional | - |
+| `taxes` | [`Array[InvoiceTax]`](../../doc/models/invoice-tax.md) | Optional | - |
+| `applications` | [`Array[CreditNoteApplication]`](../../doc/models/credit-note-application.md) | Optional | - |
+| `refunds` | [`Array[InvoiceRefund]`](../../doc/models/invoice-refund.md) | Optional | - |
+| `origin_invoices` | [`Array[OriginInvoice]`](../../doc/models/origin-invoice.md) | Optional | An array of origin invoices for the credit note. Learn more about [Origin Invoice from our docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices) |
 
 ## Example (as JSON)
 

@@ -37,7 +37,7 @@
 | `description` | `String` | Optional | - |
 | `allow_fractional_quantities` | `TrueClass \| FalseClass` | Optional | - |
 | `subscription` | [`SubscriptionComponentSubscription`](../../doc/models/subscription-component-subscription.md) | Optional | An optional object, will be returned if provided `include=subscription` query param. |
-| `historic_usages` | [`Array<HistoricUsage>`](../../doc/models/historic-usage.md) | Optional | - |
+| `historic_usages` | [`Array[HistoricUsage]`](../../doc/models/historic-usage.md) | Optional | - |
 | `display_on_hosted_page` | `TrueClass \| FalseClass` | Optional | - |
 | `interval` | `Integer` | Optional | The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. |
 | `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component price point, either month or day. This property is only available for sites with Multifrequency enabled. |

@@ -25,5 +25,20 @@ module AdvancedBilling
 
       DEBIT_NOTE_STATUS.include?(value)
     end
+
+    def self.from_value(value, default_value = OPEN)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'open' then OPEN
+      when 'applied' then APPLIED
+      when 'banished' then BANISHED
+      when 'paid' then PAID
+      else
+        default_value
+      end
+    end
   end
 end

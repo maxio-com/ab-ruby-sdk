@@ -15,7 +15,7 @@
 | `percentage` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `taxable_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `tax_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
-| `line_item_breakouts` | [`Array<InvoiceTaxBreakout>`](../../doc/models/invoice-tax-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
+| `line_item_breakouts` | [`Array[InvoiceTaxBreakout]`](../../doc/models/invoice-tax-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
 
 ## Example (as JSON)
 

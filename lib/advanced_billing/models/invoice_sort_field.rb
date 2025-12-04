@@ -37,5 +37,24 @@ module AdvancedBilling
 
       INVOICE_SORT_FIELD.include?(value)
     end
+
+    def self.from_value(value, default_value = STATUS)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'status' then STATUS
+      when 'total_amount' then TOTAL_AMOUNT
+      when 'due_amount' then DUE_AMOUNT
+      when 'created_at' then CREATED_AT
+      when 'updated_at' then UPDATED_AT
+      when 'issue_date' then ISSUE_DATE
+      when 'due_date' then DUE_DATE
+      when 'number' then NUMBER
+      else
+        default_value
+      end
+    end
   end
 end

@@ -16,14 +16,14 @@ module AdvancedBilling
     # @return [DateTime]
     attr_accessor :timestamp
 
-    # A unique ID set by Chargify. Please note that this field is reserved. If
-    # `chargify.id` is present in the request payload, it will be overwritten.
+    # A unique ID set by Chargify. This field is reserved. If `chargify.id` is
+    # present in the request payload, it will be overwritten.
     # @return [String]
     attr_accessor :id
 
     # An ISO-8601 timestamp, set by Chargify at the time each event is recorded.
-    # Please note that this field is reserved. If `chargify.created_at` is
-    # present in the request payload, it will be overwritten.
+    # This field is reserved. If `chargify.created_at` is present in the request
+    # payload, it will be overwritten.
     # @return [DateTime]
     attr_accessor :created_at
 

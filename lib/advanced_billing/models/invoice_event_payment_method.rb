@@ -28,5 +28,21 @@ module AdvancedBilling
 
       INVOICE_EVENT_PAYMENT_METHOD.include?(value)
     end
+
+    def self.from_value(value, default_value = APPLE_PAY)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'apple_pay' then APPLE_PAY
+      when 'bank_account' then BANK_ACCOUNT
+      when 'credit_card' then CREDIT_CARD
+      when 'external' then EXTERNAL
+      when 'paypal_account' then PAYPAL_ACCOUNT
+      else
+        default_value
+      end
+    end
   end
 end

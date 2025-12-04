@@ -15,8 +15,7 @@ module AdvancedBilling
 
     # This attribute is particularly useful when you need to align billing
     # events for different components on distinct schedules within a
-    # subscription. Please note this only works for site with Multifrequency
-    # enabled
+    # subscription. This only works for site with Multifrequency enabled.
     # @return [BillingSchedule]
     attr_accessor :billing_schedule
 

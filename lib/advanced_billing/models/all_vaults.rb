@@ -116,5 +116,50 @@ module AdvancedBilling
 
       ALL_VAULTS.include?(value)
     end
+
+    def self.from_value(value, default_value = ADYEN)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'adyen' then ADYEN
+      when 'authorizenet' then AUTHORIZENET
+      when 'beanstream' then BEANSTREAM
+      when 'blue_snap' then BLUE_SNAP
+      when 'bogus' then BOGUS
+      when 'braintree1' then BRAINTREE1
+      when 'braintree_blue' then BRAINTREE_BLUE
+      when 'checkout' then CHECKOUT
+      when 'cybersource' then CYBERSOURCE
+      when 'elavon' then ELAVON
+      when 'eway' then EWAY
+      when 'eway_rapid' then EWAY_RAPID
+      when 'eway_rapid_std' then EWAY_RAPID_STD
+      when 'firstdata' then FIRSTDATA
+      when 'forte' then FORTE
+      when 'gocardless' then GOCARDLESS
+      when 'litle' then LITLE
+      when 'maxio_payments' then MAXIO_PAYMENTS
+      when 'maxp' then MAXP
+      when 'moduslink' then MODUSLINK
+      when 'moneris' then MONERIS
+      when 'nmi' then NMI
+      when 'orbital' then ORBITAL
+      when 'payment_express' then PAYMENT_EXPRESS
+      when 'paymill' then PAYMILL
+      when 'paypal' then PAYPAL
+      when 'paypal_complete' then PAYPAL_COMPLETE
+      when 'pin' then PIN
+      when 'square' then SQUARE
+      when 'stripe' then STRIPE
+      when 'stripe_connect' then STRIPE_CONNECT
+      when 'trust_commerce' then TRUST_COMMERCE
+      when 'unipaas' then UNIPAAS
+      when 'wirecard' then WIRECARD
+      else
+        default_value
+      end
+    end
   end
 end
