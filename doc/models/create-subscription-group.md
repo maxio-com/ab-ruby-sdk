@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscription_id` | `Integer` | Required | - |
-| `member_ids` | `Array<Integer>` | Optional | - |
+| `member_ids` | `Array[Integer]` | Optional | - |
 
 ## Example (as JSON)
 

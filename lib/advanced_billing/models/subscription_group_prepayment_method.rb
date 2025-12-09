@@ -31,5 +31,22 @@ module AdvancedBilling
 
       SUBSCRIPTION_GROUP_PREPAYMENT_METHOD.include?(value)
     end
+
+    def self.from_value(value, default_value = CHECK)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'check' then CHECK
+      when 'cash' then CASH
+      when 'money_order' then MONEY_ORDER
+      when 'ach' then ACH
+      when 'paypal_account' then PAYPAL_ACCOUNT
+      when 'other' then OTHER
+      else
+        default_value
+      end
+    end
   end
 end

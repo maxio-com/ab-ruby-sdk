@@ -12,7 +12,7 @@
 | `transaction_id` | `Integer` | Optional | The numeric ID of the transaction. |
 | `total_amount` | `String` | Optional | Dollar amount of the sum of the paid invoices. |
 | `currency_code` | `String` | Optional | The ISO 4217 currency code (3 character string) representing the currency of invoice transaction. |
-| `applications` | [`Array<InvoicePaymentApplication>`](../../doc/models/invoice-payment-application.md) | Optional | - |
+| `applications` | [`Array[InvoicePaymentApplication]`](../../doc/models/invoice-payment-application.md) | Optional | - |
 
 ## Example (as JSON)
 

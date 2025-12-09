@@ -25,5 +25,20 @@ module AdvancedBilling
 
       CHARGEBACK_STATUS.include?(value)
     end
+
+    def self.from_value(value, default_value = OPEN)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'open' then OPEN
+      when 'lost' then LOST
+      when 'won' then WON
+      when 'closed' then CLOSED
+      else
+        default_value
+      end
+    end
   end
 end

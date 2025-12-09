@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `base` | `Array<Object>` | Optional | - |
+| `base` | `Array[Object]` | Optional | - |
 
 ## Example (as JSON)
 

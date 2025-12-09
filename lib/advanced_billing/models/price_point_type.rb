@@ -26,5 +26,19 @@ module AdvancedBilling
 
       PRICE_POINT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = CATALOG)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'catalog' then CATALOG
+      when 'default' then DEFAULT
+      when 'custom' then CUSTOM
+      else
+        default_value
+      end
+    end
   end
 end

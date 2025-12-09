@@ -26,10 +26,14 @@ module AdvancedBilling
 
     # This attribute is particularly useful when you need to align billing
     # events for different components on distinct schedules within a
-    # subscription. Please note this only works for site with Multifrequency
-    # enabled
+    # subscription. This only works for site with Multifrequency enabled.
     # @return [BillingSchedule]
     attr_accessor :billing_schedule
+
+    # Create or update custom pricing unique to the subscription. Used in place
+    # of `price_point_id`.
+    # @return [ComponentCustomPrice]
+    attr_accessor :custom_price
 
     # A mapping from model property names to API property names.
     def self.names
@@ -38,6 +42,7 @@ module AdvancedBilling
       @_hash['price_point_id'] = 'price_point_id'
       @_hash['memo'] = 'memo'
       @_hash['billing_schedule'] = 'billing_schedule'
+      @_hash['custom_price'] = 'custom_price'
       @_hash
     end
 
@@ -48,6 +53,7 @@ module AdvancedBilling
         price_point_id
         memo
         billing_schedule
+        custom_price
       ]
     end
 
@@ -57,7 +63,8 @@ module AdvancedBilling
     end
 
     def initialize(quantity: SKIP, price_point_id: SKIP, memo: SKIP,
-                   billing_schedule: SKIP, additional_properties: {})
+                   billing_schedule: SKIP, custom_price: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -67,6 +74,7 @@ module AdvancedBilling
       @price_point_id = price_point_id unless price_point_id == SKIP
       @memo = memo unless memo == SKIP
       @billing_schedule = billing_schedule unless billing_schedule == SKIP
+      @custom_price = custom_price unless custom_price == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -80,6 +88,7 @@ module AdvancedBilling
       memo = hash.key?('memo') ? hash['memo'] : SKIP
       billing_schedule = BillingSchedule.from_hash(hash['billing_schedule']) if
         hash['billing_schedule']
+      custom_price = ComponentCustomPrice.from_hash(hash['custom_price']) if hash['custom_price']
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -89,6 +98,7 @@ module AdvancedBilling
                       price_point_id: price_point_id,
                       memo: memo,
                       billing_schedule: billing_schedule,
+                      custom_price: custom_price,
                       additional_properties: additional_properties)
     end
 
@@ -96,16 +106,16 @@ module AdvancedBilling
     def to_s
       class_name = self.class.name.split('::').last
       "<#{class_name} quantity: #{@quantity}, price_point_id: #{@price_point_id}, memo: #{@memo},"\
-      " billing_schedule: #{@billing_schedule}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " billing_schedule: #{@billing_schedule}, custom_price: #{@custom_price},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
     def inspect
       class_name = self.class.name.split('::').last
       "<#{class_name} quantity: #{@quantity.inspect}, price_point_id: #{@price_point_id.inspect},"\
-      " memo: #{@memo.inspect}, billing_schedule: #{@billing_schedule.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " memo: #{@memo.inspect}, billing_schedule: #{@billing_schedule.inspect}, custom_price:"\
+      " #{@custom_price.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

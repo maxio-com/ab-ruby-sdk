@@ -28,5 +28,21 @@ module AdvancedBilling
 
       INVOICE_DATE_FIELD.include?(value)
     end
+
+    def self.from_value(value, default_value = CREATED_AT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'created_at' then CREATED_AT
+      when 'due_date' then DUE_DATE
+      when 'issue_date' then ISSUE_DATE
+      when 'updated_at' then UPDATED_AT
+      when 'paid_date' then PAID_DATE
+      else
+        default_value
+      end
+    end
   end
 end

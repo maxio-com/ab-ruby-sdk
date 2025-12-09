@@ -30,5 +30,19 @@ module AdvancedBilling
 
       INVOICE_CONSOLIDATION_LEVEL.include?(value)
     end
+
+    def self.from_value(value, default_value = NONE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'none' then NONE
+      when 'child' then CHILD
+      when 'parent' then PARENT
+      else
+        default_value
+      end
+    end
   end
 end

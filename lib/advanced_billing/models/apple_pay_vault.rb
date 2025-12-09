@@ -16,5 +16,11 @@ module AdvancedBilling
 
       APPLE_PAY_VAULT.include?(value)
     end
+
+    def self.from_value(value, default_value = BRAINTREE_BLUE)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

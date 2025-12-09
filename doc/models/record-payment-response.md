@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `paid_invoices` | [`Array<PaidInvoice>`](../../doc/models/paid-invoice.md) | Optional | - |
+| `paid_invoices` | [`Array[PaidInvoice]`](../../doc/models/paid-invoice.md) | Optional | - |
 | `prepayment` | [`InvoicePrePayment`](../../doc/models/invoice-pre-payment.md) | Optional | - |
 
 ## Example (as JSON)

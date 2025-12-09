@@ -114,5 +114,31 @@ module AdvancedBilling
 
       SUBSCRIPTION_STATE.include?(value)
     end
+
+    def self.from_value(value, default_value = PENDING)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'pending' then PENDING
+      when 'failed_to_create' then FAILED_TO_CREATE
+      when 'trialing' then TRIALING
+      when 'assessing' then ASSESSING
+      when 'active' then ACTIVE
+      when 'soft_failure' then SOFT_FAILURE
+      when 'past_due' then PAST_DUE
+      when 'suspended' then SUSPENDED
+      when 'canceled' then CANCELED
+      when 'expired' then EXPIRED
+      when 'paused' then PAUSED
+      when 'unpaid' then UNPAID
+      when 'trial_ended' then TRIAL_ENDED
+      when 'on_hold' then ON_HOLD
+      when 'awaiting_signup' then AWAITING_SIGNUP
+      else
+        default_value
+      end
+    end
   end
 end

@@ -11,14 +11,14 @@ Object which contains subscription errors.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product` | `Array<String>` | Optional | - |
-| `product_price_point_id` | `Array<String>` | Optional | - |
-| `payment_profile` | `Array<String>` | Optional | - |
-| `payment_profile_chargify_token` | `Array<String>` | Optional | - |
-| `base` | `Array<String>` | Optional | - |
-| `payment_profile_expiration_month` | `Array<String>` | Optional | - |
-| `payment_profile_expiration_year` | `Array<String>` | Optional | - |
-| `payment_profile_full_number` | `Array<String>` | Optional | - |
+| `product` | `Array[String]` | Optional | - |
+| `product_price_point_id` | `Array[String]` | Optional | - |
+| `payment_profile` | `Array[String]` | Optional | - |
+| `payment_profile_chargify_token` | `Array[String]` | Optional | - |
+| `base` | `Array[String]` | Optional | - |
+| `payment_profile_expiration_month` | `Array[String]` | Optional | - |
+| `payment_profile_expiration_year` | `Array[String]` | Optional | - |
+| `payment_profile_full_number` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

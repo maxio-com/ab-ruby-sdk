@@ -16,5 +16,11 @@ module AdvancedBilling
 
       SUBSCRIPTION_LIST_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = SELF_SERVICE_PAGE_TOKEN)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

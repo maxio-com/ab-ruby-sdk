@@ -41,7 +41,7 @@ def list_exported_proforma_invoices(options = {})
 
 ## Response Type
 
-[`Array<ProformaInvoice>`](../../doc/models/proforma-invoice.md)
+[`Array[ProformaInvoice]`](../../doc/models/proforma-invoice.md)
 
 ## Example Usage
 
@@ -49,7 +49,7 @@ def list_exported_proforma_invoices(options = {})
 collect = {
   'batch_id' => 'batch_id8',
   'per_page' => 100,
-  'page' => 2
+  'page' => 1
 }
 
 result = api_exports_controller.list_exported_proforma_invoices(collect)
@@ -83,7 +83,7 @@ def list_exported_invoices(options = {})
 
 ## Response Type
 
-[`Array<Invoice>`](../../doc/models/invoice.md)
+[`Array[Invoice]`](../../doc/models/invoice.md)
 
 ## Example Usage
 
@@ -91,7 +91,7 @@ def list_exported_invoices(options = {})
 collect = {
   'batch_id' => 'batch_id8',
   'per_page' => 100,
-  'page' => 2
+  'page' => 1
 }
 
 result = api_exports_controller.list_exported_invoices(collect)
@@ -125,7 +125,7 @@ def list_exported_subscriptions(options = {})
 
 ## Response Type
 
-[`Array<Subscription>`](../../doc/models/subscription.md)
+[`Array[Subscription]`](../../doc/models/subscription.md)
 
 ## Example Usage
 
@@ -133,7 +133,7 @@ def list_exported_subscriptions(options = {})
 collect = {
   'batch_id' => 'batch_id8',
   'per_page' => 100,
-  'page' => 2
+  'page' => 1
 }
 
 result = api_exports_controller.list_exported_subscriptions(collect)

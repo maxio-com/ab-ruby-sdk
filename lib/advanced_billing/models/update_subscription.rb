@@ -207,6 +207,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        snap_day
         dunning_communication_delay_time_zone
       ]
     end

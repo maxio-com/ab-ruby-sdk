@@ -35,6 +35,26 @@ module AdvancedBilling
     # @return [Array[Price]]
     attr_accessor :prices
 
+    # Applicable only to prepaid usage components. Controls whether the
+    # allocated quantity renews each period.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :renew_prepaid_allocation
+
+    # Applicable only to prepaid usage components. Controls whether remaining
+    # units roll over to the next period.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :rollover_prepaid_remainder
+
+    # Applicable only when rollover is enabled. Number of
+    # `expiration_interval_unit`s after which rollover amounts expire.
+    # @return [Integer]
+    attr_accessor :expiration_interval
+
+    # Applicable only when rollover is enabled. Interval unit for rollover
+    # expiration (month or day).
+    # @return [ExpirationIntervalUnit]
+    attr_accessor :expiration_interval_unit
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -43,6 +63,10 @@ module AdvancedBilling
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['prices'] = 'prices'
+      @_hash['renew_prepaid_allocation'] = 'renew_prepaid_allocation'
+      @_hash['rollover_prepaid_remainder'] = 'rollover_prepaid_remainder'
+      @_hash['expiration_interval'] = 'expiration_interval'
+      @_hash['expiration_interval_unit'] = 'expiration_interval_unit'
       @_hash
     end
 
@@ -53,6 +77,10 @@ module AdvancedBilling
         pricing_scheme
         interval
         interval_unit
+        renew_prepaid_allocation
+        rollover_prepaid_remainder
+        expiration_interval
+        expiration_interval_unit
       ]
     end
 
@@ -60,12 +88,16 @@ module AdvancedBilling
     def self.nullables
       %w[
         interval_unit
+        expiration_interval
+        expiration_interval_unit
       ]
     end
 
     def initialize(prices:, tax_included: SKIP, pricing_scheme: SKIP,
                    interval: SKIP, interval_unit: SKIP,
-                   additional_properties: {})
+                   renew_prepaid_allocation: SKIP,
+                   rollover_prepaid_remainder: SKIP, expiration_interval: SKIP,
+                   expiration_interval_unit: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -76,6 +108,13 @@ module AdvancedBilling
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @prices = prices
+      @renew_prepaid_allocation = renew_prepaid_allocation unless renew_prepaid_allocation == SKIP
+      unless rollover_prepaid_remainder == SKIP
+        @rollover_prepaid_remainder =
+          rollover_prepaid_remainder
+      end
+      @expiration_interval = expiration_interval unless expiration_interval == SKIP
+      @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -98,6 +137,14 @@ module AdvancedBilling
         hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
+      renew_prepaid_allocation =
+        hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
+      rollover_prepaid_remainder =
+        hash.key?('rollover_prepaid_remainder') ? hash['rollover_prepaid_remainder'] : SKIP
+      expiration_interval =
+        hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
+      expiration_interval_unit =
+        hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -108,6 +155,10 @@ module AdvancedBilling
                                pricing_scheme: pricing_scheme,
                                interval: interval,
                                interval_unit: interval_unit,
+                               renew_prepaid_allocation: renew_prepaid_allocation,
+                               rollover_prepaid_remainder: rollover_prepaid_remainder,
+                               expiration_interval: expiration_interval,
+                               expiration_interval_unit: expiration_interval_unit,
                                additional_properties: additional_properties)
     end
 
@@ -134,7 +185,10 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} tax_included: #{@tax_included}, pricing_scheme: #{@pricing_scheme},"\
       " interval: #{@interval}, interval_unit: #{@interval_unit}, prices: #{@prices},"\
-      " additional_properties: #{get_additional_properties}>"
+      " renew_prepaid_allocation: #{@renew_prepaid_allocation}, rollover_prepaid_remainder:"\
+      " #{@rollover_prepaid_remainder}, expiration_interval: #{@expiration_interval},"\
+      " expiration_interval_unit: #{@expiration_interval_unit}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -142,7 +196,11 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} tax_included: #{@tax_included.inspect}, pricing_scheme:"\
       " #{@pricing_scheme.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, prices: #{@prices.inspect}, additional_properties:"\
+      " #{@interval_unit.inspect}, prices: #{@prices.inspect}, renew_prepaid_allocation:"\
+      " #{@renew_prepaid_allocation.inspect}, rollover_prepaid_remainder:"\
+      " #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
+      " #{@expiration_interval.inspect}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit.inspect}, additional_properties:"\
       " #{get_additional_properties}>"
     end
   end

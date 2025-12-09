@@ -12,6 +12,21 @@ module AdvancedBilling
       US = 'US'.freeze,
       EU = 'EU'.freeze
     ].freeze
+
+    # Converts a string or symbol into a valid Environment constant.
+    def self.from_value(value, default_value = US)
+      return default_value if value.nil?
+
+      str = value.to_s.strip.downcase
+      case str
+      when 'us' then US
+      when 'eu' then EU
+
+      else
+        warn "[Environment] Unknown environment '#{value}', falling back to #{default_value} "
+        default_value
+      end
+    end
   end
 
   # An enum for API servers.
@@ -20,6 +35,21 @@ module AdvancedBilling
       PRODUCTION = 'production'.freeze,
       EBB = 'ebb'.freeze
     ].freeze
+
+    # Converts a string or symbol into a valid Server constant.
+    def self.from_value(value, default_value = PRODUCTION)
+      return default_value if value.nil?
+
+      str = value.to_s.strip.downcase
+      case str
+      when 'production' then PRODUCTION
+      when 'ebb' then EBB
+
+      else
+        warn "[Server] Unknown server '#{value}', falling back to #{default_value} "
+        default_value
+      end
+    end
   end
 
   # All configuration including auth info and base URI for the API access
@@ -116,6 +146,49 @@ module AdvancedBilling
       }
       APIHelper.append_url_with_template_parameters(
         ENVIRONMENTS[environment][server], parameters
+      )
+    end
+
+    # Builds a Configuration instance using environment variables.
+    def self.build_default_config_from_env
+      # === Core environment ===
+      environment = Environment.from_value(ENV.fetch('ENVIRONMENT', 'us'))
+      site = ENV.fetch('SITE', 'subdomain')
+      timeout = (ENV['TIMEOUT'] || 120).to_f
+      max_retries = (ENV['MAX_RETRIES'] || 0).to_i
+      retry_interval = (ENV['RETRY_INTERVAL'] || 1).to_f
+      backoff_factor = (ENV['BACKOFF_FACTOR'] || 2).to_f
+      retry_statuses = ENV.fetch('RETRY_STATUSES',
+                                 '[408, 413, 429, 500, 502, 503, 504, 521, 522, 524]').gsub(/[\[\]]/, '')
+                                          .split(',')
+                                          .map(&:strip)
+                                          .map do |item|
+                                            item.match?(/\A\d+\z/) ? item.to_i : item.downcase
+                                          end
+      retry_methods = ENV.fetch('RETRY_METHODS', '%i[get put]').gsub(/[\[\]]/, '')
+                                          .split(',')
+                                          .map(&:strip)
+                                          .map do |item|
+                                            item.match?(/\A\d+\z/) ? item.to_i : item.downcase
+                                          end
+
+      # === Authentication credentials ===
+      basic_auth_credentials = BasicAuthCredentials.from_env
+
+      # === Proxy settings ===
+      proxy_settings = ProxySettings.from_env
+
+      Configuration.new(
+        environment: environment,
+        site: site,
+        timeout: timeout,
+        max_retries: max_retries,
+        retry_interval: retry_interval,
+        backoff_factor: backoff_factor,
+        retry_statuses: retry_statuses,
+        retry_methods: retry_methods,
+        basic_auth_credentials: basic_auth_credentials,
+        proxy_settings: proxy_settings
       )
     end
   end

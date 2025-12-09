@@ -88,13 +88,13 @@ def list_reason_codes(options = {})
 
 ## Response Type
 
-[`Array<ReasonCodeResponse>`](../../doc/models/reason-code-response.md)
+[`Array[ReasonCodeResponse]`](../../doc/models/reason-code-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50
 }
 

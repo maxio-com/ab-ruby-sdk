@@ -42,6 +42,15 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
+    # Indicates how a trial is handled when the trail period ends and there is
+    # no credit card on file. For `no_obligation`, the subscription transitions
+    # to a Trial Ended state. Maxio will not send any emails or statements. For
+    # `payment_expected`, the subscription transitions to a Past Due state.
+    # Maxio will send normal dunning emails and statements according to your
+    # other settings.
+    # @return [TrialType]
+    attr_accessor :trial_type
+
     # (Optional)
     # @return [Object]
     attr_accessor :initial_charge_in_cents
@@ -73,6 +82,7 @@ module AdvancedBilling
       @_hash['trial_price_in_cents'] = 'trial_price_in_cents'
       @_hash['trial_interval'] = 'trial_interval'
       @_hash['trial_interval_unit'] = 'trial_interval_unit'
+      @_hash['trial_type'] = 'trial_type'
       @_hash['initial_charge_in_cents'] = 'initial_charge_in_cents'
       @_hash['initial_charge_after_trial'] = 'initial_charge_after_trial'
       @_hash['expiration_interval'] = 'expiration_interval'
@@ -89,6 +99,7 @@ module AdvancedBilling
         trial_price_in_cents
         trial_interval
         trial_interval_unit
+        trial_type
         initial_charge_in_cents
         initial_charge_after_trial
         expiration_interval
@@ -101,6 +112,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         interval_unit
+        trial_type
         expiration_interval_unit
       ]
     end
@@ -108,7 +120,7 @@ module AdvancedBilling
     def initialize(price_in_cents:, interval:, interval_unit:, name: SKIP,
                    handle: SKIP, trial_price_in_cents: SKIP,
                    trial_interval: SKIP, trial_interval_unit: SKIP,
-                   initial_charge_in_cents: SKIP,
+                   trial_type: SKIP, initial_charge_in_cents: SKIP,
                    initial_charge_after_trial: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, tax_included: SKIP,
                    additional_properties: {})
@@ -125,6 +137,7 @@ module AdvancedBilling
       @trial_price_in_cents = trial_price_in_cents unless trial_price_in_cents == SKIP
       @trial_interval = trial_interval unless trial_interval == SKIP
       @trial_interval_unit = trial_interval_unit unless trial_interval_unit == SKIP
+      @trial_type = trial_type unless trial_type == SKIP
       @initial_charge_in_cents = initial_charge_in_cents unless initial_charge_in_cents == SKIP
       unless initial_charge_after_trial == SKIP
         @initial_charge_after_trial =
@@ -157,6 +170,7 @@ module AdvancedBilling
       ) : SKIP
       trial_interval_unit =
         hash.key?('trial_interval_unit') ? hash['trial_interval_unit'] : SKIP
+      trial_type = hash.key?('trial_type') ? hash['trial_type'] : SKIP
       initial_charge_in_cents = hash.key?('initial_charge_in_cents') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:SubscriptionCustomPriceInitialChargeInCents), hash['initial_charge_in_cents']
       ) : SKIP
@@ -181,6 +195,7 @@ module AdvancedBilling
                                   trial_price_in_cents: trial_price_in_cents,
                                   trial_interval: trial_interval,
                                   trial_interval_unit: trial_interval_unit,
+                                  trial_type: trial_type,
                                   initial_charge_in_cents: initial_charge_in_cents,
                                   initial_charge_after_trial: initial_charge_after_trial,
                                   expiration_interval: expiration_interval,
@@ -221,10 +236,11 @@ module AdvancedBilling
       "<#{class_name} name: #{@name}, handle: #{@handle}, price_in_cents: #{@price_in_cents},"\
       " interval: #{@interval}, interval_unit: #{@interval_unit}, trial_price_in_cents:"\
       " #{@trial_price_in_cents}, trial_interval: #{@trial_interval}, trial_interval_unit:"\
-      " #{@trial_interval_unit}, initial_charge_in_cents: #{@initial_charge_in_cents},"\
-      " initial_charge_after_trial: #{@initial_charge_after_trial}, expiration_interval:"\
-      " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit},"\
-      " tax_included: #{@tax_included}, additional_properties: #{get_additional_properties}>"
+      " #{@trial_interval_unit}, trial_type: #{@trial_type}, initial_charge_in_cents:"\
+      " #{@initial_charge_in_cents}, initial_charge_after_trial: #{@initial_charge_after_trial},"\
+      " expiration_interval: #{@expiration_interval}, expiration_interval_unit:"\
+      " #{@expiration_interval_unit}, tax_included: #{@tax_included}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -234,8 +250,8 @@ module AdvancedBilling
       " #{@price_in_cents.inspect}, interval: #{@interval.inspect}, interval_unit:"\
       " #{@interval_unit.inspect}, trial_price_in_cents: #{@trial_price_in_cents.inspect},"\
       " trial_interval: #{@trial_interval.inspect}, trial_interval_unit:"\
-      " #{@trial_interval_unit.inspect}, initial_charge_in_cents:"\
-      " #{@initial_charge_in_cents.inspect}, initial_charge_after_trial:"\
+      " #{@trial_interval_unit.inspect}, trial_type: #{@trial_type.inspect},"\
+      " initial_charge_in_cents: #{@initial_charge_in_cents.inspect}, initial_charge_after_trial:"\
       " #{@initial_charge_after_trial.inspect}, expiration_interval:"\
       " #{@expiration_interval.inspect}, expiration_interval_unit:"\
       " #{@expiration_interval_unit.inspect}, tax_included: #{@tax_included.inspect},"\

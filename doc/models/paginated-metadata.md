@@ -13,7 +13,7 @@
 | `current_page` | `Integer` | Optional | - |
 | `total_pages` | `Integer` | Optional | - |
 | `per_page` | `Integer` | Optional | - |
-| `metadata` | [`Array<Metadata>`](../../doc/models/metadata.md) | Optional | - |
+| `metadata` | [`Array[Metadata]`](../../doc/models/metadata.md) | Optional | - |
 
 ## Example (as JSON)
 

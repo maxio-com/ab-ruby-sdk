@@ -18,7 +18,7 @@
 | `trial_price_in_cents` | `Integer` | Optional | The product price point trial price, in integer cents |
 | `trial_interval` | `Integer` | Optional | The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of day would mean this product price point trial would last 30 days |
 | `trial_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the trial interval unit for this product price point, either month or day |
-| `trial_type` | `String` | Optional | - |
+| `trial_type` | [`TrialType`](../../doc/models/trial-type.md) | Optional | Indicates how a trial is handled when the trail period ends and there is no credit card on file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will not send any emails or statements. For `payment_expected`, the subscription transitions to a Past Due state. Maxio will send normal dunning emails and statements according to your other settings. |
 | `introductory_offer` | `TrueClass \| FalseClass` | Optional | reserved for future use |
 | `initial_charge_in_cents` | `Integer` | Optional | The product price point initial charge, in integer cents |
 | `initial_charge_after_trial` | `TrueClass \| FalseClass` | Optional | - |
@@ -32,7 +32,7 @@
 | `type` | [`PricePointType`](../../doc/models/price-point-type.md) | Optional | The type of price point |
 | `tax_included` | `TrueClass \| FalseClass` | Optional | Whether or not the price point includes tax |
 | `subscription_id` | `Integer` | Optional | The subscription id this price point belongs to |
-| `currency_prices` | [`Array<CurrencyPrice>`](../../doc/models/currency-price.md) | Optional | An array of currency pricing data is available when multiple currencies are defined for the site. It varies based on the use_site_exchange_rate setting for the price point. This parameter is present only in the response of read endpoints, after including the appropriate query parameter. |
+| `currency_prices` | [`Array[CurrencyPrice]`](../../doc/models/currency-price.md) | Optional | An array of currency pricing data is available when multiple currencies are defined for the site. It varies based on the use_site_exchange_rate setting for the price point. This parameter is present only in the response of read endpoints, after including the appropriate query parameter. |
 
 ## Example (as JSON)
 

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `offers` | [`Array<Offer>`](../../doc/models/offer.md) | Optional | - |
+| `offers` | [`Array[Offer]`](../../doc/models/offer.md) | Optional | - |
 
 ## Example (as JSON)
 

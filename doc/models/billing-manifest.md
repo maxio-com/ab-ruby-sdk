@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `line_items` | [`Array<BillingManifestItem>`](../../doc/models/billing-manifest-item.md) | Optional | - |
+| `line_items` | [`Array[BillingManifestItem]`](../../doc/models/billing-manifest-item.md) | Optional | - |
 | `total_in_cents` | `Integer` | Optional | - |
 | `total_discount_in_cents` | `Integer` | Optional | - |
 | `total_tax_in_cents` | `Integer` | Optional | - |

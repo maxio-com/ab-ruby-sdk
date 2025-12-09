@@ -19,5 +19,18 @@ module AdvancedBilling
 
       SUBSCRIPTION_PURGE_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = CUSTOMER)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'customer' then CUSTOMER
+      when 'payment_profile' then PAYMENT_PROFILE
+      else
+        default_value
+      end
+    end
   end
 end

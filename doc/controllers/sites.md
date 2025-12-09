@@ -153,7 +153,7 @@ def list_chargify_js_public_keys(options = {})
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50
 }
 

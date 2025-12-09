@@ -19,5 +19,18 @@ module AdvancedBilling
 
       BASIC_DATE_FIELD.include?(value)
     end
+
+    def self.from_value(value, default_value = UPDATED_AT)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'updated_at' then UPDATED_AT
+      when 'created_at' then CREATED_AT
+      else
+        default_value
+      end
+    end
   end
 end

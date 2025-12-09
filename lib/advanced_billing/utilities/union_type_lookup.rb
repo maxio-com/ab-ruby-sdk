@@ -275,10 +275,11 @@ module AdvancedBilling
         :CalendarBillingSnapDay => OneOf.new(
           [
             LeafType.new(Integer),
-            LeafType.new(String)
+            LeafType.new(SnapDay)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 
@@ -850,6 +851,17 @@ module AdvancedBilling
           )
         ),
 
+        :SubscriptionSnapDay => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(SnapDay)
+          ],
+          UnionTypeContext.new(
+            is_optional: true,
+            is_nullable: true
+          )
+        ),
+
         :SubscriptionComponentAllocatedQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -1036,11 +1048,12 @@ module AdvancedBilling
 
         :UpdateSubscriptionSnapDay => OneOf.new(
           [
-            LeafType.new(SnapDay),
-            LeafType.new(Integer)
+            LeafType.new(Integer),
+            LeafType.new(SnapDay)
           ],
           UnionTypeContext.new(
-            is_optional: true
+            is_optional: true,
+            is_nullable: true
           )
         ),
 

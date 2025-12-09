@@ -16,7 +16,7 @@
 | `discount_type` | [`InvoiceDiscountType`](../../doc/models/invoice-discount-type.md) | Optional | - |
 | `eligible_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `discount_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
-| `line_item_breakouts` | [`Array<InvoiceDiscountBreakout>`](../../doc/models/invoice-discount-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
+| `line_item_breakouts` | [`Array[InvoiceDiscountBreakout]`](../../doc/models/invoice-discount-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
 
 ## Example (as JSON)
 

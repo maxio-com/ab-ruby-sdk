@@ -19,5 +19,18 @@ module AdvancedBilling
 
       BANK_ACCOUNT_HOLDER_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = PERSONAL)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'personal' then PERSONAL
+      when 'business' then BUSINESS
+      else
+        default_value
+      end
+    end
   end
 end

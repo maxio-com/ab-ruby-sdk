@@ -30,8 +30,8 @@ module AdvancedBilling
     # In order to prevent abuse & overuse, we ask that you request a new URL
     # only when absolutely necessary. Management URLs are good for 65 days, so
     # you should re-use a previously generated one as much as possible. If you
-    # use the URL frequently (such as to display on your website), please **do
-    # not** make an API request to Advanced Billing every time.
+    # use the URL frequently (such as to display on your website), **do not**
+    # make an API request to Advanced Billing every time.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
     # @param [AutoInvite] auto_invite Optional parameter: When set to 1, an

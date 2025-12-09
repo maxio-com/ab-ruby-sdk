@@ -18,7 +18,7 @@
 | `component_id` | `Integer` | Required | - |
 | `component_handle` | `String` | Required | - |
 | `memo` | `String` | Required | - |
-| `allocation_details` | [`Array<PrepaidUsageAllocationDetail>`](../../doc/models/prepaid-usage-allocation-detail.md) | Required | - |
+| `allocation_details` | [`Array[PrepaidUsageAllocationDetail]`](../../doc/models/prepaid-usage-allocation-detail.md) | Required | - |
 
 ## Example (as JSON)
 

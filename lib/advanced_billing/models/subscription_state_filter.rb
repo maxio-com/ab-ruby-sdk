@@ -49,5 +49,28 @@ module AdvancedBilling
 
       SUBSCRIPTION_STATE_FILTER.include?(value)
     end
+
+    def self.from_value(value, default_value = ACTIVE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'active' then ACTIVE
+      when 'canceled' then CANCELED
+      when 'expired' then EXPIRED
+      when 'expired_cards' then EXPIRED_CARDS
+      when 'on_hold' then ON_HOLD
+      when 'past_due' then PAST_DUE
+      when 'pending_cancellation' then PENDING_CANCELLATION
+      when 'pending_renewal' then PENDING_RENEWAL
+      when 'suspended' then SUSPENDED
+      when 'trial_ended' then TRIAL_ENDED
+      when 'trialing' then TRIALING
+      when 'unpaid' then UNPAID
+      else
+        default_value
+      end
+    end
   end
 end

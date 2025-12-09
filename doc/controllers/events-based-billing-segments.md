@@ -116,7 +116,7 @@ def list_segments_for_price_point(options = {})
 collect = {
   'component_id' => 'component_id8',
   'price_point_id' => 'price_point_id8',
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'filter' => ListSegmentsFilter.new(
     segment_property_1_value: 'EU'

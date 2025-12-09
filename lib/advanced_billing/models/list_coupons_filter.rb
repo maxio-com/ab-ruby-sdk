@@ -57,10 +57,19 @@ module AdvancedBilling
     # @return [Array[String]]
     attr_accessor :codes
 
-    # Allows fetching coupons with matching use_site_exchange_rate based on
-    # provided value. Use in query `filter[use_site_exchange_rate]=true`.
+    # If true, restricts the list to coupons whose pricing is recalculated from
+    # the site’s current exchange rates, so their currency_prices array contains
+    # on-the-fly conversions rather than stored price records. If false,
+    # restricts the list to coupons that have manually defined amounts for each
+    # currency, ensuring the response includes the saved currency_prices entries
+    # instead of exchange-rate-derived values. Use in query
+    # `filter[use_site_exchange_rate]=true`.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
+
+    # Controls returning archived coupons.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :include_archived
 
     # A mapping from model property names to API property names.
     def self.names
@@ -73,6 +82,7 @@ module AdvancedBilling
       @_hash['ids'] = 'ids'
       @_hash['codes'] = 'codes'
       @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
+      @_hash['include_archived'] = 'include_archived'
       @_hash
     end
 
@@ -87,6 +97,7 @@ module AdvancedBilling
         ids
         codes
         use_site_exchange_rate
+        include_archived
       ]
     end
 
@@ -98,7 +109,7 @@ module AdvancedBilling
     def initialize(date_field: SKIP, start_date: SKIP, end_date: SKIP,
                    start_datetime: SKIP, end_datetime: SKIP, ids: SKIP,
                    codes: SKIP, use_site_exchange_rate: SKIP,
-                   additional_properties: {})
+                   include_archived: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -112,6 +123,7 @@ module AdvancedBilling
       @ids = ids unless ids == SKIP
       @codes = codes unless codes == SKIP
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
+      @include_archived = include_archived unless include_archived == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -136,6 +148,8 @@ module AdvancedBilling
       codes = hash.key?('codes') ? hash['codes'] : SKIP
       use_site_exchange_rate =
         hash.key?('use_site_exchange_rate') ? hash['use_site_exchange_rate'] : SKIP
+      include_archived =
+        hash.key?('include_archived') ? hash['include_archived'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -149,6 +163,7 @@ module AdvancedBilling
                             ids: ids,
                             codes: codes,
                             use_site_exchange_rate: use_site_exchange_rate,
+                            include_archived: include_archived,
                             additional_properties: additional_properties)
     end
 
@@ -166,7 +181,8 @@ module AdvancedBilling
       "<#{class_name} date_field: #{@date_field}, start_date: #{@start_date}, end_date:"\
       " #{@end_date}, start_datetime: #{@start_datetime}, end_datetime: #{@end_datetime}, ids:"\
       " #{@ids}, codes: #{@codes}, use_site_exchange_rate: #{@use_site_exchange_rate},"\
-      " additional_properties: #{get_additional_properties}>"
+      " include_archived: #{@include_archived}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -175,8 +191,8 @@ module AdvancedBilling
       "<#{class_name} date_field: #{@date_field.inspect}, start_date: #{@start_date.inspect},"\
       " end_date: #{@end_date.inspect}, start_datetime: #{@start_datetime.inspect}, end_datetime:"\
       " #{@end_datetime.inspect}, ids: #{@ids.inspect}, codes: #{@codes.inspect},"\
-      " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, include_archived:"\
+      " #{@include_archived.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

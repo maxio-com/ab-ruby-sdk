@@ -62,10 +62,6 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :archived
 
-    # Boolean flag describing whether a component is taxable or not.
-    # @return [TrueClass | FalseClass]
-    attr_accessor :taxable
-
     # The description of the component.
     # @return [String]
     attr_accessor :description
@@ -98,15 +94,19 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :default_price_point_name
 
+    # Boolean flag describing whether a component is taxable or not.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :taxable
+
     # A string representing the tax code related to the component type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [String]
     attr_accessor :tax_code
 
     # A string representing the tax code related to the component type. This is
-    # especially important when using the Avalara service to tax based on
-    # locale. This attribute has a max length of 10 characters.
+    # especially important when using AvaTax to tax based on locale. This
+    # attribute has a max length of 25 characters.
     # @return [TrueClass | FalseClass]
     attr_accessor :recurring
 
@@ -193,7 +193,6 @@ module AdvancedBilling
       @_hash['price_per_unit_in_cents'] = 'price_per_unit_in_cents'
       @_hash['kind'] = 'kind'
       @_hash['archived'] = 'archived'
-      @_hash['taxable'] = 'taxable'
       @_hash['description'] = 'description'
       @_hash['default_price_point_id'] = 'default_price_point_id'
       @_hash['overage_prices'] = 'overage_prices'
@@ -201,6 +200,7 @@ module AdvancedBilling
       @_hash['price_point_count'] = 'price_point_count'
       @_hash['price_points_url'] = 'price_points_url'
       @_hash['default_price_point_name'] = 'default_price_point_name'
+      @_hash['taxable'] = 'taxable'
       @_hash['tax_code'] = 'tax_code'
       @_hash['recurring'] = 'recurring'
       @_hash['upgrade_charge'] = 'upgrade_charge'
@@ -235,7 +235,6 @@ module AdvancedBilling
         price_per_unit_in_cents
         kind
         archived
-        taxable
         description
         default_price_point_id
         overage_prices
@@ -243,6 +242,7 @@ module AdvancedBilling
         price_point_count
         price_points_url
         default_price_point_name
+        taxable
         tax_code
         recurring
         upgrade_charge
@@ -288,13 +288,13 @@ module AdvancedBilling
                    unit_name: SKIP, unit_price: SKIP, product_family_id: SKIP,
                    product_family_name: SKIP, product_family_handle: SKIP,
                    price_per_unit_in_cents: SKIP, kind: SKIP, archived: SKIP,
-                   taxable: SKIP, description: SKIP,
-                   default_price_point_id: SKIP, overage_prices: SKIP,
-                   prices: SKIP, price_point_count: SKIP,
+                   description: SKIP, default_price_point_id: SKIP,
+                   overage_prices: SKIP, prices: SKIP, price_point_count: SKIP,
                    price_points_url: SKIP, default_price_point_name: SKIP,
-                   tax_code: SKIP, recurring: SKIP, upgrade_charge: SKIP,
-                   downgrade_credit: SKIP, created_at: SKIP, updated_at: SKIP,
-                   archived_at: SKIP, hide_date_range_on_invoice: SKIP,
+                   taxable: SKIP, tax_code: SKIP, recurring: SKIP,
+                   upgrade_charge: SKIP, downgrade_credit: SKIP,
+                   created_at: SKIP, updated_at: SKIP, archived_at: SKIP,
+                   hide_date_range_on_invoice: SKIP,
                    allow_fractional_quantities: SKIP, item_category: SKIP,
                    use_site_exchange_rate: SKIP, accounting_code: SKIP,
                    event_based_billing_metric_id: SKIP, interval: SKIP,
@@ -316,7 +316,6 @@ module AdvancedBilling
       @price_per_unit_in_cents = price_per_unit_in_cents unless price_per_unit_in_cents == SKIP
       @kind = kind unless kind == SKIP
       @archived = archived unless archived == SKIP
-      @taxable = taxable unless taxable == SKIP
       @description = description unless description == SKIP
       @default_price_point_id = default_price_point_id unless default_price_point_id == SKIP
       @overage_prices = overage_prices unless overage_prices == SKIP
@@ -324,6 +323,7 @@ module AdvancedBilling
       @price_point_count = price_point_count unless price_point_count == SKIP
       @price_points_url = price_points_url unless price_points_url == SKIP
       @default_price_point_name = default_price_point_name unless default_price_point_name == SKIP
+      @taxable = taxable unless taxable == SKIP
       @tax_code = tax_code unless tax_code == SKIP
       @recurring = recurring unless recurring == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
@@ -372,7 +372,6 @@ module AdvancedBilling
         hash.key?('price_per_unit_in_cents') ? hash['price_per_unit_in_cents'] : SKIP
       kind = hash.key?('kind') ? hash['kind'] : SKIP
       archived = hash.key?('archived') ? hash['archived'] : SKIP
-      taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
       default_price_point_id =
         hash.key?('default_price_point_id') ? hash['default_price_point_id'] : SKIP
@@ -402,6 +401,7 @@ module AdvancedBilling
         hash.key?('price_points_url') ? hash['price_points_url'] : SKIP
       default_price_point_name =
         hash.key?('default_price_point_name') ? hash['default_price_point_name'] : SKIP
+      taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
       recurring = hash.key?('recurring') ? hash['recurring'] : SKIP
       upgrade_charge =
@@ -453,7 +453,6 @@ module AdvancedBilling
                     price_per_unit_in_cents: price_per_unit_in_cents,
                     kind: kind,
                     archived: archived,
-                    taxable: taxable,
                     description: description,
                     default_price_point_id: default_price_point_id,
                     overage_prices: overage_prices,
@@ -461,6 +460,7 @@ module AdvancedBilling
                     price_point_count: price_point_count,
                     price_points_url: price_points_url,
                     default_price_point_name: default_price_point_name,
+                    taxable: taxable,
                     tax_code: tax_code,
                     recurring: recurring,
                     upgrade_charge: upgrade_charge,
@@ -498,13 +498,13 @@ module AdvancedBilling
       " #{@pricing_scheme}, unit_name: #{@unit_name}, unit_price: #{@unit_price},"\
       " product_family_id: #{@product_family_id}, product_family_name: #{@product_family_name},"\
       " product_family_handle: #{@product_family_handle}, price_per_unit_in_cents:"\
-      " #{@price_per_unit_in_cents}, kind: #{@kind}, archived: #{@archived}, taxable: #{@taxable},"\
-      " description: #{@description}, default_price_point_id: #{@default_price_point_id},"\
-      " overage_prices: #{@overage_prices}, prices: #{@prices}, price_point_count:"\
-      " #{@price_point_count}, price_points_url: #{@price_points_url}, default_price_point_name:"\
-      " #{@default_price_point_name}, tax_code: #{@tax_code}, recurring: #{@recurring},"\
-      " upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit}, created_at:"\
-      " #{@created_at}, updated_at: #{@updated_at}, archived_at: #{@archived_at},"\
+      " #{@price_per_unit_in_cents}, kind: #{@kind}, archived: #{@archived}, description:"\
+      " #{@description}, default_price_point_id: #{@default_price_point_id}, overage_prices:"\
+      " #{@overage_prices}, prices: #{@prices}, price_point_count: #{@price_point_count},"\
+      " price_points_url: #{@price_points_url}, default_price_point_name:"\
+      " #{@default_price_point_name}, taxable: #{@taxable}, tax_code: #{@tax_code}, recurring:"\
+      " #{@recurring}, upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit},"\
+      " created_at: #{@created_at}, updated_at: #{@updated_at}, archived_at: #{@archived_at},"\
       " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities}, item_category: #{@item_category}, use_site_exchange_rate:"\
       " #{@use_site_exchange_rate}, accounting_code: #{@accounting_code},"\
@@ -521,11 +521,11 @@ module AdvancedBilling
       " product_family_name: #{@product_family_name.inspect}, product_family_handle:"\
       " #{@product_family_handle.inspect}, price_per_unit_in_cents:"\
       " #{@price_per_unit_in_cents.inspect}, kind: #{@kind.inspect}, archived:"\
-      " #{@archived.inspect}, taxable: #{@taxable.inspect}, description: #{@description.inspect},"\
-      " default_price_point_id: #{@default_price_point_id.inspect}, overage_prices:"\
-      " #{@overage_prices.inspect}, prices: #{@prices.inspect}, price_point_count:"\
-      " #{@price_point_count.inspect}, price_points_url: #{@price_points_url.inspect},"\
-      " default_price_point_name: #{@default_price_point_name.inspect}, tax_code:"\
+      " #{@archived.inspect}, description: #{@description.inspect}, default_price_point_id:"\
+      " #{@default_price_point_id.inspect}, overage_prices: #{@overage_prices.inspect}, prices:"\
+      " #{@prices.inspect}, price_point_count: #{@price_point_count.inspect}, price_points_url:"\
+      " #{@price_points_url.inspect}, default_price_point_name:"\
+      " #{@default_price_point_name.inspect}, taxable: #{@taxable.inspect}, tax_code:"\
       " #{@tax_code.inspect}, recurring: #{@recurring.inspect}, upgrade_charge:"\
       " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect}, created_at:"\
       " #{@created_at.inspect}, updated_at: #{@updated_at.inspect}, archived_at:"\

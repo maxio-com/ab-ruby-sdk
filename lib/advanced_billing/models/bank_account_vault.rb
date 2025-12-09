@@ -38,5 +38,24 @@ module AdvancedBilling
 
       BANK_ACCOUNT_VAULT.include?(value)
     end
+
+    def self.from_value(value, default_value = AUTHORIZENET)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'authorizenet' then AUTHORIZENET
+      when 'blue_snap' then BLUE_SNAP
+      when 'bogus' then BOGUS
+      when 'forte' then FORTE
+      when 'gocardless' then GOCARDLESS
+      when 'maxio_payments' then MAXIO_PAYMENTS
+      when 'maxp' then MAXP
+      when 'stripe_connect' then STRIPE_CONNECT
+      else
+        default_value
+      end
+    end
   end
 end

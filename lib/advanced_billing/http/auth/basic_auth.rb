@@ -40,6 +40,18 @@ module AdvancedBilling
       @password = password
     end
 
+    def self.from_env
+      username = ENV['USERNAME']
+      password = ENV['PASSWORD']
+      all_nil = [
+        username,
+        password
+      ].all?(&:nil?)
+      return nil if all_nil
+
+      new(username: username, password: password)
+    end
+
     def clone_with(username: nil, password: nil)
       username ||= self.username
       password ||= self.password

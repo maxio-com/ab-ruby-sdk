@@ -20,7 +20,9 @@ products_controller = client.products
 
 # Create Product
 
-Use this method to create a product within your Advanced Billing site.
+Creates a product in your Advanced Billing site.
+
+See the following product docuemation for more information:
 
 + [Products Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
 + [Changing a Subscription's Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations)
@@ -126,7 +128,7 @@ puts result
 
 # Read Product
 
-This endpoint allows you to read the current details of a product that you've created in Advanced Billing.
+Reads the current details of a product.
 
 ```ruby
 def read_product(product_id)
@@ -197,7 +199,7 @@ puts result
 
 # Update Product
 
-Use this method to change aspects of an existing product.
+Updates aspects of an existing product.
 
 ### Input Attributes Update Notes
 
@@ -289,7 +291,7 @@ puts result
 
 # Archive Product
 
-Sending a DELETE request to this endpoint will archive the product. All current subscribers will be unffected; their subscription/purchase will continue to be charged monthly.
+Archives the product. All current subscribers will be unffected; their subscription/purchase will continue to be charged monthly.
 
 This will restrict the option to chose the product for purchase via the Billing Portal, as well as disable Public Signup Pages for the product.
 
@@ -368,7 +370,7 @@ puts result
 
 # Read Product by Handle
 
-This method allows to retrieve a Product object by its `api_handle`.
+Retrieves a Product object by its `api_handle`.
 
 ```ruby
 def read_product_by_handle(api_handle)
@@ -487,7 +489,7 @@ def list_products(options = {})
 
 ## Response Type
 
-[`Array<ProductResponse>`](../../doc/models/product-response.md)
+[`Array[ProductResponse]`](../../doc/models/product-response.md)
 
 ## Example Usage
 
@@ -501,7 +503,7 @@ collect = {
       3
     ]
   ),
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'include_archived' => true,
   'include' => ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT

@@ -8,11 +8,11 @@ module AdvancedBilling
   class CouponsController < BaseController
     # ## Coupons Documentation
     # Coupons can be administered in the Advanced Billing application or created
-    # via API. Please view our section on [creating
+    # via API. View our section on [creating
     # coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creati
     # ng-Editing-Deleting-Coupons) for more information.
     # Additionally, for documentation on how to apply a coupon to a subscription
-    # within the Advanced Billing UI, please see our documentation
+    # within the Advanced Billing UI, see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-
     # and-Subscriptions).
     # ## Create Coupon
@@ -53,9 +53,6 @@ module AdvancedBilling
     end
 
     # List coupons for a specific Product Family in a Site.
-    # If the coupon is set to `use_site_exchange_rate: true`, it will return
-    # pricing based on the current exchange rate. If the flag is set to false,
-    # it will return all of the defined prices for each currency.
     # @param [Integer] product_family_id Required parameter: The Advanced
     # Billing id of the product family to which the coupon belongs
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -247,9 +244,6 @@ module AdvancedBilling
     end
 
     # You can retrieve a list of coupons.
-    # If the coupon is set to `use_site_exchange_rate: true`, it will return
-    # pricing based on the current exchange rate. If the flag is set to false,
-    # it will return all of the defined prices for each currency.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -291,9 +285,9 @@ module AdvancedBilling
     # This request will provide details about the coupon usage as an array of
     # data hashes, one per product.
     # @param [Integer] product_family_id Required parameter: The Advanced
-    # Billing id of the product family to which the coupon belongs
+    # Billing id of the product family to which the coupon belongs.
     # @param [Integer] coupon_id Required parameter: The Advanced Billing id of
-    # the coupon
+    # the coupon.
     # @return [Array[CouponUsage]] Response from the API call.
     def read_coupon_usage(product_family_id,
                           coupon_id)
@@ -423,7 +417,7 @@ module AdvancedBilling
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-C
     # odes).
     # Additionally, for documentation on how to apply a coupon to a Subscription
-    # within the Advanced Billing UI, please see our documentation
+    # within the Advanced Billing UI, see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-
     # and-Subscriptions).
     # ## Create Coupon Subcode

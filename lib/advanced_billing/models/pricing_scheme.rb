@@ -27,5 +27,20 @@ module AdvancedBilling
 
       PRICING_SCHEME.include?(value)
     end
+
+    def self.from_value(value, default_value = STAIRSTEP)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'stairstep' then STAIRSTEP
+      when 'volume' then VOLUME
+      when 'per_unit' then PER_UNIT
+      when 'tiered' then TIERED
+      else
+        default_value
+      end
+    end
   end
 end

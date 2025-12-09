@@ -19,5 +19,18 @@ module AdvancedBilling
 
       WEBHOOK_ORDER.include?(value)
     end
+
+    def self.from_value(value, default_value = NEWEST_FIRST)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'newest_first' then NEWEST_FIRST
+      when 'oldest_first' then OLDEST_FIRST
+      else
+        default_value
+      end
+    end
   end
 end

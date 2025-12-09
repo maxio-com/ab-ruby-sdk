@@ -68,9 +68,9 @@ module AdvancedBilling
     # The credit card or bank account billing address country, required in
     # [ISO_3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
     # format (i.e. “US”). This value is merely passed through to the payment
-    # gateway. Some gateways require country codes in a specific format. Please
-    # check your gateway’s documentation. If creating an ACH subscription, only
-    # US is supported at this time.
+    # gateway. Some gateways require country codes in a specific format. Check
+    # your gateway’s documentation. If creating an ACH subscription, only US is
+    # supported at this time.
     # @return [String]
     attr_accessor :billing_country
 

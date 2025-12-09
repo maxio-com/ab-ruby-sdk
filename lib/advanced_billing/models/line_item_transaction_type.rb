@@ -34,5 +34,23 @@ module AdvancedBilling
 
       LINE_ITEM_TRANSACTION_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = CHARGE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'charge' then CHARGE
+      when 'credit' then CREDIT
+      when 'adjustment' then ADJUSTMENT
+      when 'payment' then PAYMENT
+      when 'refund' then REFUND
+      when 'info_transaction' then INFO_TRANSACTION
+      when 'payment_authorization' then PAYMENT_AUTHORIZATION
+      else
+        default_value
+      end
+    end
   end
 end

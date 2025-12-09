@@ -15,7 +15,7 @@
 | `total_entries` | `Integer` | Optional | - |
 | `currency` | `String` | Optional | - |
 | `currency_symbol` | `String` | Optional | - |
-| `movements` | [`Array<Movement>`](../../doc/models/movement.md) | Optional | - |
+| `movements` | [`Array[Movement]`](../../doc/models/movement.md) | Optional | - |
 
 ## Example (as JSON)
 

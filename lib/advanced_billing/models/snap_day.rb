@@ -4,8 +4,7 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # Use for subscriptions with product eligible for calendar billing only. Value
-  # can be 1-28 or 'end'.
+  # SnapDay.
   class SnapDay
     SNAP_DAY = [
       # TODO: Write general description for ENUM_END
@@ -16,6 +15,12 @@ module AdvancedBilling
       return false if value.nil?
 
       SNAP_DAY.include?(value)
+    end
+
+    def self.from_value(value, default_value = ENUM_END)
+      return default_value if value.nil?
+
+      default_value
     end
   end
 end

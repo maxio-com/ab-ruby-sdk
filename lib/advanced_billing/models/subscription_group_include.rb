@@ -16,5 +16,11 @@ module AdvancedBilling
 
       SUBSCRIPTION_GROUP_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = CURRENT_BILLING_AMOUNT_IN_CENTS)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

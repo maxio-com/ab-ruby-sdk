@@ -43,5 +43,26 @@ module AdvancedBilling
 
       INVOICE_ROLE.include?(value)
     end
+
+    def self.from_value(value, default_value = UNSET)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'unset' then UNSET
+      when 'signup' then SIGNUP
+      when 'renewal' then RENEWAL
+      when 'usage' then USAGE
+      when 'reactivation' then REACTIVATION
+      when 'proration' then PRORATION
+      when 'migration' then MIGRATION
+      when 'adhoc' then ADHOC
+      when 'backport' then BACKPORT
+      when 'backportbalancereconciliation' then BACKPORTBALANCERECONCILIATION
+      else
+        default_value
+      end
+    end
   end
 end

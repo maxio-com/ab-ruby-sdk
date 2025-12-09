@@ -260,5 +260,96 @@ module AdvancedBilling
 
       EVENT_KEY.include?(value)
     end
+
+    def self.from_value(value, default_value = PAYMENT_SUCCESS)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'payment_success' then PAYMENT_SUCCESS
+      when 'payment_failure' then PAYMENT_FAILURE
+      when 'signup_success' then SIGNUP_SUCCESS
+      when 'signup_failure' then SIGNUP_FAILURE
+      when 'delayed_signup_creation_success' then DELAYED_SIGNUP_CREATION_SUCCESS
+      when 'delayed_signup_creation_failure' then DELAYED_SIGNUP_CREATION_FAILURE
+      when 'billing_date_change' then BILLING_DATE_CHANGE
+      when 'expiration_date_change' then EXPIRATION_DATE_CHANGE
+      when 'renewal_success' then RENEWAL_SUCCESS
+      when 'renewal_failure' then RENEWAL_FAILURE
+      when 'subscription_state_change' then SUBSCRIPTION_STATE_CHANGE
+      when 'subscription_product_change' then SUBSCRIPTION_PRODUCT_CHANGE
+      when 'pending_cancellation_change' then PENDING_CANCELLATION_CHANGE
+      when 'expiring_card' then EXPIRING_CARD
+      when 'customer_update' then CUSTOMER_UPDATE
+      when 'customer_create' then CUSTOMER_CREATE
+      when 'customer_delete' then CUSTOMER_DELETE
+      when 'component_allocation_change' then COMPONENT_ALLOCATION_CHANGE
+      when 'metered_usage' then METERED_USAGE
+      when 'prepaid_usage' then PREPAID_USAGE
+      when 'upgrade_downgrade_success' then UPGRADE_DOWNGRADE_SUCCESS
+      when 'upgrade_downgrade_failure' then UPGRADE_DOWNGRADE_FAILURE
+      when 'statement_closed' then STATEMENT_CLOSED
+      when 'statement_settled' then STATEMENT_SETTLED
+      when 'subscription_card_update' then SUBSCRIPTION_CARD_UPDATE
+      when 'subscription_group_card_update' then SUBSCRIPTION_GROUP_CARD_UPDATE
+      when 'subscription_bank_account_update' then SUBSCRIPTION_BANK_ACCOUNT_UPDATE
+      when 'refund_success' then REFUND_SUCCESS
+      when 'refund_failure' then REFUND_FAILURE
+      when 'upcoming_renewal_notice' then UPCOMING_RENEWAL_NOTICE
+      when 'trial_end_notice' then TRIAL_END_NOTICE
+      when 'dunning_step_reached' then DUNNING_STEP_REACHED
+      when 'invoice_issued' then INVOICE_ISSUED
+      when 'prepaid_subscription_balance_changed' then PREPAID_SUBSCRIPTION_BALANCE_CHANGED
+      when 'subscription_group_signup_success' then SUBSCRIPTION_GROUP_SIGNUP_SUCCESS
+      when 'subscription_group_signup_failure' then SUBSCRIPTION_GROUP_SIGNUP_FAILURE
+      when 'direct_debit_payment_paid_out' then DIRECT_DEBIT_PAYMENT_PAID_OUT
+      when 'direct_debit_payment_rejected' then DIRECT_DEBIT_PAYMENT_REJECTED
+      when 'direct_debit_payment_pending' then DIRECT_DEBIT_PAYMENT_PENDING
+      when 'pending_payment_created' then PENDING_PAYMENT_CREATED
+      when 'pending_payment_failed' then PENDING_PAYMENT_FAILED
+      when 'pending_payment_completed' then PENDING_PAYMENT_COMPLETED
+      when 'proforma_invoice_issued' then PROFORMA_INVOICE_ISSUED
+      when 'subscription_prepayment_account_balance_changed' then SUBSCRIPTION_PREPAYMENT_ACCOUNT_BALANCE_CHANGED
+      when 'subscription_service_credit_account_balance_changed' then SUBSCRIPTION_SERVICE_CREDIT_ACCOUNT_BALANCE_CHANGED
+      when 'custom_field_value_change' then CUSTOM_FIELD_VALUE_CHANGE
+      when 'item_price_point_changed' then ITEM_PRICE_POINT_CHANGED
+      when 'renewal_success_recreated' then RENEWAL_SUCCESS_RECREATED
+      when 'renewal_failure_recreated' then RENEWAL_FAILURE_RECREATED
+      when 'payment_success_recreated' then PAYMENT_SUCCESS_RECREATED
+      when 'payment_failure_recreated' then PAYMENT_FAILURE_RECREATED
+      when 'subscription_deletion' then SUBSCRIPTION_DELETION
+      when 'subscription_group_bank_account_update' then SUBSCRIPTION_GROUP_BANK_ACCOUNT_UPDATE
+      when 'subscription_paypal_account_update' then SUBSCRIPTION_PAYPAL_ACCOUNT_UPDATE
+      when 'subscription_group_paypal_account_update' then SUBSCRIPTION_GROUP_PAYPAL_ACCOUNT_UPDATE
+      when 'subscription_customer_change' then SUBSCRIPTION_CUSTOMER_CHANGE
+      when 'account_transaction_changed' then ACCOUNT_TRANSACTION_CHANGED
+      when 'go_cardless_payment_paid_out' then GO_CARDLESS_PAYMENT_PAID_OUT
+      when 'go_cardless_payment_rejected' then GO_CARDLESS_PAYMENT_REJECTED
+      when 'go_cardless_payment_pending' then GO_CARDLESS_PAYMENT_PENDING
+      when 'stripe_direct_debit_payment_paid_out' then STRIPE_DIRECT_DEBIT_PAYMENT_PAID_OUT
+      when 'stripe_direct_debit_payment_rejected' then STRIPE_DIRECT_DEBIT_PAYMENT_REJECTED
+      when 'stripe_direct_debit_payment_pending' then STRIPE_DIRECT_DEBIT_PAYMENT_PENDING
+      when 'maxio_payments_direct_debit_payment_paid_out' then MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PAID_OUT
+      when 'maxio_payments_direct_debit_payment_rejected' then MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_REJECTED
+      when 'maxio_payments_direct_debit_payment_pending' then MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PENDING
+      when 'invoice_in_collections_canceled' then INVOICE_IN_COLLECTIONS_CANCELED
+      when 'subscription_added_to_group' then SUBSCRIPTION_ADDED_TO_GROUP
+      when 'subscription_removed_from_group' then SUBSCRIPTION_REMOVED_FROM_GROUP
+      when 'chargeback_opened' then CHARGEBACK_OPENED
+      when 'chargeback_lost' then CHARGEBACK_LOST
+      when 'chargeback_accepted' then CHARGEBACK_ACCEPTED
+      when 'chargeback_closed' then CHARGEBACK_CLOSED
+      when 'chargeback_won' then CHARGEBACK_WON
+      when 'payment_collection_method_changed' then PAYMENT_COLLECTION_METHOD_CHANGED
+      when 'component_billing_date_changed' then COMPONENT_BILLING_DATE_CHANGED
+      when 'subscription_term_renewal_scheduled' then SUBSCRIPTION_TERM_RENEWAL_SCHEDULED
+      when 'subscription_term_renewal_pending' then SUBSCRIPTION_TERM_RENEWAL_PENDING
+      when 'subscription_term_renewal_activated' then SUBSCRIPTION_TERM_RENEWAL_ACTIVATED
+      when 'subscription_term_renewal_removed' then SUBSCRIPTION_TERM_RENEWAL_REMOVED
+      else
+        default_value
+      end
+    end
   end
 end

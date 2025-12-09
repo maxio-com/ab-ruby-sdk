@@ -21,6 +21,8 @@ The following parameters are configurable for the API Client:
 
 The API client can be initialized as follows:
 
+## Code-Based Client Initialization
+
 ```ruby
 require 'advanced_billing'
 include AdvancedBilling
@@ -34,6 +36,18 @@ client = Client.new(
   site: 'subdomain'
 )
 ```
+
+## Environment-Based Client Initialization
+
+```ruby
+require 'advanced_billing'
+include AdvancedBilling
+
+# Create client from environment
+client = Client.from_env
+```
+
+See the [`Environment-Based Client Initialization`](../doc/environment-based-client-initialization.md) section for details.
 
 ## Maxio Advanced Billing Client
 

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `member_ids` | `Array<Integer>` | Optional | - |
+| `member_ids` | `Array[Integer]` | Optional | - |
 
 ## Example (as JSON)
 

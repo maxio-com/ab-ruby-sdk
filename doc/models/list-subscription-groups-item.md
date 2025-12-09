@@ -13,7 +13,7 @@
 | `scheme` | `Integer` | Optional | - |
 | `customer_id` | `Integer` | Optional | - |
 | `payment_profile_id` | `Integer` | Optional | - |
-| `subscription_ids` | `Array<Integer>` | Optional | - |
+| `subscription_ids` | `Array[Integer]` | Optional | - |
 | `primary_subscription_id` | `Integer` | Optional | - |
 | `next_assessment_at` | `DateTime` | Optional | - |
 | `state` | `String` | Optional | - |

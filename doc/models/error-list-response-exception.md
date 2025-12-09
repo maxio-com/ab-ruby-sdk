@@ -11,7 +11,7 @@ Error which contains list of messages.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `errors` | `Array<String>` | Required | - |
+| `errors` | `Array[String]` | Required | - |
 
 ## Example (as JSON)
 

@@ -23,23 +23,20 @@ module AdvancedBilling
     # @return [MetafieldScope]
     attr_accessor :scope
 
-    # the amount of subscriptions this metafield has been applied to in Chargify
+    # The amount of subscriptions this metafield has been applied to in Advanced
+    # Billing.
     # @return [Integer]
     attr_accessor :data_count
 
-    # Indicates how data should be added to the metafield. For example, a text
-    # type is just a string, so a given metafield of this type can have any
-    # value attached. On the other hand, dropdown and radio have a set of
-    # allowed values that can be input, and appear differently on a Public
-    # Signup Page. Defaults to 'text'
+    # Indicates the type of metafield. A text metafield allows any string value.
+    # Dropdown and radio metafields have a set of values that can be selected.
+    # Defaults to 'text'.
     # @return [MetafieldInput]
     attr_accessor :input_type
 
-    # Indicates how data should be added to the metafield. For example, a text
-    # type is just a string, so a given metafield of this type can have any
-    # value attached. On the other hand, dropdown and radio have a set of
-    # allowed values that can be input, and appear differently on a Public
-    # Signup Page. Defaults to 'text'
+    # Indicates the type of metafield. A text metafield allows any string value.
+    # Dropdown and radio metafields have a set of values that can be selected.
+    # Defaults to 'text'.
     # @return [Object]
     attr_accessor :enum
 

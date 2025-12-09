@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription` | `Array<String>` | Required | - |
+| `subscription` | `Array[String]` | Required | - |
 
 ## Example (as JSON)
 

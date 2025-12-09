@@ -19,5 +19,18 @@ module AdvancedBilling
 
       LIST_SUBSCRIPTION_COMPONENTS_INCLUDE.include?(value)
     end
+
+    def self.from_value(value, default_value = SUBSCRIPTION)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'subscription' then SUBSCRIPTION
+      when 'historic_usages' then HISTORIC_USAGES
+      else
+        default_value
+      end
+    end
   end
 end

@@ -5,8 +5,8 @@
 
 module AdvancedBilling
   # This attribute is particularly useful when you need to align billing events
-  # for different components on distinct schedules within a subscription. Please
-  # note this only works for site with Multifrequency enabled
+  # for different components on distinct schedules within a subscription. This
+  # only works for site with Multifrequency enabled.
   class BillingSchedule < BaseModel
     SKIP = Object.new
     private_constant :SKIP

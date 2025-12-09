@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `codes` | `Array<String>` | Optional | - |
+| `codes` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

@@ -16,7 +16,7 @@
 | `payer_attributes` | [`PayerAttributes`](../../doc/models/payer-attributes.md) | Optional | - |
 | `credit_card_attributes` | [`SubscriptionGroupCreditCard`](../../doc/models/subscription-group-credit-card.md) | Optional | - |
 | `bank_account_attributes` | [`SubscriptionGroupBankAccount`](../../doc/models/subscription-group-bank-account.md) | Optional | - |
-| `subscriptions` | [`Array<SubscriptionGroupSignupItem>`](../../doc/models/subscription-group-signup-item.md) | Optional | - |
+| `subscriptions` | [`Array[SubscriptionGroupSignupItem]`](../../doc/models/subscription-group-signup-item.md) | Optional | - |
 
 ## Example (as JSON)
 

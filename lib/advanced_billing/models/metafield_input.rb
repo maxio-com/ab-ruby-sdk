@@ -4,11 +4,9 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # Indicates how data should be added to the metafield. For example, a text
-  # type is just a string, so a given metafield of this type can have any value
-  # attached. On the other hand, dropdown and radio have a set of allowed values
-  # that can be input, and appear differently on a Public Signup Page. Defaults
-  # to 'text'
+  # Indicates the type of metafield. A text metafield allows any string value.
+  # Dropdown and radio metafields have a set of values that can be selected.
+  # Defaults to 'text'.
   class MetafieldInput
     METAFIELD_INPUT = [
       # TODO: Write general description for BALANCE_TRACKER
@@ -28,6 +26,21 @@ module AdvancedBilling
       return false if value.nil?
 
       METAFIELD_INPUT.include?(value)
+    end
+
+    def self.from_value(value, default_value = BALANCE_TRACKER)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'balance_tracker' then BALANCE_TRACKER
+      when 'text' then TEXT
+      when 'radio' then RADIO
+      when 'dropdown' then DROPDOWN
+      else
+        default_value
+      end
     end
   end
 end

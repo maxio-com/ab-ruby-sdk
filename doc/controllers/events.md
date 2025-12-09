@@ -99,7 +99,7 @@ def list_events(options = {})
 | `since_id` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
 | `max_id` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br><br>**Default**: `Direction::DESC` |
-| `filter` | [`Array<EventKey>`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `filter` | [`Array[EventKey]`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 | `date_field` | [`ListEventsDateField`](../../doc/models/list-events-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
 | `start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
@@ -108,13 +108,13 @@ def list_events(options = {})
 
 ## Response Type
 
-[`Array<EventResponse>`](../../doc/models/event-response.md)
+[`Array[EventResponse]`](../../doc/models/event-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'direction' => Direction::DESC,
   'filter' => [
@@ -219,18 +219,18 @@ def list_subscription_events(options = {})
 | `since_id` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
 | `max_id` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br><br>**Default**: `Direction::DESC` |
-| `filter` | [`Array<EventKey>`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `filter` | [`Array[EventKey]`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
-[`Array<EventResponse>`](../../doc/models/event-response.md)
+[`Array[EventResponse]`](../../doc/models/event-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
   'subscription_id' => 222,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'direction' => Direction::DESC,
   'filter' => [
@@ -304,7 +304,7 @@ def read_events_count(options = {})
 | `since_id` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
 | `max_id` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br><br>**Default**: `Direction::DESC` |
-| `filter` | [`Array<EventKey>`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `filter` | [`Array[EventKey]`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -314,7 +314,7 @@ def read_events_count(options = {})
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'direction' => Direction::DESC,
   'filter' => [

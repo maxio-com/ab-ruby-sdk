@@ -13,7 +13,7 @@
 | `full_name` | `String` | Optional | - |
 | `subscriptions_count` | `Integer` | Optional | - |
 | `test_mode` | `TrueClass \| FalseClass` | Optional | - |
-| `subscriptions` | [`Array<SaleRepSubscription>`](../../doc/models/sale-rep-subscription.md) | Optional | - |
+| `subscriptions` | [`Array[SaleRepSubscription]`](../../doc/models/sale-rep-subscription.md) | Optional | - |
 
 ## Example (as JSON)
 

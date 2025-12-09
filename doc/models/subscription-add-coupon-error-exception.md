@@ -9,10 +9,10 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `codes` | `Array<String>` | Optional | - |
-| `coupon_code` | `Array<String>` | Optional | - |
-| `coupon_codes` | `Array<String>` | Optional | - |
-| `subscription` | `Array<String>` | Optional | - |
+| `codes` | `Array[String]` | Optional | - |
+| `coupon_code` | `Array[String]` | Optional | - |
+| `coupon_codes` | `Array[String]` | Optional | - |
+| `subscription` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

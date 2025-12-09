@@ -38,8 +38,8 @@
 | `exclude_mid_period_allocations` | `TrueClass \| FalseClass` | Optional | - |
 | `apply_on_cancel_at_end_of_period` | `TrueClass \| FalseClass` | Optional | - |
 | `apply_on_subscription_expiration` | `TrueClass \| FalseClass` | Optional | - |
-| `coupon_restrictions` | [`Array<CouponRestriction>`](../../doc/models/coupon-restriction.md) | Optional | - |
-| `currency_prices` | [`Array<CouponCurrency>`](../../doc/models/coupon-currency.md) | Optional | Returned in read, find, and list endpoints if the query parameter is provided. |
+| `coupon_restrictions` | [`Array[CouponRestriction]`](../../doc/models/coupon-restriction.md) | Optional | - |
+| `currency_prices` | [`Array[CouponCurrency]`](../../doc/models/coupon-currency.md) | Optional | Returned in read, find, and list endpoints if the query parameter is provided. |
 
 ## Example (as JSON)
 

@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- |
 | `proration_upgrade_scheme` | `String` | Optional | - |
 | `proration_downgrade_scheme` | `String` | Optional | - |
-| `allocations` | [`Array<CreateAllocation>`](../../doc/models/create-allocation.md) | Optional | - |
+| `allocations` | [`Array[CreateAllocation]`](../../doc/models/create-allocation.md) | Optional | - |
 | `accrue_charge` | `TrueClass \| FalseClass` | Optional | - |
 | `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
 | `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |

@@ -19,5 +19,18 @@ module AdvancedBilling
 
       DIRECTION.include?(value)
     end
+
+    def self.from_value(value, default_value = ASC)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'asc' then ASC
+      when 'desc' then DESC
+      else
+        default_value
+      end
+    end
   end
 end

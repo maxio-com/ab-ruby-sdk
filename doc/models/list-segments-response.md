@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `segments` | [`Array<Segment>`](../../doc/models/segment.md) | Optional | - |
+| `segments` | [`Array[Segment]`](../../doc/models/segment.md) | Optional | - |
 
 ## Example (as JSON)
 

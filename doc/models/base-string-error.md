@@ -11,7 +11,7 @@ The error is base if it is not directly associated with a single attribute.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `base` | `Array<String>` | Optional | - |
+| `base` | `Array[String]` | Optional | - |
 
 ## Example (as JSON)
 

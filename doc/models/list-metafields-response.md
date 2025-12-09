@@ -13,7 +13,7 @@
 | `current_page` | `Integer` | Optional | - |
 | `total_pages` | `Integer` | Optional | - |
 | `per_page` | `Integer` | Optional | - |
-| `metafields` | [`Array<Metafield>`](../../doc/models/metafield.md) | Optional | - |
+| `metafields` | [`Array[Metafield]`](../../doc/models/metafield.md) | Optional | - |
 
 ## Example (as JSON)
 

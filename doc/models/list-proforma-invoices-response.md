@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `proforma_invoices` | [`Array<ProformaInvoice>`](../../doc/models/proforma-invoice.md) | Optional | - |
+| `proforma_invoices` | [`Array[ProformaInvoice]`](../../doc/models/proforma-invoice.md) | Optional | - |
 | `meta` | [`ListProformaInvoicesMeta`](../../doc/models/list-proforma-invoices-meta.md) | Optional | - |
 
 ## Example (as JSON)

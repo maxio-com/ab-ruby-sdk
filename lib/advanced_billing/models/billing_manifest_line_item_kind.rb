@@ -31,5 +31,22 @@ module AdvancedBilling
 
       BILLING_MANIFEST_LINE_ITEM_KIND.include?(value)
     end
+
+    def self.from_value(value, default_value = BASELINE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'baseline' then BASELINE
+      when 'initial' then INITIAL
+      when 'trial' then TRIAL
+      when 'coupon' then COUPON
+      when 'component' then COMPONENT
+      when 'tax' then TAX
+      else
+        default_value
+      end
+    end
   end
 end

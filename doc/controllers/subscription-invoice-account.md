@@ -55,7 +55,7 @@ In order to specify a prepayment made against a subscription, specify the `amoun
 
 When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be collected using the default credit card payment profile and applied to the prepayment account balance.  This is especially useful for manual replenishment of prepaid subscriptions.
 
-Please note that you **can't** pass `amount_in_cents`.
+Note that passing `amount_in_cents` is now allowed.
 
 ```ruby
 def create_prepayment(subscription_id,
@@ -143,7 +143,7 @@ def list_prepayments(options = {})
 ```ruby
 collect = {
   'subscription_id' => 222,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'filter' => ListPrepaymentsFilter.new(
     date_field: ListPrepaymentDateField::CREATED_AT,
@@ -315,7 +315,7 @@ def list_service_credits(subscription_id,
 ```ruby
 subscription_id = 222
 
-page = 2
+page = 1
 
 per_page = 50
 

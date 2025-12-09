@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `metadata` | [`Array<CreateMetadata>`](../../doc/models/create-metadata.md) | Required | - |
+| `metadata` | [`Array[CreateMetadata]`](../../doc/models/create-metadata.md) | Required | - |
 
 ## Example (as JSON)
 

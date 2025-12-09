@@ -26,5 +26,20 @@ module AdvancedBilling
 
       PROFORMA_INVOICE_ROLE.include?(value)
     end
+
+    def self.from_value(value, default_value = UNSET)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'unset' then UNSET
+      when 'proforma' then PROFORMA
+      when 'proforma_adhoc' then PROFORMA_ADHOC
+      when 'proforma_automatic' then PROFORMA_AUTOMATIC
+      else
+        default_value
+      end
+    end
   end
 end

@@ -15,7 +15,7 @@
 | `description` | `String` | Optional | - |
 | `category` | `String` | Optional | - |
 | `breakouts` | [`Breakouts`](../../doc/models/breakouts.md) | Optional | - |
-| `line_items` | [`Array<MovementLineItem>`](../../doc/models/movement-line-item.md) | Optional | - |
+| `line_items` | [`Array[MovementLineItem]`](../../doc/models/movement-line-item.md) | Optional | - |
 | `subscription_id` | `Integer` | Optional | - |
 | `subscriber_name` | `String` | Optional | - |
 

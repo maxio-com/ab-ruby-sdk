@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `segments` | [`Array<CreateSegment>`](../../doc/models/create-segment.md) | Optional | **Constraints**: *Maximum Items*: `2000` |
+| `segments` | [`Array[CreateSegment]`](../../doc/models/create-segment.md) | Optional | **Constraints**: *Maximum Items*: `2000` |
 
 ## Example (as JSON)
 

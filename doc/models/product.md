@@ -14,7 +14,7 @@
 | `handle` | `String` | Optional | The product API handle |
 | `description` | `String` | Optional | The product description |
 | `accounting_code` | `String` | Optional | E.g. Internal ID or SKU Number |
-| `request_credit_card` | `TrueClass \| FalseClass` | Optional | Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup Page users, please read this attribute from under the signup page. |
+| `request_credit_card` | `TrueClass \| FalseClass` | Optional | Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup Page users, read this attribute from under the signup page. |
 | `expiration_interval` | `Integer` | Optional | A numerical interval for the length a subscription to this product will run before it expires. See the description of interval for a description of how this value is coupled with an interval unit to calculate the full interval |
 | `expiration_interval_unit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | A string representing the expiration interval unit for this product, either month, day or never |
 | `created_at` | `DateTime` | Optional | Timestamp indicating when this product was created |
@@ -35,12 +35,12 @@
 | `version_number` | `Integer` | Optional | The version of the product |
 | `update_return_params` | `String` | Optional | The parameters will append to the url after a successful account update. See [help documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update) |
 | `product_family` | [`ProductFamily`](../../doc/models/product-family.md) | Optional | - |
-| `public_signup_pages` | [`Array<PublicSignupPage>`](../../doc/models/public-signup-page.md) | Optional | - |
+| `public_signup_pages` | [`Array[PublicSignupPage]`](../../doc/models/public-signup-page.md) | Optional | - |
 | `product_price_point_name` | `String` | Optional | - |
 | `request_billing_address` | `TrueClass \| FalseClass` | Optional | A boolean indicating whether to request a billing address on any Self-Service Pages that are used by subscribers of this product. |
 | `require_billing_address` | `TrueClass \| FalseClass` | Optional | A boolean indicating whether a billing address is required to add a payment profile, especially at signup. |
 | `require_shipping_address` | `TrueClass \| FalseClass` | Optional | A boolean indicating whether a shipping address is required for the customer, especially at signup. |
-| `tax_code` | `String` | Optional | A string representing the tax code related to the product type. This is especially important when using the Avalara service to tax based on locale. This attribute has a max length of 10 characters. |
+| `tax_code` | `String` | Optional | A string representing the tax code related to the product type. This is especially important when using AvaTax to tax based on locale. This attribute has a max length of 25 characters. |
 | `default_product_price_point_id` | `Integer` | Optional | - |
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | - |
 | `item_category` | `String` | Optional | One of the following: Business Software, Consumer Software, Digital Services, Physical Goods, Other |

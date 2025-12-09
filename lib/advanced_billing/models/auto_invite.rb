@@ -19,5 +19,24 @@ module AdvancedBilling
 
       AUTO_INVITE.include?(value)
     end
+
+    def self.from_value(value, default_value = NO)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+      if str.match?(/\A\d+\z/)
+        num = str.to_i
+        return num if AUTO_INVITE.include?(num)
+
+        return default_value
+      end
+
+      case str.downcase
+      when 'no' then NO
+      when 'yes' then YES
+      else
+        default_value
+      end
+    end
   end
 end

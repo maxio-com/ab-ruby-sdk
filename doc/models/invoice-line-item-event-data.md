@@ -20,7 +20,7 @@
 | `amount` | `String` | Optional | - |
 | `line_references` | `String` | Optional | - |
 | `pricing_details_index` | `Integer` | Optional | - |
-| `pricing_details` | [`Array<InvoiceLineItemPricingDetail>`](../../doc/models/invoice-line-item-pricing-detail.md) | Optional | - |
+| `pricing_details` | [`Array[InvoiceLineItemPricingDetail]`](../../doc/models/invoice-line-item-pricing-detail.md) | Optional | - |
 | `tax_code` | `String` | Optional | - |
 | `tax_amount` | `String` | Optional | - |
 | `product_id` | `Integer` | Optional | - |

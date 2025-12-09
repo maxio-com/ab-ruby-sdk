@@ -27,16 +27,21 @@ module AdvancedBilling
     # @return [IncludeOption]
     attr_accessor :portal
 
-    # Include (1) or exclude (0) metafields from being viewable by your
-    # ecosystem.
+    # Include (1) or exclude (0) metafields used in [Embeddable
+    # Components](page:development-tools/embeddable-components/overview) from
+    # being viewable by your ecosystem.
     # @return [IncludeOption]
     attr_accessor :public_show
 
-    # Include (1) or exclude (0) metafields from being edited by your ecosystem.
+    # Include (1) or exclude (0) metafields used in [Embeddable
+    # Components](page:development-tools/embeddable-components/overview) from
+    # being editable by your ecosystem.
     # @return [IncludeOption]
     attr_accessor :public_edit
 
-    # Include (1) or exclude (0) metafields from being edited by your ecosystem.
+    # Include (1) or exclude (0) metafields used in [Embeddable
+    # Components](page:development-tools/embeddable-components/overview) from
+    # being editable by your ecosystem.
     # @return [Array[String]]
     attr_accessor :hosted
 

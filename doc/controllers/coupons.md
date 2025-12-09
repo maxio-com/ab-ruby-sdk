@@ -30,9 +30,9 @@ coupons_controller = client.coupons
 
 ## Coupons Documentation
 
-Coupons can be administered in the Advanced Billing application or created via API. Please view our section on [creating coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons) for more information.
+Coupons can be administered in the Advanced Billing application or created via API. View our section on [creating coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons) for more information.
 
-Additionally, for documentation on how to apply a coupon to a subscription within the Advanced Billing UI, please see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
+Additionally, for documentation on how to apply a coupon to a subscription within the Advanced Billing UI, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
 
 ## Create Coupon
 
@@ -106,8 +106,6 @@ puts result
 
 List coupons for a specific Product Family in a Site.
 
-If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
-
 ```ruby
 def list_coupons_for_product_family(options = {})
 ```
@@ -124,14 +122,14 @@ def list_coupons_for_product_family(options = {})
 
 ## Response Type
 
-[`Array<CouponResponse>`](../../doc/models/coupon-response.md)
+[`Array[CouponResponse]`](../../doc/models/coupon-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
   'product_family_id' => 140,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'filter' => ListCouponsFilter.new(
     start_date: Date.iso8601('2011-12-17'),
@@ -525,8 +523,6 @@ puts result
 
 You can retrieve a list of coupons.
 
-If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
-
 ```ruby
 def list_coupons(options = {})
 ```
@@ -542,13 +538,13 @@ def list_coupons(options = {})
 
 ## Response Type
 
-[`Array<CouponResponse>`](../../doc/models/coupon-response.md)
+[`Array[CouponResponse]`](../../doc/models/coupon-response.md)
 
 ## Example Usage
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'filter' => ListCouponsFilter.new(
     start_date: Date.iso8601('2011-12-17'),
@@ -634,12 +630,12 @@ def read_coupon_usage(product_family_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `product_family_id` | `Integer` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs |
-| `coupon_id` | `Integer` | Template, Required | The Advanced Billing id of the coupon |
+| `product_family_id` | `Integer` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs. |
+| `coupon_id` | `Integer` | Template, Required | The Advanced Billing id of the coupon. |
 
 ## Response Type
 
-[`Array<CouponUsage>`](../../doc/models/coupon-usage.md)
+[`Array[CouponUsage]`](../../doc/models/coupon-usage.md)
 
 ## Example Usage
 
@@ -855,7 +851,7 @@ When creating a coupon subcode, you must specify a coupon to attach it to using 
 
 Full documentation on how to create coupon subcodes in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes).
 
-Additionally, for documentation on how to apply a coupon to a Subscription within the Advanced Billing UI, please see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
+Additionally, for documentation on how to apply a coupon to a Subscription within the Advanced Billing UI, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
 
 ## Create Coupon Subcode
 
@@ -946,7 +942,7 @@ def list_coupon_subcodes(options = {})
 ```ruby
 collect = {
   'coupon_id' => 162,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50
 }
 

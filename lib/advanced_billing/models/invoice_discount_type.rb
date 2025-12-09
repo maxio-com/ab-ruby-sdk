@@ -22,5 +22,19 @@ module AdvancedBilling
 
       INVOICE_DISCOUNT_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = PERCENTAGE)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'percentage' then PERCENTAGE
+      when 'flat_amount' then FLAT_AMOUNT
+      when 'rollover' then ROLLOVER
+      else
+        default_value
+      end
+    end
   end
 end

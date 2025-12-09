@@ -177,7 +177,7 @@ def list_component_price_points(options = {})
 | `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | Include an array of currency price data |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `filter_type` | [`Array<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+| `filter_type` | [`Array[PricePointType]`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
 
 ## Response Type
 
@@ -188,7 +188,7 @@ def list_component_price_points(options = {})
 ```ruby
 collect = {
   'component_id' => 222,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'filter_type' => Liquid error: Value cannot be null. (Parameter 'key')
 }
@@ -375,7 +375,7 @@ puts result
 
 # Update Component Price Point
 
-When updating a price point, it's prices can be updated as well by creating new prices or editing / removing existing ones.
+When updating a price point, prices can be updated as well by creating new prices or editing / removing existing ones.
 
 Passing in a price bracket without an `id` will attempt to create a new price.
 
@@ -798,7 +798,7 @@ def list_all_component_price_points(options = {})
 ```ruby
 collect = {
   'include' => ListComponentsPricePointsInclude::CURRENCY_PRICES,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'filter' => ListPricePointsFilter.new(
     start_date: Date.iso8601('2011-12-17'),

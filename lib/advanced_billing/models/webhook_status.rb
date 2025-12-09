@@ -25,5 +25,20 @@ module AdvancedBilling
 
       WEBHOOK_STATUS.include?(value)
     end
+
+    def self.from_value(value, default_value = SUCCESSFUL)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'successful' then SUCCESSFUL
+      when 'failed' then FAILED
+      when 'pending' then PENDING
+      when 'paused' then PAUSED
+      else
+        default_value
+      end
+    end
   end
 end

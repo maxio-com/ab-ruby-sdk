@@ -31,5 +31,22 @@ module AdvancedBilling
 
       INVOICE_PAYMENT_METHOD_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = CREDIT_CARD)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'credit_card' then CREDIT_CARD
+      when 'check' then CHECK
+      when 'cash' then CASH
+      when 'money_order' then MONEY_ORDER
+      when 'ach' then ACH
+      when 'other' then OTHER
+      else
+        default_value
+      end
+    end
   end
 end

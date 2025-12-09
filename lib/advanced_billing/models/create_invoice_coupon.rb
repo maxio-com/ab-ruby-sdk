@@ -14,6 +14,10 @@ module AdvancedBilling
     attr_accessor :code
 
     # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :subcode
+
+    # TODO: Write general description for this method
     # @return [Object]
     attr_accessor :percentage
 
@@ -41,6 +45,7 @@ module AdvancedBilling
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['code'] = 'code'
+      @_hash['subcode'] = 'subcode'
       @_hash['percentage'] = 'percentage'
       @_hash['amount'] = 'amount'
       @_hash['description'] = 'description'
@@ -53,6 +58,7 @@ module AdvancedBilling
     def self.optionals
       %w[
         code
+        subcode
         percentage
         amount
         description
@@ -66,7 +72,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(code: SKIP, percentage: SKIP, amount: SKIP,
+    def initialize(code: SKIP, subcode: SKIP, percentage: SKIP, amount: SKIP,
                    description: SKIP, product_family_id: SKIP,
                    compounding_strategy: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
@@ -75,6 +81,7 @@ module AdvancedBilling
       end
 
       @code = code unless code == SKIP
+      @subcode = subcode unless subcode == SKIP
       @percentage = percentage unless percentage == SKIP
       @amount = amount unless amount == SKIP
       @description = description unless description == SKIP
@@ -88,6 +95,7 @@ module AdvancedBilling
 
       # Extract variables from the hash.
       code = hash.key?('code') ? hash['code'] : SKIP
+      subcode = hash.key?('subcode') ? hash['subcode'] : SKIP
       percentage = hash.key?('percentage') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateInvoiceCouponPercentage), hash['percentage']
       ) : SKIP
@@ -106,6 +114,7 @@ module AdvancedBilling
 
       # Create object from extracted values.
       CreateInvoiceCoupon.new(code: code,
+                              subcode: subcode,
                               percentage: percentage,
                               amount: amount,
                               description: description,
@@ -127,8 +136,8 @@ module AdvancedBilling
     # Provides a human-readable string representation of the object.
     def to_s
       class_name = self.class.name.split('::').last
-      "<#{class_name} code: #{@code}, percentage: #{@percentage}, amount: #{@amount},"\
-      " description: #{@description}, product_family_id: #{@product_family_id},"\
+      "<#{class_name} code: #{@code}, subcode: #{@subcode}, percentage: #{@percentage}, amount:"\
+      " #{@amount}, description: #{@description}, product_family_id: #{@product_family_id},"\
       " compounding_strategy: #{@compounding_strategy}, additional_properties:"\
       " #{get_additional_properties}>"
     end
@@ -136,10 +145,10 @@ module AdvancedBilling
     # Provides a debugging-friendly string with detailed object information.
     def inspect
       class_name = self.class.name.split('::').last
-      "<#{class_name} code: #{@code.inspect}, percentage: #{@percentage.inspect}, amount:"\
-      " #{@amount.inspect}, description: #{@description.inspect}, product_family_id:"\
-      " #{@product_family_id.inspect}, compounding_strategy: #{@compounding_strategy.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      "<#{class_name} code: #{@code.inspect}, subcode: #{@subcode.inspect}, percentage:"\
+      " #{@percentage.inspect}, amount: #{@amount.inspect}, description: #{@description.inspect},"\
+      " product_family_id: #{@product_family_id.inspect}, compounding_strategy:"\
+      " #{@compounding_strategy.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

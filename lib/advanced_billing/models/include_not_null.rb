@@ -16,5 +16,11 @@ module AdvancedBilling
 
       INCLUDE_NOT_NULL.include?(value)
     end
+
+    def self.from_value(value, default_value = NOT_NULL)
+      return default_value if value.nil?
+
+      default_value
+    end
   end
 end

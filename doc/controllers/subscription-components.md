@@ -112,16 +112,16 @@ def list_subscription_components(options = {})
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `price_point_ids` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
-| `product_family_ids` | `Array<Integer>` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
+| `product_family_ids` | `Array[Integer]` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
 | `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query `sort=updated_at`. |
 | `start_date` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `include` | [`Array<ListSubscriptionComponentsInclude>`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
+| `include` | [`Array[ListSubscriptionComponentsInclude]`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
 | `in_use` | `TrueClass \| FalseClass` | Query, Optional | If in_use is set to true, it returns only components that are currently in use. However, if it's set to false or not provided, it returns all components connected with the subscription. |
 
 ## Response Type
 
-[`Array<SubscriptionComponentResponse>`](../../doc/models/subscription-component-response.md)
+[`Array[SubscriptionComponentResponse]`](../../doc/models/subscription-component-response.md)
 
 ## Example Usage
 
@@ -558,7 +558,7 @@ def list_allocations(subscription_id,
 
 ## Response Type
 
-[`Array<AllocationResponse>`](../../doc/models/allocation-response.md)
+[`Array[AllocationResponse]`](../../doc/models/allocation-response.md)
 
 ## Example Usage
 
@@ -567,7 +567,7 @@ subscription_id = 222
 
 component_id = 222
 
-page = 2
+page = 1
 
 result = subscription_components_controller.list_allocations(
   subscription_id,
@@ -652,7 +652,7 @@ def allocate_components(subscription_id,
 
 ## Response Type
 
-[`Array<AllocationResponse>`](../../doc/models/allocation-response.md)
+[`Array[AllocationResponse]`](../../doc/models/allocation-response.md)
 
 ## Example Usage
 
@@ -1024,34 +1024,35 @@ subscription_components_controller.delete_prepaid_usage_allocation(
 
 # Create Usage
 
-## Documentation
+Records an instance of metered or prepaid usage for a subscription.
 
-Full documentation on how to create Components in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components). Additionally, for information on how to record component usage against a subscription, please see the following resources:
+You can report metered or prepaid usage to Advanced Billing as often as you wish. You can report usage as it happens or periodically, such as each night or once per billing period.
 
-+ [Recording Metered Component Usage](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-metered-component-usage)
-+ [Reporting Prepaid Component Status](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-prepaid-component-status)
+Full documentation on how to create Components in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components). Additionally, for information on how to record component usage against a subscription, see the following resources:
 
-You may choose to report metered or prepaid usage to Advanced Billing as often as you wish. You may report usage as it happens. You may also report usage periodically, such as each night or once per billing period. If usage events occur in your system very frequently (on the order of thousands of times an hour), it is best to accumulate usage into batches on your side, and then report those batches less frequently, such as daily. This will ensure you remain below any API throttling limits. If your use case requires higher rates of usage reporting, we recommend utilizing Events Based Components.
+It is not possible to record metered usage for more than one component at a time Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
 
-## Create Usage for Subscription
+See the following product documention articles for more information:
 
-This endpoint allows you to record an instance of metered or prepaid usage for a subscription. The `quantity` from usage for each component is accumulated to the `unit_balance` on the [Component Line Item](./b3A6MTQxMDgzNzQ-read-subscription-component) for the subscription.
+- [Create and Manage Components](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components). A
+- [Recording Metered Component Usage](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-metered-component-usage)
+- [Reporting Prepaid Component Status](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-prepaid-component-status)
+
+The `quantity` from usage for each component is accumulated to the `unit_balance` on the [Component Line Item](../../doc/controllers/subscription-components.md#read-subscription-component) for the subscription.
 
 ## Price Point ID usage
 
-If you are using price points, for metered and prepaid usage components, Advanced Billing gives you the option to specify a price point in your request.
+If you are using price points, for metered and prepaid usage components Advanced Billing gives you the option to specify a price point in your request.
 
 You do not need to specify a price point ID. If a price point is not included, the default price point for the component will be used when the usage is recorded.
 
-If an invalid `price_point_id` is submitted, the endpoint will return an error.
-
 ## Deducting Usage
 
-In the event that you need to reverse a previous usage report or otherwise deduct from the current usage balance, you may provide a negative quantity.
+If you need to reverse a previous usage report or otherwise deduct from the current usage balance, you can provide a negative quantity.
 
 Example:
 
-Previously recorded:
+Previously recorded quantity was 5000:
 
 ```json
 {
@@ -1062,7 +1063,7 @@ Previously recorded:
 }
 ```
 
-At this point, `unit_balance` would be `5000`. To reduce the balance to `0`, POST the following payload:
+To reduce the quantity to `0`, POST the following payload:
 
 ```json
 {
@@ -1074,12 +1075,6 @@ At this point, `unit_balance` would be `5000`. To reduce the balance to `0`, POS
 ```
 
 The `unit_balance` has a floor of `0`; negative unit balances are never allowed. For example, if the usage balance is 100 and you deduct 200 units, the unit balance would then be `0`, not `-100`.
-
-## FAQ
-
-Q. Is it possible to record metered usage for more than one component at a time?
-
-A. No. Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
 
 ```ruby
 def create_usage(subscription_id_or_reference,
@@ -1183,7 +1178,7 @@ def list_usages(options = {})
 
 ## Response Type
 
-[`Array<UsageResponse>`](../../doc/models/usage-response.md)
+[`Array[UsageResponse]`](../../doc/models/usage-response.md)
 
 ## Example Usage
 
@@ -1191,7 +1186,7 @@ def list_usages(options = {})
 collect = {
   'subscription_id_or_reference' => 234,
   'component_id' => 144,
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50
 }
 
@@ -1411,7 +1406,7 @@ def bulk_record_events(api_handle,
 |  --- | --- | --- | --- |
 | `api_handle` | `String` | Template, Required | Identifies the Stream for which the events should be published. |
 | `store_uid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
-| `body` | [`Array<EBBEvent>`](../../doc/models/ebb-event.md) | Body, Optional | - |
+| `body` | [`Array[EBBEvent]`](../../doc/models/ebb-event.md) | Body, Optional | - |
 
 ## Server
 
@@ -1464,9 +1459,9 @@ def list_subscription_components_for_site(options = {})
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
 | `end_date` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2011-12-16`. |
 | `end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-07-01 09:00:05`. |
-| `subscription_ids` | `Array<Integer>` | Query, Optional | Allows fetching components allocation with matching subscription id based on provided ids. Use in query `subscription_ids=1,2,3`.<br><br>**Constraints**: *Minimum Items*: `1`, *Maximum Items*: `200` |
+| `subscription_ids` | `Array[Integer]` | Query, Optional | Allows fetching components allocation with matching subscription id based on provided ids. Use in query `subscription_ids=1,2,3`.<br><br>**Constraints**: *Minimum Items*: `1`, *Maximum Items*: `200` |
 | `price_point_ids` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
-| `product_family_ids` | `Array<Integer>` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
+| `product_family_ids` | `Array[Integer]` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
 | `include` | [`ListSubscriptionComponentsInclude`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
 
 ## Response Type
@@ -1477,7 +1472,7 @@ def list_subscription_components_for_site(options = {})
 
 ```ruby
 collect = {
-  'page' => 2,
+  'page' => 1,
   'per_page' => 50,
   'sort' => ListSubscriptionComponentsSort::UPDATED_AT,
   'filter' => ListSubscriptionComponentsForSiteFilter.new(

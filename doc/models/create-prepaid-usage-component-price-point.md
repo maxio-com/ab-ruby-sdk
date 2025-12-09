@@ -12,7 +12,7 @@
 | `name` | `String` | Required | - |
 | `handle` | `String` | Optional | - |
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
-| `prices` | [`Array<Price>`](../../doc/models/price.md) | Required | - |
+| `prices` | [`Array[Price]`](../../doc/models/price.md) | Required | - |
 | `overage_pricing` | [`OveragePricing`](../../doc/models/overage-pricing.md) | Required | - |
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site.<br><br>**Default**: `true` |
 | `rollover_prepaid_remainder` | `TrueClass \| FalseClass` | Optional | (only for prepaid usage components) Boolean which controls whether or not remaining units should be rolled over to the next period |

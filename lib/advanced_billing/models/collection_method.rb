@@ -28,5 +28,20 @@ module AdvancedBilling
 
       COLLECTION_METHOD.include?(value)
     end
+
+    def self.from_value(value, default_value = AUTOMATIC)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'automatic' then AUTOMATIC
+      when 'remittance' then REMITTANCE
+      when 'prepaid' then PREPAID
+      when 'invoice' then INVOICE
+      else
+        default_value
+      end
+    end
   end
 end

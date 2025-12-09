@@ -23,5 +23,18 @@ module AdvancedBilling
 
       COMPOUNDING_STRATEGY.include?(value)
     end
+
+    def self.from_value(value, default_value = COMPOUND)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'compound' then COMPOUND
+      when 'fullprice' then FULLPRICE
+      else
+        default_value
+      end
+    end
   end
 end

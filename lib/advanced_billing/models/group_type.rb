@@ -19,5 +19,18 @@ module AdvancedBilling
 
       GROUP_TYPE.include?(value)
     end
+
+    def self.from_value(value, default_value = SINGLE_CUSTOMER)
+      return default_value if value.nil?
+
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'single_customer' then SINGLE_CUSTOMER
+      when 'multiple_customers' then MULTIPLE_CUSTOMERS
+      else
+        default_value
+      end
+    end
   end
 end

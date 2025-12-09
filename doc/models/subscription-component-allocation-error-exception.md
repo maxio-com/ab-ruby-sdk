@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `errors` | [`Array<SubscriptionComponentAllocationErrorItem>`](../../doc/models/subscription-component-allocation-error-item.md) | Optional | - |
+| `errors` | [`Array[SubscriptionComponentAllocationErrorItem]`](../../doc/models/subscription-component-allocation-error-item.md) | Optional | - |
 
 ## Example (as JSON)
 
