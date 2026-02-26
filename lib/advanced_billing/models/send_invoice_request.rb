@@ -21,12 +21,18 @@ module AdvancedBilling
     # @return [Array[String]]
     attr_accessor :bcc_recipient_emails
 
+    # Array of URLs to files to attach to the invoice email. Max 10 files, 10MB
+    # each.
+    # @return [Array[String]]
+    attr_accessor :attachment_urls
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['recipient_emails'] = 'recipient_emails'
       @_hash['cc_recipient_emails'] = 'cc_recipient_emails'
       @_hash['bcc_recipient_emails'] = 'bcc_recipient_emails'
+      @_hash['attachment_urls'] = 'attachment_urls'
       @_hash
     end
 
@@ -36,6 +42,7 @@ module AdvancedBilling
         recipient_emails
         cc_recipient_emails
         bcc_recipient_emails
+        attachment_urls
       ]
     end
 
@@ -45,7 +52,8 @@ module AdvancedBilling
     end
 
     def initialize(recipient_emails: SKIP, cc_recipient_emails: SKIP,
-                   bcc_recipient_emails: SKIP, additional_properties: {})
+                   bcc_recipient_emails: SKIP, attachment_urls: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -54,6 +62,7 @@ module AdvancedBilling
       @recipient_emails = recipient_emails unless recipient_emails == SKIP
       @cc_recipient_emails = cc_recipient_emails unless cc_recipient_emails == SKIP
       @bcc_recipient_emails = bcc_recipient_emails unless bcc_recipient_emails == SKIP
+      @attachment_urls = attachment_urls unless attachment_urls == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -67,6 +76,8 @@ module AdvancedBilling
         hash.key?('cc_recipient_emails') ? hash['cc_recipient_emails'] : SKIP
       bcc_recipient_emails =
         hash.key?('bcc_recipient_emails') ? hash['bcc_recipient_emails'] : SKIP
+      attachment_urls =
+        hash.key?('attachment_urls') ? hash['attachment_urls'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -75,6 +86,7 @@ module AdvancedBilling
       SendInvoiceRequest.new(recipient_emails: recipient_emails,
                              cc_recipient_emails: cc_recipient_emails,
                              bcc_recipient_emails: bcc_recipient_emails,
+                             attachment_urls: attachment_urls,
                              additional_properties: additional_properties)
     end
 
@@ -82,8 +94,8 @@ module AdvancedBilling
     def to_s
       class_name = self.class.name.split('::').last
       "<#{class_name} recipient_emails: #{@recipient_emails}, cc_recipient_emails:"\
-      " #{@cc_recipient_emails}, bcc_recipient_emails: #{@bcc_recipient_emails},"\
-      " additional_properties: #{get_additional_properties}>"
+      " #{@cc_recipient_emails}, bcc_recipient_emails: #{@bcc_recipient_emails}, attachment_urls:"\
+      " #{@attachment_urls}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -91,7 +103,8 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} recipient_emails: #{@recipient_emails.inspect}, cc_recipient_emails:"\
       " #{@cc_recipient_emails.inspect}, bcc_recipient_emails: #{@bcc_recipient_emails.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " attachment_urls: #{@attachment_urls.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

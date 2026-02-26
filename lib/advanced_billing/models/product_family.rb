@@ -38,6 +38,11 @@ module AdvancedBilling
     # @return [DateTime]
     attr_accessor :updated_at
 
+    # Timestamp indicating when this product family was archived. `null` if the
+    # product family is not archived.
+    # @return [DateTime]
+    attr_accessor :archived_at
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -48,6 +53,7 @@ module AdvancedBilling
       @_hash['description'] = 'description'
       @_hash['created_at'] = 'created_at'
       @_hash['updated_at'] = 'updated_at'
+      @_hash['archived_at'] = 'archived_at'
       @_hash
     end
 
@@ -61,6 +67,7 @@ module AdvancedBilling
         description
         created_at
         updated_at
+        archived_at
       ]
     end
 
@@ -69,12 +76,13 @@ module AdvancedBilling
       %w[
         accounting_code
         description
+        archived_at
       ]
     end
 
     def initialize(id: SKIP, name: SKIP, handle: SKIP, accounting_code: SKIP,
                    description: SKIP, created_at: SKIP, updated_at: SKIP,
-                   additional_properties: {})
+                   archived_at: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -87,6 +95,7 @@ module AdvancedBilling
       @description = description unless description == SKIP
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
+      @archived_at = archived_at unless archived_at == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -110,6 +119,11 @@ module AdvancedBilling
                    else
                      SKIP
                    end
+      archived_at = if hash.key?('archived_at')
+                      (DateTimeHelper.from_rfc3339(hash['archived_at']) if hash['archived_at'])
+                    else
+                      SKIP
+                    end
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -122,6 +136,7 @@ module AdvancedBilling
                         description: description,
                         created_at: created_at,
                         updated_at: updated_at,
+                        archived_at: archived_at,
                         additional_properties: additional_properties)
     end
 
@@ -131,6 +146,10 @@ module AdvancedBilling
 
     def to_custom_updated_at
       DateTimeHelper.to_rfc3339(updated_at)
+    end
+
+    def to_custom_archived_at
+      DateTimeHelper.to_rfc3339(archived_at)
     end
 
     # Validates an instance of the object from a given value.
@@ -148,7 +167,8 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, accounting_code:"\
       " #{@accounting_code}, description: #{@description}, created_at: #{@created_at}, updated_at:"\
-      " #{@updated_at}, additional_properties: #{get_additional_properties}>"
+      " #{@updated_at}, archived_at: #{@archived_at}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -156,8 +176,8 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
       " accounting_code: #{@accounting_code.inspect}, description: #{@description.inspect},"\
-      " created_at: #{@created_at.inspect}, updated_at: #{@updated_at.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " created_at: #{@created_at.inspect}, updated_at: #{@updated_at.inspect}, archived_at:"\
+      " #{@archived_at.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

@@ -30,7 +30,8 @@ module AdvancedBilling
     attr_accessor :product_price_point_id
 
     # (Optional) Used in place of `product_price_point_id` to define a custom
-    # price point unique to the subscription
+    # price point unique to the subscription. A subscription can have up to 30
+    # custom price points. Exceeding this limit will result in an API error.
     # @return [SubscriptionCustomPrice]
     attr_accessor :custom_price
 

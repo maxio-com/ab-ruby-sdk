@@ -60,9 +60,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This method will return an array of subscriptions from a Site. Pay close
-    # attention to query string filters and pagination in order to control
-    # responses from the server.
+    # returns an array of subscriptions from a Site. Pay close attention to
+    # query string filters and pagination in order to control responses from the
+    # server.
     # ## Search for a subscription
     # Use the query strings below to search for a subscription using the
     # criteria available. The return value will be an array.
@@ -232,7 +232,7 @@ module AdvancedBilling
     # 'null on the next billing cycle. This is because  a product change is
     # instantanous and only affects the product associated with a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [UpdateSubscriptionRequest] body Optional parameter: TODO: type
     # description here
     # @return [SubscriptionResponse] Response from the API call.
@@ -260,13 +260,13 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to find subscription details.
+    # Retrieves subscription details.
     # ## Self-Service Page token
     # Self-Service Page token for the subscription is not returned by default.
     # If this information is desired, the include[]=self_service_page_token
     # parameter must be provided with the request.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Array[SubscriptionInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=coupons&include[]=self_service_page_token`.
@@ -323,7 +323,7 @@ module AdvancedBilling
     # If unpermitted parameters are sent, a 400 HTTP response is sent along with
     # a string giving the reason for the problem.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [OverrideSubscriptionRequest] body Optional parameter: Only these
     # fields are available to be set.
     # @return [void] Response from the API call.
@@ -381,7 +381,7 @@ module AdvancedBilling
     # The query params will be:
     # `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] ack Required parameter: id of the customer.
     # @param [Array[SubscriptionPurgeType]] cascade Optional parameter: Options
     # are "customer" or "payment_profile". Use in query:
@@ -415,7 +415,7 @@ module AdvancedBilling
 
     # Use this endpoint to update a subscription's prepaid configuration.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [UpsertPrepaidConfigurationRequest] body Optional parameter: TODO:
     # type description here
     # @return [PrepaidConfigurationResponse] Response from the API call.
@@ -511,7 +511,7 @@ module AdvancedBilling
     # below. When passing in request body parameters, the list of coupon codes
     # will simply be added to any existing list of codes on the subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [String] code Optional parameter: A code for the coupon that would
     # be applied to a subscription
     # @param [AddCouponsRequest] body Optional parameter: TODO: type description
@@ -549,7 +549,7 @@ module AdvancedBilling
     # [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons
     # -and-Subscriptions#removing-a-coupon)
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [String] coupon_code Optional parameter: The coupon code
     # @return [String] Response from the API call.
     def remove_coupon_from_subscription(subscription_id,
@@ -626,7 +626,7 @@ module AdvancedBilling
     # from activation and return any prepayments and credits applied to the
     # invoice back to the subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [ActivateSubscriptionRequest] body Optional parameter: TODO: type
     # description here
     # @return [SubscriptionResponse] Response from the API call.

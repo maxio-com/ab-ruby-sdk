@@ -12,6 +12,20 @@ module AdvancedBilling
     # rubocop:disable Lint/RedundantCopDisableDirective, Style/HashSyntax, Layout/FirstArgumentIndentation
     def self.union_types
       {
+        :CloneComponentPricePointComponentId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :CloneComponentPricePointPricePointId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
         :UpdateComponentPricePointComponentId => OneOf.new(
           [
             LeafType.new(Integer),
@@ -801,6 +815,34 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
+        ),
+
+        :ScheduledRenewalConfigurationItemRequestRenewalConfigurationItem => OneOf.new(
+          [
+            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
+            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
+          ]
+        ),
+
+        :ScheduledRenewalProductPricePointPriceInCents => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :ScheduledRenewalProductPricePointInterval => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :ScheduledRenewalUpdateRequestRenewalConfigurationItem => OneOf.new(
+          [
+            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
+            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
+          ]
         ),
 
         :SegmentSegmentProperty1Value => OneOf.new(

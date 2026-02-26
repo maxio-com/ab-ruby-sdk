@@ -193,6 +193,12 @@ module AdvancedBilling
       @subscription_products ||= SubscriptionProductsController.new @global_configuration
     end
 
+    # Access to subscription_renewals controller.
+    # @return [SubscriptionRenewalsController] Returns the controller instance.
+    def subscription_renewals
+      @subscription_renewals ||= SubscriptionRenewalsController.new @global_configuration
+    end
+
     # Access to subscription_status controller.
     # @return [SubscriptionStatusController] Returns the controller instance.
     def subscription_status

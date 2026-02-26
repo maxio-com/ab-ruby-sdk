@@ -23,7 +23,19 @@ module AdvancedBilling
       UPDATED_AT = 'updated_at'.freeze,
 
       # TODO: Write general description for CREATED_AT
-      CREATED_AT = 'created_at'.freeze
+      CREATED_AT = 'created_at'.freeze,
+
+      # TODO: Write general description for TOTAL_PAYMENTS
+      TOTAL_PAYMENTS = 'total_payments'.freeze,
+
+      # TODO: Write general description for ID
+      ID = 'id'.freeze,
+
+      # TODO: Write general description for OPEN_BALANCE
+      OPEN_BALANCE = 'open_balance'.freeze,
+
+      # TODO: Write general description for EXPIRES_AT
+      EXPIRES_AT = 'expires_at'.freeze
     ].freeze
 
     def self.validate(value)
@@ -44,6 +56,10 @@ module AdvancedBilling
       when 'next_assessment' then NEXT_ASSESSMENT
       when 'updated_at' then UPDATED_AT
       when 'created_at' then CREATED_AT
+      when 'total_payments' then TOTAL_PAYMENTS
+      when 'id' then ID
+      when 'open_balance' then OPEN_BALANCE
+      when 'expires_at' then EXPIRES_AT
       else
         default_value
       end

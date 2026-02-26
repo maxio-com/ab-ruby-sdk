@@ -1877,7 +1877,7 @@ def record_payment_for_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`RecordPaymentRequest`](../../doc/models/record-payment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -2554,7 +2554,7 @@ def create_invoice(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`CreateInvoiceRequest`](../../doc/models/create-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -2692,6 +2692,8 @@ puts result
 # Send Invoice
 
 This endpoint allows for invoices to be programmatically delivered via email. This endpoint supports the delivery of both ad-hoc and automatically generated invoices. Additionally, this endpoint supports email delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
+
+**File Attachments**: You can attach files to invoice emails using `attachment_urls[]` parameter by providing URLs to the files you want to attach. When using attachments, the request must use `multipart/form-data` content type. Max 10 files, 10MB per file.
 
 If no recipient email addresses are specified in the request, then the subscription's default email configuration will be used. For example, if `recipient_emails` is left blank, then the invoice will be delivered to the subscription's customer email address.
 
@@ -3060,7 +3062,7 @@ puts result
 
 # Issue Invoice
 
-This endpoint allows you to issue an invoice that is in "pending" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
+This endpoint allows you to issue an invoice that is in "pending" or "draft" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
 
 You cannot issue a pending child invoice that was created for a member subscription in a group.
 

@@ -109,6 +109,47 @@ module AdvancedBilling
         .execute
     end
 
+    # Allows for proforma invoices to be programmatically delivered via email.
+    # Supports email
+    # delivery to direct recipients, carbon-copy (cc) recipients, and blind
+    # carbon-copy (bcc) recipients.
+    # If `recipient_emails` is omitted, the system will fall back to the primary
+    # recipient derived from the invoice or
+    # subscription. At least one recipient must be present, either via the
+    # request body or via this default behavior, so an
+    # empty body may still succeed when defaults are available.
+    # @param [String] proforma_invoice_uid Required parameter: The uid of the
+    # proforma invoice
+    # @param [DeliverProformaInvoiceRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [ProformaInvoice] Response from the API call.
+    def deliver_proforma_invoice(proforma_invoice_uid,
+                                 body: nil)
+      @api_call
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/proforma_invoices/{proforma_invoice_uid}.json',
+                                     Server::PRODUCTION)
+                   .template_param(new_parameter(proforma_invoice_uid, key: 'proforma_invoice_uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('BasicAuth')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ProformaInvoice.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
+        .execute
+    end
+
     # This endpoint will create a proforma invoice and return it as a response.
     # If the information becomes outdated, simply void the old proforma invoice
     # and generate a new one.
@@ -119,7 +160,7 @@ module AdvancedBilling
     # create a proforma invoice, the subscription must not be in a group, must
     # not be prepaid, and must be in a live state.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [ProformaInvoice] Response from the API call.
     def create_proforma_invoice(subscription_id)
       @api_call
@@ -146,7 +187,7 @@ module AdvancedBilling
     # `credits`, `payments`, or `custom_fields`. To include breakdowns, pass the
     # specific field as a key in the query with a value set to `true`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [String] start_date Optional parameter: The beginning date range
     # for the invoice's Due Date, in the YYYY-MM-DD format.
     # @param [String] end_date Optional parameter: The ending date range for the
@@ -267,7 +308,7 @@ module AdvancedBilling
     # preview call to determine whether any billing information for the
     # subscription's upcoming renewal has changed.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [ProformaInvoice] Response from the API call.
     def preview_proforma_invoice(subscription_id)
       @api_call

@@ -10,7 +10,7 @@ module AdvancedBilling
     # Service Credit, and Prepayment accounts, as well as the sum of the
     # Subscription's open, payable invoices.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [AccountBalances] Response from the API call.
     def read_account_balances(subscription_id)
       @api_call
@@ -37,7 +37,7 @@ module AdvancedBilling
     # manual replenishment of prepaid subscriptions.
     # Note that passing `amount_in_cents` is now allowed.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [CreatePrepaymentRequest] body Optional parameter: TODO: type
     # description here
     # @return [CreatePrepaymentResponse] Response from the API call.
@@ -67,7 +67,7 @@ module AdvancedBilling
 
     # This request will list a subscription's prepayments.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -109,7 +109,7 @@ module AdvancedBilling
     # request body. The credit is subsequently applied to the next generated
     # invoice.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [IssueServiceCreditRequest] body Optional parameter: TODO: type
     # description here
     # @return [ServiceCredit] Response from the API call.
@@ -141,7 +141,7 @@ module AdvancedBilling
     # the request body. The credit amount being deducted must be equal to or
     # less than the current credit balance.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [DeductServiceCreditRequest] body Optional parameter: TODO: type
     # description here
     # @return [void] Response from the API call.
@@ -169,7 +169,7 @@ module AdvancedBilling
 
     # This request will list a subscription's service credits.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -220,7 +220,7 @@ module AdvancedBilling
     # The amount may be passed either as a decimal, with `amount`, or an integer
     # in cents, with `amount_in_cents`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] prepayment_id Required parameter: id of prepayment
     # @param [RefundPrepaymentRequest] body Optional parameter: TODO: type
     # description here

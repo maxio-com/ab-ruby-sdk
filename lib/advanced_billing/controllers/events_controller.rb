@@ -153,7 +153,7 @@ module AdvancedBilling
     # For precise mappings from key to event_specific_data, refer to
     # [Event]($m/Event).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start

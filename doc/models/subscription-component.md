@@ -22,8 +22,8 @@
 | `component_handle` | `String` | Optional | - |
 | `subscription_id` | `Integer` | Optional | - |
 | `recurring` | `TrueClass \| FalseClass` | Optional | - |
-| `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
-| `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. |
+| `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. |
+| `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. |
 | `archived_at` | `DateTime` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |
 | `price_point_handle` | `String` | Optional | - |

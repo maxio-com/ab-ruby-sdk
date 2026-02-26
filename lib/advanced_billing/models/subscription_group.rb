@@ -11,6 +11,10 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :uid
+
+    # TODO: Write general description for this method
     # @return [Integer]
     attr_accessor :customer_id
 
@@ -42,6 +46,7 @@ module AdvancedBilling
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['uid'] = 'uid'
       @_hash['customer_id'] = 'customer_id'
       @_hash['payment_profile'] = 'payment_profile'
       @_hash['payment_collection_method'] = 'payment_collection_method'
@@ -53,6 +58,7 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
+        uid
         customer_id
         payment_profile
         payment_collection_method
@@ -66,7 +72,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(customer_id: SKIP, payment_profile: SKIP,
+    def initialize(uid: SKIP, customer_id: SKIP, payment_profile: SKIP,
                    payment_collection_method: SKIP, subscription_ids: SKIP,
                    created_at: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
@@ -74,6 +80,7 @@ module AdvancedBilling
         instance_variable_set("@#{_name}", _value)
       end
 
+      @uid = uid unless uid == SKIP
       @customer_id = customer_id unless customer_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
       unless payment_collection_method == SKIP
@@ -89,6 +96,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
+      uid = hash.key?('uid') ? hash['uid'] : SKIP
       customer_id = hash.key?('customer_id') ? hash['customer_id'] : SKIP
       payment_profile = SubscriptionGroupPaymentProfile.from_hash(hash['payment_profile']) if
         hash['payment_profile']
@@ -106,7 +114,8 @@ module AdvancedBilling
       additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
-      SubscriptionGroup.new(customer_id: customer_id,
+      SubscriptionGroup.new(uid: uid,
+                            customer_id: customer_id,
                             payment_profile: payment_profile,
                             payment_collection_method: payment_collection_method,
                             subscription_ids: subscription_ids,
@@ -121,17 +130,17 @@ module AdvancedBilling
     # Provides a human-readable string representation of the object.
     def to_s
       class_name = self.class.name.split('::').last
-      "<#{class_name} customer_id: #{@customer_id}, payment_profile: #{@payment_profile},"\
-      " payment_collection_method: #{@payment_collection_method}, subscription_ids:"\
-      " #{@subscription_ids}, created_at: #{@created_at}, additional_properties:"\
+      "<#{class_name} uid: #{@uid}, customer_id: #{@customer_id}, payment_profile:"\
+      " #{@payment_profile}, payment_collection_method: #{@payment_collection_method},"\
+      " subscription_ids: #{@subscription_ids}, created_at: #{@created_at}, additional_properties:"\
       " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
     def inspect
       class_name = self.class.name.split('::').last
-      "<#{class_name} customer_id: #{@customer_id.inspect}, payment_profile:"\
-      " #{@payment_profile.inspect}, payment_collection_method:"\
+      "<#{class_name} uid: #{@uid.inspect}, customer_id: #{@customer_id.inspect},"\
+      " payment_profile: #{@payment_profile.inspect}, payment_collection_method:"\
       " #{@payment_collection_method.inspect}, subscription_ids: #{@subscription_ids.inspect},"\
       " created_at: #{@created_at.inspect}, additional_properties: #{get_additional_properties}>"
     end

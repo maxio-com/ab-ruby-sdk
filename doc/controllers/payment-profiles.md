@@ -510,7 +510,7 @@ payment_profiles_controller.delete_unused_payment_profile(payment_profile_id)
 
 # Delete Subscriptions Payment Profile
 
-This will delete a payment profile belonging to the customer on the subscription.
+Deletes a payment profile belonging to the customer on the subscription.
 
 + If the customer has multiple subscriptions, the payment profile will be removed from all of them.
 
@@ -525,7 +525,7 @@ def delete_subscriptions_payment_profile(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -623,7 +623,7 @@ puts result
 
 # Delete Subscription Group Payment Profile
 
-This will delete a Payment Profile belonging to a Subscription Group.
+Deletes a Payment Profile belonging to a Subscription Group.
 
 **Note**: If the Payment Profile belongs to multiple Subscription Groups and/or Subscriptions, it will be removed from all of them.
 
@@ -672,7 +672,7 @@ def change_subscription_default_payment_profile(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `payment_profile_id` | `Integer` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -860,7 +860,7 @@ def send_request_update_payment_email(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 

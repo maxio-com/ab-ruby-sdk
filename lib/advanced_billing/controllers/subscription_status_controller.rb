@@ -13,7 +13,7 @@ module AdvancedBilling
     # ## Failed Reactivation
     # The response will be `422 "Unprocessable Entity`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [SubscriptionResponse] Response from the API call.
     def retry_subscription(subscription_id)
       @api_call
@@ -35,10 +35,13 @@ module AdvancedBilling
         .execute
     end
 
-    # The DELETE action causes the cancellation of the Subscription. This means,
-    # the method sets the Subscription state to "canceled".
+    # Cancels the Subscription. The Delete method sets the Subscription state to
+    # `canceled`.
+    # To cancel the subscription immediately, omit any schedule parameters from
+    # the request. To use the schedule options, the Schedule Subscription
+    # Cancellation feature must be enabled on your site.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [CancellationRequest] body Optional parameter: TODO: type
     # description here
     # @return [SubscriptionResponse] Response from the API call.
@@ -74,10 +77,10 @@ module AdvancedBilling
     # that date.  Otherwise, it will behave like a reactivation, setting the
     # billing date to 'now' and charging the subscriber.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [ResumptionCharge] calendar_billing_resumption_charge Optional
     # parameter: (For calendar billing subscriptions only) The way that the
-    # resumed subscription's charge should be handled
+    # resumed subscription's charge should be handled.
     # @return [SubscriptionResponse] Response from the API call.
     def resume_subscription(subscription_id,
                             calendar_billing_resumption_charge: ResumptionCharge::PRORATED)
@@ -107,7 +110,7 @@ module AdvancedBilling
     # You may not place a subscription on hold if the `next_billing_at` date is
     # within 24 hours.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [PauseRequest] body Optional parameter: TODO: type description
     # here
     # @return [SubscriptionResponse] Response from the API call.
@@ -143,7 +146,7 @@ module AdvancedBilling
     # Alternately, you can change the `automatically_resume_at` to `null` if you
     # would like the subscription to not have a resume date.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [PauseRequest] body Optional parameter: TODO: type description
     # here
     # @return [SubscriptionResponse] Response from the API call.
@@ -171,9 +174,9 @@ module AdvancedBilling
         .execute
     end
 
-    # Advanced Billing offers the ability to reactivate a previously canceled
-    # subscription. For details on how the reactivation works, and how to
-    # reactivate subscriptions through the application, see
+    # Reactivate a previously canceled subscription. For details on how the
+    # reactivation works, and how to reactivate subscriptions through the
+    # application, see
     # [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-
     # Reactivating-and-Resuming).
     # **Note: The term "resume" is used also during another process in Advanced
@@ -202,6 +205,10 @@ module AdvancedBilling
     # have been the next billing date of July 1st, then Advanced Billing would
     # not resume the subscription, and instead it would be reactivated with a
     # new billing period.
+    # If a reactivation with `resume: false`, or where 'resume" is omited were
+    # attempted, then Advanced Billing would reactivate the subscription with a
+    # new billing period regardless of whether or not resuming the previous
+    # billing period were possible.
     # | Canceled | Reactivation | Resumable? |
     # |---|---|---|
     # | Jun 15 | June 28 | Yes |
@@ -309,7 +316,7 @@ module AdvancedBilling
     # + The next billing date should not have changed
     # + Any product-related charges should have been collected
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [ReactivateSubscriptionRequest] body Optional parameter: TODO: type
     # description here
     # @return [SubscriptionResponse] Response from the API call.
@@ -337,14 +344,12 @@ module AdvancedBilling
         .execute
     end
 
-    # Advanced Billing offers the ability to cancel a subscription at the end of
-    # the current billing period. This period is set by its current product.
-    # Requesting to cancel the subscription at the end of the period sets the
-    # `cancel_at_end_of_period` flag to true.
-    # Note that you cannot set `cancel_at_end_of_period` at subscription
-    # creation, or if the subscription is past due.
+    # Cancels a subscription at the end of the current billing period based on
+    # the subscription's current product. You cannot set
+    # `cancel_at_end_of_period` at subscription creation, or if the subscription
+    # is past due.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [CancellationRequest] body Optional parameter: TODO: type
     # description here
     # @return [DelayedCancellationResponse] Response from the API call.
@@ -382,7 +387,7 @@ module AdvancedBilling
     # the future, removing the delayed cancellation has no effect and the call
     # will be successful.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [DelayedCancellationResponse] Response from the API call.
     def cancel_delayed_cancellation(subscription_id)
       @api_call
@@ -406,7 +411,7 @@ module AdvancedBilling
     # If a subscription is currently in dunning, the subscription will be set to
     # active and the active Dunner will be resolved.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [SubscriptionResponse] Response from the API call.
     def cancel_dunning(subscription_id)
       @api_call
@@ -458,10 +463,10 @@ module AdvancedBilling
     # key. See the request body documentation below.
     # ## Subscription Side Effects
     # You can request a `POST` to obtain this data from the endpoint without any
-    # side effects. Plain and simple, this will preview data, not log any
+    # side effects. This method allows you to preview data, but does not log any
     # changes against a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [RenewalPreviewRequest] body Optional parameter: TODO: type
     # description here
     # @return [RenewalPreviewResponse] Response from the API call.

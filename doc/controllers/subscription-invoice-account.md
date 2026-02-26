@@ -31,7 +31,7 @@ def read_account_balances(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -66,7 +66,7 @@ def create_prepayment(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`CreatePrepaymentRequest`](../../doc/models/create-prepayment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -129,7 +129,7 @@ def list_prepayments(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 | `filter` | [`ListPrepaymentsFilter`](../../doc/models/list-prepayments-filter.md) | Query, Optional | Filter to use for List Prepayments operations |
@@ -197,7 +197,7 @@ def issue_service_credit(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`IssueServiceCreditRequest`](../../doc/models/issue-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -254,7 +254,7 @@ def deduct_service_credit(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`DeductServiceCreditRequest`](../../doc/models/deduct-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -301,7 +301,7 @@ def list_service_credits(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
@@ -380,7 +380,7 @@ def refund_prepayment(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `prepayment_id` | `Integer` | Template, Required | id of prepayment |
 | `body` | [`RefundPrepaymentRequest`](../../doc/models/refund-prepayment-request.md) | Body, Optional | - |
 

@@ -217,6 +217,11 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :public_url
 
+    # Information about the customer who is owner or recipient the invoiced
+    # subscription.
+    # @return [AvailableActions]
+    attr_accessor :available_actions
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -256,6 +261,7 @@ module AdvancedBilling
       @_hash['payments'] = 'payments'
       @_hash['custom_fields'] = 'custom_fields'
       @_hash['public_url'] = 'public_url'
+      @_hash['available_actions'] = 'available_actions'
       @_hash
     end
 
@@ -298,6 +304,7 @@ module AdvancedBilling
         payments
         custom_fields
         public_url
+        available_actions
       ]
     end
 
@@ -325,7 +332,8 @@ module AdvancedBilling
                    paid_amount: SKIP, refund_amount: SKIP, due_amount: SKIP,
                    line_items: SKIP, discounts: SKIP, taxes: SKIP,
                    credits: SKIP, payments: SKIP, custom_fields: SKIP,
-                   public_url: SKIP, additional_properties: {})
+                   public_url: SKIP, available_actions: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -367,6 +375,7 @@ module AdvancedBilling
       @payments = payments unless payments == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @public_url = public_url unless public_url == SKIP
+      @available_actions = available_actions unless available_actions == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -478,6 +487,8 @@ module AdvancedBilling
 
       custom_fields = SKIP unless hash.key?('custom_fields')
       public_url = hash.key?('public_url') ? hash['public_url'] : SKIP
+      available_actions = AvailableActions.from_hash(hash['available_actions']) if
+        hash['available_actions']
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -519,6 +530,7 @@ module AdvancedBilling
                           payments: payments,
                           custom_fields: custom_fields,
                           public_url: public_url,
+                          available_actions: available_actions,
                           additional_properties: additional_properties)
     end
 
@@ -542,7 +554,8 @@ module AdvancedBilling
       " paid_amount: #{@paid_amount}, refund_amount: #{@refund_amount}, due_amount:"\
       " #{@due_amount}, line_items: #{@line_items}, discounts: #{@discounts}, taxes: #{@taxes},"\
       " credits: #{@credits}, payments: #{@payments}, custom_fields: #{@custom_fields},"\
-      " public_url: #{@public_url}, additional_properties: #{get_additional_properties}>"
+      " public_url: #{@public_url}, available_actions: #{@available_actions},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -565,7 +578,8 @@ module AdvancedBilling
       " due_amount: #{@due_amount.inspect}, line_items: #{@line_items.inspect}, discounts:"\
       " #{@discounts.inspect}, taxes: #{@taxes.inspect}, credits: #{@credits.inspect}, payments:"\
       " #{@payments.inspect}, custom_fields: #{@custom_fields.inspect}, public_url:"\
-      " #{@public_url.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@public_url.inspect}, available_actions: #{@available_actions.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

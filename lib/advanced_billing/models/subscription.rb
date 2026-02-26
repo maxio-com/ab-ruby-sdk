@@ -271,7 +271,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :coupon_uses_allowed
 
-    # If the subscription is canceled, this is their churn code.
+    # The churn reason code associated to a cancelled subscription.
     # @return [String]
     attr_accessor :reason_code
 
@@ -329,7 +329,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :stored_credential_transaction_id
 
-    # The reference value (provided by your app) for the subscription itelf.
+    # The reference value (provided by your app) for the subscription istelf.
     # @return [String]
     attr_accessor :reference
 
