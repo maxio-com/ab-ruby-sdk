@@ -31,7 +31,17 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :interval_unit
 
-    # On/off components only need one price bracket starting at 1
+    # Optional id of the price point to use for list price calculations when
+    # overriding the customer price.
+    # @return [Integer]
+    attr_accessor :list_price_point_id
+
+    # When true, list price calculations will continue to use the default price
+    # point even when a `custom_price` is supplied.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :use_default_list_price
+
+    # On/off components only need one price bracket starting at 1.
     # @return [Array[Price]]
     attr_accessor :prices
 
@@ -62,6 +72,8 @@ module AdvancedBilling
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
+      @_hash['list_price_point_id'] = 'list_price_point_id'
+      @_hash['use_default_list_price'] = 'use_default_list_price'
       @_hash['prices'] = 'prices'
       @_hash['renew_prepaid_allocation'] = 'renew_prepaid_allocation'
       @_hash['rollover_prepaid_remainder'] = 'rollover_prepaid_remainder'
@@ -77,6 +89,8 @@ module AdvancedBilling
         pricing_scheme
         interval
         interval_unit
+        list_price_point_id
+        use_default_list_price
         renew_prepaid_allocation
         rollover_prepaid_remainder
         expiration_interval
@@ -88,6 +102,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         interval_unit
+        list_price_point_id
         expiration_interval
         expiration_interval_unit
       ]
@@ -95,6 +110,7 @@ module AdvancedBilling
 
     def initialize(prices:, tax_included: SKIP, pricing_scheme: SKIP,
                    interval: SKIP, interval_unit: SKIP,
+                   list_price_point_id: SKIP, use_default_list_price: SKIP,
                    renew_prepaid_allocation: SKIP,
                    rollover_prepaid_remainder: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, additional_properties: {})
@@ -107,6 +123,8 @@ module AdvancedBilling
       @pricing_scheme = pricing_scheme unless pricing_scheme == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
+      @list_price_point_id = list_price_point_id unless list_price_point_id == SKIP
+      @use_default_list_price = use_default_list_price unless use_default_list_price == SKIP
       @prices = prices
       @renew_prepaid_allocation = renew_prepaid_allocation unless renew_prepaid_allocation == SKIP
       unless rollover_prepaid_remainder == SKIP
@@ -137,6 +155,10 @@ module AdvancedBilling
         hash.key?('pricing_scheme') ? hash['pricing_scheme'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
+      list_price_point_id =
+        hash.key?('list_price_point_id') ? hash['list_price_point_id'] : SKIP
+      use_default_list_price =
+        hash.key?('use_default_list_price') ? hash['use_default_list_price'] : SKIP
       renew_prepaid_allocation =
         hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
       rollover_prepaid_remainder =
@@ -155,6 +177,8 @@ module AdvancedBilling
                                pricing_scheme: pricing_scheme,
                                interval: interval,
                                interval_unit: interval_unit,
+                               list_price_point_id: list_price_point_id,
+                               use_default_list_price: use_default_list_price,
                                renew_prepaid_allocation: renew_prepaid_allocation,
                                rollover_prepaid_remainder: rollover_prepaid_remainder,
                                expiration_interval: expiration_interval,
@@ -184,11 +208,12 @@ module AdvancedBilling
     def to_s
       class_name = self.class.name.split('::').last
       "<#{class_name} tax_included: #{@tax_included}, pricing_scheme: #{@pricing_scheme},"\
-      " interval: #{@interval}, interval_unit: #{@interval_unit}, prices: #{@prices},"\
-      " renew_prepaid_allocation: #{@renew_prepaid_allocation}, rollover_prepaid_remainder:"\
-      " #{@rollover_prepaid_remainder}, expiration_interval: #{@expiration_interval},"\
-      " expiration_interval_unit: #{@expiration_interval_unit}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " interval: #{@interval}, interval_unit: #{@interval_unit}, list_price_point_id:"\
+      " #{@list_price_point_id}, use_default_list_price: #{@use_default_list_price}, prices:"\
+      " #{@prices}, renew_prepaid_allocation: #{@renew_prepaid_allocation},"\
+      " rollover_prepaid_remainder: #{@rollover_prepaid_remainder}, expiration_interval:"\
+      " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -196,9 +221,10 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} tax_included: #{@tax_included.inspect}, pricing_scheme:"\
       " #{@pricing_scheme.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, prices: #{@prices.inspect}, renew_prepaid_allocation:"\
-      " #{@renew_prepaid_allocation.inspect}, rollover_prepaid_remainder:"\
-      " #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
+      " #{@interval_unit.inspect}, list_price_point_id: #{@list_price_point_id.inspect},"\
+      " use_default_list_price: #{@use_default_list_price.inspect}, prices: #{@prices.inspect},"\
+      " renew_prepaid_allocation: #{@renew_prepaid_allocation.inspect},"\
+      " rollover_prepaid_remainder: #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
       " #{@expiration_interval.inspect}, expiration_interval_unit:"\
       " #{@expiration_interval_unit.inspect}, additional_properties:"\
       " #{get_additional_properties}>"

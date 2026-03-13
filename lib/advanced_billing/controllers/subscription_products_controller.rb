@@ -99,7 +99,7 @@ module AdvancedBilling
     # 8. Optionally, you can use the applied "msg" param in the `redirect_url`
     # to determine whether it was successful or not.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [SubscriptionProductMigrationRequest] body Optional parameter:
     # TODO: type description here
     # @return [SubscriptionResponse] Response from the API call.
@@ -136,7 +136,7 @@ module AdvancedBilling
     # applied values assuming the migration is done at that date in the future
     # as opposed to right now.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [SubscriptionMigrationPreviewRequest] body Optional parameter:
     # TODO: type description here
     # @return [SubscriptionMigrationPreviewResponse] Response from the API call.

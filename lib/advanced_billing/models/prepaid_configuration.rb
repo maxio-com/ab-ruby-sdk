@@ -110,16 +110,6 @@ module AdvancedBilling
                                additional_properties: additional_properties)
     end
 
-    # Validates an instance of the object from a given value.
-    # @param [PrepaidConfiguration | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
-    end
-
     # Provides a human-readable string representation of the object.
     def to_s
       class_name = self.class.name.split('::').last

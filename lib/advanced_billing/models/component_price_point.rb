@@ -106,7 +106,8 @@ module AdvancedBilling
     # are defined for the site. It varies based on the use_site_exchange_rate
     # setting for the price point. This parameter is present only in the
     # response of read endpoints, after including the appropriate query
-    # parameter.
+    # parameter. The clone endpoint always returns currency prices if they are
+    # present.
     # @return [Array[ComponentCurrencyPrice]]
     attr_accessor :currency_prices
 

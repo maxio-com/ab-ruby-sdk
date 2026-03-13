@@ -38,9 +38,7 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      %w[
-        snap_day
-      ]
+      []
     end
 
     def initialize(snap_day: SKIP, calendar_billing_first_charge: SKIP,

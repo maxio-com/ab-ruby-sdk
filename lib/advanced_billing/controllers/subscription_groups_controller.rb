@@ -173,8 +173,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to delete subscription group.
-    # Only groups without members can be deleted
+    # Deletes a subscription group.
+    #  Only groups without members can be deleted.
     # @param [String] uid Required parameter: The uid of the subscription
     # group
     # @return [DeleteSubscriptionGroupResponse] Response from the API call.
@@ -251,7 +251,7 @@ module AdvancedBilling
     # Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-
     # subscription#subscription-in-a-subscription-group)
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [AddSubscriptionToAGroup] body Optional parameter: TODO: type
     # description here
     # @return [SubscriptionGroupResponse] Response from the API call.
@@ -282,7 +282,7 @@ module AdvancedBilling
     # omer-Hierarchies-WhoPays#customer-hierarchies) features, it is possible to
     # remove existing subscription from subscription group.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [void] Response from the API call.
     def remove_subscription_from_group(subscription_id)
       @api_call

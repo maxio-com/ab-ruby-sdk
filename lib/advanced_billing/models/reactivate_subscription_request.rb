@@ -27,16 +27,17 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :coupon_code
 
-    # If true is sent, Chargify will use service credits and prepayments upon
-    # reactivation. If false is sent, the service credits and prepayments will
-    # be ignored.
+    # If true is sent, Advanced Billing will use service credits and prepayments
+    # upon reactivation. If false is sent, the service credits and prepayments
+    # will be ignored.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_credits_and_prepayments
 
-    # If `true`, Chargify will attempt to resume the subscription's billing
-    # period. if not resumable, the subscription will be reactivated with a new
-    # billing period. If `false`: Chargify will only attempt to reactivate the
-    # subscription.
+    # If `true`, Advanced Billing will attempt to resume the subscription's
+    # billing period. If not resumable, the subscription will be reactivated
+    # with a new billing period. If `false` or omitted, Advanced Billing will
+    # only attempt to reactivate the subscription with a new billing period,
+    # regardless of whether or not the subscription is resumable.
     # @return [Object]
     attr_accessor :resume
 

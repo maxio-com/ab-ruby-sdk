@@ -232,7 +232,7 @@ puts result
 
 # List Subscriptions
 
-This method will return an array of subscriptions from a Site. Pay close attention to query string filters and pagination in order to control responses from the server.
+returns an array of subscriptions from a Site. Pay close attention to query string filters and pagination in order to control responses from the server.
 
 ## Search for a subscription
 
@@ -353,7 +353,7 @@ def update_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`UpdateSubscriptionRequest`](../../doc/models/update-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -498,7 +498,7 @@ puts result
 
 # Read Subscription
 
-Use this endpoint to find subscription details.
+Retrieves subscription details.
 
 ## Self-Service Page token
 
@@ -513,7 +513,7 @@ def read_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `include` | [`Array[SubscriptionInclude]`](../../doc/models/subscription-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
 
 ## Response Type
@@ -708,7 +708,7 @@ def override_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`OverrideSubscriptionRequest`](../../doc/models/override-subscription-request.md) | Body, Optional | Only these fields are available to be set. |
 
 ## Response Type
@@ -796,7 +796,7 @@ def purge_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `ack` | `Integer` | Query, Required | id of the customer. |
 | `cascade` | [`Array[SubscriptionPurgeType]`](../../doc/models/subscription-purge-type.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
 
@@ -844,7 +844,7 @@ def update_prepaid_subscription_configuration(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`UpsertPrepaidConfigurationRequest`](../../doc/models/upsert-prepaid-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1089,7 +1089,7 @@ def apply_coupons_to_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `code` | `String` | Query, Optional | A code for the coupon that would be applied to a subscription |
 | `body` | [`AddCouponsRequest`](../../doc/models/add-coupons-request.md) | Body, Optional | - |
 
@@ -1288,7 +1288,7 @@ def remove_coupon_from_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `coupon_code` | `String` | Query, Optional | The coupon code |
 
 ## Response Type
@@ -1372,7 +1372,7 @@ def activate_subscription(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`ActivateSubscriptionRequest`](../../doc/models/activate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type

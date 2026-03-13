@@ -35,8 +35,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :next_product_price_point_id
 
-    # Use for subscriptions with product eligible for calendar billing only.
-    # Value can be 1-28 or 'end'.
+    # A day of month that subscription will be processed on. Can be 1 up to 28
+    # or 'end'.
     # @return [Object]
     attr_accessor :snap_day
 
@@ -118,7 +118,8 @@ module AdvancedBilling
     attr_accessor :reference
 
     # (Optional) Used in place of `product_price_point_id` to define a custom
-    # price point unique to the subscription
+    # price point unique to the subscription. A subscription can have up to 30
+    # custom price points. Exceeding this limit will result in an API error.
     # @return [SubscriptionCustomPrice]
     attr_accessor :custom_price
 
@@ -207,7 +208,6 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
-        snap_day
         dunning_communication_delay_time_zone
       ]
     end

@@ -367,8 +367,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This will delete a payment profile belonging to the customer on the
-    # subscription.
+    # Deletes a payment profile belonging to the customer on the subscription.
     # + If the customer has multiple subscriptions, the payment profile will be
     # removed from all of them.
     # + If you delete the default payment profile for a subscription, you will
@@ -378,7 +377,7 @@ module AdvancedBilling
     # the Admin UI and use the “Add New Credit Card” or “Make Active Payment
     # Method” link, (depending on whether there are other cards present).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [void] Response from the API call.
@@ -434,7 +433,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This will delete a Payment Profile belonging to a Subscription Group.
+    # Deletes a Payment Profile belonging to a Subscription Group.
     # **Note**: If the Payment Profile belongs to multiple Subscription Groups
     # and/or Subscriptions, it will be removed from all of them.
     # @param [String] uid Required parameter: The uid of the subscription
@@ -465,7 +464,7 @@ module AdvancedBilling
     # You must elect to change the existing payment profile to a new payment
     # profile ID in order to receive a satisfactory response from this endpoint.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] payment_profile_id Required parameter: The Chargify id of
     # the payment profile
     # @return [PaymentProfileResponse] Response from the API call.
@@ -577,7 +576,7 @@ module AdvancedBilling
     # requests, and to provide clear and helpful information to users who
     # encounter errors during the request process.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [void] Response from the API call.
     def send_request_update_payment_email(subscription_id)
       @api_call

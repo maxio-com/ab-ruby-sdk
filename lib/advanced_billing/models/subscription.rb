@@ -196,9 +196,9 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :coupon_code
 
-    # The day of the month that the subscription will charge according to
-    # calendar billing rules, if used.
-    # @return [Object]
+    # A day of month that subscription will be processed on. Can be 1 up to 28
+    # or 'end'.
+    # @return [String]
     attr_accessor :snap_day
 
     # The type of payment collection to be used in the subscription. For legacy
@@ -271,7 +271,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :coupon_uses_allowed
 
-    # If the subscription is canceled, this is their churn code.
+    # The churn reason code associated to a cancelled subscription.
     # @return [String]
     attr_accessor :reason_code
 
@@ -329,7 +329,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :stored_credential_transaction_id
 
-    # The reference value (provided by your app) for the subscription itelf.
+    # The reference value (provided by your app) for the subscription istelf.
     # @return [String]
     attr_accessor :reference
 
@@ -783,9 +783,7 @@ module AdvancedBilling
                             SKIP
                           end
       coupon_code = hash.key?('coupon_code') ? hash['coupon_code'] : SKIP
-      snap_day = hash.key?('snap_day') ? APIHelper.deserialize_union_type(
-        UnionTypeLookUp.get(:SubscriptionSnapDay), hash['snap_day']
-      ) : SKIP
+      snap_day = hash.key?('snap_day') ? hash['snap_day'] : SKIP
       payment_collection_method =
         hash.key?('payment_collection_method') ? hash['payment_collection_method'] : SKIP
       customer = Customer.from_hash(hash['customer']) if hash['customer']
@@ -987,16 +985,6 @@ module AdvancedBilling
 
     def to_custom_scheduled_cancellation_at
       DateTimeHelper.to_rfc3339(scheduled_cancellation_at)
-    end
-
-    # Validates an instance of the object from a given value.
-    # @param [Subscription | Hash] The value against the validation is performed.
-    def self.validate(value)
-      return true if value.instance_of? self
-
-      return false unless value.instance_of? Hash
-
-      true
     end
 
     # Provides a human-readable string representation of the object.

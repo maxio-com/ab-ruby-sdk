@@ -12,6 +12,20 @@ module AdvancedBilling
     # rubocop:disable Lint/RedundantCopDisableDirective, Style/HashSyntax, Layout/FirstArgumentIndentation
     def self.union_types
       {
+        :CloneComponentPricePointComponentId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :CloneComponentPricePointPricePointId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
         :UpdateComponentPricePointComponentId => OneOf.new(
           [
             LeafType.new(Integer),
@@ -275,11 +289,10 @@ module AdvancedBilling
         :CalendarBillingSnapDay => OneOf.new(
           [
             LeafType.new(Integer),
-            LeafType.new(SnapDay)
+            LeafType.new(String)
           ],
           UnionTypeContext.new(
-            is_optional: true,
-            is_nullable: true
+            is_optional: true
           )
         ),
 
@@ -803,6 +816,34 @@ module AdvancedBilling
           )
         ),
 
+        :ScheduledRenewalConfigurationItemRequestRenewalConfigurationItem => OneOf.new(
+          [
+            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
+            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
+          ]
+        ),
+
+        :ScheduledRenewalProductPricePointPriceInCents => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :ScheduledRenewalProductPricePointInterval => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :ScheduledRenewalUpdateRequestRenewalConfigurationItem => OneOf.new(
+          [
+            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
+            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
+          ]
+        ),
+
         :SegmentSegmentProperty1Value => OneOf.new(
           [
             LeafType.new(String),
@@ -848,17 +889,6 @@ module AdvancedBilling
           ],
           UnionTypeContext.new(
             is_optional: true
-          )
-        ),
-
-        :SubscriptionSnapDay => OneOf.new(
-          [
-            LeafType.new(Integer),
-            LeafType.new(SnapDay)
-          ],
-          UnionTypeContext.new(
-            is_optional: true,
-            is_nullable: true
           )
         ),
 
@@ -1048,12 +1078,11 @@ module AdvancedBilling
 
         :UpdateSubscriptionSnapDay => OneOf.new(
           [
-            LeafType.new(Integer),
-            LeafType.new(SnapDay)
+            LeafType.new(String),
+            LeafType.new(Integer)
           ],
           UnionTypeContext.new(
-            is_optional: true,
-            is_nullable: true
+            is_optional: true
           )
         ),
 

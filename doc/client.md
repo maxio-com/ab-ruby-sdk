@@ -6,7 +6,7 @@ The following parameters are configurable for the API Client:
 | Parameter | Type | Description |
 |  --- | --- | --- |
 | site | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `'subdomain'` |
-| environment | `Environment` | The API environment. <br> **Default: `Environment.US`** |
+| environment | [`Environment`](../README.md#environments) | The API environment. <br> **Default: `Environment.US`** |
 | connection | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | adapter | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
 | timeout | `Float` | The value to use for connection timeout. <br> **Default: 120** |
@@ -87,6 +87,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | subscription_invoice_account | Gets SubscriptionInvoiceAccountController |
 | subscription_notes | Gets SubscriptionNotesController |
 | subscription_products | Gets SubscriptionProductsController |
+| subscription_renewals | Gets SubscriptionRenewalsController |
 | subscription_status | Gets SubscriptionStatusController |
 | webhooks | Gets WebhooksController |
 

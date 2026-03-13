@@ -15,6 +15,7 @@ proforma_invoices_controller = client.proforma_invoices
 * [Read Proforma Invoice](../../doc/controllers/proforma-invoices.md#read-proforma-invoice)
 * [Create Proforma Invoice](../../doc/controllers/proforma-invoices.md#create-proforma-invoice)
 * [List Proforma Invoices](../../doc/controllers/proforma-invoices.md#list-proforma-invoices)
+* [Deliver Proforma Invoice](../../doc/controllers/proforma-invoices.md#deliver-proforma-invoice)
 * [Void Proforma Invoice](../../doc/controllers/proforma-invoices.md#void-proforma-invoice)
 * [Preview Proforma Invoice](../../doc/controllers/proforma-invoices.md#preview-proforma-invoice)
 * [Create Signup Proforma Invoice](../../doc/controllers/proforma-invoices.md#create-signup-proforma-invoice)
@@ -166,7 +167,7 @@ def create_proforma_invoice(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -200,7 +201,7 @@ def list_proforma_invoices(options = {})
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `start_date` | `String` | Query, Optional | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `end_date` | `String` | Query, Optional | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `status` | [`ProformaInvoiceStatus`](../../doc/models/proforma-invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
@@ -237,6 +238,63 @@ collect = {
 result = proforma_invoices_controller.list_proforma_invoices(collect)
 puts result
 ```
+
+
+# Deliver Proforma Invoice
+
+Allows for proforma invoices to be programmatically delivered via email. Supports email
+delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
+
+If `recipient_emails` is omitted, the system will fall back to the primary recipient derived from the invoice or
+subscription. At least one recipient must be present, either via the request body or via this default behavior, so an
+empty body may still succeed when defaults are available.
+
+```ruby
+def deliver_proforma_invoice(proforma_invoice_uid,
+                             body: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `proforma_invoice_uid` | `String` | Template, Required | The uid of the proforma invoice |
+| `body` | [`DeliverProformaInvoiceRequest`](../../doc/models/deliver-proforma-invoice-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`ProformaInvoice`](../../doc/models/proforma-invoice.md)
+
+## Example Usage
+
+```ruby
+proforma_invoice_uid = 'proforma_invoice_uid4'
+
+body = DeliverProformaInvoiceRequest.new(
+  recipient_emails: [
+    'user0@example.com'
+  ],
+  cc_recipient_emails: [
+    'user1@example.com'
+  ],
+  bcc_recipient_emails: [
+    'user2@example.com'
+  ]
+)
+
+result = proforma_invoices_controller.deliver_proforma_invoice(
+  proforma_invoice_uid,
+  body: body
+)
+puts result
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `APIException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Void Proforma Invoice
@@ -302,7 +360,7 @@ def preview_proforma_invoice(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 

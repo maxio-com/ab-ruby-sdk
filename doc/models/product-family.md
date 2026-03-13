@@ -16,6 +16,7 @@
 | `description` | `String` | Optional | - |
 | `created_at` | `DateTime` | Optional | - |
 | `updated_at` | `DateTime` | Optional | - |
+| `archived_at` | `DateTime` | Optional | Timestamp indicating when this product family was archived. `null` if the product family is not archived. |
 
 ## Example (as JSON)
 

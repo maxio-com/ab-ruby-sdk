@@ -32,19 +32,16 @@ module AdvancedBilling
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [CreditType]
     attr_accessor :upgrade_charge
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [CreditType]
     attr_accessor :downgrade_credit
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [Array[ComponentPricePointItem]]
     attr_accessor :price_points
 

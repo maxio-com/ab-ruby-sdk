@@ -17,7 +17,7 @@ module AdvancedBilling
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24251712214413-Subscrip
     # tion-Summary-Overview).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: TODO: type
     # description here
     # @return [SubscriptionNoteResponse] Response from the API call.
@@ -48,7 +48,7 @@ module AdvancedBilling
     # Use this method to retrieve a list of Notes associated with a
     # Subscription. The response will be an array of Notes.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -87,7 +87,7 @@ module AdvancedBilling
     # Once you have obtained the ID of the note you wish to read, use this
     # method to show a particular note attached to a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
     # the note
     # @return [SubscriptionNoteResponse] Response from the API call.
@@ -113,7 +113,7 @@ module AdvancedBilling
 
     # Use the following method to update a note for a Subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
     # the note
     # @param [UpdateSubscriptionNoteRequest] body Optional parameter: TODO: type
@@ -147,9 +147,9 @@ module AdvancedBilling
         .execute
     end
 
-    # Use the following method to delete a note for a Subscription.
+    # Deletes a note for a Subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
     # the note
     # @return [void] Response from the API call.

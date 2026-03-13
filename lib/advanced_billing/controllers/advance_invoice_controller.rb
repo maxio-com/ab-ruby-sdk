@@ -24,7 +24,7 @@ module AdvancedBilling
     # invoices to preview this advance invoice before using this endpoint to
     # generate it.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [IssueAdvanceInvoiceRequest] body Optional parameter: TODO: type
     # description here
     # @return [Invoice] Response from the API call.
@@ -59,7 +59,7 @@ module AdvancedBilling
     # renewal, it can be viewed through this endpoint. There can only be one
     # advance invoice per subscription per billing cycle.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @return [Invoice] Response from the API call.
     def read_advance_invoice(subscription_id)
       @api_call
@@ -87,7 +87,7 @@ module AdvancedBilling
     # to the invoice to be returned to the subscription. For a full overview of
     # the impact of voiding, [see our help docs]($m/Invoice).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
-    # the subscription
+    # the subscription.
     # @param [VoidInvoiceRequest] body Optional parameter: TODO: type
     # description here
     # @return [Invoice] Response from the API call.

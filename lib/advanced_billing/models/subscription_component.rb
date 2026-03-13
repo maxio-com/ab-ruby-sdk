@@ -79,85 +79,71 @@ module AdvancedBilling
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [CreditType]
     attr_accessor :upgrade_charge
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [CreditType]
     attr_accessor :downgrade_credit
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [DateTime]
     attr_accessor :archived_at
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [Integer]
     attr_accessor :price_point_id
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [String]
     attr_accessor :price_point_handle
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [PricePointType]
     attr_accessor :price_point_type
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [String]
     attr_accessor :price_point_name
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [Integer]
     attr_accessor :product_family_id
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [String]
     attr_accessor :product_family_handle
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [DateTime]
     attr_accessor :created_at
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [DateTime]
     attr_accessor :updated_at
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_site_exchange_rate
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [String]
     attr_accessor :description
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
-    # Available values: `full`, `prorated`, `none`.
     # @return [TrueClass | FalseClass]
     attr_accessor :allow_fractional_quantities
 

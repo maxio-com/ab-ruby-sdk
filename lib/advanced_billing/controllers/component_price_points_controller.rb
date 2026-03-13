@@ -151,6 +151,66 @@ module AdvancedBilling
         .execute
     end
 
+    # Clones a component price point. Custom price points (tied to a specific
+    # subscription) cannot be cloned. The following attributes are copied from
+    # the source price point:
+    # - Pricing scheme
+    # - All price tiers (with starting/ending quantities and unit prices)
+    # - Tax included setting
+    # - Currency prices (if definitive pricing is set)
+    # - Overage pricing (for prepaid usage components)
+    # - Interval settings (if multi-frequency is enabled)
+    # - Event-based billing segments (if applicable)
+    # @param [Integer | String] component_id Required parameter: The id or
+    # handle of the component. When using the handle, it must be prefixed with
+    # `handle:`. Example: `123` for an integer ID, or
+    # `handle:example-product-handle` for a string handle.
+    # @param [Integer | String] price_point_id Required parameter: The id or
+    # handle of the price point. When using the handle, it must be prefixed with
+    # `handle:`. Example: `123` for an integer ID, or
+    # `handle:example-price_point-handle` for a string handle.
+    # @param [CloneComponentPricePointRequest] body Optional parameter: TODO:
+    # type description here
+    # @return [ComponentPricePointCurrencyOverageResponse] Response from the API call.
+    def clone_component_price_point(component_id,
+                                    price_point_id,
+                                    body: nil)
+      @api_call
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/components/{component_id}/price_points/{price_point_id}/clone.json',
+                                     Server::PRODUCTION)
+                   .template_param(new_parameter(component_id, key: 'component_id')
+                                    .is_required(true)
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:CloneComponentPricePointComponentId)
+                                                     .validate(value)
+                                    end))
+                   .template_param(new_parameter(price_point_id, key: 'price_point_id')
+                                    .is_required(true)
+                                    .should_encode(true)
+                                    .validator(proc do |value|
+                                      UnionTypeLookUp.get(:CloneComponentPricePointPricePointId)
+                                                     .validate(value)
+                                    end))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('BasicAuth')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ComponentPricePointCurrencyOverageResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          APIException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
+        .execute
+    end
+
     # When updating a price point, prices can be updated as well by creating new
     # prices or editing / removing existing ones.
     # Passing in a price bracket without an `id` will attempt to create a new
@@ -219,7 +279,7 @@ module AdvancedBilling
     # `handle:example-price_point-handle` for a string handle.
     # @param [TrueClass | FalseClass] currency_prices Optional parameter:
     # Include an array of currency price data
-    # @return [ComponentPricePointResponse] Response from the API call.
+    # @return [ComponentPricePointCurrencyOverageResponse] Response from the API call.
     def read_component_price_point(component_id,
                                    price_point_id,
                                    currency_prices: nil)
@@ -246,7 +306,7 @@ module AdvancedBilling
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(ComponentPricePointResponse.method(:from_hash)))
+                    .deserialize_into(ComponentPricePointCurrencyOverageResponse.method(:from_hash)))
         .execute
     end
 

@@ -123,6 +123,7 @@ puts result
 ```json
 {
   "subscription_group": {
+    "uid": "grp_952mvqcnk53wq",
     "customer_id": 1,
     "payment_profile": {
       "id": 1,
@@ -381,8 +382,8 @@ puts result
 
 # Delete Subscription Group
 
-Use this endpoint to delete subscription group.
-Only groups without members can be deleted
+Deletes a subscription group.
+Only groups without members can be deleted.
 
 ```ruby
 def delete_subscription_group(uid)
@@ -526,7 +527,7 @@ def add_subscription_to_group(subscription_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`AddSubscriptionToAGroup`](../../doc/models/add-subscription-to-a-group.md) | Body, Optional | - |
 
 ## Response Type
@@ -594,7 +595,7 @@ def remove_subscription_from_group(subscription_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
