@@ -43,6 +43,10 @@ def create_metafields(resource_type,
                       body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -51,6 +55,8 @@ def create_metafields(resource_type,
 | `body` | [`CreateMetafieldsRequest`](../../doc/models/create-metafields-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[Metafield]`](../../doc/models/metafield.md)
 
@@ -129,6 +135,10 @@ Lists the metafields and their associated details for a Site and resource type. 
 def list_metafields(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -140,6 +150,8 @@ def list_metafields(options = {})
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 
 ## Response Type
+
+**200**: OK
 
 [`ListMetafieldsResponse`](../../doc/models/list-metafields-response.md)
 
@@ -220,6 +232,10 @@ def update_metafield(resource_type,
                      body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -228,6 +244,8 @@ def update_metafield(resource_type,
 | `body` | [`UpdateMetafieldsRequest`](../../doc/models/update-metafields-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[Metafield]`](../../doc/models/metafield.md)
 
@@ -256,6 +274,10 @@ def delete_metafield(resource_type,
                      name: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -264,6 +286,8 @@ def delete_metafield(resource_type,
 | `name` | `String` | Query, Optional | The name of the metafield to be deleted |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -296,6 +320,10 @@ def create_metadata(resource_type,
                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -305,6 +333,8 @@ def create_metadata(resource_type,
 | `body` | [`CreateMetadataRequest`](../../doc/models/create-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[Metadata]`](../../doc/models/metadata.md)
 
@@ -351,6 +381,10 @@ Lists metadata and metafields for a specific customer or subscription.
 def list_metadata(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -361,6 +395,8 @@ def list_metadata(options = {})
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 
 ## Response Type
+
+**200**: OK
 
 [`PaginatedMetadata`](../../doc/models/paginated-metadata.md)
 
@@ -414,6 +450,10 @@ def update_metadata(resource_type,
                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -423,6 +463,8 @@ def update_metadata(resource_type,
 | `body` | [`UpdateMetadataRequest`](../../doc/models/update-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[Metadata]`](../../doc/models/metadata.md)
 
@@ -458,6 +500,10 @@ def delete_metadata(resource_type,
                     names: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -468,6 +514,8 @@ def delete_metadata(resource_type,
 | `names` | `Array[String]` | Query, Optional | Names of fields to be removed. Use in query: `names[]=field1&names[]=my-field&names[]=another-field`. |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -499,6 +547,10 @@ Lists  metadata for a specified array of subscriptions or customers.
 def list_metadata_for_resource_type(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -516,6 +568,8 @@ def list_metadata_for_resource_type(options = {})
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 
 ## Response Type
+
+**200**: OK
 
 [`PaginatedMetadata`](../../doc/models/paginated-metadata.md)
 

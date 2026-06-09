@@ -9,20 +9,20 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # (Optional) Token received after sending billing information using
-    # chargify.js. This token must be passed as a sole attribute of
+    # (Optional) Token received after sending billing information using Maxio.js
+    # (formerly Chargify.js). This token must be passed as a sole attribute of
     # `payment_profile_attributes` (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [String]
     attr_accessor :chargify_token
 
-    # (Optional) Token received after sending billing information using
-    # chargify.js. This token must be passed as a sole attribute of
+    # (Optional) Token received after sending billing information using Maxio.js
+    # (formerly Chargify.js). This token must be passed as a sole attribute of
     # `payment_profile_attributes` (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [Integer]
     attr_accessor :id
 
-    # (Optional) Token received after sending billing information using
-    # chargify.js. This token must be passed as a sole attribute of
+    # (Optional) Token received after sending billing information using Maxio.js
+    # (formerly Chargify.js). This token must be passed as a sole attribute of
     # `payment_profile_attributes` (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [PaymentType]
     attr_accessor :payment_type

@@ -37,6 +37,10 @@ You can optionally pass in a `product_price_point_id` that corresponds with the 
 def create_offer(body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -44,6 +48,8 @@ def create_offer(body: nil)
 | `body` | [`CreateOfferRequest`](../../doc/models/create-offer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -130,6 +136,10 @@ This endpoint will list offers for a site.
 def list_offers(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -139,6 +149,8 @@ def list_offers(options = {})
 | `include_archived` | `TrueClass \| FalseClass` | Query, Optional | Include archived products. Use in query: `include_archived=true`. |
 
 ## Response Type
+
+**200**: OK
 
 [`ListOffersResponse`](../../doc/models/list-offers-response.md)
 
@@ -225,6 +237,10 @@ This method allows you to list a specific offer's attributes. This is different 
 def read_offer(offer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -232,6 +248,8 @@ def read_offer(offer_id)
 | `offer_id` | `Integer` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -253,6 +271,10 @@ Archive an existing offer. Please provide an `offer_id` in order to archive the 
 def archive_offer(offer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -260,6 +282,8 @@ def archive_offer(offer_id)
 | `offer_id` | `Integer` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -280,6 +304,10 @@ Unarchive a previously archived offer. Please provide an `offer_id` in order to 
 def unarchive_offer(offer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -287,6 +315,8 @@ def unarchive_offer(offer_id)
 | `offer_id` | `Integer` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 

@@ -9,15 +9,18 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # Token received after sending billing information using chargify.js.
+    # Token received after sending billing information using Maxio.js (formerly
+    # Chargify.js).
     # @return [String]
     attr_accessor :chargify_token
 
-    # Token received after sending billing information using chargify.js.
+    # Token received after sending billing information using Maxio.js (formerly
+    # Chargify.js).
     # @return [Integer]
     attr_accessor :id
 
-    # Token received after sending billing information using chargify.js.
+    # Token received after sending billing information using Maxio.js (formerly
+    # Chargify.js).
     # @return [PaymentType]
     attr_accessor :payment_type
 
@@ -112,12 +115,12 @@ module AdvancedBilling
     attr_accessor :customer_id
 
     # used by merchants that implemented BraintreeBlue javaScript libraries on
-    # their own. We recommend using Chargify.js instead.
+    # their own. We recommend using Maxio.js (formerly Chargify.js) instead.
     # @return [String]
     attr_accessor :paypal_email
 
     # used by merchants that implemented BraintreeBlue javaScript libraries on
-    # their own. We recommend using Chargify.js instead.
+    # their own. We recommend using Maxio.js (formerly Chargify.js) instead.
     # @return [String]
     attr_accessor :payment_method_nonce
 

@@ -6,12 +6,17 @@
 module AdvancedBilling
   # SubscriptionStatusController
   class SubscriptionStatusController < BaseController
-    # Advanced Billing offers the ability to retry collecting the balance due on
-    # a past due Subscription without waiting for the next scheduled attempt.
-    # ## Successful Reactivation
-    # The response will be `200 OK` with the updated Subscription.
-    # ## Failed Reactivation
-    # The response will be `422 "Unprocessable Entity`.
+    # Retries collecting the balance due on a past-due subscription without
+    # waiting for the next scheduled attempt.
+    # ## 3D Secure (3DS) Authentication post-authentication flow
+    # When a payment requires 3DS Authentication to adhere to Strong Customer
+    # Authentication (SCA), the request enters a post-authentication flow where
+    # a 422 Unprocessable Entity status is returned with an action_link that
+    # will direct the customer through 3DS Authentication.
+    # See the [3D Secure Post-Authentication
+    # Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Po
+    # st-Authentication-Flow) article in the product documentation to learn how
+    # to manage the redirect flow.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @return [SubscriptionResponse] Response from the API call.
@@ -72,7 +77,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Resume a paused (on-hold) subscription. If the normal next renewal date
+    # Resumes a paused (on-hold) subscription. If the normal next renewal date
     # has not passed, the subscription will return to active and will renew on
     # that date.  Otherwise, it will behave like a reactivation, setting the
     # billing date to 'now' and charging the subscriber.
@@ -104,8 +109,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This will place the subscription in the on_hold state and it will not
-    # renew.
+    # Places the subscription on hold, preventing it from renewing.
     # ## Limitations
     # You may not place a subscription on hold if the `next_billing_at` date is
     # within 24 hours.
@@ -138,13 +142,12 @@ module AdvancedBilling
         .execute
     end
 
-    # Once a subscription has been paused / put on hold, you can update the date
-    # which was specified to automatically resume the subscription.
+    # Updates the date on which a paused subscription will automatically resume.
     # To update a subscription's resume date, use this method to change or
     # update the `automatically_resume_at` date.
     # ### Remove the resume date
-    # Alternately, you can change the `automatically_resume_at` to `null` if you
-    # would like the subscription to not have a resume date.
+    # Alternatively, you can change the `automatically_resume_at` to `null` if
+    # you would like the subscription to not have a resume date.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [PauseRequest] body Optional parameter: TODO: type description
@@ -174,7 +177,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Reactivate a previously canceled subscription. For details on how the
+    # Reactivates a previously canceled subscription. For details on how the
     # reactivation works, and how to reactivate subscriptions through the
     # application, see
     # [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-
@@ -205,10 +208,10 @@ module AdvancedBilling
     # have been the next billing date of July 1st, then Advanced Billing would
     # not resume the subscription, and instead it would be reactivated with a
     # new billing period.
-    # If a reactivation with `resume: false`, or where 'resume" is omited were
+    # If a reactivation with `resume: false`, or where 'resume' is omitted were
     # attempted, then Advanced Billing would reactivate the subscription with a
     # new billing period regardless of whether or not resuming the previous
-    # billing period were possible.
+    # billing period was possible.
     # | Canceled | Reactivation | Resumable? |
     # |---|---|---|
     # | Jun 15 | June 28 | Yes |
@@ -315,6 +318,15 @@ module AdvancedBilling
     # + The subscription will transition to active
     # + The next billing date should not have changed
     # + Any product-related charges should have been collected
+    # ## 3D Secure (3DS) Authentication post-authentication flow
+    # When a payment requires 3DS Authentication to adhere to Strong Customer
+    # Authentication (SCA), the request enters a post-authentication flow where
+    # a 422 Unprocessable Entity status is returned with an action_link that
+    # will direct the customer through 3DS Authentication.
+    # See the [3D Secure Post-Authentication
+    # Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Po
+    # st-Authentication-Flow) article in the product documentation to learn how
+    # to manage the redirect flow.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [ReactivateSubscriptionRequest] body Optional parameter: TODO: type
@@ -380,9 +392,9 @@ module AdvancedBilling
         .execute
     end
 
-    # Removing the delayed cancellation on a subscription will ensure that it
-    # doesn't get canceled at the end of the period that it is in. The request
-    # will reset the `cancel_at_end_of_period` flag to `false`.
+    # Removes the delayed cancellation from a subscription, ensuring it is not
+    # canceled at the end of the current period. The request will reset the
+    # `cancel_at_end_of_period` flag to `false`.
     # This endpoint is idempotent. If the subscription was not set to cancel in
     # the future, removing the delayed cancellation has no effect and the call
     # will be successful.
@@ -408,8 +420,8 @@ module AdvancedBilling
         .execute
     end
 
-    # If a subscription is currently in dunning, the subscription will be set to
-    # active and the active Dunner will be resolved.
+    # Cancels the active dunning process for a subscription and sets it to
+    # active.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @return [SubscriptionResponse] Response from the API call.
@@ -433,10 +445,10 @@ module AdvancedBilling
         .execute
     end
 
-    # The Chargify API allows you to preview a renewal by posting to the
-    # renewals endpoint. Renewal Preview is an object representing a
-    # subscription’s next assessment. You can retrieve it to see a snapshot of
-    # how much your customer will be charged on their next renewal.
+    # Previews a subscription’s next renewal assessment. Renewal Preview is an
+    # object representing a subscription’s next assessment. You can retrieve it
+    # to see a snapshot of how much your customer will be charged on their next
+    # renewal.
     # The "Next Billing" amount and "Next Billing" date are already represented
     # in the UI on each Subscriber's Summary. For more information, see our
     # documentation

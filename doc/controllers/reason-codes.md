@@ -39,6 +39,10 @@ This method gives a merchant the option to create a reason codes for a given Sit
 def create_reason_code(body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -46,6 +50,8 @@ def create_reason_code(body: nil)
 | `body` | [`CreateReasonCodeRequest`](../../doc/models/create-reason-code-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ReasonCodeResponse`](../../doc/models/reason-code-response.md)
 
@@ -79,6 +85,10 @@ This method gives a merchant the option to retrieve a list of all of the current
 def list_reason_codes(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -87,6 +97,8 @@ def list_reason_codes(options = {})
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ReasonCodeResponse]`](../../doc/models/reason-code-response.md)
 
@@ -157,6 +169,10 @@ This method gives a merchant the option to retrieve a list of a particular code 
 def read_reason_code(reason_code_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -164,6 +180,8 @@ def read_reason_code(reason_code_id)
 | `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 
 ## Response Type
+
+**200**: OK
 
 [`ReasonCodeResponse`](../../doc/models/reason-code-response.md)
 
@@ -192,6 +210,10 @@ def update_reason_code(reason_code_id,
                        body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -200,6 +222,8 @@ def update_reason_code(reason_code_id,
 | `body` | [`UpdateReasonCodeRequest`](../../doc/models/update-reason-code-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ReasonCodeResponse`](../../doc/models/reason-code-response.md)
 
@@ -228,6 +252,10 @@ This method gives a merchant the option to delete one reason code from the Churn
 def delete_reason_code(reason_code_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -235,6 +263,8 @@ def delete_reason_code(reason_code_id)
 | `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 
 ## Response Type
+
+**200**: OK
 
 [`OkResponse`](../../doc/models/ok-response.md)
 

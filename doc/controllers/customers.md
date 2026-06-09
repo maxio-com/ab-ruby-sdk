@@ -50,6 +50,10 @@ For more: [Customer Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672
 def create_customer(body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -57,6 +61,8 @@ def create_customer(body: nil)
 | `body` | [`CreateCustomerRequest`](../../doc/models/create-customer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -150,6 +156,10 @@ To retrieve a single, exact match by reference, use the [lookup endpoint](https:
 def list_customers(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -165,6 +175,8 @@ def list_customers(options = {})
 | `q` | `String` | Query, Optional | A search query by which to filter customers (can be an email, an ID, a reference, organization) |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[CustomerResponse]`](../../doc/models/customer-response.md)
 
@@ -274,6 +286,10 @@ Retrieves the Customer properties by Advanced Billing-generated Customer ID.
 def read_customer(id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -281,6 +297,8 @@ def read_customer(id)
 | `id` | `Integer` | Template, Required | The Advanced Billing id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -340,6 +358,10 @@ def update_customer(id,
                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -348,6 +370,8 @@ def update_customer(id,
 | `body` | [`UpdateCustomerRequest`](../../doc/models/update-customer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -418,6 +442,10 @@ This method allows you to delete the Customer.
 def delete_customer(id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -425,6 +453,8 @@ def delete_customer(id)
 | `id` | `Integer` | Template, Required | The Advanced Billing id of the customer |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 
@@ -445,6 +475,10 @@ Use this method to return the customer object if you have the unique **Reference
 def read_customer_by_reference(reference)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -452,6 +486,8 @@ def read_customer_by_reference(reference)
 | `reference` | `String` | Query, Required | Customer reference |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -473,6 +509,10 @@ This method lists all subscriptions that belong to a customer.
 def list_customer_subscriptions(customer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -480,6 +520,8 @@ def list_customer_subscriptions(customer_id)
 | `customer_id` | `Integer` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[SubscriptionResponse]`](../../doc/models/subscription-response.md)
 

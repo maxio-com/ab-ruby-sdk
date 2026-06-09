@@ -27,6 +27,10 @@ def issue_advance_invoice(subscription_id,
                           body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -35,6 +39,8 @@ def issue_advance_invoice(subscription_id,
 | `body` | [`IssueAdvanceInvoiceRequest`](../../doc/models/issue-advance-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -70,6 +76,10 @@ Once an advance invoice has been generated for a subscription's upcoming renewal
 def read_advance_invoice(subscription_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -77,6 +87,8 @@ def read_advance_invoice(subscription_id)
 | `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -106,6 +118,10 @@ def void_advance_invoice(subscription_id,
                          body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -114,6 +130,8 @@ def void_advance_invoice(subscription_id,
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`Invoice`](../../doc/models/invoice.md)
 

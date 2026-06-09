@@ -12,7 +12,7 @@ components_controller = client.components
 
 * [Create Metered Component](../../doc/controllers/components.md#create-metered-component)
 * [Create Quantity Based Component](../../doc/controllers/components.md#create-quantity-based-component)
-* [Create on Off Component](../../doc/controllers/components.md#create-on-off-component)
+* [Create On Off Component](../../doc/controllers/components.md#create-on-off-component)
 * [Create Prepaid Usage Component](../../doc/controllers/components.md#create-prepaid-usage-component)
 * [Create Event Based Component](../../doc/controllers/components.md#create-event-based-component)
 * [Find Component](../../doc/controllers/components.md#find-component)
@@ -28,7 +28,7 @@ components_controller = client.components
 
 This request will create a component definition of kind **metered_component** under the specified product family. Metered component can then be added and “allocated” for a subscription.
 
-Metered components are used to bill for any type of unit that resets to 0 at the end of the billing period (think daily Google Adwords clicks or monthly cell phone minutes). This is most commonly associated with usage-based billing and many other pricing schemes.
+Metered components are used to bill for any type of unit that resets to 0 at the end of the billing period (think daily Google Ads clicks or monthly cell phone minutes). This is most commonly associated with usage-based billing and many other pricing schemes.
 
 Note that this is different from recurring quantity-based components, which DO NOT reset to zero at the start of every billing period. If you want to bill for a quantity of something that does not change unless you change it, then you want quantity components, instead.
 
@@ -39,6 +39,10 @@ def create_metered_component(product_family_id,
                              body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -47,6 +51,8 @@ def create_metered_component(product_family_id,
 | `body` | [`CreateMeteredComponent`](../../doc/models/create-metered-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -158,6 +164,10 @@ def create_quantity_based_component(product_family_id,
                                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -166,6 +176,8 @@ def create_quantity_based_component(product_family_id,
 | `body` | [`CreateQuantityBasedComponent`](../../doc/models/create-quantity-based-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -255,7 +267,7 @@ puts result
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Create on Off Component
+# Create On Off Component
 
 This request will create a component definition of kind **on_off_component** under the specified product family. On/Off component can then be added and “allocated” for a subscription.
 
@@ -268,6 +280,10 @@ def create_on_off_component(product_family_id,
                             body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -276,6 +292,8 @@ def create_on_off_component(product_family_id,
 | `body` | [`CreateOnOffComponent`](../../doc/models/create-on-off-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -363,6 +381,10 @@ def create_prepaid_usage_component(product_family_id,
                                    body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -371,6 +393,8 @@ def create_prepaid_usage_component(product_family_id,
 | `body` | [`CreatePrepaidComponent`](../../doc/models/create-prepaid-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -498,6 +522,10 @@ def create_event_based_component(product_family_id,
                                  body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -506,6 +534,8 @@ def create_event_based_component(product_family_id,
 | `body` | [`CreateEBBComponent`](../../doc/models/create-ebb-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -594,6 +624,10 @@ This request will return information regarding a component having the handle you
 def find_component(handle)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -601,6 +635,8 @@ def find_component(handle)
 | `handle` | `String` | Query, Required | The handle of the component to find |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -655,6 +691,10 @@ def read_component(product_family_id,
                    component_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -663,6 +703,8 @@ def read_component(product_family_id,
 | `component_id` | `String` | Template, Required | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:`<br><br>**Constraints**: *Pattern*: `/\A(?:\d+\|handle:(?:uuid:\|[a-z])(?:\w\|-)+)\z/` |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -724,6 +766,10 @@ def update_product_family_component(product_family_id,
                                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -733,6 +779,8 @@ def update_product_family_component(product_family_id,
 | `body` | [`UpdateComponentRequest`](../../doc/models/update-component-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -803,6 +851,10 @@ def archive_component(product_family_id,
                       component_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -811,6 +863,8 @@ def archive_component(product_family_id,
 | `component_id` | `String` | Template, Required | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:`<br><br>**Constraints**: *Pattern*: `/\A(?:\d+\|handle:(?:uuid:\|[a-z])(?:\w\|-)+)\z/` |
 
 ## Response Type
+
+**200**: OK
 
 [`Component`](../../doc/models/component.md)
 
@@ -869,6 +923,10 @@ This request will return a list of components for a site.
 def list_components(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -884,6 +942,8 @@ def list_components(options = {})
 | `filter` | [`ListComponentsFilter`](../../doc/models/list-components-filter.md) | Query, Optional | Filter to use for List Components operations |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ComponentResponse]`](../../doc/models/component-response.md)
 
@@ -1018,6 +1078,10 @@ def update_component(component_id,
                      body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1026,6 +1090,8 @@ def update_component(component_id,
 | `body` | [`UpdateComponentRequest`](../../doc/models/update-component-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -1092,6 +1158,10 @@ This request will return a list of components for a particular product family.
 def list_components_for_product_family(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1108,6 +1178,8 @@ def list_components_for_product_family(options = {})
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ComponentResponse]`](../../doc/models/component-response.md)
 

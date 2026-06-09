@@ -12,3 +12,25 @@
 | [`UpdateMetafield`](../../../doc/models/update-metafield.md) |
 | [`Array[UpdateMetafield]`](../../../doc/models/update-metafield.md) |
 
+## UpdateMetafield
+
+### Initialization Code
+
+#### Example
+
+```ruby
+value = UpdateMetafield.new
+```
+
+## Array[UpdateMetafield]
+
+### Initialization Code
+
+#### Example
+
+```ruby
+value = [
+  UpdateMetafield.new
+]
+```
+

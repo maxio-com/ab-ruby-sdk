@@ -31,6 +31,9 @@ module AdvancedBilling
       # TODO: Write general description for INVOICE_ISSUED
       INVOICE_ISSUED = 'invoice_issued'.freeze,
 
+      # TODO: Write general description for INVOICE_PENDING
+      INVOICE_PENDING = 'invoice_pending'.freeze,
+
       # TODO: Write general description for METERED_USAGE
       METERED_USAGE = 'metered_usage'.freeze,
 
@@ -135,6 +138,7 @@ module AdvancedBilling
       when 'expiring_card' then EXPIRING_CARD
       when 'expiration_date_change' then EXPIRATION_DATE_CHANGE
       when 'invoice_issued' then INVOICE_ISSUED
+      when 'invoice_pending' then INVOICE_PENDING
       when 'metered_usage' then METERED_USAGE
       when 'payment_failure' then PAYMENT_FAILURE
       when 'payment_success' then PAYMENT_SUCCESS

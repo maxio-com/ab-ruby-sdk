@@ -39,6 +39,10 @@ def enable_billing_portal_for_customer(customer_id,
                                        auto_invite: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -47,6 +51,8 @@ def enable_billing_portal_for_customer(customer_id,
 | `auto_invite` | [`AutoInvite`](../../doc/models/auto-invite.md) | Query, Optional | When set to 1, an Invitation email will be sent to the Customer.<br>When set to 0, or not sent, an email will not be sent.<br>Use in query: `auto_invite=1`. |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -82,6 +88,10 @@ This method will provide to the API user the exact URL required for a subscriber
 def read_billing_portal_link(customer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -89,6 +99,8 @@ def read_billing_portal_link(customer_id)
 | `customer_id` | `Integer` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`PortalManagementLink`](../../doc/models/portal-management-link.md)
 
@@ -142,6 +154,10 @@ This endpoint will only return a JSON response.
 def resend_billing_portal_invitation(customer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -149,6 +165,8 @@ def resend_billing_portal_invitation(customer_id)
 | `customer_id` | `Integer` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`ResentInvitation`](../../doc/models/resent-invitation.md)
 
@@ -194,6 +212,10 @@ This endpoint will only return a JSON response.
 def revoke_billing_portal_access(customer_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -201,6 +223,8 @@ def revoke_billing_portal_access(customer_id)
 | `customer_id` | `Integer` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`RevokedInvitation`](../../doc/models/revoked-invitation.md)
 

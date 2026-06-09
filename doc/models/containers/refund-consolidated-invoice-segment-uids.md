@@ -12,3 +12,25 @@
 | `Array[String]` |
 | `String` |
 
+## Array[String]
+
+### Initialization Code
+
+#### Example
+
+```ruby
+value = [
+  'String1'
+]
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```ruby
+value = 'String0'
+```
+

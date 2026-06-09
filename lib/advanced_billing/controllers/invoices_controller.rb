@@ -10,9 +10,9 @@ module AdvancedBilling
     # ## Partial Refund for Consolidated Invoice
     # A refund less than the total of a consolidated invoice will be split
     # across its segments.
-    # A $50.00 refund on a $100.00 consolidated invoice with one $60.00 and one
-    # $40.00 segment, the refunded amount will be applied as 50% of each ($30.00
-    # and $20.00 respectively).
+    # For a $50.00 refund on a $100.00 consolidated invoice with one $60.00
+    # segment and one $40.00 segment, the refunded amount will be applied as 50%
+    # of each ($30.00 and $20.00, respectively).
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [RefundInvoiceRequest] body Optional parameter: TODO: type
@@ -297,8 +297,8 @@ module AdvancedBilling
 
     # This API call should be used when you want to record an external payment
     # against multiple invoices.
-    #  In order apply a payment to multiple invoices, at minimum, specify the
-    # `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
+    #  To apply a payment to multiple invoices, at minimum, specify the `amount`
+    # and `applications` (i.e., `invoice_uid` and `amount`) details.
     # ```
     # {
     #   "payment": {
@@ -604,10 +604,10 @@ module AdvancedBilling
     # ```
     # The price for each line item will be calculated as well as a total due
     # amount for the invoice. Multiple line items can be sent.
-    # ### Line items types
-    # When defining line item, You can choose one of 3 types for one line item:
+    # ### Line item types
+    # When defining a line item, You can choose one of 3 types for a line item:
     # #### Custom item
-    # Like in basic behavior example above, You can pass `title` and
+    # As shown in the basic behavior example, You can pass `title` and
     # `unit_price` for custom item.
     # #### Product id
     # Product handle (with handle: prefix) or id from the scope of current
@@ -622,7 +622,7 @@ module AdvancedBilling
     # is used, following fields cannot be used: `title`, `product_id`. By
     # default `unit_price` is taken from product's default price point, but can
     # be overwritten by passing `unit_price` or `price_point_id`. At this moment
-    # price points are supportted only for quantity based, on/off and metered
+    # price points are supported only for quantity based, on/off and metered
     # components. For prepaid and event based billing components `unit_price` is
     # required.
     # ### Coupons
@@ -750,9 +750,11 @@ module AdvancedBilling
     # description for line item.
     # ### Invoice Options
     # #### Issue Date
-    # By default, invoices will be created with a issue date set to today.
-    # `issue_date` parameter can be send to alter that. Only dates in the past
-    # can be send. `issue_date` should be send in `YYYY-MM-DD` format.
+    # By default, invoices will be created with a issue date set to today in
+    # your site's time zone. The `issue_date` parameter can be sent to alter the
+    # default. Only today or dates in the past are accepted. This date is
+    # interpreted and validated in your site's time zone. The format for
+    # `issue_date` is `YYYY-MM-DD`.
     # #### Net Terms
     # By default, invoices will be created with a due date matching the date of
     # invoice creation. If a different due date is desired, the `net_terms`
@@ -766,7 +768,7 @@ module AdvancedBilling
     # #### Memo and Payment Instructions
     # A custom memo can be sent with the `memo` parameter to override the site's
     # default. Likewise, custom payment instructions can be sent with the
-    # `payment_instrucions` parameter.
+    # `payment_instructions` parameter.
     # #### Status
     # By default, invoices will be created with open status. Possible
     # alternative is `draft`.
@@ -844,10 +846,10 @@ module AdvancedBilling
         .execute
     end
 
-    # Customer information may change after an invoice is issued which may lead
-    # to a mismatch between customer information that are present on an open
-    # invoice and actual customer information. This endpoint allows to preview
-    # these differences, if any.
+    # Customer information may change after an invoice is issued, which may lead
+    # to a mismatch between customer information that is present on an open
+    # invoice and actual customer information. This endpoint allows you to
+    # preview these differences, if any.
     # The endpoint doesn't accept a request body. Customer information
     # differences are calculated on the application side.
     # @param [String] uid Required parameter: The unique identifier for the
@@ -879,7 +881,7 @@ module AdvancedBilling
     # This endpoint updates customer information on an open invoice and returns
     # the updated invoice. If you would like to preview changes that will be
     # applied, use the `/invoices/{uid}/customer_information/preview.json`
-    # endpoint before.
+    # endpoint first.
     # The endpoint doesn't accept a request body. Customer information
     # differences are calculated on the application side.
     # @param [String] uid Required parameter: The unique identifier for the
@@ -916,11 +918,11 @@ module AdvancedBilling
     # subscription in a group.
     # For Remittance subscriptions, the invoice will go into "open" status and
     # payment won't be attempted. The value for `on_failed_payment` would be
-    # rejected if sent. Any prepayments or service credits that exist on
-    # subscription will be automatically applied. Additionally, if setting is
-    # on, an email will be sent for issued invoice.
+    # rejected if sent. Any prepayments or service credits that exist on the
+    # subscription will be automatically applied. Additionally, if the setting
+    # is enabled, an email will be sent for the issued invoice.
     # For Automatic subscriptions, prepayments and service credits will apply to
-    # the invoice and before payment is attempted. On successful payment, the
+    # the invoice before payment is attempted. On successful payment, the
     # invoice will go into "paid" status and email will be sent to the customer
     # (if setting applies). When payment fails, the next event depends on the
     # `on_failed_payment` value:

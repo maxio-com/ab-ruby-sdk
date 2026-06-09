@@ -32,6 +32,10 @@ def create_product(product_family_id,
                    body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -40,6 +44,8 @@ def create_product(product_family_id,
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -134,6 +140,10 @@ Reads the current details of a product.
 def read_product(product_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -141,6 +151,8 @@ def read_product(product_id)
 | `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -214,6 +226,10 @@ def update_product(product_id,
                    body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -222,6 +238,8 @@ def update_product(product_id,
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -299,6 +317,10 @@ This will restrict the option to chose the product for purchase via the Billing 
 def archive_product(product_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -306,6 +328,8 @@ def archive_product(product_id)
 | `product_id` | `Integer` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -376,6 +400,10 @@ Retrieves a Product object by its `api_handle`.
 def read_product_by_handle(api_handle)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -383,6 +411,8 @@ def read_product_by_handle(api_handle)
 | `api_handle` | `String` | Template, Required | The handle of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -472,6 +502,10 @@ This method allows to retrieve a list of Products belonging to a Site.
 def list_products(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -488,6 +522,8 @@ def list_products(options = {})
 | `include` | [`ListProductsInclude`](../../doc/models/list-products-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=prepaid_product_price_point`. |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ProductResponse]`](../../doc/models/product-response.md)
 

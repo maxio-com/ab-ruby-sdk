@@ -106,6 +106,9 @@ module AdvancedBilling
       # TODO: Write general description for INVOICE_ISSUED
       INVOICE_ISSUED = 'invoice_issued'.freeze,
 
+      # TODO: Write general description for INVOICE_PENDING
+      INVOICE_PENDING = 'invoice_pending'.freeze,
+
       # TODO: Write general description for PREPAID_SUBSCRIPTION_BALANCE_CHANGED
       PREPAID_SUBSCRIPTION_BALANCE_CHANGED = 'prepaid_subscription_balance_changed'.freeze,
 
@@ -300,6 +303,7 @@ module AdvancedBilling
       when 'trial_end_notice' then TRIAL_END_NOTICE
       when 'dunning_step_reached' then DUNNING_STEP_REACHED
       when 'invoice_issued' then INVOICE_ISSUED
+      when 'invoice_pending' then INVOICE_PENDING
       when 'prepaid_subscription_balance_changed' then PREPAID_SUBSCRIPTION_BALANCE_CHANGED
       when 'subscription_group_signup_success' then SUBSCRIPTION_GROUP_SIGNUP_SUCCESS
       when 'subscription_group_signup_failure' then SUBSCRIPTION_GROUP_SIGNUP_FAILURE

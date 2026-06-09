@@ -13,7 +13,7 @@ insights_controller = client.insights
 * [Read Site Stats](../../doc/controllers/insights.md#read-site-stats)
 * [Read Mrr](../../doc/controllers/insights.md#read-mrr)
 * [List Mrr Movements](../../doc/controllers/insights.md#list-mrr-movements)
-* [List Mrr Per Subscription](../../doc/controllers/insights.md#list-mrr-per-subscription)
+* [List Mrr per Subscription](../../doc/controllers/insights.md#list-mrr-per-subscription)
 
 
 # Read Site Stats
@@ -32,7 +32,13 @@ https://subdomain.chargify.com/dashboard
 def read_site_stats
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**200**: OK
 
 [`SiteSummary`](../../doc/models/site-summary.md)
 
@@ -74,6 +80,10 @@ def read_mrr(at_time: nil,
              subscription_id: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -82,6 +92,8 @@ def read_mrr(at_time: nil,
 | `subscription_id` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results |
 
 ## Response Type
+
+**200**: OK
 
 [`MRRResponse`](../../doc/models/mrr-response.md)
 
@@ -146,6 +158,10 @@ Usage includes revenue from:
 def list_mrr_movements(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -156,6 +172,8 @@ def list_mrr_movements(options = {})
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 
 ## Response Type
+
+**200**: OK
 
 [`ListMRRResponse`](../../doc/models/list-mrr-response.md)
 
@@ -224,7 +242,7 @@ puts result
 ```
 
 
-# List Mrr Per Subscription
+# List Mrr per Subscription
 
 **This endpoint is deprecated.**
 
@@ -233,6 +251,10 @@ This endpoint returns your site's current MRR, including plan and usage breakout
 ```ruby
 def list_mrr_per_subscription(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -245,6 +267,8 @@ def list_mrr_per_subscription(options = {})
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Controls the order in which results are returned. Records are ordered by subscription_id in ascending order by default. Use in query `direction=desc`. |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionMRRResponse`](../../doc/models/subscription-mrr-response.md)
 
