@@ -699,7 +699,7 @@ module AdvancedBilling
           )
         ),
 
-        :PaymentProfile2 => AnyOf.new(
+        :PaymentProfile => AnyOf.new(
           [
             LeafType.new(ApplePayPaymentProfile, UnionTypeContext.new(
               discriminator_value: 'apple_pay',

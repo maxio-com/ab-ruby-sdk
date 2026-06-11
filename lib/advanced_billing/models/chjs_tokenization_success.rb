@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [PaymentProfile]
+    # @return [TokenizedPaymentProfile]
     attr_accessor :payment_profile
 
     # TODO: Write general description for this method
@@ -55,7 +55,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      payment_profile = PaymentProfile.from_hash(hash['payment_profile']) if
+      payment_profile = TokenizedPaymentProfile.from_hash(hash['payment_profile']) if
         hash['payment_profile']
       gateway_customer_id =
         hash.key?('gateway_customer_id') ? hash['gateway_customer_id'] : SKIP
@@ -74,14 +74,14 @@ module AdvancedBilling
     def self.validate(value)
       if value.instance_of? self
         return APIHelper.valid_type?(value.payment_profile,
-                                     ->(val) { PaymentProfile.validate(val) },
+                                     ->(val) { TokenizedPaymentProfile.validate(val) },
                                      is_model_hash: true)
       end
 
       return false unless value.instance_of? Hash
 
       APIHelper.valid_type?(value['payment_profile'],
-                            ->(val) { PaymentProfile.validate(val) },
+                            ->(val) { TokenizedPaymentProfile.validate(val) },
                             is_model_hash: true)
     end
 

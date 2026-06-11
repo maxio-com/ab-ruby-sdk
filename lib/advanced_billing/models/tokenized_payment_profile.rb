@@ -4,8 +4,8 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # PaymentProfile Model.
-  class PaymentProfile < BaseModel
+  # TokenizedPaymentProfile Model.
+  class TokenizedPaymentProfile < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -81,15 +81,15 @@ module AdvancedBilling
       additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
-      PaymentProfile.new(id: id,
-                         vault_token: vault_token,
-                         gateway_handle: gateway_handle,
-                         customer_vault_token: customer_vault_token,
-                         additional_properties: additional_properties)
+      TokenizedPaymentProfile.new(id: id,
+                                  vault_token: vault_token,
+                                  gateway_handle: gateway_handle,
+                                  customer_vault_token: customer_vault_token,
+                                  additional_properties: additional_properties)
     end
 
     # Validates an instance of the object from a given value.
-    # @param [PaymentProfile | Hash] The value against the validation is performed.
+    # @param [TokenizedPaymentProfile | Hash] The value against the validation is performed.
     def self.validate(value)
       if value.instance_of? self
         return APIHelper.valid_type?(value.id,

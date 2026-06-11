@@ -353,7 +353,7 @@ value = CustomFieldValueChange.new(
 
 ```ruby
 value = ChjsTokenizationSuccess.new(
-  payment_profile: PaymentProfile.new(
+  payment_profile: TokenizedPaymentProfile.new(
     id: 44
   )
 )
