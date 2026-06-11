@@ -54,7 +54,7 @@ module AdvancedBilling
     #     + [Maxio.js with Stripe Direct Debit - full
     # example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#
     # h_01K0PJ15QRECQQ4ECS3ZA55GY7)
-    #     + [CMaxio.js with Stripe BECS Direct Debit - minimal
+    #     + [Maxio.js with Stripe BECS Direct Debit - minimal
     # example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzN
     # DIy-examples#minimal-example-with-sepa-or-becs-direct-debit-stripe-gateway
     # )
@@ -111,9 +111,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This method will return all of the active `payment_profiles` for a Site,
-    # or for one Customer within a site.  If no payment profiles are found, this
-    # endpoint will return an empty array, not a 404.
+    # Returns all active payment profiles for a site, or for one customer within
+    # a site. If no payment profiles are found, this endpoint will return an
+    # empty array, not a 404.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -145,8 +145,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Using the GET method you can retrieve a Payment Profile identified by its
-    # unique ID.
+    # Returns a payment profile identified by its unique ID.
     # Note that a different JSON object will be returned if the card method on
     # file is a bank account.
     # ### Response for Bank Account
@@ -202,6 +201,7 @@ module AdvancedBilling
         .execute
     end
 
+    # Updates a payment profile.
     # ## Partial Card Updates
     # In the event that you are using the Authorize.net, Stripe, Cybersource,
     # Forte or Braintree Blue payment gateways, you can update just the billing
@@ -335,8 +335,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Submit the two small deposit amounts the customer received in their bank
-    # account in order to verify the bank account. (Stripe only)
+    # Verifies a bank account. Submit the two small deposit amounts the customer
+    # received in their bank account to verify the bank account. (Stripe only)
     # @param [Integer] bank_account_id Required parameter: Identifier of the
     # bank account in the system.
     # @param [BankAccountVerificationRequest] body Optional parameter: TODO:
@@ -395,8 +395,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This will change the default payment profile on the subscription to the
-    # existing payment profile with the id specified.
+    # Changes the default payment profile on the subscription to the existing
+    # payment profile with the specified ID.
     # You must elect to change the existing payment profile to a new payment
     # profile ID in order to receive a satisfactory response from this endpoint.
     # @param [Integer] subscription_id Required parameter: The Chargify id of

@@ -123,7 +123,7 @@ module AdvancedBilling
     # must specify all metadata values including the new value you want to add.
     # - Add new metadata to a dropdown or radio for a metafield that was created
     # without metadata.
-    # - Remove  metadata for a dropdown or radio for a metafield.
+    # - Remove metadata for a dropdown or radio for a metafield.
     #   >Note: Updates to metadata overwrite existing values. To remove one or
     # more values, specify all metadata values except those you want to remove.
     # - Add or update scope settings for a metafield.
@@ -279,7 +279,8 @@ module AdvancedBilling
     # subscription or customer you specify. You can update the input_type for
     # the metafield with the Update Metafield endpoint.
     # Each site is limited to 100 unique metafields per resource. This means you
-    # can have 100 metafields for Subscription and another 100 for Customer.
+    # can have 100 metafields for the Subscription resource and another 100 for
+    # the Customer resource.
     # @param [ResourceType] resource_type Required parameter: The resource type
     # to which the metafields belong.
     # @param [Integer] resource_id Required parameter: The Advanced Billing id
@@ -353,7 +354,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Lists  metadata for a specified array of subscriptions or customers.
+    # Lists metadata for a specified array of subscriptions or customers.
     # @param [ResourceType] resource_type Required parameter: The resource type
     # to which the metafields belong.
     # @param [Integer] page Optional parameter: Result records are organized in

@@ -6,9 +6,9 @@
 module AdvancedBilling
   # CustomersController
   class CustomersController < BaseController
-    # You may create a new Customer at any time, or you may create a Customer at
-    # the same time you create a Subscription. The only validation restriction
-    # is that you may only create one customer for a given reference value.
+    # Creates a new customer; can also be created alongside a new subscription.
+    # The only validation restriction is that you may only create one customer
+    # for a given reference value.
     # If provided, the `reference` value must be unique. It represents a unique
     # identifier for the customer from your own app, i.e. the customer’s ID.
     # This allows you to retrieve a given customer via a piece of shared
@@ -64,7 +64,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This request will by default list all customers associated with your Site.
+    # Lists all customers associated with your site, or filters results using
+    # the search parameter.
     # ## Find Customer
     # Use the search feature with the `q` query parameter to retrieve an array
     # of customers that matches the search query.
@@ -158,7 +159,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows to update the Customer.
+    # Updates the customer.
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # customer
     # @param [UpdateCustomerRequest] body Optional parameter: TODO: type
@@ -191,7 +192,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows you to delete the Customer.
+    # Deletes the customer.
     # @param [Integer] id Required parameter: The Advanced Billing id of the
     # customer
     # @return [void] Response from the API call.
@@ -209,8 +210,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this method to return the customer object if you have the unique
-    # **Reference ID (Your App)** value handy. It will return a single match.
+    # Returns a customer by their unique reference ID. It will return a single
+    # match.
     # @param [String] reference Required parameter: Customer reference
     # @return [CustomerResponse] Response from the API call.
     def read_customer_by_reference(reference)
@@ -228,7 +229,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method lists all subscriptions that belong to a customer.
+    # Lists all subscriptions that belong to a customer.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
     # @return [Array[SubscriptionResponse]] Response from the API call.

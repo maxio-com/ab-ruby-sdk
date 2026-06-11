@@ -245,6 +245,12 @@ module AdvancedBilling
       # TODO: Write general description for COMPONENT_BILLING_DATE_CHANGED
       COMPONENT_BILLING_DATE_CHANGED = 'component_billing_date_changed'.freeze,
 
+      # TODO: Write general description for CHJS_TOKENIZATION_FAILURE
+      CHJS_TOKENIZATION_FAILURE = 'chjs_tokenization_failure'.freeze,
+
+      # TODO: Write general description for CHJS_TOKENIZATION_SUCCESS
+      CHJS_TOKENIZATION_SUCCESS = 'chjs_tokenization_success'.freeze,
+
       # TODO: Write general description for SUBSCRIPTION_TERM_RENEWAL_SCHEDULED
       SUBSCRIPTION_TERM_RENEWAL_SCHEDULED = 'subscription_term_renewal_scheduled'.freeze,
 
@@ -347,6 +353,8 @@ module AdvancedBilling
       when 'chargeback_won' then CHARGEBACK_WON
       when 'payment_collection_method_changed' then PAYMENT_COLLECTION_METHOD_CHANGED
       when 'component_billing_date_changed' then COMPONENT_BILLING_DATE_CHANGED
+      when 'chjs_tokenization_failure' then CHJS_TOKENIZATION_FAILURE
+      when 'chjs_tokenization_success' then CHJS_TOKENIZATION_SUCCESS
       when 'subscription_term_renewal_scheduled' then SUBSCRIPTION_TERM_RENEWAL_SCHEDULED
       when 'subscription_term_renewal_pending' then SUBSCRIPTION_TERM_RENEWAL_PENDING
       when 'subscription_term_renewal_activated' then SUBSCRIPTION_TERM_RENEWAL_ACTIVATED

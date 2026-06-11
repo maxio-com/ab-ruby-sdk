@@ -141,8 +141,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to retrieve details for a specific product price point.
-    # You can achieve this by using either the product price point ID or handle.
+    # Returns details for a specific product price point. You can achieve this
+    # by using either the product price point ID or handle.
     # @param [Integer | String] product_id Required parameter: The id or handle
     # of the product. When using the handle, it must be prefixed with `handle:`.
     # Example: `123` for an integer ID, or `handle:example-product-handle` for a
@@ -231,7 +231,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to unarchive an archived product price point.
+    # Unarchives an archived product price point.
     # @param [Integer] product_id Required parameter: The Advanced Billing id of
     # the product to which the price point belongs
     # @param [Integer] price_point_id Required parameter: The Advanced Billing
@@ -386,8 +386,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows retrieval of a list of Products Price Points belonging
-    # to a Site.
+    # Lists Product Price Points belonging to a site.
     # @param [SortingDirection] direction Optional parameter: Controls the order
     # in which results are returned. Use in query `direction=asc`.
     # @param [ListPricePointsFilter] filter Optional parameter: Filter to use

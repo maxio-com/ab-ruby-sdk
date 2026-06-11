@@ -268,7 +268,7 @@ puts result
 
 # Read Product Price Point
 
-Use this endpoint to retrieve details for a specific product price point. You can achieve this by using either the product price point ID or handle.
+Returns details for a specific product price point. You can achieve this by using either the product price point ID or handle.
 
 ```ruby
 def read_product_price_point(product_id,
@@ -412,7 +412,7 @@ puts result
 
 # Unarchive Product Price Point
 
-Use this endpoint to unarchive an archived product price point.
+Unarchives an archived product price point.
 
 ```ruby
 def unarchive_product_price_point(product_id,
@@ -850,7 +850,7 @@ puts result
 
 # List All Product Price Points
 
-This method allows retrieval of a list of Products Price Points belonging to a Site.
+Lists Product Price Points belonging to a site.
 
 ```ruby
 def list_all_product_price_points(options = {})

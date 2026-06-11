@@ -6,13 +6,14 @@
 module AdvancedBilling
   # EventsController
   class EventsController < BaseController
+    # Lists events for a site.
     # ## Events Intro
     # Advanced Billing Events include various activity that happens around a
     # Site. This information is **especially** useful to track down issues that
     # arise when subscriptions are not created due to errors.
     # Within the Advanced Billing UI, "Events" are referred to as "Site
-    # Activity".  Full documentation on how to record view Events / Site Activty
-    # in the Advanced Billing UI can be located
+    # Activity".  Full documentation on how to view Events / Site Activity in
+    # the Advanced Billing UI can be located
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-Act
     # ivity).
     # ## List Events for a Site
@@ -141,7 +142,7 @@ module AdvancedBilling
         .execute
     end
 
-    # The following request will return a list of events for a subscription.
+    # Lists events for a subscription.
     # ## Event Key
     # The event type is identified by the key property. You can check supported
     # keys [here]($m/Event%20Key).
@@ -199,7 +200,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Get a count of all the events for a given site by using this method.
+    # Returns the total count of events for a given site.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start

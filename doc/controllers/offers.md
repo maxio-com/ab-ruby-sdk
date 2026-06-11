@@ -19,7 +19,7 @@ offers_controller = client.offers
 
 # Create Offer
 
-Create an offer within your Advanced Billing site by sending a POST request.
+Creates an offer within your Advanced Billing site.
 
 ## Documentation
 
@@ -130,7 +130,7 @@ puts result
 
 # List Offers
 
-This endpoint will list offers for a site.
+Lists offers for a site.
 
 ```ruby
 def list_offers(options = {})
@@ -231,7 +231,7 @@ puts result
 
 # Read Offer
 
-This method allows you to list a specific offer's attributes. This is different than list all offers for a site, as it requires an `offer_id`.
+Returns a specific offer's attributes. This is different from listing all offers for a site, as it requires an `offer_id`.
 
 ```ruby
 def read_offer(offer_id)
@@ -265,7 +265,7 @@ puts result
 
 # Archive Offer
 
-Archive an existing offer. Please provide an `offer_id` in order to archive the correct item.
+Archives an existing offer. Please provide an `offer_id` in order to archive the correct item.
 
 ```ruby
 def archive_offer(offer_id)
@@ -298,7 +298,7 @@ offers_controller.archive_offer(offer_id)
 
 # Unarchive Offer
 
-Unarchive a previously archived offer. Please provide an `offer_id` in order to un-archive the correct item.
+Unarchives a previously archived offer. Please provide an `offer_id` in order to unarchive the correct item.
 
 ```ruby
 def unarchive_offer(offer_id)

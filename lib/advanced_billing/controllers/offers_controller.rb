@@ -6,8 +6,7 @@
 module AdvancedBilling
   # OffersController
   class OffersController < BaseController
-    # Create an offer within your Advanced Billing site by sending a POST
-    # request.
+    # Creates an offer within your Advanced Billing site.
     # ## Documentation
     # Offers allow you to package complicated combinations of products,
     # components and coupons into a convenient package which can then be
@@ -46,7 +45,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint will list offers for a site.
+    # Lists offers for a site.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -81,8 +80,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This method allows you to list a specific offer's attributes. This is
-    # different than list all offers for a site, as it requires an `offer_id`.
+    # Returns a specific offer's attributes. This is different from listing all
+    # offers for a site, as it requires an `offer_id`.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
     # @return [OfferResponse] Response from the API call.
@@ -102,7 +101,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Archive an existing offer. Please provide an `offer_id` in order to
+    # Archives an existing offer. Please provide an `offer_id` in order to
     # archive the correct item.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
@@ -121,8 +120,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Unarchive a previously archived offer. Please provide an `offer_id` in
-    # order to un-archive the correct item.
+    # Unarchives a previously archived offer. Please provide an `offer_id` in
+    # order to unarchive the correct item.
     # @param [Integer] offer_id Required parameter: The Chargify id of the
     # offer
     # @return [void] Response from the API call.

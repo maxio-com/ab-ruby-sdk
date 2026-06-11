@@ -140,6 +140,10 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :default_auto_renewal_profile_id
 
+    # The Maxio-generated unique identifier for the customer.
+    # @return [String]
+    attr_accessor :maxioid
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -176,6 +180,7 @@ module AdvancedBilling
       @_hash['tax_exempt_reason'] = 'tax_exempt_reason'
       @_hash['default_auto_renewal_profile_id'] =
         'default_auto_renewal_profile_id'
+      @_hash['maxioid'] = 'maxioid'
       @_hash
     end
 
@@ -212,6 +217,7 @@ module AdvancedBilling
         salesforce_id
         tax_exempt_reason
         default_auto_renewal_profile_id
+        maxioid
       ]
     end
 
@@ -241,6 +247,7 @@ module AdvancedBilling
         salesforce_id
         tax_exempt_reason
         default_auto_renewal_profile_id
+        maxioid
       ]
     end
 
@@ -255,7 +262,7 @@ module AdvancedBilling
                    vat_number: SKIP, parent_id: SKIP, locale: SKIP,
                    default_subscription_group_uid: SKIP, salesforce_id: SKIP,
                    tax_exempt_reason: SKIP,
-                   default_auto_renewal_profile_id: SKIP,
+                   default_auto_renewal_profile_id: SKIP, maxioid: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -307,6 +314,7 @@ module AdvancedBilling
         @default_auto_renewal_profile_id =
           default_auto_renewal_profile_id
       end
+      @maxioid = maxioid unless maxioid == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -367,6 +375,7 @@ module AdvancedBilling
         hash.key?('tax_exempt_reason') ? hash['tax_exempt_reason'] : SKIP
       default_auto_renewal_profile_id =
         hash.key?('default_auto_renewal_profile_id') ? hash['default_auto_renewal_profile_id'] : SKIP
+      maxioid = hash.key?('maxioid') ? hash['maxioid'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -402,6 +411,7 @@ module AdvancedBilling
                    salesforce_id: salesforce_id,
                    tax_exempt_reason: tax_exempt_reason,
                    default_auto_renewal_profile_id: default_auto_renewal_profile_id,
+                   maxioid: maxioid,
                    additional_properties: additional_properties)
     end
 
@@ -449,8 +459,8 @@ module AdvancedBilling
       " #{@tax_exempt}, vat_number: #{@vat_number}, parent_id: #{@parent_id}, locale: #{@locale},"\
       " default_subscription_group_uid: #{@default_subscription_group_uid}, salesforce_id:"\
       " #{@salesforce_id}, tax_exempt_reason: #{@tax_exempt_reason},"\
-      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id},"\
-      " additional_properties: #{get_additional_properties}>"
+      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id}, maxioid:"\
+      " #{@maxioid}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -471,8 +481,8 @@ module AdvancedBilling
       " #{@locale.inspect}, default_subscription_group_uid:"\
       " #{@default_subscription_group_uid.inspect}, salesforce_id: #{@salesforce_id.inspect},"\
       " tax_exempt_reason: #{@tax_exempt_reason.inspect}, default_auto_renewal_profile_id:"\
-      " #{@default_auto_renewal_profile_id.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@default_auto_renewal_profile_id.inspect}, maxioid: #{@maxioid.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

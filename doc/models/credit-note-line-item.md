@@ -28,6 +28,7 @@
 | `price_point_id` | `Integer` | Optional | The price point ID of the component being credited. Will be `nil` for non-component credits. |
 | `billing_schedule_item_id` | `Integer` | Optional | - |
 | `custom_item` | `TrueClass \| FalseClass` | Optional | - |
+| `prepaid_allocation_expires_at` | `Date` | Optional | The date a prepaid allocation is set to expire. Only present on line items representing prepaid component allocations. The format is `"YYYY-MM-DD"`. |
 
 ## Example (as JSON)
 

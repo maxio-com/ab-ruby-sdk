@@ -13,6 +13,12 @@ module AdvancedBilling
       # TODO: Write general description for COMPONENT_ALLOCATION_CHANGE
       COMPONENT_ALLOCATION_CHANGE = 'component_allocation_change'.freeze,
 
+      # TODO: Write general description for CHJS_TOKENIZATION_FAILURE
+      CHJS_TOKENIZATION_FAILURE = 'chjs_tokenization_failure'.freeze,
+
+      # TODO: Write general description for CHJS_TOKENIZATION_SUCCESS
+      CHJS_TOKENIZATION_SUCCESS = 'chjs_tokenization_success'.freeze,
+
       # TODO: Write general description for CUSTOMER_CREATE
       CUSTOMER_CREATE = 'customer_create'.freeze,
 
@@ -132,6 +138,8 @@ module AdvancedBilling
       case str.downcase
       when 'billing_date_change' then BILLING_DATE_CHANGE
       when 'component_allocation_change' then COMPONENT_ALLOCATION_CHANGE
+      when 'chjs_tokenization_failure' then CHJS_TOKENIZATION_FAILURE
+      when 'chjs_tokenization_success' then CHJS_TOKENIZATION_SUCCESS
       when 'customer_create' then CUSTOMER_CREATE
       when 'customer_update' then CUSTOMER_UPDATE
       when 'dunning_step_reached' then DUNNING_STEP_REACHED

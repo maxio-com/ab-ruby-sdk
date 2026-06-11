@@ -128,6 +128,11 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :custom_item
 
+    # The date a prepaid allocation is set to expire. Only present on line items
+    # representing prepaid component allocations. The format is `"YYYY-MM-DD"`.
+    # @return [Date]
+    attr_accessor :prepaid_allocation_expires_at
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -150,6 +155,8 @@ module AdvancedBilling
       @_hash['price_point_id'] = 'price_point_id'
       @_hash['billing_schedule_item_id'] = 'billing_schedule_item_id'
       @_hash['custom_item'] = 'custom_item'
+      @_hash['prepaid_allocation_expires_at'] =
+        'prepaid_allocation_expires_at'
       @_hash
     end
 
@@ -175,6 +182,7 @@ module AdvancedBilling
         price_point_id
         billing_schedule_item_id
         custom_item
+        prepaid_allocation_expires_at
       ]
     end
 
@@ -184,6 +192,7 @@ module AdvancedBilling
         component_id
         price_point_id
         billing_schedule_item_id
+        prepaid_allocation_expires_at
       ]
     end
 
@@ -194,7 +203,8 @@ module AdvancedBilling
                    period_range_start: SKIP, period_range_end: SKIP,
                    product_id: SKIP, product_version: SKIP, component_id: SKIP,
                    price_point_id: SKIP, billing_schedule_item_id: SKIP,
-                   custom_item: SKIP, additional_properties: {})
+                   custom_item: SKIP, prepaid_allocation_expires_at: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -219,6 +229,10 @@ module AdvancedBilling
       @price_point_id = price_point_id unless price_point_id == SKIP
       @billing_schedule_item_id = billing_schedule_item_id unless billing_schedule_item_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
+      unless prepaid_allocation_expires_at == SKIP
+        @prepaid_allocation_expires_at =
+          prepaid_allocation_expires_at
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -253,6 +267,8 @@ module AdvancedBilling
       billing_schedule_item_id =
         hash.key?('billing_schedule_item_id') ? hash['billing_schedule_item_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
+      prepaid_allocation_expires_at =
+        hash.key?('prepaid_allocation_expires_at') ? hash['prepaid_allocation_expires_at'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -277,6 +293,7 @@ module AdvancedBilling
                              price_point_id: price_point_id,
                              billing_schedule_item_id: billing_schedule_item_id,
                              custom_item: custom_item,
+                             prepaid_allocation_expires_at: prepaid_allocation_expires_at,
                              additional_properties: additional_properties)
     end
 
@@ -301,7 +318,8 @@ module AdvancedBilling
       " #{@period_range_end}, product_id: #{@product_id}, product_version: #{@product_version},"\
       " component_id: #{@component_id}, price_point_id: #{@price_point_id},"\
       " billing_schedule_item_id: #{@billing_schedule_item_id}, custom_item: #{@custom_item},"\
-      " additional_properties: #{get_additional_properties}>"
+      " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -317,6 +335,7 @@ module AdvancedBilling
       " product_version: #{@product_version.inspect}, component_id: #{@component_id.inspect},"\
       " price_point_id: #{@price_point_id.inspect}, billing_schedule_item_id:"\
       " #{@billing_schedule_item_id.inspect}, custom_item: #{@custom_item.inspect},"\
+      " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at.inspect},"\
       " additional_properties: #{get_additional_properties}>"
     end
   end

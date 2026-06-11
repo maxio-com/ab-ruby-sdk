@@ -166,6 +166,11 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :kind
 
+    # The date a prepaid allocation is set to expire. Only present on line items
+    # representing prepaid component allocations. The format is `"YYYY-MM-DD"`.
+    # @return [Date]
+    attr_accessor :prepaid_allocation_expires_at
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -193,6 +198,8 @@ module AdvancedBilling
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['custom_item'] = 'custom_item'
       @_hash['kind'] = 'kind'
+      @_hash['prepaid_allocation_expires_at'] =
+        'prepaid_allocation_expires_at'
       @_hash
     end
 
@@ -223,6 +230,7 @@ module AdvancedBilling
         product_price_point_id
         custom_item
         kind
+        prepaid_allocation_expires_at
       ]
     end
 
@@ -236,6 +244,7 @@ module AdvancedBilling
         billing_schedule_item_id
         component_cost_data
         product_price_point_id
+        prepaid_allocation_expires_at
       ]
     end
 
@@ -249,6 +258,7 @@ module AdvancedBilling
                    price_point_id: SKIP, billing_schedule_item_id: SKIP,
                    hide: SKIP, component_cost_data: SKIP,
                    product_price_point_id: SKIP, custom_item: SKIP, kind: SKIP,
+                   prepaid_allocation_expires_at: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -279,6 +289,10 @@ module AdvancedBilling
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
       @kind = kind unless kind == SKIP
+      unless prepaid_allocation_expires_at == SKIP
+        @prepaid_allocation_expires_at =
+          prepaid_allocation_expires_at
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -322,6 +336,8 @@ module AdvancedBilling
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
       kind = hash.key?('kind') ? hash['kind'] : SKIP
+      prepaid_allocation_expires_at =
+        hash.key?('prepaid_allocation_expires_at') ? hash['prepaid_allocation_expires_at'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -351,6 +367,7 @@ module AdvancedBilling
                           product_price_point_id: product_price_point_id,
                           custom_item: custom_item,
                           kind: kind,
+                          prepaid_allocation_expires_at: prepaid_allocation_expires_at,
                           additional_properties: additional_properties)
     end
 
@@ -377,7 +394,8 @@ module AdvancedBilling
       " #{@price_point_id}, billing_schedule_item_id: #{@billing_schedule_item_id}, hide:"\
       " #{@hide}, component_cost_data: #{@component_cost_data}, product_price_point_id:"\
       " #{@product_price_point_id}, custom_item: #{@custom_item}, kind: #{@kind},"\
-      " additional_properties: #{get_additional_properties}>"
+      " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -396,7 +414,9 @@ module AdvancedBilling
       " #{@billing_schedule_item_id.inspect}, hide: #{@hide.inspect}, component_cost_data:"\
       " #{@component_cost_data.inspect}, product_price_point_id:"\
       " #{@product_price_point_id.inspect}, custom_item: #{@custom_item.inspect}, kind:"\
-      " #{@kind.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@kind.inspect}, prepaid_allocation_expires_at:"\
+      " #{@prepaid_allocation_expires_at.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end
