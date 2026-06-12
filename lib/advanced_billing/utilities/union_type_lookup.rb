@@ -221,26 +221,6 @@ module AdvancedBilling
           )
         ),
 
-        :AllocationPreviewItemQuantity => OneOf.new(
-          [
-            LeafType.new(Integer),
-            LeafType.new(String)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :AllocationPreviewItemPreviousQuantity => OneOf.new(
-          [
-            LeafType.new(Integer),
-            LeafType.new(String)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
         :AllocationQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -261,7 +241,17 @@ module AdvancedBilling
           )
         ),
 
-        :ComponentAllocationChangeAllocatedQuantity => OneOf.new(
+        :AllocationPreviewItemQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :AllocationPreviewItemPreviousQuantity => OneOf.new(
           [
             LeafType.new(Integer),
             LeafType.new(String)
@@ -306,40 +296,20 @@ module AdvancedBilling
           )
         ),
 
-        :CreateAllocationPricePointId => OneOf.new(
+        :ComponentAllocationChangeAllocatedQuantity => OneOf.new(
           [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ],
-          UnionTypeContext.new(
-            is_optional: true,
-            is_nullable: true
-          )
-        ),
-
-        :CreateMultiInvoicePaymentAmount => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ]
-        ),
-
-        :CustomerErrorResponseErrors => OneOf.new(
-          [
-            LeafType.new(CustomerError),
-            LeafType.new(String, UnionTypeContext.new(
-              is_array: true
-            ))
+            LeafType.new(Integer),
+            LeafType.new(String)
           ],
           UnionTypeContext.new(
             is_optional: true
           )
         ),
 
-        :EBBComponentUnitPrice => OneOf.new(
+        :ComponentPricePointAssignmentPricePoint => OneOf.new(
           [
             LeafType.new(String),
-            LeafType.new(Float)
+            LeafType.new(Integer)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -356,11 +326,32 @@ module AdvancedBilling
           )
         ),
 
+        :CreateAllocationPricePointId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true,
+            is_nullable: true
+          )
+        ),
+
         :CreateComponentPricePointRequestPricePoint => AnyOf.new(
           [
             LeafType.new(CreateComponentPricePoint),
             LeafType.new(CreatePrepaidUsageComponentPricePoint)
           ]
+        ),
+
+        :CreateComponentPricePointsRequestPricePoints => AnyOf.new(
+          [
+            LeafType.new(CreateComponentPricePoint),
+            LeafType.new(CreatePrepaidUsageComponentPricePoint)
+          ],
+          UnionTypeContext.new(
+            is_array: true
+          )
         ),
 
         :CreateInvoiceCouponPercentage => OneOf.new(
@@ -390,100 +381,6 @@ module AdvancedBilling
           ],
           UnionTypeContext.new(
             is_optional: true
-          )
-        ),
-
-        :CreateInvoicePaymentAmount => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateMetafieldsRequestMetafields => OneOf.new(
-          [
-            LeafType.new(CreateMetafield),
-            LeafType.new(CreateMetafield, UnionTypeContext.new(
-              is_array: true
-            ))
-          ]
-        ),
-
-        :CreateOrUpdateSegmentPriceUnitPrice => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ]
-        ),
-
-        :CreateSegmentSegmentProperty1Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateSegmentSegmentProperty2Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateSegmentSegmentProperty3Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateSegmentSegmentProperty4Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ComponentPricePointAssignmentPricePoint => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :CreateComponentPricePointsRequestPricePoints => AnyOf.new(
-          [
-            LeafType.new(CreateComponentPricePoint),
-            LeafType.new(CreatePrepaidUsageComponentPricePoint)
-          ],
-          UnionTypeContext.new(
-            is_array: true
           )
         ),
 
@@ -547,6 +444,39 @@ module AdvancedBilling
           )
         ),
 
+        :CreateInvoicePaymentAmount => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CreateMetafieldsRequestMetafields => OneOf.new(
+          [
+            LeafType.new(CreateMetafield),
+            LeafType.new(CreateMetafield, UnionTypeContext.new(
+              is_array: true
+            ))
+          ]
+        ),
+
+        :CreateMultiInvoicePaymentAmount => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ]
+        ),
+
+        :CreateOrUpdateSegmentPriceUnitPrice => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ]
+        ),
+
         :CreatePaymentProfileExpirationMonth => OneOf.new(
           [
             LeafType.new(Integer),
@@ -561,6 +491,54 @@ module AdvancedBilling
           [
             LeafType.new(Integer),
             LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CreateSegmentSegmentProperty1Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CreateSegmentSegmentProperty2Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CreateSegmentSegmentProperty3Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :CreateSegmentSegmentProperty4Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -607,11 +585,33 @@ module AdvancedBilling
           )
         ),
 
+        :CustomerErrorResponseErrors => OneOf.new(
+          [
+            LeafType.new(CustomerError),
+            LeafType.new(String, UnionTypeContext.new(
+              is_array: true
+            ))
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :DeductServiceCreditAmount => OneOf.new(
           [
             LeafType.new(String),
             LeafType.new(Float)
           ]
+        ),
+
+        :EBBComponentUnitPrice => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
         ),
 
         :EventEventSpecificData => OneOf.new(
@@ -672,6 +672,13 @@ module AdvancedBilling
           )
         ),
 
+        :OnOffComponentUnitPrice => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ]
+        ),
+
         :PaymentProfileAttributesExpirationMonth => OneOf.new(
           [
             LeafType.new(Integer),
@@ -692,10 +699,205 @@ module AdvancedBilling
           )
         ),
 
+        :PaymentProfile => AnyOf.new(
+          [
+            LeafType.new(ApplePayPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'apple_pay',
+              discriminator: 'payment_type'
+            )),
+            LeafType.new(BankAccountPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'bank_account',
+              discriminator: 'payment_type'
+            )),
+            LeafType.new(CreditCardPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'credit_card',
+              discriminator: 'payment_type'
+            )),
+            LeafType.new(PaypalPaymentProfile, UnionTypeContext.new(
+              discriminator_value: 'paypal_account',
+              discriminator: 'payment_type'
+            ))
+          ]
+        ),
+
+        :PrepaidUsageComponentUnitPrice => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :PriceStartingQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :PriceEndingQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true,
+            is_nullable: true
+          )
+        ),
+
+        :PriceUnitPrice => OneOf.new(
+          [
+            LeafType.new(Float),
+            LeafType.new(String)
+          ]
+        ),
+
+        :QuantityBasedComponentUnitPrice => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :ReactivateSubscriptionRequestResume => OneOf.new(
           [
             AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)]),
             LeafType.new(ResumeOptions)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :RefundConsolidatedInvoiceSegmentUids => OneOf.new(
+          [
+            LeafType.new(String, UnionTypeContext.new(
+              is_array: true
+            )),
+            LeafType.new(String)
+          ]
+        ),
+
+        :RefundInvoiceRequestRefund => AnyOf.new(
+          [
+            LeafType.new(RefundInvoice),
+            LeafType.new(RefundConsolidatedInvoice)
+          ]
+        ),
+
+        :RefundPrepaymentAmount => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float)
+          ]
+        ),
+
+        :RenewalPreviewComponentComponentId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :RenewalPreviewComponentPricePointId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :ScheduledRenewalConfigurationItemRequestRenewalConfigurationItem => OneOf.new(
+          [
+            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
+            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
+          ]
+        ),
+
+        :ScheduledRenewalProductPricePointPriceInCents => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :ScheduledRenewalProductPricePointInterval => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :ScheduledRenewalUpdateRequestRenewalConfigurationItem => OneOf.new(
+          [
+            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
+            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
+          ]
+        ),
+
+        :SegmentSegmentProperty1Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SegmentSegmentProperty2Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SegmentSegmentProperty3Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SegmentSegmentProperty4Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer),
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentAllocatedQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -756,6 +958,14 @@ module AdvancedBilling
           )
         ),
 
+        :SubscriptionGroupCreateErrorResponseErrors => OneOf.new(
+          [
+            LeafType.new(SubscriptionGroupMembersArrayError),
+            LeafType.new(SubscriptionGroupSingleError),
+            LeafType.new(String)
+          ]
+        ),
+
         :SubscriptionGroupCreditCardFullNumber => OneOf.new(
           [
             LeafType.new(String),
@@ -784,216 +994,6 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
-        ),
-
-        :RefundConsolidatedInvoiceSegmentUids => OneOf.new(
-          [
-            LeafType.new(String, UnionTypeContext.new(
-              is_array: true
-            )),
-            LeafType.new(String)
-          ]
-        ),
-
-        :SegmentSegmentProperty1Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :SegmentSegmentProperty2Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :SegmentSegmentProperty3Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :SegmentSegmentProperty4Value => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float),
-            LeafType.new(Integer),
-            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)])
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :PaymentProfile => AnyOf.new(
-          [
-            LeafType.new(ApplePayPaymentProfile, UnionTypeContext.new(
-              discriminator_value: 'apple_pay',
-              discriminator: 'payment_type'
-            )),
-            LeafType.new(BankAccountPaymentProfile, UnionTypeContext.new(
-              discriminator_value: 'bank_account',
-              discriminator: 'payment_type'
-            )),
-            LeafType.new(CreditCardPaymentProfile, UnionTypeContext.new(
-              discriminator_value: 'credit_card',
-              discriminator: 'payment_type'
-            )),
-            LeafType.new(PaypalPaymentProfile, UnionTypeContext.new(
-              discriminator_value: 'paypal_account',
-              discriminator: 'payment_type'
-            ))
-          ]
-        ),
-
-        :RefundPrepaymentAmount => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ]
-        ),
-
-        :ScheduledRenewalConfigurationItemRequestRenewalConfigurationItem => OneOf.new(
-          [
-            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
-            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
-          ]
-        ),
-
-        :ScheduledRenewalProductPricePointPriceInCents => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ]
-        ),
-
-        :ScheduledRenewalProductPricePointInterval => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ]
-        ),
-
-        :SubscriptionComponentAllocatedQuantity => OneOf.new(
-          [
-            LeafType.new(Integer),
-            LeafType.new(String)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :SubscriptionGroupCreateErrorResponseErrors => OneOf.new(
-          [
-            LeafType.new(SubscriptionGroupMembersArrayError),
-            LeafType.new(SubscriptionGroupSingleError),
-            LeafType.new(String)
-          ]
-        ),
-
-        :OnOffComponentUnitPrice => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ]
-        ),
-
-        :PrepaidUsageComponentUnitPrice => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :PriceStartingQuantity => OneOf.new(
-          [
-            LeafType.new(Integer),
-            LeafType.new(String)
-          ]
-        ),
-
-        :PriceEndingQuantity => OneOf.new(
-          [
-            LeafType.new(Integer),
-            LeafType.new(String)
-          ],
-          UnionTypeContext.new(
-            is_optional: true,
-            is_nullable: true
-          )
-        ),
-
-        :PriceUnitPrice => OneOf.new(
-          [
-            LeafType.new(Float),
-            LeafType.new(String)
-          ]
-        ),
-
-        :QuantityBasedComponentUnitPrice => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Float)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :RefundInvoiceRequestRefund => AnyOf.new(
-          [
-            LeafType.new(RefundInvoice),
-            LeafType.new(RefundConsolidatedInvoice)
-          ]
-        ),
-
-        :RenewalPreviewComponentComponentId => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :RenewalPreviewComponentPricePointId => OneOf.new(
-          [
-            LeafType.new(String),
-            LeafType.new(Integer)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :ScheduledRenewalUpdateRequestRenewalConfigurationItem => OneOf.new(
-          [
-            LeafType.new(ScheduledRenewalItemRequestBodyComponent),
-            LeafType.new(ScheduledRenewalItemRequestBodyProduct)
-          ]
         ),
 
         :SubscriptionGroupSignupComponentComponentId => OneOf.new(
@@ -1036,6 +1036,18 @@ module AdvancedBilling
           )
         ),
 
+        :UpdateMetafieldsRequestMetafields => OneOf.new(
+          [
+            LeafType.new(UpdateMetafield),
+            LeafType.new(UpdateMetafield, UnionTypeContext.new(
+              is_array: true
+            ))
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :UpdatePriceEndingQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -1060,18 +1072,6 @@ module AdvancedBilling
           [
             LeafType.new(Integer),
             LeafType.new(String)
-          ],
-          UnionTypeContext.new(
-            is_optional: true
-          )
-        ),
-
-        :UpdateMetafieldsRequestMetafields => OneOf.new(
-          [
-            LeafType.new(UpdateMetafield),
-            LeafType.new(UpdateMetafield, UnionTypeContext.new(
-              is_array: true
-            ))
           ],
           UnionTypeContext.new(
             is_optional: true
