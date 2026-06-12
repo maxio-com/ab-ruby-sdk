@@ -19,9 +19,11 @@ reason_codes_controller = client.reason_codes
 
 # Create Reason Code
 
+Creates a reason code for a given site.
+
 # Reason Codes Intro
 
-ReasonCodes are a way to gain a high level view of why your customers are cancelling the subscription to your product or service.
+Reason Codes are a way to gain a high-level view of why your customers are cancelling the subscription to your product or service.
 
 Add a set of churn reason codes to be displayed in-app and/or the Maxio Billing Portal. As your subscribers decide to cancel their subscription, learn why they decided to cancel.
 
@@ -33,11 +35,15 @@ Full documentation on how Reason Codes operate within Advanced Billing can be lo
 
 ## Create Reason Code
 
-This method gives a merchant the option to create a reason codes for a given Site.
+This method gives a merchant the option to create reason codes for a given site.
 
 ```ruby
 def create_reason_code(body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -46,6 +52,8 @@ def create_reason_code(body: nil)
 | `body` | [`CreateReasonCodeRequest`](../../doc/models/create-reason-code-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ReasonCodeResponse`](../../doc/models/reason-code-response.md)
 
@@ -73,11 +81,15 @@ puts result
 
 # List Reason Codes
 
-This method gives a merchant the option to retrieve a list of all of the current churn codes for a given site.
+Lists all current churn codes for a given site.
 
 ```ruby
 def list_reason_codes(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -87,6 +99,8 @@ def list_reason_codes(options = {})
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ReasonCodeResponse]`](../../doc/models/reason-code-response.md)
 
@@ -151,11 +165,15 @@ puts result
 
 # Read Reason Code
 
-This method gives a merchant the option to retrieve a list of a particular code for a given Site by providing the unique numerical ID of the code.
+Returns a particular churn reason code for a given site by its unique ID.
 
 ```ruby
 def read_reason_code(reason_code_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -164,6 +182,8 @@ def read_reason_code(reason_code_id)
 | `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 
 ## Response Type
+
+**200**: OK
 
 [`ReasonCodeResponse`](../../doc/models/reason-code-response.md)
 
@@ -185,12 +205,16 @@ puts result
 
 # Update Reason Code
 
-This method gives a merchant the option to update an existing reason code for a given site.
+Updates an existing reason code for a given site.
 
 ```ruby
 def update_reason_code(reason_code_id,
                        body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -200,6 +224,8 @@ def update_reason_code(reason_code_id,
 | `body` | [`UpdateReasonCodeRequest`](../../doc/models/update-reason-code-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ReasonCodeResponse`](../../doc/models/reason-code-response.md)
 
@@ -222,11 +248,15 @@ puts result
 
 # Delete Reason Code
 
-This method gives a merchant the option to delete one reason code from the Churn Reason Codes. This code will be immediately removed. This action is not reversible.
+Deletes a reason code from the Churn Reason Codes. This code will be immediately removed. This action is not reversible.
 
 ```ruby
 def delete_reason_code(reason_code_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -235,6 +265,8 @@ def delete_reason_code(reason_code_id)
 | `reason_code_id` | `Integer` | Template, Required | The Advanced Billing id of the reason code |
 
 ## Response Type
+
+**200**: OK
 
 [`OkResponse`](../../doc/models/ok-response.md)
 

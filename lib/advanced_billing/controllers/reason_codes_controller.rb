@@ -6,8 +6,9 @@
 module AdvancedBilling
   # ReasonCodesController
   class ReasonCodesController < BaseController
+    # Creates a reason code for a given site.
     # # Reason Codes Intro
-    # ReasonCodes are a way to gain a high level view of why your customers are
+    # Reason Codes are a way to gain a high-level view of why your customers are
     # cancelling the subscription to your product or service.
     # Add a set of churn reason codes to be displayed in-app and/or the Maxio
     # Billing Portal. As your subscribers decide to cancel their subscription,
@@ -19,8 +20,8 @@ module AdvancedBilling
     # Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Re
     # ason-Codes)
     # ## Create Reason Code
-    # This method gives a merchant the option to create a reason codes for a
-    # given Site.
+    # This method gives a merchant the option to create reason codes for a given
+    # site.
     # @param [CreateReasonCodeRequest] body Optional parameter: TODO: type
     # description here
     # @return [ReasonCodeResponse] Response from the API call.
@@ -44,8 +45,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method gives a merchant the option to retrieve a list of all of the
-    # current churn codes for a given site.
+    # Lists all current churn codes for a given site.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -78,8 +78,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method gives a merchant the option to retrieve a list of a particular
-    # code for a given Site by providing the unique numerical ID of the code.
+    # Returns a particular churn reason code for a given site by its unique ID.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
     # @return [ReasonCodeResponse] Response from the API call.
@@ -102,8 +101,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This method gives a merchant the option to update an existing reason code
-    # for a given site.
+    # Updates an existing reason code for a given site.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
     # @param [UpdateReasonCodeRequest] body Optional parameter: TODO: type
@@ -136,9 +134,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This method gives a merchant the option to delete one reason code from the
-    # Churn Reason Codes. This code will be immediately removed. This action is
-    # not reversible.
+    # Deletes a reason code from the Churn Reason Codes. This code will be
+    # immediately removed. This action is not reversible.
     # @param [Integer] reason_code_id Required parameter: The Advanced Billing
     # id of the reason code
     # @return [OkResponse] Response from the API call.

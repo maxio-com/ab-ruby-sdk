@@ -6,8 +6,8 @@
 module AdvancedBilling
   # InsightsController
   class InsightsController < BaseController
-    # The Stats API is a very basic view of some Site-level stats. This API call
-    # only answers with JSON responses. An XML version is not provided.
+    # Returns basic site-level stats. This API call only answers with JSON
+    # responses. An XML version is not provided.
     # ## Stats Documentation
     # There currently is not a complimentary matching set of documentation that
     # compliments this endpoint. However, each Site's dashboard will reflect the
@@ -29,8 +29,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint returns your site's current MRR, including plan and usage
-    # breakouts.
+    # Returns your site's current MRR, including plan and usage breakouts.
     # @param [DateTime] at_time Optional parameter: submit a timestamp in
     # ISO8601 format to request MRR for a historic time
     # @param [Integer] subscription_id Optional parameter: submit the id of a
@@ -53,7 +52,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint returns your site's MRR movements.
+    # Lists your site's MRR movements.
     # ## Understanding MRR movements
     # This endpoint will aid in accessing your site's [MRR
     # Report](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-Ana

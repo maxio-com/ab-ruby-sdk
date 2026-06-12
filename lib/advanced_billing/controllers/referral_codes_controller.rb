@@ -6,9 +6,9 @@
 module AdvancedBilling
   # ReferralCodesController
   class ReferralCodesController < BaseController
-    # Use this method to determine if the referral code is valid and applicable
-    # within your Site. This method is useful for validating referral codes that
-    # are entered by a customer.
+    # Validates whether a referral code is valid and applicable within your
+    # site. This method is useful for validating referral codes that are entered
+    # by a customer.
     # ## Referrals Documentation
     # Full documentation on how to use the referrals feature in the Advanced
     # Billing UI can be located

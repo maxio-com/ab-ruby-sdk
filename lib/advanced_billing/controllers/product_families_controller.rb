@@ -82,7 +82,7 @@ module AdvancedBilling
     end
 
     # Creates a Product Family within your Advanced Billing site. Create a
-    # Product Family to act as a container for your products, components and
+    # Product Family to act as a container for your products, components, and
     # coupons.
     # Full documentation on how Product Families operate within the Advanced
     # Billing UI can be located
@@ -111,7 +111,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Retrieve a list of Product Families for a site.
+    # Returns a list of Product Families for a site.
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query:
     # `date_field=created_at`.

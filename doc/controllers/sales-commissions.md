@@ -17,7 +17,7 @@ sales_commissions_controller = client.sales_commissions
 
 # List Sales Commission Settings
 
-Endpoint returns subscriptions with associated sales reps
+Lists subscriptions with associated sales reps.
 
 ## Modified Authentication Process
 
@@ -31,6 +31,10 @@ Access to the Sales Commission API endpoints is available to users with financia
 def list_sales_commission_settings(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -42,6 +46,8 @@ def list_sales_commission_settings(options = {})
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[SaleRepSettings]`](../../doc/models/sale-rep-settings.md)
 
@@ -96,7 +102,7 @@ puts result
 
 # List Sales Reps
 
-Endpoint returns sales rep list with details
+Returns a sales rep list with details.
 
 ## Modified Authentication Process
 
@@ -110,6 +116,10 @@ Access to the Sales Commission API endpoints is available to users with financia
 def list_sales_reps(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -121,6 +131,8 @@ def list_sales_reps(options = {})
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ListSaleRepItem]`](../../doc/models/list-sale-rep-item.md)
 
@@ -224,7 +236,7 @@ puts result
 
 # Read Sales Rep
 
-Endpoint returns sales rep and attached subscriptions details.
+Returns a sales rep and attached subscription details.
 
 ## Modified Authentication Process
 
@@ -243,6 +255,10 @@ def read_sales_rep(seller_id,
                    per_page: 100)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -255,6 +271,8 @@ def read_sales_rep(seller_id,
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
+
+**200**: OK
 
 [`SaleRep`](../../doc/models/sale-rep.md)
 

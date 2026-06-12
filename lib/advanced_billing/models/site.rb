@@ -73,7 +73,20 @@ module AdvancedBilling
     # @return [NetTerms]
     attr_accessor :net_terms
 
-    # TODO: Write general description for this method
+    # Whether the site has the multi-frequency billing feature enabled. Only
+    # present when relationship invoicing is active.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :multi_frequency_enabled
+
+    # Whether the auto-renewals feature is enabled for this site.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :auto_renewals_enabled
+
+    # Whether the Billing Portal is enabled for this site.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :portal_enabled
+
+    # Whether the Billing Portal is enabled for this site.
     # @return [TrueClass | FalseClass]
     attr_accessor :test
 
@@ -99,6 +112,9 @@ module AdvancedBilling
       @_hash['organization_address'] = 'organization_address'
       @_hash['tax_configuration'] = 'tax_configuration'
       @_hash['net_terms'] = 'net_terms'
+      @_hash['multi_frequency_enabled'] = 'multi_frequency_enabled'
+      @_hash['auto_renewals_enabled'] = 'auto_renewals_enabled'
+      @_hash['portal_enabled'] = 'portal_enabled'
       @_hash['test'] = 'test'
       @_hash
     end
@@ -122,6 +138,9 @@ module AdvancedBilling
         organization_address
         tax_configuration
         net_terms
+        multi_frequency_enabled
+        auto_renewals_enabled
+        portal_enabled
         test
       ]
     end
@@ -139,7 +158,9 @@ module AdvancedBilling
                    whopays_default_payer: SKIP, allocation_settings: SKIP,
                    default_payment_collection_method: SKIP,
                    organization_address: SKIP, tax_configuration: SKIP,
-                   net_terms: SKIP, test: SKIP, additional_properties: {})
+                   net_terms: SKIP, multi_frequency_enabled: SKIP,
+                   auto_renewals_enabled: SKIP, portal_enabled: SKIP,
+                   test: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -173,6 +194,9 @@ module AdvancedBilling
       @organization_address = organization_address unless organization_address == SKIP
       @tax_configuration = tax_configuration unless tax_configuration == SKIP
       @net_terms = net_terms unless net_terms == SKIP
+      @multi_frequency_enabled = multi_frequency_enabled unless multi_frequency_enabled == SKIP
+      @auto_renewals_enabled = auto_renewals_enabled unless auto_renewals_enabled == SKIP
+      @portal_enabled = portal_enabled unless portal_enabled == SKIP
       @test = test unless test == SKIP
     end
 
@@ -207,6 +231,12 @@ module AdvancedBilling
       tax_configuration = TaxConfiguration.from_hash(hash['tax_configuration']) if
         hash['tax_configuration']
       net_terms = NetTerms.from_hash(hash['net_terms']) if hash['net_terms']
+      multi_frequency_enabled =
+        hash.key?('multi_frequency_enabled') ? hash['multi_frequency_enabled'] : SKIP
+      auto_renewals_enabled =
+        hash.key?('auto_renewals_enabled') ? hash['auto_renewals_enabled'] : SKIP
+      portal_enabled =
+        hash.key?('portal_enabled') ? hash['portal_enabled'] : SKIP
       test = hash.key?('test') ? hash['test'] : SKIP
 
       # Clean out expected properties from Hash.
@@ -229,6 +259,9 @@ module AdvancedBilling
                organization_address: organization_address,
                tax_configuration: tax_configuration,
                net_terms: net_terms,
+               multi_frequency_enabled: multi_frequency_enabled,
+               auto_renewals_enabled: auto_renewals_enabled,
+               portal_enabled: portal_enabled,
                test: test,
                additional_properties: additional_properties)
     end
@@ -245,7 +278,9 @@ module AdvancedBilling
       " whopays_default_payer: #{@whopays_default_payer}, allocation_settings:"\
       " #{@allocation_settings}, default_payment_collection_method:"\
       " #{@default_payment_collection_method}, organization_address: #{@organization_address},"\
-      " tax_configuration: #{@tax_configuration}, net_terms: #{@net_terms}, test: #{@test},"\
+      " tax_configuration: #{@tax_configuration}, net_terms: #{@net_terms},"\
+      " multi_frequency_enabled: #{@multi_frequency_enabled}, auto_renewals_enabled:"\
+      " #{@auto_renewals_enabled}, portal_enabled: #{@portal_enabled}, test: #{@test},"\
       " additional_properties: #{get_additional_properties}>"
     end
 
@@ -263,8 +298,10 @@ module AdvancedBilling
       " #{@allocation_settings.inspect}, default_payment_collection_method:"\
       " #{@default_payment_collection_method.inspect}, organization_address:"\
       " #{@organization_address.inspect}, tax_configuration: #{@tax_configuration.inspect},"\
-      " net_terms: #{@net_terms.inspect}, test: #{@test.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " net_terms: #{@net_terms.inspect}, multi_frequency_enabled:"\
+      " #{@multi_frequency_enabled.inspect}, auto_renewals_enabled:"\
+      " #{@auto_renewals_enabled.inspect}, portal_enabled: #{@portal_enabled.inspect}, test:"\
+      " #{@test.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

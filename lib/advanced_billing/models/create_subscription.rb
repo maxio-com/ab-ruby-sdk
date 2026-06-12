@@ -319,6 +319,7 @@ module AdvancedBilling
 
     # Valid only for the Subscription Preview endpoint. When set to `true` it
     # skips calculating taxes for the current and next billing manifests.
+    # Defaults to `false` when not provided.
     # @return [TrueClass | FalseClass]
     attr_accessor :skip_billing_manifest_taxes
 
@@ -472,8 +473,7 @@ module AdvancedBilling
                    agreement_acceptance: SKIP, ach_agreement: SKIP,
                    dunning_communication_delay_enabled: false,
                    dunning_communication_delay_time_zone: SKIP,
-                   skip_billing_manifest_taxes: false,
-                   additional_properties: {})
+                   skip_billing_manifest_taxes: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -675,7 +675,7 @@ module AdvancedBilling
       dunning_communication_delay_time_zone =
         hash.key?('dunning_communication_delay_time_zone') ? hash['dunning_communication_delay_time_zone'] : SKIP
       skip_billing_manifest_taxes =
-        hash['skip_billing_manifest_taxes'] ||= false
+        hash.key?('skip_billing_manifest_taxes') ? hash['skip_billing_manifest_taxes'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }

@@ -28,7 +28,7 @@ module AdvancedBilling
         .execute
     end
 
-    # ## Create Prepayment
+    # Creates a prepayment for a subscription.
     # In order to specify a prepayment made against a subscription, specify the
     # `amount, memo, details, method`.
     # When the `method` specified is `"credit_card_on_file"`, the prepayment
@@ -36,6 +36,15 @@ module AdvancedBilling
     # applied to the prepayment account balance.  This is especially useful for
     # manual replenishment of prepaid subscriptions.
     # Note that passing `amount_in_cents` is now allowed.
+    # ## 3D Secure (3DS) Authentication post-authentication flow
+    # When a payment requires 3DS Authentication to adhere to Strong Customer
+    # Authentication (SCA), the request enters a post-authentication flow where
+    # a 422 Unprocessable Entity status is returned with an action_link that
+    # will direct the customer through 3DS Authentication.
+    # See the [3D Secure Post-Authentication
+    # Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Po
+    # st-Authentication-Flow) article in the product documentation to learn how
+    # to manage the redirect flow.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [CreatePrepaymentRequest] body Optional parameter: TODO: type
@@ -65,7 +74,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This request will list a subscription's prepayments.
+    # Lists a subscription's prepayments.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -105,9 +114,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Credit will be added to the subscription in the amount specified in the
-    # request body. The credit is subsequently applied to the next generated
-    # invoice.
+    # Adds a service credit to the subscription in the specified amount. The
+    # credit is subsequently applied to the next generated invoice.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [IssueServiceCreditRequest] body Optional parameter: TODO: type
@@ -137,9 +145,9 @@ module AdvancedBilling
         .execute
     end
 
-    # Credit will be removed from the subscription in the amount specified in
-    # the request body. The credit amount being deducted must be equal to or
-    # less than the current credit balance.
+    # Deducts a service credit from the subscription in the specified amount.
+    # The credit amount being deducted must be equal to or less than the current
+    # credit balance.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [DeductServiceCreditRequest] body Optional parameter: TODO: type
@@ -167,7 +175,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This request will list a subscription's service credits.
+    # Lists a subscription's service credits.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -213,10 +221,10 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint will refund, completely or partially, a particular
-    # prepayment applied to a subscription. The `prepayment_id` will be the
-    # account transaction ID of the original payment. The prepayment must have
-    # some amount remaining in order to be refunded.
+    # Refunds a prepayment applied to a subscription, either fully or partially.
+    # The `prepayment_id` will be the account transaction ID of the original
+    # payment. The prepayment must have some amount remaining in order to be
+    # refunded.
     # The amount may be passed either as a decimal, with `amount`, or an integer
     # in cents, with `amount_in_cents`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of

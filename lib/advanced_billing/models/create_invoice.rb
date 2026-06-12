@@ -13,7 +13,10 @@ module AdvancedBilling
     # @return [Array[CreateInvoiceItem]]
     attr_accessor :line_items
 
-    # TODO: Write general description for this method
+    # Date on which the invoice will be issued (format YYYY-MM-DD). This date is
+    # interpreted and validated in your site's time zone. It must be today or a
+    # date in the past — future dates are not accepted. If omitted, defaults to
+    # today in your site's time zone.
     # @return [Date]
     attr_accessor :issue_date
 

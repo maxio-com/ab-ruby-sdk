@@ -64,6 +64,16 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :tax_amount
 
+    # Whether the unit price for this line item is tax-inclusive.
+    # When `true`, `unit_price` already includes tax and `tax_amount` represents
+    # the portion of the price attributable to tax. When `false`, any applicable
+    # tax is added on top of the price.
+    # The value is inherited from the source price point's `tax_included`
+    # setting. Custom or ad-hoc line items (which have no associated price
+    # point) always return `false`.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :tax_included
+
     # The non-canonical total amount for the line.
     # `subtotal_amount` is the canonical amount for a line. The invoice
     # `total_amount` is derived from the sum of the line `subtotal_amount`s and
@@ -156,6 +166,11 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :kind
 
+    # The date a prepaid allocation is set to expire. Only present on line items
+    # representing prepaid component allocations. The format is `"YYYY-MM-DD"`.
+    # @return [Date]
+    attr_accessor :prepaid_allocation_expires_at
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -167,6 +182,7 @@ module AdvancedBilling
       @_hash['subtotal_amount'] = 'subtotal_amount'
       @_hash['discount_amount'] = 'discount_amount'
       @_hash['tax_amount'] = 'tax_amount'
+      @_hash['tax_included'] = 'tax_included'
       @_hash['total_amount'] = 'total_amount'
       @_hash['tiered_unit_price'] = 'tiered_unit_price'
       @_hash['period_range_start'] = 'period_range_start'
@@ -182,6 +198,8 @@ module AdvancedBilling
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['custom_item'] = 'custom_item'
       @_hash['kind'] = 'kind'
+      @_hash['prepaid_allocation_expires_at'] =
+        'prepaid_allocation_expires_at'
       @_hash
     end
 
@@ -196,6 +214,7 @@ module AdvancedBilling
         subtotal_amount
         discount_amount
         tax_amount
+        tax_included
         total_amount
         tiered_unit_price
         period_range_start
@@ -211,6 +230,7 @@ module AdvancedBilling
         product_price_point_id
         custom_item
         kind
+        prepaid_allocation_expires_at
       ]
     end
 
@@ -224,18 +244,21 @@ module AdvancedBilling
         billing_schedule_item_id
         component_cost_data
         product_price_point_id
+        prepaid_allocation_expires_at
       ]
     end
 
     def initialize(uid: SKIP, title: SKIP, description: SKIP, quantity: SKIP,
                    unit_price: SKIP, subtotal_amount: SKIP,
-                   discount_amount: SKIP, tax_amount: SKIP, total_amount: SKIP,
-                   tiered_unit_price: SKIP, period_range_start: SKIP,
-                   period_range_end: SKIP, transaction_id: SKIP,
-                   product_id: SKIP, product_version: SKIP, component_id: SKIP,
+                   discount_amount: SKIP, tax_amount: SKIP, tax_included: SKIP,
+                   total_amount: SKIP, tiered_unit_price: SKIP,
+                   period_range_start: SKIP, period_range_end: SKIP,
+                   transaction_id: SKIP, product_id: SKIP,
+                   product_version: SKIP, component_id: SKIP,
                    price_point_id: SKIP, billing_schedule_item_id: SKIP,
                    hide: SKIP, component_cost_data: SKIP,
                    product_price_point_id: SKIP, custom_item: SKIP, kind: SKIP,
+                   prepaid_allocation_expires_at: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -250,6 +273,7 @@ module AdvancedBilling
       @subtotal_amount = subtotal_amount unless subtotal_amount == SKIP
       @discount_amount = discount_amount unless discount_amount == SKIP
       @tax_amount = tax_amount unless tax_amount == SKIP
+      @tax_included = tax_included unless tax_included == SKIP
       @total_amount = total_amount unless total_amount == SKIP
       @tiered_unit_price = tiered_unit_price unless tiered_unit_price == SKIP
       @period_range_start = period_range_start unless period_range_start == SKIP
@@ -265,6 +289,10 @@ module AdvancedBilling
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
       @kind = kind unless kind == SKIP
+      unless prepaid_allocation_expires_at == SKIP
+        @prepaid_allocation_expires_at =
+          prepaid_allocation_expires_at
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -282,6 +310,7 @@ module AdvancedBilling
       discount_amount =
         hash.key?('discount_amount') ? hash['discount_amount'] : SKIP
       tax_amount = hash.key?('tax_amount') ? hash['tax_amount'] : SKIP
+      tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       total_amount = hash.key?('total_amount') ? hash['total_amount'] : SKIP
       tiered_unit_price =
         hash.key?('tiered_unit_price') ? hash['tiered_unit_price'] : SKIP
@@ -307,6 +336,8 @@ module AdvancedBilling
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
       kind = hash.key?('kind') ? hash['kind'] : SKIP
+      prepaid_allocation_expires_at =
+        hash.key?('prepaid_allocation_expires_at') ? hash['prepaid_allocation_expires_at'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -320,6 +351,7 @@ module AdvancedBilling
                           subtotal_amount: subtotal_amount,
                           discount_amount: discount_amount,
                           tax_amount: tax_amount,
+                          tax_included: tax_included,
                           total_amount: total_amount,
                           tiered_unit_price: tiered_unit_price,
                           period_range_start: period_range_start,
@@ -335,6 +367,7 @@ module AdvancedBilling
                           product_price_point_id: product_price_point_id,
                           custom_item: custom_item,
                           kind: kind,
+                          prepaid_allocation_expires_at: prepaid_allocation_expires_at,
                           additional_properties: additional_properties)
     end
 
@@ -353,15 +386,16 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} uid: #{@uid}, title: #{@title}, description: #{@description}, quantity:"\
       " #{@quantity}, unit_price: #{@unit_price}, subtotal_amount: #{@subtotal_amount},"\
-      " discount_amount: #{@discount_amount}, tax_amount: #{@tax_amount}, total_amount:"\
-      " #{@total_amount}, tiered_unit_price: #{@tiered_unit_price}, period_range_start:"\
-      " #{@period_range_start}, period_range_end: #{@period_range_end}, transaction_id:"\
-      " #{@transaction_id}, product_id: #{@product_id}, product_version: #{@product_version},"\
-      " component_id: #{@component_id}, price_point_id: #{@price_point_id},"\
-      " billing_schedule_item_id: #{@billing_schedule_item_id}, hide: #{@hide},"\
-      " component_cost_data: #{@component_cost_data}, product_price_point_id:"\
+      " discount_amount: #{@discount_amount}, tax_amount: #{@tax_amount}, tax_included:"\
+      " #{@tax_included}, total_amount: #{@total_amount}, tiered_unit_price:"\
+      " #{@tiered_unit_price}, period_range_start: #{@period_range_start}, period_range_end:"\
+      " #{@period_range_end}, transaction_id: #{@transaction_id}, product_id: #{@product_id},"\
+      " product_version: #{@product_version}, component_id: #{@component_id}, price_point_id:"\
+      " #{@price_point_id}, billing_schedule_item_id: #{@billing_schedule_item_id}, hide:"\
+      " #{@hide}, component_cost_data: #{@component_cost_data}, product_price_point_id:"\
       " #{@product_price_point_id}, custom_item: #{@custom_item}, kind: #{@kind},"\
-      " additional_properties: #{get_additional_properties}>"
+      " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -370,16 +404,19 @@ module AdvancedBilling
       "<#{class_name} uid: #{@uid.inspect}, title: #{@title.inspect}, description:"\
       " #{@description.inspect}, quantity: #{@quantity.inspect}, unit_price:"\
       " #{@unit_price.inspect}, subtotal_amount: #{@subtotal_amount.inspect}, discount_amount:"\
-      " #{@discount_amount.inspect}, tax_amount: #{@tax_amount.inspect}, total_amount:"\
-      " #{@total_amount.inspect}, tiered_unit_price: #{@tiered_unit_price.inspect},"\
-      " period_range_start: #{@period_range_start.inspect}, period_range_end:"\
-      " #{@period_range_end.inspect}, transaction_id: #{@transaction_id.inspect}, product_id:"\
-      " #{@product_id.inspect}, product_version: #{@product_version.inspect}, component_id:"\
-      " #{@component_id.inspect}, price_point_id: #{@price_point_id.inspect},"\
-      " billing_schedule_item_id: #{@billing_schedule_item_id.inspect}, hide: #{@hide.inspect},"\
-      " component_cost_data: #{@component_cost_data.inspect}, product_price_point_id:"\
+      " #{@discount_amount.inspect}, tax_amount: #{@tax_amount.inspect}, tax_included:"\
+      " #{@tax_included.inspect}, total_amount: #{@total_amount.inspect}, tiered_unit_price:"\
+      " #{@tiered_unit_price.inspect}, period_range_start: #{@period_range_start.inspect},"\
+      " period_range_end: #{@period_range_end.inspect}, transaction_id:"\
+      " #{@transaction_id.inspect}, product_id: #{@product_id.inspect}, product_version:"\
+      " #{@product_version.inspect}, component_id: #{@component_id.inspect}, price_point_id:"\
+      " #{@price_point_id.inspect}, billing_schedule_item_id:"\
+      " #{@billing_schedule_item_id.inspect}, hide: #{@hide.inspect}, component_cost_data:"\
+      " #{@component_cost_data.inspect}, product_price_point_id:"\
       " #{@product_price_point_id.inspect}, custom_item: #{@custom_item.inspect}, kind:"\
-      " #{@kind.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@kind.inspect}, prepaid_allocation_expires_at:"\
+      " #{@prepaid_allocation_expires_at.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

@@ -94,15 +94,15 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :disabled
 
-    # Token received after sending billing information using chargify.js. This
-    # token will only be received if passed as a sole attribute of
-    # credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+    # Token received after sending billing information using Maxio.js (formerly
+    # Chargify.js). This token will only be received if passed as a sole
+    # attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [String]
     attr_accessor :chargify_token
 
-    # Token received after sending billing information using chargify.js. This
-    # token will only be received if passed as a sole attribute of
-    # credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+    # Token received after sending billing information using Maxio.js (formerly
+    # Chargify.js). This token will only be received if passed as a sole
+    # attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
     # @return [Integer]
     attr_accessor :site_gateway_setting_id
 

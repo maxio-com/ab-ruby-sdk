@@ -19,7 +19,7 @@ offers_controller = client.offers
 
 # Create Offer
 
-Create an offer within your Advanced Billing site by sending a POST request.
+Creates an offer within your Advanced Billing site.
 
 ## Documentation
 
@@ -37,6 +37,10 @@ You can optionally pass in a `product_price_point_id` that corresponds with the 
 def create_offer(body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -44,6 +48,8 @@ def create_offer(body: nil)
 | `body` | [`CreateOfferRequest`](../../doc/models/create-offer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -124,11 +130,15 @@ puts result
 
 # List Offers
 
-This endpoint will list offers for a site.
+Lists offers for a site.
 
 ```ruby
 def list_offers(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -139,6 +149,8 @@ def list_offers(options = {})
 | `include_archived` | `TrueClass \| FalseClass` | Query, Optional | Include archived products. Use in query: `include_archived=true`. |
 
 ## Response Type
+
+**200**: OK
 
 [`ListOffersResponse`](../../doc/models/list-offers-response.md)
 
@@ -219,11 +231,15 @@ puts result
 
 # Read Offer
 
-This method allows you to list a specific offer's attributes. This is different than list all offers for a site, as it requires an `offer_id`.
+Returns a specific offer's attributes. This is different from listing all offers for a site, as it requires an `offer_id`.
 
 ```ruby
 def read_offer(offer_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -232,6 +248,8 @@ def read_offer(offer_id)
 | `offer_id` | `Integer` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -247,11 +265,15 @@ puts result
 
 # Archive Offer
 
-Archive an existing offer. Please provide an `offer_id` in order to archive the correct item.
+Archives an existing offer. Please provide an `offer_id` in order to archive the correct item.
 
 ```ruby
 def archive_offer(offer_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -260,6 +282,8 @@ def archive_offer(offer_id)
 | `offer_id` | `Integer` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -274,11 +298,15 @@ offers_controller.archive_offer(offer_id)
 
 # Unarchive Offer
 
-Unarchive a previously archived offer. Please provide an `offer_id` in order to un-archive the correct item.
+Unarchives a previously archived offer. Please provide an `offer_id` in order to unarchive the correct item.
 
 ```ruby
 def unarchive_offer(offer_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -287,6 +315,8 @@ def unarchive_offer(offer_id)
 | `offer_id` | `Integer` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 

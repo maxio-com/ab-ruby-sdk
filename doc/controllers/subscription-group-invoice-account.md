@@ -18,12 +18,16 @@ subscription_group_invoice_account_controller = client.subscription_group_invoic
 
 # Create Subscription Group Prepayment
 
-A prepayment can be added for a subscription group identified by the group's `uid`. This endpoint requires a `amount`, `details`, `method`, and `memo`. On success, the prepayment will be added to the group's prepayment balance.
+Adds a prepayment for a subscription group. This endpoint requires an `amount`, `details`, `method`, and `memo`. On success, the prepayment will be added to the group's prepayment balance.
 
 ```ruby
 def create_subscription_group_prepayment(uid,
                                          body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -33,6 +37,8 @@ def create_subscription_group_prepayment(uid,
 | `body` | [`SubscriptionGroupPrepaymentRequest`](../../doc/models/subscription-group-prepayment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionGroupPrepaymentResponse`](../../doc/models/subscription-group-prepayment-response.md)
 
@@ -66,11 +72,15 @@ puts result
 
 # List Prepayments for Subscription Group
 
-This request will list a subscription group's prepayments.
+Lists a subscription group's prepayments.
 
 ```ruby
 def list_prepayments_for_subscription_group(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -82,6 +92,8 @@ def list_prepayments_for_subscription_group(options = {})
 | `filter` | [`ListPrepaymentsFilter`](../../doc/models/list-prepayments-filter.md) | Query, Optional | Filter to use for List Prepayments operations |
 
 ## Response Type
+
+**200**: OK
 
 [`ListSubscriptionGroupPrepaymentResponse`](../../doc/models/list-subscription-group-prepayment-response.md)
 
@@ -134,12 +146,16 @@ puts result
 
 # Issue Subscription Group Service Credit
 
-Credit can be issued for a subscription group identified by the group's `uid`. Credit will be added to the group in the amount specified in the request body. The credit will be applied to group member invoices as they are generated.
+Issues service credit for a subscription group. Credit will be added to the group in the amount specified in the request body. The credit will be applied to group member invoices as they are generated.
 
 ```ruby
 def issue_subscription_group_service_credit(uid,
                                             body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -149,6 +165,8 @@ def issue_subscription_group_service_credit(uid,
 | `body` | [`IssueServiceCreditRequest`](../../doc/models/issue-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ServiceCreditResponse`](../../doc/models/service-credit-response.md)
 
@@ -194,12 +212,16 @@ puts result
 
 # Deduct Subscription Group Service Credit
 
-Credit can be deducted for a subscription group identified by the group's `uid`. Credit will be deducted from the group in the amount specified in the request body.
+Deducts service credit for a subscription group. Credit will be deducted from the group in the amount specified in the request body.
 
 ```ruby
 def deduct_subscription_group_service_credit(uid,
                                              body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -209,6 +231,8 @@ def deduct_subscription_group_service_credit(uid,
 | `body` | [`DeductServiceCreditRequest`](../../doc/models/deduct-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ServiceCredit`](../../doc/models/service-credit.md)
 

@@ -31,12 +31,16 @@ subscription_components_controller = client.subscription_components
 
 # Read Subscription Component
 
-This request will list information regarding a specific component owned by a subscription.
+Returns information for a specific component on a subscription.
 
 ```ruby
 def read_subscription_component(subscription_id,
                                 component_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -46,6 +50,8 @@ def read_subscription_component(subscription_id,
 | `component_id` | `Integer` | Template, Required | The Advanced Billing id of the component. Alternatively, the component's handle prefixed by `handle:` |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionComponentResponse`](../../doc/models/subscription-component-response.md)
 
@@ -91,7 +97,7 @@ puts result
 
 # List Subscription Components
 
-This request will list a subscription's applied components.
+Lists a subscription's applied components.
 
 ## Archived Components
 
@@ -100,6 +106,10 @@ When requesting to list components for a given subscription, if the subscription
 ```ruby
 def list_subscription_components(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -120,6 +130,8 @@ def list_subscription_components(options = {})
 | `in_use` | `TrueClass \| FalseClass` | Query, Optional | If in_use is set to true, it returns only components that are currently in use. However, if it's set to false or not provided, it returns all components connected with the subscription. |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[SubscriptionComponentResponse]`](../../doc/models/subscription-component-response.md)
 
@@ -198,6 +210,10 @@ def bulk_update_subscription_components_price_points(subscription_id,
                                                      body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -206,6 +222,8 @@ def bulk_update_subscription_components_price_points(subscription_id,
 | `body` | [`BulkComponentsPricePointAssignment`](../../doc/models/bulk-components-price-point-assignment.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`BulkComponentsPricePointAssignment`](../../doc/models/bulk-components-price-point-assignment.md)
 
@@ -272,6 +290,10 @@ Resets all of a subscription's components to use the current default.
 def bulk_reset_subscription_components_price_points(subscription_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -279,6 +301,8 @@ def bulk_reset_subscription_components_price_points(subscription_id)
 | `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
+
+**201**: Created
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -398,7 +422,7 @@ Creates an allocation, sets the current allocated quantity for the component, an
 
 When creating an allocation via the API, you can pass the `upgrade_charge`, `downgrade_credit`, and `accrue_charge` to be applied.
 
-> **Note:** These proration and accural fields are ignored for Prepaid Components since this component type always generate charges immediately without proration.
+> **Note:** These proration and accrual fields are ignored for Prepaid Components since this component type always generates charges immediately without proration.
 
 For information on prorated components and upgrade/downgrade schemes, see [Setting Component Allocations.](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration)
 
@@ -416,13 +440,17 @@ For information on prorated components and upgrade/downgrade schemes, see [Setti
 
 > **Note:** Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.
 
-For more informaiton see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product Documentation.
+For more information, see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product Documentation.
 
 ```ruby
 def allocate_component(subscription_id,
                        component_id,
                        body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -433,6 +461,8 @@ def allocate_component(subscription_id,
 | `body` | [`CreateAllocationRequest`](../../doc/models/create-allocation-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`AllocationResponse`](../../doc/models/allocation-response.md)
 
@@ -531,7 +561,7 @@ puts result
 
 # List Allocations
 
-This endpoint returns the 50 most recent Allocations, ordered by most recent first.
+Returns the 50 most recent Allocations, ordered by most recent first.
 
 ## On/Off Components
 
@@ -543,6 +573,10 @@ def list_allocations(subscription_id,
                      page: 1)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -552,6 +586,8 @@ def list_allocations(subscription_id,
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[AllocationResponse]`](../../doc/models/allocation-response.md)
 
@@ -627,7 +663,7 @@ puts result
 
 # Allocate Components
 
-Creates multiple allocations, sets the current allocated quantity for each of the components, and recording a memo.   A `component_id` is required for each allocation.
+Creates multiple allocations, sets the current allocated quantity for each of the components, and records a memo.   A `component_id` is required for each allocation.
 
 The charges and/or credits that are created will be rolled up into a single total which is used to determine whether this is an upgrade or a downgrade.
 
@@ -645,12 +681,16 @@ The charges and/or credits that are created will be rolled up into a single tota
 
 > **Note:** Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.
 
-For more informaiton see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product Documentation.
+For more information, see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product documentation.
 
 ```ruby
 def allocate_components(subscription_id,
                         body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -660,6 +700,8 @@ def allocate_components(subscription_id,
 | `body` | [`AllocateComponents`](../../doc/models/allocate-components.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[AllocationResponse]`](../../doc/models/allocation-response.md)
 
@@ -745,7 +787,7 @@ puts result
 
 # Preview Allocations
 
-Advanced Billing offers the ability to preview a potential subscription's **quantity-based** or **on/off** component allocation in the middle of the current billing period.  This is useful if you want users to be able to see the effect of a component operation before actually doing it.
+Previews a potential subscription's **quantity-based** or **on/off** component allocation in the middle of the current billing period.  This is useful if you want users to be able to see the effect of a component operation before actually doing it.
 
 ## Fine-grained Component Control: Use with multiple `upgrade_charge`s or `downgrade_credits`
 
@@ -758,6 +800,10 @@ def preview_allocations(subscription_id,
                         body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -766,6 +812,8 @@ def preview_allocations(subscription_id,
 | `body` | [`PreviewAllocationsRequest`](../../doc/models/preview-allocations-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`AllocationPreviewResponse`](../../doc/models/allocation-preview-response.md)
 
@@ -907,7 +955,7 @@ puts result
 
 # Update Prepaid Usage Allocation Expiration Date
 
-When the expiration interval options are selected on a prepaid usage component price point, all allocations will be created with an expiration date. This expiration date can be changed after the fact to allow for extending or shortening the allocation's active window.
+Updates the expiration date for a prepaid usage allocation. This expiration date can be changed after the fact to allow for extending or shortening the allocation's active window.
 
 In order to change a prepaid usage allocation's expiration date, a PUT call must be made to the allocation's endpoint with a new expiration date.
 
@@ -926,6 +974,10 @@ def update_prepaid_usage_allocation_expiration_date(subscription_id,
                                                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -936,6 +988,8 @@ def update_prepaid_usage_allocation_expiration_date(subscription_id,
 | `body` | [`UpdateAllocationExpirationDate`](../../doc/models/update-allocation-expiration-date.md) | Body, Optional | - |
 
 ## Response Type
+
+**204**: OK
 
 `void`
 
@@ -972,7 +1026,9 @@ subscription_components_controller.update_prepaid_usage_allocation_expiration_da
 
 # Delete Prepaid Usage Allocation
 
-Prepaid Usage components are unique in that their allocations are always additive. In order to reduce a subscription's allocated quantity for a prepaid usage component each allocation must be destroyed individually via this endpoint.
+Deletes a prepaid usage allocation.
+
+Prepaid Usage components are unique in that their allocations are always additive. In order to reduce a subscription's allocated quantity for a prepaid usage component, each allocation must be destroyed individually via this endpoint.
 
 ## Credit Scheme
 
@@ -989,6 +1045,10 @@ def delete_prepaid_usage_allocation(subscription_id,
                                     body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -999,6 +1059,8 @@ def delete_prepaid_usage_allocation(subscription_id,
 | `body` | [`CreditSchemeRequest`](../../doc/models/credit-scheme-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -1039,11 +1101,11 @@ You can report metered or prepaid usage to Advanced Billing as often as you wish
 
 Full documentation on how to create Components in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components). Additionally, for information on how to record component usage against a subscription, see the following resources:
 
-It is not possible to record metered usage for more than one component at a time Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
+It is not possible to record metered usage for more than one component at a time. Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
 
-See the following product documention articles for more information:
+See the following product documentation articles for more information:
 
-- [Create and Manage Components](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components). A
+- [Create and Manage Components](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components)
 - [Recording Metered Component Usage](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-metered-component-usage)
 - [Reporting Prepaid Component Status](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-prepaid-component-status)
 
@@ -1091,6 +1153,10 @@ def create_usage(subscription_id_or_reference,
                  body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1100,6 +1166,8 @@ def create_usage(subscription_id_or_reference,
 | `body` | [`CreateUsageRequest`](../../doc/models/create-usage-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`UsageResponse`](../../doc/models/usage-response.md)
 
@@ -1152,7 +1220,7 @@ puts result
 
 # List Usages
 
-This request will return a list of the usages associated with a subscription for a particular metered component. This will display the previously recorded components for a subscription.
+Returns a list of usages associated with a subscription for a particular metered component. This will display the previously recorded components for a subscription.
 
 This endpoint is not compatible with quantity-based components.
 
@@ -1172,6 +1240,10 @@ Use this endpoint to read the previously recorded components for a subscription.
 def list_usages(options = {})
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1186,6 +1258,8 @@ def list_usages(options = {})
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[UsageResponse]`](../../doc/models/usage-response.md)
 
@@ -1237,6 +1311,8 @@ puts result
 
 # Activate Event Based Component
 
+Activates an event-based component for a single subscription.
+
 In order to bill your subscribers on your Events data under the Events-Based Billing feature, the components must be activated for the subscriber.
 
 Learn more about the role of activation in the [Events-Based Billing docs](https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Based-Billing-Overview).
@@ -1251,6 +1327,10 @@ def activate_event_based_component(subscription_id,
                                    body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1260,6 +1340,8 @@ def activate_event_based_component(subscription_id,
 | `body` | [`ActivateEventBasedComponent`](../../doc/models/activate-event-based-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -1300,12 +1382,16 @@ subscription_components_controller.activate_event_based_component(
 
 # Deactivate Event Based Component
 
-Use this endpoint to deactivate an event-based component for a single subscription. Deactivating the event-based component causes Advanced Billing to ignore related events at subscription renewal.
+Deactivates an event-based component for a single subscription. Deactivating the event-based component causes Advanced Billing to ignore related events at subscription renewal.
 
 ```ruby
 def deactivate_event_based_component(subscription_id,
                                      component_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -1315,6 +1401,8 @@ def deactivate_event_based_component(subscription_id,
 | `component_id` | `Integer` | Template, Required | The Advanced Billing id of the component |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -1333,6 +1421,8 @@ subscription_components_controller.deactivate_event_based_component(
 
 
 # Record Event
+
+Records a single event for Events-Based Billing.
 
 ## Documentation
 
@@ -1360,6 +1450,10 @@ def record_event(api_handle,
                  body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1373,6 +1467,8 @@ def record_event(api_handle,
 `Server::EBB`
 
 ## Response Type
+
+**201**: Created
 
 `void`
 
@@ -1397,7 +1493,7 @@ subscription_components_controller.record_event(
 
 # Bulk Record Events
 
-Use this endpoint to record a collection of events.
+Records a collection of events.
 
 *Note: this endpoint differs from the standard Chargify API endpoints in that the subdomain will be `events` and your site subdomain will be included in the URL path.*
 
@@ -1408,6 +1504,10 @@ def bulk_record_events(api_handle,
                        store_uid: nil,
                        body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -1422,6 +1522,8 @@ def bulk_record_events(api_handle,
 `Server::EBB`
 
 ## Response Type
+
+**201**: Created
 
 `void`
 
@@ -1448,11 +1550,15 @@ subscription_components_controller.bulk_record_events(
 
 # List Subscription Components for Site
 
-This request will list components applied to each subscription.
+Lists components applied to each subscription.
 
 ```ruby
 def list_subscription_components_for_site(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -1474,6 +1580,8 @@ def list_subscription_components_for_site(options = {})
 | `include` | [`ListSubscriptionComponentsInclude`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
 
 ## Response Type
+
+**200**: OK
 
 [`ListSubscriptionComponentsResponse`](../../doc/models/list-subscription-components-response.md)
 

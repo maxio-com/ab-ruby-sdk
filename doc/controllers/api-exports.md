@@ -23,13 +23,17 @@ api_exports_controller = client.api_exports
 
 # List Exported Proforma Invoices
 
-This API returns an array of exported proforma invoices for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported proforma invoices for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&page=1`.
 
 ```ruby
 def list_exported_proforma_invoices(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -40,6 +44,8 @@ def list_exported_proforma_invoices(options = {})
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[ProformaInvoice]`](../../doc/models/proforma-invoice.md)
 
@@ -65,13 +71,17 @@ puts result
 
 # List Exported Invoices
 
-This API returns an array of exported invoices for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported invoices for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&page=1`.
 
 ```ruby
 def list_exported_invoices(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -82,6 +92,8 @@ def list_exported_invoices(options = {})
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[Invoice]`](../../doc/models/invoice.md)
 
@@ -107,13 +119,17 @@ puts result
 
 # List Exported Subscriptions
 
-This API returns an array of exported subscriptions for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported subscriptions for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&page=1`.
 
 ```ruby
 def list_exported_subscriptions(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -124,6 +140,8 @@ def list_exported_subscriptions(options = {})
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
 ## Response Type
+
+**200**: OK
 
 [`Array[Subscription]`](../../doc/models/subscription.md)
 
@@ -149,7 +167,7 @@ puts result
 
 # Export Proforma Invoices
 
-This API creates a proforma invoices export and returns a batchjob object.
+Creates a proforma invoices export and returns a batch job object.
 
 It is only available for Relationship Invoicing architecture.
 
@@ -157,7 +175,13 @@ It is only available for Relationship Invoicing architecture.
 def export_proforma_invoices
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -178,13 +202,19 @@ puts result
 
 # Export Invoices
 
-This API creates an invoices export and returns a batchjob object.
+Creates an invoices export and returns a batch job object.
 
 ```ruby
 def export_invoices
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -205,13 +235,19 @@ puts result
 
 # Export Subscriptions
 
-This API creates a subscriptions export and returns a batchjob object.
+Creates a subscriptions export and returns a batch job object.
 
 ```ruby
 def export_subscriptions
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -231,11 +267,15 @@ puts result
 
 # Read Proforma Invoices Export
 
-This API returns a batchjob object for proforma invoices export.
+Returns a batch job object for a proforma invoices export.
 
 ```ruby
 def read_proforma_invoices_export(batch_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -244,6 +284,8 @@ def read_proforma_invoices_export(batch_id)
 | `batch_id` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -265,11 +307,15 @@ puts result
 
 # Read Invoices Export
 
-This API returns a batchjob object for invoices export.
+Returns a batch job object for an invoices export.
 
 ```ruby
 def read_invoices_export(batch_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -278,6 +324,8 @@ def read_invoices_export(batch_id)
 | `batch_id` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -299,11 +347,15 @@ puts result
 
 # Read Subscriptions Export
 
-This API returns a batchjob object for subscriptions export.
+Returns a batch job object for a subscriptions export.
 
 ```ruby
 def read_subscriptions_export(batch_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -312,6 +364,8 @@ def read_subscriptions_export(batch_id)
 | `batch_id` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 

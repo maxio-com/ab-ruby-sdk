@@ -61,6 +61,8 @@ module AdvancedBilling
     # CreditAccountBalanceChanged
     # * `item_price_point_changed` - ItemPricePointChanged
     # * `custom_field_value_change` - CustomFieldValueChange
+    # * `chjs_tokenization_success` - ChjsTokenizationSuccess
+    # * `chjs_tokenization_failure` - ChjsTokenizationFailure
     # * The rest, that is `delayed_signup_creation_failure`,
     # `billing_date_change`, `expiration_date_change`, `expiring_card`, 
     # `customer_update`, `customer_create`, `customer_delete`,

@@ -6,7 +6,7 @@
 module AdvancedBilling
   # SalesCommissionsController
   class SalesCommissionsController < BaseController
-    # Endpoint returns subscriptions with associated sales reps
+    # Lists subscriptions with associated sales reps.
     # ## Modified Authentication Process
     # The Sales Commission API differs from other Chargify API endpoints. This
     # resource is associated with the seller itself. Up to now all available
@@ -63,7 +63,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Endpoint returns sales rep list with details
+    # Returns a sales rep list with details.
     # ## Modified Authentication Process
     # The Sales Commission API differs from other Chargify API endpoints. This
     # resource is associated with the seller itself. Up to now all available
@@ -120,7 +120,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Endpoint returns sales rep and attached subscriptions details.
+    # Returns a sales rep and attached subscription details.
     # ## Modified Authentication Process
     # The Sales Commission API differs from other Chargify API endpoints. This
     # resource is associated with the seller itself. Up to now all available

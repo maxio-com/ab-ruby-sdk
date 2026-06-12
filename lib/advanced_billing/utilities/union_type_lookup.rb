@@ -633,7 +633,9 @@ module AdvancedBilling
             LeafType.new(PrepaymentAccountBalanceChanged),
             LeafType.new(PaymentCollectionMethodChanged),
             LeafType.new(ItemPricePointChanged),
-            LeafType.new(CustomFieldValueChange)
+            LeafType.new(CustomFieldValueChange),
+            LeafType.new(ChjsTokenizationSuccess),
+            LeafType.new(ChjsTokenizationFailure)
           ],
           UnionTypeContext.new(
             is_nullable: true

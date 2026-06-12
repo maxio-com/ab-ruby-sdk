@@ -6,7 +6,7 @@
 module AdvancedBilling
   # SubscriptionNotesController
   class SubscriptionNotesController < BaseController
-    # Use the following method to create a note for a subscription.
+    # Creates a note for a subscription.
     # ## How to Use Subscription Notes
     # Notes allow you to record information about a particular Subscription in a
     # free text format.
@@ -45,8 +45,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this method to retrieve a list of Notes associated with a
-    # Subscription. The response will be an array of Notes.
+    # Retrieves a list of notes associated with a subscription. The response
+    # will be an array of Notes.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -84,8 +84,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Once you have obtained the ID of the note you wish to read, use this
-    # method to show a particular note attached to a subscription.
+    # Retrieves a specific note attached to a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] note_id Required parameter: The Advanced Billing id of
@@ -111,7 +110,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Use the following method to update a note for a Subscription.
+    # Updates a note for a subscription.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] note_id Required parameter: The Advanced Billing id of

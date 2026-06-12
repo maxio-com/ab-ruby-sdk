@@ -37,6 +37,10 @@ def promote_component_price_point_to_default(component_id,
                                              price_point_id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -45,6 +49,8 @@ def promote_component_price_point_to_default(component_id,
 | `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -105,6 +111,10 @@ def create_component_price_point(component_id,
                                  body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -113,6 +123,8 @@ def create_component_price_point(component_id,
 | `body` | [`CreateComponentPricePointRequest`](../../doc/models/create-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -158,7 +170,7 @@ puts result
 
 # List Component Price Points
 
-Use this endpoint to read current price points that are associated with a component.
+Lists the price points associated with a component.
 
 You may specify the component by using either the numeric id or the `handle:gold` syntax.
 
@@ -169,6 +181,10 @@ If the price point is set to `use_site_exchange_rate: true`, it will return pric
 ```ruby
 def list_component_price_points(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -181,6 +197,8 @@ def list_component_price_points(options = {})
 | `filter_type` | [`Array[PricePointType]`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
 
@@ -250,12 +268,16 @@ puts result
 
 # Bulk Create Component Price Points
 
-Use this endpoint to create multiple component price points in one request.
+Creates multiple component price points in one request.
 
 ```ruby
 def bulk_create_component_price_points(component_id,
                                        body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -265,6 +287,8 @@ def bulk_create_component_price_points(component_id,
 | `body` | [`CreateComponentPricePointsRequest`](../../doc/models/create-component-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
 
@@ -392,6 +416,10 @@ def clone_component_price_point(component_id,
                                 body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -401,6 +429,8 @@ def clone_component_price_point(component_id,
 | `body` | [`CloneComponentPricePointRequest`](../../doc/models/clone-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
@@ -507,7 +537,7 @@ puts result
 
 # Update Component Price Point
 
-When updating a price point, prices can be updated as well by creating new prices or editing / removing existing ones.
+Updates a component price point and its associated prices.
 
 Passing in a price bracket without an `id` will attempt to create a new price.
 
@@ -521,6 +551,10 @@ def update_component_price_point(component_id,
                                  body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -530,6 +564,8 @@ def update_component_price_point(component_id,
 | `body` | [`UpdateComponentPricePointRequest`](../../doc/models/update-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -578,13 +614,17 @@ puts result
 
 # Read Component Price Point
 
-Use this endpoint to retrieve details for a specific component price point. You can achieve this by using either the component price point ID or handle.
+Returns details for a specific component price point. You can achieve this by using either the component price point ID or handle.
 
 ```ruby
 def read_component_price_point(component_id,
                                price_point_id,
                                currency_prices: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -595,6 +635,8 @@ def read_component_price_point(component_id,
 | `currency_prices` | `TrueClass \| FalseClass` | Query, Optional | Include an array of currency price data |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
@@ -615,12 +657,16 @@ puts result
 
 # Archive Component Price Point
 
-A price point can be archived at any time. Subscriptions using a price point that has been archived will continue using it until they're moved to another price point.
+Archives a component price point. Subscriptions using a price point that has been archived will continue using it until they're moved to another price point.
 
 ```ruby
 def archive_component_price_point(component_id,
                                   price_point_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -630,6 +676,8 @@ def archive_component_price_point(component_id,
 | `price_point_id` | Integer \| String | Template, Required | This is a container for one-of cases. |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -690,12 +738,16 @@ puts result
 
 # Unarchive Component Price Point
 
-Use this endpoint to unarchive a component price point.
+Unarchives a component price point.
 
 ```ruby
 def unarchive_component_price_point(component_id,
                                     price_point_id)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -705,6 +757,8 @@ def unarchive_component_price_point(component_id,
 | `price_point_id` | `Integer` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -759,7 +813,7 @@ puts result
 
 # Create Currency Prices
 
-This endpoint allows you to create currency prices for a given currency that has been defined on the site level in your settings.
+Creates currency prices for a given currency defined at the site level.
 
 When creating currency prices, they need to mirror the structure of your primary pricing. For each price level defined on the component price point, there should be a matching price level created in the given currency.
 
@@ -770,6 +824,10 @@ def create_currency_prices(price_point_id,
                            body: nil)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -778,6 +836,8 @@ def create_currency_prices(price_point_id,
 | `body` | [`CreateCurrencyPricesRequest`](../../doc/models/create-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
@@ -834,7 +894,7 @@ puts result
 
 # Update Currency Prices
 
-This endpoint allows you to update currency prices for a given currency that has been defined on the site level in your settings.
+Updates currency prices for a given currency defined at the site level.
 
 Note: Currency Prices are not able to be updated for custom price points.
 
@@ -842,6 +902,10 @@ Note: Currency Prices are not able to be updated for custom price points.
 def update_currency_prices(price_point_id,
                            body: nil)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -851,6 +915,8 @@ def update_currency_prices(price_point_id,
 | `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
@@ -905,11 +971,15 @@ puts result
 
 # List All Component Price Points
 
-This method allows to retrieve a list of Components Price Points belonging to a Site.
+Lists all component price points belonging to a site.
 
 ```ruby
 def list_all_component_price_points(options = {})
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -922,6 +992,8 @@ def list_all_component_price_points(options = {})
 | `filter` | [`ListPricePointsFilter`](../../doc/models/list-price-points-filter.md) | Query, Optional | Filter to use for List PricePoints operations |
 
 ## Response Type
+
+**200**: OK
 
 [`ListComponentsPricePointsResponse`](../../doc/models/list-components-price-points-response.md)
 
