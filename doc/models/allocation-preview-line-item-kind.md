@@ -16,3 +16,9 @@ A handle for the line item kind for allocation preview
 | `COUPON` |
 | `TAX` |
 
+## Example
+
+```ruby
+allocation_preview_line_item_kind = AllocationPreviewLineItemKind::COUPON
+```
+

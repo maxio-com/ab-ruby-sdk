@@ -24,15 +24,15 @@
 | `state_assigned_no` | `String` | Optional | - |
 | `tax_sub_type` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "tax_rule_id": 226,
-  "percentage": "percentage0",
-  "country_code": "country_code8",
-  "subdivision_code": "subdivision_code6",
-  "tax_amount": "tax_amount4"
-}
+```ruby
+invoice_tax_component_breakout = InvoiceTaxComponentBreakout.new(
+  tax_rule_id: 4,
+  percentage: 'percentage0',
+  country_code: 'country_code2',
+  subdivision_code: 'subdivision_code4',
+  tax_amount: 'tax_amount6'
+)
 ```
 

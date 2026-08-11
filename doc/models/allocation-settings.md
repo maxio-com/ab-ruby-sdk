@@ -13,13 +13,13 @@
 | `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. |
 | `accrue_charge` | `String` | Optional | Either "true" or "false". |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "upgrade_charge": "none",
-  "downgrade_credit": "prorated",
-  "accrue_charge": "accrue_charge0"
-}
+```ruby
+allocation_settings = AllocationSettings.new(
+  upgrade_charge: CreditType::PRORATED,
+  downgrade_credit: CreditType::PRORATED,
+  accrue_charge: 'accrue_charge0'
+)
 ```
 

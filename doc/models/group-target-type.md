@@ -17,3 +17,9 @@ The type of object indicated by the id attribute.
 | `PARENT` |
 | `ELDEST` |
 
+## Example
+
+```ruby
+group_target_type = GroupTargetType::ELDEST
+```
+

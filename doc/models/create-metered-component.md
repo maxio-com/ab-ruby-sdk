@@ -11,58 +11,58 @@
 |  --- | --- | --- | --- |
 | `metered_component` | [`MeteredComponent`](../../doc/models/metered-component.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "metered_component": {
-    "name": "name0",
-    "unit_name": "unit_name2",
-    "description": "description0",
-    "handle": "handle6",
-    "taxable": false,
-    "pricing_scheme": "stairstep",
-    "prices": [
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      },
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      },
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      }
+```ruby
+create_metered_component = CreateMeteredComponent.new(
+  metered_component: MeteredComponent.new(
+    name: 'name0',
+    unit_name: 'unit_name2',
+    pricing_scheme: PricingScheme::STAIRSTEP,
+    description: 'description0',
+    handle: 'handle6',
+    taxable: false,
+    prices: [
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      ),
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      ),
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      )
     ],
-    "price_points": [
-      {
-        "name": "name2",
-        "handle": "handle8",
-        "pricing_scheme": "per_unit",
-        "interval": 92,
-        "interval_unit": "day"
-      },
-      {
-        "name": "name2",
-        "handle": "handle8",
-        "pricing_scheme": "per_unit",
-        "interval": 92,
-        "interval_unit": "day"
-      },
-      {
-        "name": "name2",
-        "handle": "handle8",
-        "pricing_scheme": "per_unit",
-        "interval": 92,
-        "interval_unit": "day"
-      }
+    price_points: [
+      ComponentPricePointItem.new(
+        name: 'name2',
+        handle: 'handle8',
+        pricing_scheme: PricingScheme::PER_UNIT,
+        interval: 92,
+        interval_unit: IntervalUnit::DAY
+      ),
+      ComponentPricePointItem.new(
+        name: 'name2',
+        handle: 'handle8',
+        pricing_scheme: PricingScheme::PER_UNIT,
+        interval: 92,
+        interval_unit: IntervalUnit::DAY
+      ),
+      ComponentPricePointItem.new(
+        name: 'name2',
+        handle: 'handle8',
+        pricing_scheme: PricingScheme::PER_UNIT,
+        interval: 92,
+        interval_unit: IntervalUnit::DAY
+      )
     ]
-  }
-}
+  )
+)
 ```
 

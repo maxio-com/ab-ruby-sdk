@@ -23,11 +23,11 @@ module AdvancedBilling
     # @return [PricePointType]
     attr_accessor :type
 
-    # Note: Refer to type attribute instead
+    # Note: Refer to type attribute instead.
     # @return [TrueClass | FalseClass]
     attr_accessor :default
 
-    # Note: Refer to type attribute instead
+    # Note: Refer to type attribute instead.
     # @return [String]
     attr_accessor :name
 
@@ -89,7 +89,7 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_included
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
     # Multifrequency enabled.

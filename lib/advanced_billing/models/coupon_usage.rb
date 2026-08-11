@@ -29,13 +29,13 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :savings_in_cents
 
-    # Total revenue of the all subscriptions that have received a discount from
-    # this coupon.
+    # Total revenue of all subscriptions that have received a discount from this
+    # coupon.
     # @return [Integer]
     attr_accessor :revenue
 
-    # Total revenue of the all subscriptions that have received a discount from
-    # this coupon.
+    # Total revenue of all subscriptions that have received a discount from this
+    # coupon.
     # @return [Integer]
     attr_accessor :revenue_in_cents
 

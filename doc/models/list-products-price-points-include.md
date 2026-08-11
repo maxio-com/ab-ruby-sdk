@@ -13,7 +13,7 @@
 
 ## Example
 
-```
-currency_prices
+```ruby
+list_products_price_points_include = ListProductsPricePointsInclude::CURRENCY_PRICES
 ```
 

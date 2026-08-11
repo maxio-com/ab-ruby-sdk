@@ -13,13 +13,13 @@
 | `description` | `String` | Required | The friendly summary of what the code signifies |
 | `position` | `Integer` | Optional | The order that code appears in lists |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "code": "code4",
-  "description": "description6",
-  "position": 86
-}
+```ruby
+create_reason_code = CreateReasonCode.new(
+  code: 'code6',
+  description: 'description8',
+  position: 252
+)
 ```
 

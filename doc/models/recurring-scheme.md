@@ -13,3 +13,9 @@
 | `RECUR_INDEFINITELY` |
 | `RECUR_WITH_DURATION` |
 
+## Example
+
+```ruby
+recurring_scheme = RecurringScheme::RECUR_WITH_DURATION
+```
+

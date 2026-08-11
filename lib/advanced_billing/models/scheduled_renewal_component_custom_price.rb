@@ -13,7 +13,7 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_included
 
-    # Omit for On/Off components
+    # Omit for On/Off components.
     # @return [PricingScheme]
     attr_accessor :pricing_scheme
 

@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `message` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "message": "message8"
-}
+```ruby
+delayed_cancellation_response = DelayedCancellationResponse.new(
+  message: 'message0'
+)
 ```
 

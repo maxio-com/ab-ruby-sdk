@@ -11,14 +11,14 @@
 |  --- | --- | --- | --- |
 | `service_credit` | [`IssueServiceCredit`](../../doc/models/issue-service-credit.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "service_credit": {
-    "amount": 31.42,
-    "memo": "memo0"
-  }
-}
+```ruby
+issue_service_credit_request = IssueServiceCreditRequest.new(
+  service_credit: IssueServiceCredit.new(
+    amount: 31.42,
+    memo: 'memo0'
+  )
+)
 ```
 

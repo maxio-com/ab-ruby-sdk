@@ -11,34 +11,34 @@
 |  --- | --- | --- | --- |
 | `segment` | [`CreateSegment`](../../doc/models/create-segment.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "segment": {
-    "segment_property_1_value": "String1",
-    "segment_property_2_value": "String3",
-    "segment_property_3_value": "String1",
-    "segment_property_4_value": "String5",
-    "pricing_scheme": "stairstep",
-    "prices": [
-      {
-        "starting_quantity": 64,
-        "ending_quantity": 38,
-        "unit_price": "String3"
-      },
-      {
-        "starting_quantity": 64,
-        "ending_quantity": 38,
-        "unit_price": "String3"
-      },
-      {
-        "starting_quantity": 64,
-        "ending_quantity": 38,
-        "unit_price": "String3"
-      }
+```ruby
+create_segment_request = CreateSegmentRequest.new(
+  segment: CreateSegment.new(
+    pricing_scheme: PricingScheme::STAIRSTEP,
+    segment_property_1_value: 'String1',
+    segment_property_2_value: 'String3',
+    segment_property_3_value: 'String1',
+    segment_property_4_value: 'String5',
+    prices: [
+      CreateOrUpdateSegmentPrice.new(
+        unit_price: 'String3',
+        starting_quantity: 64,
+        ending_quantity: 38
+      ),
+      CreateOrUpdateSegmentPrice.new(
+        unit_price: 'String3',
+        starting_quantity: 64,
+        ending_quantity: 38
+      ),
+      CreateOrUpdateSegmentPrice.new(
+        unit_price: 'String3',
+        starting_quantity: 64,
+        ending_quantity: 38
+      )
     ]
-  }
-}
+  )
+)
 ```
 

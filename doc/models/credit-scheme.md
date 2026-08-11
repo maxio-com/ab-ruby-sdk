@@ -13,3 +13,9 @@
 | `CREDIT` |
 | `REFUND` |
 
+## Example
+
+```ruby
+credit_scheme = CreditScheme::NONE
+```
+

@@ -13,7 +13,7 @@
 
 ## Example
 
-```
-prepaid_product_price_point
+```ruby
+list_products_include = ListProductsInclude::PREPAID_PRODUCT_PRICE_POINT
 ```
 

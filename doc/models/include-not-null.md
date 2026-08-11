@@ -15,7 +15,7 @@ Passed as a parameter to list methods to return only non null values.
 
 ## Example
 
-```
-not_null
+```ruby
+include_not_null = IncludeNotNull::NOT_NULL
 ```
 

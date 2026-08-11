@@ -12,12 +12,12 @@
 | `hide_zero_subtotal_lines` | `TrueClass \| FalseClass` | Optional | - |
 | `include_discounts_on_lines` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "hide_zero_subtotal_lines": false,
-  "include_discounts_on_lines": false
-}
+```ruby
+invoice_display_settings = InvoiceDisplaySettings.new(
+  hide_zero_subtotal_lines: false,
+  include_discounts_on_lines: false
+)
 ```
 

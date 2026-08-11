@@ -4,7 +4,7 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # Used to Create or Update Endpoint
+  # Used to Create or Update Endpoint.
   class CreateOrUpdateEndpoint < BaseModel
     SKIP = Object.new
     private_constant :SKIP

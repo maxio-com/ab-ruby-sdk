@@ -38,23 +38,23 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :memo
 
-    # Overrides the defaults for the site
+    # Overrides the defaults for the site.
     # @return [CreateInvoiceAddress]
     attr_accessor :seller_address
 
-    # Overrides the default for the customer
+    # Overrides the default for the customer.
     # @return [CreateInvoiceAddress]
     attr_accessor :billing_address
 
-    # Overrides the default for the customer
+    # Overrides the default for the customer.
     # @return [CreateInvoiceAddress]
     attr_accessor :shipping_address
 
-    # Overrides the default for the customer
+    # Overrides the default for the customer.
     # @return [Array[CreateInvoiceCoupon]]
     attr_accessor :coupons
 
-    # Overrides the default for the customer
+    # Overrides the default for the customer.
     # @return [CreateInvoiceStatus]
     attr_accessor :status
 

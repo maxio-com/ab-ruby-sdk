@@ -18,7 +18,7 @@ module AdvancedBilling
     attr_accessor :enabled
 
     # Used for metered and events based components.
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :unit_balance
 
     # Used for quantity based components.
@@ -96,7 +96,9 @@ module AdvancedBilling
         UnionTypeLookUp.get(:CreateSubscriptionComponentComponentId), hash['component_id']
       ) : SKIP
       enabled = hash.key?('enabled') ? hash['enabled'] : SKIP
-      unit_balance = hash.key?('unit_balance') ? hash['unit_balance'] : SKIP
+      unit_balance = hash.key?('unit_balance') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:CreateSubscriptionComponentUnitBalance), hash['unit_balance']
+      ) : SKIP
       allocated_quantity = hash.key?('allocated_quantity') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:CreateSubscriptionComponentAllocatedQuantity), hash['allocated_quantity']
       ) : SKIP

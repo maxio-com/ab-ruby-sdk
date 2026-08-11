@@ -13,16 +13,16 @@
 | `mrr_amount_in_cents` | `Integer` | Required | - |
 | `breakouts` | [`SubscriptionMRRBreakout`](../../doc/models/subscription-mrr-breakout.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_id": 4,
-  "mrr_amount_in_cents": 22,
-  "breakouts": {
-    "plan_amount_in_cents": 254,
-    "usage_amount_in_cents": 106
-  }
-}
+```ruby
+subscription_mrr = SubscriptionMRR.new(
+  subscription_id: 186,
+  mrr_amount_in_cents: 204,
+  breakouts: SubscriptionMRRBreakout.new(
+    plan_amount_in_cents: 254,
+    usage_amount_in_cents: 106
+  )
+)
 ```
 

@@ -14,14 +14,14 @@
 | `usage_amount_in_cents` | `Integer` | Optional | - |
 | `usage_amount_formatted` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "plan_amount_in_cents": 68,
-  "plan_amount_formatted": "plan_amount_formatted2",
-  "usage_amount_in_cents": 176,
-  "usage_amount_formatted": "usage_amount_formatted0"
-}
+```ruby
+breakouts = Breakouts.new(
+  plan_amount_in_cents: 254,
+  plan_amount_formatted: 'plan_amount_formatted0',
+  usage_amount_in_cents: 106,
+  usage_amount_formatted: 'usage_amount_formatted8'
+)
 ```
 

@@ -12,3 +12,9 @@
 | `EXCLUDE` |
 | `INCLUDE` |
 
+## Example
+
+```ruby
+include_option = IncludeOption::EXCLUDE
+```
+

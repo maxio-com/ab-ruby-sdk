@@ -4,7 +4,7 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # (Optional). Cannot be used when also specifying next_billing_at
+  # (Optional). Cannot be used when also specifying next_billing_at.
   class CalendarBilling < BaseModel
     SKIP = Object.new
     private_constant :SKIP

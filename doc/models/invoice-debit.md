@@ -18,15 +18,15 @@
 | `original_amount` | `String` | Optional | - |
 | `applied_amount` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "debit_note_number": "debit_note_number2",
-  "debit_note_uid": "debit_note_uid8",
-  "role": "chargeback",
-  "transaction_time": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+invoice_debit = InvoiceDebit.new(
+  uid: 'uid2',
+  debit_note_number: 'debit_note_number2',
+  debit_note_uid: 'debit_note_uid2',
+  role: DebitNoteRole::CHARGEBACK,
+  transaction_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

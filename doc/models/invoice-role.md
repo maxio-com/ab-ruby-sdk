@@ -20,3 +20,9 @@
 | `BACKPORT` |
 | `BACKPORTBALANCERECONCILIATION` |
 
+## Example
+
+```ruby
+invoice_role = InvoiceRole::RENEWAL
+```
+

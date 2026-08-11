@@ -22,8 +22,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :email
 
-    # A comma-separated list of emails that should be cc’d on all customer
-    # communications (i.e. “joe@example.com, sue@example.com”)
+    # “A comma-separated list of emails that should be cc’d on all customer
+    # communications (e.g., “joe@example.com, sue@example.com”)”
     # @return [String]
     attr_accessor :cc_emails
 
@@ -49,19 +49,19 @@ module AdvancedBilling
     # @return [DateTime]
     attr_accessor :updated_at
 
-    # The customer’s shipping street address (i.e. “123 Main St.”)
+    # The customer’s shipping street address (e.g., “123 Main St.”)
     # @return [String]
     attr_accessor :address
 
-    # Second line of the customer’s shipping address i.e. “Apt. 100”
+    # Second line of the customer’s shipping address e.g., “Apt. 100”
     # @return [String]
     attr_accessor :address_2
 
-    # The customer’s shipping address city (i.e. “Boston”)
+    # The customer’s shipping address city (e.g., “Boston”)
     # @return [String]
     attr_accessor :city
 
-    # The customer’s shipping address state (i.e. “MA”)
+    # The customer’s shipping address state (e.g., “MA”)
     # @return [String]
     attr_accessor :state
 
@@ -69,7 +69,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :state_name
 
-    # The customer’s shipping address zip code (i.e. “12345”)
+    # The customer’s shipping address zip code (e.g., “12345”)
     # @return [String]
     attr_accessor :zip
 
@@ -106,6 +106,11 @@ module AdvancedBilling
     # for true and false or 0 for false.
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_exempt
+
+    # Whether surcharging is enabled for the customer. Only included on sites
+    # where surcharging control is enabled.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :surcharging
 
     # The VAT business identification number for the customer. This number is
     # used to determine VAT tax opt out rules. It is not validated when added or
@@ -144,6 +149,13 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :maxioid
 
+    # The ID of the Branding Theme assigned to this customer as the customer's
+    # default Branding Theme. This customer-level Branding Theme is used when a
+    # subscription does not have its own subscription-level Branding Theme.
+    # Available only when Branding Themes are enabled for the site.
+    # @return [Integer]
+    attr_accessor :branding_theme_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -171,6 +183,7 @@ module AdvancedBilling
       @_hash['portal_invite_last_accepted_at'] =
         'portal_invite_last_accepted_at'
       @_hash['tax_exempt'] = 'tax_exempt'
+      @_hash['surcharging'] = 'surcharging'
       @_hash['vat_number'] = 'vat_number'
       @_hash['parent_id'] = 'parent_id'
       @_hash['locale'] = 'locale'
@@ -181,6 +194,7 @@ module AdvancedBilling
       @_hash['default_auto_renewal_profile_id'] =
         'default_auto_renewal_profile_id'
       @_hash['maxioid'] = 'maxioid'
+      @_hash['branding_theme_id'] = 'branding_theme_id'
       @_hash
     end
 
@@ -210,6 +224,7 @@ module AdvancedBilling
         portal_invite_last_sent_at
         portal_invite_last_accepted_at
         tax_exempt
+        surcharging
         vat_number
         parent_id
         locale
@@ -218,6 +233,7 @@ module AdvancedBilling
         tax_exempt_reason
         default_auto_renewal_profile_id
         maxioid
+        branding_theme_id
       ]
     end
 
@@ -248,6 +264,7 @@ module AdvancedBilling
         tax_exempt_reason
         default_auto_renewal_profile_id
         maxioid
+        branding_theme_id
       ]
     end
 
@@ -259,11 +276,11 @@ module AdvancedBilling
                    verified: SKIP, portal_customer_created_at: SKIP,
                    portal_invite_last_sent_at: SKIP,
                    portal_invite_last_accepted_at: SKIP, tax_exempt: SKIP,
-                   vat_number: SKIP, parent_id: SKIP, locale: SKIP,
-                   default_subscription_group_uid: SKIP, salesforce_id: SKIP,
-                   tax_exempt_reason: SKIP,
+                   surcharging: SKIP, vat_number: SKIP, parent_id: SKIP,
+                   locale: SKIP, default_subscription_group_uid: SKIP,
+                   salesforce_id: SKIP, tax_exempt_reason: SKIP,
                    default_auto_renewal_profile_id: SKIP, maxioid: SKIP,
-                   additional_properties: {})
+                   branding_theme_id: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -301,6 +318,7 @@ module AdvancedBilling
           portal_invite_last_accepted_at
       end
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
+      @surcharging = surcharging unless surcharging == SKIP
       @vat_number = vat_number unless vat_number == SKIP
       @parent_id = parent_id unless parent_id == SKIP
       @locale = locale unless locale == SKIP
@@ -315,6 +333,7 @@ module AdvancedBilling
           default_auto_renewal_profile_id
       end
       @maxioid = maxioid unless maxioid == SKIP
+      @branding_theme_id = branding_theme_id unless branding_theme_id == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -365,6 +384,7 @@ module AdvancedBilling
                                          SKIP
                                        end
       tax_exempt = hash.key?('tax_exempt') ? hash['tax_exempt'] : SKIP
+      surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
       locale = hash.key?('locale') ? hash['locale'] : SKIP
@@ -376,6 +396,8 @@ module AdvancedBilling
       default_auto_renewal_profile_id =
         hash.key?('default_auto_renewal_profile_id') ? hash['default_auto_renewal_profile_id'] : SKIP
       maxioid = hash.key?('maxioid') ? hash['maxioid'] : SKIP
+      branding_theme_id =
+        hash.key?('branding_theme_id') ? hash['branding_theme_id'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -404,6 +426,7 @@ module AdvancedBilling
                    portal_invite_last_sent_at: portal_invite_last_sent_at,
                    portal_invite_last_accepted_at: portal_invite_last_accepted_at,
                    tax_exempt: tax_exempt,
+                   surcharging: surcharging,
                    vat_number: vat_number,
                    parent_id: parent_id,
                    locale: locale,
@@ -412,6 +435,7 @@ module AdvancedBilling
                    tax_exempt_reason: tax_exempt_reason,
                    default_auto_renewal_profile_id: default_auto_renewal_profile_id,
                    maxioid: maxioid,
+                   branding_theme_id: branding_theme_id,
                    additional_properties: additional_properties)
     end
 
@@ -456,11 +480,12 @@ module AdvancedBilling
       " verified: #{@verified}, portal_customer_created_at: #{@portal_customer_created_at},"\
       " portal_invite_last_sent_at: #{@portal_invite_last_sent_at},"\
       " portal_invite_last_accepted_at: #{@portal_invite_last_accepted_at}, tax_exempt:"\
-      " #{@tax_exempt}, vat_number: #{@vat_number}, parent_id: #{@parent_id}, locale: #{@locale},"\
-      " default_subscription_group_uid: #{@default_subscription_group_uid}, salesforce_id:"\
-      " #{@salesforce_id}, tax_exempt_reason: #{@tax_exempt_reason},"\
-      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id}, maxioid:"\
-      " #{@maxioid}, additional_properties: #{get_additional_properties}>"
+      " #{@tax_exempt}, surcharging: #{@surcharging}, vat_number: #{@vat_number}, parent_id:"\
+      " #{@parent_id}, locale: #{@locale}, default_subscription_group_uid:"\
+      " #{@default_subscription_group_uid}, salesforce_id: #{@salesforce_id}, tax_exempt_reason:"\
+      " #{@tax_exempt_reason}, default_auto_renewal_profile_id:"\
+      " #{@default_auto_renewal_profile_id}, maxioid: #{@maxioid}, branding_theme_id:"\
+      " #{@branding_theme_id}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -477,12 +502,13 @@ module AdvancedBilling
       " #{@portal_customer_created_at.inspect}, portal_invite_last_sent_at:"\
       " #{@portal_invite_last_sent_at.inspect}, portal_invite_last_accepted_at:"\
       " #{@portal_invite_last_accepted_at.inspect}, tax_exempt: #{@tax_exempt.inspect},"\
-      " vat_number: #{@vat_number.inspect}, parent_id: #{@parent_id.inspect}, locale:"\
-      " #{@locale.inspect}, default_subscription_group_uid:"\
+      " surcharging: #{@surcharging.inspect}, vat_number: #{@vat_number.inspect}, parent_id:"\
+      " #{@parent_id.inspect}, locale: #{@locale.inspect}, default_subscription_group_uid:"\
       " #{@default_subscription_group_uid.inspect}, salesforce_id: #{@salesforce_id.inspect},"\
       " tax_exempt_reason: #{@tax_exempt_reason.inspect}, default_auto_renewal_profile_id:"\
       " #{@default_auto_renewal_profile_id.inspect}, maxioid: #{@maxioid.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " branding_theme_id: #{@branding_theme_id.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

@@ -124,6 +124,16 @@ module AdvancedBilling
           ]
         ),
 
+        :ListSubscriptionsInputProduct => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :CreateUsageSubscriptionIdOrReference => OneOf.new(
           [
             LeafType.new(Integer),
@@ -565,6 +575,16 @@ module AdvancedBilling
           )
         ),
 
+        :CreateSubscriptionComponentUnitBalance => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :CreateSubscriptionComponentAllocatedQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -617,6 +637,7 @@ module AdvancedBilling
         :EventEventSpecificData => OneOf.new(
           [
             LeafType.new(SubscriptionProductChange),
+            LeafType.new(SubscriptionProductChangeScheduled),
             LeafType.new(SubscriptionStateChange),
             LeafType.new(PaymentRelatedEvents),
             LeafType.new(RefundSuccess),
@@ -640,6 +661,13 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_nullable: true
           )
+        ),
+
+        :GetOneTimeTokenRequestPaymentProfile => AnyOf.new(
+          [
+            LeafType.new(GetOneTimeTokenPaymentProfile),
+            LeafType.new(GetOneTimeTokenBankAccountPaymentProfile)
+          ]
         ),
 
         :IssueServiceCreditAmount => OneOf.new(
@@ -670,6 +698,13 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
+        ),
+
+        :MeteredUsageNewUnitBalance => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
         ),
 
         :OnOffComponentUnitPrice => OneOf.new(
@@ -717,6 +752,20 @@ module AdvancedBilling
               discriminator_value: 'paypal_account',
               discriminator: 'payment_type'
             ))
+          ]
+        ),
+
+        :PrepaidUsageNewUnitBalance => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :PrepaidUsageNewOverageUnitBalance => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
           ]
         ),
 
@@ -894,6 +943,16 @@ module AdvancedBilling
           )
         ),
 
+        :SubscriptionComponentUnitBalance => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :SubscriptionComponentAllocatedQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -1027,6 +1086,66 @@ module AdvancedBilling
         ),
 
         :SubscriptionGroupSignupComponentPricePointId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :UpdateInvoiceItemQuantity => OneOf.new(
+          [
+            LeafType.new(Float),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :UpdateInvoiceItemUnitPrice => OneOf.new(
+          [
+            LeafType.new(Float),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :UpdateInvoiceItemProductId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :UpdateInvoiceItemComponentId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :UpdateInvoiceItemPricePointId => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :UpdateInvoiceItemProductPricePointId => OneOf.new(
           [
             LeafType.new(String),
             LeafType.new(Integer)

@@ -16,29 +16,29 @@
 | `price` | `Array[String]` | Optional | - |
 | `price_in_cents` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": "can't be blank",
-  "interval": [
-    "Recurring Interval: cannot be blank.",
-    "Recurring Interval: must be greater than or equal to 1."
+```ruby
+product_price_point_errors = ProductPricePointErrors.new(
+  price_point: 'can\'t be blank',
+  interval: [
+    'Recurring Interval: cannot be blank.',
+    'Recurring Interval: must be greater than or equal to 1.'
   ],
-  "interval_unit": [
-    "Interval unit: cannot be blank.",
-    "Interval unit: must be 'month' or 'day'."
+  interval_unit: [
+    'Interval unit: cannot be blank.',
+    'Interval unit: must be \'month\' or \'day\'.'
   ],
-  "name": [
-    "Name: cannot be blank."
+  name: [
+    'Name: cannot be blank.'
   ],
-  "price": [
-    "Price: is not a number.",
-    "Price: must be greater than or equal to 0."
+  price: [
+    'Price: is not a number.',
+    'Price: must be greater than or equal to 0.'
   ],
-  "price_in_cents": [
-    "Price in cents: cannot be blank."
+  price_in_cents: [
+    'Price in cents: cannot be blank.'
   ]
-}
+)
 ```
 

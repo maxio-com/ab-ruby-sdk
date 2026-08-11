@@ -11,21 +11,21 @@
 |  --- | --- | --- | --- |
 | `group` | [`GroupSettings`](../../doc/models/group-settings.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "group": {
-    "target": {
-      "type": "parent",
-      "id": 236
-    },
-    "billing": {
-      "accrue": false,
-      "align_date": false,
-      "prorate": false
-    }
-  }
-}
+```ruby
+add_subscription_to_a_group = AddSubscriptionToAGroup.new(
+  group: GroupSettings.new(
+    target: GroupTarget.new(
+      type: GroupTargetType::PARENT,
+      id: 236
+    ),
+    billing: GroupBilling.new(
+      accrue: false,
+      align_date: false,
+      prorate: false
+    )
+  )
+)
 ```
 

@@ -12,18 +12,20 @@
 | `per_page` | `Array[String]` | Optional | - |
 | `price_point` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "per_page": [
-    "per_page7",
-    "per_page8"
+```ruby
+errors = Errors.new(
+  per_page: [
+    'per_page1',
+    'per_page2',
+    'per_page3'
   ],
-  "price_point": [
-    "price_point6",
-    "price_point7"
+  price_point: [
+    'price_point0',
+    'price_point9',
+    'price_point8'
   ]
-}
+)
 ```
 

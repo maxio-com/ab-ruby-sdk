@@ -13,7 +13,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :handle
 
-    # The name of the Component, suitable for display on statements. i.e. Text
+    # The name of the Component, suitable for display on statements. e.g., Text
     # Messages.
     # @return [String]
     attr_accessor :name
@@ -51,6 +51,12 @@ module AdvancedBilling
     # @return [CreditType]
     attr_accessor :upgrade_charge
 
+    # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
+    # When set, this value is sent as the commodity code on invoice line items
+    # for this component instead of the default derived from item_category.
+    # @return [String]
+    attr_accessor :unspsc_code
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -63,6 +69,7 @@ module AdvancedBilling
       @_hash['item_category'] = 'item_category'
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['upgrade_charge'] = 'upgrade_charge'
+      @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
 
@@ -78,6 +85,7 @@ module AdvancedBilling
         item_category
         display_on_hosted_page
         upgrade_charge
+        unspsc_code
       ]
     end
 
@@ -89,13 +97,15 @@ module AdvancedBilling
         tax_code
         item_category
         upgrade_charge
+        unspsc_code
       ]
     end
 
     def initialize(handle: SKIP, name: SKIP, description: SKIP,
                    accounting_code: SKIP, taxable: SKIP, tax_code: SKIP,
                    item_category: SKIP, display_on_hosted_page: SKIP,
-                   upgrade_charge: SKIP, additional_properties: {})
+                   upgrade_charge: SKIP, unspsc_code: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -110,6 +120,7 @@ module AdvancedBilling
       @item_category = item_category unless item_category == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
+      @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -129,6 +140,7 @@ module AdvancedBilling
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
       upgrade_charge =
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
+      unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -143,6 +155,7 @@ module AdvancedBilling
                           item_category: item_category,
                           display_on_hosted_page: display_on_hosted_page,
                           upgrade_charge: upgrade_charge,
+                          unspsc_code: unspsc_code,
                           additional_properties: additional_properties)
     end
 
@@ -152,7 +165,8 @@ module AdvancedBilling
       "<#{class_name} handle: #{@handle}, name: #{@name}, description: #{@description},"\
       " accounting_code: #{@accounting_code}, taxable: #{@taxable}, tax_code: #{@tax_code},"\
       " item_category: #{@item_category}, display_on_hosted_page: #{@display_on_hosted_page},"\
-      " upgrade_charge: #{@upgrade_charge}, additional_properties: #{get_additional_properties}>"
+      " upgrade_charge: #{@upgrade_charge}, unspsc_code: #{@unspsc_code}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -162,8 +176,8 @@ module AdvancedBilling
       " #{@description.inspect}, accounting_code: #{@accounting_code.inspect}, taxable:"\
       " #{@taxable.inspect}, tax_code: #{@tax_code.inspect}, item_category:"\
       " #{@item_category.inspect}, display_on_hosted_page: #{@display_on_hosted_page.inspect},"\
-      " upgrade_charge: #{@upgrade_charge.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " upgrade_charge: #{@upgrade_charge.inspect}, unspsc_code: #{@unspsc_code.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

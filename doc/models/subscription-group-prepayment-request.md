@@ -11,16 +11,16 @@
 |  --- | --- | --- | --- |
 | `prepayment` | [`SubscriptionGroupPrepayment`](../../doc/models/subscription-group-prepayment.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "amount": 136,
-    "details": "details8",
-    "memo": "memo2",
-    "method": "paypal_account"
-  }
-}
+```ruby
+subscription_group_prepayment_request = SubscriptionGroupPrepaymentRequest.new(
+  prepayment: SubscriptionGroupPrepayment.new(
+    amount: 136,
+    details: 'details8',
+    memo: 'memo2',
+    method: SubscriptionGroupPrepaymentMethod::PAYPAL_ACCOUNT
+  )
+)
 ```
 

@@ -19,7 +19,7 @@ One of the following: Business Software, Consumer Software, Digital Services, Ph
 
 ## Example
 
-```
-Business Software
+```ruby
+item_category = ItemCategory::ENUM_CONSUMER_SOFTWARE
 ```
 

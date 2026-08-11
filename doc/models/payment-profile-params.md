@@ -15,13 +15,13 @@ PCI-safe cardholder fields only. Full card numbers, CVV, and billing address are
 | `last_name` | `String` | Optional | - |
 | `card_type` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "first_name": "first_name2",
-  "last_name": "last_name0",
-  "card_type": "card_type8"
-}
+```ruby
+payment_profile_params = PaymentProfileParams.new(
+  first_name: 'first_name2',
+  last_name: 'last_name0',
+  card_type: 'card_type2'
+)
 ```
 

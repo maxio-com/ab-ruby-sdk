@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `prepayment` | [`CreatePrepayment`](../../doc/models/create-prepayment.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "amount": 11.6,
-    "details": "details8",
-    "memo": "memo2",
-    "method": "money_order",
-    "payment_profile_id": 240
-  }
-}
+```ruby
+create_prepayment_request = CreatePrepaymentRequest.new(
+  prepayment: CreatePrepayment.new(
+    amount: 11.6,
+    details: 'details8',
+    memo: 'memo2',
+    method: CreatePrepaymentMethod::MONEY_ORDER,
+    payment_profile_id: 240
+  )
+)
 ```
 

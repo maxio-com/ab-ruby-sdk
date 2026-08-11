@@ -14,14 +14,14 @@
 | `primary_subscription_id` | `Integer` | Optional | The subscription ID of the primary within the group. Applicable to scheme 1. |
 | `primary` | `TrueClass \| FalseClass` | Optional | A boolean indicating whether the subscription is the primary in the group. Applicable to scheme 1. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "scheme": 62,
-  "primary_subscription_id": 10,
-  "primary": false
-}
+```ruby
+nested_subscription_group = NestedSubscriptionGroup.new(
+  uid: 'uid2',
+  scheme: 254,
+  primary_subscription_id: 202,
+  primary: false
+)
 ```
 

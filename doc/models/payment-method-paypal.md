@@ -12,12 +12,12 @@
 | `email` | `String` | Required | - |
 | `type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "email": "email2",
-  "type": "paypal_account"
-}
+```ruby
+payment_method_paypal = PaymentMethodPaypal.new(
+  email: 'email6',
+  type: InvoiceEventPaymentMethod::PAYPAL_ACCOUNT
+)
 ```
 

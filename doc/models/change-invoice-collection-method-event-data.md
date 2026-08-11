@@ -14,12 +14,12 @@ Example schema for an `change_invoice_collection_method` event
 | `from_collection_method` | `String` | Required | The previous collection method of the invoice. |
 | `to_collection_method` | `String` | Required | The new collection method of the invoice. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "from_collection_method": "from_collection_method4",
-  "to_collection_method": "to_collection_method2"
-}
+```ruby
+change_invoice_collection_method_event_data = ChangeInvoiceCollectionMethodEventData.new(
+  from_collection_method: 'from_collection_method2',
+  to_collection_method: 'to_collection_method0'
+)
 ```
 

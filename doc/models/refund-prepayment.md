@@ -14,14 +14,14 @@
 | `memo` | `String` | Required | **Constraints**: *Minimum Length*: `1` |
 | `external` | `TrueClass \| FalseClass` | Optional | Specify the type of refund you wish to initiate. When the prepayment is external, the `external` flag is optional. But if the prepayment was made through a payment profile, the `external` flag is required. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount_in_cents": 110,
-  "amount": "String3",
-  "memo": "memo4",
-  "external": false
-}
+```ruby
+refund_prepayment = RefundPrepayment.new(
+  amount_in_cents: 188,
+  amount: 'String7',
+  memo: 'memo8',
+  external: false
+)
 ```
 

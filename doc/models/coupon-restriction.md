@@ -15,15 +15,15 @@
 | `name` | `String` | Optional | - |
 | `handle` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 180,
-  "item_type": "Component",
-  "item_id": 184,
-  "name": "name4",
-  "handle": "handle0"
-}
+```ruby
+coupon_restriction = CouponRestriction.new(
+  id: 190,
+  item_type: RestrictionType::COMPONENT,
+  item_id: 82,
+  name: 'name2',
+  handle: 'handle8'
+)
 ```
 

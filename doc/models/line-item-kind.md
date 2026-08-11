@@ -22,3 +22,9 @@ A handle for the line item kind
 | `COUPON` |
 | `TAX` |
 
+## Example
+
+```ruby
+line_item_kind = LineItemKind::COUPON
+```
+

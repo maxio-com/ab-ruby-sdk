@@ -11,14 +11,14 @@
 |  --- | --- | --- | --- |
 | `deduction` | [`DeductServiceCredit`](../../doc/models/deduct-service-credit.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "deduction": {
-    "amount": "String9",
-    "memo": "memo0"
-  }
-}
+```ruby
+deduct_service_credit_request = DeductServiceCreditRequest.new(
+  deduction: DeductServiceCredit.new(
+    amount: 'String9',
+    memo: 'memo0'
+  )
+)
 ```
 

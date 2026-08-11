@@ -15,15 +15,15 @@
 | `created_at` | `DateTime` | Optional | - |
 | `completed` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 246,
-  "finished_at": "2016-03-13T12:52:32.123Z",
-  "row_count": 254,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "completed": "completed0"
-}
+```ruby
+batch_job = BatchJob.new(
+  id: 240,
+  finished_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  row_count: 248,
+  created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  completed: 'completed2'
+)
 ```
 

@@ -11,14 +11,14 @@
 |  --- | --- | --- | --- |
 | `send_email` | [`SendEmail`](../../doc/models/send-email.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "send_email": {
-    "can_execute": false,
-    "url": "url0"
-  }
-}
+```ruby
+available_actions = AvailableActions.new(
+  send_email: SendEmail.new(
+    can_execute: false,
+    url: 'url0'
+  )
+)
 ```
 

@@ -13,13 +13,13 @@
 | `price_point_id` | `Integer` | Optional | - |
 | `starting_quantity` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": 242,
-  "price_point_id": 10,
-  "starting_quantity": 50
-}
+```ruby
+create_offer_component = CreateOfferComponent.new(
+  component_id: 206,
+  price_point_id: 230,
+  starting_quantity: 242
+)
 ```
 

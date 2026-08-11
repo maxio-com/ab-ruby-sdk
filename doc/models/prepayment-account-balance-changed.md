@@ -14,14 +14,14 @@
 | `prepayment_balance_change_in_cents` | `Integer` | Required | - |
 | `currency_code` | `String` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason4",
-  "prepayment_account_balance_in_cents": 182,
-  "prepayment_balance_change_in_cents": 206,
-  "currency_code": "currency_code4"
-}
+```ruby
+prepayment_account_balance_changed = PrepaymentAccountBalanceChanged.new(
+  reason: 'reason8',
+  prepayment_account_balance_in_cents: 6,
+  prepayment_balance_change_in_cents: 18,
+  currency_code: 'currency_code2'
+)
 ```
 

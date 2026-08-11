@@ -14,3 +14,9 @@
 | `PENDING` |
 | `PAUSED` |
 
+## Example
+
+```ruby
+webhook_status = WebhookStatus::PENDING
+```
+

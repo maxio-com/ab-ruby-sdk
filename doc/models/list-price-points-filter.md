@@ -18,25 +18,25 @@
 | `ids` | `Array[Integer]` | Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
 | `archived_at` | [`IncludeNullOrNotNull`](../../doc/models/include-null-or-not-null.md) | Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "start_date": "2011-12-17",
-  "end_date": "2011-12-15",
-  "start_datetime": "12/19/2011 09:15:30",
-  "end_datetime": "06/07/2019 17:20:06",
-  "type": [
-    "catalog",
-    "default",
-    "custom"
+```ruby
+list_price_points_filter = ListPricePointsFilter.new(
+  date_field: BasicDateField::UPDATED_AT,
+  start_date: Date.iso8601('2011-12-17'),
+  end_date: Date.iso8601('2011-12-15'),
+  start_datetime: DateTimeHelper.from_rfc3339('2011-12-19T09:15:30+00:00'),
+  end_datetime: DateTimeHelper.from_rfc3339('2019-06-07T17:20:06Z'),
+  type: [
+    PricePointType::CATALOG,
+    PricePointType::DEFAULT,
+    PricePointType::CUSTOM
   ],
-  "ids": [
+  ids: [
     1,
     2,
     3
-  ],
-  "date_field": "updated_at"
-}
+  ]
+)
 ```
 

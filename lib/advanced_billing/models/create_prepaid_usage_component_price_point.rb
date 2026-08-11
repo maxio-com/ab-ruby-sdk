@@ -41,24 +41,24 @@ module AdvancedBilling
     attr_accessor :use_site_exchange_rate
 
     # (only for prepaid usage components) Boolean which controls whether or not
-    # remaining units should be rolled over to the next period
+    # remaining units should be rolled over to the next period.
     # @return [TrueClass | FalseClass]
     attr_accessor :rollover_prepaid_remainder
 
     # (only for prepaid usage components) Boolean which controls whether or not
-    # the allocated quantity should be renewed at the beginning of each period
+    # the allocated quantity should be renewed at the beginning of each period.
     # @return [TrueClass | FalseClass]
     attr_accessor :renew_prepaid_allocation
 
     # (only for prepaid usage components where rollover_prepaid_remainder is
     # true) The number of `expiration_interval_unit`s after which rollover
-    # amounts should expire
+    # amounts should expire.
     # @return [Float]
     attr_accessor :expiration_interval
 
     # (only for prepaid usage components where rollover_prepaid_remainder is
     # true) A string representing the expiration interval unit for this
-    # component, either month or day
+    # component, either month or day.
     # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 

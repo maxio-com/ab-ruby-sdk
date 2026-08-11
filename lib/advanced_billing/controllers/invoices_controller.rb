@@ -6,7 +6,7 @@
 module AdvancedBilling
   # InvoicesController
   class InvoicesController < BaseController
-    # Refund an invoice, segment, or consolidated invoice.
+    # Refunds an invoice, segment, or consolidated invoice.
     # ## Partial Refund for Consolidated Invoice
     # A refund less than the total of a consolidated invoice will be split
     # across its segments.
@@ -42,10 +42,11 @@ module AdvancedBilling
         .execute
     end
 
-    # By default, invoices returned on the index will only include totals, not
-    # detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`,
-    # `payments`, `custom_fields`, or `refunds`. To include breakdowns, pass the
-    # specific field as a key in the query with a value set to `true`.
+    # Lists invoices for a site. By default, invoices returned on the index will
+    # only include totals, not detailed breakdowns for `line_items`,
+    # `discounts`, `taxes`, `credits`, `payments`, `custom_fields`, or
+    # `refunds`. To include breakdowns, pass the specific field as a key in the
+    # query with a value set to `true`.
     # @param [String] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns invoices with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on
@@ -79,19 +80,19 @@ module AdvancedBilling
     # @param [Direction] direction Optional parameter: The sort direction of the
     # returned invoices.
     # @param [TrueClass | FalseClass] line_items Optional parameter: Include
-    # line items data
+    # line items data.
     # @param [TrueClass | FalseClass] discounts Optional parameter: Include
-    # discounts data
+    # discounts data.
     # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
-    # data
+    # data.
     # @param [TrueClass | FalseClass] credits Optional parameter: Include
-    # credits data
+    # credits data.
     # @param [TrueClass | FalseClass] payments Optional parameter: Include
-    # payments data
+    # payments data.
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
-    # custom fields data
+    # custom fields data.
     # @param [TrueClass | FalseClass] refunds Optional parameter: Include
-    # refunds data
+    # refunds data.
     # @param [InvoiceDateField] date_field Optional parameter: The type of
     # filter you would like to apply to your search. Use in query
     # `date_field=issue_date`.
@@ -158,7 +159,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to retrieve the details for an invoice.
+    # Returns the details for an invoice.
     # ## PDF Invoice retrieval
     # Individual PDF Invoices can be retrieved by using the "Accept" header
     # application/pdf or appending .pdf as the format portion of the URL:
@@ -189,9 +190,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint returns a list of invoice events. Each event contains event
-    # "data" (such as an applied payment) as well as a snapshot of the `invoice`
-    # at the time of event completion.
+    # Lists invoice events for a site. Each event contains event "data" (such as
+    # an applied payment) as well as a snapshot of the `invoice` at the time of
+    # event completion.
     # Exposed event types are:
     # + issue_invoice
     # + apply_credit_note
@@ -295,8 +296,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This API call should be used when you want to record an external payment
-    # against multiple invoices.
+    # Records an external payment against multiple invoices.
     #  To apply a payment to multiple invoices, at minimum, specify the `amount`
     # and `applications` (i.e., `invoice_uid` and `amount`) details.
     # ```
@@ -344,8 +344,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Credit Notes are like inverse invoices. They reduce the amount a customer
-    # owes.
+    # Lists credit notes for a site. Credit Notes are like inverse invoices.
+    # They reduce the amount a customer owes.
     # By default, the credit notes returned by this endpoint will exclude the
     # arrays of `line_items`, `discounts`, `taxes`, `applications`, or
     # `refunds`. To include these arrays, pass the specific field as a key in
@@ -364,15 +364,15 @@ module AdvancedBilling
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
     # @param [TrueClass | FalseClass] line_items Optional parameter: Include
-    # line items data
+    # line items data.
     # @param [TrueClass | FalseClass] discounts Optional parameter: Include
-    # discounts data
+    # discounts data.
     # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
-    # data
+    # data.
     # @param [TrueClass | FalseClass] refunds Optional parameter: Include
-    # refunds data
+    # refunds data.
     # @param [TrueClass | FalseClass] applications Optional parameter: Include
-    # applications data
+    # applications data.
     # @return [ListCreditNotesResponse] Response from the API call.
     def list_credit_notes(options = {})
       @api_call
@@ -395,7 +395,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Use this endpoint to retrieve the details for a credit note.
+    # Returns the details for a credit note.
     # @param [String] uid Required parameter: The unique identifier of the
     # credit note
     # @return [CreditNote] Response from the API call.
@@ -415,7 +415,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Record an external payment made against a subscription that will pay
+    # Records an external payment made against a subscription that will pay
     # partially or in full one or more invoices.
     # Payment will be applied starting with the oldest open invoice and then
     # next oldest, and so on until the amount of the payment is fully consumed.
@@ -452,10 +452,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows you to reopen any invoice with the "canceled" status.
-    # Invoices enter "canceled" status if they were open at the time the
-    # subscription was canceled (whether through dunning or an intentional
-    # cancellation).
+    # Reopens any invoice with the "canceled" status. Invoices enter "canceled"
+    # status if they were open at the time the subscription was canceled
+    # (whether through dunning or an intentional cancellation).
     # Invoices with "canceled" status are no longer considered to be due. Once
     # reopened, they are considered due for payment. Payment may then be
     # captured in one of the following ways:
@@ -496,9 +495,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows you to void any invoice with the "open" or "canceled"
-    # status.  It will also allow voiding of an invoice with the "pending"
-    # status if it is not a consolidated invoice.
+    # Voids any invoice with the "open" or "canceled" status.  It will also
+    # allow voiding of an invoice with the "pending" status if it is not a
+    # consolidated invoice.
     # @param [String] uid Required parameter: The unique identifier for the
     # invoice, this does not refer to the public facing invoice number.
     # @param [VoidInvoiceRequest] body Optional parameter: TODO: type
@@ -531,9 +530,10 @@ module AdvancedBilling
         .execute
     end
 
-    # Invoice segments returned on the index will only include totals, not
-    # detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`,
-    # `payments`, or `custom_fields`.
+    # Lists segments for a consolidated invoice. Invoice segments returned on
+    # the index will only include totals, not detailed breakdowns for
+    # `line_items`, `discounts`, `taxes`, `credits`, `payments`, or
+    # `custom_fields`.
     # @param [String] invoice_uid Required parameter: The unique identifier of
     # the consolidated invoice
     # @param [Integer] page Optional parameter: Result records are organized in
@@ -569,7 +569,7 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint will allow you to create an ad hoc invoice.
+    # Creates an ad hoc invoice.
     # ### Basic Behavior
     # You can create a basic invoice by sending an array of line items to this
     # endpoint. Each line item, at a minimum, must include a title, a quantity
@@ -801,11 +801,131 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows for invoices to be programmatically delivered via
-    # email. This endpoint supports the delivery of both ad-hoc and
-    # automatically generated invoices. Additionally, this endpoint supports
-    # email delivery to direct recipients, carbon-copy (cc) recipients, and
-    # blind carbon-copy (bcc) recipients.
+    # Updates an ad hoc invoice while it is in the `draft` state.
+    # **Important: only invoices with the `adhoc` role and `draft` status can be
+    # updated.** Any other invoice — issued, or with a different role (e.g.
+    # `renewal`, `signup`) — cannot be updated through this endpoint and the
+    # request returns a `422` error. If the invoice does not belong to the
+    # provided subscription, a `404` error is returned.
+    # Only the attributes submitted in the request are changed — omitted
+    # attributes keep their current values.
+    # ### Line Items
+    # The `line_items` array describes changes to the invoice's line items. Line
+    # items not referenced in the array remain unchanged.
+    # #### Adding a line item
+    # A line item without a `uid` is added to the invoice. The same line item
+    # types and options as on invoice creation are supported (custom items,
+    # `product_id`, `component_id`, price points, period date ranges, taxes).
+    # #### Updating a line item
+    # A line item with the `uid` of an existing line item updates that line item
+    # with the submitted attributes. Amounts and taxes are recalculated.
+    # #### Removing a line item
+    # A line item with a `uid` and `"_destroy": true` is removed from the
+    # invoice. Other line items remain unchanged.
+    # Referencing a `uid` which does not exist on the invoice returns a `422`
+    # error.
+    # ### Coupons
+    # When the `coupons` key is present, the submitted coupons replace all
+    # discounts currently applied to the invoice. Send an empty array to remove
+    # all discounts. Coupon options are the same as on invoice creation.
+    # ### Invoice Options
+    # #### Issue Date and Net Terms
+    # The `issue_date` parameter can be sent to change the invoice's issue date.
+    # Only today or dates in the past are accepted. The date is interpreted and
+    # validated in your site's time zone, using the `YYYY-MM-DD` format. The
+    # `net_terms` parameter indicates the number of days after the issue date on
+    # which the invoice is due. The due date is recalculated whenever the issue
+    # date or net terms change.
+    # #### Addresses
+    # The seller, shipping and billing addresses can be sent to replace the
+    # addresses on the invoice. Each address requires to send a `first_name` at
+    # a minimum in order to work. Taxes are recalculated after an address
+    # change.
+    # #### Memo and Payment Instructions
+    # A custom memo can be sent with the `memo` parameter. Likewise, custom
+    # payment instructions can be sent with the `payment_instructions`
+    # parameter.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @param [UpdateInvoiceRequest] body Optional parameter: TODO: type
+    # description here
+    # @return [InvoiceResponse] Response from the API call.
+    def update_invoice(subscription_id,
+                       uid,
+                       body: nil)
+      @api_call
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/subscriptions/{subscription_id}/invoices/{uid}.json',
+                                     Server::PRODUCTION)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('BasicAuth')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(InvoiceResponse.method(:from_hash))
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          ErrorListResponseException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorArrayMapResponseException))
+        .execute
+    end
+
+    # Deletes an ad hoc invoice while it is in the `draft` state.
+    # **Important: only invoices with the `adhoc` role and `draft` status can be
+    # deleted.** Any other invoice — issued, or with a different role (e.g.
+    # `renewal`, `signup`) — cannot be deleted through this endpoint and the
+    # request returns a `422` error. Issued invoices should be voided instead.
+    # If the invoice does not belong to the provided subscription, a `404` error
+    # is returned.
+    # A successful deletion returns a `204 No Content` response and the invoice
+    # is permanently removed.
+    # @param [Integer] subscription_id Required parameter: The Chargify id of
+    # the subscription.
+    # @param [String] uid Required parameter: The unique identifier for the
+    # invoice, this does not refer to the public facing invoice number.
+    # @return [void] Response from the API call.
+    def delete_invoice(subscription_id,
+                       uid)
+      @api_call
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/subscriptions/{subscription_id}/invoices/{uid}.json',
+                                     Server::PRODUCTION)
+                   .template_param(new_parameter(subscription_id, key: 'subscription_id')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .template_param(new_parameter(uid, key: 'uid')
+                                    .is_required(true)
+                                    .should_encode(true))
+                   .auth(Single.new('BasicAuth')))
+        .response(new_response_handler
+                    .is_response_void(true)
+                    .local_error_template('404',
+                                          'Not Found:\'{$response.body}\'',
+                                          ErrorListResponseException)
+                    .local_error_template('422',
+                                          'HTTP Response Not OK. Status code: {$statusCode}.'\
+                                           ' Response: \'{$response.body}\'.',
+                                          ErrorListResponseException))
+        .execute
+    end
+
+    # Sends an invoice to the customer via email. This endpoint supports the
+    # delivery of both ad-hoc and automatically generated invoices.
+    # Additionally, this endpoint supports email delivery to direct recipients,
+    # carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
     # **File Attachments**: You can attach files to invoice emails using
     # `attachment_urls[]` parameter by providing URLs to the files you want to
     # attach. When using attachments, the request must use `multipart/form-data`
@@ -846,6 +966,7 @@ module AdvancedBilling
         .execute
     end
 
+    # Previews the effect of customer information changes on an open invoice.
     # Customer information may change after an invoice is issued, which may lead
     # to a mismatch between customer information that is present on an open
     # invoice and actual customer information. This endpoint allows you to
@@ -878,10 +999,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint updates customer information on an open invoice and returns
-    # the updated invoice. If you would like to preview changes that will be
-    # applied, use the `/invoices/{uid}/customer_information/preview.json`
-    # endpoint first.
+    # Updates customer information on an open invoice and returns the updated
+    # invoice. If you would like to preview changes that will be applied, use
+    # the `/invoices/{uid}/customer_information/preview.json` endpoint first.
     # The endpoint doesn't accept a request body. Customer information
     # differences are calculated on the application side.
     # @param [String] uid Required parameter: The unique identifier for the
@@ -910,10 +1030,9 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint allows you to issue an invoice that is in "pending" or
-    # "draft" status. For example, you can issue an invoice that was created
-    # when allocating new quantity on a component and using "accrue charges"
-    # option.
+    # Issues an invoice that is in "pending" or "draft" status. For example, you
+    # can issue an invoice that was created when allocating new quantity on a
+    # component and using "accrue charges" option.
     # You cannot issue a pending child invoice that was created for a member
     # subscription in a group.
     # For Remittance subscriptions, the invoice will go into "open" status and

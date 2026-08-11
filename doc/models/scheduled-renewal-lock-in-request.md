@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `lock_in_at` | `Date` | Required | Date to lock in the renewal. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "lock_in_at": "2016-03-13"
-}
+```ruby
+scheduled_renewal_lock_in_request = ScheduledRenewalLockInRequest.new(
+  lock_in_at: Date.iso8601('2016-03-13')
+)
 ```
 

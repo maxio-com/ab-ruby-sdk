@@ -12,3 +12,9 @@
 | `COMPONENT` |
 | `PRODUCT` |
 
+## Example
+
+```ruby
+restriction_type = RestrictionType::COMPONENT
+```
+

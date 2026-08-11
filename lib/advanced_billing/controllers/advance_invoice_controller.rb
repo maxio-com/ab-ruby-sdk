@@ -6,8 +6,8 @@
 module AdvancedBilling
   # AdvanceInvoiceController
   class AdvanceInvoiceController < BaseController
-    # Generate an invoice in advance for a subscription's next renewal date.
-    # [See our
+    # Issues an invoice in advance for a subscription's next renewal date. [See
+    # our
     # docs](https://maxio.zendesk.com/hc/en-us/articles/24252026404749-Issue-Inv
     # oice-In-Advance) for more information on advance invoices, including
     # eligibility for generating one; for the most part, they function like any
@@ -80,7 +80,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Void a subscription's existing advance invoice. Once voided, it can later
+    # Voids a subscription's existing advance invoice. Once voided, it can later
     # be regenerated if desired.
     # A `reason` is required in order to void, and the invoice must have an open
     # status. Voiding will cause any prepayments and credits that were applied

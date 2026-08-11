@@ -14,3 +14,9 @@ Defaults to personal
 | `PERSONAL` |
 | `BUSINESS` |
 
+## Example
+
+```ruby
+bank_account_holder_type = BankAccountHolderType::PERSONAL
+```
+

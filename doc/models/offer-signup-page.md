@@ -16,15 +16,15 @@
 | `return_params` | `String` | Optional | - |
 | `url` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 50,
-  "nickname": "nickname8",
-  "enabled": false,
-  "return_url": "return_url2",
-  "return_params": "return_params0"
-}
+```ruby
+offer_signup_page = OfferSignupPage.new(
+  id: 78,
+  nickname: 'nickname0',
+  enabled: false,
+  return_url: 'return_url0',
+  return_params: 'return_params2'
+)
 ```
 

@@ -14,7 +14,7 @@ module AdvancedBilling
     # @return [GroupTarget]
     attr_accessor :target
 
-    # Optional attributes related to billing date and accrual. Note: Only
+    # (Optional) Attributes related to billing date and accrual. Note: Only
     # applicable for new subscriptions.
     # @return [GroupBilling]
     attr_accessor :billing

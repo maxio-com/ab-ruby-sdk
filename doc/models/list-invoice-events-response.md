@@ -14,52 +14,52 @@
 | `per_page` | `Integer` | Optional | - |
 | `total_pages` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "events": [
-    {
-      "event_type": "apply_credit_note",
-      "id": 214,
-      "timestamp": "2016-03-13T12:52:32.123Z",
-      "invoice": {
-        "id": 166,
-        "uid": "uid6",
-        "site_id": 92,
-        "customer_id": 204,
-        "subscription_id": 20
-      },
-      "event_data": {
-        "uid": "uid6",
-        "credit_note_number": "credit_note_number0",
-        "credit_note_uid": "credit_note_uid0",
-        "original_amount": "original_amount0",
-        "applied_amount": "applied_amount2",
-        "transaction_time": "2016-03-13T12:52:32.123Z",
-        "memo": "memo0",
-        "role": "role0",
-        "consolidated_invoice": false,
-        "applied_credit_notes": [
-          {
-            "uid": "uid4",
-            "number": "number8"
-          },
-          {
-            "uid": "uid4",
-            "number": "number8"
-          },
-          {
-            "uid": "uid4",
-            "number": "number8"
-          }
+```ruby
+list_invoice_events_response = ListInvoiceEventsResponse.new(
+  events: [
+    ApplyCreditNoteEvent.new(
+      id: 214,
+      timestamp: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+      invoice: Invoice.new(
+        id: 166,
+        uid: 'uid6',
+        site_id: 92,
+        customer_id: 204,
+        subscription_id: 20
+      ),
+      event_type: InvoiceEventType::APPLY_CREDIT_NOTE,
+      event_data: ApplyCreditNoteEventData.new(
+        uid: 'uid6',
+        credit_note_number: 'credit_note_number0',
+        credit_note_uid: 'credit_note_uid0',
+        original_amount: 'original_amount0',
+        applied_amount: 'applied_amount2',
+        transaction_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+        memo: 'memo0',
+        role: 'role0',
+        consolidated_invoice: false,
+        applied_credit_notes: [
+          AppliedCreditNoteData.new(
+            uid: 'uid4',
+            number: 'number8'
+          ),
+          AppliedCreditNoteData.new(
+            uid: 'uid4',
+            number: 'number8'
+          ),
+          AppliedCreditNoteData.new(
+            uid: 'uid4',
+            number: 'number8'
+          )
         ]
-      }
-    }
+      )
+    )
   ],
-  "page": 184,
-  "per_page": 96,
-  "total_pages": 194
-}
+  page: 76,
+  per_page: 244,
+  total_pages: 46
+)
 ```
 

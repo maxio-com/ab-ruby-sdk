@@ -1,7 +1,7 @@
 
 # Group Billing
 
-Optional attributes related to billing date and accrual. Note: Only applicable for new subscriptions.
+(Optional) Attributes related to billing date and accrual. Note: Only applicable for new subscriptions.
 
 ## Structure
 
@@ -15,13 +15,13 @@ Optional attributes related to billing date and accrual. Note: Only applicable f
 | `align_date` | `TrueClass \| FalseClass` | Optional | A flag indicating whether or not to align the billing date of the new subscription with the billing date of the primary subscription of the hierarchy's default subscription group. Required to be true if prorate is also true.<br><br>**Default**: `false` |
 | `prorate` | `TrueClass \| FalseClass` | Optional | A flag indicating whether or not to prorate billing of the new subscription for the current period. A value of true is ignored unless align_date is also true.<br><br>**Default**: `false` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "accrue": false,
-  "align_date": false,
-  "prorate": false
-}
+```ruby
+group_billing = GroupBilling.new(
+  accrue: false,
+  align_date: false,
+  prorate: false
+)
 ```
 

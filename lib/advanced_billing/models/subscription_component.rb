@@ -27,17 +27,17 @@ module AdvancedBilling
     attr_accessor :unit_name
 
     # (for on/off components) indicates if the component is enabled for the
-    # subscription
+    # subscription.
     # @return [TrueClass | FalseClass]
     attr_accessor :enabled
 
     # (for on/off components) indicates if the component is enabled for the
-    # subscription
-    # @return [Integer]
+    # subscription.
+    # @return [Object]
     attr_accessor :unit_balance
 
     # (for on/off components) indicates if the component is enabled for the
-    # subscription
+    # subscription.
     # @return [String]
     attr_accessor :currency
 
@@ -147,22 +147,22 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :allow_fractional_quantities
 
-    # An optional object, will be returned if provided `include=subscription`
-    # query param.
+    # (Optional) Object that will be returned if the `include=subscription`
+    # query param is provided.
     # @return [SubscriptionComponentSubscription]
     attr_accessor :subscription
 
-    # An optional object, will be returned if provided `include=subscription`
-    # query param.
+    # (Optional) Object that will be returned if the `include=subscription`
+    # query param is provided.
     # @return [Array[HistoricUsage]]
     attr_accessor :historic_usages
 
-    # An optional object, will be returned if provided `include=subscription`
-    # query param.
+    # (Optional) Object that will be returned if the `include=subscription`
+    # query param is provided.
     # @return [TrueClass | FalseClass]
     attr_accessor :display_on_hosted_page
 
-    # The numerical interval. i.e. an interval of '30' coupled with an
+    # The numerical interval. e.g., an interval of '30' coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
     # Multifrequency enabled.
@@ -336,7 +336,9 @@ module AdvancedBilling
       kind = hash.key?('kind') ? hash['kind'] : SKIP
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : SKIP
       enabled = hash.key?('enabled') ? hash['enabled'] : SKIP
-      unit_balance = hash.key?('unit_balance') ? hash['unit_balance'] : SKIP
+      unit_balance = hash.key?('unit_balance') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:SubscriptionComponentUnitBalance), hash['unit_balance']
+      ) : SKIP
       currency = hash.key?('currency') ? hash['currency'] : SKIP
       allocated_quantity = hash.key?('allocated_quantity') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:SubscriptionComponentAllocatedQuantity), hash['allocated_quantity']

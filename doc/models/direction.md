@@ -12,3 +12,9 @@
 | `ASC` |
 | `DESC` |
 
+## Example
+
+```ruby
+direction = Direction::ASC
+```
+

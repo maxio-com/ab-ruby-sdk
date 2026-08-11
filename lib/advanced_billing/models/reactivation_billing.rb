@@ -4,17 +4,16 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # These values are only applicable to subscriptions using calendar billing
+  # These values are only applicable to subscriptions using calendar billing.
   class ReactivationBilling < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
     # You may choose how to handle the reactivation charge for that
     # subscription: 1) `prorated` A prorated charge for the product price will
-    # be attempted for to complete the period 2) `immediate` A full-price charge
-    # for the product price will be attempted immediately 3) `delayed` A
-    # full-price charge for the product price will be attempted at the next
-    # renewal
+    # be attempted to complete the period 2) `immediate` A full-price charge for
+    # the product price will be attempted immediately 3) `delayed` A full-price
+    # charge for the product price will be attempted at the next renewal.
     # @return [ReactivationCharge]
     attr_accessor :reactivation_charge
 

@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `subscription_group` | [`CreateSubscriptionGroup`](../../doc/models/create-subscription-group.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_group": {
-    "subscription_id": 36,
-    "member_ids": [
+```ruby
+create_subscription_group_request = CreateSubscriptionGroupRequest.new(
+  subscription_group: CreateSubscriptionGroup.new(
+    subscription_id: 36,
+    member_ids: [
       164,
       165
     ]
-  }
-}
+  )
+)
 ```
 

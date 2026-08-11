@@ -1,7 +1,7 @@
 
 # Create or Update Endpoint
 
-Used to Create or Update Endpoint
+Used to Create or Update Endpoint.
 
 ## Structure
 
@@ -14,14 +14,14 @@ Used to Create or Update Endpoint
 | `url` | `String` | Required | - |
 | `webhook_subscriptions` | [`Array[WebhookSubscription]`](../../doc/models/webhook-subscription.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "url": "url8",
-  "webhook_subscriptions": [
-    "refund_success"
+```ruby
+create_or_update_endpoint = CreateOrUpdateEndpoint.new(
+  url: 'url2',
+  webhook_subscriptions: [
+    WebhookSubscription::EXPIRATION_DATE_CHANGE
   ]
-}
+)
 ```
 

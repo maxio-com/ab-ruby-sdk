@@ -15,73 +15,73 @@
 | `price_point_id` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `custom_price` | [`SubscriptionGroupComponentCustomPrice`](../../doc/models/subscription-group-component-custom-price.md) | Optional | Used in place of `price_point_id` to define a custom price point unique to the subscription. You still need to provide `component_id`. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": "String1",
-  "allocated_quantity": "String5",
-  "unit_balance": "String9",
-  "price_point_id": "String5",
-  "custom_price": {
-    "pricing_scheme": "stairstep",
-    "prices": [
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      },
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      }
+```ruby
+subscription_group_signup_component = SubscriptionGroupSignupComponent.new(
+  component_id: 'String9',
+  allocated_quantity: 'String3',
+  unit_balance: 'String7',
+  price_point_id: 'String9',
+  custom_price: SubscriptionGroupComponentCustomPrice.new(
+    pricing_scheme: PricingScheme::STAIRSTEP,
+    prices: [
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      ),
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      )
     ],
-    "overage_pricing": [
-      {
-        "tax_included": false,
-        "pricing_scheme": "stairstep",
-        "interval": 230,
-        "interval_unit": "day",
-        "list_price_point_id": 10,
-        "prices": [
-          {
-            "starting_quantity": 242,
-            "ending_quantity": 40,
-            "unit_price": 23.26
-          }
-        ]
-      },
-      {
-        "tax_included": false,
-        "pricing_scheme": "stairstep",
-        "interval": 230,
-        "interval_unit": "day",
-        "list_price_point_id": 10,
-        "prices": [
-          {
-            "starting_quantity": 242,
-            "ending_quantity": 40,
-            "unit_price": 23.26
-          }
-        ]
-      },
-      {
-        "tax_included": false,
-        "pricing_scheme": "stairstep",
-        "interval": 230,
-        "interval_unit": "day",
-        "list_price_point_id": 10,
-        "prices": [
-          {
-            "starting_quantity": 242,
-            "ending_quantity": 40,
-            "unit_price": 23.26
-          }
-        ]
-      }
+    overage_pricing: [
+      ComponentCustomPrice.new(
+        prices: [
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          )
+        ],
+        tax_included: false,
+        pricing_scheme: PricingScheme::STAIRSTEP,
+        interval: 230,
+        interval_unit: IntervalUnit::DAY,
+        list_price_point_id: 10
+      ),
+      ComponentCustomPrice.new(
+        prices: [
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          )
+        ],
+        tax_included: false,
+        pricing_scheme: PricingScheme::STAIRSTEP,
+        interval: 230,
+        interval_unit: IntervalUnit::DAY,
+        list_price_point_id: 10
+      ),
+      ComponentCustomPrice.new(
+        prices: [
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          )
+        ],
+        tax_included: false,
+        pricing_scheme: PricingScheme::STAIRSTEP,
+        interval: 230,
+        interval_unit: IntervalUnit::DAY,
+        list_price_point_id: 10
+      )
     ]
-  }
-}
+  )
+)
 ```
 

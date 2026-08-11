@@ -21,3 +21,9 @@ The type of credit to be created when upgrading/downgrading. Defaults to the com
 | `PRORATED` |
 | `NONE` |
 
+## Example
+
+```ruby
+downgrade_credit_credit_type = DowngradeCreditCreditType::NONE
+```
+

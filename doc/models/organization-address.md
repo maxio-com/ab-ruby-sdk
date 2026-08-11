@@ -18,15 +18,15 @@
 | `name` | `String` | Optional | - |
 | `phone` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "street": "street4",
-  "line2": "line28",
-  "city": "city4",
-  "state": "state0",
-  "zip": "zip2"
-}
+```ruby
+organization_address = OrganizationAddress.new(
+  street: 'street6',
+  line2: 'line20',
+  city: 'city6',
+  state: 'state2',
+  zip: 'zip0'
+)
 ```
 

@@ -19,15 +19,15 @@
 | `uncalculated_taxes` | `TrueClass \| FalseClass` | Optional | A boolean indicating whether or not additional taxes will be calculated at the time of renewal. This will be true if you are using Avalara and the address of the subscription is in one of your defined taxable regions. |
 | `line_items` | [`Array[RenewalPreviewLineItem]`](../../doc/models/renewal-preview-line-item.md) | Optional | An array of objects representing the individual transactions that will be created at the next renewal |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "next_assessment_at": "2016-03-13T12:52:32.123Z",
-  "subtotal_in_cents": 160,
-  "total_tax_in_cents": 28,
-  "total_discount_in_cents": 34,
-  "total_in_cents": 48
-}
+```ruby
+renewal_preview = RenewalPreview.new(
+  next_assessment_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  subtotal_in_cents: 132,
+  total_tax_in_cents: 0,
+  total_discount_in_cents: 250,
+  total_in_cents: 20
+)
 ```
 

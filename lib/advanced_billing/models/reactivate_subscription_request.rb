@@ -9,7 +9,7 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # These values are only applicable to subscriptions using calendar billing
+    # These values are only applicable to subscriptions using calendar billing.
     # @return [ReactivationBilling]
     attr_accessor :calendar_billing
 

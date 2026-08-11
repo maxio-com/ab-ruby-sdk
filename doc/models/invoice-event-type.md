@@ -27,3 +27,9 @@ Invoice Event Type
 | `FAILED_PAYMENT` |
 | `CHANGE_CHARGEBACK_STATUS` |
 
+## Example
+
+```ruby
+invoice_event_type = InvoiceEventType::REMOVE_PAYMENT
+```
+

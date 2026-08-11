@@ -1,7 +1,7 @@
 
 # Create or Update Endpoint Request
 
-Used to Create or Update Endpoint
+Used to Create or Update Endpoint.
 
 ## Structure
 
@@ -11,18 +11,18 @@ Used to Create or Update Endpoint
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `endpoint` | [`CreateOrUpdateEndpoint`](../../doc/models/create-or-update-endpoint.md) | Required | Used to Create or Update Endpoint |
+| `endpoint` | [`CreateOrUpdateEndpoint`](../../doc/models/create-or-update-endpoint.md) | Required | Used to Create or Update Endpoint. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "endpoint": {
-    "url": "url2",
-    "webhook_subscriptions": [
-      "subscription_prepayment_account_balance_changed"
+```ruby
+create_or_update_endpoint_request = CreateOrUpdateEndpointRequest.new(
+  endpoint: CreateOrUpdateEndpoint.new(
+    url: 'url2',
+    webhook_subscriptions: [
+      WebhookSubscription::STATEMENT_CLOSED
     ]
-  }
-}
+  )
+)
 ```
 

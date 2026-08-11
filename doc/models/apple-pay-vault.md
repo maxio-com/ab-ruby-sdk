@@ -13,3 +13,9 @@ The vault that stores the payment profile with the provided vault_token.
 |  --- |
 | `BRAINTREE_BLUE` |
 
+## Example
+
+```ruby
+apple_pay_vault = ApplePayVault::BRAINTREE_BLUE
+```
+

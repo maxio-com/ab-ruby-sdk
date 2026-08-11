@@ -230,6 +230,12 @@ module AdvancedBilling
     end
 
     # Lists all subscriptions that belong to a customer.
+    #  If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, subscriptions no longer require an
+    # associated product. For subscriptions without an associated product,
+    # 'product', 'product_price_point_id', and 'product_price_point_type' are
+    # returned as 'null'.
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
     # @return [Array[SubscriptionResponse]] Response from the API call.

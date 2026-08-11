@@ -18,11 +18,11 @@ module AdvancedBilling
     attr_accessor :previous_overage_unit_balance
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :new_unit_balance
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :new_overage_unit_balance
 
     # TODO: Write general description for this method
@@ -107,10 +107,12 @@ module AdvancedBilling
         hash.key?('previous_unit_balance') ? hash['previous_unit_balance'] : nil
       previous_overage_unit_balance =
         hash.key?('previous_overage_unit_balance') ? hash['previous_overage_unit_balance'] : nil
-      new_unit_balance =
-        hash.key?('new_unit_balance') ? hash['new_unit_balance'] : nil
-      new_overage_unit_balance =
-        hash.key?('new_overage_unit_balance') ? hash['new_overage_unit_balance'] : nil
+      new_unit_balance = hash.key?('new_unit_balance') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:PrepaidUsageNewUnitBalance), hash['new_unit_balance']
+      ) : nil
+      new_overage_unit_balance = hash.key?('new_overage_unit_balance') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:PrepaidUsageNewOverageUnitBalance), hash['new_overage_unit_balance']
+      ) : nil
       usage_quantity =
         hash.key?('usage_quantity') ? hash['usage_quantity'] : nil
       overage_usage_quantity =
@@ -156,10 +158,10 @@ module AdvancedBilling
                                 ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.previous_overage_unit_balance,
                                   ->(val) { val.instance_of? String }) and
-            APIHelper.valid_type?(value.new_unit_balance,
-                                  ->(val) { val.instance_of? Integer }) and
-            APIHelper.valid_type?(value.new_overage_unit_balance,
-                                  ->(val) { val.instance_of? Integer }) and
+            UnionTypeLookUp.get(:PrepaidUsageNewUnitBalance)
+                           .validate(value.new_unit_balance) and
+            UnionTypeLookUp.get(:PrepaidUsageNewOverageUnitBalance)
+                           .validate(value.new_overage_unit_balance) and
             APIHelper.valid_type?(value.usage_quantity,
                                   ->(val) { val.instance_of? Integer }) and
             APIHelper.valid_type?(value.overage_usage_quantity,
@@ -184,10 +186,10 @@ module AdvancedBilling
                               ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['previous_overage_unit_balance'],
                                 ->(val) { val.instance_of? String }) and
-          APIHelper.valid_type?(value['new_unit_balance'],
-                                ->(val) { val.instance_of? Integer }) and
-          APIHelper.valid_type?(value['new_overage_unit_balance'],
-                                ->(val) { val.instance_of? Integer }) and
+          UnionTypeLookUp.get(:PrepaidUsageNewUnitBalance)
+                         .validate(value['new_unit_balance']) and
+          UnionTypeLookUp.get(:PrepaidUsageNewOverageUnitBalance)
+                         .validate(value['new_overage_unit_balance']) and
           APIHelper.valid_type?(value['usage_quantity'],
                                 ->(val) { val.instance_of? Integer }) and
           APIHelper.valid_type?(value['overage_usage_quantity'],

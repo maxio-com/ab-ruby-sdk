@@ -17,7 +17,7 @@ module AdvancedBilling
     # Required when creating a new coupon. The code is limited to 255
     # characters. May contain uppercase alphanumeric characters and these
     # special characters (which allow for email addresses to be used): “%”, “@”,
-    # “+”, “-”, “_”, and “.”
+    # “+”, “-”, “_”, and “.”.
     # @return [String]
     attr_accessor :code
 
@@ -28,12 +28,12 @@ module AdvancedBilling
     attr_accessor :description
 
     # Required when creating a new percentage coupon. Can't be used together
-    # with amount_in_cents. Percentage discount
+    # with amount_in_cents. Percentage discount.
     # @return [Object]
     attr_accessor :percentage
 
     # Required when creating a new flat amount coupon. Can't be used together
-    # with percentage. Flat USD discount
+    # with percentage. Flat USD discount.
     # @return [Integer]
     attr_accessor :amount_in_cents
 

@@ -26,7 +26,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :description
 
-    # E.g. Internal ID or SKU Number
+    # E.g., Internal ID or SKU Number
     # @return [String]
     attr_accessor :accounting_code
 
@@ -39,7 +39,7 @@ module AdvancedBilling
     # A numerical interval for the length a subscription to this product will
     # run before it expires. See the description of interval for a description
     # of how this value is coupled with an interval unit to calculate the full
-    # interval
+    # interval.
     # @return [Integer]
     attr_accessor :expiration_interval
 
@@ -60,8 +60,8 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_in_cents
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
-    # interval_unit of day would mean this product would renew every 30 days
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this product would renew every 30 days.
     # @return [Integer]
     attr_accessor :interval
 
@@ -81,7 +81,8 @@ module AdvancedBilling
 
     # A numerical interval for the length of the trial period of a subscription
     # to this product. See the description of interval for a description of how
-    # this value is coupled with an interval unit to calculate the full interval
+    # this value is coupled with an interval unit to calculate the full
+    # interval.
     # @return [Integer]
     attr_accessor :trial_interval
 
@@ -126,28 +127,28 @@ module AdvancedBilling
     # The parameters will append to the url after a successful account update.
     # See [help
     # documentation](https://help.chargify.com/products/product-editing.html#ret
-    # urn-parameters-after-account-update)
+    # urn-parameters-after-account-update).
     # @return [String]
     attr_accessor :update_return_params
 
     # The parameters will append to the url after a successful account update.
     # See [help
     # documentation](https://help.chargify.com/products/product-editing.html#ret
-    # urn-parameters-after-account-update)
+    # urn-parameters-after-account-update).
     # @return [ProductFamily]
     attr_accessor :product_family
 
     # The parameters will append to the url after a successful account update.
     # See [help
     # documentation](https://help.chargify.com/products/product-editing.html#ret
-    # urn-parameters-after-account-update)
+    # urn-parameters-after-account-update).
     # @return [Array[PublicSignupPage]]
     attr_accessor :public_signup_pages
 
     # The parameters will append to the url after a successful account update.
     # See [help
     # documentation](https://help.chargify.com/products/product-editing.html#ret
-    # urn-parameters-after-account-update)
+    # urn-parameters-after-account-update).
     # @return [String]
     attr_accessor :product_price_point_name
 
@@ -199,6 +200,12 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :product_price_point_handle
 
+    # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
+    # When set, this value is sent as the commodity code on invoice line items
+    # for this product instead of the default derived from item_category.
+    # @return [String]
+    attr_accessor :unspsc_code
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -240,6 +247,7 @@ module AdvancedBilling
       @_hash['item_category'] = 'item_category'
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['product_price_point_handle'] = 'product_price_point_handle'
+      @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
 
@@ -283,6 +291,7 @@ module AdvancedBilling
         item_category
         product_price_point_id
         product_price_point_handle
+        unspsc_code
       ]
     end
 
@@ -307,6 +316,7 @@ module AdvancedBilling
         use_site_exchange_rate
         item_category
         product_price_point_handle
+        unspsc_code
       ]
     end
 
@@ -327,7 +337,8 @@ module AdvancedBilling
                    default_product_price_point_id: SKIP,
                    use_site_exchange_rate: SKIP, item_category: SKIP,
                    product_price_point_id: SKIP,
-                   product_price_point_handle: SKIP, additional_properties: {})
+                   product_price_point_handle: SKIP, unspsc_code: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -379,6 +390,7 @@ module AdvancedBilling
         @product_price_point_handle =
           product_price_point_handle
       end
+      @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -466,6 +478,7 @@ module AdvancedBilling
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       product_price_point_handle =
         hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
+      unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -508,6 +521,7 @@ module AdvancedBilling
                   item_category: item_category,
                   product_price_point_id: product_price_point_id,
                   product_price_point_handle: product_price_point_handle,
+                  unspsc_code: unspsc_code,
                   additional_properties: additional_properties)
     end
 
@@ -544,8 +558,8 @@ module AdvancedBilling
       " tax_code: #{@tax_code}, default_product_price_point_id:"\
       " #{@default_product_price_point_id}, use_site_exchange_rate: #{@use_site_exchange_rate},"\
       " item_category: #{@item_category}, product_price_point_id: #{@product_price_point_id},"\
-      " product_price_point_handle: #{@product_price_point_handle}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " product_price_point_handle: #{@product_price_point_handle}, unspsc_code: #{@unspsc_code},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -574,8 +588,8 @@ module AdvancedBilling
       " default_product_price_point_id: #{@default_product_price_point_id.inspect},"\
       " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, item_category:"\
       " #{@item_category.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
-      " product_price_point_handle: #{@product_price_point_handle.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " product_price_point_handle: #{@product_price_point_handle.inspect}, unspsc_code:"\
+      " #{@unspsc_code.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

@@ -5,8 +5,8 @@
 
 require 'date'
 module AdvancedBilling
-  # ListSubcriptionGroupPrepaymentItem Model.
-  class ListSubcriptionGroupPrepaymentItem < BaseModel
+  # ListSubscriptionGroupPrepaymentItem Model.
+  class ListSubscriptionGroupPrepaymentItem < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
@@ -131,16 +131,16 @@ module AdvancedBilling
       additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
-      ListSubcriptionGroupPrepaymentItem.new(id: id,
-                                             subscription_group_uid: subscription_group_uid,
-                                             amount_in_cents: amount_in_cents,
-                                             remaining_amount_in_cents: remaining_amount_in_cents,
-                                             details: details,
-                                             external: external,
-                                             memo: memo,
-                                             payment_type: payment_type,
-                                             created_at: created_at,
-                                             additional_properties: additional_properties)
+      ListSubscriptionGroupPrepaymentItem.new(id: id,
+                                              subscription_group_uid: subscription_group_uid,
+                                              amount_in_cents: amount_in_cents,
+                                              remaining_amount_in_cents: remaining_amount_in_cents,
+                                              details: details,
+                                              external: external,
+                                              memo: memo,
+                                              payment_type: payment_type,
+                                              created_at: created_at,
+                                              additional_properties: additional_properties)
     end
 
     def to_custom_created_at

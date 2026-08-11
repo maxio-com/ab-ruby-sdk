@@ -18,9 +18,9 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :bank_name
 
-    # (Required when creating a subscription with ACH. Optional when creating a
+    # (Required when creating a subscription with ACH; optional when creating a
     # subscription with GoCardless). The routing number of the bank. It becomes
-    # bank_code while passing via GoCardless API
+    # bank_code while passing via GoCardless API.
     # @return [String]
     attr_accessor :bank_routing_number
 
@@ -35,12 +35,12 @@ module AdvancedBilling
     attr_accessor :bank_account_type
 
     # (Optional when creating a subscription with GoCardless) Branch code.
-    # Alternatively, an IBAN can be provided
+    # Alternatively, an IBAN can be provided.
     # @return [String]
     attr_accessor :bank_branch_code
 
     # (Optional when creating a subscription with GoCardless). International
-    # Bank Account Number. Alternatively, local bank details can be provided
+    # Bank Account Number. Alternatively, local bank details can be provided.
     # @return [String]
     attr_accessor :bank_iban
 

@@ -14,14 +14,14 @@
 | `memo` | `String` | Required | - |
 | `method` | [`SubscriptionGroupPrepaymentMethod`](../../doc/models/subscription-group-prepayment-method.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": 96,
-  "details": "details2",
-  "memo": "memo6",
-  "method": "money_order"
-}
+```ruby
+subscription_group_prepayment = SubscriptionGroupPrepayment.new(
+  amount: 118,
+  details: 'details8',
+  memo: 'memo2',
+  method: SubscriptionGroupPrepaymentMethod::CHECK
+)
 ```
 

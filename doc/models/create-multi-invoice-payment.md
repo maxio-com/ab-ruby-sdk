@@ -16,21 +16,21 @@
 | `received_on` | `String` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. |
 | `applications` | [`Array[CreateInvoicePaymentApplication]`](../../doc/models/create-invoice-payment-application.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": "String7",
-  "applications": [
-    {
-      "invoice_uid": "invoice_uid8",
-      "amount": "amount0"
-    }
+```ruby
+create_multi_invoice_payment = CreateMultiInvoicePayment.new(
+  amount: 'String5',
+  applications: [
+    CreateInvoicePaymentApplication.new(
+      invoice_uid: 'invoice_uid8',
+      amount: 'amount0'
+    )
   ],
-  "memo": "memo8",
-  "details": "details4",
-  "method": "credit_card",
-  "received_on": "received_on6"
-}
+  memo: 'memo6',
+  details: 'details2',
+  method: InvoicePaymentMethodType::ACH,
+  received_on: 'received_on4'
+)
 ```
 

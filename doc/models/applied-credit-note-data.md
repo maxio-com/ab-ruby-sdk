@@ -12,12 +12,12 @@
 | `uid` | `String` | Optional | The UID of the credit note |
 | `number` | `String` | Optional | The number of the credit note |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "number": "number0"
-}
+```ruby
+applied_credit_note_data = AppliedCreditNoteData.new(
+  uid: 'uid2',
+  number: 'number0'
+)
 ```
 

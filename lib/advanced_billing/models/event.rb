@@ -37,6 +37,8 @@ module AdvancedBilling
     # The schema varies based on the event key. The key-to-event data mapping is
     # as follows:
     # * `subscription_product_change` - SubscriptionProductChange
+    # * `subscription_product_change_scheduled` -
+    # SubscriptionProductChangeScheduled
     # * `subscription_state_change` - SubscriptionStateChange
     # * `signup_success`, `delayed_signup_creation_success`, `payment_success`,
     # `payment_failure`, `renewal_success`, `renewal_failure`,

@@ -11,13 +11,13 @@
 |  --- | --- | --- | --- |
 | `void` | [`VoidInvoice`](../../doc/models/void-invoice.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "void": {
-    "reason": "reason6"
-  }
-}
+```ruby
+void_invoice_request = VoidInvoiceRequest.new(
+  void: VoidInvoice.new(
+    reason: 'reason6'
+  )
+)
 ```
 

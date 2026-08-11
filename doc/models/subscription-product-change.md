@@ -12,12 +12,12 @@
 | `previous_product_id` | `Integer` | Required | - |
 | `new_product_id` | `Integer` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_product_id": 126,
-  "new_product_id": 12
-}
+```ruby
+subscription_product_change = SubscriptionProductChange.new(
+  previous_product_id: 250,
+  new_product_id: 120
+)
 ```
 

@@ -17,17 +17,17 @@
 | `taxable_amount_in_cents` | `Integer` | Optional | - |
 | `component_id` | `Integer` | Optional | - |
 | `component_handle` | `String` | Optional | - |
-| `direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | Visible when using Fine-grained Component Control |
+| `direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | Visible when using Fine-grained Component Control. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_type": "credit",
-  "kind": "quantity_based_component",
-  "amount_in_cents": 24,
-  "memo": "memo6",
-  "discount_amount_in_cents": 172
-}
+```ruby
+allocation_preview_line_item = AllocationPreviewLineItem.new(
+  transaction_type: LineItemTransactionType::CHARGE,
+  kind: AllocationPreviewLineItemKind::COUPON,
+  amount_in_cents: 58,
+  memo: 'memo8',
+  discount_amount_in_cents: 138
+)
 ```
 

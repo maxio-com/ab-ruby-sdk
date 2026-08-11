@@ -11,13 +11,15 @@
 |  --- | --- | --- | --- |
 | `ids` | `Array[Integer]` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "ids": [
-    15
+```ruby
+replay_webhooks_request = ReplayWebhooksRequest.new(
+  ids: [
+    233,
+    234,
+    235
   ]
-}
+)
 ```
 

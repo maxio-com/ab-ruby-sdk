@@ -12,3 +12,9 @@
 | `AMOUNT` |
 | `PERCENT` |
 
+## Example
+
+```ruby
+discount_type = DiscountType::AMOUNT
+```
+

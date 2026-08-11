@@ -30,7 +30,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :memo
 
-    # The invoice uid associated with the entry. Only present for debit entries
+    # The invoice uid associated with the entry. Only present for debit entries.
     # @return [String]
     attr_accessor :invoice_uid
 

@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `customer` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "customer": "customer8"
-}
+```ruby
+customer_error = CustomerError.new(
+  customer: 'customer8'
+)
 ```
 

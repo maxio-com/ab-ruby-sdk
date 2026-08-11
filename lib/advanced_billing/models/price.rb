@@ -17,7 +17,7 @@ module AdvancedBilling
     # @return [Object]
     attr_accessor :ending_quantity
 
-    # The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
     # 0.00000065
     # @return [Object]
     attr_accessor :unit_price

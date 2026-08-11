@@ -30,11 +30,18 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :description
 
-    # TODO: Write general description for this method
+    # Whether surcharging applies to this product family. Only included on sites
+    # where surcharging is enabled.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :surcharging
+
+    # Whether surcharging applies to this product family. Only included on sites
+    # where surcharging is enabled.
     # @return [DateTime]
     attr_accessor :created_at
 
-    # TODO: Write general description for this method
+    # Whether surcharging applies to this product family. Only included on sites
+    # where surcharging is enabled.
     # @return [DateTime]
     attr_accessor :updated_at
 
@@ -51,6 +58,7 @@ module AdvancedBilling
       @_hash['handle'] = 'handle'
       @_hash['accounting_code'] = 'accounting_code'
       @_hash['description'] = 'description'
+      @_hash['surcharging'] = 'surcharging'
       @_hash['created_at'] = 'created_at'
       @_hash['updated_at'] = 'updated_at'
       @_hash['archived_at'] = 'archived_at'
@@ -65,6 +73,7 @@ module AdvancedBilling
         handle
         accounting_code
         description
+        surcharging
         created_at
         updated_at
         archived_at
@@ -81,8 +90,9 @@ module AdvancedBilling
     end
 
     def initialize(id: SKIP, name: SKIP, handle: SKIP, accounting_code: SKIP,
-                   description: SKIP, created_at: SKIP, updated_at: SKIP,
-                   archived_at: SKIP, additional_properties: {})
+                   description: SKIP, surcharging: SKIP, created_at: SKIP,
+                   updated_at: SKIP, archived_at: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -93,6 +103,7 @@ module AdvancedBilling
       @handle = handle unless handle == SKIP
       @accounting_code = accounting_code unless accounting_code == SKIP
       @description = description unless description == SKIP
+      @surcharging = surcharging unless surcharging == SKIP
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
       @archived_at = archived_at unless archived_at == SKIP
@@ -109,6 +120,7 @@ module AdvancedBilling
       accounting_code =
         hash.key?('accounting_code') ? hash['accounting_code'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
+      surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
       created_at = if hash.key?('created_at')
                      (DateTimeHelper.from_rfc3339(hash['created_at']) if hash['created_at'])
                    else
@@ -134,6 +146,7 @@ module AdvancedBilling
                         handle: handle,
                         accounting_code: accounting_code,
                         description: description,
+                        surcharging: surcharging,
                         created_at: created_at,
                         updated_at: updated_at,
                         archived_at: archived_at,
@@ -156,9 +169,9 @@ module AdvancedBilling
     def to_s
       class_name = self.class.name.split('::').last
       "<#{class_name} id: #{@id}, name: #{@name}, handle: #{@handle}, accounting_code:"\
-      " #{@accounting_code}, description: #{@description}, created_at: #{@created_at}, updated_at:"\
-      " #{@updated_at}, archived_at: #{@archived_at}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@accounting_code}, description: #{@description}, surcharging: #{@surcharging},"\
+      " created_at: #{@created_at}, updated_at: #{@updated_at}, archived_at: #{@archived_at},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -166,8 +179,9 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} id: #{@id.inspect}, name: #{@name.inspect}, handle: #{@handle.inspect},"\
       " accounting_code: #{@accounting_code.inspect}, description: #{@description.inspect},"\
-      " created_at: #{@created_at.inspect}, updated_at: #{@updated_at.inspect}, archived_at:"\
-      " #{@archived_at.inspect}, additional_properties: #{get_additional_properties}>"
+      " surcharging: #{@surcharging.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
+      " #{@updated_at.inspect}, archived_at: #{@archived_at.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

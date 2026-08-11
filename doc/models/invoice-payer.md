@@ -16,15 +16,15 @@
 | `email` | `String` | Optional | - |
 | `vat_number` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_id": 46,
-  "first_name": "first_name4",
-  "last_name": "last_name2",
-  "organization": "organization8",
-  "email": "email2"
-}
+```ruby
+invoice_payer = InvoicePayer.new(
+  chargify_id: 108,
+  first_name: 'first_name2',
+  last_name: 'last_name0',
+  organization: 'organization4',
+  email: 'email4'
+)
 ```
 

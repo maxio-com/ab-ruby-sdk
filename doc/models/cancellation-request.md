@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `subscription` | [`CancellationOptions`](../../doc/models/cancellation-options.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "cancellation_message": "cancellation_message2",
-    "reason_code": "reason_code8",
-    "cancel_at_end_of_period": false,
-    "scheduled_cancellation_at": "2016-03-13T12:52:32.123Z",
-    "refund_prepayment_account_balance": false
-  }
-}
+```ruby
+cancellation_request = CancellationRequest.new(
+  subscription: CancellationOptions.new(
+    cancellation_message: 'cancellation_message2',
+    reason_code: 'reason_code8',
+    cancel_at_end_of_period: false,
+    scheduled_cancellation_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    refund_prepayment_account_balance: false
+  )
+)
 ```
 

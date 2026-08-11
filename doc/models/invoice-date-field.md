@@ -17,7 +17,7 @@
 
 ## Example
 
-```
-issue_date
+```ruby
+invoice_date_field = InvoiceDateField::DUE_DATE
 ```
 

@@ -12,3 +12,9 @@
 | `DAY` |
 | `MONTH` |
 
+## Example
+
+```ruby
+interval_unit = IntervalUnit::DAY
+```
+

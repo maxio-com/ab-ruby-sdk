@@ -17,15 +17,15 @@
 | `pricing_scheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. |
 | `tiers` | [`Array[ComponentCostDataRateTier]`](../../doc/models/component-cost-data-rate-tier.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_code_id": 16,
-  "price_point_id": 186,
-  "product_id": 250,
-  "quantity": "quantity8",
-  "amount": "amount4"
-}
+```ruby
+component_cost_data = ComponentCostData.new(
+  component_code_id: 36,
+  price_point_id: 50,
+  product_id: 242,
+  quantity: 'quantity4',
+  amount: 'amount0'
+)
 ```
 

@@ -12,3 +12,9 @@
 | `CUSTOMER` |
 | `SUBSCRIPTION` |
 
+## Example
+
+```ruby
+custom_field_owner = CustomFieldOwner::CUSTOMER
+```
+

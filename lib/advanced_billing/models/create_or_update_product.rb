@@ -35,8 +35,8 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_in_cents
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
-    # interval_unit of day would mean this product would renew every 30 days
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
+    # interval_unit of day would mean this product would renew every 30 days.
     # @return [Integer]
     attr_accessor :interval
 
@@ -49,7 +49,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :trial_price_in_cents
 
-    # The numerical trial interval. i.e. an interval of ‘30’ coupled with a
+    # The numerical trial interval. e.g., an interval of ‘30’ coupled with a
     # trial_interval_unit of day would mean this product trial would last 30
     # days.
     # @return [Integer]
@@ -60,7 +60,7 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
-    # Indicates how a trial is handled when the trail period ends and there is
+    # Indicates how a trial is handled when the trial period ends and there is
     # no credit card on file. For `no_obligation`, the subscription transitions
     # to a Trial Ended state. Maxio will not send any emails or statements. For
     # `payment_expected`, the subscription transitions to a Past Due state.
@@ -69,7 +69,7 @@ module AdvancedBilling
     # @return [TrialType]
     attr_accessor :trial_type
 
-    # The numerical expiration interval. i.e. an expiration_interval of ‘30’
+    # The numerical expiration interval. e.g., an expiration_interval of ‘30’
     # coupled with an expiration_interval_unit of day would mean this product
     # would expire after 30 days.
     # @return [Integer]
@@ -91,6 +91,12 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :tax_code
 
+    # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
+    # When set, this value is sent as the commodity code on invoice line items
+    # for this product instead of the default derived from item_category.
+    # @return [String]
+    attr_accessor :unspsc_code
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -110,6 +116,7 @@ module AdvancedBilling
       @_hash['expiration_interval_unit'] = 'expiration_interval_unit'
       @_hash['auto_create_signup_page'] = 'auto_create_signup_page'
       @_hash['tax_code'] = 'tax_code'
+      @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
 
@@ -127,6 +134,7 @@ module AdvancedBilling
         expiration_interval_unit
         auto_create_signup_page
         tax_code
+        unspsc_code
       ]
     end
 
@@ -136,6 +144,7 @@ module AdvancedBilling
         trial_interval_unit
         trial_type
         expiration_interval_unit
+        unspsc_code
       ]
     end
 
@@ -146,7 +155,7 @@ module AdvancedBilling
                    trial_type: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP,
                    auto_create_signup_page: SKIP, tax_code: SKIP,
-                   additional_properties: {})
+                   unspsc_code: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -168,6 +177,7 @@ module AdvancedBilling
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
       @auto_create_signup_page = auto_create_signup_page unless auto_create_signup_page == SKIP
       @tax_code = tax_code unless tax_code == SKIP
+      @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -200,6 +210,7 @@ module AdvancedBilling
       auto_create_signup_page =
         hash.key?('auto_create_signup_page') ? hash['auto_create_signup_page'] : SKIP
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
+      unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -221,6 +232,7 @@ module AdvancedBilling
                                 expiration_interval_unit: expiration_interval_unit,
                                 auto_create_signup_page: auto_create_signup_page,
                                 tax_code: tax_code,
+                                unspsc_code: unspsc_code,
                                 additional_properties: additional_properties)
     end
 
@@ -234,7 +246,8 @@ module AdvancedBilling
       " #{@trial_interval}, trial_interval_unit: #{@trial_interval_unit}, trial_type:"\
       " #{@trial_type}, expiration_interval: #{@expiration_interval}, expiration_interval_unit:"\
       " #{@expiration_interval_unit}, auto_create_signup_page: #{@auto_create_signup_page},"\
-      " tax_code: #{@tax_code}, additional_properties: #{get_additional_properties}>"
+      " tax_code: #{@tax_code}, unspsc_code: #{@unspsc_code}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -249,8 +262,8 @@ module AdvancedBilling
       " #{@trial_interval_unit.inspect}, trial_type: #{@trial_type.inspect}, expiration_interval:"\
       " #{@expiration_interval.inspect}, expiration_interval_unit:"\
       " #{@expiration_interval_unit.inspect}, auto_create_signup_page:"\
-      " #{@auto_create_signup_page.inspect}, tax_code: #{@tax_code.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " #{@auto_create_signup_page.inspect}, tax_code: #{@tax_code.inspect}, unspsc_code:"\
+      " #{@unspsc_code.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

@@ -16,6 +16,61 @@ module AdvancedBilling
     # Select an option from the **Request Examples** drop-down on the right side
     # of the portal to see examples of common scenarios for creating
     # subscriptions.
+    # ## List vs Sales Pricing
+    # When a subscription uses custom pricing as the sales price, you can
+    # optionally provide a list price for any item. If omitted, the list price
+    # defaults to the sales price. The difference between the list price and
+    # sales price is used to calculate implicit discounts, which appear on
+    # Invoices and in reporting. List price can also support revenue allocations
+    # in [Advanced
+    # Revenue](https://docs.maxio.com/hc/en-us/articles/24177001342861-Create-an
+    # d-Configure-RevenueBooks).
+    # If your site has list pricing enabled, the API accepts
+    # `custom_price.list_price_point_id` for custom pricing, validates and
+    # persists it, and returns list price metadata in subscription responses. If
+    # list pricing is disabled, this input is ignored and related response
+    # fields are omitted.
+    # When list pricing is enabled:
+    # - Subscription → Product `product_price_point_list_price_point_id`
+    # (integer)
+    # - `product_price_point_list_price_point_handle` (string)
+    # - Subscription Components (when components are included in the response,
+    # such as with subscriptions built from components or component
+    # serialization paths) `component_id` (integer)
+    # - `price_point_id` (integer)
+    # - `list_price_point_id` (integer)
+    # When list pricing is disabled:
+    # - Subscription → Product `product_price_point_list_price_point_id`:
+    # omitted
+    # - `product_price_point_list_price_point_handle`: omitted
+    # - Subscription Components `list_price_point_id`: omitted
+    # This functionality is supported in the API, but is not currently supported
+    # in SDKs.
+    # ## Subscriptions can now work independently from the catalog
+    #  If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, you can create subscriptions without a
+    # `product_id` or `product_handle` using POST /subscriptions, building them
+    # entirely from components.
+    # A valid subscription must include at least one active component with:
+    # - a positive `allocated_quantity`,
+    # - a positive `unit_balance`, or
+    # - 'enabled: true' (for on/off components)
+    # - a configured metered component
+    # `component_id` can be provided as a numeric ID or in handle: format. If
+    # `trial_interval` and `trial_interval_unit` are included, they are applied
+    # at creation.
+    # In the response, product and product price point fields are null, and
+    # component details are returned instead.
+    # This functionality is supported in the API, but is not currently supported
+    # in SDKs.
+    # ## Payment information
+    # Payment information may be required to create a subscription, depending on
+    # the options for the Product being subscribed. See [product
+    # options](https://docs.maxio.com/hc/en-us/articles/24261076617869-Edit-Prod
+    # ucts) for more information. See the [Payments
+    # Profile]($e/Payment%20Profiles/createPaymentProfile) endpoint for details
+    # on payment parameters.
     # See the [Subscription
     # Signups](page:introduction/basic-concepts/subscription-signup) article for
     # more information on working with subscriptions in Advanced Billing.
@@ -70,9 +125,14 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns an array of subscriptions from a Site. Pay close attention to
-    # query string filters and pagination in order to control responses from the
-    # server.
+    # Lists subscriptions for a site. Use the query string filters and
+    # pagination to control responses from the server.
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, some subscriptions may not have an
+    # associated product. For subscriptions without an associated product,
+    # 'product', 'product_price_point_id', and 'product_price_point_type' are
+    # returned as 'null'.
     # ## Search for a subscription
     # Use the query strings below to search for a subscription using the
     # criteria available. The return value will be an array.
@@ -91,17 +151,34 @@ module AdvancedBilling
     # many records to fetch in each request. Default value is 20. The maximum
     # allowed values is 200; any per_page value over 200 will be changed to 200.
     # Use in query `per_page=200`.
+    # @param [SubscriptionSort] sort Optional parameter: The attribute by which
+    # to sort
+    # @param [SortingDirection] direction Optional parameter: Controls the order
+    # in which results are returned. Use in query `direction=asc`.
     # @param [SubscriptionStateFilter] state Optional parameter: The current
     # state of the subscription
-    # @param [Integer] product Optional parameter: The product id of the
-    # subscription. (Note that the product handle cannot be used.)
+    # @param [Integer | String | nil] product Optional parameter: Filter
+    # subscriptions by product. Accepts product ID or exact product name.
+    # Product handle is not supported.
+    # @param [String] q Optional parameter: Search string.
+    # @param [QScope] q_scope Optional parameter: Scope of fields used by the q
+    # search.
+    # @param [Integer] customer_id Optional parameter: The Advanced Billing id
+    # of the customer.
     # @param [Integer] product_price_point_id Optional parameter: The ID of the
-    # product price point. If supplied, product is required
+    # product price point. If supplied, product is required.
     # @param [Integer] coupon Optional parameter: The numeric id of the coupon
     # currently applied to the subscription. (This can be found in the URL when
     # editing a coupon. Note that the coupon code cannot be used.)
     # @param [String] coupon_code Optional parameter: The coupon code currently
     # applied to the subscription
+    # @param [CollectionMethod1] collection_method Optional parameter: The
+    # collection method for the subscription.
+    # @param [Integer] branding_theme_id Optional parameter: Filter
+    # subscriptions by the ID of an assigned Branding Theme. Branding Themes is
+    # a beta feature. See [Understand Branding
+    # Themes](https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand
+    # -Branding-Themes#understand-branding-themes-0-0) for more information.
     # @param [SubscriptionDateField] date_field Optional parameter: The type of
     # filter you'd like to apply to your search.  Allowed Values: ,
     # current_period_ends_at, current_period_starts_at, created_at,
@@ -130,10 +207,14 @@ module AdvancedBilling
     # @param [Hash[String, String]] metadata Optional parameter: The value of
     # the metadata field specified in the parameter. Use in query
     # `metadata[my-field]=value&metadata[other-field]=another_value`.
-    # @param [SortingDirection] direction Optional parameter: Controls the order
-    # in which results are returned. Use in query `direction=asc`.
-    # @param [SubscriptionSort] sort Optional parameter: The attribute by which
-    # to sort
+    # @param [GroupStatus] group_status Optional parameter: Filter by whether a
+    # subscription is in a group.
+    # @param [TrueClass | FalseClass] dunning_exemption Optional parameter:
+    # Filter by dunning exemption status.
+    # @param [String] payment_gateways Optional parameter: Comma-separated
+    # payment gateway identifiers.
+    # @param [String] currencies Optional parameter: Comma-separated currency
+    # codes.
     # @param [Array[SubscriptionListInclude]] include Optional parameter: Allows
     # including additional data in the response. Use in query:
     # `include[]=self_service_page_token`.
@@ -145,19 +226,32 @@ module AdvancedBilling
                                      Server::PRODUCTION)
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
+                   .query_param(new_parameter(options['sort'], key: 'sort'))
+                   .query_param(new_parameter(options['direction'], key: 'direction'))
                    .query_param(new_parameter(options['state'], key: 'state'))
-                   .query_param(new_parameter(options['product'], key: 'product'))
+                   .query_param(new_parameter(options['product'], key: 'product')
+                                 .validator(proc do |value|
+                                   UnionTypeLookUp.get(:ListSubscriptionsInputProduct)
+                                                  .validate(value)
+                                 end))
+                   .query_param(new_parameter(options['q'], key: 'q'))
+                   .query_param(new_parameter(options['q_scope'], key: 'q_scope'))
+                   .query_param(new_parameter(options['customer_id'], key: 'customer_id'))
                    .query_param(new_parameter(options['product_price_point_id'], key: 'product_price_point_id'))
                    .query_param(new_parameter(options['coupon'], key: 'coupon'))
                    .query_param(new_parameter(options['coupon_code'], key: 'coupon_code'))
+                   .query_param(new_parameter(options['collection_method'], key: 'collection_method'))
+                   .query_param(new_parameter(options['branding_theme_id'], key: 'branding_theme_id'))
                    .query_param(new_parameter(options['date_field'], key: 'date_field'))
                    .query_param(new_parameter(options['start_date'], key: 'start_date'))
                    .query_param(new_parameter(options['end_date'], key: 'end_date'))
                    .query_param(new_parameter(options['start_datetime'], key: 'start_datetime'))
                    .query_param(new_parameter(options['end_datetime'], key: 'end_datetime'))
                    .query_param(new_parameter(options['metadata'], key: 'metadata'))
-                   .query_param(new_parameter(options['direction'], key: 'direction'))
-                   .query_param(new_parameter(options['sort'], key: 'sort'))
+                   .query_param(new_parameter(options['group_status'], key: 'group_status'))
+                   .query_param(new_parameter(options['dunning_exemption'], key: 'dunning_exemption'))
+                   .query_param(new_parameter(options['payment_gateways'], key: 'payment_gateways'))
+                   .query_param(new_parameter(options['currencies'], key: 'currencies'))
                    .query_param(new_parameter(options['include'], key: 'include'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
@@ -237,10 +331,16 @@ module AdvancedBilling
     # billing date for **a subscription using a product eligible for calendar
     # billing**.
     # > Note: If you change the product associated with a subscription that
-    # contains a `snap_day` and immediately `READ/GET` the subscription data, it
-    # will still contain original `snap_day`. The `snap_day` will reset to null
-    # on the next billing cycle. This is because a product change is
+    # contains a `snap_day` and immediately READ/GET the subscription data, it
+    # will still contain the original `snap_day`. The `snap_day` will be reset
+    # to `null` on the next billing cycle. This is because a product change is
     # instantaneous and only affects the product associated with a subscription.
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, some subscriptions may not have an
+    # associated product. For subscriptions without an associated product,
+    # `product`, `product_price_point_id`, and `product_price_point_type` are
+    # returned as `null`.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [UpdateSubscriptionRequest] body Optional parameter: TODO: type
@@ -271,6 +371,12 @@ module AdvancedBilling
     end
 
     # Retrieves subscription details.
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, some subscriptions may not have an
+    # associated product. For subscriptions without an associated product,
+    # 'product', 'product_price_point_id', and 'product_price_point_type' are
+    # returned as 'null'.
     # ## Self-Service Page token
     # Self-Service Page token for the subscription is not returned by default.
     # If this information is desired, the include[]=self_service_page_token
@@ -461,6 +567,23 @@ module AdvancedBilling
     # For more information, see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscrib
     # er-Interface-Overview).
+    # ## Subscriptions can now work independently from the catalog
+    #  If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, you can create subscriptions without a
+    # `product_id` or `product_handle` using POST /subscriptions, building them
+    # entirely from components.
+    # A valid subscription must include at least one active component with:
+    # - a positive `allocated_quantity`,
+    # - a positive `unit_balance`, or
+    # - 'enabled: true' (for on/off components)
+    # `component_id` can be provided as a numeric ID or in handle: format. If
+    # `trial_interval` and `trial_interval_unit` are included, they are applied
+    # at creation.
+    # In the response, product and product price point fields are null, and
+    # component details are returned instead.
+    # This functionality is supported in the API, but is not currently supported
+    # in SDKs.
     # ## Taxable Subscriptions
     # This endpoint will preview taxes applicable to a purchase. In order for
     # taxes to be previewed, the following conditions must be met:

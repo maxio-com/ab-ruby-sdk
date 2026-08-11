@@ -13,13 +13,13 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :title
 
-    # The quantity can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # The quantity can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
     # 0.00000065. If you submit a value with more than 8 decimal places, we will
     # round it down to the 8th decimal place.
     # @return [Object]
     attr_accessor :quantity
 
-    # The unit_price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # The unit_price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
     # 0.00000065. If you submit a value with more than 8 decimal places, we will
     # round it down to the 8th decimal place.
     # @return [Object]

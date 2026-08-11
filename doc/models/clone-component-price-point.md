@@ -12,12 +12,12 @@
 | `name` | `String` | Required | - |
 | `handle` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name2",
-  "handle": "handle8"
-}
+```ruby
+clone_component_price_point = CloneComponentPricePoint.new(
+  name: 'name2',
+  handle: 'handle8'
+)
 ```
 

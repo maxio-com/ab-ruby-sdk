@@ -26,9 +26,9 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_in_cents
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this product price point would renew every
-    # 30 days
+    # 30 days.
     # @return [Integer]
     attr_accessor :interval
 
@@ -41,9 +41,9 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :trial_price_in_cents
 
-    # The numerical trial interval. i.e. an interval of ‘30’ coupled with a
+    # The numerical trial interval. e.g., an interval of ‘30’ coupled with a
     # trial_interval_unit of day would mean this product price point trial would
-    # last 30 days
+    # last 30 days.
     # @return [Integer]
     attr_accessor :trial_interval
 
@@ -52,7 +52,7 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
-    # Indicates how a trial is handled when the trail period ends and there is
+    # Indicates how a trial is handled when the trial period ends and there is
     # no credit card on file. For `no_obligation`, the subscription transitions
     # to a Trial Ended state. Maxio will not send any emails or statements. For
     # `payment_expected`, the subscription transitions to a Past Due state.
@@ -73,9 +73,9 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :initial_charge_after_trial
 
-    # The numerical expiration interval. i.e. an expiration_interval of ‘30’
+    # The numerical expiration interval. e.g., an expiration_interval of ‘30’
     # coupled with an expiration_interval_unit of day would mean this product
-    # price point would expire after 30 days
+    # price point would expire after 30 days.
     # @return [Integer]
     attr_accessor :expiration_interval
 

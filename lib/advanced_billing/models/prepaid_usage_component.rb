@@ -10,12 +10,12 @@ module AdvancedBilling
     private_constant :SKIP
 
     # A name for this component that is suitable for showing customers and
-    # displaying on billing statements, ie. "Minutes".
+    # displaying on billing statements, e.g., "Minutes".
     # @return [String]
     attr_accessor :name
 
     # The name of the unit of measurement for the component. It should be
-    # singular since it will be automatically pluralized when necessary. i.e.
+    # singular since it will be automatically pluralized when necessary. e.g.,
     # “message”, which may then be shown as “5 messages” on a subscription’s
     # component line-item
     # @return [String]
@@ -27,7 +27,7 @@ module AdvancedBilling
     attr_accessor :description
 
     # A unique identifier for your use that can be used to retrieve this
-    # component is subsequent requests.  Must start with a letter or number and
+    # component in subsequent requests. Must start with a letter or number and
     # may only contain lowercase letters, numbers, or the characters '.', ':',
     # '-', or '_'.
     # @return [String]
@@ -69,7 +69,7 @@ module AdvancedBilling
     # The amount the customer will be charged per unit when the pricing scheme
     # is “per_unit”. For On/Off Components, this is the amount that the customer
     # will be charged when they turn the component on for the subscription. The
-    # price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
     # 0.00000065
     # @return [Object]
     attr_accessor :unit_price
@@ -93,12 +93,12 @@ module AdvancedBilling
     attr_accessor :overage_pricing
 
     # Boolean which controls whether or not remaining units should be rolled
-    # over to the next period
+    # over to the next period.
     # @return [TrueClass | FalseClass]
     attr_accessor :rollover_prepaid_remainder
 
     # Boolean which controls whether or not the allocated quantity should be
-    # renewed at the beginning of each period
+    # renewed at the beginning of each period.
     # @return [TrueClass | FalseClass]
     attr_accessor :renew_prepaid_allocation
 
@@ -132,6 +132,12 @@ module AdvancedBilling
     # @return [Array[Integer]]
     attr_accessor :public_signup_page_ids
 
+    # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
+    # When set, this value is sent as the commodity code on invoice line items
+    # for this component instead of the default derived from item_category.
+    # @return [String]
+    attr_accessor :unspsc_code
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -156,6 +162,7 @@ module AdvancedBilling
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['allow_fractional_quantities'] = 'allow_fractional_quantities'
       @_hash['public_signup_page_ids'] = 'public_signup_page_ids'
+      @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
 
@@ -179,6 +186,7 @@ module AdvancedBilling
         display_on_hosted_page
         allow_fractional_quantities
         public_signup_page_ids
+        unspsc_code
       ]
     end
 
@@ -188,6 +196,7 @@ module AdvancedBilling
         upgrade_charge
         downgrade_credit
         expiration_interval_unit
+        unspsc_code
       ]
     end
 
@@ -200,7 +209,8 @@ module AdvancedBilling
                    renew_prepaid_allocation: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
-                   public_signup_page_ids: SKIP, additional_properties: {})
+                   public_signup_page_ids: SKIP, unspsc_code: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -236,6 +246,7 @@ module AdvancedBilling
           allow_fractional_quantities
       end
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
+      @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -296,6 +307,7 @@ module AdvancedBilling
         hash.key?('allow_fractional_quantities') ? hash['allow_fractional_quantities'] : SKIP
       public_signup_page_ids =
         hash.key?('public_signup_page_ids') ? hash['public_signup_page_ids'] : SKIP
+      unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -322,6 +334,7 @@ module AdvancedBilling
                                 display_on_hosted_page: display_on_hosted_page,
                                 allow_fractional_quantities: allow_fractional_quantities,
                                 public_signup_page_ids: public_signup_page_ids,
+                                unspsc_code: unspsc_code,
                                 additional_properties: additional_properties)
     end
 
@@ -370,7 +383,7 @@ module AdvancedBilling
       " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit},"\
       " display_on_hosted_page: #{@display_on_hosted_page}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities}, public_signup_page_ids: #{@public_signup_page_ids},"\
-      " additional_properties: #{get_additional_properties}>"
+      " unspsc_code: #{@unspsc_code}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -389,7 +402,8 @@ module AdvancedBilling
       " #{@expiration_interval_unit.inspect}, display_on_hosted_page:"\
       " #{@display_on_hosted_page.inspect}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities.inspect}, public_signup_page_ids:"\
-      " #{@public_signup_page_ids.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@public_signup_page_ids.inspect}, unspsc_code: #{@unspsc_code.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

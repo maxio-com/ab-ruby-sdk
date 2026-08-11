@@ -15,15 +15,15 @@
 | `value` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `metadatum_id` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "owner_id": 142,
-  "owner_type": "Customer",
-  "name": "name0",
-  "value": "value2",
-  "metadatum_id": 142
-}
+```ruby
+invoice_custom_field = InvoiceCustomField.new(
+  owner_id: 238,
+  owner_type: CustomFieldOwner::CUSTOMER,
+  name: 'name4',
+  value: 'value6',
+  metadatum_id: 238
+)
 ```
 

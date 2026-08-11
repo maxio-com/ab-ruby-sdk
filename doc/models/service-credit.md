@@ -15,15 +15,15 @@
 | `entry_type` | [`ServiceCreditType`](../../doc/models/service-credit-type.md) | Optional | The type of entry |
 | `memo` | `String` | Optional | The memo attached to the entry |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 216,
-  "amount_in_cents": 210,
-  "ending_balance_in_cents": 86,
-  "entry_type": "Credit",
-  "memo": "memo2"
-}
+```ruby
+service_credit = ServiceCredit.new(
+  id: 38,
+  amount_in_cents: 124,
+  ending_balance_in_cents: 164,
+  entry_type: ServiceCreditType::CREDIT,
+  memo: 'memo0'
+)
 ```
 

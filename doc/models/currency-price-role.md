@@ -15,3 +15,9 @@ Role for the price.
 | `TRIAL` |
 | `INITIAL` |
 
+## Example
+
+```ruby
+currency_price_role = CurrencyPriceRole::TRIAL
+```
+

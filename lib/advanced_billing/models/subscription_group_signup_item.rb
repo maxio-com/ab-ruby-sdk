@@ -29,11 +29,11 @@ module AdvancedBilling
 
     # Use in place of passing product and component information to set up the
     # subscription with an existing offer. May be either the Chargify ID of the
-    # offer or its handle prefixed with `handle:`
+    # offer or its handle prefixed with `handle:`.
     # @return [Integer]
     attr_accessor :offer_id
 
-    # The reference value (provided by your app) for the subscription itelf.
+    # The reference value (provided by your app) for the subscription itself.
     # @return [String]
     attr_accessor :reference
 
@@ -62,7 +62,7 @@ module AdvancedBilling
     # @return [SubscriptionCustomPrice]
     attr_accessor :custom_price
 
-    # (Optional). Cannot be used when also specifying next_billing_at
+    # (Optional). Cannot be used when also specifying next_billing_at.
     # @return [CalendarBilling]
     attr_accessor :calendar_billing
 

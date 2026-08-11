@@ -12,12 +12,12 @@
 | `resume` | `TrueClass \| FalseClass` | Optional | - |
 | `resume_members` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "resume": false,
-  "resume_members": false
-}
+```ruby
+reactivate_subscription_group_request = ReactivateSubscriptionGroupRequest.new(
+  resume: false,
+  resume_members: false
+)
 ```
 

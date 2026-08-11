@@ -20,16 +20,16 @@
 | `proration` | [`Proration`](../../doc/models/proration.md) | Optional | - |
 | `proration_date` | `DateTime` | Optional | The date that the proration is calculated from for the preview |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "include_trial": false,
-  "include_initial_charge": false,
-  "include_coupons": true,
-  "preserve_period": false,
-  "product_id": 242,
-  "product_price_point_id": 166
-}
+```ruby
+subscription_migration_preview_options = SubscriptionMigrationPreviewOptions.new(
+  product_id: 8,
+  product_price_point_id: 188,
+  include_trial: false,
+  include_initial_charge: false,
+  include_coupons: true,
+  preserve_period: false
+)
 ```
 

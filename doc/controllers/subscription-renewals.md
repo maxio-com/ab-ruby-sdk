@@ -574,7 +574,7 @@ puts result
 
 # Unpublish Scheduled Renewal Configuration
 
-Returns a scheduled renewal configuration to an editable state.
+Restores a scheduled renewal configuration to an editable state.
 
 ```ruby
 def unpublish_scheduled_renewal_configuration(subscription_id,
@@ -738,6 +738,8 @@ puts result
 
 Adds product and component line items to the scheduled renewal.
 
+If your site has list vs sales pricing enabled, accepts renewal_configuration_item.custom_price.list_price_point_id, validates and persists it; omitted value follows existing/default behavior; with list vs sales pricing disabled, parameter is ignored (no validation/behavioral impact). This functionality is supported in the API, but is not currently supported in SDKs.
+
 ```ruby
 def create_scheduled_renewal_configuration_item(subscription_id,
                                                 scheduled_renewals_configuration_id,
@@ -825,6 +827,8 @@ puts result
 # Update Scheduled Renewal Configuration Item
 
 Updates an existing configuration item’s pricing and quantity.
+
+If you site has list vs sales pricing enabled, accepts renewal_configuration_item.custom_price.list_price_point_id, validates and persists it; omitted value follows existing/default behavior; with list vs sales pricing disabled, parameter is ignored (no validation/behavioral impact). This functionality is supported in the API, but is not currently supported in SDKs.
 
 ```ruby
 def update_scheduled_renewal_configuration_item(subscription_id,

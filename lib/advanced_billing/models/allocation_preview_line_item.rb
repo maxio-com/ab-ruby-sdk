@@ -41,7 +41,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :component_handle
 
-    # Visible when using Fine-grained Component Control
+    # Visible when using Fine-grained Component Control.
     # @return [AllocationPreviewDirection]
     attr_accessor :direction
 

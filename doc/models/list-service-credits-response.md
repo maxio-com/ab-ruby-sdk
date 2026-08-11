@@ -11,26 +11,19 @@
 |  --- | --- | --- | --- |
 | `service_credits` | [`Array[ServiceCredit1]`](../../doc/models/service-credit-1.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "service_credits": [
-    {
-      "id": 224,
-      "amount_in_cents": 54,
-      "ending_balance_in_cents": 94,
-      "entry_type": "Credit",
-      "memo": "memo2"
-    },
-    {
-      "id": 224,
-      "amount_in_cents": 54,
-      "ending_balance_in_cents": 94,
-      "entry_type": "Credit",
-      "memo": "memo2"
-    }
+```ruby
+list_service_credits_response = ListServiceCreditsResponse.new(
+  service_credits: [
+    ServiceCredit1.new(
+      id: 224,
+      amount_in_cents: 54,
+      ending_balance_in_cents: 94,
+      entry_type: ServiceCreditType::CREDIT,
+      memo: 'memo2'
+    )
   ]
-}
+)
 ```
 

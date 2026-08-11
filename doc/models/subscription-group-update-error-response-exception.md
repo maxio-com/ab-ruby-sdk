@@ -11,16 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [`SubscriptionGroupUpdateError`](../../doc/models/subscription-group-update-error.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "members": [
-      "members2",
-      "members1"
-    ]
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue SubscriptionGroupUpdateErrorResponseException => e
+  puts "Caught SubscriptionGroupUpdateErrorResponseException: #{e.message}"
+end
 ```
 

@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :id
 
     # The url to which a customer will be returned after a successful signup
-    # (public_signup_pages only)
+    # (public_signup_pages only).
     # @return [String]
     attr_accessor :return_url
 
@@ -22,7 +22,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :return_params
 
-    # The url where the signup page can be viewed (public_signup_pages only)
+    # The url where the signup page can be viewed (public_signup_pages only).
     # @return [String]
     attr_accessor :url
 

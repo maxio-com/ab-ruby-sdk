@@ -13,13 +13,13 @@
 | `price` | `Integer` | Required | Price for the given role. |
 | `role` | [`CurrencyPriceRole`](../../doc/models/currency-price-role.md) | Required | Role for the price. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency": "currency0",
-  "price": 222,
-  "role": "baseline"
-}
+```ruby
+create_product_currency_price = CreateProductCurrencyPrice.new(
+  currency: 'currency6',
+  price: 34,
+  role: CurrencyPriceRole::BASELINE
+)
 ```
 

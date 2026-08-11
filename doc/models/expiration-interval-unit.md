@@ -13,3 +13,9 @@
 | `MONTH` |
 | `NEVER` |
 
+## Example
+
+```ruby
+expiration_interval_unit = ExpirationIntervalUnit::NEVER
+```
+

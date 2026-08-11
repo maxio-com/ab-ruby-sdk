@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `payment_profile` | [`UpdatePaymentProfile`](../../doc/models/update-payment-profile.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment_profile": {
-    "full_number": "5424000000000015",
-    "first_name": "first_name4",
-    "last_name": "last_name2",
-    "card_type": "bogus",
-    "expiration_month": "expiration_month0"
-  }
-}
+```ruby
+update_payment_profile_request = UpdatePaymentProfileRequest.new(
+  payment_profile: UpdatePaymentProfile.new(
+    first_name: 'first_name4',
+    last_name: 'last_name2',
+    full_number: '5424000000000015',
+    card_type: CardType::BOGUS,
+    expiration_month: 'expiration_month0'
+  )
+)
 ```
 

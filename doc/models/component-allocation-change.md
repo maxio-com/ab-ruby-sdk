@@ -17,17 +17,17 @@
 | `allocation_id` | `Integer` | Required | - |
 | `allocated_quantity` | Integer \| String \| nil | Optional | This is a container for one-of cases. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_allocation": 94,
-  "new_allocation": 102,
-  "component_id": 88,
-  "component_handle": "component_handle8",
-  "memo": "memo2",
-  "allocation_id": 158,
-  "allocated_quantity": 104
-}
+```ruby
+component_allocation_change = ComponentAllocationChange.new(
+  previous_allocation: 124,
+  new_allocation: 72,
+  component_id: 118,
+  component_handle: 'component_handle0',
+  memo: 'memo4',
+  allocation_id: 128,
+  allocated_quantity: 134
+)
 ```
 

@@ -33,14 +33,14 @@ module AdvancedBilling
     attr_accessor :uniqueness_token
 
     # Id of Maxio Advanced Billing Subscription which is connected to this
-    # event. 
+    # event.
     # Provide `subscription_id` if you configured `chargify.subscription_id` as
     # Subscription Identifier in your Event Stream.
     # @return [Integer]
     attr_accessor :subscription_id
 
     # Reference of Maxio Advanced Billing Subscription which is connected to
-    # this event. 
+    # this event.
     # Provide `subscription_reference` if you configured
     # `chargify.subscription_reference` as Subscription Identifier in your Event
     # Stream.

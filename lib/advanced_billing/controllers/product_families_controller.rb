@@ -45,7 +45,7 @@ module AdvancedBilling
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
-    # Include archived products
+    # Include archived products.
     # @param [ListProductsInclude] include Optional parameter: Allows including
     # additional data in the response. Use in query
     # `include=prepaid_product_price_point`.
@@ -111,7 +111,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a list of Product Families for a site.
+    # Lists Product Families for a site.
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query:
     # `date_field=created_at`.

@@ -10,12 +10,12 @@ module AdvancedBilling
     private_constant :SKIP
 
     # A name for this component that is suitable for showing customers and
-    # displaying on billing statements, ie. "Minutes".
+    # displaying on billing statements, e.g., "Minutes".
     # @return [String]
     attr_accessor :name
 
     # The name of the unit of measurement for the component. It should be
-    # singular since it will be automatically pluralized when necessary. i.e.
+    # singular since it will be automatically pluralized when necessary. e.g.,
     # “message”, which may then be shown as “5 messages” on a subscription’s
     # component line-item
     # @return [String]
@@ -27,7 +27,7 @@ module AdvancedBilling
     attr_accessor :description
 
     # A unique identifier for your use that can be used to retrieve this
-    # component is subsequent requests.  Must start with a letter or number and
+    # component in subsequent requests. Must start with a letter or number and
     # may only contain lowercase letters, numbers, or the characters '.', ':',
     # '-', or '_'.
     # @return [String]
@@ -62,7 +62,7 @@ module AdvancedBilling
     # The amount the customer will be charged per unit when the pricing scheme
     # is “per_unit”. For On/Off Components, this is the amount that the customer
     # will be charged when they turn the component on for the subscription. The
-    # price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or
+    # price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
     # 0.00000065
     # @return [Object]
     attr_accessor :unit_price
@@ -97,7 +97,7 @@ module AdvancedBilling
     # @return [Array[Integer]]
     attr_accessor :public_signup_page_ids
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component's default price point would
     # renew every 30 days. This property is only available for sites with
     # Multifrequency enabled.
@@ -109,6 +109,12 @@ module AdvancedBilling
     # Multifrequency enabled.
     # @return [IntervalUnit]
     attr_accessor :interval_unit
+
+    # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
+    # When set, this value is sent as the commodity code on invoice line items
+    # for this component instead of the default derived from item_category.
+    # @return [String]
+    attr_accessor :unspsc_code
 
     # A mapping from model property names to API property names.
     def self.names
@@ -129,6 +135,7 @@ module AdvancedBilling
       @_hash['public_signup_page_ids'] = 'public_signup_page_ids'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
+      @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
 
@@ -148,6 +155,7 @@ module AdvancedBilling
         public_signup_page_ids
         interval
         interval_unit
+        unspsc_code
       ]
     end
 
@@ -155,6 +163,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         interval_unit
+        unspsc_code
       ]
     end
 
@@ -165,7 +174,8 @@ module AdvancedBilling
                    display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
                    public_signup_page_ids: SKIP, interval: SKIP,
-                   interval_unit: SKIP, additional_properties: {})
+                   interval_unit: SKIP, unspsc_code: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -193,6 +203,7 @@ module AdvancedBilling
       @public_signup_page_ids = public_signup_page_ids unless public_signup_page_ids == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
+      @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -241,6 +252,7 @@ module AdvancedBilling
         hash.key?('public_signup_page_ids') ? hash['public_signup_page_ids'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
+      unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -262,6 +274,7 @@ module AdvancedBilling
                            public_signup_page_ids: public_signup_page_ids,
                            interval: interval,
                            interval_unit: interval_unit,
+                           unspsc_code: unspsc_code,
                            additional_properties: additional_properties)
     end
 
@@ -300,8 +313,8 @@ module AdvancedBilling
       " #{@tax_code}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice},"\
       " display_on_hosted_page: #{@display_on_hosted_page}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities}, public_signup_page_ids: #{@public_signup_page_ids},"\
-      " interval: #{@interval}, interval_unit: #{@interval_unit}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " interval: #{@interval}, interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -315,7 +328,8 @@ module AdvancedBilling
       " display_on_hosted_page: #{@display_on_hosted_page.inspect}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities.inspect}, public_signup_page_ids:"\
       " #{@public_signup_page_ids.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@interval_unit.inspect}, unspsc_code: #{@unspsc_code.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

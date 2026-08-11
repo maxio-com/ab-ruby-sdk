@@ -21,15 +21,15 @@
 | `decimal_quantity` | `String` | Optional | - |
 | `created_at` | `DateTime` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 146,
-  "subscription_id": 0,
-  "subscription_renewal_configuration_id": 156,
-  "item_id": 38,
-  "item_type": "item_type4"
-}
+```ruby
+scheduled_renewal_configuration_item = ScheduledRenewalConfigurationItem.new(
+  id: 98,
+  subscription_id: 208,
+  subscription_renewal_configuration_id: 108,
+  item_id: 246,
+  item_type: 'item_type2'
+)
 ```
 

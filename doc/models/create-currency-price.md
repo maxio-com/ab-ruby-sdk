@@ -13,13 +13,13 @@
 | `price` | `Float` | Optional | Price for the price level in this currency |
 | `price_id` | `Integer` | Optional | ID of the price that this corresponds with |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency": "currency2",
-  "price": 10.4,
-  "price_id": 54
-}
+```ruby
+create_currency_price = CreateCurrencyPrice.new(
+  currency: 'currency8',
+  price: 24.44,
+  price_id: 178
+)
 ```
 

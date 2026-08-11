@@ -14,3 +14,9 @@ Applicable only to stackable coupons. For `compound`, Percentage-based discounts
 | `COMPOUND` |
 | `FULLPRICE` |
 
+## Example
+
+```ruby
+compounding_strategy = CompoundingStrategy::COMPOUND
+```
+

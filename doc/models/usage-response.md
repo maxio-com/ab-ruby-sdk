@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `usage` | [`Usage`](../../doc/models/usage.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "usage": {
-    "id": 150,
-    "memo": "memo2",
-    "created_at": "2016-03-13T12:52:32.123Z",
-    "price_point_id": 28,
-    "quantity": 28
-  }
-}
+```ruby
+usage_response = UsageResponse.new(
+  usage: Usage.new(
+    id: 150,
+    memo: 'memo2',
+    created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    price_point_id: 28,
+    quantity: 28
+  )
+)
 ```
 

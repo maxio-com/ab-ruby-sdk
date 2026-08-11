@@ -21,7 +21,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_point_id
 
-    # Optional quantity for the item.
+    # (Optional) Quantity for the item.
     # @return [Integer]
     attr_accessor :quantity
 

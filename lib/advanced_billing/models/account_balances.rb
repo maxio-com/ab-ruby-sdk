@@ -9,12 +9,12 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # The balance, in cents, of the sum of the subscription's  open, payable
+    # The balance, in cents, of the sum of the subscription's open, payable
     # invoices.
     # @return [AccountBalance]
     attr_accessor :open_invoices
 
-    # The balance, in cents, of the sum of the subscription's  pending, payable
+    # The balance, in cents, of the sum of the subscription's pending, payable
     # invoices.
     # @return [AccountBalance]
     attr_accessor :pending_invoices

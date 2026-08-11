@@ -11,8 +11,8 @@ module AdvancedBilling
 
     # The allocated quantity to which to set the line-items allocated quantity.
     # By default, this is an integer. If decimal allocations are enabled for the
-    # component, it will be a decimal number. For On/Off components, use 1for on
-    # and 0 for off.
+    # component, it will be a decimal number. For On/Off components, use 1 for
+    # on and 0 for off.
     # @return [Float]
     attr_accessor :quantity
 

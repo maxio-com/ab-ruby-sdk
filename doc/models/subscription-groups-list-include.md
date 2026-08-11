@@ -11,3 +11,9 @@
 |  --- |
 | `ACCOUNT_BALANCES` |
 
+## Example
+
+```ruby
+subscription_groups_list_include = SubscriptionGroupsListInclude::ACCOUNT_BALANCES
+```
+

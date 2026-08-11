@@ -16,7 +16,7 @@ Allows to filter by `created_at` or `updated_at`.
 
 ## Example
 
-```
-updated_at
+```ruby
+basic_date_field = BasicDateField::UPDATED_AT
 ```
 

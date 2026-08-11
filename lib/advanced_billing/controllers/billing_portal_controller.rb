@@ -73,7 +73,7 @@ module AdvancedBilling
     # + Only request a new URL after the `new_link_available_at` date
     # + You are limited to 15 requests for the same URL. If you make more than
     # 15 requests before `new_link_available_at`, you will be blocked from
-    # further Management URL requests (with a response code `429`)
+    # further Management URL requests (with a response code `429`).
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
     # @return [PortalManagementLink] Response from the API call.

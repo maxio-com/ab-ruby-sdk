@@ -16,20 +16,20 @@ Example schema for an `void_remainder` event
 | `applied_amount` | `String` | Required | The amount of the void. |
 | `transaction_time` | `DateTime` | Required | The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_note_attributes": {
-    "uid": "uid2",
-    "site_id": 72,
-    "customer_id": 184,
-    "subscription_id": 0,
-    "number": "number0"
-  },
-  "memo": "memo6",
-  "applied_amount": "applied_amount4",
-  "transaction_time": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+void_remainder_event_data = VoidRemainderEventData.new(
+  credit_note_attributes: CreditNote.new(
+    uid: 'uid2',
+    site_id: 72,
+    customer_id: 184,
+    subscription_id: 0,
+    number: 'number0'
+  ),
+  memo: 'memo0',
+  applied_amount: 'applied_amount2',
+  transaction_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

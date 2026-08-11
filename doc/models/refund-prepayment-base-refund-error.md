@@ -11,18 +11,15 @@
 |  --- | --- | --- | --- |
 | `refund` | [`BaseRefundError`](../../doc/models/base-refund-error.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "refund": {
-    "base": [
-      {
-        "key1": "val1",
-        "key2": "val2"
-      }
+```ruby
+refund_prepayment_base_refund_error = RefundPrepaymentBaseRefundError.new(
+  refund: BaseRefundError.new(
+    base: [
+      { 'key1' => 'val1', 'key2' => 'val2' }
     ]
-  }
-}
+  )
+)
 ```
 

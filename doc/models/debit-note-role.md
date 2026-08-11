@@ -14,3 +14,9 @@ The role of the debit note.
 | `CHARGEBACK` |
 | `REFUND` |
 
+## Example
+
+```ruby
+debit_note_role = DebitNoteRole::CHARGEBACK
+```
+

@@ -16,3 +16,9 @@ The identifier for the pricing scheme. See [Product Components](https://help.cha
 | `PER_UNIT` |
 | `TIERED` |
 
+## Example
+
+```ruby
+pricing_scheme = PricingScheme::PER_UNIT
+```
+

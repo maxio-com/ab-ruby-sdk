@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `currency_prices` | [`Array[CreateProductCurrencyPrice]`](../../doc/models/create-product-currency-price.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "currency": "currency8",
-      "price": 78,
-      "role": "initial"
-    }
+```ruby
+create_product_currency_prices_request = CreateProductCurrencyPricesRequest.new(
+  currency_prices: [
+    CreateProductCurrencyPrice.new(
+      currency: 'currency8',
+      price: 78,
+      role: CurrencyPriceRole::INITIAL
+    )
   ]
-}
+)
 ```
 

@@ -14,14 +14,14 @@
 | `price` | `Float` | Optional | - |
 | `coupon_id` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 228,
-  "currency": "currency8",
-  "price": 169.96,
-  "coupon_id": 210
-}
+```ruby
+coupon_currency = CouponCurrency.new(
+  id: 52,
+  currency: 'currency8',
+  price: 136.44,
+  coupon_id: 222
+)
 ```
 

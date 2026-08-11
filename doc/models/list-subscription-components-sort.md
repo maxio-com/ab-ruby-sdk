@@ -14,7 +14,7 @@
 
 ## Example
 
-```
-updated_at
+```ruby
+list_subscription_components_sort = ListSubscriptionComponentsSort::ID
 ```
 

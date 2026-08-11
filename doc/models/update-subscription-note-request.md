@@ -13,14 +13,14 @@ Updatable fields for Subscription Note
 |  --- | --- | --- | --- |
 | `note` | [`UpdateSubscriptionNote`](../../doc/models/update-subscription-note.md) | Required | Updatable fields for Subscription Note |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "note": {
-    "body": "body0",
-    "sticky": false
-  }
-}
+```ruby
+update_subscription_note_request = UpdateSubscriptionNoteRequest.new(
+  note: UpdateSubscriptionNote.new(
+    body: 'body0',
+    sticky: false
+  )
+)
 ```
 

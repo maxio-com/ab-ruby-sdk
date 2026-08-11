@@ -18,3 +18,9 @@ The type of payment method used. Defaults to other.
 | `ACH` |
 | `OTHER` |
 
+## Example
+
+```ruby
+invoice_payment_method_type = InvoicePaymentMethodType::CREDIT_CARD
+```
+

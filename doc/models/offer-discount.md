@@ -13,13 +13,13 @@
 | `coupon_id` | `Integer` | Optional | - |
 | `coupon_name` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "coupon_code": "coupon_code8",
-  "coupon_id": 86,
-  "coupon_name": "coupon_name4"
-}
+```ruby
+offer_discount = OfferDiscount.new(
+  coupon_code: 'coupon_code4',
+  coupon_id: 106,
+  coupon_name: 'coupon_name6'
+)
 ```
 

@@ -14,14 +14,14 @@
 | `prepayment_account_balance_in_cents` | `Integer` | Required | - |
 | `current_usage_amount_in_cents` | `Integer` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason8",
-  "current_account_balance_in_cents": 250,
-  "prepayment_account_balance_in_cents": 44,
-  "current_usage_amount_in_cents": 242
-}
+```ruby
+prepaid_subscription_balance_changed = PrepaidSubscriptionBalanceChanged.new(
+  reason: 'reason4',
+  current_account_balance_in_cents: 24,
+  prepayment_account_balance_in_cents: 242,
+  current_usage_amount_in_cents: 16
+)
 ```
 

@@ -239,7 +239,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns the 50 most recent Allocations, ordered by most recent first.
+    # Lists the 50 most recent Allocations, ordered by most recent first.
     # ## On/Off Components
     # When a subscription's on/off component has been toggled to on (`1`) or off
     # (`0`), usage will be logged in this response.
@@ -608,9 +608,9 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a list of usages associated with a subscription for a particular
-    # metered component. This will display the previously recorded components
-    # for a subscription.
+    # Lists usages associated with a subscription for a particular metered
+    # component. This will display the previously recorded components for a
+    # subscription.
     # This endpoint is not compatible with quantity-based components.
     # ## Since Date and Until Date Usage
     # Note: The `since_date` and `until_date` attributes each default to
@@ -635,9 +635,9 @@ module AdvancedBilling
     # Advanced Billing id for the component or the component's handle prefixed
     # by `handle:`
     # @param [Integer] since_id Optional parameter: Returns usages with an id
-    # greater than or equal to the one specified
+    # greater than or equal to the one specified.
     # @param [Integer] max_id Optional parameter: Returns usages with an id less
-    # than or equal to the one specified
+    # than or equal to the one specified.
     # @param [Date] since_date Optional parameter: Returns usages with a
     # created_at date greater than or equal to midnight (12:00 AM) on the date
     # specified.
@@ -783,7 +783,8 @@ module AdvancedBilling
     # which the event should be published.
     # @param [String] store_uid Optional parameter: If you've attached your own
     # Keen project as an Advanced Billing event data-store, use this parameter
-    # to indicate the data-store.
+    # to indicate the data-store. This applies to Legacy Metering sites only —
+    # it has no effect on Maxio Metering sites.
     # @param [EBBEvent] body Optional parameter: TODO: type description here
     # @return [void] Response from the API call.
     def record_event(api_handle,
@@ -816,7 +817,8 @@ module AdvancedBilling
     # which the events should be published.
     # @param [String] store_uid Optional parameter: If you've attached your own
     # Keen project as an Advanced Billing event data-store, use this parameter
-    # to indicate the data-store.
+    # to indicate the data-store. This applies to Legacy Metering sites only —
+    # it has no effect on Maxio Metering sites.
     # @param [Array[EBBEvent]] body Optional parameter: TODO: type description
     # here
     # @return [void] Response from the API call.

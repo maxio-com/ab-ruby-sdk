@@ -11,22 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [`Errors`](../../doc/models/errors.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "per_page": [
-      "per_page1",
-      "per_page2",
-      "per_page3"
-    ],
-    "price_point": [
-      "price_point0",
-      "price_point9",
-      "price_point8"
-    ]
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue EventBasedBillingListSegmentsErrorsException => e
+  puts "Caught EventBasedBillingListSegmentsErrorsException: #{e.message}"
+end
 ```
 

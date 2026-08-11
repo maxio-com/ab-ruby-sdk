@@ -29,16 +29,16 @@
 | `created_at` | `DateTime` | Optional | A timestamp indicating when this payment profile was created |
 | `updated_at` | `DateTime` | Optional | A timestamp indicating when this payment profile was last updated |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment_type": "paypal_account",
-  "id": 10,
-  "first_name": "first_name0",
-  "last_name": "last_name8",
-  "customer_id": 48,
-  "current_vault": "moduslink"
-}
+```ruby
+paypal_payment_profile = PaypalPaymentProfile.new(
+  payment_type: PaymentType::PAYPAL_ACCOUNT,
+  id: 182,
+  first_name: 'first_name4',
+  last_name: 'last_name2',
+  customer_id: 220,
+  current_vault: PayPalVault::MODUSLINK
+)
 ```
 

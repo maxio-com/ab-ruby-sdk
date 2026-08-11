@@ -46,3 +46,9 @@ The vault that stores the payment profile with the provided `vault_token`. Use `
 | `UNIPAAS` |
 | `WIRECARD` |
 
+## Example
+
+```ruby
+all_vaults = AllVaults::STRIPE_CONNECT
+```
+

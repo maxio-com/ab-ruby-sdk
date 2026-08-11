@@ -11,31 +11,31 @@
 |  --- | --- | --- | --- |
 | `quantity_based_component` | [`QuantityBasedComponent`](../../doc/models/quantity-based-component.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "quantity_based_component": {
-    "name": "name0",
-    "unit_name": "unit_name2",
-    "description": "description0",
-    "handle": "handle6",
-    "taxable": false,
-    "pricing_scheme": "stairstep",
-    "prices": [
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      },
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      }
+```ruby
+create_quantity_based_component = CreateQuantityBasedComponent.new(
+  quantity_based_component: QuantityBasedComponent.new(
+    name: 'name0',
+    unit_name: 'unit_name2',
+    pricing_scheme: PricingScheme::STAIRSTEP,
+    description: 'description0',
+    handle: 'handle6',
+    taxable: false,
+    prices: [
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      ),
+      Price.new(
+        starting_quantity: 242,
+        unit_price: 23.26,
+        ending_quantity: 40
+      )
     ],
-    "upgrade_charge": "prorated"
-  }
-}
+    upgrade_charge: CreditType::PRORATED
+  )
+)
 ```
 

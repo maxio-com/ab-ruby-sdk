@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [ListSubcriptionGroupPrepaymentItem]
+    # @return [ListSubscriptionGroupPrepaymentItem]
     attr_accessor :prepayment
 
     # A mapping from model property names to API property names.
@@ -44,7 +44,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      prepayment = ListSubcriptionGroupPrepaymentItem.from_hash(hash['prepayment']) if
+      prepayment = ListSubscriptionGroupPrepaymentItem.from_hash(hash['prepayment']) if
         hash['prepayment']
 
       # Clean out expected properties from Hash.

@@ -16,15 +16,15 @@
 | `updated_at` | `DateTime` | Optional | - |
 | `sticky` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 36,
-  "body": "body4",
-  "subscription_id": 146,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "updated_at": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+subscription_note = SubscriptionNote.new(
+  id: 114,
+  body: 'body0',
+  subscription_id: 224,
+  created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  updated_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

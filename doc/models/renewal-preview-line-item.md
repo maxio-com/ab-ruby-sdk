@@ -24,15 +24,15 @@
 | `period_range_start` | `String` | Optional | - |
 | `period_range_end` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_type": "charge",
-  "kind": "prepaid_usage_component",
-  "amount_in_cents": 154,
-  "memo": "memo0",
-  "discount_amount_in_cents": 214
-}
+```ruby
+renewal_preview_line_item = RenewalPreviewLineItem.new(
+  transaction_type: LineItemTransactionType::CREDIT,
+  kind: LineItemKind::TRIAL,
+  amount_in_cents: 254,
+  memo: 'memo8',
+  discount_amount_in_cents: 194
+)
 ```
 

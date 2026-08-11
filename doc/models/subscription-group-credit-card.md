@@ -30,16 +30,16 @@
 | `cvv` | `String` | Optional | - |
 | `payment_type` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_token": "tok_592nf92ng0sjd4300p",
-  "full_number": 4111111111111111,
-  "vault_token": "vault_token6",
-  "current_vault": "braintree_blue",
-  "gateway_handle": "gateway_handle6",
-  "first_name": "first_name4"
-}
+```ruby
+subscription_group_credit_card = SubscriptionGroupCreditCard.new(
+  chargify_token: 'tok_592nf92ng0sjd4300p',
+  vault_token: 'vault_token8',
+  current_vault: CreditCardVault::PAYMILL,
+  gateway_handle: 'gateway_handle2',
+  first_name: 'first_name6',
+  full_number: 4111111111111111
+)
 ```
 

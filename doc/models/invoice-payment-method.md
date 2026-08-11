@@ -18,15 +18,15 @@
 | `last_four` | `String` | Optional | - |
 | `masked_card_number` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "details": "details8",
-  "kind": "kind6",
-  "memo": "memo2",
-  "type": "type8",
-  "card_brand": "card_brand8"
-}
+```ruby
+invoice_payment_method = InvoicePaymentMethod.new(
+  details: 'details2',
+  kind: 'kind0',
+  memo: 'memo6',
+  type: 'type2',
+  card_brand: 'card_brand4'
+)
 ```
 

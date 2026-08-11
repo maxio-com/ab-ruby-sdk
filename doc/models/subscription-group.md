@@ -16,24 +16,23 @@
 | `subscription_ids` | `Array[Integer]` | Optional | - |
 | `created_at` | `DateTime` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "customer_id": 36,
-  "payment_profile": {
-    "id": 44,
-    "first_name": "first_name4",
-    "last_name": "last_name2",
-    "masked_card_number": "masked_card_number2"
-  },
-  "payment_collection_method": "prepaid",
-  "subscription_ids": [
-    146,
-    147,
-    148
+```ruby
+subscription_group = SubscriptionGroup.new(
+  uid: 'uid8',
+  customer_id: 220,
+  payment_profile: SubscriptionGroupPaymentProfile.new(
+    id: 44,
+    first_name: 'first_name4',
+    last_name: 'last_name2',
+    masked_card_number: 'masked_card_number2'
+  ),
+  payment_collection_method: CollectionMethod::PREPAID,
+  subscription_ids: [
+    74,
+    75
   ]
-}
+)
 ```
 

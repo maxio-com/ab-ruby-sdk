@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # Consolidation level of the invoice, which is applicable to invoice
-    # consolidation.  It will hold one of the following values:
+    # consolidation. It will hold one of the following values:
     # * "none": A normal invoice with no consolidation.
     # * "child": An invoice segment which has been combined into a consolidated
     # invoice.

@@ -10,26 +10,26 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # The allocation unique id
+    # The allocation unique ID
     # @return [Integer]
     attr_accessor :allocation_id
 
     # The integer component ID for the allocation. This references a component
-    # that you have created in your Product setup
+    # that you have created in your Product setup.
     # @return [Integer]
     attr_accessor :component_id
 
     # The handle of the component. This references a component that you have
-    # created in your Product setup
+    # created in your Product setup.
     # @return [String]
     attr_accessor :component_handle
 
     # The integer subscription ID for the allocation. This references a unique
-    # subscription in your Site
+    # subscription in your Site.
     # @return [Integer]
     attr_accessor :subscription_id
 
-    # The allocated quantity set in to effect by the allocation. String for
+    # The allocated quantity set into effect by the allocation. String for
     # components supporting fractional quantities
     # @return [Object]
     attr_accessor :quantity
@@ -43,8 +43,8 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :memo
 
-    # The time that the allocation was recorded, in format and UTC timezone,
-    # i.e. 2012-11-20T22:00:37Z
+    # The time that the allocation was recorded, in ISO 8601 format and UTC
+    # timezone, e.g., 2012-11-20T22:00:37Z
     # @return [DateTime]
     attr_accessor :timestamp
 
@@ -77,7 +77,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :price_point_handle
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
     # Multifrequency enabled.

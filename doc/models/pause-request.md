@@ -1,7 +1,7 @@
 
 # Pause Request
 
-Allows to pause a Subscription
+Allows you to pause a Subscription.
 
 ## Structure
 
@@ -13,13 +13,13 @@ Allows to pause a Subscription
 |  --- | --- | --- | --- |
 | `hold` | [`AutoResume`](../../doc/models/auto-resume.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "hold": {
-    "automatically_resume_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```ruby
+pause_request = PauseRequest.new(
+  hold: AutoResume.new(
+    automatically_resume_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+  )
+)
 ```
 

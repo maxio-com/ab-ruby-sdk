@@ -12,3 +12,9 @@
 | `TAX` |
 | `AVALARA` |
 
+## Example
+
+```ruby
+proforma_invoice_tax_source_type = ProformaInvoiceTaxSourceType::TAX
+```
+

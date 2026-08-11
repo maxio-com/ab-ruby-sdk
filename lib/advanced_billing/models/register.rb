@@ -22,7 +22,7 @@ module AdvancedBilling
     attr_accessor :name
 
     # The ISO 4217 currency code (3 character string) representing the currency
-    # of invoice transaction.
+    # of an invoice transaction.
     # @return [String]
     attr_accessor :currency_code
 

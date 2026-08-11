@@ -4,7 +4,7 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # Optional attributes related to billing date and accrual. Note: Only
+  # (Optional) Attributes related to billing date and accrual. Note: Only
   # applicable for new subscriptions.
   class GroupBilling < BaseModel
     SKIP = Object.new

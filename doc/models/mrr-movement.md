@@ -14,14 +14,14 @@
 | `subscriber_delta` | `Integer` | Optional | - |
 | `lead_delta` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": 210,
-  "category": "category0",
-  "subscriber_delta": 170,
-  "lead_delta": 198
-}
+```ruby
+mrr_movement = MRRMovement.new(
+  amount: 74,
+  category: 'category0',
+  subscriber_delta: 34,
+  lead_delta: 62
+)
 ```
 

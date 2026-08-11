@@ -14,14 +14,14 @@
 | `kind` | `String` | Optional | - |
 | `on` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": 188,
-  "message": "message0",
-  "kind": "kind8",
-  "on": "on0"
-}
+```ruby
+component_allocation_error_item = ComponentAllocationErrorItem.new(
+  component_id: 238,
+  message: 'message8',
+  kind: 'kind6',
+  on: 'on8'
+)
 ```
 

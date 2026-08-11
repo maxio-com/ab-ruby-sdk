@@ -16,3 +16,9 @@ The type of payment collection to be used in the subscription. For legacy Statem
 | `PREPAID` |
 | `INVOICE` |
 
+## Example
+
+```ruby
+collection_method = CollectionMethod::PREPAID
+```
+

@@ -15,3 +15,9 @@
 | `EXTERNAL` |
 | `PAYPAL_ACCOUNT` |
 
+## Example
+
+```ruby
+invoice_event_payment_method = InvoiceEventPaymentMethod::BANK_ACCOUNT
+```
+

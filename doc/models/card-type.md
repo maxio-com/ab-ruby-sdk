@@ -48,3 +48,9 @@ The type of card used.
 | `SOLO` |
 | `LASER` |
 
+## Example
+
+```ruby
+card_type = CardType::BOGUS
+```
+

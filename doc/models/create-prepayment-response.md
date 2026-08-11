@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `prepayment` | [`CreatedPrepayment`](../../doc/models/created-prepayment.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "id": 38,
-    "subscription_id": 148,
-    "amount_in_cents": 124,
-    "memo": "memo2",
-    "created_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```ruby
+create_prepayment_response = CreatePrepaymentResponse.new(
+  prepayment: CreatedPrepayment.new(
+    id: 38,
+    subscription_id: 148,
+    amount_in_cents: 124,
+    memo: 'memo2',
+    created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+  )
+)
 ```
 

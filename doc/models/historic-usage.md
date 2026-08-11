@@ -1,7 +1,7 @@
 
 # Historic Usage
 
-Optional for Event Based Components. If the `include=historic_usages` query param is provided, the last ten billing periods will be returned.
+(Optional) For Event Based Components. If the `include=historic_usages` query param is provided, the last ten billing periods will be returned.
 
 ## Structure
 
@@ -15,13 +15,13 @@ Optional for Event Based Components. If the `include=historic_usages` query para
 | `billing_period_starts_at` | `DateTime` | Optional | Start date of billing period |
 | `billing_period_ends_at` | `DateTime` | Optional | End date of billing period |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_usage_quantity": 26.6,
-  "billing_period_starts_at": "2016-03-13T12:52:32.123Z",
-  "billing_period_ends_at": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+historic_usage = HistoricUsage.new(
+  total_usage_quantity: 247.74,
+  billing_period_starts_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  billing_period_ends_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

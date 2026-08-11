@@ -11,18 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [`ProformaError`](../../doc/models/proforma-error.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "subscription": {
-      "base": [
-        "base3",
-        "base4"
-      ]
-    }
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue ProformaBadRequestErrorResponseException => e
+  puts "Caught ProformaBadRequestErrorResponseException: #{e.message}"
+end
 ```
 

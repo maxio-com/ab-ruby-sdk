@@ -14,7 +14,7 @@
 
 ## Example
 
-```
-subscription
+```ruby
+list_subscription_components_include = ListSubscriptionComponentsInclude::SUBSCRIPTION
 ```
 

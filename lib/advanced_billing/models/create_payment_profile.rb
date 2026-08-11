@@ -49,31 +49,31 @@ module AdvancedBilling
 
     # (Optional when performing an Import via vault_token, required otherwise)
     # The 1- or 2-digit credit card expiration month, as an integer or string,
-    # i.e. 5
+    # e.g., 5
     # @return [Object]
     attr_accessor :expiration_month
 
-    # (Optional when performing a Import via vault_token, required otherwise)
-    # The 4-digit credit card expiration year, as an integer or string, i.e.
+    # (Optional when performing an Import via vault_token, required otherwise)
+    # The 4-digit credit card expiration year, as an integer or string, e.g.,
     # 2012
     # @return [Object]
     attr_accessor :expiration_year
 
-    # The credit card or bank account billing street address (i.e. 123 Main
+    # The credit card or bank account billing street address (e.g., 123 Main
     # St.). This value is merely passed through to the payment gateway.
     # @return [String]
     attr_accessor :billing_address
 
-    # Second line of the customer’s billing address i.e. Apt. 100
+    # Second line of the customer’s billing address e.g., Apt. 100
     # @return [String]
     attr_accessor :billing_address_2
 
-    # The credit card or bank account billing address city (i.e. “Boston”). This
-    # value is merely passed through to the payment gateway.
+    # The credit card or bank account billing address city (e.g., “Boston”).
+    # This value is merely passed through to the payment gateway.
     # @return [String]
     attr_accessor :billing_city
 
-    # The credit card or bank account billing address state (i.e. MA). This
+    # The credit card or bank account billing address state (e.g., MA). This
     # value is merely passed through to the payment gateway. This must conform
     # to the
     # [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in
@@ -81,16 +81,16 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :billing_state
 
-    # The credit card or bank account billing address country, required in
+    # “The credit card or bank account billing address country, required in
     # [ISO_3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-    # format (i.e. “US”). This value is merely passed through to the payment
+    # format (e.g., “US”). This value is merely passed through to the payment
     # gateway. Some gateways require country codes in a specific format. Check
     # your gateway’s documentation. If creating an ACH subscription, only US is
-    # supported at this time.
+    # supported at this time.”
     # @return [String]
     attr_accessor :billing_country
 
-    # The credit card or bank account billing address zip code (i.e. 12345).
+    # The credit card or bank account billing address zip code (e.g., 12345).
     # This value is merely passed through to the payment gateway.
     # @return [String]
     attr_accessor :billing_zip
@@ -148,13 +148,13 @@ module AdvancedBilling
 
     # (Optional when creating with GoCardless, required with Stripe Direct
     # Debit). International Bank Account Number. Alternatively, local bank
-    # details can be provided
+    # details can be provided.
     # @return [String]
     attr_accessor :bank_iban
 
     # (Required when creating with ACH. Optional when creating a subscription
     # with GoCardless). The routing number of the bank. It becomes bank_code
-    # while passing via GoCardless API
+    # while passing via GoCardless API.
     # @return [String]
     attr_accessor :bank_routing_number
 
@@ -164,7 +164,7 @@ module AdvancedBilling
     attr_accessor :bank_account_number
 
     # (Optional when creating with GoCardless, required with Stripe BECS or BACS
-    # Direct Debit) Branch/Sort code. Alternatively, an IBAN can be provided
+    # Direct Debit) Branch/Sort code. Alternatively, an IBAN can be provided.
     # @return [String]
     attr_accessor :bank_branch_code
 

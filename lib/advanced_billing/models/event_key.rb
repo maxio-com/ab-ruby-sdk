@@ -43,6 +43,10 @@ module AdvancedBilling
       # TODO: Write general description for SUBSCRIPTION_PRODUCT_CHANGE
       SUBSCRIPTION_PRODUCT_CHANGE = 'subscription_product_change'.freeze,
 
+      # TODO: Write general description for
+      # SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED
+      SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED = 'subscription_product_change_scheduled'.freeze,
+
       # TODO: Write general description for PENDING_CANCELLATION_CHANGE
       PENDING_CANCELLATION_CHANGE = 'pending_cancellation_change'.freeze,
 
@@ -288,6 +292,7 @@ module AdvancedBilling
       when 'renewal_failure' then RENEWAL_FAILURE
       when 'subscription_state_change' then SUBSCRIPTION_STATE_CHANGE
       when 'subscription_product_change' then SUBSCRIPTION_PRODUCT_CHANGE
+      when 'subscription_product_change_scheduled' then SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED
       when 'pending_cancellation_change' then PENDING_CANCELLATION_CHANGE
       when 'expiring_card' then EXPIRING_CARD
       when 'customer_update' then CUSTOMER_UPDATE

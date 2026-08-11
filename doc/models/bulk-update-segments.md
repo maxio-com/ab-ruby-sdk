@@ -11,54 +11,54 @@
 |  --- | --- | --- | --- |
 | `segments` | [`Array[BulkUpdateSegmentsItem]`](../../doc/models/bulk-update-segments-item.md) | Optional | **Constraints**: *Maximum Items*: `1000` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "segments": [
-    {
-      "id": 50,
-      "pricing_scheme": "stairstep",
-      "prices": [
-        {
-          "starting_quantity": 64,
-          "ending_quantity": 38,
-          "unit_price": "String3"
-        },
-        {
-          "starting_quantity": 64,
-          "ending_quantity": 38,
-          "unit_price": "String3"
-        },
-        {
-          "starting_quantity": 64,
-          "ending_quantity": 38,
-          "unit_price": "String3"
-        }
+```ruby
+bulk_update_segments = BulkUpdateSegments.new(
+  segments: [
+    BulkUpdateSegmentsItem.new(
+      id: 50,
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      prices: [
+        CreateOrUpdateSegmentPrice.new(
+          unit_price: 'String3',
+          starting_quantity: 64,
+          ending_quantity: 38
+        ),
+        CreateOrUpdateSegmentPrice.new(
+          unit_price: 'String3',
+          starting_quantity: 64,
+          ending_quantity: 38
+        ),
+        CreateOrUpdateSegmentPrice.new(
+          unit_price: 'String3',
+          starting_quantity: 64,
+          ending_quantity: 38
+        )
       ]
-    },
-    {
-      "id": 50,
-      "pricing_scheme": "stairstep",
-      "prices": [
-        {
-          "starting_quantity": 64,
-          "ending_quantity": 38,
-          "unit_price": "String3"
-        },
-        {
-          "starting_quantity": 64,
-          "ending_quantity": 38,
-          "unit_price": "String3"
-        },
-        {
-          "starting_quantity": 64,
-          "ending_quantity": 38,
-          "unit_price": "String3"
-        }
+    ),
+    BulkUpdateSegmentsItem.new(
+      id: 50,
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      prices: [
+        CreateOrUpdateSegmentPrice.new(
+          unit_price: 'String3',
+          starting_quantity: 64,
+          ending_quantity: 38
+        ),
+        CreateOrUpdateSegmentPrice.new(
+          unit_price: 'String3',
+          starting_quantity: 64,
+          ending_quantity: 38
+        ),
+        CreateOrUpdateSegmentPrice.new(
+          unit_price: 'String3',
+          starting_quantity: 64,
+          ending_quantity: 38
+        )
       ]
-    }
+    )
   ]
-}
+)
 ```
 

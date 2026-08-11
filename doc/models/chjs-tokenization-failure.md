@@ -12,16 +12,16 @@
 | `errors` | `String` | Required | - |
 | `payment_profile_params` | [`PaymentProfileParams`](../../doc/models/payment-profile-params.md) | Optional | PCI-safe cardholder fields only. Full card numbers, CVV, and billing address are never included. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": "errors2",
-  "payment_profile_params": {
-    "first_name": "first_name2",
-    "last_name": "last_name0",
-    "card_type": "card_type2"
-  }
-}
+```ruby
+chjs_tokenization_failure = ChjsTokenizationFailure.new(
+  errors: 'errors4',
+  payment_profile_params: PaymentProfileParams.new(
+    first_name: 'first_name2',
+    last_name: 'last_name0',
+    card_type: 'card_type2'
+  )
+)
 ```
 

@@ -15,15 +15,15 @@
 | `destroy` | `TrueClass \| FalseClass` | Optional | - |
 | `starting_quantity` | Integer \| String \| nil | Optional | This is a container for one-of cases. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 18,
-  "ending_quantity": 216,
-  "unit_price": 166.62,
-  "_destroy": false,
-  "starting_quantity": 242
-}
+```ruby
+update_price = UpdatePrice.new(
+  id: 94,
+  ending_quantity: 216,
+  unit_price: 118.74,
+  destroy: false,
+  starting_quantity: 90
+)
 ```
 

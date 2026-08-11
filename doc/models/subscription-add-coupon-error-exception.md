@@ -14,25 +14,13 @@
 | `coupon_codes` | `Array[String]` | Optional | - |
 | `subscription` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "codes": [
-    "codes6",
-    "codes7",
-    "codes8"
-  ],
-  "coupon_code": [
-    "coupon_code8",
-    "coupon_code7"
-  ],
-  "coupon_codes": [
-    "coupon_codes2"
-  ],
-  "subscription": [
-    "subscription8"
-  ]
-}
+```ruby
+begin
+  # make the API call
+rescue SubscriptionAddCouponErrorException => e
+  puts "Caught SubscriptionAddCouponErrorException: #{e.message}"
+end
 ```
 

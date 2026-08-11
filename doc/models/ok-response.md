@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `ok` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "ok": "ok4"
-}
+```ruby
+ok_response = OkResponse.new(
+  ok: 'ok8'
+)
 ```
 

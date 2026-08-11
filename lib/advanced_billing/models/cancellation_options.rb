@@ -27,7 +27,7 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :cancel_at_end_of_period
 
-    # Schedules the cancellation on the provided date. This is option is not
+    # Schedules the cancellation on the provided date. This option is not
     # applicable for prepaid subscriptions. To use this option, the Schedule
     # Subscription Cancellation feature must be enabled on your site.
     # @return [DateTime]

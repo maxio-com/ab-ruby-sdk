@@ -13,3 +13,9 @@
 | `FLAT_AMOUNT` |
 | `ROLLOVER` |
 
+## Example
+
+```ruby
+invoice_discount_type = InvoiceDiscountType::ROLLOVER
+```
+

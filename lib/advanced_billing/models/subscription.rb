@@ -97,10 +97,10 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :total_revenue_in_cents
 
-    # (Added Nov 5 2013) The recurring amount of the product (and
-    # version),currently subscribed. NOTE: this may differ from the current
-    # price of,the product, if you’ve changed the price of the product but
-    # haven’t,moved this subscription to a newer version.
+    # (Added Nov 5 2013) The recurring amount of the product (and version),
+    # currently subscribed. NOTE: this may differ from the current price of the
+    # product, if you’ve changed the price of the product but haven’t moved this
+    # subscription to a newer version.
     # @return [Integer]
     attr_accessor :product_price_in_cents
 
@@ -109,18 +109,18 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :product_version_number
 
-    # Timestamp relating to the end of the current (recurring) period (i.e.,when
-    # the next regularly scheduled attempted charge will occur)
+    # Timestamp relating to the end of the current (recurring) period (i.e.,
+    # when the next regularly scheduled attempted charge will occur)
     # @return [DateTime]
     attr_accessor :current_period_ends_at
 
-    # Timestamp that indicates when capture of payment will be tried or,retried.
-    # This value will usually track the current_period_ends_at, but,will diverge
-    # if a renewal payment fails and must be retried. In that,case, the
-    # current_period_ends_at will advance to the end of the next,period (time
-    # doesn’t stop because a payment was missed) but the,next_assessment_at will
-    # be scheduled for the auto-retry time (i.e. 24,hours in the future, in some
-    # cases)
+    # Timestamp that indicates when capture of payment will be tried or retried.
+    # This value will usually track the current_period_ends_at, but will diverge
+    # if a renewal payment fails and must be retried. In that case, the
+    # current_period_ends_at will advance to the end of the next period (time
+    # doesn’t stop because a payment was missed) but the next_assessment_at will
+    # be scheduled for the auto-retry time (e.g., 24 hours in the future, in
+    # some cases).
     # @return [DateTime]
     attr_accessor :next_assessment_at
 
@@ -132,8 +132,8 @@ module AdvancedBilling
     # @return [DateTime]
     attr_accessor :trial_ended_at
 
-    # Timestamp for when the subscription began (i.e. when it came out of trial,
-    # or when it began in the case of no trial)
+    # Timestamp for when the subscription began (i.e., when it came out of
+    # trial, or when it began in the case of no trial)
     # @return [DateTime]
     attr_accessor :activated_at
 
@@ -173,7 +173,7 @@ module AdvancedBilling
 
     # Only valid for webhook payloads The previous state for webhooks that have
     # indicated a change in state. For normal API calls, this will always be the
-    # same as the state (current state)
+    # same as the state (current state).
     # @return [SubscriptionState]
     attr_accessor :previous_state
 
@@ -181,8 +181,8 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :signup_payment_id
 
-    # The revenue, formatted as a string of decimal separated dollars and,cents,
-    # from the subscription signup ($50.00 would be formatted as,50.00)
+    # The revenue, formatted as a string of decimal separated dollars and cents,
+    # from the subscription signup ($50.00 would be formatted as 50.00)
     # @return [String]
     attr_accessor :signup_revenue
 
@@ -271,7 +271,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :coupon_uses_allowed
 
-    # The churn reason code associated to a cancelled subscription.
+    # The churn reason code associated to a canceled subscription.
     # @return [String]
     attr_accessor :reason_code
 
@@ -329,7 +329,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :stored_credential_transaction_id
 
-    # The reference value (provided by your app) for the subscription istelf.
+    # The reference value (provided by your app) for the subscription itself.
     # @return [String]
     attr_accessor :reference
 
@@ -339,12 +339,12 @@ module AdvancedBilling
 
     # Boolean representing whether the subscription is prepaid and currently in
     # dunning. Only returned for Relationship Invoicing sites with the feature
-    # enabled
+    # enabled.
     # @return [TrueClass | FalseClass]
     attr_accessor :prepaid_dunning
 
     # Additional coupon data. To use this data you also have to include the
-    # following param in the request`include[]=coupons`.
+    # following param in the request: `include[]=coupons`.
     # Only in Read Subscription Endpoint.
     # @return [Array[SubscriptionIncludedCoupon]]
     attr_accessor :coupons

@@ -19,15 +19,15 @@
 | `gateway_handle` | `String` | Optional | - |
 | `ach_late_reject` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_id": 172,
-  "payment_id": 42,
-  "memo": "memo6",
-  "original_amount": "original_amount6",
-  "applied_amount": "applied_amount6"
-}
+```ruby
+invoice_refund = InvoiceRefund.new(
+  transaction_id: 0,
+  payment_id: 126,
+  memo: 'memo0',
+  original_amount: 'original_amount0',
+  applied_amount: 'applied_amount2'
+)
 ```
 

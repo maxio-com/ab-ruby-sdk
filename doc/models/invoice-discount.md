@@ -22,15 +22,15 @@
 | `transaction_id` | `Integer` | Optional | - |
 | `line_item_breakouts` | [`Array[InvoiceDiscountBreakout]`](../../doc/models/invoice-discount-breakout.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid0",
-  "title": "title4",
-  "description": "description0",
-  "code": "code8",
-  "source_type": "Coupon"
-}
+```ruby
+invoice_discount = InvoiceDiscount.new(
+  uid: 'uid2',
+  title: 'title2',
+  description: 'description8',
+  code: 'code0',
+  source_type: InvoiceDiscountSourceType::REFERRAL
+)
 ```
 

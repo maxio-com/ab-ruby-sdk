@@ -70,8 +70,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns an array of subscription groups for the site. The response is
-    # paginated and will return a `meta` key with pagination information.
+    # Lists subscription groups for the site. The response is paginated and will
+    # return a `meta` key with pagination information.
     # #### Account Balance Information
     # Account balance information for the subscription groups is not returned by
     # default. If this information is desired, the `include[]=account_balances`
@@ -222,7 +222,8 @@ module AdvancedBilling
         .execute
     end
 
-    # For sites making use of the [Relationship
+    # Adds an existing subscription to a subscription group. For sites making
+    # use of the [Relationship
     # Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanc
     # ed-Billing-Invoices-Overview) and [Customer
     # Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Cust
@@ -277,7 +278,8 @@ module AdvancedBilling
         .execute
     end
 
-    # For sites making use of the [Relationship
+    # Removes an existing subscription from a subscription group. For sites
+    # making use of the [Relationship
     # Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanc
     # ed-Billing-Invoices-Overview) and [Customer
     # Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Cust

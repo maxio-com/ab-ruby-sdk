@@ -17,3 +17,9 @@ A handle for the component type
 | `PREPAID_USAGE_COMPONENT` |
 | `EVENT_BASED_COMPONENT` |
 
+## Example
+
+```ruby
+component_kind = ComponentKind::ON_OFF_COMPONENT
+```
+

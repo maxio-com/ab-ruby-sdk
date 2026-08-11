@@ -14,18 +14,18 @@
 | `signups` | `Integer` | Optional | Number of times the coupon has been applied |
 | `savings` | `Integer` | Optional | Dollar amount of customer savings as a result of the coupon. |
 | `savings_in_cents` | `Integer` | Optional | Dollar amount of customer savings as a result of the coupon. |
-| `revenue` | `Integer` | Optional | Total revenue of the all subscriptions that have received a discount from this coupon. |
-| `revenue_in_cents` | `Integer` | Optional | Total revenue of the all subscriptions that have received a discount from this coupon. |
+| `revenue` | `Integer` | Optional | Total revenue of all subscriptions that have received a discount from this coupon. |
+| `revenue_in_cents` | `Integer` | Optional | Total revenue of all subscriptions that have received a discount from this coupon. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 14,
-  "name": "name0",
-  "signups": 34,
-  "savings": 52,
-  "savings_in_cents": 138
-}
+```ruby
+coupon_usage = CouponUsage.new(
+  id: 76,
+  name: 'name8',
+  signups: 96,
+  savings: 114,
+  savings_in_cents: 200
+)
 ```
 

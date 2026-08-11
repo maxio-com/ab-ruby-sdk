@@ -13,13 +13,13 @@
 | `application_uid` | `String` | Optional | Unique identifier for the payment. It has the prefix "pmt_" followed by alphanumeric characters. |
 | `applied_amount` | `String` | Optional | Dollar amount of the paid invoice. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "invoice_uid": "invoice_uid2",
-  "application_uid": "application_uid4",
-  "applied_amount": "applied_amount6"
-}
+```ruby
+invoice_payment_application = InvoicePaymentApplication.new(
+  invoice_uid: 'invoice_uid4',
+  application_uid: 'application_uid8',
+  applied_amount: 'applied_amount4'
+)
 ```
 

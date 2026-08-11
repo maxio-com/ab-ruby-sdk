@@ -12,12 +12,12 @@
 | `previous_value` | `String` | Required | - |
 | `current_value` | `String` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_value": "previous_value4",
-  "current_value": "current_value2"
-}
+```ruby
+payment_collection_method_changed = PaymentCollectionMethodChanged.new(
+  previous_value: 'previous_value2',
+  current_value: 'current_value0'
+)
 ```
 
