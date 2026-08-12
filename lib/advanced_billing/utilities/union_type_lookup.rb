@@ -637,7 +637,6 @@ module AdvancedBilling
         :EventEventSpecificData => OneOf.new(
           [
             LeafType.new(SubscriptionProductChange),
-            LeafType.new(SubscriptionProductChangeScheduled),
             LeafType.new(SubscriptionStateChange),
             LeafType.new(PaymentRelatedEvents),
             LeafType.new(RefundSuccess),

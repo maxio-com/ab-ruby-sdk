@@ -7,31 +7,15 @@ module AdvancedBilling
   # EventsController
   class EventsController < BaseController
     # Lists events for a site.
-    # ## Events Intro
-    # Advanced Billing Events include various activity that happens around a
-    # Site. This information is **especially** useful to track down issues that
-    # arise when subscriptions are not created due to errors.
-    # Within the Advanced Billing UI, "Events" are referred to as "Site
-    # Activity".  See the [Site
+    # Events include various activity that happens around a Site. This
+    # information is **especially** useful to track down issues that arise when
+    # subscriptions are not created due to errors.
+    # Within the UI, Events are referred to as Site Activity. For more
+    # information, see [Site
     # Activity](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-
-    # Activity) article in the product documentation for details on how to
-    # record view Events / Site Activty in the Advanced Billing UI.
-    # If you’re using the [enhanced Catalog
-    # experience](page:help/announcements/2026-announcements#new-catalog-experie
-    # nce-and-terminology), you’ll see updated naming in webhook events and
-    # messages.
-    # Event name changes:
-    # - subscription_product_change → subscription_plan_change
-    # - component_allocation_change → allocation_change
-    # - component_billing_date_change → product_billing_date_change
-    # Message updates:
-    # - “Plan changed on Subscription from previous plan to new plan”
-    # - “Successful payment for allocation changes to Product on Subscription”
-    # - “Failed payment for allocation changes to Product on Subscription”
-    # ## List Events for a Site
-    # This method will retrieve a list of events for a site. Use query string
-    # filters to narrow down results. You may use the `key` filter as part of
-    # your query string to narrow down results.
+    # Activity).
+    # Use query string filters to narrow down results. You can use the `filter`
+    # parameter to filter by event key.
     # ### Legacy Filters
     # The following keys are no longer supported.
     # + `payment_failure_recreated`
@@ -43,8 +27,8 @@ module AdvancedBilling
     # + `zferral_revenue_post_success` - (Specific to the deprecated Zferral
     # integration)
     # ## Event Key
-    # The event type is identified by the key property. You can check supported
-    # keys [here]($m/Event%20Key).
+    # The event type is identified by the key property. See [Event
+    # Key]($m/Event%20Key) for a complete list of supported keys.
     # ## Event Specific Data
     # Different event types may include additional data in `event_specific_data`
     # property.
@@ -87,6 +71,19 @@ module AdvancedBilling
     #      }
     #  }
     # ```
+    # ## Enhanced Catalog Experience
+    # If you’re using the [enhanced Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology), you’ll see updated naming in webhook events and
+    # messages.
+    # Event name changes:
+    # - subscription_product_change → subscription_plan_change
+    # - component_allocation_change → allocation_change
+    # - component_billing_date_change → product_billing_date_change
+    # Message updates:
+    # - “Plan changed on Subscription from previous plan to new plan”
+    # - “Successful payment for allocation changes to Product on Subscription”
+    # - “Failed payment for allocation changes to Product on Subscription”
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -156,8 +153,16 @@ module AdvancedBilling
 
     # Lists events for a subscription.
     # ## Event Key
-    # The event type is identified by the key property. You can check supported
-    # keys [here]($m/Event%20Key).
+    # The event type is identified by the key property. See [Event
+    # Key]($m/Event%20Key) for a complete list of supported keys.
+    # ## Event Specific Data
+    # Different event types may include additional data in `event_specific_data`
+    # property.
+    # While some events share the same schema for `event_specific_data`, others
+    # may not include it at all.
+    # For precise mappings from key to event_specific_data, refer to
+    # [Event]($m/Event).
+    # ## Enhanced Catalog Experience
     # If you’re using the [enhanced Catalog
     # experience](page:help/announcements/2026-announcements#new-catalog-experie
     # nce-and-terminology), you’ll see updated naming in webhook events and
@@ -170,13 +175,6 @@ module AdvancedBilling
     # - “Successful payment for allocation changes to Product on Subscription”
     # - “Failed payment for allocation changes to Product on Subscription”
     # - “Plan changed on Subscription from previous plan to new plan”
-    # ## Event Specific Data
-    # Different event types may include additional data in `event_specific_data`
-    # property.
-    # While some events share the same schema for `event_specific_data`, others
-    # may not include it at all.
-    # For precise mappings from key to event_specific_data, refer to
-    # [Event]($m/Event).
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] page Optional parameter: Result records are organized in

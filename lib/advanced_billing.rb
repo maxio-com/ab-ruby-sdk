@@ -521,7 +521,6 @@ require_relative 'advanced_billing/models/subscription_note_response'
 require_relative 'advanced_billing/models/subscription_preview'
 require_relative 'advanced_billing/models/subscription_preview_response'
 require_relative 'advanced_billing/models/subscription_product_change'
-require_relative 'advanced_billing/models/subscription_product_change_scheduled'
 require_relative 'advanced_billing/models/subscription_product_migration'
 require_relative 'advanced_billing/models/' \
                  'subscription_product_migration_request'

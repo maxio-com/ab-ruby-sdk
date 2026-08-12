@@ -199,8 +199,7 @@ module AdvancedBilling
     end
 
     # Finds the subscription group associated with a subscription.
-    # If the subscription is not in a group, the endpoint will return a 404
-    # code.
+    # If the subscription is not in a group, this endpoint returns an error.
     # @param [String] subscription_id Required parameter: The Advanced Billing
     # id of the subscription associated with the subscription group
     # @return [FullSubscriptionGroupResponse] Response from the API call.
