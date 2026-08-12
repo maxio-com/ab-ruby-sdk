@@ -78,6 +78,11 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :masked_bank_routing_number
 
+    # A string representation of the stored bank account number with all but the
+    # last 4 digits marked with X's (i.e. 'XXXXXXX1111').
+    # @return [String]
+    attr_accessor :masked_bank_account_number
+
     # Defaults to checking
     # @return [BankAccountType]
     attr_accessor :bank_account_type
@@ -131,6 +136,7 @@ module AdvancedBilling
       @_hash['billing_address_2'] = 'billing_address_2'
       @_hash['bank_name'] = 'bank_name'
       @_hash['masked_bank_routing_number'] = 'masked_bank_routing_number'
+      @_hash['masked_bank_account_number'] = 'masked_bank_account_number'
       @_hash['bank_account_type'] = 'bank_account_type'
       @_hash['bank_account_holder_type'] = 'bank_account_holder_type'
       @_hash['payment_type'] = 'payment_type'
@@ -160,6 +166,7 @@ module AdvancedBilling
         billing_address_2
         bank_name
         masked_bank_routing_number
+        masked_bank_account_number
         bank_account_type
         bank_account_holder_type
         verified
@@ -181,6 +188,7 @@ module AdvancedBilling
         customer_vault_token
         billing_address_2
         masked_bank_routing_number
+        masked_bank_account_number
         site_gateway_setting_id
         gateway_handle
       ]
@@ -193,7 +201,8 @@ module AdvancedBilling
                    billing_state: SKIP, billing_zip: SKIP,
                    billing_country: SKIP, customer_vault_token: SKIP,
                    billing_address_2: SKIP, bank_name: SKIP,
-                   masked_bank_routing_number: SKIP, bank_account_type: SKIP,
+                   masked_bank_routing_number: SKIP,
+                   masked_bank_account_number: SKIP, bank_account_type: SKIP,
                    bank_account_holder_type: SKIP, verified: false,
                    site_gateway_setting_id: SKIP, gateway_handle: SKIP,
                    created_at: SKIP, updated_at: SKIP,
@@ -220,6 +229,10 @@ module AdvancedBilling
       unless masked_bank_routing_number == SKIP
         @masked_bank_routing_number =
           masked_bank_routing_number
+      end
+      unless masked_bank_account_number == SKIP
+        @masked_bank_account_number =
+          masked_bank_account_number
       end
       @bank_account_type = bank_account_type unless bank_account_type == SKIP
       @bank_account_holder_type = bank_account_holder_type unless bank_account_holder_type == SKIP
@@ -257,6 +270,8 @@ module AdvancedBilling
       bank_name = hash.key?('bank_name') ? hash['bank_name'] : SKIP
       masked_bank_routing_number =
         hash.key?('masked_bank_routing_number') ? hash['masked_bank_routing_number'] : SKIP
+      masked_bank_account_number =
+        hash.key?('masked_bank_account_number') ? hash['masked_bank_account_number'] : SKIP
       bank_account_type =
         hash.key?('bank_account_type') ? hash['bank_account_type'] : SKIP
       bank_account_holder_type =
@@ -297,6 +312,7 @@ module AdvancedBilling
                                     billing_address_2: billing_address_2,
                                     bank_name: bank_name,
                                     masked_bank_routing_number: masked_bank_routing_number,
+                                    masked_bank_account_number: masked_bank_account_number,
                                     bank_account_type: bank_account_type,
                                     bank_account_holder_type: bank_account_holder_type,
                                     verified: verified,
@@ -338,7 +354,8 @@ module AdvancedBilling
       " billing_state: #{@billing_state}, billing_zip: #{@billing_zip}, billing_country:"\
       " #{@billing_country}, customer_vault_token: #{@customer_vault_token}, billing_address_2:"\
       " #{@billing_address_2}, bank_name: #{@bank_name}, masked_bank_routing_number:"\
-      " #{@masked_bank_routing_number}, bank_account_type: #{@bank_account_type},"\
+      " #{@masked_bank_routing_number}, masked_bank_account_number:"\
+      " #{@masked_bank_account_number}, bank_account_type: #{@bank_account_type},"\
       " bank_account_holder_type: #{@bank_account_holder_type}, payment_type: #{@payment_type},"\
       " verified: #{@verified}, site_gateway_setting_id: #{@site_gateway_setting_id},"\
       " gateway_handle: #{@gateway_handle}, created_at: #{@created_at}, updated_at:"\
@@ -355,7 +372,8 @@ module AdvancedBilling
       " #{@billing_state.inspect}, billing_zip: #{@billing_zip.inspect}, billing_country:"\
       " #{@billing_country.inspect}, customer_vault_token: #{@customer_vault_token.inspect},"\
       " billing_address_2: #{@billing_address_2.inspect}, bank_name: #{@bank_name.inspect},"\
-      " masked_bank_routing_number: #{@masked_bank_routing_number.inspect}, bank_account_type:"\
+      " masked_bank_routing_number: #{@masked_bank_routing_number.inspect},"\
+      " masked_bank_account_number: #{@masked_bank_account_number.inspect}, bank_account_type:"\
       " #{@bank_account_type.inspect}, bank_account_holder_type:"\
       " #{@bank_account_holder_type.inspect}, payment_type: #{@payment_type.inspect}, verified:"\
       " #{@verified.inspect}, site_gateway_setting_id: #{@site_gateway_setting_id.inspect},"\
