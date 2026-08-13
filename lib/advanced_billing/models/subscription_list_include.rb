@@ -16,9 +16,6 @@ module AdvancedBilling
       # TODO: Write general description for CURRENT_BILLING_AMOUNT
       CURRENT_BILLING_AMOUNT = 'current_billing_amount'.freeze,
 
-      # TODO: Write general description for THREE_DS_ACTION_LINK
-      THREE_DS_ACTION_LINK = 'three_ds_action_link'.freeze,
-
       # TODO: Write general description for COUPONS
       COUPONS = 'coupons'.freeze
     ].freeze
@@ -38,7 +35,6 @@ module AdvancedBilling
       when 'self_service_page_token' then SELF_SERVICE_PAGE_TOKEN
       when 'current_account_balance_in_cents' then CURRENT_ACCOUNT_BALANCE_IN_CENTS
       when 'current_billing_amount' then CURRENT_BILLING_AMOUNT
-      when 'three_ds_action_link' then THREE_DS_ACTION_LINK
       when 'coupons' then COUPONS
       else
         default_value
