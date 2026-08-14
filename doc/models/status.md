@@ -16,3 +16,9 @@
 | `ACTIVE` |
 | `FULFILLED` |
 
+## Example
+
+```ruby
+status = Status::PENDING
+```
+

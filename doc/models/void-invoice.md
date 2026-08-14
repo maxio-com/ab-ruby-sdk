@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `reason` | `String` | Required | **Constraints**: *Minimum Length*: `1` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason2"
-}
+```ruby
+void_invoice = VoidInvoice.new(
+  reason: 'reason6'
+)
 ```
 

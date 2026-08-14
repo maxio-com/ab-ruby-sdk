@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `status` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "status": "status4"
-}
+```ruby
+replay_webhooks_response = ReplayWebhooksResponse.new(
+  status: 'status0'
+)
 ```
 

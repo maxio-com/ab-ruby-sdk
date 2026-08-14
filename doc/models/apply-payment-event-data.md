@@ -23,23 +23,23 @@ Example schema for an `apply_payment` event
 | `prepayment` | `TrueClass \| FalseClass` | Optional | - |
 | `external` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "consolidation_level": "child",
-  "memo": "memo8",
-  "original_amount": "original_amount8",
-  "applied_amount": "applied_amount4",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "payment_method": {
-    "type": "apple_pay"
-  },
-  "transaction_id": 196,
-  "parent_invoice_number": 174,
-  "remaining_prepayment_amount": "remaining_prepayment_amount6",
-  "prepayment": false,
-  "external": false
-}
+```ruby
+apply_payment_event_data = ApplyPaymentEventData.new(
+  consolidation_level: InvoiceConsolidationLevel::PARENT,
+  memo: 'memo2',
+  original_amount: 'original_amount2',
+  applied_amount: 'applied_amount0',
+  transaction_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  payment_method: PaymentMethodApplePay.new(
+    type: InvoiceEventPaymentMethod::APPLE_PAY
+  ),
+  transaction_id: 112,
+  parent_invoice_number: 2,
+  remaining_prepayment_amount: 'remaining_prepayment_amount2',
+  prepayment: false,
+  external: false
+)
 ```
 

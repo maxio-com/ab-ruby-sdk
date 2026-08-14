@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "type": "apple_pay"
-}
+```ruby
+payment_method_apple_pay = PaymentMethodApplePay.new(
+  type: InvoiceEventPaymentMethod::APPLE_PAY
+)
 ```
 

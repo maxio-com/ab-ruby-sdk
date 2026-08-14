@@ -14,7 +14,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :event
 
-    # The unique identifier for the webhooks (unique across all of Chargify).
+    # The unique identifier for the webhook (unique across all of Chargify).
     # This is not changed on a retry/replay of the same webhook, so it may be
     # used to avoid duplicate action for the same event.
     # @return [Integer]
@@ -50,9 +50,10 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :last_sent_url
 
-    # A boolean flag describing whether the webhook was accepted by the webhook
+    # “A boolean flag describing whether the webhook was accepted by the webhook
     # endpoint for the most recent attempt. (Acceptance is defined by receiving
-    # a “200 OK” HTTP response within a reasonable timeframe, i.e. 15 seconds)
+    # a “200 OK” HTTP response within a reasonable timeframe, e.g., 15
+    # seconds.)”
     # @return [TrueClass | FalseClass]
     attr_accessor :successful
 

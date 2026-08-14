@@ -17,15 +17,15 @@
 | `sales_rep_id` | `Integer` | Optional | - |
 | `sales_rep_name` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "customer_name": "customer_name8",
-  "subscription_id": 200,
-  "site_link": "site_link4",
-  "site_name": "site_name8",
-  "subscription_mrr": "subscription_mrr6"
-}
+```ruby
+sale_rep_settings = SaleRepSettings.new(
+  customer_name: 'customer_name4',
+  subscription_id: 168,
+  site_link: 'site_link0',
+  site_name: 'site_name6',
+  subscription_mrr: 'subscription_mrr2'
+)
 ```
 

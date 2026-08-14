@@ -12,12 +12,12 @@
 | `product_id` | `Integer` | Required | - |
 | `account_transaction_id` | `Integer` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_id": 42,
-  "account_transaction_id": 58
-}
+```ruby
+payment_related_events = PaymentRelatedEvents.new(
+  product_id: 208,
+  account_transaction_id: 52
+)
 ```
 

@@ -14,31 +14,31 @@ module AdvancedBilling
     attr_accessor :ip_address
 
     # Required when creating a subscription with Maxio Payments. Either
-    # terms_url or provacy_policy_url required when providing
+    # terms_url or privacy_policy_url is required when providing
     # agreement_acceptance params.
     # @return [String]
     attr_accessor :terms_url
 
     # Required when creating a subscription with Maxio Payments. Either
-    # terms_url or provacy_policy_url required when providing
+    # terms_url or privacy_policy_url is required when providing
     # agreement_acceptance params.
     # @return [String]
     attr_accessor :privacy_policy_url
 
     # Required when creating a subscription with Maxio Payments. Either
-    # terms_url or provacy_policy_url required when providing
+    # terms_url or privacy_policy_url is required when providing
     # agreement_acceptance params.
     # @return [String]
     attr_accessor :return_refund_policy_url
 
     # Required when creating a subscription with Maxio Payments. Either
-    # terms_url or provacy_policy_url required when providing
+    # terms_url or privacy_policy_url is required when providing
     # agreement_acceptance params.
     # @return [String]
     attr_accessor :delivery_policy_url
 
     # Required when creating a subscription with Maxio Payments. Either
-    # terms_url or provacy_policy_url required when providing
+    # terms_url or privacy_policy_url is required when providing
     # agreement_acceptance params.
     # @return [String]
     attr_accessor :secure_checkout_policy_url

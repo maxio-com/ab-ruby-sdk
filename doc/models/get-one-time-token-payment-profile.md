@@ -31,31 +31,31 @@
 | `customer_vault_token` | `String` | Optional | - |
 | `gateway_handle` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": "id2",
-  "first_name": "first_name2",
-  "last_name": "last_name0",
-  "masked_card_number": "masked_card_number0",
-  "card_type": "routex",
-  "expiration_month": 187.78,
-  "expiration_year": 164.44,
-  "customer_id": "customer_id0",
-  "current_vault": "braintree_blue",
-  "vault_token": "vault_token4",
-  "billing_address": "billing_address4",
-  "billing_address_2": "billing_address_24",
-  "billing_city": "billing_city0",
-  "billing_country": "billing_country6",
-  "billing_state": "billing_state6",
-  "billing_zip": "billing_zip0",
-  "payment_type": "payment_type2",
-  "disabled": false,
-  "site_gateway_setting_id": 232,
-  "customer_vault_token": "customer_vault_token0",
-  "gateway_handle": "gateway_handle4"
-}
+```ruby
+get_one_time_token_payment_profile = GetOneTimeTokenPaymentProfile.new(
+  first_name: 'first_name0',
+  last_name: 'last_name8',
+  masked_card_number: 'masked_card_number8',
+  card_type: CardType::VISA,
+  expiration_month: 114.46,
+  expiration_year: 91.12,
+  current_vault: CreditCardVault::ADYEN,
+  vault_token: 'vault_token2',
+  billing_address: 'billing_address2',
+  billing_city: 'billing_city8',
+  billing_country: 'billing_country4',
+  billing_state: 'billing_state4',
+  billing_zip: 'billing_zip8',
+  payment_type: 'payment_type0',
+  disabled: false,
+  site_gateway_setting_id: 68,
+  id: 'id0',
+  customer_id: 'customer_id8',
+  billing_address_2: 'billing_address_22',
+  customer_vault_token: 'customer_vault_token8',
+  gateway_handle: 'gateway_handle2'
+)
 ```
 

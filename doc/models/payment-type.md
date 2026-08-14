@@ -14,3 +14,9 @@
 | `PAYPAL_ACCOUNT` |
 | `APPLE_PAY` |
 
+## Example
+
+```ruby
+payment_type = PaymentType::CREDIT_CARD
+```
+

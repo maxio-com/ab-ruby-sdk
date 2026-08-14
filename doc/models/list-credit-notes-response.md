@@ -11,19 +11,19 @@
 |  --- | --- | --- | --- |
 | `credit_notes` | [`Array[CreditNote]`](../../doc/models/credit-note.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_notes": [
-    {
-      "uid": "uid2",
-      "site_id": 112,
-      "customer_id": 224,
-      "subscription_id": 40,
-      "number": "number0"
-    }
+```ruby
+list_credit_notes_response = ListCreditNotesResponse.new(
+  credit_notes: [
+    CreditNote.new(
+      uid: 'uid2',
+      site_id: 112,
+      customer_id: 224,
+      subscription_id: 40,
+      number: 'number0'
+    )
   ]
-}
+)
 ```
 

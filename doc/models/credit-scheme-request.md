@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `credit_scheme` | [`CreditScheme`](../../doc/models/credit-scheme.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_scheme": "credit"
-}
+```ruby
+credit_scheme_request = CreditSchemeRequest.new(
+  credit_scheme: CreditScheme::REFUND
+)
 ```
 

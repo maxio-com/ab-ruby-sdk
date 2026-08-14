@@ -15,15 +15,15 @@ module AdvancedBilling
     attr_accessor :credit_card_attributes
 
     # Set to the handle of a different product to change the subscription's
-    # product
+    # product.
     # @return [String]
     attr_accessor :product_handle
 
-    # Set to the id of a different product to change the subscription's product
+    # Set to the id of a different product to change the subscription's product.
     # @return [Integer]
     attr_accessor :product_id
 
-    # Set to the id of a different product to change the subscription's product
+    # Set to the id of a different product to change the subscription's product.
     # @return [TrueClass | FalseClass]
     attr_accessor :product_change_delayed
 
@@ -43,7 +43,7 @@ module AdvancedBilling
     # (Optional) Set this attribute to a future date/time to update a
     # subscription in the Awaiting Signup Date state, to Awaiting Signup. In the
     # Awaiting Signup state, a subscription behaves like any other. It can be
-    # canceled, allocated to, or have its billing date changed. etc. When the
+    # canceled, allocated to, or have its billing date changed, etc. When the
     # `initial_billing_at` date hits, the subscription will transition to the
     # expected state. If the product has a trial, the subscription will enter a
     # trial, otherwise it will go active. Setup fees will be respected either
@@ -80,6 +80,15 @@ module AdvancedBilling
     # -Subscription-States) for more information.
     # @return [DateTime]
     attr_accessor :next_billing_at
+
+    # The ID of the Branding Theme to assign to this subscription. When set,
+    # this subscription-level Branding Theme is used instead of the customer's
+    # default Branding Theme for subscription-related documents and
+    # communications that use subscription theming. Pass null or an empty value
+    # to clear the subscription-level Branding Theme. Available only when
+    # Branding Themes are enabled for the site. Not returned in the response.
+    # @return [Integer]
+    attr_accessor :branding_theme_id
 
     # Timestamp giving the expiration date of this subscription (if any). You
     # may manually change the expiration date at any point during a subscription
@@ -159,6 +168,7 @@ module AdvancedBilling
       @_hash['initial_billing_at'] = 'initial_billing_at'
       @_hash['defer_signup'] = 'defer_signup'
       @_hash['next_billing_at'] = 'next_billing_at'
+      @_hash['branding_theme_id'] = 'branding_theme_id'
       @_hash['expires_at'] = 'expires_at'
       @_hash['payment_collection_method'] = 'payment_collection_method'
       @_hash['receives_invoice_emails'] = 'receives_invoice_emails'
@@ -190,6 +200,7 @@ module AdvancedBilling
         initial_billing_at
         defer_signup
         next_billing_at
+        branding_theme_id
         expires_at
         payment_collection_method
         receives_invoice_emails
@@ -208,6 +219,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        branding_theme_id
         dunning_communication_delay_time_zone
       ]
     end
@@ -216,7 +228,8 @@ module AdvancedBilling
                    product_id: SKIP, product_change_delayed: SKIP,
                    next_product_id: SKIP, next_product_price_point_id: SKIP,
                    snap_day: SKIP, initial_billing_at: SKIP,
-                   defer_signup: false, next_billing_at: SKIP, expires_at: SKIP,
+                   defer_signup: false, next_billing_at: SKIP,
+                   branding_theme_id: SKIP, expires_at: SKIP,
                    payment_collection_method: SKIP,
                    receives_invoice_emails: SKIP, net_terms: SKIP,
                    stored_credential_transaction_id: SKIP, reference: SKIP,
@@ -243,6 +256,7 @@ module AdvancedBilling
       @initial_billing_at = initial_billing_at unless initial_billing_at == SKIP
       @defer_signup = defer_signup unless defer_signup == SKIP
       @next_billing_at = next_billing_at unless next_billing_at == SKIP
+      @branding_theme_id = branding_theme_id unless branding_theme_id == SKIP
       @expires_at = expires_at unless expires_at == SKIP
       unless payment_collection_method == SKIP
         @payment_collection_method =
@@ -302,6 +316,8 @@ module AdvancedBilling
                         else
                           SKIP
                         end
+      branding_theme_id =
+        hash.key?('branding_theme_id') ? hash['branding_theme_id'] : SKIP
       expires_at = if hash.key?('expires_at')
                      (DateTimeHelper.from_rfc3339(hash['expires_at']) if hash['expires_at'])
                    else
@@ -352,6 +368,7 @@ module AdvancedBilling
                              initial_billing_at: initial_billing_at,
                              defer_signup: defer_signup,
                              next_billing_at: next_billing_at,
+                             branding_theme_id: branding_theme_id,
                              expires_at: expires_at,
                              payment_collection_method: payment_collection_method,
                              receives_invoice_emails: receives_invoice_emails,
@@ -397,15 +414,15 @@ module AdvancedBilling
       " #{@product_change_delayed}, next_product_id: #{@next_product_id},"\
       " next_product_price_point_id: #{@next_product_price_point_id}, snap_day: #{@snap_day},"\
       " initial_billing_at: #{@initial_billing_at}, defer_signup: #{@defer_signup},"\
-      " next_billing_at: #{@next_billing_at}, expires_at: #{@expires_at},"\
-      " payment_collection_method: #{@payment_collection_method}, receives_invoice_emails:"\
-      " #{@receives_invoice_emails}, net_terms: #{@net_terms}, stored_credential_transaction_id:"\
-      " #{@stored_credential_transaction_id}, reference: #{@reference}, custom_price:"\
-      " #{@custom_price}, components: #{@components}, dunning_communication_delay_enabled:"\
-      " #{@dunning_communication_delay_enabled}, dunning_communication_delay_time_zone:"\
-      " #{@dunning_communication_delay_time_zone}, product_price_point_id:"\
-      " #{@product_price_point_id}, product_price_point_handle: #{@product_price_point_handle},"\
-      " additional_properties: #{get_additional_properties}>"
+      " next_billing_at: #{@next_billing_at}, branding_theme_id: #{@branding_theme_id},"\
+      " expires_at: #{@expires_at}, payment_collection_method: #{@payment_collection_method},"\
+      " receives_invoice_emails: #{@receives_invoice_emails}, net_terms: #{@net_terms},"\
+      " stored_credential_transaction_id: #{@stored_credential_transaction_id}, reference:"\
+      " #{@reference}, custom_price: #{@custom_price}, components: #{@components},"\
+      " dunning_communication_delay_enabled: #{@dunning_communication_delay_enabled},"\
+      " dunning_communication_delay_time_zone: #{@dunning_communication_delay_time_zone},"\
+      " product_price_point_id: #{@product_price_point_id}, product_price_point_handle:"\
+      " #{@product_price_point_handle}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -416,15 +433,16 @@ module AdvancedBilling
       " #{@product_change_delayed.inspect}, next_product_id: #{@next_product_id.inspect},"\
       " next_product_price_point_id: #{@next_product_price_point_id.inspect}, snap_day:"\
       " #{@snap_day.inspect}, initial_billing_at: #{@initial_billing_at.inspect}, defer_signup:"\
-      " #{@defer_signup.inspect}, next_billing_at: #{@next_billing_at.inspect}, expires_at:"\
-      " #{@expires_at.inspect}, payment_collection_method: #{@payment_collection_method.inspect},"\
-      " receives_invoice_emails: #{@receives_invoice_emails.inspect}, net_terms:"\
-      " #{@net_terms.inspect}, stored_credential_transaction_id:"\
-      " #{@stored_credential_transaction_id.inspect}, reference: #{@reference.inspect},"\
-      " custom_price: #{@custom_price.inspect}, components: #{@components.inspect},"\
-      " dunning_communication_delay_enabled: #{@dunning_communication_delay_enabled.inspect},"\
-      " dunning_communication_delay_time_zone: #{@dunning_communication_delay_time_zone.inspect},"\
-      " product_price_point_id: #{@product_price_point_id.inspect}, product_price_point_handle:"\
+      " #{@defer_signup.inspect}, next_billing_at: #{@next_billing_at.inspect}, branding_theme_id:"\
+      " #{@branding_theme_id.inspect}, expires_at: #{@expires_at.inspect},"\
+      " payment_collection_method: #{@payment_collection_method.inspect}, receives_invoice_emails:"\
+      " #{@receives_invoice_emails.inspect}, net_terms: #{@net_terms.inspect},"\
+      " stored_credential_transaction_id: #{@stored_credential_transaction_id.inspect}, reference:"\
+      " #{@reference.inspect}, custom_price: #{@custom_price.inspect}, components:"\
+      " #{@components.inspect}, dunning_communication_delay_enabled:"\
+      " #{@dunning_communication_delay_enabled.inspect}, dunning_communication_delay_time_zone:"\
+      " #{@dunning_communication_delay_time_zone.inspect}, product_price_point_id:"\
+      " #{@product_price_point_id.inspect}, product_price_point_handle:"\
       " #{@product_price_point_handle.inspect}, additional_properties:"\
       " #{get_additional_properties}>"
     end

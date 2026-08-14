@@ -14,14 +14,14 @@
 | `total_pages` | `Integer` | Optional | - |
 | `status_code` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_count": 226,
-  "current_page": 202,
-  "total_pages": 214,
-  "status_code": 244
-}
+```ruby
+list_proforma_invoices_meta = ListProformaInvoicesMeta.new(
+  total_count: 84,
+  current_page: 60,
+  total_pages: 72,
+  status_code: 102
+)
 ```
 

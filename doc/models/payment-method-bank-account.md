@@ -13,13 +13,13 @@
 | `masked_routing_number` | `String` | Required | - |
 | `type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "masked_account_number": "masked_account_number2",
-  "masked_routing_number": "masked_routing_number2",
-  "type": "bank_account"
-}
+```ruby
+payment_method_bank_account = PaymentMethodBankAccount.new(
+  masked_account_number: 'masked_account_number6',
+  masked_routing_number: 'masked_routing_number6',
+  type: InvoiceEventPaymentMethod::BANK_ACCOUNT
+)
 ```
 

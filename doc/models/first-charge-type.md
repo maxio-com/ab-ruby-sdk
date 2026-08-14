@@ -13,3 +13,9 @@
 | `IMMEDIATE` |
 | `DELAYED` |
 
+## Example
+
+```ruby
+first_charge_type = FirstChargeType::IMMEDIATE
+```
+

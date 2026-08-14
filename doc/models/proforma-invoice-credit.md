@@ -14,14 +14,14 @@
 | `original_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `applied_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "memo": "memo2",
-  "original_amount": "original_amount2",
-  "applied_amount": "applied_amount0"
-}
+```ruby
+proforma_invoice_credit = ProformaInvoiceCredit.new(
+  uid: 'uid0',
+  memo: 'memo4',
+  original_amount: 'original_amount4',
+  applied_amount: 'applied_amount8'
+)
 ```
 

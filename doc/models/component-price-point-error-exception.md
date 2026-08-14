@@ -11,22 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [`Array[ComponentPricePointErrorItem]`](../../doc/models/component-price-point-error-item.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    {
-      "component_id": 236,
-      "message": "message0",
-      "price_point": 122
-    },
-    {
-      "component_id": 236,
-      "message": "message0",
-      "price_point": 122
-    }
-  ]
-}
+```ruby
+begin
+  # make the API call
+rescue ComponentPricePointErrorException => e
+  puts "Caught ComponentPricePointErrorException: #{e.message}"
+end
 ```
 

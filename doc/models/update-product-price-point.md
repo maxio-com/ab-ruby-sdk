@@ -12,12 +12,12 @@
 | `handle` | `String` | Optional | - |
 | `price_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "handle": "handle6",
-  "price_in_cents": 220
-}
+```ruby
+update_product_price_point = UpdateProductPricePoint.new(
+  handle: 'handle2',
+  price_in_cents: 190
+)
 ```
 

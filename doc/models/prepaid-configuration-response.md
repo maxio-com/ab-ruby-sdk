@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `prepaid_configuration` | [`PrepaidConfiguration`](../../doc/models/prepaid-configuration.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepaid_configuration": {
-    "id": 142,
-    "initial_funding_amount_in_cents": 74,
-    "replenish_to_amount_in_cents": 76,
-    "auto_replenish": false,
-    "replenish_threshold_amount_in_cents": 20
-  }
-}
+```ruby
+prepaid_configuration_response = PrepaidConfigurationResponse.new(
+  prepaid_configuration: PrepaidConfiguration.new(
+    id: 142,
+    initial_funding_amount_in_cents: 74,
+    replenish_to_amount_in_cents: 76,
+    auto_replenish: false,
+    replenish_threshold_amount_in_cents: 20
+  )
+)
 ```
 

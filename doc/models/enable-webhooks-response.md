@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `webhooks_enabled` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "webhooks_enabled": false
-}
+```ruby
+enable_webhooks_response = EnableWebhooksResponse.new(
+  webhooks_enabled: false
+)
 ```
 

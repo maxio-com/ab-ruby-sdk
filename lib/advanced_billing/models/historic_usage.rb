@@ -5,8 +5,8 @@
 
 require 'date'
 module AdvancedBilling
-  # Optional for Event Based Components. If the `include=historic_usages` query
-  # param is provided, the last ten billing periods will be returned.
+  # (Optional) For Event Based Components. If the `include=historic_usages`
+  # query param is provided, the last ten billing periods will be returned.
   class HistoricUsage < BaseModel
     SKIP = Object.new
     private_constant :SKIP

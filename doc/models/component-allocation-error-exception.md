@@ -11,30 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [`Array[ComponentAllocationErrorItem]`](../../doc/models/component-allocation-error-item.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    {
-      "component_id": 236,
-      "message": "message0",
-      "kind": "kind8",
-      "on": "on0"
-    },
-    {
-      "component_id": 236,
-      "message": "message0",
-      "kind": "kind8",
-      "on": "on0"
-    },
-    {
-      "component_id": 236,
-      "message": "message0",
-      "kind": "kind8",
-      "on": "on0"
-    }
-  ]
-}
+```ruby
+begin
+  # make the API call
+rescue ComponentAllocationErrorException => e
+  puts "Caught ComponentAllocationErrorException: #{e.message}"
+end
 ```
 

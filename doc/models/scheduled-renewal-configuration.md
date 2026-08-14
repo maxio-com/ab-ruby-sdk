@@ -20,15 +20,15 @@
 | `scheduled_renewal_configuration_items` | [`Array[ScheduledRenewalConfigurationItem]`](../../doc/models/scheduled-renewal-configuration-item.md) | Optional | - |
 | `contract` | [`Contract`](../../doc/models/contract.md) | Optional | Contract linked to the scheduled renewal configuration. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 152,
-  "site_id": 78,
-  "subscription_id": 6,
-  "starts_at": "2016-03-13T12:52:32.123Z",
-  "ends_at": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+scheduled_renewal_configuration = ScheduledRenewalConfiguration.new(
+  id: 134,
+  site_id: 60,
+  subscription_id: 244,
+  starts_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  ends_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

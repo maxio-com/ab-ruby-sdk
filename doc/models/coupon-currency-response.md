@@ -11,30 +11,30 @@
 |  --- | --- | --- | --- |
 | `currency_prices` | [`Array[CouponCurrency]`](../../doc/models/coupon-currency.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "id": 50,
-      "currency": "currency8",
-      "price": 233.74,
-      "coupon_id": 224
-    },
-    {
-      "id": 50,
-      "currency": "currency8",
-      "price": 233.74,
-      "coupon_id": 224
-    },
-    {
-      "id": 50,
-      "currency": "currency8",
-      "price": 233.74,
-      "coupon_id": 224
-    }
+```ruby
+coupon_currency_response = CouponCurrencyResponse.new(
+  currency_prices: [
+    CouponCurrency.new(
+      id: 50,
+      currency: 'currency8',
+      price: 233.74,
+      coupon_id: 224
+    ),
+    CouponCurrency.new(
+      id: 50,
+      currency: 'currency8',
+      price: 233.74,
+      coupon_id: 224
+    ),
+    CouponCurrency.new(
+      id: 50,
+      currency: 'currency8',
+      price: 233.74,
+      coupon_id: 224
+    )
   ]
-}
+)
 ```
 

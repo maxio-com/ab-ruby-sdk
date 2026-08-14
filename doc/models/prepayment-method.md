@@ -17,3 +17,9 @@
 | `CREDIT_CARD` |
 | `OTHER` |
 
+## Example
+
+```ruby
+prepayment_method = PrepaymentMethod::CASH
+```
+

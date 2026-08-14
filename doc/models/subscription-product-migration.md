@@ -19,16 +19,16 @@
 | `product_price_point_handle` | `String` | Optional | The ID or handle of the specified product's price point. This can be passed to migrate to a non-default price point. |
 | `proration` | [`Proration`](../../doc/models/proration.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "include_trial": false,
-  "include_initial_charge": false,
-  "include_coupons": true,
-  "preserve_period": false,
-  "product_id": 8,
-  "product_price_point_id": 172
-}
+```ruby
+subscription_product_migration = SubscriptionProductMigration.new(
+  product_id: 234,
+  product_price_point_id: 158,
+  include_trial: false,
+  include_initial_charge: false,
+  include_coupons: true,
+  preserve_period: false
+)
 ```
 

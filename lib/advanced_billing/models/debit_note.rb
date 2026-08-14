@@ -26,7 +26,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :subscription_id
 
-    # A unique, identifier that appears on the debit note and in places it is
+    # A unique identifier that appears on the debit note and in places it is
     # referenced.
     # @return [Integer]
     attr_accessor :number
@@ -44,7 +44,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :origin_credit_note_uid
 
-    # A unique, identifying string of the connected credit note.
+    # A unique identifying string of the connected credit note.
     # @return [String]
     attr_accessor :origin_credit_note_number
 
@@ -88,8 +88,8 @@ module AdvancedBilling
     # @return [InvoiceSeller]
     attr_accessor :seller
 
-    # Information about the customer who is owner or recipient the debited
-    # subscription.
+    # Information about the customer who is the owner or recipient of the
+    # debited subscription.
     # @return [InvoiceCustomer]
     attr_accessor :customer
 

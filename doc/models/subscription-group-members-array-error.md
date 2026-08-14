@@ -11,13 +11,13 @@
 |  --- | --- | --- | --- |
 | `members` | `Array[String]` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "members": [
-    "members6"
+```ruby
+subscription_group_members_array_error = SubscriptionGroupMembersArrayError.new(
+  members: [
+    'members2'
   ]
-}
+)
 ```
 

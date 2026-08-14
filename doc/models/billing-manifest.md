@@ -19,37 +19,37 @@
 | `period_type` | `String` | Optional | - |
 | `existing_balance_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "line_items": [
-    {
-      "transaction_type": "credit",
-      "kind": "component",
-      "amount_in_cents": 24,
-      "memo": "memo2",
-      "discount_amount_in_cents": 172
-    },
-    {
-      "transaction_type": "credit",
-      "kind": "component",
-      "amount_in_cents": 24,
-      "memo": "memo2",
-      "discount_amount_in_cents": 172
-    },
-    {
-      "transaction_type": "credit",
-      "kind": "component",
-      "amount_in_cents": 24,
-      "memo": "memo2",
-      "discount_amount_in_cents": 172
-    }
+```ruby
+billing_manifest = BillingManifest.new(
+  line_items: [
+    BillingManifestItem.new(
+      transaction_type: LineItemTransactionType::CREDIT,
+      kind: BillingManifestLineItemKind::COMPONENT,
+      amount_in_cents: 24,
+      memo: 'memo2',
+      discount_amount_in_cents: 172
+    ),
+    BillingManifestItem.new(
+      transaction_type: LineItemTransactionType::CREDIT,
+      kind: BillingManifestLineItemKind::COMPONENT,
+      amount_in_cents: 24,
+      memo: 'memo2',
+      discount_amount_in_cents: 172
+    ),
+    BillingManifestItem.new(
+      transaction_type: LineItemTransactionType::CREDIT,
+      kind: BillingManifestLineItemKind::COMPONENT,
+      amount_in_cents: 24,
+      memo: 'memo2',
+      discount_amount_in_cents: 172
+    )
   ],
-  "total_in_cents": 192,
-  "total_discount_in_cents": 178,
-  "total_tax_in_cents": 172,
-  "subtotal_in_cents": 48
-}
+  total_in_cents: 6,
+  total_discount_in_cents: 8,
+  total_tax_in_cents: 242,
+  subtotal_in_cents: 118
+)
 ```
 

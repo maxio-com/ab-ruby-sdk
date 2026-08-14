@@ -14,3 +14,9 @@ Used for sorting results.
 | `ASC` |
 | `DESC` |
 
+## Example
+
+```ruby
+sorting_direction = SortingDirection::ASC
+```
+

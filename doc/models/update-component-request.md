@@ -11,18 +11,18 @@
 |  --- | --- | --- | --- |
 | `component` | [`UpdateComponent`](../../doc/models/update-component.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component": {
-    "item_category": "Business Software",
-    "handle": "handle4",
-    "name": "name8",
-    "description": "description2",
-    "accounting_code": "accounting_code4",
-    "taxable": false
-  }
-}
+```ruby
+update_component_request = UpdateComponentRequest.new(
+  component: UpdateComponent.new(
+    handle: 'handle4',
+    name: 'name8',
+    description: 'description2',
+    accounting_code: 'accounting_code4',
+    taxable: false,
+    item_category: ItemCategory::ENUM_BUSINESS_SOFTWARE
+  )
+)
 ```
 

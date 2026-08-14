@@ -13,13 +13,14 @@ The error is base if it is not directly associated with a single attribute.
 |  --- | --- | --- | --- |
 | `base` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "base": [
-    "base3"
+```ruby
+base_string_error = BaseStringError.new(
+  base: [
+    'base3',
+    'base4'
   ]
-}
+)
 ```
 

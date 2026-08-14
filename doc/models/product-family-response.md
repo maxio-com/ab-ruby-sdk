@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `product_family` | [`ProductFamily`](../../doc/models/product-family.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_family": {
-    "id": 14,
-    "name": "name0",
-    "handle": "handle6",
-    "accounting_code": "accounting_code6",
-    "description": "description0"
-  }
-}
+```ruby
+product_family_response = ProductFamilyResponse.new(
+  product_family: ProductFamily.new(
+    id: 14,
+    name: 'name0',
+    handle: 'handle6',
+    accounting_code: 'accounting_code6',
+    description: 'description0'
+  )
+)
 ```
 

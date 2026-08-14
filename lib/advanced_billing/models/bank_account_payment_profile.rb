@@ -12,7 +12,7 @@ module AdvancedBilling
 
     # The Chargify-assigned ID of the stored bank account. This value can be
     # used as an input to payment_profile_id when creating a subscription, in
-    # order to re-use a stored payment profile for the same customer
+    # order to re-use a stored payment profile for the same customer.
     # @return [Integer]
     attr_accessor :id
 
@@ -24,7 +24,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :last_name
 
-    # The Chargify-assigned id for the customer record to which the bank account
+    # The Chargify-assigned ID for the customer record to which the bank account
     # belongs
     # @return [Integer]
     attr_accessor :customer_id
@@ -74,12 +74,12 @@ module AdvancedBilling
 
     # A string representation of the stored bank routing number with all but the
     # last 4 digits marked with X's (i.e. 'XXXXXXX1111'). payment_type will be
-    # bank_account
+    # bank_account.
     # @return [String]
     attr_accessor :masked_bank_routing_number
 
     # A string representation of the stored bank account number with all but the
-    # last 4 digits marked with X's (i.e. 'XXXXXXX1111')
+    # last 4 digits marked with X's (i.e. 'XXXXXXX1111').
     # @return [String]
     attr_accessor :masked_bank_account_number
 
@@ -95,18 +95,18 @@ module AdvancedBilling
     # @return [PaymentType]
     attr_accessor :payment_type
 
-    # denotes whether a bank account has been verified by providing the amounts
-    # of two small deposits made into the account
+    # Denotes whether a bank account has been verified by providing the amounts
+    # of two small deposits made into the account.
     # @return [TrueClass | FalseClass]
     attr_accessor :verified
 
-    # denotes whether a bank account has been verified by providing the amounts
-    # of two small deposits made into the account
+    # Denotes whether a bank account has been verified by providing the amounts
+    # of two small deposits made into the account.
     # @return [Integer]
     attr_accessor :site_gateway_setting_id
 
-    # denotes whether a bank account has been verified by providing the amounts
-    # of two small deposits made into the account
+    # Denotes whether a bank account has been verified by providing the amounts
+    # of two small deposits made into the account.
     # @return [String]
     attr_accessor :gateway_handle
 

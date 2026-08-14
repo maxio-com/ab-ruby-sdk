@@ -13,13 +13,13 @@
 | `handle` | `String` | Optional | - |
 | `name` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 192,
-  "handle": "handle6",
-  "name": "name0"
-}
+```ruby
+item_price_point_data = ItemPricePointData.new(
+  id: 180,
+  handle: 'handle2',
+  name: 'name6'
+)
 ```
 

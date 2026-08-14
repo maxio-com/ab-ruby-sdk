@@ -10,14 +10,14 @@ module AdvancedBilling
     private_constant :SKIP
 
     # A name for this component that is suitable for showing customers and
-    # displaying on billing statements, ie. "Minutes".
+    # displaying on billing statements, i.e., "Minutes".
     # @return [String]
     attr_accessor :name
 
-    # The name of the unit of measurement for the component. It should be
-    # singular since it will be automatically pluralized when necessary. i.e.
+    # “The name of the unit of measurement for the component. It should be
+    # singular since it will be automatically pluralized when necessary. i.e.,
     # “message”, which may then be shown as “5 messages” on a subscription’s
-    # component line-item
+    # component line-item”
     # @return [String]
     attr_accessor :unit_name
 
@@ -27,7 +27,7 @@ module AdvancedBilling
     attr_accessor :description
 
     # A unique identifier for your use that can be used to retrieve this
-    # component is subsequent requests.  Must start with a letter or number and
+    # component in subsequent requests. Must start with a letter or number and
     # may only contain lowercase letters, numbers, or the characters '.', ':',
     # '-', or '_'.
     # @return [String]
@@ -60,7 +60,7 @@ module AdvancedBilling
     attr_accessor :price_points
 
     # The amount the customer will be charged per unit when the pricing scheme
-    # is “per_unit”. The price can contain up to 8 decimal places. i.e. 1.00 or
+    # is “per_unit”. The price can contain up to 8 decimal places. i.e., 1.00 or
     # 0.0012 or 0.00000065
     # @return [Object]
     attr_accessor :unit_price
@@ -82,7 +82,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :event_based_billing_metric_id
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # The numerical interval. i.e., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component's default price point would
     # renew every 30 days. This property is only available for sites with
     # Multifrequency enabled.
@@ -94,6 +94,12 @@ module AdvancedBilling
     # Multifrequency enabled.
     # @return [IntervalUnit]
     attr_accessor :interval_unit
+
+    # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
+    # When set, this value is sent as the commodity code on invoice line items
+    # for this component instead of the default derived from item_category.
+    # @return [String]
+    attr_accessor :unspsc_code
 
     # A mapping from model property names to API property names.
     def self.names
@@ -113,6 +119,7 @@ module AdvancedBilling
         'event_based_billing_metric_id'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
+      @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
 
@@ -129,6 +136,7 @@ module AdvancedBilling
         hide_date_range_on_invoice
         interval
         interval_unit
+        unspsc_code
       ]
     end
 
@@ -136,6 +144,7 @@ module AdvancedBilling
     def self.nullables
       %w[
         interval_unit
+        unspsc_code
       ]
     end
 
@@ -144,7 +153,8 @@ module AdvancedBilling
                    handle: SKIP, taxable: SKIP, prices: SKIP,
                    price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
                    hide_date_range_on_invoice: SKIP, interval: SKIP,
-                   interval_unit: SKIP, additional_properties: {})
+                   interval_unit: SKIP, unspsc_code: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -167,6 +177,7 @@ module AdvancedBilling
       @event_based_billing_metric_id = event_based_billing_metric_id
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
+      @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -211,6 +222,7 @@ module AdvancedBilling
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
+      unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -230,6 +242,7 @@ module AdvancedBilling
                        hide_date_range_on_invoice: hide_date_range_on_invoice,
                        interval: interval,
                        interval_unit: interval_unit,
+                       unspsc_code: unspsc_code,
                        additional_properties: additional_properties)
     end
 
@@ -271,7 +284,8 @@ module AdvancedBilling
       " #{@prices}, price_points: #{@price_points}, unit_price: #{@unit_price}, tax_code:"\
       " #{@tax_code}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice},"\
       " event_based_billing_metric_id: #{@event_based_billing_metric_id}, interval: #{@interval},"\
-      " interval_unit: #{@interval_unit}, additional_properties: #{get_additional_properties}>"
+      " interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -283,8 +297,8 @@ module AdvancedBilling
       " #{@price_points.inspect}, unit_price: #{@unit_price.inspect}, tax_code:"\
       " #{@tax_code.inspect}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect},"\
       " event_based_billing_metric_id: #{@event_based_billing_metric_id.inspect}, interval:"\
-      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, unspsc_code:"\
+      " #{@unspsc_code.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

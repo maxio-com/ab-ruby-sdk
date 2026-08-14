@@ -11,13 +11,13 @@
 |  --- | --- | --- | --- |
 | `subscription` | `Array[String]` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": [
-    "subscription0"
-  ]
-}
+```ruby
+begin
+  # make the API call
+rescue SubscriptionRemoveCouponErrorsException => e
+  puts "Caught SubscriptionRemoveCouponErrorsException: #{e.message}"
+end
 ```
 

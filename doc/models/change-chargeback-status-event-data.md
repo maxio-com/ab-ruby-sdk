@@ -13,11 +13,11 @@ Example schema for an `change_chargeback_status` event
 |  --- | --- | --- | --- |
 | `chargeback_status` | [`ChargebackStatus`](../../doc/models/chargeback-status.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargeback_status": "open"
-}
+```ruby
+change_chargeback_status_event_data = ChangeChargebackStatusEventData.new(
+  chargeback_status: ChargebackStatus::OPEN
+)
 ```
 

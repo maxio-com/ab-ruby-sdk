@@ -25,7 +25,7 @@ module AdvancedBilling
     attr_accessor :last_name
 
     # A string representation of the credit card number with all but the last 4
-    # digits masked with X’s (i.e. ‘XXXX-XXXX-XXXX-1234’).
+    # digits masked with X’s (e.g., ‘XXXX-XXXX-XXXX-1234’).
     # @return [String]
     attr_accessor :masked_card_number
 
@@ -37,7 +37,7 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :expiration_month
 
-    # An integer representing the 4-digit expiration year of the card(i.e.
+    # An integer representing the 4-digit expiration year of the card(e.g.,
     # ‘2012’).
     # @return [Integer]
     attr_accessor :expiration_year
@@ -96,13 +96,13 @@ module AdvancedBilling
 
     # Token received after sending billing information using Maxio.js (formerly
     # Chargify.js). This token will only be received if passed as a sole
-    # attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+    # attribute of credit_card_attributes (e.g., tok_9g6hw85pnpt6knmskpwp4ttt).
     # @return [String]
     attr_accessor :chargify_token
 
     # Token received after sending billing information using Maxio.js (formerly
     # Chargify.js). This token will only be received if passed as a sole
-    # attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+    # attribute of credit_card_attributes (e.g., tok_9g6hw85pnpt6knmskpwp4ttt).
     # @return [Integer]
     attr_accessor :site_gateway_setting_id
 
@@ -180,6 +180,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        card_type
         vault_token
         billing_address
         billing_city

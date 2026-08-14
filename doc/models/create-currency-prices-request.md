@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `currency_prices` | [`Array[CreateCurrencyPrice]`](../../doc/models/create-currency-price.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "currency": "currency8",
-      "price": 233.74,
-      "price_id": 116
-    }
+```ruby
+create_currency_prices_request = CreateCurrencyPricesRequest.new(
+  currency_prices: [
+    CreateCurrencyPrice.new(
+      currency: 'currency8',
+      price: 233.74,
+      price_id: 116
+    )
   ]
-}
+)
 ```
 

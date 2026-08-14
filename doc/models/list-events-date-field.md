@@ -13,7 +13,7 @@
 
 ## Example
 
-```
-created_at
+```ruby
+list_events_date_field = ListEventsDateField::CREATED_AT
 ```
 

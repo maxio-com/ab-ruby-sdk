@@ -22,15 +22,15 @@
 | `product_price_point_id` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 | `description` | `String` | Optional | **Constraints**: *Maximum Length*: `255` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "title": "title2",
-  "quantity": 154.86,
-  "unit_price": 138.08,
-  "taxable": false,
-  "tax_code": "tax_code4"
-}
+```ruby
+create_invoice_item = CreateInvoiceItem.new(
+  title: 'title2',
+  quantity: 163.26,
+  unit_price: 146.48,
+  taxable: false,
+  tax_code: 'tax_code4'
+)
 ```
 

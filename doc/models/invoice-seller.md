@@ -16,20 +16,20 @@ Information about the seller (merchant) listed on the masthead of the invoice.
 | `phone` | `String` | Optional | - |
 | `logo_url` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name0",
-  "address": {
-    "street": "street6",
-    "line2": "line20",
-    "city": "city6",
-    "state": "state2",
-    "zip": "zip0"
-  },
-  "phone": "phone0",
-  "logo_url": "logo_url0"
-}
+```ruby
+invoice_seller = InvoiceSeller.new(
+  name: 'name2',
+  address: InvoiceAddress.new(
+    street: 'street6',
+    line2: 'line20',
+    city: 'city6',
+    state: 'state2',
+    zip: 'zip0'
+  ),
+  phone: 'phone2',
+  logo_url: 'logo_url2'
+)
 ```
 

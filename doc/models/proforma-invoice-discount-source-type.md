@@ -12,3 +12,9 @@
 | `COUPON` |
 | `REFERRAL` |
 
+## Example
+
+```ruby
+proforma_invoice_discount_source_type = ProformaInvoiceDiscountSourceType::COUPON
+```
+

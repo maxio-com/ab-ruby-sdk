@@ -126,7 +126,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns created endpoints for a site.
+    # Lists endpoints configured for a site.
     # @return [Array[Endpoint]] Response from the API call.
     def list_endpoints
       @api_call

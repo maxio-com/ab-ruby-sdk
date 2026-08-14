@@ -30,15 +30,15 @@
 | `billing_schedule_item_id` | `Integer` | Optional | - |
 | `custom_item` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "title": "title0",
-  "description": "description6",
-  "quantity": 40,
-  "quantity_delta": 114
-}
+```ruby
+invoice_line_item_event_data = InvoiceLineItemEventData.new(
+  uid: 'uid0',
+  title: 'title6',
+  description: 'description0',
+  quantity: 188,
+  quantity_delta: 34
+)
 ```
 

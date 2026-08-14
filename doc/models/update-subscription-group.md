@@ -11,15 +11,14 @@
 |  --- | --- | --- | --- |
 | `member_ids` | `Array[Integer]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "member_ids": [
-    52,
-    53,
-    54
+```ruby
+update_subscription_group = UpdateSubscriptionGroup.new(
+  member_ids: [
+    54,
+    55
   ]
-}
+)
 ```
 

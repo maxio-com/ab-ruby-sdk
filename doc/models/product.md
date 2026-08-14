@@ -13,18 +13,18 @@
 | `name` | `String` | Optional | The product name |
 | `handle` | `String` | Optional | The product API handle |
 | `description` | `String` | Optional | The product description |
-| `accounting_code` | `String` | Optional | E.g. Internal ID or SKU Number |
+| `accounting_code` | `String` | Optional | E.g., Internal ID or SKU Number |
 | `request_credit_card` | `TrueClass \| FalseClass` | Optional | Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup Page users, read this attribute from under the signup page. |
-| `expiration_interval` | `Integer` | Optional | A numerical interval for the length a subscription to this product will run before it expires. See the description of interval for a description of how this value is coupled with an interval unit to calculate the full interval |
+| `expiration_interval` | `Integer` | Optional | A numerical interval for the length a subscription to this product will run before it expires. See the description of interval for a description of how this value is coupled with an interval unit to calculate the full interval. |
 | `expiration_interval_unit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | A string representing the expiration interval unit for this product, either month, day or never |
 | `created_at` | `DateTime` | Optional | Timestamp indicating when this product was created |
 | `updated_at` | `DateTime` | Optional | Timestamp indicating when this product was last updated |
 | `price_in_cents` | `Integer` | Optional | The product price, in integer cents |
-| `interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this product would renew every 30 days |
+| `interval` | `Integer` | Optional | The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would mean this product would renew every 30 days. |
 | `interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this product, either month or day |
 | `initial_charge_in_cents` | `Integer` | Optional | The up front charge you have specified. |
 | `trial_price_in_cents` | `Integer` | Optional | The price of the trial period for a subscription to this product, in integer cents. |
-| `trial_interval` | `Integer` | Optional | A numerical interval for the length of the trial period of a subscription to this product. See the description of interval for a description of how this value is coupled with an interval unit to calculate the full interval |
+| `trial_interval` | `Integer` | Optional | A numerical interval for the length of the trial period of a subscription to this product. See the description of interval for a description of how this value is coupled with an interval unit to calculate the full interval. |
 | `trial_interval_unit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the trial interval unit for this product, either month or day |
 | `archived_at` | `DateTime` | Optional | Timestamp indicating when this product was archived |
 | `require_credit_card` | `TrueClass \| FalseClass` | Optional | Boolean that controls whether a payment profile is required to be entered for customers wishing to sign up on this product. |
@@ -33,7 +33,7 @@
 | `update_return_url` | `String` | Optional | The url to which a customer will be returned after a successful account update |
 | `initial_charge_after_trial` | `TrueClass \| FalseClass` | Optional | - |
 | `version_number` | `Integer` | Optional | The version of the product |
-| `update_return_params` | `String` | Optional | The parameters will append to the url after a successful account update. See [help documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update) |
+| `update_return_params` | `String` | Optional | The parameters will append to the url after a successful account update. See [help documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update). |
 | `product_family` | [`ProductFamily`](../../doc/models/product-family.md) | Optional | - |
 | `public_signup_pages` | [`Array[PublicSignupPage]`](../../doc/models/public-signup-page.md) | Optional | - |
 | `product_price_point_name` | `String` | Optional | - |
@@ -46,16 +46,17 @@
 | `item_category` | `String` | Optional | One of the following: Business Software, Consumer Software, Digital Services, Physical Goods, Other |
 | `product_price_point_id` | `Integer` | Optional | - |
 | `product_price_point_handle` | `String` | Optional | - |
+| `unspsc_code` | `String` | Optional | (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value is sent as the commodity code on invoice line items for this product instead of the default derived from item_category. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 180,
-  "name": "name4",
-  "handle": "handle0",
-  "description": "description4",
-  "accounting_code": "accounting_code0"
-}
+```ruby
+product = Product.new(
+  id: 134,
+  name: 'name0',
+  handle: 'handle6',
+  description: 'description0',
+  accounting_code: 'accounting_code6'
+)
 ```
 

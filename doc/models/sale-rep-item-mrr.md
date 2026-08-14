@@ -13,13 +13,13 @@
 | `usage` | `String` | Optional | - |
 | `recurring` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "mrr": "mrr2",
-  "usage": "usage0",
-  "recurring": "recurring4"
-}
+```ruby
+sale_rep_item_mrr = SaleRepItemMrr.new(
+  mrr: 'mrr8',
+  usage: 'usage4',
+  recurring: 'recurring0'
+)
 ```
 

@@ -20,15 +20,15 @@
 | `total_revenue_in_cents` | `Integer` | Optional | - |
 | `balance_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 16,
-  "reference": "reference8",
-  "product_id": 214,
-  "product_handle": "product_handle4",
-  "product_price_point_id": 138
-}
+```ruby
+subscription_group_item = SubscriptionGroupItem.new(
+  id: 214,
+  reference: 'reference2',
+  product_id: 156,
+  product_handle: 'product_handle6',
+  product_price_point_id: 80
+)
 ```
 

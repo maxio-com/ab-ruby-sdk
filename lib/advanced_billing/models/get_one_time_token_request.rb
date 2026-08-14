@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [GetOneTimeTokenPaymentProfile]
+    # @return [Object]
     attr_accessor :payment_profile
 
     # A mapping from model property names to API property names.
@@ -44,8 +44,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      payment_profile = GetOneTimeTokenPaymentProfile.from_hash(hash['payment_profile']) if
-        hash['payment_profile']
+      payment_profile = hash.key?('payment_profile') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:GetOneTimeTokenRequestPaymentProfile), hash['payment_profile']
+      ) : nil
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -53,6 +54,20 @@ module AdvancedBilling
       # Create object from extracted values.
       GetOneTimeTokenRequest.new(payment_profile: payment_profile,
                                  additional_properties: additional_properties)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [GetOneTimeTokenRequest | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return UnionTypeLookUp.get(:GetOneTimeTokenRequestPaymentProfile)
+                              .validate(value.payment_profile)
+      end
+
+      return false unless value.instance_of? Hash
+
+      UnionTypeLookUp.get(:GetOneTimeTokenRequestPaymentProfile)
+                     .validate(value['payment_profile'])
     end
 
     # Provides a human-readable string representation of the object.

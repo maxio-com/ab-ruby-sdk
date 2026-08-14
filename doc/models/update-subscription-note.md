@@ -14,12 +14,12 @@ Updatable fields for Subscription Note
 | `body` | `String` | Required | - |
 | `sticky` | `TrueClass \| FalseClass` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "body": "body8",
-  "sticky": false
-}
+```ruby
+update_subscription_note = UpdateSubscriptionNote.new(
+  body: 'body8',
+  sticky: false
+)
 ```
 

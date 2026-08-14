@@ -12,12 +12,12 @@
 | `label` | `String` | Optional | - |
 | `amount` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "label": "label0",
-  "amount": "amount2"
-}
+```ruby
+invoice_line_item_pricing_detail = InvoiceLineItemPricingDetail.new(
+  label: 'label0',
+  amount: 'amount2'
+)
 ```
 

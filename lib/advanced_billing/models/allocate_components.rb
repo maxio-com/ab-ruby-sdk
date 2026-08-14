@@ -36,7 +36,7 @@ module AdvancedBilling
     attr_accessor :downgrade_credit
 
     # (Optional) If not passed, the allocation(s) will use the payment
-    # collection method on the subscription
+    # collection method on the subscription.
     # @return [CollectionMethod]
     attr_accessor :payment_collection_method
 

@@ -12,12 +12,12 @@
 | `component_id` | `Integer` | Optional | - |
 | `price_point` | String \| Integer \| nil | Optional | This is a container for one-of cases. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": 114,
-  "price_point": "String9"
-}
+```ruby
+component_price_point_assignment = ComponentPricePointAssignment.new(
+  component_id: 122,
+  price_point: 'String5'
+)
 ```
 

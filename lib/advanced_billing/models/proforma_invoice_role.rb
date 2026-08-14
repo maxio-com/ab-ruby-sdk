@@ -5,7 +5,7 @@
 
 module AdvancedBilling
   # 'proforma' value is deprecated in favor of proforma_adhoc and
-  # proforma_automatic
+  # proforma_automatic.
   class ProformaInvoiceRole
     PROFORMA_INVOICE_ROLE = [
       # TODO: Write general description for UNSET

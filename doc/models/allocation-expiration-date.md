@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `expires_at` | `DateTime` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "expires_at": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+allocation_expiration_date = AllocationExpirationDate.new(
+  expires_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

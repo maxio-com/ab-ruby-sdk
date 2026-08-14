@@ -11,13 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [Customer Error](../../doc/models/customer-error.md) \| Array[String] \| nil | Optional | This is a container for one-of cases. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "customer": "customer8"
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue CustomerErrorResponseException => e
+  puts "Caught CustomerErrorResponseException: #{e.message}"
+end
 ```
 

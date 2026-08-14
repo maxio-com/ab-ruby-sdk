@@ -68,7 +68,7 @@ module AdvancedBilling
     attr_accessor :currency
 
     # Consolidation level of the invoice, which is applicable to invoice
-    # consolidation.  It will hold one of the following values:
+    # consolidation. It will hold one of the following values:
     # * "none": A normal invoice with no consolidation.
     # * "child": An invoice segment which has been combined into a consolidated
     # invoice.
@@ -83,7 +83,7 @@ module AdvancedBilling
     attr_accessor :consolidation_level
 
     # Consolidation level of the invoice, which is applicable to invoice
-    # consolidation.  It will hold one of the following values:
+    # consolidation. It will hold one of the following values:
     # * "none": A normal invoice with no consolidation.
     # * "child": An invoice segment which has been combined into a consolidated
     # invoice.
@@ -98,7 +98,7 @@ module AdvancedBilling
     attr_accessor :product_name
 
     # Consolidation level of the invoice, which is applicable to invoice
-    # consolidation.  It will hold one of the following values:
+    # consolidation. It will hold one of the following values:
     # * "none": A normal invoice with no consolidation.
     # * "child": An invoice segment which has been combined into a consolidated
     # invoice.
@@ -113,7 +113,7 @@ module AdvancedBilling
     attr_accessor :product_family_name
 
     # 'proforma' value is deprecated in favor of proforma_adhoc and
-    # proforma_automatic
+    # proforma_automatic.
     # @return [ProformaInvoiceRole]
     attr_accessor :role
 
@@ -122,102 +122,102 @@ module AdvancedBilling
     # @return [InvoiceSeller]
     attr_accessor :seller
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [InvoiceCustomer]
     attr_accessor :customer
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :memo
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [InvoiceAddress]
     attr_accessor :billing_address
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [InvoiceAddress]
     attr_accessor :shipping_address
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :subtotal_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :discount_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :tax_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :total_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :credit_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :paid_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :refund_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :due_amount
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[InvoiceLineItem]]
     attr_accessor :line_items
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[ProformaInvoiceDiscount]]
     attr_accessor :discounts
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[ProformaInvoiceTax]]
     attr_accessor :taxes
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[ProformaInvoiceCredit]]
     attr_accessor :credits
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[ProformaInvoicePayment]]
     attr_accessor :payments
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[InvoiceCustomField]]
     attr_accessor :custom_fields
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [String]
     attr_accessor :public_url
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [AvailableActions]
     attr_accessor :available_actions

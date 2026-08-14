@@ -13,7 +13,7 @@
 
 ## Example
 
-```
-currency_prices
+```ruby
+list_components_price_points_include = ListComponentsPricePointsInclude::CURRENCY_PRICES
 ```
 

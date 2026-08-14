@@ -13,13 +13,13 @@
 | `ending_quantity` | `Integer` | Optional | - |
 | `unit_price` | String \| Float | Required | This is a container for one-of cases. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "starting_quantity": 78,
-  "ending_quantity": 52,
-  "unit_price": "String7"
-}
+```ruby
+create_or_update_segment_price = CreateOrUpdateSegmentPrice.new(
+  unit_price: 'String7',
+  starting_quantity: 94,
+  ending_quantity: 188
+)
 ```
 

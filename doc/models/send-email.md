@@ -12,12 +12,12 @@
 | `can_execute` | `TrueClass \| FalseClass` | Required | - |
 | `url` | `String` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "can_execute": false,
-  "url": "url2"
-}
+```ruby
+send_email = SendEmail.new(
+  can_execute: false,
+  url: 'url0'
+)
 ```
 

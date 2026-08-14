@@ -11,32 +11,32 @@
 |  --- | --- | --- | --- |
 | `renewal_configuration_item` | [Scheduled Renewal Item Request Body Component](../../doc/models/scheduled-renewal-item-request-body-component.md) \| [Scheduled Renewal Item Request Body Product](../../doc/models/scheduled-renewal-item-request-body-product.md) | Required | This is a container for one-of cases. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "renewal_configuration_item": {
-    "item_type": "Component",
-    "item_id": 108,
-    "price_point_id": 122,
-    "quantity": 212,
-    "custom_price": {
-      "tax_included": false,
-      "pricing_scheme": "stairstep",
-      "prices": [
-        {
-          "starting_quantity": 242,
-          "ending_quantity": 40,
-          "unit_price": 23.26
-        },
-        {
-          "starting_quantity": 242,
-          "ending_quantity": 40,
-          "unit_price": 23.26
-        }
-      ]
-    }
-  }
-}
+```ruby
+scheduled_renewal_configuration_item_request = ScheduledRenewalConfigurationItemRequest.new(
+  renewal_configuration_item: ScheduledRenewalItemRequestBodyComponent.new(
+    item_type: 'Component',
+    item_id: 108,
+    price_point_id: 122,
+    quantity: 212,
+    custom_price: ScheduledRenewalComponentCustomPrice.new(
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      prices: [
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        ),
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        )
+      ],
+      tax_included: false
+    )
+  )
+)
 ```
 

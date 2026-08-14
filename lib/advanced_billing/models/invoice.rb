@@ -39,30 +39,30 @@ module AdvancedBilling
     attr_accessor :number
 
     # A monotonically increasing number assigned to invoices as they are
-    # created.  This number is unique within a site and can be used to sort and
+    # created. This number is unique within a site and can be used to sort and
     # order invoices.
     # @return [Integer]
     attr_accessor :sequence_number
 
     # A monotonically increasing number assigned to invoices as they are
-    # created.  This number is unique within a site and can be used to sort and
+    # created. This number is unique within a site and can be used to sort and
     # order invoices.
     # @return [DateTime]
     attr_accessor :transaction_time
 
     # A monotonically increasing number assigned to invoices as they are
-    # created.  This number is unique within a site and can be used to sort and
+    # created. This number is unique within a site and can be used to sort and
     # order invoices.
     # @return [DateTime]
     attr_accessor :created_at
 
     # A monotonically increasing number assigned to invoices as they are
-    # created.  This number is unique within a site and can be used to sort and
+    # created. This number is unique within a site and can be used to sort and
     # order invoices.
     # @return [DateTime]
     attr_accessor :updated_at
 
-    # Date the invoice was issued to the customer.  This is the date that the
+    # Date the invoice was issued to the customer. This is the date that the
     # invoice was made available for payment.
     # The format is `"YYYY-MM-DD"`.
     # @return [Date]
@@ -117,7 +117,7 @@ module AdvancedBilling
     attr_accessor :currency
 
     # Consolidation level of the invoice, which is applicable to invoice
-    # consolidation.  It will hold one of the following values:
+    # consolidation. It will hold one of the following values:
     # * "none": A normal invoice with no consolidation.
     # * "child": An invoice segment which has been combined into a consolidated
     # invoice.
@@ -165,27 +165,27 @@ module AdvancedBilling
     # @return [InvoiceSeller]
     attr_accessor :seller
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [InvoiceCustomer]
     attr_accessor :customer
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [InvoicePayer]
     attr_accessor :payer
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Array[String]]
     attr_accessor :recipient_emails
 
-    # Information about the customer who is owner or recipient the invoiced
+    # Information about the customer who is owner or recipient of the invoiced
     # subscription.
     # @return [Integer]
     attr_accessor :net_terms
 
-    # The memo printed on invoices of any collection type.  This message is in
+    # The memo printed on invoices of any collection type. This message is in
     # control of the merchant.
     # @return [String]
     attr_accessor :memo
@@ -212,7 +212,7 @@ module AdvancedBilling
     attr_accessor :tax_amount
 
     # The invoice total, which is `subtotal_amount - discount_amount +
-    # tax_amount`.'
+    # tax_amount`.
     # @return [String]
     attr_accessor :total_amount
 
@@ -292,6 +292,13 @@ module AdvancedBilling
     # @return [Date]
     attr_accessor :public_url_expires_on
 
+    # The ID of the Branding Theme associated with this invoice. This value
+    # represents the Branding Theme used for invoice theming, such as themed
+    # invoice rendering. Available only when Branding Themes are enabled for the
+    # site.
+    # @return [Integer]
+    attr_accessor :branding_theme_id
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -352,6 +359,7 @@ module AdvancedBilling
       @_hash['public_url'] = 'public_url'
       @_hash['previous_balance_data'] = 'previous_balance_data'
       @_hash['public_url_expires_on'] = 'public_url_expires_on'
+      @_hash['branding_theme_id'] = 'branding_theme_id'
       @_hash
     end
 
@@ -414,6 +422,7 @@ module AdvancedBilling
         public_url
         previous_balance_data
         public_url_expires_on
+        branding_theme_id
       ]
     end
 
@@ -426,6 +435,7 @@ module AdvancedBilling
         subscription_group_id
         parent_invoice_number
         group_primary_subscription_id
+        branding_theme_id
       ]
     end
 
@@ -450,7 +460,7 @@ module AdvancedBilling
                    payments: SKIP, custom_fields: SKIP, display_settings: SKIP,
                    avatax_details: SKIP, public_url: SKIP,
                    previous_balance_data: SKIP, public_url_expires_on: SKIP,
-                   additional_properties: {})
+                   branding_theme_id: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -515,6 +525,7 @@ module AdvancedBilling
       @public_url = public_url unless public_url == SKIP
       @previous_balance_data = previous_balance_data unless previous_balance_data == SKIP
       @public_url_expires_on = public_url_expires_on unless public_url_expires_on == SKIP
+      @branding_theme_id = branding_theme_id unless branding_theme_id == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -682,6 +693,8 @@ module AdvancedBilling
         hash['previous_balance_data']
       public_url_expires_on =
         hash.key?('public_url_expires_on') ? hash['public_url_expires_on'] : SKIP
+      branding_theme_id =
+        hash.key?('branding_theme_id') ? hash['branding_theme_id'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -743,6 +756,7 @@ module AdvancedBilling
                   public_url: public_url,
                   previous_balance_data: previous_balance_data,
                   public_url_expires_on: public_url_expires_on,
+                  branding_theme_id: branding_theme_id,
                   additional_properties: additional_properties)
     end
 
@@ -793,7 +807,8 @@ module AdvancedBilling
       " #{@refunds}, payments: #{@payments}, custom_fields: #{@custom_fields}, display_settings:"\
       " #{@display_settings}, avatax_details: #{@avatax_details}, public_url: #{@public_url},"\
       " previous_balance_data: #{@previous_balance_data}, public_url_expires_on:"\
-      " #{@public_url_expires_on}, additional_properties: #{get_additional_properties}>"
+      " #{@public_url_expires_on}, branding_theme_id: #{@branding_theme_id},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -827,7 +842,8 @@ module AdvancedBilling
       " display_settings: #{@display_settings.inspect}, avatax_details:"\
       " #{@avatax_details.inspect}, public_url: #{@public_url.inspect}, previous_balance_data:"\
       " #{@previous_balance_data.inspect}, public_url_expires_on:"\
-      " #{@public_url_expires_on.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@public_url_expires_on.inspect}, branding_theme_id: #{@branding_theme_id.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

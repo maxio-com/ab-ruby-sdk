@@ -15,34 +15,53 @@ Used in place of `price_point_id` to define a custom price point unique to the s
 | `prices` | [`Array[Price]`](../../doc/models/price.md) | Optional | - |
 | `overage_pricing` | [`Array[ComponentCustomPrice]`](../../doc/models/component-custom-price.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "pricing_scheme": "per_unit",
-  "prices": [
-    {
-      "starting_quantity": 242,
-      "ending_quantity": 40,
-      "unit_price": 23.26
-    }
+```ruby
+subscription_group_component_custom_price = SubscriptionGroupComponentCustomPrice.new(
+  pricing_scheme: PricingScheme::STAIRSTEP,
+  prices: [
+    Price.new(
+      starting_quantity: 242,
+      unit_price: 23.26,
+      ending_quantity: 40
+    ),
+    Price.new(
+      starting_quantity: 242,
+      unit_price: 23.26,
+      ending_quantity: 40
+    )
   ],
-  "overage_pricing": [
-    {
-      "tax_included": false,
-      "pricing_scheme": "stairstep",
-      "interval": 230,
-      "interval_unit": "day",
-      "list_price_point_id": 10,
-      "prices": [
-        {
-          "starting_quantity": 242,
-          "ending_quantity": 40,
-          "unit_price": 23.26
-        }
-      ]
-    }
+  overage_pricing: [
+    ComponentCustomPrice.new(
+      prices: [
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        )
+      ],
+      tax_included: false,
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      interval: 230,
+      interval_unit: IntervalUnit::DAY,
+      list_price_point_id: 10
+    ),
+    ComponentCustomPrice.new(
+      prices: [
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        )
+      ],
+      tax_included: false,
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      interval: 230,
+      interval_unit: IntervalUnit::DAY,
+      list_price_point_id: 10
+    )
   ]
-}
+)
 ```
 

@@ -4,7 +4,7 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # Information about the customer who is owner or recipient the invoiced
+  # Information about the customer who is owner or recipient of the invoiced
   # subscription.
   class InvoiceCustomer < BaseModel
     SKIP = Object.new

@@ -45,7 +45,7 @@ module AdvancedBilling
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
-    # Include archived products
+    # Include archived products.
     # @param [ListProductsInclude] include Optional parameter: Allows including
     # additional data in the response. Use in query
     # `include=prepaid_product_price_point`.
@@ -81,9 +81,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Creates a Product Family within your Advanced Billing site. Create a
-    # Product Family to act as a container for your products, components, and
-    # coupons.
+    # Creates a Product Family within your site. Create a Product Family to act
+    # as a container for your products, components, and coupons.
     # Full documentation on how Product Families operate within the Advanced
     # Billing UI can be located
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-
@@ -111,7 +110,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a list of Product Families for a site.
+    # Lists Product Families for a site.
     # @param [BasicDateField] date_field Optional parameter: The type of filter
     # you would like to apply to your search. Use in query:
     # `date_field=created_at`.

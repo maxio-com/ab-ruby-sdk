@@ -17,15 +17,15 @@
 | `starting_balance_in_cents` | `Integer` | Optional | **Constraints**: `>= 0` |
 | `ending_balance_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 110,
-  "subscription_id": 220,
-  "amount_in_cents": 196,
-  "memo": "memo6",
-  "created_at": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+created_prepayment = CreatedPrepayment.new(
+  id: 228,
+  subscription_id: 82,
+  amount_in_cents: 198,
+  memo: 'memo6',
+  created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

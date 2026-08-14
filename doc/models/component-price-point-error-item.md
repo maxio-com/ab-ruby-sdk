@@ -13,13 +13,13 @@
 | `message` | `String` | Optional | - |
 | `price_point` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": 206,
-  "message": "message4",
-  "price_point": 152
-}
+```ruby
+component_price_point_error_item = ComponentPricePointErrorItem.new(
+  component_id: 152,
+  message: 'message0',
+  price_point: 50
+)
 ```
 

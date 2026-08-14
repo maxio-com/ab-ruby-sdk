@@ -11,15 +11,15 @@
 |  --- | --- | --- | --- |
 | `members` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "members": [
-    "members4",
-    "members5",
-    "members6"
+```ruby
+subscription_group_update_error = SubscriptionGroupUpdateError.new(
+  members: [
+    'members6',
+    'members5',
+    'members4'
   ]
-}
+)
 ```
 

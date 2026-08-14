@@ -16,67 +16,67 @@
 | `payment_profile_id` | `String` | Optional | - |
 | `payer_id` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscriptions": {
-    "key0": {
-      "product": [
-        "product9"
+```ruby
+subscription_group_signup_error = SubscriptionGroupSignupError.new(
+  subscriptions: {
+    'key0': SubscriptionGroupSubscriptionError.new(
+      product: [
+        'product9'
       ],
-      "product_price_point_id": [
-        "product_price_point_id7"
+      product_price_point_id: [
+        'product_price_point_id7'
       ],
-      "payment_profile": [
-        "payment_profile2"
+      payment_profile: [
+        'payment_profile2'
       ],
-      "payment_profile.chargify_token": [
-        "payment_profile.chargify_token6"
+      payment_profile_chargify_token: [
+        'payment_profile.chargify_token6'
       ],
-      "base": [
-        "base5",
-        "base6"
+      base: [
+        'base5',
+        'base6'
       ]
-    },
-    "key1": {
-      "product": [
-        "product9"
+    ),
+    'key1': SubscriptionGroupSubscriptionError.new(
+      product: [
+        'product9'
       ],
-      "product_price_point_id": [
-        "product_price_point_id7"
+      product_price_point_id: [
+        'product_price_point_id7'
       ],
-      "payment_profile": [
-        "payment_profile2"
+      payment_profile: [
+        'payment_profile2'
       ],
-      "payment_profile.chargify_token": [
-        "payment_profile.chargify_token6"
+      payment_profile_chargify_token: [
+        'payment_profile.chargify_token6'
       ],
-      "base": [
-        "base5",
-        "base6"
+      base: [
+        'base5',
+        'base6'
       ]
-    }
+    )
   },
-  "payer_reference": "payer_reference0",
-  "payer": {
-    "last_name": [
-      "last_name5",
-      "last_name6"
+  payer_reference: 'payer_reference6',
+  payer: PayerError.new(
+    last_name: [
+      'last_name5',
+      'last_name6'
     ],
-    "first_name": [
-      "first_name8"
+    first_name: [
+      'first_name8'
     ],
-    "email": [
-      "email0",
-      "email9"
+    email: [
+      'email0',
+      'email9'
     ]
-  },
-  "subscription_group": [
-    "subscription_group1",
-    "subscription_group2"
+  ),
+  subscription_group: [
+    'subscription_group7',
+    'subscription_group8'
   ],
-  "payment_profile_id": "payment_profile_id2"
-}
+  payment_profile_id: 'payment_profile_id8'
+)
 ```
 

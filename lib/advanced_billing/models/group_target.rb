@@ -15,8 +15,8 @@ module AdvancedBilling
     attr_accessor :type
 
     # The id of the target customer or subscription to group the existing
-    # subscription with. Ignored and should not be included if type is "self" ,
-    # "parent", or "eldest"
+    # subscription with. Ignored and should not be included if type is "self",
+    # "parent", or "eldest".
     # @return [Integer]
     attr_accessor :id
 

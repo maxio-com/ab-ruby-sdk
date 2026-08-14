@@ -20,3 +20,9 @@
 | `OPEN_BALANCE` |
 | `EXPIRES_AT` |
 
+## Example
+
+```ruby
+subscription_sort = SubscriptionSort::OPEN_BALANCE
+```
+

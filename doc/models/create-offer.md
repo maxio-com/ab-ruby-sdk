@@ -17,30 +17,30 @@
 | `components` | [`Array[CreateOfferComponent]`](../../doc/models/create-offer-component.md) | Optional | - |
 | `coupons` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name4",
-  "handle": "handle0",
-  "description": "description4",
-  "product_id": 208,
-  "product_price_point_id": 132,
-  "components": [
-    {
-      "component_id": 108,
-      "price_point_id": 124,
-      "starting_quantity": 84
-    },
-    {
-      "component_id": 108,
-      "price_point_id": 124,
-      "starting_quantity": 84
-    }
+```ruby
+create_offer = CreateOffer.new(
+  name: 'name2',
+  handle: 'handle8',
+  product_id: 8,
+  description: 'description2',
+  product_price_point_id: 188,
+  components: [
+    CreateOfferComponent.new(
+      component_id: 108,
+      price_point_id: 124,
+      starting_quantity: 84
+    ),
+    CreateOfferComponent.new(
+      component_id: 108,
+      price_point_id: 124,
+      starting_quantity: 84
+    )
   ],
-  "coupons": [
-    "coupons4"
+  coupons: [
+    'coupons8'
   ]
-}
+)
 ```
 

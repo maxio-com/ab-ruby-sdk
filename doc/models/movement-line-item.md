@@ -19,15 +19,15 @@
 | `prev_quantity` | `Integer` | Optional | - |
 | `recurring` | `TrueClass \| FalseClass` | Optional | When `true`, the line item's MRR value will contribute to the `plan` breakout. When `false`, the line item contributes to the `usage` breakout. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_id": 156,
-  "component_id": 68,
-  "price_point_id": 164,
-  "name": "name6",
-  "mrr": 154
-}
+```ruby
+movement_line_item = MovementLineItem.new(
+  product_id: 60,
+  component_id: 228,
+  price_point_id: 4,
+  name: 'name0',
+  mrr: 250
+)
 ```
 

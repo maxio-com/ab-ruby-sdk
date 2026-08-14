@@ -24,15 +24,15 @@
 | `period_range_start` | `String` | Optional | - |
 | `period_range_end` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_type": "info_transaction",
-  "kind": "baseline",
-  "amount_in_cents": 216,
-  "memo": "memo4",
-  "discount_amount_in_cents": 236
-}
+```ruby
+billing_manifest_item = BillingManifestItem.new(
+  transaction_type: LineItemTransactionType::PAYMENT_AUTHORIZATION,
+  kind: BillingManifestLineItemKind::BASELINE,
+  amount_in_cents: 152,
+  memo: 'memo0',
+  discount_amount_in_cents: 92
+)
 ```
 

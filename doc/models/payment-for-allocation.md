@@ -16,14 +16,14 @@ Information for captured payment, if applicable
 | `success` | `TrueClass \| FalseClass` | Optional | - |
 | `memo` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 72,
-  "amount_in_cents": 158,
-  "success": false,
-  "memo": "memo6"
-}
+```ruby
+payment_for_allocation = PaymentForAllocation.new(
+  id: 232,
+  amount_in_cents: 194,
+  success: false,
+  memo: 'memo6'
+)
 ```
 

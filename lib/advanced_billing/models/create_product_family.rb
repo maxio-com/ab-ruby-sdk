@@ -21,12 +21,18 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :description
 
+    # Whether surcharging applies to this product family. Defaults to `true`
+    # when omitted. Only applied on sites where surcharging is enabled.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :surcharging
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['name'] = 'name'
       @_hash['handle'] = 'handle'
       @_hash['description'] = 'description'
+      @_hash['surcharging'] = 'surcharging'
       @_hash
     end
 
@@ -35,6 +41,7 @@ module AdvancedBilling
       %w[
         handle
         description
+        surcharging
       ]
     end
 
@@ -46,7 +53,7 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name:, handle: SKIP, description: SKIP,
+    def initialize(name:, handle: SKIP, description: SKIP, surcharging: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -56,6 +63,7 @@ module AdvancedBilling
       @name = name
       @handle = handle unless handle == SKIP
       @description = description unless description == SKIP
+      @surcharging = surcharging unless surcharging == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -66,6 +74,7 @@ module AdvancedBilling
       name = hash.key?('name') ? hash['name'] : nil
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       description = hash.key?('description') ? hash['description'] : SKIP
+      surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -74,6 +83,7 @@ module AdvancedBilling
       CreateProductFamily.new(name: name,
                               handle: handle,
                               description: description,
+                              surcharging: surcharging,
                               additional_properties: additional_properties)
     end
 
@@ -81,14 +91,15 @@ module AdvancedBilling
     def to_s
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name}, handle: #{@handle}, description: #{@description},"\
-      " additional_properties: #{get_additional_properties}>"
+      " surcharging: #{@surcharging}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
     def inspect
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name.inspect}, handle: #{@handle.inspect}, description:"\
-      " #{@description.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@description.inspect}, surcharging: #{@surcharging.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

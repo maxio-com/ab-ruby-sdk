@@ -11,19 +11,19 @@
 |  --- | --- | --- | --- |
 | `price_points` | [`Array[ProductPricePoint]`](../../doc/models/product-price-point.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_points": [
-    {
-      "id": 40,
-      "name": "name2",
-      "handle": "handle8",
-      "price_in_cents": 108,
-      "interval": 92
-    }
+```ruby
+bulk_create_product_price_points_response = BulkCreateProductPricePointsResponse.new(
+  price_points: [
+    ProductPricePoint.new(
+      id: 40,
+      name: 'name2',
+      handle: 'handle8',
+      price_in_cents: 108,
+      interval: 92
+    )
   ]
-}
+)
 ```
 

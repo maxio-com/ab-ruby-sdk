@@ -14,14 +14,14 @@
 | `auto_replenish` | `TrueClass \| FalseClass` | Optional | - |
 | `replenish_threshold_amount_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "initial_funding_amount_in_cents": 40,
-  "replenish_to_amount_in_cents": 42,
-  "auto_replenish": false,
-  "replenish_threshold_amount_in_cents": 242
-}
+```ruby
+upsert_prepaid_configuration = UpsertPrepaidConfiguration.new(
+  initial_funding_amount_in_cents: 104,
+  replenish_to_amount_in_cents: 106,
+  auto_replenish: false,
+  replenish_threshold_amount_in_cents: 206
+)
 ```
 

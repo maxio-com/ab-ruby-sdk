@@ -11,15 +11,15 @@
 |  --- | --- | --- | --- |
 | `subscription_ids` | `Array[Integer]` | Optional | Submit ids in order to limit results. Use in query: `filter[subscription_ids]=1,2,3`.<br><br>**Constraints**: *Minimum Items*: `1` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_ids": [
+```ruby
+list_mrr_filter = ListMrrFilter.new(
+  subscription_ids: [
     1,
     2,
     3
   ]
-}
+)
 ```
 

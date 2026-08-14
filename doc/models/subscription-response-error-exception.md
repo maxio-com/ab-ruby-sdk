@@ -11,17 +11,13 @@
 |  --- | --- | --- | --- |
 | `subscription` | [`Subscription`](../../doc/models/subscription.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "id": 8,
-    "state": "paused",
-    "balance_in_cents": 124,
-    "total_revenue_in_cents": 48,
-    "product_price_in_cents": 238
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue SubscriptionResponseErrorException => e
+  puts "Caught SubscriptionResponseErrorException: #{e.message}"
+end
 ```
 

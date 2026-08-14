@@ -16,16 +16,16 @@
 | `attempts` | `Integer` | Required | - |
 | `last_attempted_at` | `DateTime` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "state": "state4",
-  "subscription_id": 126,
-  "revenue_at_risk_in_cents": 30,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "attempts": 110,
-  "last_attempted_at": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+dunner_data = DunnerData.new(
+  state: 'state2',
+  subscription_id: 216,
+  revenue_at_risk_in_cents: 120,
+  created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  attempts: 20,
+  last_attempted_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

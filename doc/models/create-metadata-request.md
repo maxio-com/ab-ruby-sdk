@@ -11,16 +11,16 @@
 |  --- | --- | --- | --- |
 | `metadata` | [`Array[CreateMetadata]`](../../doc/models/create-metadata.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "metadata": [
-    {
-      "name": "name6",
-      "value": "value8"
-    }
+```ruby
+create_metadata_request = CreateMetadataRequest.new(
+  metadata: [
+    CreateMetadata.new(
+      name: 'name6',
+      value: 'value8'
+    )
   ]
-}
+)
 ```
 

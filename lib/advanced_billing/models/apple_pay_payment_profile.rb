@@ -22,7 +22,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :last_name
 
-    # The Chargify-assigned id for the customer record to which the Apple Pay
+    # The Chargify-assigned ID for the customer record to which the Apple Pay
     # account belongs
     # @return [Integer]
     attr_accessor :customer_id

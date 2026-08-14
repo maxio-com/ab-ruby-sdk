@@ -12,12 +12,12 @@
 | `amount` | String \| Float | Required | This is a container for one-of cases. |
 | `memo` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": "String1",
-  "memo": "memo2"
-}
+```ruby
+deduct_service_credit = DeductServiceCredit.new(
+  amount: 'String3',
+  memo: 'memo4'
+)
 ```
 

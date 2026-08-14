@@ -10,10 +10,10 @@ module AdvancedBilling
     private_constant :SKIP
 
     # You may choose how to handle the activation failure. `true` means do not
-    # change the subscription’s state and billing period. `false`  means to
-    # continue through with the activation and enter an end of life state. If
-    # this parameter is omitted or `null` is passed it will default to value set
-    # in the  site settings (default: `true`)
+    # change the subscription’s state and billing period. `false` means to
+    # continue through with the activation and enter an end-of-life state. If
+    # this parameter is omitted or `null` is passed it will default to the value
+    # set in the site settings (default: `true`).
     # @return [TrueClass | FalseClass]
     attr_accessor :revert_on_failure
 

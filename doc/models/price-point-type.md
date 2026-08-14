@@ -19,3 +19,9 @@ Price point type. We expose the following types:
 | `DEFAULT` |
 | `CUSTOM` |
 
+## Example
+
+```ruby
+price_point_type = PricePointType::CUSTOM
+```
+

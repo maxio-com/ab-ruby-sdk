@@ -23,6 +23,8 @@ invoices_controller = client.invoices
 * [Void Invoice](../../doc/controllers/invoices.md#void-invoice)
 * [List Consolidated Invoice Segments](../../doc/controllers/invoices.md#list-consolidated-invoice-segments)
 * [Create Invoice](../../doc/controllers/invoices.md#create-invoice)
+* [Update Invoice](../../doc/controllers/invoices.md#update-invoice)
+* [Delete Invoice](../../doc/controllers/invoices.md#delete-invoice)
 * [Send Invoice](../../doc/controllers/invoices.md#send-invoice)
 * [Preview Customer Information Changes](../../doc/controllers/invoices.md#preview-customer-information-changes)
 * [Update Customer Information](../../doc/controllers/invoices.md#update-customer-information)
@@ -31,7 +33,7 @@ invoices_controller = client.invoices
 
 # Refund Invoice
 
-Refund an invoice, segment, or consolidated invoice.
+Refunds an invoice, segment, or consolidated invoice.
 
 ## Partial Refund for Consolidated Invoice
 
@@ -93,7 +95,7 @@ puts result
 
 # List Invoices
 
-By default, invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`, or `refunds`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
+Lists invoices for a site. By default, invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`, or `refunds`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
 
 ```ruby
 def list_invoices(options = {})
@@ -116,13 +118,13 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br><br>**Default**: `Direction::DESC` |
-| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data<br><br>**Default**: `false` |
-| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data<br><br>**Default**: `false` |
-| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data<br><br>**Default**: `false` |
-| `credits` | `TrueClass \| FalseClass` | Query, Optional | Include credits data<br><br>**Default**: `false` |
-| `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data<br><br>**Default**: `false` |
-| `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data<br><br>**Default**: `false` |
-| `refunds` | `TrueClass \| FalseClass` | Query, Optional | Include refunds data<br><br>**Default**: `false` |
+| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data.<br><br>**Default**: `false` |
+| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data.<br><br>**Default**: `false` |
+| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data.<br><br>**Default**: `false` |
+| `credits` | `TrueClass \| FalseClass` | Query, Optional | Include credits data.<br><br>**Default**: `false` |
+| `payments` | `TrueClass \| FalseClass` | Query, Optional | Include payments data.<br><br>**Default**: `false` |
+| `custom_fields` | `TrueClass \| FalseClass` | Query, Optional | Include custom fields data.<br><br>**Default**: `false` |
+| `refunds` | `TrueClass \| FalseClass` | Query, Optional | Include refunds data.<br><br>**Default**: `false` |
 | `date_field` | [`InvoiceDateField`](../../doc/models/invoice-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br><br>**Default**: `InvoiceDateField::DUE_DATE` |
 | `start_datetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at. |
 | `end_datetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at. |
@@ -448,7 +450,7 @@ puts result
 
 # Read Invoice
 
-Use this endpoint to retrieve the details for an invoice.
+Returns the details for an invoice.
 
 ## PDF Invoice retrieval
 
@@ -605,7 +607,7 @@ puts result
 
 # List Invoice Events
 
-This endpoint returns a list of invoice events. Each event contains event "data" (such as an applied payment) as well as a snapshot of the `invoice` at the time of event completion.
+Lists invoice events for a site. Each event contains event "data" (such as an applied payment) as well as a snapshot of the `invoice` at the time of event completion.
 
 Exposed event types are:
 
@@ -1058,7 +1060,7 @@ puts result
 
 # Record Payment for Invoice
 
-Applies a payment of a given type against a specific invoice. If you would like to apply a payment across multiple invoices, you can use the Bulk Payment endpoint.
+Applies a payment of a given type against a specific invoice. If you would like to apply a payment across multiple invoices, you can use the [Record Payment for Multiple Invoices](../../doc/controllers/invoices.md#record-payment-for-multiple-invoices) endpoint.
 
 ```ruby
 def record_payment_for_invoice(uid,
@@ -1112,30 +1114,9 @@ puts result
 
 # Record Payment for Multiple Invoices
 
-This API call should be used when you want to record an external payment against multiple invoices.
+Records an external payment against multiple invoices.
 
 To apply a payment to multiple invoices, at minimum, specify the `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
-
-```
-{
-  "payment": {
-    "memo": "to pay the bills",
-    "details": "check number 8675309",
-    "method": "check",
-    "amount": "250.00",
-    "applications": [
-      {
-        "invoice_uid": "inv_8gk5bwkct3gqt",
-        "amount": "100.00"
-      },
-      {
-        "invoice_uid": "inv_7bc6bwkct3lyt",
-        "amount": "150.00"
-      }
-    ]
-  }
-}
-```
 
 Note that the invoice payment amounts must be greater than 0. Total amount must be greater or equal to invoices payment amount sum.
 
@@ -1218,7 +1199,7 @@ puts result
 
 # List Credit Notes
 
-Credit Notes are like inverse invoices. They reduce the amount a customer owes.
+Lists credit notes for a site. Credit Notes are like inverse invoices. They reduce the amount a customer owes.
 
 By default, the credit notes returned by this endpoint will exclude the arrays of `line_items`, `discounts`, `taxes`, `applications`, or `refunds`. To include these arrays, pass the specific field as a key in the query with a value set to `true`.
 
@@ -1237,11 +1218,11 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 | `subscription_id` | `Integer` | Query, Optional | The subscription's Advanced Billing id |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 | `per_page` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data<br><br>**Default**: `false` |
-| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data<br><br>**Default**: `false` |
-| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data<br><br>**Default**: `false` |
-| `refunds` | `TrueClass \| FalseClass` | Query, Optional | Include refunds data<br><br>**Default**: `false` |
-| `applications` | `TrueClass \| FalseClass` | Query, Optional | Include applications data<br><br>**Default**: `false` |
+| `line_items` | `TrueClass \| FalseClass` | Query, Optional | Include line items data.<br><br>**Default**: `false` |
+| `discounts` | `TrueClass \| FalseClass` | Query, Optional | Include discounts data.<br><br>**Default**: `false` |
+| `taxes` | `TrueClass \| FalseClass` | Query, Optional | Include taxes data.<br><br>**Default**: `false` |
+| `refunds` | `TrueClass \| FalseClass` | Query, Optional | Include refunds data.<br><br>**Default**: `false` |
+| `applications` | `TrueClass \| FalseClass` | Query, Optional | Include applications data.<br><br>**Default**: `false` |
 
 ## Response Type
 
@@ -1576,7 +1557,7 @@ puts result
 
 # Read Credit Note
 
-Use this endpoint to retrieve the details for a credit note.
+Returns the details for a credit note.
 
 ```ruby
 def read_credit_note(uid)
@@ -1925,7 +1906,7 @@ puts result
 
 # Record Payment for Subscription
 
-Record an external payment made against a subscription that will pay partially or in full one or more invoices.
+Records an external payment made against a subscription that will pay partially or in full one or more invoices.
 
 Payment will be applied starting with the oldest open invoice and then next oldest, and so on until the amount of the payment is fully consumed.
 
@@ -2007,7 +1988,7 @@ puts result
 
 # Reopen Invoice
 
-This endpoint allows you to reopen any invoice with the "canceled" status. Invoices enter "canceled" status if they were open at the time the subscription was canceled (whether through dunning or an intentional cancellation).
+Reopens any invoice with the "canceled" status. Invoices enter "canceled" status if they were open at the time the subscription was canceled (whether through dunning or an intentional cancellation).
 
 Invoices with "canceled" status are no longer considered to be due. Once reopened, they are considered due for payment. Payment may then be captured in one of the following ways:
 
@@ -2059,7 +2040,7 @@ puts result
 
 # Void Invoice
 
-This endpoint allows you to void any invoice with the "open" or "canceled" status.  It will also allow voiding of an invoice with the "pending" status if it is not a consolidated invoice.
+Voids any invoice with the "open" or "canceled" status.  It will also allow voiding of an invoice with the "pending" status if it is not a consolidated invoice.
 
 ```ruby
 def void_invoice(uid,
@@ -2111,7 +2092,7 @@ puts result
 
 # List Consolidated Invoice Segments
 
-Invoice segments returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
+Lists segments for a consolidated invoice. Invoice segments returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
 
 ```ruby
 def list_consolidated_invoice_segments(options = {})
@@ -2426,7 +2407,7 @@ puts result
 
 # Create Invoice
 
-This endpoint will allow you to create an ad hoc invoice.
+Creates an ad hoc invoice.
 
 ### Basic Behavior
 
@@ -2785,9 +2766,158 @@ puts result
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
 
+# Update Invoice
+
+Updates an ad hoc invoice while it is in the `draft` state.
+
+**Important: only invoices with the `adhoc` role and `draft` status can be updated.** Any other invoice — issued, or with a different role (e.g. `renewal`, `signup`) — cannot be updated through this endpoint and the request returns a `422` error. If the invoice does not belong to the provided subscription, a `404` error is returned.
+
+Only the attributes submitted in the request are changed — omitted attributes keep their current values.
+
+### Line Items
+
+The `line_items` array describes changes to the invoice's line items. Line items not referenced in the array remain unchanged.
+
+#### Adding a line item
+
+A line item without a `uid` is added to the invoice. The same line item types and options as on invoice creation are supported (custom items, `product_id`, `component_id`, price points, period date ranges, taxes).
+
+#### Updating a line item
+
+A line item with the `uid` of an existing line item updates that line item with the submitted attributes. Amounts and taxes are recalculated.
+
+#### Removing a line item
+
+A line item with a `uid` and `"_destroy": true` is removed from the invoice. Other line items remain unchanged.
+
+Referencing a `uid` which does not exist on the invoice returns a `422` error.
+
+### Coupons
+
+When the `coupons` key is present, the submitted coupons replace all discounts currently applied to the invoice. Send an empty array to remove all discounts. Coupon options are the same as on invoice creation.
+
+### Invoice Options
+
+#### Issue Date and Net Terms
+
+The `issue_date` parameter can be sent to change the invoice's issue date. Only today or dates in the past are accepted. The date is interpreted and validated in your site's time zone, using the `YYYY-MM-DD` format. The `net_terms` parameter indicates the number of days after the issue date on which the invoice is due. The due date is recalculated whenever the issue date or net terms change.
+
+#### Addresses
+
+The seller, shipping and billing addresses can be sent to replace the addresses on the invoice. Each address requires to send a `first_name` at a minimum in order to work. Taxes are recalculated after an address change.
+
+#### Memo and Payment Instructions
+
+A custom memo can be sent with the `memo` parameter. Likewise, custom payment instructions can be sent with the `payment_instructions` parameter.
+
+```ruby
+def update_invoice(subscription_id,
+                   uid,
+                   body: nil)
+```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
+| `uid` | `String` | Template, Required | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+| `body` | [`UpdateInvoiceRequest`](../../doc/models/update-invoice-request.md) | Body, Optional | Request payload for updating a draft ad hoc invoice. |
+
+## Response Type
+
+**200**: OK
+
+[`InvoiceResponse`](../../doc/models/invoice-response.md)
+
+## Example Usage
+
+```ruby
+subscription_id = 222
+
+uid = 'uid0'
+
+body = UpdateInvoiceRequest.new(
+  invoice: UpdateInvoice.new(
+    net_terms: 30,
+    memo: 'Updated memo'
+  )
+)
+
+result = invoices_controller.update_invoice(
+  subscription_id,
+  uid,
+  body: body
+)
+puts result
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
+
+
+# Delete Invoice
+
+Deletes an ad hoc invoice while it is in the `draft` state.
+
+**Important: only invoices with the `adhoc` role and `draft` status can be deleted.** Any other invoice — issued, or with a different role (e.g. `renewal`, `signup`) — cannot be deleted through this endpoint and the request returns a `422` error. Issued invoices should be voided instead. If the invoice does not belong to the provided subscription, a `404` error is returned.
+
+A successful deletion returns a `204 No Content` response and the invoice is permanently removed.
+
+```ruby
+def delete_invoice(subscription_id,
+                   uid)
+```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscription_id` | `Integer` | Template, Required | The Chargify id of the subscription. |
+| `uid` | `String` | Template, Required | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+
+## Response Type
+
+**204**: No Content
+
+`void`
+
+## Example Usage
+
+```ruby
+subscription_id = 222
+
+uid = 'uid0'
+
+invoices_controller.delete_invoice(
+  subscription_id,
+  uid
+)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
 # Send Invoice
 
-This endpoint allows for invoices to be programmatically delivered via email. This endpoint supports the delivery of both ad-hoc and automatically generated invoices. Additionally, this endpoint supports email delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
+Sends an invoice to the customer via email. This endpoint supports the delivery of both ad-hoc and automatically generated invoices. Additionally, this endpoint supports email delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
 
 **File Attachments**: You can attach files to invoice emails using `attachment_urls[]` parameter by providing URLs to the files you want to attach. When using attachments, the request must use `multipart/form-data` content type. Max 10 files, 10MB per file.
 
@@ -2849,7 +2979,7 @@ invoices_controller.send_invoice(
 
 # Preview Customer Information Changes
 
-Customer information may change after an invoice is issued, which may lead to a mismatch between customer information that is present on an open invoice and actual customer information. This endpoint allows you to preview these differences, if any.
+Previews the effect of customer information changes on an open invoice. Customer information may change after an invoice is issued, which may lead to a mismatch between customer information that is present on an open invoice and actual customer information. This endpoint allows you to preview these differences, if any.
 
 The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
 
@@ -2945,7 +3075,7 @@ puts result
 
 # Update Customer Information
 
-This endpoint updates customer information on an open invoice and returns the updated invoice. If you would like to preview changes that will be applied, use the `/invoices/{uid}/customer_information/preview.json` endpoint first.
+Updates customer information on an open invoice and returns the updated invoice. If you would like to preview changes that will be applied, use the `/invoices/{uid}/customer_information/preview.json` endpoint first.
 
 The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
 
@@ -3176,7 +3306,7 @@ puts result
 
 # Issue Invoice
 
-This endpoint allows you to issue an invoice that is in "pending" or "draft" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
+Issues an invoice that is in "pending" or "draft" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
 
 You cannot issue a pending child invoice that was created for a member subscription in a group.
 

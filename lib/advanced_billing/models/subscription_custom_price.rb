@@ -43,7 +43,7 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :trial_interval_unit
 
-    # Indicates how a trial is handled when the trail period ends and there is
+    # Indicates how a trial is handled when the trial period ends and there is
     # no credit card on file. For `no_obligation`, the subscription transitions
     # to a Trial Ended state. Maxio will not send any emails or statements. For
     # `payment_expected`, the subscription transitions to a Past Due state.

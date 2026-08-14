@@ -21,15 +21,15 @@
 | `total_unpaid_subscriptions` | `Integer` | Optional | - |
 | `total_dunning_subscriptions` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_subscriptions": 204,
-  "subscriptions_today": 134,
-  "total_revenue": "total_revenue6",
-  "revenue_today": "revenue_today4",
-  "revenue_this_month": "revenue_this_month4"
-}
+```ruby
+site_statistics = SiteStatistics.new(
+  total_subscriptions: 186,
+  subscriptions_today: 152,
+  total_revenue: 'total_revenue6',
+  revenue_today: 'revenue_today4',
+  revenue_this_month: 'revenue_this_month4'
+)
 ```
 

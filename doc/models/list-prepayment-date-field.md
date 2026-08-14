@@ -14,7 +14,7 @@
 
 ## Example
 
-```
-created_at
+```ruby
+list_prepayment_date_field = ListPrepaymentDateField::CREATED_AT
 ```
 

@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `allocation_preview` | [`AllocationPreview`](../../doc/models/allocation-preview.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation_preview": {
-    "start_date": "2016-03-13T12:52:32.123Z",
-    "end_date": "2016-03-13T12:52:32.123Z",
-    "subtotal_in_cents": 240,
-    "total_tax_in_cents": 108,
-    "total_discount_in_cents": 142
-  }
-}
+```ruby
+allocation_preview_response = AllocationPreviewResponse.new(
+  allocation_preview: AllocationPreview.new(
+    start_date: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    end_date: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    subtotal_in_cents: 240,
+    total_tax_in_cents: 108,
+    total_discount_in_cents: 142
+  )
+)
 ```
 

@@ -12,3 +12,9 @@
 | `SUBSCRIPTIONS` |
 | `CUSTOMERS` |
 
+## Example
+
+```ruby
+resource_type = ResourceType::SUBSCRIPTIONS
+```
+

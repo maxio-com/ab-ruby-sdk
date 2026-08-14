@@ -12,12 +12,12 @@
 | `plan_amount_in_cents` | `Integer` | Required | - |
 | `usage_amount_in_cents` | `Integer` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "plan_amount_in_cents": 208,
-  "usage_amount_in_cents": 60
-}
+```ruby
+subscription_mrr_breakout = SubscriptionMRRBreakout.new(
+  plan_amount_in_cents: 214,
+  usage_amount_in_cents: 66
+)
 ```
 

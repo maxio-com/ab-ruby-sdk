@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `product_price_point_id` | `String` | Required, Constant | Passed as a parameter to list methods to return only non null values.<br><br>**Value**: `'not_null'` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_price_point_id": "not_null"
-}
+```ruby
+prepaid_product_price_point_filter = PrepaidProductPricePointFilter.new(
+  product_price_point_id: 'not_null'
+)
 ```
 

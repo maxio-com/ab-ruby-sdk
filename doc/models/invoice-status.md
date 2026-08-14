@@ -19,3 +19,9 @@ The current status of the invoice. See [Invoice Statuses](https://maxio.zendesk.
 | `CANCELED` |
 | `PROCESSING` |
 
+## Example
+
+```ruby
+invoice_status = InvoiceStatus::PROCESSING
+```
+

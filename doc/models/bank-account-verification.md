@@ -12,12 +12,12 @@
 | `deposit_1_in_cents` | `Integer` | Optional | - |
 | `deposit_2_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "deposit_1_in_cents": 142,
-  "deposit_2_in_cents": 132
-}
+```ruby
+bank_account_verification = BankAccountVerification.new(
+  deposit_1_in_cents: 244,
+  deposit_2_in_cents: 6
+)
 ```
 

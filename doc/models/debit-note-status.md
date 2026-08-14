@@ -16,3 +16,9 @@ Current status of the debit note.
 | `BANISHED` |
 | `PAID` |
 
+## Example
+
+```ruby
+debit_note_status = DebitNoteStatus::BANISHED
+```
+

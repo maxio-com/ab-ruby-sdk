@@ -41,7 +41,7 @@ module AdvancedBilling
     # @return [Array[CurrencyPrice]]
     attr_accessor :currency_prices
 
-    # The numerical interval. i.e. an interval of '30' coupled with an
+    # The numerical interval. e.g., an interval of '30' coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
     # Multifrequency enabled.

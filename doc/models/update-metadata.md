@@ -13,13 +13,13 @@
 | `name` | `String` | Optional | - |
 | `value` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "current_name": "current_name4",
-  "name": "name0",
-  "value": "value2"
-}
+```ruby
+update_metadata = UpdateMetadata.new(
+  current_name: 'current_name4',
+  name: 'name0',
+  value: 'value2'
+)
 ```
 

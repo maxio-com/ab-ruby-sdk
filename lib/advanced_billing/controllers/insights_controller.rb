@@ -31,9 +31,9 @@ module AdvancedBilling
 
     # Returns your site's current MRR, including plan and usage breakouts.
     # @param [DateTime] at_time Optional parameter: submit a timestamp in
-    # ISO8601 format to request MRR for a historic time
+    # ISO8601 format to request MRR for a historic time.
     # @param [Integer] subscription_id Optional parameter: submit the id of a
-    # subscription in order to limit results
+    # subscription in order to limit results.
     # @return [MRRResponse] Response from the API call.
     def read_mrr(at_time: nil,
                  subscription_id: nil)
@@ -75,8 +75,8 @@ module AdvancedBilling
     # Usage includes revenue from:
     # * Metered Components
     # * Prepaid Usage Components
-    # @param [Integer] subscription_id Optional parameter: optionally filter
-    # results by subscription
+    # @param [Integer] subscription_id Optional parameter: (Optional) Filter
+    # results by subscription.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -109,8 +109,8 @@ module AdvancedBilling
         .execute
     end
 
-    # This endpoint returns your site's current MRR, including plan and usage
-    # breakouts split per subscription.
+    # Lists your site's current MRR, including plan and usage breakouts split
+    # per subscription.
     # @param [ListMrrFilter] filter Optional parameter: Filter to use for List
     # MRR per subscription operation
     # @param [String] at_time Optional parameter: Submit a timestamp in ISO8601

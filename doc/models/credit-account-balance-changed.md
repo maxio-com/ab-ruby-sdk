@@ -15,15 +15,15 @@
 | `currency_code` | `String` | Required | - |
 | `at_time` | `DateTime` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason8",
-  "service_credit_account_balance_in_cents": 10,
-  "service_credit_balance_change_in_cents": 116,
-  "currency_code": "currency_code8",
-  "at_time": "2016-03-13T12:52:32.123Z"
-}
+```ruby
+credit_account_balance_changed = CreditAccountBalanceChanged.new(
+  reason: 'reason8',
+  service_credit_account_balance_in_cents: 64,
+  service_credit_balance_change_in_cents: 190,
+  currency_code: 'currency_code8',
+  at_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+)
 ```
 

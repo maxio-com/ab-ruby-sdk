@@ -15,3 +15,9 @@
 | `IMMEDIATE` |
 | `DELAYED` |
 
+## Example
+
+```ruby
+resumption_charge = ResumptionCharge::PRORATED
+```
+

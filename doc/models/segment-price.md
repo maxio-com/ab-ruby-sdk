@@ -18,15 +18,15 @@
 | `formatted_unit_price` | `String` | Optional | - |
 | `segment_id` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 220,
-  "component_id": 74,
-  "starting_quantity": 118,
-  "ending_quantity": 92,
-  "unit_price": "unit_price0"
-}
+```ruby
+segment_price = SegmentPrice.new(
+  id: 38,
+  component_id: 148,
+  starting_quantity: 44,
+  ending_quantity: 238,
+  unit_price: 'unit_price0'
+)
 ```
 

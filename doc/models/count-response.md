@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `count` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "count": 60
-}
+```ruby
+count_response = CountResponse.new(
+  count: 174
+)
 ```
 

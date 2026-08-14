@@ -11,14 +11,14 @@
 |  --- | --- | --- | --- |
 | `codes` | `Array[String]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "codes": [
-    "codes0",
-    "codes1"
+```ruby
+add_coupons_request = AddCouponsRequest.new(
+  codes: [
+    'codes6',
+    'codes7'
   ]
-}
+)
 ```
 

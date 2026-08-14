@@ -16,3 +16,9 @@ The current chargeback status.
 | `WON` |
 | `CLOSED` |
 
+## Example
+
+```ruby
+chargeback_status = ChargebackStatus::OPEN
+```
+

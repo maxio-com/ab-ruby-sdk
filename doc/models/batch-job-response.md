@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `batchjob` | [`BatchJob`](../../doc/models/batch-job.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "batchjob": {
-    "id": 54,
-    "finished_at": "2016-03-13T12:52:32.123Z",
-    "row_count": 62,
-    "created_at": "2016-03-13T12:52:32.123Z",
-    "completed": "completed4"
-  }
-}
+```ruby
+batch_job_response = BatchJobResponse.new(
+  batchjob: BatchJob.new(
+    id: 54,
+    finished_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    row_count: 62,
+    created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    completed: 'completed4'
+  )
+)
 ```
 

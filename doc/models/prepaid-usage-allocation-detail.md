@@ -13,13 +13,13 @@
 | `charge_id` | `Integer` | Optional | - |
 | `usage_quantity` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation_id": 72,
-  "charge_id": 30,
-  "usage_quantity": 212
-}
+```ruby
+prepaid_usage_allocation_detail = PrepaidUsageAllocationDetail.new(
+  allocation_id: 18,
+  charge_id: 84,
+  usage_quantity: 10
+)
 ```
 

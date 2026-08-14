@@ -12,12 +12,12 @@
 | `name` | `String` | Optional | - |
 | `value` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name4",
-  "value": "value6"
-}
+```ruby
+create_metadata = CreateMetadata.new(
+  name: 'name2',
+  value: 'value4'
+)
 ```
 

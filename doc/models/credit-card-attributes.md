@@ -13,13 +13,13 @@
 | `expiration_month` | `String` | Optional | - |
 | `expiration_year` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "full_number": "full_number0",
-  "expiration_month": "expiration_month6",
-  "expiration_year": "expiration_year0"
-}
+```ruby
+credit_card_attributes = CreditCardAttributes.new(
+  full_number: 'full_number2',
+  expiration_month: 'expiration_month6',
+  expiration_year: 'expiration_year2'
+)
 ```
 

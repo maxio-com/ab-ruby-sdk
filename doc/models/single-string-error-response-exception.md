@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": "errors4"
-}
+```ruby
+begin
+  # make the API call
+rescue SingleStringErrorResponseException => e
+  puts "Caught SingleStringErrorResponseException: #{e.message}"
+end
 ```
 

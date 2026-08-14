@@ -16,15 +16,15 @@
 | `price_id` | `Integer` | Optional | - |
 | `price_point_id` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 4,
-  "currency": "currency8",
-  "price": "price4",
-  "formatted_price": "formatted_price6",
-  "price_id": 162
-}
+```ruby
+component_currency_price = ComponentCurrencyPrice.new(
+  id: 170,
+  currency: 'currency2',
+  price: 'price4',
+  formatted_price: 'formatted_price6',
+  price_id: 252
+)
 ```
 

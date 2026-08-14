@@ -17,15 +17,15 @@
 | `original_amount` | `String` | Optional | - |
 | `applied_amount` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid6",
-  "credit_note_number": "credit_note_number0",
-  "credit_note_uid": "credit_note_uid0",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "memo": "memo0"
-}
+```ruby
+invoice_credit = InvoiceCredit.new(
+  uid: 'uid8',
+  credit_note_number: 'credit_note_number8',
+  credit_note_uid: 'credit_note_uid2',
+  transaction_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  memo: 'memo2'
+)
 ```
 

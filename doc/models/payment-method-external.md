@@ -14,14 +14,14 @@
 | `memo` | `String` | Required | - |
 | `type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "details": "details4",
-  "kind": "kind2",
-  "memo": "memo8",
-  "type": "external"
-}
+```ruby
+payment_method_external = PaymentMethodExternal.new(
+  details: 'details8',
+  kind: 'kind6',
+  memo: 'memo2',
+  type: InvoiceEventPaymentMethod::EXTERNAL
+)
 ```
 

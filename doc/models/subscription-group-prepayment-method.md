@@ -16,3 +16,9 @@
 | `PAYPAL_ACCOUNT` |
 | `OTHER` |
 
+## Example
+
+```ruby
+subscription_group_prepayment_method = SubscriptionGroupPrepaymentMethod::MONEY_ORDER
+```
+

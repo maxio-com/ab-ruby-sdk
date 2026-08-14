@@ -12,12 +12,12 @@
 | `uid` | `String` | Optional | - |
 | `deleted` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "deleted": false
-}
+```ruby
+delete_subscription_group_response = DeleteSubscriptionGroupResponse.new(
+  uid: 'uid8',
+  deleted: false
+)
 ```
 

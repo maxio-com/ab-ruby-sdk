@@ -12,12 +12,12 @@
 | `previous_subscription_state` | `String` | Required | **Constraints**: *Minimum Length*: `1` |
 | `new_subscription_state` | `String` | Required | **Constraints**: *Minimum Length*: `1` |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_subscription_state": "previous_subscription_state2",
-  "new_subscription_state": "new_subscription_state6"
-}
+```ruby
+subscription_state_change = SubscriptionStateChange.new(
+  previous_subscription_state: 'previous_subscription_state4',
+  new_subscription_state: 'new_subscription_state8'
+)
 ```
 

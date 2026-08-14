@@ -12,22 +12,22 @@
 | `before` | [`InvoicePayerChange`](../../doc/models/invoice-payer-change.md) | Required | - |
 | `after` | [`InvoicePayerChange`](../../doc/models/invoice-payer-change.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "before": {
-    "first_name": "first_name0",
-    "last_name": "last_name8",
-    "organization": "organization4",
-    "email": "email6"
-  },
-  "after": {
-    "first_name": "first_name2",
-    "last_name": "last_name0",
-    "organization": "organization4",
-    "email": "email4"
-  }
-}
+```ruby
+customer_payer_change = CustomerPayerChange.new(
+  before: InvoicePayerChange.new(
+    first_name: 'first_name0',
+    last_name: 'last_name8',
+    organization: 'organization4',
+    email: 'email6'
+  ),
+  after: InvoicePayerChange.new(
+    first_name: 'first_name2',
+    last_name: 'last_name0',
+    organization: 'organization4',
+    email: 'email4'
+  )
+)
 ```
 

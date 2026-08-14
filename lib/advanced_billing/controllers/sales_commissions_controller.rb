@@ -22,7 +22,7 @@ module AdvancedBilling
     # enabled. For further information on getting access to Advanced Analytics
     # contact Maxio support.
     # > Note: The request is at seller level, it means `<<subdomain>>` variable
-    # will be replaced by `app`
+    # will be replaced by `app`.
     # @param [String] seller_id Required parameter: The Chargify id of your
     # seller account
     # @param [String] authorization Optional parameter: For authorization use
@@ -63,7 +63,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a sales rep list with details.
+    # Lists sales reps with details.
     # ## Modified Authentication Process
     # The Sales Commission API differs from other Chargify API endpoints. This
     # resource is associated with the seller itself. Up to now all available
@@ -79,7 +79,7 @@ module AdvancedBilling
     # enabled. For further information on getting access to Advanced Analytics
     # contact Maxio support.
     # > Note: The request is at seller level, it means `<<subdomain>>` variable
-    # will be replaced by `app`
+    # will be replaced by `app`.
     # @param [String] seller_id Required parameter: The Chargify id of your
     # seller account
     # @param [String] authorization Optional parameter: For authorization use
@@ -136,7 +136,7 @@ module AdvancedBilling
     # enabled. For further information on getting access to Advanced Analytics
     # contact Maxio support.
     # > Note: The request is at seller level, it means `<<subdomain>>` variable
-    # will be replaced by `app`
+    # will be replaced by `app`.
     # @param [String] seller_id Required parameter: The Chargify id of your
     # seller account
     # @param [String] sales_rep_id Required parameter: The Advanced Billing id

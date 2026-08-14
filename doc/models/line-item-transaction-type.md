@@ -19,3 +19,9 @@ A handle for the line item transaction type
 | `INFO_TRANSACTION` |
 | `PAYMENT_AUTHORIZATION` |
 
+## Example
+
+```ruby
+line_item_transaction_type = LineItemTransactionType::REFUND
+```
+

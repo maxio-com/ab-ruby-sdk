@@ -14,7 +14,7 @@ module AdvancedBilling
     attr_accessor :previous_unit_balance
 
     # TODO: Write general description for this method
-    # @return [Integer]
+    # @return [Object]
     attr_accessor :new_unit_balance
 
     # TODO: Write general description for this method
@@ -78,8 +78,9 @@ module AdvancedBilling
       # Extract variables from the hash.
       previous_unit_balance =
         hash.key?('previous_unit_balance') ? hash['previous_unit_balance'] : nil
-      new_unit_balance =
-        hash.key?('new_unit_balance') ? hash['new_unit_balance'] : nil
+      new_unit_balance = hash.key?('new_unit_balance') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:MeteredUsageNewUnitBalance), hash['new_unit_balance']
+      ) : nil
       usage_quantity =
         hash.key?('usage_quantity') ? hash['usage_quantity'] : nil
       component_id = hash.key?('component_id') ? hash['component_id'] : nil
@@ -107,8 +108,8 @@ module AdvancedBilling
         return (
           APIHelper.valid_type?(value.previous_unit_balance,
                                 ->(val) { val.instance_of? String }) and
-            APIHelper.valid_type?(value.new_unit_balance,
-                                  ->(val) { val.instance_of? Integer }) and
+            UnionTypeLookUp.get(:MeteredUsageNewUnitBalance)
+                           .validate(value.new_unit_balance) and
             APIHelper.valid_type?(value.usage_quantity,
                                   ->(val) { val.instance_of? Integer }) and
             APIHelper.valid_type?(value.component_id,
@@ -125,8 +126,8 @@ module AdvancedBilling
       (
         APIHelper.valid_type?(value['previous_unit_balance'],
                               ->(val) { val.instance_of? String }) and
-          APIHelper.valid_type?(value['new_unit_balance'],
-                                ->(val) { val.instance_of? Integer }) and
+          UnionTypeLookUp.get(:MeteredUsageNewUnitBalance)
+                         .validate(value['new_unit_balance']) and
           APIHelper.valid_type?(value['usage_quantity'],
                                 ->(val) { val.instance_of? Integer }) and
           APIHelper.valid_type?(value['component_id'],

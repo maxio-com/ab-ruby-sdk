@@ -19,19 +19,19 @@ Example schema for an `remove_payment` event
 | `payment_method` | [Payment Method Apple Pay](../../doc/models/payment-method-apple-pay.md) \| [Payment Method Bank Account](../../doc/models/payment-method-bank-account.md) \| [Payment Method Credit Card](../../doc/models/payment-method-credit-card.md) \| [Payment Method External](../../doc/models/payment-method-external.md) \| [Payment Method Paypal](../../doc/models/payment-method-paypal.md) | Required | A nested data structure detailing the method of payment |
 | `prepayment` | `TrueClass \| FalseClass` | Required | The flag that shows whether the original payment was a prepayment or not |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_id": 180,
-  "memo": "memo0",
-  "applied_amount": "applied_amount2",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "payment_method": {
-    "type": "apple_pay"
-  },
-  "prepayment": false,
-  "original_amount": "original_amount0"
-}
+```ruby
+remove_payment_event_data = RemovePaymentEventData.new(
+  transaction_id: 50,
+  memo: 'memo0',
+  applied_amount: 'applied_amount2',
+  transaction_time: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  payment_method: PaymentMethodApplePay.new(
+    type: InvoiceEventPaymentMethod::APPLE_PAY
+  ),
+  prepayment: false,
+  original_amount: 'original_amount0'
+)
 ```
 

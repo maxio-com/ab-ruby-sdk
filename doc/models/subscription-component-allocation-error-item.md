@@ -12,12 +12,12 @@
 | `kind` | `String` | Optional | - |
 | `message` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "kind": "kind0",
-  "message": "message8"
-}
+```ruby
+subscription_component_allocation_error_item = SubscriptionComponentAllocationErrorItem.new(
+  kind: 'kind0',
+  message: 'message2'
+)
 ```
 

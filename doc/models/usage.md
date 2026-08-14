@@ -19,15 +19,15 @@
 | `component_handle` | `String` | Optional | - |
 | `subscription_id` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 252,
-  "memo": "memo8",
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "price_point_id": 126,
-  "quantity": 130
-}
+```ruby
+usage = Usage.new(
+  id: 150,
+  memo: 'memo2',
+  created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  price_point_id: 28,
+  quantity: 28
+)
 ```
 

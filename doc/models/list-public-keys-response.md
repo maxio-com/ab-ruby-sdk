@@ -12,28 +12,28 @@
 | `chargify_js_keys` | [`Array[PublicKey]`](../../doc/models/public-key.md) | Optional | - |
 | `meta` | [`ListPublicKeysMeta`](../../doc/models/list-public-keys-meta.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_js_keys": [
-    {
-      "public_key": "public_key8",
-      "requires_security_token": false,
-      "created_at": "2016-03-13T12:52:32.123Z"
-    },
-    {
-      "public_key": "public_key8",
-      "requires_security_token": false,
-      "created_at": "2016-03-13T12:52:32.123Z"
-    }
+```ruby
+list_public_keys_response = ListPublicKeysResponse.new(
+  chargify_js_keys: [
+    PublicKey.new(
+      public_key: 'public_key8',
+      requires_security_token: false,
+      created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    ),
+    PublicKey.new(
+      public_key: 'public_key8',
+      requires_security_token: false,
+      created_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    )
   ],
-  "meta": {
-    "total_count": 150,
-    "current_page": 126,
-    "total_pages": 138,
-    "per_page": 152
-  }
-}
+  meta: ListPublicKeysMeta.new(
+    total_count: 150,
+    current_page: 126,
+    total_pages: 138,
+    per_page: 152
+  )
+)
 ```
 

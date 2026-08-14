@@ -17,15 +17,15 @@
 | `tax_amount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` |
 | `line_item_breakouts` | [`Array[InvoiceTaxBreakout]`](../../doc/models/invoice-tax-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "title": "title4",
-  "source_type": "Tax",
-  "percentage": "percentage6",
-  "taxable_amount": "taxable_amount2"
-}
+```ruby
+proforma_invoice_tax = ProformaInvoiceTax.new(
+  uid: 'uid4',
+  title: 'title0',
+  source_type: ProformaInvoiceTaxSourceType::TAX,
+  percentage: 'percentage2',
+  taxable_amount: 'taxable_amount8'
+)
 ```
 

@@ -11,15 +11,15 @@
 |  --- | --- | --- | --- |
 | `reason_code` | [`CreateReasonCode`](../../doc/models/create-reason-code.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason_code": {
-    "code": "code4",
-    "description": "description6",
-    "position": 14
-  }
-}
+```ruby
+create_reason_code_request = CreateReasonCodeRequest.new(
+  reason_code: CreateReasonCode.new(
+    code: 'code4',
+    description: 'description6',
+    position: 14
+  )
+)
 ```
 

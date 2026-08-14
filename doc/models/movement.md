@@ -19,15 +19,15 @@
 | `subscription_id` | `Integer` | Optional | - |
 | `subscriber_name` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "amount_in_cents": 174,
-  "amount_formatted": "amount_formatted4",
-  "description": "description2",
-  "category": "category0"
-}
+```ruby
+movement = Movement.new(
+  timestamp: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+  amount_in_cents: 34,
+  amount_formatted: 'amount_formatted6',
+  description: 'description4',
+  category: 'category2'
+)
 ```
 

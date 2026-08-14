@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `allocation` | [`Allocation`](../../doc/models/allocation.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation": {
-    "allocation_id": 238,
-    "component_id": 8,
-    "component_handle": "component_handle8",
-    "subscription_id": 8,
-    "quantity": 32
-  }
-}
+```ruby
+allocation_response = AllocationResponse.new(
+  allocation: Allocation.new(
+    allocation_id: 238,
+    component_id: 8,
+    component_handle: 'component_handle8',
+    subscription_id: 8,
+    quantity: 32
+  )
+)
 ```
 

@@ -11,16 +11,16 @@
 |  --- | --- | --- | --- |
 | `subscription_group` | [`UpdateSubscriptionGroup`](../../doc/models/update-subscription-group.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_group": {
-    "member_ids": [
+```ruby
+update_subscription_group_request = UpdateSubscriptionGroupRequest.new(
+  subscription_group: UpdateSubscriptionGroup.new(
+    member_ids: [
       164,
       165
     ]
-  }
-}
+  )
+)
 ```
 

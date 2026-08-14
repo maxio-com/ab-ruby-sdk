@@ -24,48 +24,47 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :email
 
-    # A list of emails that should be cc’d on all customer communications.
-    # Optional.
+    # (Optional) A list of emails that should be cc’d on all customer
+    # communications.
     # @return [String]
     attr_accessor :cc_emails
 
-    # The organization/company of the customer. Optional.
+    # (Optional) The organization/company of the customer.
     # @return [String]
     attr_accessor :organization
 
-    # A customer “reference”, or unique identifier from your app, stored in
-    # Chargify. Can be used so that you may reference your customer’s within
-    # Chargify using the same unique value you use in your application.
-    # Optional.
+    # (Optional) A customer “reference”, or unique identifier from your app,
+    # stored in Chargify. Can be used so that you may reference your customer’s
+    # within Chargify using the same unique value you use in your application.
     # @return [String]
     attr_accessor :reference
 
-    # (Optional) The customer’s shipping street address (i.e. “123 Main St.”).
+    # (Optional) The customer’s shipping street address (e.g., “123 Main St.”).
     # @return [String]
     attr_accessor :address
 
-    # (Optional) Second line of the customer’s shipping address i.e. “Apt. 100”
+    # (Optional) Second line of the customer’s shipping address e.g., “Apt. 100”
     # @return [String]
     attr_accessor :address_2
 
-    # (Optional) The customer’s shipping address city (i.e. “Boston”).
+    # (Optional) The customer’s shipping address city (e.g., “Boston”).
     # @return [String]
     attr_accessor :city
 
-    # (Optional) The customer’s shipping address state (i.e. “MA”). This must
+    # “(Optional) The customer’s shipping address state (e.g., “MA”). This must
     # conform to the
     # [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in
-    # order to be valid for tax locale purposes.
+    # order to be valid for tax locale purposes.”
     # @return [String]
     attr_accessor :state
 
-    # (Optional) The customer’s shipping address zip code (i.e. “12345”).
+    # (Optional) The customer’s shipping address zip code (e.g., “12345”).
     # @return [String]
     attr_accessor :zip
 
-    # (Optional) The customer shipping address country, required in [ISO_3166-1
-    # alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e.
-    # “US”).
+    # “(Optional) The customer shipping address country, required in [ISO_3166-1
+    # alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g.,
+    # “US”).”
     # @return [String]
     attr_accessor :country
 
@@ -82,7 +81,13 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_exempt
 
-    # (Optional) Supplying the VAT number allows EU customer’s to opt-out of the
+    # (Optional) Whether surcharging is enabled for the customer. Defaults to
+    # `true` when omitted. Only applied on sites where surcharging control is
+    # enabled.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :surcharging
+
+    # (Optional) Supplying the VAT number allows EU customers to opt-out of the
     # Value Added Tax assuming the merchant address and customer billing address
     # are not within the same EU country. It’s important to omit the country
     # code from the VAT number upon entry. Otherwise, taxes will be assessed
@@ -127,6 +132,7 @@ module AdvancedBilling
       @_hash['phone'] = 'phone'
       @_hash['verified'] = 'verified'
       @_hash['tax_exempt'] = 'tax_exempt'
+      @_hash['surcharging'] = 'surcharging'
       @_hash['vat_number'] = 'vat_number'
       @_hash['metafields'] = 'metafields'
       @_hash['parent_id'] = 'parent_id'
@@ -154,6 +160,7 @@ module AdvancedBilling
         phone
         verified
         tax_exempt
+        surcharging
         vat_number
         metafields
         parent_id
@@ -176,8 +183,8 @@ module AdvancedBilling
                    cc_emails: SKIP, organization: SKIP, reference: SKIP,
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, phone: SKIP, verified: SKIP,
-                   tax_exempt: SKIP, vat_number: SKIP, metafields: SKIP,
-                   parent_id: SKIP, salesforce_id: SKIP,
+                   tax_exempt: SKIP, surcharging: SKIP, vat_number: SKIP,
+                   metafields: SKIP, parent_id: SKIP, salesforce_id: SKIP,
                    default_auto_renewal_profile_id: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
@@ -200,6 +207,7 @@ module AdvancedBilling
       @phone = phone unless phone == SKIP
       @verified = verified unless verified == SKIP
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
+      @surcharging = surcharging unless surcharging == SKIP
       @vat_number = vat_number unless vat_number == SKIP
       @metafields = metafields unless metafields == SKIP
       @parent_id = parent_id unless parent_id == SKIP
@@ -230,6 +238,7 @@ module AdvancedBilling
       phone = hash.key?('phone') ? hash['phone'] : SKIP
       verified = hash.key?('verified') ? hash['verified'] : SKIP
       tax_exempt = hash.key?('tax_exempt') ? hash['tax_exempt'] : SKIP
+      surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
       metafields = hash.key?('metafields') ? hash['metafields'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
@@ -256,6 +265,7 @@ module AdvancedBilling
                              phone: phone,
                              verified: verified,
                              tax_exempt: tax_exempt,
+                             surcharging: surcharging,
                              vat_number: vat_number,
                              metafields: metafields,
                              parent_id: parent_id,
@@ -281,9 +291,10 @@ module AdvancedBilling
       " cc_emails: #{@cc_emails}, organization: #{@organization}, reference: #{@reference},"\
       " address: #{@address}, address_2: #{@address_2}, city: #{@city}, state: #{@state}, zip:"\
       " #{@zip}, country: #{@country}, phone: #{@phone}, verified: #{@verified}, tax_exempt:"\
-      " #{@tax_exempt}, vat_number: #{@vat_number}, metafields: #{@metafields}, parent_id:"\
-      " #{@parent_id}, salesforce_id: #{@salesforce_id}, default_auto_renewal_profile_id:"\
-      " #{@default_auto_renewal_profile_id}, additional_properties: #{get_additional_properties}>"
+      " #{@tax_exempt}, surcharging: #{@surcharging}, vat_number: #{@vat_number}, metafields:"\
+      " #{@metafields}, parent_id: #{@parent_id}, salesforce_id: #{@salesforce_id},"\
+      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -294,11 +305,12 @@ module AdvancedBilling
       " #{@organization.inspect}, reference: #{@reference.inspect}, address: #{@address.inspect},"\
       " address_2: #{@address_2.inspect}, city: #{@city.inspect}, state: #{@state.inspect}, zip:"\
       " #{@zip.inspect}, country: #{@country.inspect}, phone: #{@phone.inspect}, verified:"\
-      " #{@verified.inspect}, tax_exempt: #{@tax_exempt.inspect}, vat_number:"\
-      " #{@vat_number.inspect}, metafields: #{@metafields.inspect}, parent_id:"\
-      " #{@parent_id.inspect}, salesforce_id: #{@salesforce_id.inspect},"\
-      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " #{@verified.inspect}, tax_exempt: #{@tax_exempt.inspect}, surcharging:"\
+      " #{@surcharging.inspect}, vat_number: #{@vat_number.inspect}, metafields:"\
+      " #{@metafields.inspect}, parent_id: #{@parent_id.inspect}, salesforce_id:"\
+      " #{@salesforce_id.inspect}, default_auto_renewal_profile_id:"\
+      " #{@default_auto_renewal_profile_id.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

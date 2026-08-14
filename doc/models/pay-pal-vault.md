@@ -16,3 +16,9 @@ The vault that stores the payment profile with the provided vault_token.
 | `MODUSLINK` |
 | `PAYPAL_COMPLETE` |
 
+## Example
+
+```ruby
+pay_pal_vault = PayPalVault::MODUSLINK
+```
+

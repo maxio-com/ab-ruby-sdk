@@ -13,7 +13,7 @@
 
 ## Example
 
-```
-next_proforma_invoice
+```ruby
+create_signup_proforma_preview_include = CreateSignupProformaPreviewInclude::NEXT_PROFORMA_INVOICE
 ```
 

@@ -17,15 +17,15 @@
 | `created_at` | `DateTime` | Optional | - |
 | `updated_at` | `DateTime` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 164,
-  "site_id": 90,
-  "code": "code0",
-  "description": "description2",
-  "position": 194
-}
+```ruby
+reason_code = ReasonCode.new(
+  id: 240,
+  site_id: 166,
+  code: 'code4',
+  description: 'description6',
+  position: 14
+)
 ```
 

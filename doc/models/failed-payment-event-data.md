@@ -17,15 +17,15 @@ Example schema for an `failed_payment` event
 | `payment_method` | [`InvoicePaymentMethodType`](../../doc/models/invoice-payment-method-type.md) | Required | - |
 | `transaction_id` | `Integer` | Required | The transaction ID of the failed payment. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount_in_cents": 128,
-  "applied_amount": 154,
-  "memo": "memo2",
-  "payment_method": "credit_card",
-  "transaction_id": 170
-}
+```ruby
+failed_payment_event_data = FailedPaymentEventData.new(
+  amount_in_cents: 46,
+  applied_amount: 20,
+  payment_method: InvoicePaymentMethodType::CASH,
+  transaction_id: 252,
+  memo: 'memo2'
+)
 ```
 

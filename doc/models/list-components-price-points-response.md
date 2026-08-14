@@ -11,19 +11,19 @@
 |  --- | --- | --- | --- |
 | `price_points` | [`Array[ComponentPricePoint]`](../../doc/models/component-price-point.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_points": [
-    {
-      "id": 40,
-      "type": "default",
-      "default": false,
-      "name": "name2",
-      "pricing_scheme": "per_unit"
-    }
+```ruby
+list_components_price_points_response = ListComponentsPricePointsResponse.new(
+  price_points: [
+    ComponentPricePoint.new(
+      id: 40,
+      type: PricePointType::DEFAULT,
+      default: false,
+      name: 'name2',
+      pricing_scheme: PricingScheme::PER_UNIT
+    )
   ]
-}
+)
 ```
 

@@ -11,33 +11,26 @@
 |  --- | --- | --- | --- |
 | `scheduled_renewal_configurations` | [`Array[ScheduledRenewalConfiguration]`](../../doc/models/scheduled-renewal-configuration.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "scheduled_renewal_configurations": [
-    {
-      "id": 122,
-      "site_id": 48,
-      "subscription_id": 232,
-      "starts_at": "2016-03-13T12:52:32.123Z",
-      "ends_at": "2016-03-13T12:52:32.123Z"
-    },
-    {
-      "id": 122,
-      "site_id": 48,
-      "subscription_id": 232,
-      "starts_at": "2016-03-13T12:52:32.123Z",
-      "ends_at": "2016-03-13T12:52:32.123Z"
-    },
-    {
-      "id": 122,
-      "site_id": 48,
-      "subscription_id": 232,
-      "starts_at": "2016-03-13T12:52:32.123Z",
-      "ends_at": "2016-03-13T12:52:32.123Z"
-    }
+```ruby
+scheduled_renewal_configurations_response = ScheduledRenewalConfigurationsResponse.new(
+  scheduled_renewal_configurations: [
+    ScheduledRenewalConfiguration.new(
+      id: 122,
+      site_id: 48,
+      subscription_id: 232,
+      starts_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+      ends_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    ),
+    ScheduledRenewalConfiguration.new(
+      id: 122,
+      site_id: 48,
+      subscription_id: 232,
+      starts_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+      ends_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    )
   ]
-}
+)
 ```
 

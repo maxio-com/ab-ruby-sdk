@@ -183,7 +183,7 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a scheduled renewal configuration to an editable state.
+    # Restores a scheduled renewal configuration to an editable state.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] id Required parameter: The renewal id.
@@ -240,6 +240,12 @@ module AdvancedBilling
     end
 
     # Adds product and component line items to the scheduled renewal.
+    # If your site has list vs sales pricing enabled, accepts
+    # renewal_configuration_item.custom_price.list_price_point_id, validates and
+    # persists it; omitted value follows existing/default behavior; with list vs
+    # sales pricing disabled, parameter is ignored (no validation/behavioral
+    # impact). This functionality is supported in the API, but is not currently
+    # supported in SDKs.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] scheduled_renewals_configuration_id Required parameter:
@@ -275,6 +281,12 @@ module AdvancedBilling
     end
 
     # Updates an existing configuration item’s pricing and quantity.
+    # If you site has list vs sales pricing enabled, accepts
+    # renewal_configuration_item.custom_price.list_price_point_id, validates and
+    # persists it; omitted value follows existing/default behavior; with list vs
+    # sales pricing disabled, parameter is ignored (no validation/behavioral
+    # impact). This functionality is supported in the API, but is not currently
+    # supported in SDKs.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [Integer] scheduled_renewals_configuration_id Required parameter:

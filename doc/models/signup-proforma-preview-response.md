@@ -11,26 +11,26 @@
 |  --- | --- | --- | --- |
 | `proforma_invoice_preview` | [`SignupProformaPreview`](../../doc/models/signup-proforma-preview.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "proforma_invoice_preview": {
-    "current_proforma_invoice": {
-      "uid": "uid6",
-      "site_id": 72,
-      "customer_id": 184,
-      "subscription_id": 0,
-      "number": 132
-    },
-    "next_proforma_invoice": {
-      "uid": "uid8",
-      "site_id": 212,
-      "customer_id": 68,
-      "subscription_id": 140,
-      "number": 16
-    }
-  }
-}
+```ruby
+signup_proforma_preview_response = SignupProformaPreviewResponse.new(
+  proforma_invoice_preview: SignupProformaPreview.new(
+    current_proforma_invoice: ProformaInvoice.new(
+      uid: 'uid6',
+      site_id: 72,
+      customer_id: 184,
+      subscription_id: 0,
+      number: 132
+    ),
+    next_proforma_invoice: ProformaInvoice.new(
+      uid: 'uid8',
+      site_id: 212,
+      customer_id: 68,
+      subscription_id: 140,
+      number: 16
+    )
+  )
+)
 ```
 

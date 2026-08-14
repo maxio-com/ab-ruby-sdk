@@ -14,11 +14,11 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_included
 
-    # Omit for On/Off components
+    # Omit for On/Off components.
     # @return [PricingScheme]
     attr_accessor :pricing_scheme
 
-    # The numerical interval. i.e. an interval of ‘30’ coupled with an
+    # The numerical interval. e.g., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
     # Multifrequency enabled.
@@ -31,7 +31,7 @@ module AdvancedBilling
     # @return [IntervalUnit]
     attr_accessor :interval_unit
 
-    # Optional id of the price point to use for list price calculations when
+    # (Optional) Id of the price point to use for list price calculations when
     # overriding the customer price.
     # @return [Integer]
     attr_accessor :list_price_point_id

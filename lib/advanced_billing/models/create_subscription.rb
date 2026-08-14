@@ -68,6 +68,15 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :customer_id
 
+    # The ID of the Branding Theme to assign to this subscription. When set,
+    # this subscription-level Branding Theme is used instead of the customer's
+    # default Branding Theme for subscription-related documents and
+    # communications that use subscription theming. Pass null or an empty value
+    # to clear the subscription-level Branding Theme. Available only when
+    # Branding Themes are enabled for the site. Not returned in the response.
+    # @return [Integer]
+    attr_accessor :branding_theme_id
+
     # (Optional) Set this attribute to a future date/time to sync imported
     # subscriptions to your existing renewal schedule. See the notes on
     # “Date/Time Format” in our [subscription import
@@ -104,7 +113,7 @@ module AdvancedBilling
 
     # (Optional) Set this attribute to true to create the subscription in the
     # Awaiting Signup Date state. Use this when you want to create a
-    # subscription that has an unknown first  billing date. When the first
+    # subscription that has an unknown first billing date. When the first
     # billing date is known, update a subscription and set the
     # `initial_billing_at` date. The subscription moves to the Awaiting Signup
     # state with a scheduled initial billing date. You can omit the
@@ -133,7 +142,7 @@ module AdvancedBilling
     # use a new (unstored) card or bank account for the subscription, use
     # `payment_profile_attributes` instead to create a new payment profile along
     # with the subscription. (This value is available on an existing
-    # subscription via the API as `credit_card` > id or `bank_account` > id)
+    # subscription via the API as `credit_card` > id or `bank_account` > id.)
     # @return [Integer]
     attr_accessor :payment_profile_id
 
@@ -166,7 +175,7 @@ module AdvancedBilling
     # @return [Array[CreateSubscriptionComponent]]
     attr_accessor :components
 
-    # (Optional). Cannot be used when also specifying next_billing_at
+    # (Optional). Cannot be used when also specifying next_billing_at.
     # @return [CalendarBilling]
     attr_accessor :calendar_billing
 
@@ -258,13 +267,13 @@ module AdvancedBilling
 
     # Use in place of passing product and component information to set up the
     # subscription with an existing offer. May be either the Chargify id of the
-    # offer or its handle prefixed with `handle:`.er
+    # offer or its handle prefixed with `handle:`.
     # @return [Object]
     attr_accessor :offer_id
 
     # Use in place of passing product and component information to set up the
     # subscription with an existing offer. May be either the Chargify id of the
-    # offer or its handle prefixed with `handle:`.er
+    # offer or its handle prefixed with `handle:`.
     # @return [UpsertPrepaidConfiguration]
     attr_accessor :prepaid_configuration
 
@@ -337,6 +346,7 @@ module AdvancedBilling
       @_hash['receives_invoice_emails'] = 'receives_invoice_emails'
       @_hash['net_terms'] = 'net_terms'
       @_hash['customer_id'] = 'customer_id'
+      @_hash['branding_theme_id'] = 'branding_theme_id'
       @_hash['next_billing_at'] = 'next_billing_at'
       @_hash['initial_billing_at'] = 'initial_billing_at'
       @_hash['defer_signup'] = 'defer_signup'
@@ -398,6 +408,7 @@ module AdvancedBilling
         receives_invoice_emails
         net_terms
         customer_id
+        branding_theme_id
         next_billing_at
         initial_billing_at
         defer_signup
@@ -443,6 +454,7 @@ module AdvancedBilling
     # An array for nullable fields
     def self.nullables
       %w[
+        branding_theme_id
         dunning_communication_delay_time_zone
       ]
     end
@@ -453,11 +465,12 @@ module AdvancedBilling
                    coupon_code: SKIP, coupon_codes: SKIP,
                    payment_collection_method: SKIP,
                    receives_invoice_emails: SKIP, net_terms: SKIP,
-                   customer_id: SKIP, next_billing_at: SKIP,
-                   initial_billing_at: SKIP, defer_signup: false,
-                   stored_credential_transaction_id: SKIP, sales_rep_id: SKIP,
-                   payment_profile_id: SKIP, reference: SKIP,
-                   customer_attributes: SKIP, payment_profile_attributes: SKIP,
+                   customer_id: SKIP, branding_theme_id: SKIP,
+                   next_billing_at: SKIP, initial_billing_at: SKIP,
+                   defer_signup: false, stored_credential_transaction_id: SKIP,
+                   sales_rep_id: SKIP, payment_profile_id: SKIP,
+                   reference: SKIP, customer_attributes: SKIP,
+                   payment_profile_attributes: SKIP,
                    credit_card_attributes: SKIP, bank_account_attributes: SKIP,
                    components: SKIP, calendar_billing: SKIP, metafields: SKIP,
                    customer_reference: SKIP, group: SKIP, ref: SKIP,
@@ -496,6 +509,7 @@ module AdvancedBilling
       @receives_invoice_emails = receives_invoice_emails unless receives_invoice_emails == SKIP
       @net_terms = net_terms unless net_terms == SKIP
       @customer_id = customer_id unless customer_id == SKIP
+      @branding_theme_id = branding_theme_id unless branding_theme_id == SKIP
       @next_billing_at = next_billing_at unless next_billing_at == SKIP
       @initial_billing_at = initial_billing_at unless initial_billing_at == SKIP
       @defer_signup = defer_signup unless defer_signup == SKIP
@@ -580,6 +594,8 @@ module AdvancedBilling
         hash.key?('receives_invoice_emails') ? hash['receives_invoice_emails'] : SKIP
       net_terms = hash.key?('net_terms') ? hash['net_terms'] : SKIP
       customer_id = hash.key?('customer_id') ? hash['customer_id'] : SKIP
+      branding_theme_id =
+        hash.key?('branding_theme_id') ? hash['branding_theme_id'] : SKIP
       next_billing_at = if hash.key?('next_billing_at')
                           (DateTimeHelper.from_rfc3339(hash['next_billing_at']) if hash['next_billing_at'])
                         else
@@ -692,6 +708,7 @@ module AdvancedBilling
                              receives_invoice_emails: receives_invoice_emails,
                              net_terms: net_terms,
                              customer_id: customer_id,
+                             branding_theme_id: branding_theme_id,
                              next_billing_at: next_billing_at,
                              initial_billing_at: initial_billing_at,
                              defer_signup: defer_signup,
@@ -776,14 +793,14 @@ module AdvancedBilling
       " #{@product_price_point_id}, custom_price: #{@custom_price}, coupon_code: #{@coupon_code},"\
       " coupon_codes: #{@coupon_codes}, payment_collection_method: #{@payment_collection_method},"\
       " receives_invoice_emails: #{@receives_invoice_emails}, net_terms: #{@net_terms},"\
-      " customer_id: #{@customer_id}, next_billing_at: #{@next_billing_at}, initial_billing_at:"\
-      " #{@initial_billing_at}, defer_signup: #{@defer_signup}, stored_credential_transaction_id:"\
-      " #{@stored_credential_transaction_id}, sales_rep_id: #{@sales_rep_id}, payment_profile_id:"\
-      " #{@payment_profile_id}, reference: #{@reference}, customer_attributes:"\
-      " #{@customer_attributes}, payment_profile_attributes: #{@payment_profile_attributes},"\
-      " credit_card_attributes: #{@credit_card_attributes}, bank_account_attributes:"\
-      " #{@bank_account_attributes}, components: #{@components}, calendar_billing:"\
-      " #{@calendar_billing}, metafields: #{@metafields}, customer_reference:"\
+      " customer_id: #{@customer_id}, branding_theme_id: #{@branding_theme_id}, next_billing_at:"\
+      " #{@next_billing_at}, initial_billing_at: #{@initial_billing_at}, defer_signup:"\
+      " #{@defer_signup}, stored_credential_transaction_id: #{@stored_credential_transaction_id},"\
+      " sales_rep_id: #{@sales_rep_id}, payment_profile_id: #{@payment_profile_id}, reference:"\
+      " #{@reference}, customer_attributes: #{@customer_attributes}, payment_profile_attributes:"\
+      " #{@payment_profile_attributes}, credit_card_attributes: #{@credit_card_attributes},"\
+      " bank_account_attributes: #{@bank_account_attributes}, components: #{@components},"\
+      " calendar_billing: #{@calendar_billing}, metafields: #{@metafields}, customer_reference:"\
       " #{@customer_reference}, group: #{@group}, ref: #{@ref}, cancellation_message:"\
       " #{@cancellation_message}, cancellation_method: #{@cancellation_method}, currency:"\
       " #{@currency}, expires_at: #{@expires_at}, expiration_tracks_next_billing_change:"\
@@ -811,7 +828,8 @@ module AdvancedBilling
       " #{@coupon_code.inspect}, coupon_codes: #{@coupon_codes.inspect},"\
       " payment_collection_method: #{@payment_collection_method.inspect}, receives_invoice_emails:"\
       " #{@receives_invoice_emails.inspect}, net_terms: #{@net_terms.inspect}, customer_id:"\
-      " #{@customer_id.inspect}, next_billing_at: #{@next_billing_at.inspect}, initial_billing_at:"\
+      " #{@customer_id.inspect}, branding_theme_id: #{@branding_theme_id.inspect},"\
+      " next_billing_at: #{@next_billing_at.inspect}, initial_billing_at:"\
       " #{@initial_billing_at.inspect}, defer_signup: #{@defer_signup.inspect},"\
       " stored_credential_transaction_id: #{@stored_credential_transaction_id.inspect},"\
       " sales_rep_id: #{@sales_rep_id.inspect}, payment_profile_id:"\

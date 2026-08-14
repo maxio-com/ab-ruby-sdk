@@ -13,7 +13,7 @@
 
 ## Example
 
-```
-updated_at
+```ruby
+subscription_list_date_field = SubscriptionListDateField::UPDATED_AT
 ```
 

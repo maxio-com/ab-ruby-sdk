@@ -16,9 +16,21 @@ module AdvancedBilling
     # which DO NOT reset to zero at the start of every billing period. If you
     # want to bill for a quantity of something that does not change unless you
     # change it, then you want quantity components, instead.
+    # #### Hybrid Pricing
+    # A `volume`, `tiered`, or `stairstep` metered component can combine its
+    # primary pricing with a secondary pricing model (the `overage_pricing`
+    # parameter) so both bill as a single invoice line item instead of two. This
+    # does not apply to metered components configured for event-based billing
+    # (metric, meter, or formula). See [Hybrid
+    # Pricing](page:introduction/basic-concepts/hybrid-pricing) for requirements
+    # and configuration details.
     # For more information on components, see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
     # ts-Overview).
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`. Sending `"tax_code": ""` returns `422`.
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateMeteredComponent] body Optional parameter: TODO: type
@@ -54,7 +66,7 @@ module AdvancedBilling
     # Creates a Quantity Based component definition under the specified product
     # family. A Quantity Based component can then be added and “allocated” for a
     # subscription.
-    # When defining a Quantity Based component, you can choose one of 2 types:
+    # When defining a Quantity Based component, you can choose one of two types:
     # #### Recurring
     # Recurring quantity-based components are used to bill for the number of
     # some unit (think monthly software user licenses or the number of pairs of
@@ -66,9 +78,22 @@ module AdvancedBilling
     # charge your customer a one-time fee for onboarding or other services.
     # The allocated quantity for one-time quantity-based components immediately
     # gets reset back to zero after the allocation is made.
+    # For more information, see [Components
+    # Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Compo
+    # nents-Overview).
+    # #### Hybrid Pricing
+    # A `volume`, `tiered`, or `stairstep` component can combine its primary
+    # pricing with a secondary pricing model (the `overage_pricing` parameter)
+    # so both bill as a single invoice line item instead of two. See [Hybrid
+    # Pricing](page:introduction/basic-concepts/hybrid-pricing) for requirements
+    # and configuration details.
     # For more information on components, see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
     # ts-Overview).
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`. Sending `"tax_code": ""` returns `422`.
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateQuantityBasedComponent] body Optional parameter: TODO: type
@@ -108,6 +133,10 @@ module AdvancedBilling
     # For more information on components, see our documentation
     # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
     # ts-Overview).
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`. Sending `"tax_code": ""` returns `422`.
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateOnOffComponent] body Optional parameter: TODO: type
@@ -147,11 +176,15 @@ module AdvancedBilling
     # up over time on their subscription. In a sense, they are the mirror image
     # of metered components; while metered components charge at the end of the
     # period for the amount of units used, prepaid components are charged for at
-    # the time of purchase, and we subsequently keep track of the usage against
-    # the amount purchased.
-    # For more information on components, see our documentation
-    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
-    # ts-Overview).
+    # the time of purchase, and usage is subsequently tracked against the amount
+    # purchased.
+    # For more information, see [Components
+    # Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Compo
+    # nents-Overview).
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`; sending a blank value results in a validation error.
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreatePrepaidComponent] body Optional parameter: TODO: type
@@ -196,9 +229,13 @@ module AdvancedBilling
     # So, instead of reporting usage directly for each component (as you would
     # with metered components), the usage is derived from analysis of your
     # events.
-    # For more information on components, see our documentation
-    # [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Componen
-    # ts-Overview).
+    # For more information, see [Components
+    # Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Compo
+    # nents-Overview).
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`; sending a blank value results in a validation error.
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateEBBComponent] body Optional parameter: TODO: type
@@ -284,6 +321,10 @@ module AdvancedBilling
     # Updates a component from a specific product family.
     # You may read the component by either the component's id or handle. When
     # using the handle, it must be prefixed with `handle:`.
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`. Sending `"tax_code": ""` returns `422`.
     # @param [Integer] product_family_id Required parameter: The Advanced
     # Billing id of the product family to which the component belongs
     # @param [String] component_id Required parameter: Either the Advanced
@@ -373,9 +414,8 @@ module AdvancedBilling
     # components with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
-    # optional
     # @param [TrueClass | FalseClass] include_archived Optional parameter:
-    # Include archived items
+    # Include archived items.
     # @param [Integer] page Optional parameter: Result records are organized in
     # pages. By default, the first page of results is displayed. The page
     # parameter specifies a page number of results to fetch. You can start
@@ -417,6 +457,10 @@ module AdvancedBilling
     # Updates a component.
     # You may read the component by either the component's id or handle. When
     # using the handle, it must be prefixed with `handle:`.
+    # If you have the new [Catalog
+    # experience](page:help/announcements/2026-announcements#new-catalog-experie
+    # nce-and-terminology) enabled, taxable components must include a non-blank
+    # `tax_code`. Sending `"tax_code": ""` returns `422`.
     # @param [String] component_id Required parameter: The id or handle of the
     # component
     # @param [UpdateComponentRequest] body Optional parameter: TODO: type
@@ -476,7 +520,6 @@ module AdvancedBilling
     # components with a timestamp at or before exact time provided in query. You
     # can specify timezone in query - otherwise your site's time zone will be
     # used. If provided, this parameter will be used instead of end_date.
-    # optional.
     # @param [String] start_date Optional parameter: The start date (format
     # YYYY-MM-DD) with which to filter the date_field. Returns components with a
     # timestamp at or after midnight (12:00:00 AM) in your site’s time zone on

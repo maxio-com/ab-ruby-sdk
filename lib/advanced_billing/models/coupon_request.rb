@@ -15,13 +15,13 @@ module AdvancedBilling
 
     # An object where the keys are product IDs or handles (prefixed with
     # 'handle:'), and the values are booleans indicating if the coupon should be
-    # applicable to the product
+    # applicable to the product.
     # @return [Hash[String, TrueClass | FalseClass]]
     attr_accessor :restricted_products
 
     # An object where the keys are component IDs or handles (prefixed with
     # 'handle:'), and the values are booleans indicating if the coupon should be
-    # applicable to the component
+    # applicable to the component.
     # @return [Hash[String, TrueClass | FalseClass]]
     attr_accessor :restricted_components
 

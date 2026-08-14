@@ -11,16 +11,16 @@
 |  --- | --- | --- | --- |
 | `currency_prices` | [`Array[UpdateCouponCurrency]`](../../doc/models/update-coupon-currency.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "currency": "currency8",
-      "price": 78
-    }
+```ruby
+coupon_currency_request = CouponCurrencyRequest.new(
+  currency_prices: [
+    UpdateCouponCurrency.new(
+      currency: 'currency8',
+      price: 78
+    )
   ]
-}
+)
 ```
 

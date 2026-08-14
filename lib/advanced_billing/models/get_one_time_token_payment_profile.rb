@@ -254,6 +254,84 @@ module AdvancedBilling
                                         additional_properties: additional_properties)
     end
 
+    # Validates an instance of the object from a given value.
+    # @param [GetOneTimeTokenPaymentProfile | Hash] The value against the validation is performed.
+    def self.validate(value)
+      if value.instance_of? self
+        return (
+          APIHelper.valid_type?(value.first_name,
+                                ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.last_name,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.masked_card_number,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.card_type,
+                                  ->(val) { CardType.validate(val) }) and
+            APIHelper.valid_type?(value.expiration_month,
+                                  ->(val) { val.instance_of? Float }) and
+            APIHelper.valid_type?(value.expiration_year,
+                                  ->(val) { val.instance_of? Float }) and
+            APIHelper.valid_type?(value.current_vault,
+                                  ->(val) { CreditCardVault.validate(val) }) and
+            APIHelper.valid_type?(value.vault_token,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.billing_address,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.billing_city,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.billing_country,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.billing_state,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.billing_zip,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.payment_type,
+                                  ->(val) { val.instance_of? String }) and
+            APIHelper.valid_type?(value.disabled,
+                                  ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+            APIHelper.valid_type?(value.site_gateway_setting_id,
+                                  ->(val) { val.instance_of? Integer })
+        )
+      end
+
+      return false unless value.instance_of? Hash
+
+      (
+        APIHelper.valid_type?(value['first_name'],
+                              ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['last_name'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['masked_card_number'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['card_type'],
+                                ->(val) { CardType.validate(val) }) and
+          APIHelper.valid_type?(value['expiration_month'],
+                                ->(val) { val.instance_of? Float }) and
+          APIHelper.valid_type?(value['expiration_year'],
+                                ->(val) { val.instance_of? Float }) and
+          APIHelper.valid_type?(value['current_vault'],
+                                ->(val) { CreditCardVault.validate(val) }) and
+          APIHelper.valid_type?(value['vault_token'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['billing_address'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['billing_city'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['billing_country'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['billing_state'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['billing_zip'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['payment_type'],
+                                ->(val) { val.instance_of? String }) and
+          APIHelper.valid_type?(value['disabled'],
+                                ->(val) { val.instance_of? TrueClass or val.instance_of? FalseClass }) and
+          APIHelper.valid_type?(value['site_gateway_setting_id'],
+                                ->(val) { val.instance_of? Integer })
+      )
+    end
+
     # Provides a human-readable string representation of the object.
     def to_s
       class_name = self.class.name.split('::').last

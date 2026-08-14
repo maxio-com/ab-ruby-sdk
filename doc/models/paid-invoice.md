@@ -14,14 +14,14 @@
 | `due_amount` | `String` | Optional | The remaining due amount on the invoice |
 | `paid_amount` | `String` | Optional | The total amount paid on this invoice (including any prior payments) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "invoice_id": "invoice_id6",
-  "status": "open",
-  "due_amount": "due_amount8",
-  "paid_amount": "paid_amount8"
-}
+```ruby
+paid_invoice = PaidInvoice.new(
+  invoice_id: 'invoice_id6',
+  status: InvoiceStatus::PAID,
+  due_amount: 'due_amount6',
+  paid_amount: 'paid_amount4'
+)
 ```
 

@@ -8,7 +8,16 @@ module AdvancedBilling
   class SubscriptionListInclude
     SUBSCRIPTION_LIST_INCLUDE = [
       # TODO: Write general description for SELF_SERVICE_PAGE_TOKEN
-      SELF_SERVICE_PAGE_TOKEN = 'self_service_page_token'.freeze
+      SELF_SERVICE_PAGE_TOKEN = 'self_service_page_token'.freeze,
+
+      # TODO: Write general description for CURRENT_ACCOUNT_BALANCE_IN_CENTS
+      CURRENT_ACCOUNT_BALANCE_IN_CENTS = 'current_account_balance_in_cents'.freeze,
+
+      # TODO: Write general description for CURRENT_BILLING_AMOUNT
+      CURRENT_BILLING_AMOUNT = 'current_billing_amount'.freeze,
+
+      # TODO: Write general description for COUPONS
+      COUPONS = 'coupons'.freeze
     ].freeze
 
     def self.validate(value)
@@ -20,7 +29,16 @@ module AdvancedBilling
     def self.from_value(value, default_value = SELF_SERVICE_PAGE_TOKEN)
       return default_value if value.nil?
 
-      default_value
+      str = value.to_s.strip
+
+      case str.downcase
+      when 'self_service_page_token' then SELF_SERVICE_PAGE_TOKEN
+      when 'current_account_balance_in_cents' then CURRENT_ACCOUNT_BALANCE_IN_CENTS
+      when 'current_billing_amount' then CURRENT_BILLING_AMOUNT
+      when 'coupons' then COUPONS
+      else
+        default_value
+      end
     end
   end
 end

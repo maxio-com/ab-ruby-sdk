@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- |
 | `renewal_configuration` | [`ScheduledRenewalConfigurationRequestBody`](../../doc/models/scheduled-renewal-configuration-request-body.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "renewal_configuration": {
-    "starts_at": "2016-03-13T12:52:32.123Z",
-    "ends_at": "2016-03-13T12:52:32.123Z",
-    "lock_in_at": "2016-03-13T12:52:32.123Z",
-    "contract_id": 244,
-    "create_new_contract": false
-  }
-}
+```ruby
+scheduled_renewal_configuration_request = ScheduledRenewalConfigurationRequest.new(
+  renewal_configuration: ScheduledRenewalConfigurationRequestBody.new(
+    starts_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    ends_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    lock_in_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z'),
+    contract_id: 244,
+    create_new_contract: false
+  )
+)
 ```
 

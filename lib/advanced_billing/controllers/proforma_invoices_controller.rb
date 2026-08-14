@@ -6,11 +6,10 @@
 module AdvancedBilling
   # ProformaInvoicesController
   class ProformaInvoicesController < BaseController
-    # Creates a consolidated proforma invoice asynchronously. It will return a
-    # 201 with no message, or a 422 with any errors. To find and view the new
-    # consolidated proforma invoice, you may poll the subscription group listing
-    # for proforma invoices; only one consolidated proforma invoice may be
-    # created per group at a time.
+    # Creates a consolidated proforma invoice asynchronously. To find and view
+    # the new consolidated proforma invoice, you can poll the subscription group
+    # listing for proforma invoices; only one consolidated proforma invoice can
+    # be created per group at a time.
     # If the information becomes outdated, simply void the old consolidated
     # proforma invoice and generate a new one.
     # ## Restrictions
@@ -47,17 +46,17 @@ module AdvancedBilling
     # @param [String] uid Required parameter: The uid of the subscription
     # group
     # @param [TrueClass | FalseClass] line_items Optional parameter: Include
-    # line items data
+    # line items data.
     # @param [TrueClass | FalseClass] discounts Optional parameter: Include
-    # discounts data
+    # discounts data.
     # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
-    # data
+    # data.
     # @param [TrueClass | FalseClass] credits Optional parameter: Include
-    # credits data
+    # credits data.
     # @param [TrueClass | FalseClass] payments Optional parameter: Include
-    # payments data
+    # payments data.
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
-    # custom fields data
+    # custom fields data.
     # @return [ListProformaInvoicesResponse] Response from the API call.
     def list_subscription_group_proforma_invoices(options = {})
       @api_call
@@ -168,17 +167,17 @@ module AdvancedBilling
     # @param [Direction] direction Optional parameter: The sort direction of the
     # returned invoices.
     # @param [TrueClass | FalseClass] line_items Optional parameter: Include
-    # line items data
+    # line items data.
     # @param [TrueClass | FalseClass] discounts Optional parameter: Include
-    # discounts data
+    # discounts data.
     # @param [TrueClass | FalseClass] taxes Optional parameter: Include taxes
-    # data
+    # data.
     # @param [TrueClass | FalseClass] credits Optional parameter: Include
-    # credits data
+    # credits data.
     # @param [TrueClass | FalseClass] payments Optional parameter: Include
-    # payments data
+    # payments data.
     # @param [TrueClass | FalseClass] custom_fields Optional parameter: Include
-    # custom fields data
+    # custom fields data.
     # @return [ListProformaInvoicesResponse] Response from the API call.
     def list_proforma_invoices(options = {})
       @api_call
@@ -289,12 +288,12 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a preview of the data that will be included on a given
-    # subscription's proforma invoice if one were to be generated. It will have
-    # similar line items and totals as a renewal preview, but the response will
-    # be presented in the format of a proforma invoice. Consequently it will
-    # include additional information such as the name and addresses that will
-    # appear on the proforma invoice.
+    # Previews the data that will be included on a given subscription's proforma
+    # invoice if one were to be generated. It will have similar line items and
+    # totals as a renewal preview, but the response will be presented in the
+    # format of a proforma invoice. Consequently it will include additional
+    # information such as the name and addresses that will appear on the
+    # proforma invoice.
     # The preview endpoint is subject to all the same conditions as the proforma
     # invoice endpoint. For example, previews are only available on the
     # Relationship Invoicing architecture, and previews cannot be made for

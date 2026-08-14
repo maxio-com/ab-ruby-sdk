@@ -14,3 +14,9 @@ Current status of the credit note.
 | `OPEN` |
 | `APPLIED` |
 
+## Example
+
+```ruby
+credit_note_status = CreditNoteStatus::OPEN
+```
+

@@ -14,7 +14,7 @@
 
 ## Example
 
-```
-draft
+```ruby
+create_invoice_status = CreateInvoiceStatus::DRAFT
 ```
 

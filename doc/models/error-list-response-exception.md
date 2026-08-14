@@ -13,15 +13,13 @@ Error which contains list of messages.
 |  --- | --- | --- | --- |
 | `errors` | `Array[String]` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    "errors5",
-    "errors6",
-    "errors7"
-  ]
-}
+```ruby
+begin
+  # make the API call
+rescue ErrorListResponseException => e
+  puts "Caught ErrorListResponseException: #{e.message}"
+end
 ```
 

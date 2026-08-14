@@ -47,7 +47,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :role
 
-    # Shows whether it was applied to consolidated invoice or not
+    # Shows whether it was applied to consolidated invoice or not.
     # @return [TrueClass | FalseClass]
     attr_accessor :consolidated_invoice
 

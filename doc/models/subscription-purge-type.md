@@ -12,3 +12,9 @@
 | `CUSTOMER` |
 | `PAYMENT_PROFILE` |
 
+## Example
+
+```ruby
+subscription_purge_type = SubscriptionPurgeType::CUSTOMER
+```
+

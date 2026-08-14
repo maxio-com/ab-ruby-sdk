@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `force` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "force": false
-}
+```ruby
+issue_advance_invoice_request = IssueAdvanceInvoiceRequest.new(
+  force: false
+)
 ```
 

@@ -16,15 +16,15 @@
 | `zip` | `String` | Optional | - |
 | `country` | `String` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "street": "street0",
-  "line2": "line24",
-  "city": "city0",
-  "state": "state6",
-  "zip": "zip4"
-}
+```ruby
+invoice_address = InvoiceAddress.new(
+  street: 'street8',
+  line2: 'line22',
+  city: 'city8',
+  state: 'state4',
+  zip: 'zip2'
+)
 ```
 

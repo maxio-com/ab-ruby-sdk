@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `subscription_group` | `String` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_group": "subscription_group2"
-}
+```ruby
+subscription_group_single_error = SubscriptionGroupSingleError.new(
+  subscription_group: 'subscription_group4'
+)
 ```
 

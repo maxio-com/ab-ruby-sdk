@@ -14,3 +14,9 @@ The type of entry
 | `CREDIT` |
 | `DEBIT` |
 
+## Example
+
+```ruby
+service_credit_type = ServiceCreditType::CREDIT
+```
+

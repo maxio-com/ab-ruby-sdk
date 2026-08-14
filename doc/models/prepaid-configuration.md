@@ -15,15 +15,15 @@
 | `auto_replenish` | `TrueClass \| FalseClass` | Optional | - |
 | `replenish_threshold_amount_in_cents` | `Integer` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 156,
-  "initial_funding_amount_in_cents": 88,
-  "replenish_to_amount_in_cents": 166,
-  "auto_replenish": false,
-  "replenish_threshold_amount_in_cents": 222
-}
+```ruby
+prepaid_configuration = PrepaidConfiguration.new(
+  id: 142,
+  initial_funding_amount_in_cents: 74,
+  replenish_to_amount_in_cents: 76,
+  auto_replenish: false,
+  replenish_threshold_amount_in_cents: 20
+)
 ```
 

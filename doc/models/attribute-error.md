@@ -11,14 +11,15 @@
 |  --- | --- | --- | --- |
 | `attribute` | `Array[String]` | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "attribute": [
-    "attribute6",
-    "attribute7"
+```ruby
+attribute_error = AttributeError.new(
+  attribute: [
+    'attribute6',
+    'attribute5',
+    'attribute4'
   ]
-}
+)
 ```
 

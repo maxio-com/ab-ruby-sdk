@@ -12,12 +12,12 @@
 | `currency` | `String` | Required | ISO code for the site defined currency. |
 | `price` | `Integer` | Required | Price for the given currency. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency": "currency4",
-  "price": 146
-}
+```ruby
+update_coupon_currency = UpdateCouponCurrency.new(
+  currency: 'currency6',
+  price: 14
+)
 ```
 

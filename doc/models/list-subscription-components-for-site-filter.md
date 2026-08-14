@@ -13,26 +13,26 @@
 | `use_site_exchange_rate` | `TrueClass \| FalseClass` | Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 | `subscription` | [`SubscriptionFilter`](../../doc/models/subscription-filter.md) | Optional | Nested filter used for List Subscription Components For Site Filter |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currencies": [
-    "EUR",
-    "USD"
+```ruby
+list_subscription_components_for_site_filter = ListSubscriptionComponentsForSiteFilter.new(
+  currencies: [
+    'EUR',
+    'USD'
   ],
-  "use_site_exchange_rate": false,
-  "subscription": {
-    "states": [
-      "active",
-      "canceled",
-      "expired"
+  use_site_exchange_rate: false,
+  subscription: SubscriptionFilter.new(
+    states: [
+      SubscriptionStateFilter::TRIALING,
+      SubscriptionStateFilter::UNPAID,
+      SubscriptionStateFilter::ACTIVE
     ],
-    "date_field": "updated_at",
-    "start_date": "2016-03-13",
-    "end_date": "2016-03-13",
-    "start_datetime": "2016-03-13T12:52:32.123Z"
-  }
-}
+    date_field: SubscriptionListDateField::UPDATED_AT,
+    start_date: Date.iso8601('2016-03-13'),
+    end_date: Date.iso8601('2016-03-13'),
+    start_datetime: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+  )
+)
 ```
 

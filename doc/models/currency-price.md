@@ -18,15 +18,15 @@
 | `product_price_point_id` | `Integer` | Optional | - |
 | `role` | [`CurrencyPriceRole`](../../doc/models/currency-price-role.md) | Optional | Role for the price. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 88,
-  "currency": "currency6",
-  "price": 41.36,
-  "formatted_price": "formatted_price4",
-  "price_id": 178
-}
+```ruby
+currency_price = CurrencyPrice.new(
+  id: 254,
+  currency: 'currency6',
+  price: 247.06,
+  formatted_price: 'formatted_price4',
+  price_id: 168
+)
 ```
 

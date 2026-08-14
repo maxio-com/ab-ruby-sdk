@@ -15,30 +15,37 @@
 | `per_page` | `Integer` | Optional | - |
 | `metadata` | [`Array[Metadata]`](../../doc/models/metadata.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_count": 26,
-  "current_page": 2,
-  "total_pages": 14,
-  "per_page": 20,
-  "metadata": [
-    {
-      "id": 50,
-      "value": "value8",
-      "resource_id": 134,
-      "name": "name6",
-      "deleted_at": "2016-03-13T12:52:32.123Z"
-    },
-    {
-      "id": 50,
-      "value": "value8",
-      "resource_id": 134,
-      "name": "name6",
-      "deleted_at": "2016-03-13T12:52:32.123Z"
-    }
+```ruby
+paginated_metadata = PaginatedMetadata.new(
+  total_count: 144,
+  current_page: 120,
+  total_pages: 132,
+  per_page: 158,
+  metadata: [
+    Metadata.new(
+      id: 50,
+      value: 'value8',
+      resource_id: 134,
+      name: 'name6',
+      deleted_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    ),
+    Metadata.new(
+      id: 50,
+      value: 'value8',
+      resource_id: 134,
+      name: 'name6',
+      deleted_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    ),
+    Metadata.new(
+      id: 50,
+      value: 'value8',
+      resource_id: 134,
+      name: 'name6',
+      deleted_at: DateTimeHelper.from_rfc3339('2016-03-13T12:52:32.123Z')
+    )
   ]
-}
+)
 ```
 

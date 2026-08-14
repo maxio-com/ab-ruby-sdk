@@ -16,7 +16,7 @@ Allows to filter by `not_null` or `null`.
 
 ## Example
 
-```
-not_null
+```ruby
+include_null_or_not_null = IncludeNullOrNotNull::NOT_NULL
 ```
 

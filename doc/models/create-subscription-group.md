@@ -12,14 +12,14 @@
 | `subscription_id` | `Integer` | Required | - |
 | `member_ids` | `Array[Integer]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_id": 38,
-  "member_ids": [
-    162
+```ruby
+create_subscription_group = CreateSubscriptionGroup.new(
+  subscription_id: 130,
+  member_ids: [
+    230
   ]
-}
+)
 ```
 

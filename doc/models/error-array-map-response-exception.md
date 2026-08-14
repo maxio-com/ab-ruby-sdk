@@ -11,16 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | `Hash[String, Object]` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "key0": {
-      "key1": "val1",
-      "key2": "val2"
-    }
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue ErrorArrayMapResponseException => e
+  puts "Caught ErrorArrayMapResponseException: #{e.message}"
+end
 ```
 

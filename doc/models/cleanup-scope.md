@@ -14,3 +14,9 @@ all: Will clear all products, customers, and related subscriptions from the site
 | `ALL` |
 | `CUSTOMERS` |
 
+## Example
+
+```ruby
+cleanup_scope = CleanupScope::ALL
+```
+

@@ -11,14 +11,14 @@
 |  --- | --- | --- | --- |
 | `price_point` | [`UpdateProductPricePoint`](../../doc/models/update-product-price-point.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "handle": "handle6",
-    "price_in_cents": 196
-  }
-}
+```ruby
+update_product_price_point_request = UpdateProductPricePointRequest.new(
+  price_point: UpdateProductPricePoint.new(
+    handle: 'handle6',
+    price_in_cents: 196
+  )
+)
 ```
 

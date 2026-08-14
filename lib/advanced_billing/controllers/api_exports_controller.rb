@@ -127,7 +127,7 @@ module AdvancedBilling
     end
 
     # Creates a proforma invoices export and returns a batch job object.
-    # It is only available for Relationship Invoicing architecture.
+    # Proforma invoices are only available on Relationship Invoicing sites.
     # @return [BatchJobResponse] Response from the API call.
     def export_proforma_invoices
       @api_call
@@ -190,7 +190,8 @@ module AdvancedBilling
         .execute
     end
 
-    # Returns a batch job object for a proforma invoices export.
+    # Returns a batch job object for a proforma invoices export. Proforma
+    # invoices are only available on Relationship Invoicing sites.
     # @param [String] batch_id Required parameter: Id of a Batch Job.
     # @return [BatchJobResponse] Response from the API call.
     def read_proforma_invoices_export(batch_id)

@@ -32,9 +32,9 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :apply_credit
 
-    # If `apply_credit` set to false and refunding full amount, if
-    # `void_invoice` set to true, invoice will be voided after refund. Defaults
-    # to `false`.
+    # If `apply_credit` is set to false and refunding full amount, if
+    # `void_invoice` is set to true, invoice will be voided after refund.
+    # Defaults to `false`.
     # @return [TrueClass | FalseClass]
     attr_accessor :void_invoice
 

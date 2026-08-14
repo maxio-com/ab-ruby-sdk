@@ -11,18 +11,18 @@
 |  --- | --- | --- | --- |
 | `allocation` | [`CreateAllocation`](../../doc/models/create-allocation.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation": {
-    "quantity": 228.94,
-    "decimal_quantity": "decimal_quantity6",
-    "previous_quantity": 254.04,
-    "decimal_previous_quantity": "decimal_previous_quantity8",
-    "component_id": 8,
-    "memo": "memo2"
-  }
-}
+```ruby
+create_allocation_request = CreateAllocationRequest.new(
+  allocation: CreateAllocation.new(
+    quantity: 228.94,
+    decimal_quantity: 'decimal_quantity6',
+    previous_quantity: 254.04,
+    decimal_previous_quantity: 'decimal_previous_quantity8',
+    component_id: 8,
+    memo: 'memo2'
+  )
+)
 ```
 

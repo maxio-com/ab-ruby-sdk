@@ -20,7 +20,7 @@
 
 ## Example
 
-```
-total_amount
+```ruby
+invoice_sort_field = InvoiceSortField::DUE_AMOUNT
 ```
 

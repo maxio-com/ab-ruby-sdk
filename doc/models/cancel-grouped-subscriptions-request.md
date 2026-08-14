@@ -11,11 +11,11 @@
 |  --- | --- | --- | --- |
 | `charge_unbilled_usage` | `TrueClass \| FalseClass` | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "charge_unbilled_usage": false
-}
+```ruby
+cancel_grouped_subscriptions_request = CancelGroupedSubscriptionsRequest.new(
+  charge_unbilled_usage: false
+)
 ```
 

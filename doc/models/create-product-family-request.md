@@ -11,15 +11,16 @@
 |  --- | --- | --- | --- |
 | `product_family` | [`CreateProductFamily`](../../doc/models/create-product-family.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_family": {
-    "name": "name0",
-    "handle": "handle6",
-    "description": "description0"
-  }
-}
+```ruby
+create_product_family_request = CreateProductFamilyRequest.new(
+  product_family: CreateProductFamily.new(
+    name: 'name0',
+    handle: 'handle6',
+    description: 'description0',
+    surcharging: false
+  )
+)
 ```
 

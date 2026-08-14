@@ -73,22 +73,36 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_exempt
 
-    # Set a specific language on a customer record.
+    # Whether surcharging is enabled for the customer. Only applied on sites
+    # where surcharging control is enabled.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :surcharging
+
+    # Whether surcharging is enabled for the customer. Only applied on sites
+    # where surcharging control is enabled.
     # @return [String]
     attr_accessor :tax_exempt_reason
 
-    # Set a specific language on a customer record.
+    # Whether surcharging is enabled for the customer. Only applied on sites
+    # where surcharging control is enabled.
     # @return [Integer]
     attr_accessor :parent_id
 
     # Is the customer verified to use ACH as a payment method. Available only on
-    # Authorize.Net gateway
+    # the Authorize.Net gateway.
     # @return [TrueClass | FalseClass]
     attr_accessor :verified
 
     # The Salesforce ID of the customer
     # @return [String]
     attr_accessor :salesforce_id
+
+    # The ID of the Branding Theme assigned to this customer as the customer's
+    # default Branding Theme. This customer-level Branding Theme is used when a
+    # subscription does not have its own subscription-level Branding Theme.
+    # Available only when Branding Themes are enabled for the site.
+    # @return [Integer]
+    attr_accessor :branding_theme_id
 
     # A mapping from model property names to API property names.
     def self.names
@@ -109,10 +123,12 @@ module AdvancedBilling
       @_hash['locale'] = 'locale'
       @_hash['vat_number'] = 'vat_number'
       @_hash['tax_exempt'] = 'tax_exempt'
+      @_hash['surcharging'] = 'surcharging'
       @_hash['tax_exempt_reason'] = 'tax_exempt_reason'
       @_hash['parent_id'] = 'parent_id'
       @_hash['verified'] = 'verified'
       @_hash['salesforce_id'] = 'salesforce_id'
+      @_hash['branding_theme_id'] = 'branding_theme_id'
       @_hash
     end
 
@@ -135,10 +151,12 @@ module AdvancedBilling
         locale
         vat_number
         tax_exempt
+        surcharging
         tax_exempt_reason
         parent_id
         verified
         salesforce_id
+        branding_theme_id
       ]
     end
 
@@ -148,6 +166,7 @@ module AdvancedBilling
         parent_id
         verified
         salesforce_id
+        branding_theme_id
       ]
     end
 
@@ -155,8 +174,9 @@ module AdvancedBilling
                    cc_emails: SKIP, organization: SKIP, reference: SKIP,
                    address: SKIP, address_2: SKIP, city: SKIP, state: SKIP,
                    zip: SKIP, country: SKIP, phone: SKIP, locale: SKIP,
-                   vat_number: SKIP, tax_exempt: SKIP, tax_exempt_reason: SKIP,
-                   parent_id: SKIP, verified: SKIP, salesforce_id: SKIP,
+                   vat_number: SKIP, tax_exempt: SKIP, surcharging: SKIP,
+                   tax_exempt_reason: SKIP, parent_id: SKIP, verified: SKIP,
+                   salesforce_id: SKIP, branding_theme_id: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -179,10 +199,12 @@ module AdvancedBilling
       @locale = locale unless locale == SKIP
       @vat_number = vat_number unless vat_number == SKIP
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
+      @surcharging = surcharging unless surcharging == SKIP
       @tax_exempt_reason = tax_exempt_reason unless tax_exempt_reason == SKIP
       @parent_id = parent_id unless parent_id == SKIP
       @verified = verified unless verified == SKIP
       @salesforce_id = salesforce_id unless salesforce_id == SKIP
+      @branding_theme_id = branding_theme_id unless branding_theme_id == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -206,11 +228,14 @@ module AdvancedBilling
       locale = hash.key?('locale') ? hash['locale'] : SKIP
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
       tax_exempt = hash.key?('tax_exempt') ? hash['tax_exempt'] : SKIP
+      surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
       tax_exempt_reason =
         hash.key?('tax_exempt_reason') ? hash['tax_exempt_reason'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
       verified = hash.key?('verified') ? hash['verified'] : SKIP
       salesforce_id = hash.key?('salesforce_id') ? hash['salesforce_id'] : SKIP
+      branding_theme_id =
+        hash.key?('branding_theme_id') ? hash['branding_theme_id'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -232,10 +257,12 @@ module AdvancedBilling
                          locale: locale,
                          vat_number: vat_number,
                          tax_exempt: tax_exempt,
+                         surcharging: surcharging,
                          tax_exempt_reason: tax_exempt_reason,
                          parent_id: parent_id,
                          verified: verified,
                          salesforce_id: salesforce_id,
+                         branding_theme_id: branding_theme_id,
                          additional_properties: additional_properties)
     end
 
@@ -246,8 +273,9 @@ module AdvancedBilling
       " cc_emails: #{@cc_emails}, organization: #{@organization}, reference: #{@reference},"\
       " address: #{@address}, address_2: #{@address_2}, city: #{@city}, state: #{@state}, zip:"\
       " #{@zip}, country: #{@country}, phone: #{@phone}, locale: #{@locale}, vat_number:"\
-      " #{@vat_number}, tax_exempt: #{@tax_exempt}, tax_exempt_reason: #{@tax_exempt_reason},"\
-      " parent_id: #{@parent_id}, verified: #{@verified}, salesforce_id: #{@salesforce_id},"\
+      " #{@vat_number}, tax_exempt: #{@tax_exempt}, surcharging: #{@surcharging},"\
+      " tax_exempt_reason: #{@tax_exempt_reason}, parent_id: #{@parent_id}, verified:"\
+      " #{@verified}, salesforce_id: #{@salesforce_id}, branding_theme_id: #{@branding_theme_id},"\
       " additional_properties: #{get_additional_properties}>"
     end
 
@@ -260,9 +288,10 @@ module AdvancedBilling
       " address_2: #{@address_2.inspect}, city: #{@city.inspect}, state: #{@state.inspect}, zip:"\
       " #{@zip.inspect}, country: #{@country.inspect}, phone: #{@phone.inspect}, locale:"\
       " #{@locale.inspect}, vat_number: #{@vat_number.inspect}, tax_exempt:"\
-      " #{@tax_exempt.inspect}, tax_exempt_reason: #{@tax_exempt_reason.inspect}, parent_id:"\
-      " #{@parent_id.inspect}, verified: #{@verified.inspect}, salesforce_id:"\
-      " #{@salesforce_id.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@tax_exempt.inspect}, surcharging: #{@surcharging.inspect}, tax_exempt_reason:"\
+      " #{@tax_exempt_reason.inspect}, parent_id: #{@parent_id.inspect}, verified:"\
+      " #{@verified.inspect}, salesforce_id: #{@salesforce_id.inspect}, branding_theme_id:"\
+      " #{@branding_theme_id.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

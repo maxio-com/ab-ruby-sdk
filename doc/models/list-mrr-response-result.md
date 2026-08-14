@@ -17,15 +17,15 @@
 | `currency_symbol` | `String` | Optional | - |
 | `movements` | [`Array[Movement]`](../../doc/models/movement.md) | Optional | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "page": 150,
-  "per_page": 238,
-  "total_pages": 16,
-  "total_entries": 112,
-  "currency": "currency8"
-}
+```ruby
+list_mrr_response_result = ListMRRResponseResult.new(
+  page: 170,
+  per_page: 82,
+  total_pages: 208,
+  total_entries: 48,
+  currency: 'currency6'
+)
 ```
 

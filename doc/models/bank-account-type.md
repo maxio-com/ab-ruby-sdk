@@ -14,3 +14,9 @@ Defaults to checking
 | `CHECKING` |
 | `SAVINGS` |
 
+## Example
+
+```ruby
+bank_account_type = BankAccountType::CHECKING
+```
+

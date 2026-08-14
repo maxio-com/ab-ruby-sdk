@@ -11,15 +11,13 @@
 |  --- | --- | --- | --- |
 | `errors` | [`AttributeError`](../../doc/models/attribute-error.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "attribute": [
-      "supplied value is invalid, expected ISO 8601 format"
-    ]
-  }
-}
+```ruby
+begin
+  # make the API call
+rescue SubscriptionsMrrErrorResponseException => e
+  puts "Caught SubscriptionsMrrErrorResponseException: #{e.message}"
+end
 ```
 

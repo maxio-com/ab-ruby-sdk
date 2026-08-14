@@ -11,16 +11,16 @@
 |  --- | --- | --- | --- |
 | `refund` | [`RefundPrepayment`](../../doc/models/refund-prepayment.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "refund": {
-    "amount_in_cents": 132,
-    "amount": "String1",
-    "memo": "memo2",
-    "external": false
-  }
-}
+```ruby
+refund_prepayment_request = RefundPrepaymentRequest.new(
+  refund: RefundPrepayment.new(
+    amount_in_cents: 132,
+    amount: 'String1',
+    memo: 'memo2',
+    external: false
+  )
+)
 ```
 

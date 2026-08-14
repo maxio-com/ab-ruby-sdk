@@ -19,3 +19,9 @@
 | `TRIAL_ENDED_AT` |
 | `UPDATED_AT` |
 
+## Example
+
+```ruby
+subscription_date_field = SubscriptionDateField::CURRENT_PERIOD_STARTS_AT
+```
+

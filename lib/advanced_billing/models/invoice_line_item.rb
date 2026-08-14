@@ -9,7 +9,7 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # Unique identifier for the line item.  Useful when cross-referencing the
+    # Unique identifier for the line item. Useful when cross-referencing the
     # line against individual discounts in the `discounts` or `taxes` lists.
     # @return [String]
     attr_accessor :uid
@@ -18,7 +18,7 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :title
 
-    # Detailed description for the charge or item represented by this line.  May
+    # Detailed description for the charge or item represented by this line. May
     # include proration details in plain text.
     # Note: this string may contain line breaks that are hints for the best
     # display format on the invoice.
@@ -32,7 +32,7 @@ module AdvancedBilling
     attr_accessor :quantity
 
     # The price per unit for the line item.
-    # When tiered pricing was used (i.e. not every unit was actually priced at
+    # When tiered pricing was used (i.e., not every unit was actually priced at
     # the same price) this will be the blended average cost per unit and the
     # `tiered_unit_price` field will be set to `true`.
     # @return [String]
@@ -77,7 +77,7 @@ module AdvancedBilling
     # The non-canonical total amount for the line.
     # `subtotal_amount` is the canonical amount for a line. The invoice
     # `total_amount` is derived from the sum of the line `subtotal_amount`s and
-    # discounts or taxes applied thereafter.  Therefore, due to rounding or
+    # discounts or taxes applied thereafter. Therefore, due to rounding or
     # precision errors, the sum of line `total_amount`s may not equal the
     # invoice `total_amount`.
     # @return [String]
@@ -92,7 +92,7 @@ module AdvancedBilling
     # `"YYYY-MM-DD"`.
     # * For periodic charges paid in advance, this date will match the billing
     # date, and the end date will be in the future.
-    # * For periodic charges paid in arrears (e.g. metered charges), this date
+    # * For periodic charges paid in arrears (e.g., metered charges), this date
     # will be the date of the previous billing, and the end date will be the
     # current billing date.
     # * For non-periodic charges, this date and the end date will match.
@@ -103,7 +103,7 @@ module AdvancedBilling
     # `"YYYY-MM-DD"`.
     # * For periodic charges paid in advance, this date will match the next
     # (future) billing date.
-    # * For periodic charges paid in arrears (e.g. metered charges), this date
+    # * For periodic charges paid in arrears (e.g., metered charges), this date
     # will be the date of the current billing date.
     # * For non-periodic charges, this date and the start date will match.
     # @return [Date]
@@ -113,7 +113,7 @@ module AdvancedBilling
     # `"YYYY-MM-DD"`.
     # * For periodic charges paid in advance, this date will match the next
     # (future) billing date.
-    # * For periodic charges paid in arrears (e.g. metered charges), this date
+    # * For periodic charges paid in arrears (e.g., metered charges), this date
     # will be the date of the current billing date.
     # * For non-periodic charges, this date and the start date will match.
     # @return [Integer]

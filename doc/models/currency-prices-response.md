@@ -11,19 +11,19 @@
 |  --- | --- | --- | --- |
 | `currency_prices` | [`Array[CurrencyPrice]`](../../doc/models/currency-price.md) | Required | - |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "id": 50,
-      "currency": "currency8",
-      "price": 233.74,
-      "formatted_price": "formatted_price6",
-      "price_id": 116
-    }
+```ruby
+currency_prices_response = CurrencyPricesResponse.new(
+  currency_prices: [
+    CurrencyPrice.new(
+      id: 50,
+      currency: 'currency8',
+      price: 233.74,
+      formatted_price: 'formatted_price6',
+      price_id: 116
+    )
   ]
-}
+)
 ```
 

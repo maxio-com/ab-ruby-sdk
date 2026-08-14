@@ -15,35 +15,27 @@
 | `accrue_charge` | `TrueClass \| FalseClass` | Optional | - |
 | `upgrade_charge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. |
 | `downgrade_credit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. |
-| `payment_collection_method` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription |
+| `payment_collection_method` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription. |
 | `initiate_dunning` | `TrueClass \| FalseClass` | Optional | If true, if the immediate component payment fails, initiate dunning for the subscription.<br>Otherwise, leave the charges on the subscription to pay for at renewal. |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "proration_upgrade_scheme": "proration_upgrade_scheme2",
-  "proration_downgrade_scheme": "proration_downgrade_scheme0",
-  "allocations": [
-    {
-      "quantity": 26.48,
-      "decimal_quantity": "decimal_quantity8",
-      "previous_quantity": 55.5,
-      "decimal_previous_quantity": "decimal_previous_quantity2",
-      "component_id": 242,
-      "memo": "memo6"
-    },
-    {
-      "quantity": 26.48,
-      "decimal_quantity": "decimal_quantity8",
-      "previous_quantity": 55.5,
-      "decimal_previous_quantity": "decimal_previous_quantity2",
-      "component_id": 242,
-      "memo": "memo6"
-    }
+```ruby
+allocate_components = AllocateComponents.new(
+  proration_upgrade_scheme: 'proration_upgrade_scheme2',
+  proration_downgrade_scheme: 'proration_downgrade_scheme0',
+  allocations: [
+    CreateAllocation.new(
+      quantity: 26.48,
+      decimal_quantity: 'decimal_quantity8',
+      previous_quantity: 55.5,
+      decimal_previous_quantity: 'decimal_previous_quantity2',
+      component_id: 242,
+      memo: 'memo6'
+    )
   ],
-  "accrue_charge": false,
-  "upgrade_charge": "full"
-}
+  accrue_charge: false,
+  upgrade_charge: CreditType::PRORATED
+)
 ```
 
