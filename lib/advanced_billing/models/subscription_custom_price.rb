@@ -72,6 +72,18 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_included
 
+    # (Optional) The ID of a catalog price point of the same product to use as
+    # the list price. Ignored unless list vs sales pricing is enabled for the
+    # site.
+    # @return [Integer]
+    attr_accessor :list_price_point_id
+
+    # (Optional) When list vs sales pricing is enabled and `list_price_point_id`
+    # is omitted, the product's default price point is used as the list price
+    # unless this is `false`. Defaults to `true`.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :use_default_list_price
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -89,6 +101,8 @@ module AdvancedBilling
       @_hash['expiration_interval'] = 'expiration_interval'
       @_hash['expiration_interval_unit'] = 'expiration_interval_unit'
       @_hash['tax_included'] = 'tax_included'
+      @_hash['list_price_point_id'] = 'list_price_point_id'
+      @_hash['use_default_list_price'] = 'use_default_list_price'
       @_hash
     end
 
@@ -106,6 +120,8 @@ module AdvancedBilling
         expiration_interval
         expiration_interval_unit
         tax_included
+        list_price_point_id
+        use_default_list_price
       ]
     end
 
@@ -115,6 +131,7 @@ module AdvancedBilling
         interval_unit
         trial_type
         expiration_interval_unit
+        list_price_point_id
       ]
     end
 
@@ -124,6 +141,7 @@ module AdvancedBilling
                    trial_type: SKIP, initial_charge_in_cents: SKIP,
                    initial_charge_after_trial: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP, tax_included: SKIP,
+                   list_price_point_id: SKIP, use_default_list_price: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -147,6 +165,8 @@ module AdvancedBilling
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
       @tax_included = tax_included unless tax_included == SKIP
+      @list_price_point_id = list_price_point_id unless list_price_point_id == SKIP
+      @use_default_list_price = use_default_list_price unless use_default_list_price == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -183,6 +203,10 @@ module AdvancedBilling
       expiration_interval_unit =
         hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
+      list_price_point_id =
+        hash.key?('list_price_point_id') ? hash['list_price_point_id'] : SKIP
+      use_default_list_price =
+        hash.key?('use_default_list_price') ? hash['use_default_list_price'] : SKIP
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -202,6 +226,8 @@ module AdvancedBilling
                                   expiration_interval: expiration_interval,
                                   expiration_interval_unit: expiration_interval_unit,
                                   tax_included: tax_included,
+                                  list_price_point_id: list_price_point_id,
+                                  use_default_list_price: use_default_list_price,
                                   additional_properties: additional_properties)
     end
 
@@ -240,8 +266,9 @@ module AdvancedBilling
       " #{@trial_interval_unit}, trial_type: #{@trial_type}, initial_charge_in_cents:"\
       " #{@initial_charge_in_cents}, initial_charge_after_trial: #{@initial_charge_after_trial},"\
       " expiration_interval: #{@expiration_interval}, expiration_interval_unit:"\
-      " #{@expiration_interval_unit}, tax_included: #{@tax_included}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@expiration_interval_unit}, tax_included: #{@tax_included}, list_price_point_id:"\
+      " #{@list_price_point_id}, use_default_list_price: #{@use_default_list_price},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -256,7 +283,8 @@ module AdvancedBilling
       " #{@initial_charge_after_trial.inspect}, expiration_interval:"\
       " #{@expiration_interval.inspect}, expiration_interval_unit:"\
       " #{@expiration_interval_unit.inspect}, tax_included: #{@tax_included.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " list_price_point_id: #{@list_price_point_id.inspect}, use_default_list_price:"\
+      " #{@use_default_list_price.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

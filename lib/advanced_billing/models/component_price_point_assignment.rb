@@ -9,11 +9,17 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [Integer]
+    # The component to update. Pass the component ID as an integer, or the
+    # component handle as a string with the `handle:` prefix, for example
+    # `handle:my-component`. The response returns the value in the same form
+    # that you sent.
+    # @return [Object]
     attr_accessor :component_id
 
-    # TODO: Write general description for this method
+    # The component to update. Pass the component ID as an integer, or the
+    # component handle as a string with the `handle:` prefix, for example
+    # `handle:my-component`. The response returns the value in the same form
+    # that you sent.
     # @return [Object]
     attr_accessor :price_point
 
@@ -54,7 +60,9 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
-      component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
+      component_id = hash.key?('component_id') ? APIHelper.deserialize_union_type(
+        UnionTypeLookUp.get(:ComponentPricePointAssignmentComponentId), hash['component_id']
+      ) : SKIP
       price_point = hash.key?('price_point') ? APIHelper.deserialize_union_type(
         UnionTypeLookUp.get(:ComponentPricePointAssignmentPricePoint), hash['price_point']
       ) : SKIP

@@ -12,6 +12,15 @@ module AdvancedBilling
     # segmenting properties defined.
     # You may specify component and/or price point by using either the numeric
     # ID or the `handle:gold` syntax.
+    # ## Custom Price Points
+    # This endpoint changes segments on catalog price points only. If the price
+    # point is a subscription's custom price point, the request returns `422
+    # Unprocessable Entity` with a `price_point` error such as "Segments on a
+    # subscription's custom price point can't be changed here. Set them with
+    # custom_price on the subscription or component endpoints.", and nothing is
+    # saved. To change a subscription's segment rates, send
+    # `custom_price.segments` to [Update
+    # Subscription]($e/Subscriptions/updateSubscription).
     # @param [String] component_id Required parameter: ID or Handle for the
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
@@ -46,7 +55,7 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          EventBasedBillingSegmentErrorsException))
+                                          EventBasedBillingSegmentWriteErrorResponseException))
         .execute
     end
 
@@ -56,6 +65,13 @@ module AdvancedBilling
     # `per_page` to `200` at most.
     # You may specify component and/or price point by using either the numeric
     # ID or the `handle:gold` syntax.
+    # ## Subscription Segment Rates
+    # This endpoint also returns the segments of a subscription's custom price
+    # point, including segment rates set through `custom_price.segments` on
+    # [Create Subscription]($e/Subscriptions/createSubscription) or [Update
+    # Subscription]($e/Subscriptions/updateSubscription). Use the subscription
+    # component's `price_point_id`, available from [Read Subscription
+    # Component]($e/Subscription%20Components/readSubscriptionComponent).
     # @param [String] component_id Required parameter: ID or Handle for the
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
@@ -73,6 +89,10 @@ module AdvancedBilling
     # Use in query `per_page=200`.
     # @param [ListSegmentsFilter] filter Optional parameter: Filter to use for
     # List Segments for a Price Point operation
+    # @param [TrueClass | FalseClass] currency_prices Optional parameter:
+    # (Optional) If you have defined multiple currencies at the site level, pass
+    # `true` to include each segment's `currency_prices` in the response. Use in
+    # query: `currency_prices=true`.
     # @return [ListSegmentsResponse] Response from the API call.
     def list_segments_for_price_point(options = {})
       @api_call
@@ -88,6 +108,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['page'], key: 'page'))
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['filter'], key: 'filter'))
+                   .query_param(new_parameter(options['currency_prices'], key: 'currency_prices'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))
@@ -108,6 +129,16 @@ module AdvancedBilling
     # also update the pricing for the segment.
     # You can specify component and/or price point by using either the numeric
     # ID or the `handle:gold` syntax.
+    # ## Custom Price Points
+    # This endpoint changes segments on catalog price points only. If the
+    # segment belongs to a subscription's custom price point, or the
+    # `price_point_id` in the URL names one, the request returns `422
+    # Unprocessable Entity` with a `price_point` error such as "Segments on a
+    # subscription's custom price point can't be changed here. Set them with
+    # custom_price on the subscription or component endpoints.", and nothing is
+    # saved. To change a subscription's segment rates, send
+    # `custom_price.segments` to [Update
+    # Subscription]($e/Subscriptions/updateSubscription).
     # @param [String] component_id Required parameter: ID or Handle of the
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle of the
@@ -147,13 +178,23 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          EventBasedBillingSegmentErrorsException))
+                                          APIException))
         .execute
     end
 
     # Deletes a segment with the specified ID.
     # You may specify component and/or price point by using either the numeric
     # ID or the `handle:gold` syntax.
+    # ## Custom Price Points
+    # This endpoint changes segments on catalog price points only. If the
+    # segment belongs to a subscription's custom price point, the request
+    # returns `422 Unprocessable Entity` with a `price_point` error such as
+    # "Segments on a subscription's custom price point can't be changed here.
+    # Set them with custom_price on the subscription or component endpoints.",
+    # and nothing is saved. The check uses the segment's own price point,
+    # whichever `price_point_id` the URL names. To change a subscription's
+    # segment rates, send `custom_price.segments` to [Update
+    # Subscription]($e/Subscriptions/updateSubscription).
     # @param [String] component_id Required parameter: ID or Handle of the
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle of the
@@ -185,7 +226,7 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          APIException))
+                                          SegmentPricePointErrorsErrorException))
         .execute
     end
 
@@ -197,6 +238,15 @@ module AdvancedBilling
     # corresponding index in the array.
     # You may specify component and/or price point by using either the numeric
     # ID or the `handle:gold` syntax.
+    # ## Custom Price Points
+    # This endpoint changes segments on catalog price points only. If the price
+    # point is a subscription's custom price point, the request returns `422
+    # Unprocessable Entity` with a `price_point` error such as "Segments on a
+    # subscription's custom price point can't be changed here. Set them with
+    # custom_price on the subscription or component endpoints.", and nothing is
+    # saved. To change a subscription's segment rates, send
+    # `custom_price.segments` to [Update
+    # Subscription]($e/Subscriptions/updateSubscription).
     # @param [String] component_id Required parameter: ID or Handle for the
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
@@ -231,7 +281,7 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          EventBasedBillingSegmentException))
+                                          APIException))
         .execute
     end
 
@@ -243,6 +293,15 @@ module AdvancedBilling
     # corresponding index in the array.
     # You may specify component and/or price point by using either the numeric
     # ID or the `handle:gold` syntax.
+    # ## Custom Price Points
+    # This endpoint changes segments on catalog price points only. If the price
+    # point is a subscription's custom price point, the request returns `422
+    # Unprocessable Entity` with a `price_point` error such as "Segments on a
+    # subscription's custom price point can't be changed here. Set them with
+    # custom_price on the subscription or component endpoints.", and nothing is
+    # saved. To change a subscription's segment rates, send
+    # `custom_price.segments` to [Update
+    # Subscription]($e/Subscriptions/updateSubscription).
     # @param [String] component_id Required parameter: ID or Handle for the
     # Component
     # @param [String] price_point_id Required parameter: ID or Handle for the
@@ -277,7 +336,7 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          EventBasedBillingSegmentException))
+                                          APIException))
         .execute
     end
   end

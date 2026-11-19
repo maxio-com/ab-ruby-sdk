@@ -158,11 +158,37 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :product_price_point_id
 
-    # The price point ID of the line item's product
+    # The unit price from the list price point, in decimal format. Returned only
+    # when list vs sales pricing is enabled for the site.
+    # @return [String]
+    attr_accessor :list_unit_price
+
+    # The total amount for the line item at the list price, in decimal format
+    # @return [String]
+    attr_accessor :list_total_amount
+
+    # The difference between the list total and the sales total, in decimal
+    # format
+    # @return [String]
+    attr_accessor :list_discount_amount
+
+    # The list discount as a fraction of the list total, in decimal format. For
+    # example, `"0.25"` is a 25% discount.
+    # @return [String]
+    attr_accessor :list_discount_rate
+
+    # The ID of the list price point this line item's sales price is compared
+    # against
+    # @return [Integer]
+    attr_accessor :list_price_point_id
+
+    # The ID of the list price point this line item's sales price is compared
+    # against
     # @return [TrueClass | FalseClass]
     attr_accessor :custom_item
 
-    # The price point ID of the line item's product
+    # The ID of the list price point this line item's sales price is compared
+    # against
     # @return [String]
     attr_accessor :kind
 
@@ -196,6 +222,11 @@ module AdvancedBilling
       @_hash['hide'] = 'hide'
       @_hash['component_cost_data'] = 'component_cost_data'
       @_hash['product_price_point_id'] = 'product_price_point_id'
+      @_hash['list_unit_price'] = 'list_unit_price'
+      @_hash['list_total_amount'] = 'list_total_amount'
+      @_hash['list_discount_amount'] = 'list_discount_amount'
+      @_hash['list_discount_rate'] = 'list_discount_rate'
+      @_hash['list_price_point_id'] = 'list_price_point_id'
       @_hash['custom_item'] = 'custom_item'
       @_hash['kind'] = 'kind'
       @_hash['prepaid_allocation_expires_at'] =
@@ -228,6 +259,11 @@ module AdvancedBilling
         hide
         component_cost_data
         product_price_point_id
+        list_unit_price
+        list_total_amount
+        list_discount_amount
+        list_discount_rate
+        list_price_point_id
         custom_item
         kind
         prepaid_allocation_expires_at
@@ -244,6 +280,11 @@ module AdvancedBilling
         billing_schedule_item_id
         component_cost_data
         product_price_point_id
+        list_unit_price
+        list_total_amount
+        list_discount_amount
+        list_discount_rate
+        list_price_point_id
         prepaid_allocation_expires_at
       ]
     end
@@ -257,7 +298,10 @@ module AdvancedBilling
                    product_version: SKIP, component_id: SKIP,
                    price_point_id: SKIP, billing_schedule_item_id: SKIP,
                    hide: SKIP, component_cost_data: SKIP,
-                   product_price_point_id: SKIP, custom_item: SKIP, kind: SKIP,
+                   product_price_point_id: SKIP, list_unit_price: SKIP,
+                   list_total_amount: SKIP, list_discount_amount: SKIP,
+                   list_discount_rate: SKIP, list_price_point_id: SKIP,
+                   custom_item: SKIP, kind: SKIP,
                    prepaid_allocation_expires_at: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
@@ -287,6 +331,11 @@ module AdvancedBilling
       @hide = hide unless hide == SKIP
       @component_cost_data = component_cost_data unless component_cost_data == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
+      @list_unit_price = list_unit_price unless list_unit_price == SKIP
+      @list_total_amount = list_total_amount unless list_total_amount == SKIP
+      @list_discount_amount = list_discount_amount unless list_discount_amount == SKIP
+      @list_discount_rate = list_discount_rate unless list_discount_rate == SKIP
+      @list_price_point_id = list_price_point_id unless list_price_point_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
       @kind = kind unless kind == SKIP
       unless prepaid_allocation_expires_at == SKIP
@@ -334,6 +383,16 @@ module AdvancedBilling
       end
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
+      list_unit_price =
+        hash.key?('list_unit_price') ? hash['list_unit_price'] : SKIP
+      list_total_amount =
+        hash.key?('list_total_amount') ? hash['list_total_amount'] : SKIP
+      list_discount_amount =
+        hash.key?('list_discount_amount') ? hash['list_discount_amount'] : SKIP
+      list_discount_rate =
+        hash.key?('list_discount_rate') ? hash['list_discount_rate'] : SKIP
+      list_price_point_id =
+        hash.key?('list_price_point_id') ? hash['list_price_point_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
       kind = hash.key?('kind') ? hash['kind'] : SKIP
       prepaid_allocation_expires_at =
@@ -365,6 +424,11 @@ module AdvancedBilling
                           hide: hide,
                           component_cost_data: component_cost_data,
                           product_price_point_id: product_price_point_id,
+                          list_unit_price: list_unit_price,
+                          list_total_amount: list_total_amount,
+                          list_discount_amount: list_discount_amount,
+                          list_discount_rate: list_discount_rate,
+                          list_price_point_id: list_price_point_id,
                           custom_item: custom_item,
                           kind: kind,
                           prepaid_allocation_expires_at: prepaid_allocation_expires_at,
@@ -393,9 +457,11 @@ module AdvancedBilling
       " product_version: #{@product_version}, component_id: #{@component_id}, price_point_id:"\
       " #{@price_point_id}, billing_schedule_item_id: #{@billing_schedule_item_id}, hide:"\
       " #{@hide}, component_cost_data: #{@component_cost_data}, product_price_point_id:"\
-      " #{@product_price_point_id}, custom_item: #{@custom_item}, kind: #{@kind},"\
-      " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@product_price_point_id}, list_unit_price: #{@list_unit_price}, list_total_amount:"\
+      " #{@list_total_amount}, list_discount_amount: #{@list_discount_amount}, list_discount_rate:"\
+      " #{@list_discount_rate}, list_price_point_id: #{@list_price_point_id}, custom_item:"\
+      " #{@custom_item}, kind: #{@kind}, prepaid_allocation_expires_at:"\
+      " #{@prepaid_allocation_expires_at}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -413,8 +479,11 @@ module AdvancedBilling
       " #{@price_point_id.inspect}, billing_schedule_item_id:"\
       " #{@billing_schedule_item_id.inspect}, hide: #{@hide.inspect}, component_cost_data:"\
       " #{@component_cost_data.inspect}, product_price_point_id:"\
-      " #{@product_price_point_id.inspect}, custom_item: #{@custom_item.inspect}, kind:"\
-      " #{@kind.inspect}, prepaid_allocation_expires_at:"\
+      " #{@product_price_point_id.inspect}, list_unit_price: #{@list_unit_price.inspect},"\
+      " list_total_amount: #{@list_total_amount.inspect}, list_discount_amount:"\
+      " #{@list_discount_amount.inspect}, list_discount_rate: #{@list_discount_rate.inspect},"\
+      " list_price_point_id: #{@list_price_point_id.inspect}, custom_item:"\
+      " #{@custom_item.inspect}, kind: #{@kind.inspect}, prepaid_allocation_expires_at:"\
       " #{@prepaid_allocation_expires_at.inspect}, additional_properties:"\
       " #{get_additional_properties}>"
     end

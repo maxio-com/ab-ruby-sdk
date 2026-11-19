@@ -34,7 +34,21 @@ create_quantity_based_component = CreateQuantityBasedComponent.new(
         ending_quantity: 40
       )
     ],
-    upgrade_charge: CreditType::PRORATED
+    secondary_pricing: SecondaryPricing.new(
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      prices: [
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        ),
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        )
+      ]
+    )
   )
 )
 ```

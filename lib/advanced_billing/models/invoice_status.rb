@@ -5,8 +5,8 @@
 
 module AdvancedBilling
   # The current status of the invoice. See [Invoice
-  # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advance
-  # d-Billing-Invoices-Overview#invoice-statuses) for more.
+  # Statuses](https://docs.maxio.com/billing/invoicing/overview/understand-how-i
+  # nvoices-are-generated#invoice-statuses) for more.
   class InvoiceStatus
     INVOICE_STATUS = [
       # TODO: Write general description for DRAFT

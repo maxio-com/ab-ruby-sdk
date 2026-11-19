@@ -39,29 +39,21 @@ create_metered_component = CreateMeteredComponent.new(
         ending_quantity: 40
       )
     ],
-    price_points: [
-      ComponentPricePointItem.new(
-        name: 'name2',
-        handle: 'handle8',
-        pricing_scheme: PricingScheme::PER_UNIT,
-        interval: 92,
-        interval_unit: IntervalUnit::DAY
-      ),
-      ComponentPricePointItem.new(
-        name: 'name2',
-        handle: 'handle8',
-        pricing_scheme: PricingScheme::PER_UNIT,
-        interval: 92,
-        interval_unit: IntervalUnit::DAY
-      ),
-      ComponentPricePointItem.new(
-        name: 'name2',
-        handle: 'handle8',
-        pricing_scheme: PricingScheme::PER_UNIT,
-        interval: 92,
-        interval_unit: IntervalUnit::DAY
-      )
-    ]
+    secondary_pricing: SecondaryPricing.new(
+      pricing_scheme: PricingScheme::STAIRSTEP,
+      prices: [
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        ),
+        Price.new(
+          starting_quantity: 242,
+          unit_price: 23.26,
+          ending_quantity: 40
+        )
+      ]
+    )
   )
 )
 ```

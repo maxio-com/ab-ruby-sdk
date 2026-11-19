@@ -51,9 +51,9 @@ module AdvancedBilling
     # payment is due at the initial_billing_at and it fails the subscription
     # will be immediately canceled. You can omit the initial_billing_at date to
     # activate the subscription immediately. See the [subscription
-    # import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advance
-    # d-Billing-Subscription-Imports#date-format) documentation for more
-    # information about Date/Time formats.
+    # import](https://docs.maxio.com/configuration/importing/import-subscription
+    # s-from-a-csv#date-format) documentation for more information about
+    # Date/Time formats.
     # @return [DateTime]
     attr_accessor :initial_billing_at
 
@@ -64,8 +64,9 @@ module AdvancedBilling
     # `initial_billing_at` date. The subscription moves to the awaiting signup
     # with a scheduled initial billing date. You can omit the initial_billing_at
     # date to activate the subscription immediately. See [Subscription
-    # States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773
-    # -Subscription-States) for more information.
+    # States](https://docs.maxio.com/billing/subscriptions/management/subscripti
+    # on-states/understand-subscription-states#setup-and-transient-states) for
+    # more information.
     # @return [TrueClass | FalseClass]
     attr_accessor :defer_signup
 
@@ -76,8 +77,9 @@ module AdvancedBilling
     # `initial_billing_at` date. The subscription moves to the awaiting signup
     # with a scheduled initial billing date. You can omit the initial_billing_at
     # date to activate the subscription immediately. See [Subscription
-    # States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773
-    # -Subscription-States) for more information.
+    # States](https://docs.maxio.com/billing/subscriptions/management/subscripti
+    # on-states/understand-subscription-states#setup-and-transient-states) for
+    # more information.
     # @return [DateTime]
     attr_accessor :next_billing_at
 

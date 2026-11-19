@@ -38,15 +38,18 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :unit_price
 
-    # The id of the Product Family to which the Component belongs
+    # The id of the Product Family to which the Component belongs. `null` for a
+    # Wallet Product, which has no Product Family.
     # @return [Integer]
     attr_accessor :product_family_id
 
-    # The name of the Product Family to which the Component belongs
+    # The name of the Product Family to which the Component belongs. `null` for
+    # a Wallet Product, which has no Product Family.
     # @return [String]
     attr_accessor :product_family_name
 
-    # The handle of the Product Family to which the Component belongs
+    # The handle of the Product Family to which the Component belongs. `null`
+    # for a Wallet Product, which has no Product Family.
     # @return [String]
     attr_accessor :product_family_handle
 
@@ -182,6 +185,11 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :unspsc_code
 
+    # The active feature catalog items attached to this component. Present only
+    # when the request includes `include_features=true`.
+    # @return [Array[FeatureCatalogItem]]
+    attr_accessor :features
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -222,6 +230,7 @@ module AdvancedBilling
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['unspsc_code'] = 'unspsc_code'
+      @_hash['features'] = 'features'
       @_hash
     end
 
@@ -264,6 +273,7 @@ module AdvancedBilling
         interval
         interval_unit
         unspsc_code
+        features
       ]
     end
 
@@ -273,6 +283,9 @@ module AdvancedBilling
         handle
         pricing_scheme
         unit_price
+        product_family_id
+        product_family_name
+        product_family_handle
         price_per_unit_in_cents
         description
         default_price_point_id
@@ -288,6 +301,7 @@ module AdvancedBilling
         accounting_code
         interval_unit
         unspsc_code
+        features
       ]
     end
 
@@ -305,7 +319,7 @@ module AdvancedBilling
                    allow_fractional_quantities: SKIP, item_category: SKIP,
                    use_site_exchange_rate: SKIP, accounting_code: SKIP,
                    event_based_billing_metric_id: SKIP, interval: SKIP,
-                   interval_unit: SKIP, unspsc_code: SKIP,
+                   interval_unit: SKIP, unspsc_code: SKIP, features: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -357,6 +371,7 @@ module AdvancedBilling
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @unspsc_code = unspsc_code unless unspsc_code == SKIP
+      @features = features unless features == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -446,6 +461,16 @@ module AdvancedBilling
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
+      # Parameter is an array, so we need to iterate through it
+      features = nil
+      unless hash['features'].nil?
+        features = []
+        hash['features'].each do |structure|
+          features << (FeatureCatalogItem.from_hash(structure) if structure)
+        end
+      end
+
+      features = SKIP unless hash.key?('features')
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -487,6 +512,7 @@ module AdvancedBilling
                     interval: interval,
                     interval_unit: interval_unit,
                     unspsc_code: unspsc_code,
+                    features: features,
                     additional_properties: additional_properties)
     end
 
@@ -520,8 +546,8 @@ module AdvancedBilling
       " #{@allow_fractional_quantities}, item_category: #{@item_category}, use_site_exchange_rate:"\
       " #{@use_site_exchange_rate}, accounting_code: #{@accounting_code},"\
       " event_based_billing_metric_id: #{@event_based_billing_metric_id}, interval: #{@interval},"\
-      " interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code}, features: #{@features},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -547,8 +573,8 @@ module AdvancedBilling
       " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, accounting_code:"\
       " #{@accounting_code.inspect}, event_based_billing_metric_id:"\
       " #{@event_based_billing_metric_id.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, unspsc_code: #{@unspsc_code.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@interval_unit.inspect}, unspsc_code: #{@unspsc_code.inspect}, features:"\
+      " #{@features.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

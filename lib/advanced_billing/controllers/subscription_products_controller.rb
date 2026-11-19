@@ -22,8 +22,8 @@ module AdvancedBilling
     # subscription should be canceled, the product changed, and then the
     # subscription can be reactivated.)
     # For more information, see [Product Changes and
-    # Migrations](https://docs.maxio.com/hc/en-us/articles/24252069837581-Produc
-    # t-Changes-and-Migrations).
+    # Migrations](https://docs.maxio.com/billing/subscriptions/management/subscr
+    # iption-actions/understand-upgrade-and-downgrade-scenarios).
     # ## Failed Migrations
     # Important note: One of the most common ways that a migration can fail is
     # when the attempt is made to migrate a subscription to its current product.
@@ -33,9 +33,9 @@ module AdvancedBilling
     # a 422 Unprocessable Entity status is returned with an action_link that
     # will direct the customer through 3DS Authentication.
     # See the [3D Secure Post-Authentication
-    # Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Po
-    # st-Authentication-Flow) article in the product documentation to learn how
-    # to manage the redirect flow.
+    # Flow](https://docs.maxio.com/configuration/advanced-billing/maxiojs-former
+    # ly-chargifyjs/handle-3d-secure-post-authentication) article in the product
+    # documentation to learn how to manage the redirect flow.
     # @param [Integer] subscription_id Required parameter: The Chargify id of
     # the subscription.
     # @param [SubscriptionProductMigrationRequest] body Optional parameter:

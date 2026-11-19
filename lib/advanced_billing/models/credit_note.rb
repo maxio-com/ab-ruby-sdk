@@ -30,12 +30,18 @@ module AdvancedBilling
     # it is referenced.
     # While the UID is long and not appropriate to show to customers, the number
     # is usually shorter and consumable by the customer and the merchant alike.
+    # A saved credit note always has a number. The value is `null` only in
+    # `refund_invoice` event data when the refund did not create a credit note
+    # (`apply_credit` is `false`).
     # @return [String]
     attr_accessor :number
 
     # A monotonically increasing number assigned to credit notes as they are
     # created.  This number is unique within a site and can be used to sort and
     # order credit notes.
+    # A saved credit note always has a sequence number. The value is `null` only
+    # in `refund_invoice` event data when the refund did not create a credit
+    # note (`apply_credit` is `false`).
     # @return [Integer]
     attr_accessor :sequence_number
 
@@ -147,8 +153,8 @@ module AdvancedBilling
 
     # An array of origin invoices for the credit note. Learn more about [Origin
     # Invoice from our
-    # docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-No
-    # tes-Proration#origin-invoices).
+    # docs](https://docs.maxio.com/billing/invoicing/working-with-invoices/how-c
+    # redit-notes-work#how-origin-invoices-work).
     # @return [Array[OriginInvoice]]
     attr_accessor :origin_invoices
 
@@ -220,7 +226,10 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        number
+        sequence_number
+      ]
     end
 
     def initialize(uid: SKIP, site_id: SKIP, customer_id: SKIP,

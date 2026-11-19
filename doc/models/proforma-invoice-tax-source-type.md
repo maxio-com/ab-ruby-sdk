@@ -1,6 +1,8 @@
 
 # Proforma Invoice Tax Source Type
 
+The source of the tax. `Tax` is a tax configured in Advanced Billing. The other values identify the tax service that calculated the tax.
+
 ## Enumeration
 
 `ProformaInvoiceTaxSourceType`
@@ -11,10 +13,15 @@
 |  --- |
 | `TAX` |
 | `AVALARA` |
+| `ANROK` |
+| `TAXJAR` |
+| `NUMERAL` |
+| `SPHERE` |
+| `TAXWIRE` |
 
 ## Example
 
 ```ruby
-proforma_invoice_tax_source_type = ProformaInvoiceTaxSourceType::TAX
+proforma_invoice_tax_source_type = ProformaInvoiceTaxSourceType::ANROK
 ```
 

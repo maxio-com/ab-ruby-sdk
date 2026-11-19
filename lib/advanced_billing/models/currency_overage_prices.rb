@@ -121,6 +121,17 @@ module AdvancedBilling
     # @return [PricingScheme]
     attr_accessor :overage_pricing_scheme
 
+    # Returned only for hybrid price points. An array of secondary price
+    # brackets. Hybrid price points never return `overage_prices` or
+    # `overage_pricing_scheme`.
+    # @return [Array[ComponentPrice]]
+    attr_accessor :secondary_prices
+
+    # Returned only for hybrid price points. Pricing scheme for the secondary
+    # pricing model.
+    # @return [PricingScheme]
+    attr_accessor :secondary_pricing_scheme
+
     # Applicable only to prepaid usage components. Boolean which controls
     # whether or not the allocated quantity should be renewed at the beginning
     # of each period.
@@ -149,6 +160,13 @@ module AdvancedBilling
     # @return [Array[ComponentCurrencyPrice]]
     attr_accessor :currency_overage_prices
 
+    # Returned only for hybrid price points, by List All Component Price Points
+    # with `include=currency_secondary_prices` or
+    # `include=currency_overage_prices`. An array of currency pricing data for
+    # secondary prices.
+    # @return [Array[ComponentCurrencyPrice]]
+    attr_accessor :currency_secondary_prices
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -171,11 +189,14 @@ module AdvancedBilling
       @_hash['currency_prices'] = 'currency_prices'
       @_hash['overage_prices'] = 'overage_prices'
       @_hash['overage_pricing_scheme'] = 'overage_pricing_scheme'
+      @_hash['secondary_prices'] = 'secondary_prices'
+      @_hash['secondary_pricing_scheme'] = 'secondary_pricing_scheme'
       @_hash['renew_prepaid_allocation'] = 'renew_prepaid_allocation'
       @_hash['rollover_prepaid_remainder'] = 'rollover_prepaid_remainder'
       @_hash['expiration_interval'] = 'expiration_interval'
       @_hash['expiration_interval_unit'] = 'expiration_interval_unit'
       @_hash['currency_overage_prices'] = 'currency_overage_prices'
+      @_hash['currency_secondary_prices'] = 'currency_secondary_prices'
       @_hash
     end
 
@@ -201,11 +222,14 @@ module AdvancedBilling
         currency_prices
         overage_prices
         overage_pricing_scheme
+        secondary_prices
+        secondary_pricing_scheme
         renew_prepaid_allocation
         rollover_prepaid_remainder
         expiration_interval
         expiration_interval_unit
         currency_overage_prices
+        currency_secondary_prices
       ]
     end
 
@@ -228,10 +252,12 @@ module AdvancedBilling
                    subscription_id: SKIP, tax_included: SKIP, interval: SKIP,
                    interval_unit: SKIP, currency_prices: SKIP,
                    overage_prices: SKIP, overage_pricing_scheme: SKIP,
+                   secondary_prices: SKIP, secondary_pricing_scheme: SKIP,
                    renew_prepaid_allocation: SKIP,
                    rollover_prepaid_remainder: SKIP, expiration_interval: SKIP,
                    expiration_interval_unit: SKIP,
-                   currency_overage_prices: SKIP, additional_properties: {})
+                   currency_overage_prices: SKIP,
+                   currency_secondary_prices: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -256,6 +282,8 @@ module AdvancedBilling
       @currency_prices = currency_prices unless currency_prices == SKIP
       @overage_prices = overage_prices unless overage_prices == SKIP
       @overage_pricing_scheme = overage_pricing_scheme unless overage_pricing_scheme == SKIP
+      @secondary_prices = secondary_prices unless secondary_prices == SKIP
+      @secondary_pricing_scheme = secondary_pricing_scheme unless secondary_pricing_scheme == SKIP
       @renew_prepaid_allocation = renew_prepaid_allocation unless renew_prepaid_allocation == SKIP
       unless rollover_prepaid_remainder == SKIP
         @rollover_prepaid_remainder =
@@ -264,6 +292,10 @@ module AdvancedBilling
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
       @currency_overage_prices = currency_overage_prices unless currency_overage_prices == SKIP
+      unless currency_secondary_prices == SKIP
+        @currency_secondary_prices =
+          currency_secondary_prices
+      end
     end
 
     # Creates an instance of the object from a hash.
@@ -333,6 +365,18 @@ module AdvancedBilling
       overage_prices = SKIP unless hash.key?('overage_prices')
       overage_pricing_scheme =
         hash.key?('overage_pricing_scheme') ? hash['overage_pricing_scheme'] : SKIP
+      # Parameter is an array, so we need to iterate through it
+      secondary_prices = nil
+      unless hash['secondary_prices'].nil?
+        secondary_prices = []
+        hash['secondary_prices'].each do |structure|
+          secondary_prices << (ComponentPrice.from_hash(structure) if structure)
+        end
+      end
+
+      secondary_prices = SKIP unless hash.key?('secondary_prices')
+      secondary_pricing_scheme =
+        hash.key?('secondary_pricing_scheme') ? hash['secondary_pricing_scheme'] : SKIP
       renew_prepaid_allocation =
         hash.key?('renew_prepaid_allocation') ? hash['renew_prepaid_allocation'] : SKIP
       rollover_prepaid_remainder =
@@ -351,6 +395,16 @@ module AdvancedBilling
       end
 
       currency_overage_prices = SKIP unless hash.key?('currency_overage_prices')
+      # Parameter is an array, so we need to iterate through it
+      currency_secondary_prices = nil
+      unless hash['currency_secondary_prices'].nil?
+        currency_secondary_prices = []
+        hash['currency_secondary_prices'].each do |structure|
+          currency_secondary_prices << (ComponentCurrencyPrice.from_hash(structure) if structure)
+        end
+      end
+
+      currency_secondary_prices = SKIP unless hash.key?('currency_secondary_prices')
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -375,11 +429,14 @@ module AdvancedBilling
                                 currency_prices: currency_prices,
                                 overage_prices: overage_prices,
                                 overage_pricing_scheme: overage_pricing_scheme,
+                                secondary_prices: secondary_prices,
+                                secondary_pricing_scheme: secondary_pricing_scheme,
                                 renew_prepaid_allocation: renew_prepaid_allocation,
                                 rollover_prepaid_remainder: rollover_prepaid_remainder,
                                 expiration_interval: expiration_interval,
                                 expiration_interval_unit: expiration_interval_unit,
                                 currency_overage_prices: currency_overage_prices,
+                                currency_secondary_prices: currency_secondary_prices,
                                 additional_properties: additional_properties)
     end
 
@@ -404,11 +461,13 @@ module AdvancedBilling
       " prices: #{@prices}, use_site_exchange_rate: #{@use_site_exchange_rate}, subscription_id:"\
       " #{@subscription_id}, tax_included: #{@tax_included}, interval: #{@interval},"\
       " interval_unit: #{@interval_unit}, currency_prices: #{@currency_prices}, overage_prices:"\
-      " #{@overage_prices}, overage_pricing_scheme: #{@overage_pricing_scheme},"\
+      " #{@overage_prices}, overage_pricing_scheme: #{@overage_pricing_scheme}, secondary_prices:"\
+      " #{@secondary_prices}, secondary_pricing_scheme: #{@secondary_pricing_scheme},"\
       " renew_prepaid_allocation: #{@renew_prepaid_allocation}, rollover_prepaid_remainder:"\
       " #{@rollover_prepaid_remainder}, expiration_interval: #{@expiration_interval},"\
       " expiration_interval_unit: #{@expiration_interval_unit}, currency_overage_prices:"\
-      " #{@currency_overage_prices}, additional_properties: #{get_additional_properties}>"
+      " #{@currency_overage_prices}, currency_secondary_prices: #{@currency_secondary_prices},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -423,11 +482,15 @@ module AdvancedBilling
       " tax_included: #{@tax_included.inspect}, interval: #{@interval.inspect}, interval_unit:"\
       " #{@interval_unit.inspect}, currency_prices: #{@currency_prices.inspect}, overage_prices:"\
       " #{@overage_prices.inspect}, overage_pricing_scheme: #{@overage_pricing_scheme.inspect},"\
-      " renew_prepaid_allocation: #{@renew_prepaid_allocation.inspect},"\
-      " rollover_prepaid_remainder: #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
+      " secondary_prices: #{@secondary_prices.inspect}, secondary_pricing_scheme:"\
+      " #{@secondary_pricing_scheme.inspect}, renew_prepaid_allocation:"\
+      " #{@renew_prepaid_allocation.inspect}, rollover_prepaid_remainder:"\
+      " #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
       " #{@expiration_interval.inspect}, expiration_interval_unit:"\
       " #{@expiration_interval_unit.inspect}, currency_overage_prices:"\
-      " #{@currency_overage_prices.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@currency_overage_prices.inspect}, currency_secondary_prices:"\
+      " #{@currency_secondary_prices.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

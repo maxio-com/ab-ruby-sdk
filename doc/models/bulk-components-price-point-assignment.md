@@ -17,7 +17,7 @@
 bulk_components_price_point_assignment = BulkComponentsPricePointAssignment.new(
   components: [
     ComponentPricePointAssignment.new(
-      component_id: 108,
+      component_id: 30,
       price_point: 'String5'
     )
   ]

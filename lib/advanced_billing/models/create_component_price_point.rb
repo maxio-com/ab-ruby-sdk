@@ -29,6 +29,21 @@ module AdvancedBilling
     # @return [Array[Price]]
     attr_accessor :prices
 
+    # Hybrid Pricing only. The secondary pricing model that takes over once
+    # usage passes the primary model's included threshold. Applies to
+    # Quantity-Based and Metered Components on Sites with Hybrid Pricing
+    # enabled; ignored otherwise. Its `prices` brackets start at `1`, not at the
+    # primary model's highest `ending_quantity`. See [Hybrid
+    # Pricing](page:introduction/basic-concepts/hybrid-pricing).
+    # @return [SecondaryPricing]
+    attr_accessor :secondary_pricing
+
+    # Hybrid Pricing only. Alternative to `secondary_pricing.pricing_scheme`;
+    # when both are sent, `secondary_pricing.pricing_scheme` is used. Setting
+    # not supported when creating price points in bulk.
+    # @return [PricingScheme]
+    attr_accessor :secondary_pricing_scheme
+
     # Whether to use the site level exchange rate or define your own prices for
     # each currency if you have multiple currencies defined on the site. Setting
     # not supported when creating price points in bulk.
@@ -60,6 +75,8 @@ module AdvancedBilling
       @_hash['handle'] = 'handle'
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['prices'] = 'prices'
+      @_hash['secondary_pricing'] = 'secondary_pricing'
+      @_hash['secondary_pricing_scheme'] = 'secondary_pricing_scheme'
       @_hash['use_site_exchange_rate'] = 'use_site_exchange_rate'
       @_hash['tax_included'] = 'tax_included'
       @_hash['interval'] = 'interval'
@@ -71,6 +88,8 @@ module AdvancedBilling
     def self.optionals
       %w[
         handle
+        secondary_pricing
+        secondary_pricing_scheme
         use_site_exchange_rate
         tax_included
         interval
@@ -86,6 +105,7 @@ module AdvancedBilling
     end
 
     def initialize(name:, pricing_scheme:, prices:, handle: SKIP,
+                   secondary_pricing: SKIP, secondary_pricing_scheme: SKIP,
                    use_site_exchange_rate: true, tax_included: SKIP,
                    interval: SKIP, interval_unit: SKIP,
                    additional_properties: {})
@@ -98,6 +118,8 @@ module AdvancedBilling
       @handle = handle unless handle == SKIP
       @pricing_scheme = pricing_scheme
       @prices = prices
+      @secondary_pricing = secondary_pricing unless secondary_pricing == SKIP
+      @secondary_pricing_scheme = secondary_pricing_scheme unless secondary_pricing_scheme == SKIP
       @use_site_exchange_rate = use_site_exchange_rate unless use_site_exchange_rate == SKIP
       @tax_included = tax_included unless tax_included == SKIP
       @interval = interval unless interval == SKIP
@@ -123,6 +145,10 @@ module AdvancedBilling
 
       prices = nil unless hash.key?('prices')
       handle = hash.key?('handle') ? hash['handle'] : SKIP
+      secondary_pricing = SecondaryPricing.from_hash(hash['secondary_pricing']) if
+        hash['secondary_pricing']
+      secondary_pricing_scheme =
+        hash.key?('secondary_pricing_scheme') ? hash['secondary_pricing_scheme'] : SKIP
       use_site_exchange_rate = hash['use_site_exchange_rate'] ||= true
       tax_included = hash.key?('tax_included') ? hash['tax_included'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
@@ -136,6 +162,8 @@ module AdvancedBilling
                                     pricing_scheme: pricing_scheme,
                                     prices: prices,
                                     handle: handle,
+                                    secondary_pricing: secondary_pricing,
+                                    secondary_pricing_scheme: secondary_pricing_scheme,
                                     use_site_exchange_rate: use_site_exchange_rate,
                                     tax_included: tax_included,
                                     interval: interval,
@@ -177,8 +205,9 @@ module AdvancedBilling
     def to_s
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name}, handle: #{@handle}, pricing_scheme: #{@pricing_scheme},"\
-      " prices: #{@prices}, use_site_exchange_rate: #{@use_site_exchange_rate}, tax_included:"\
-      " #{@tax_included}, interval: #{@interval}, interval_unit: #{@interval_unit},"\
+      " prices: #{@prices}, secondary_pricing: #{@secondary_pricing}, secondary_pricing_scheme:"\
+      " #{@secondary_pricing_scheme}, use_site_exchange_rate: #{@use_site_exchange_rate},"\
+      " tax_included: #{@tax_included}, interval: #{@interval}, interval_unit: #{@interval_unit},"\
       " additional_properties: #{get_additional_properties}>"
     end
 
@@ -186,7 +215,9 @@ module AdvancedBilling
     def inspect
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name.inspect}, handle: #{@handle.inspect}, pricing_scheme:"\
-      " #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, use_site_exchange_rate:"\
+      " #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, secondary_pricing:"\
+      " #{@secondary_pricing.inspect}, secondary_pricing_scheme:"\
+      " #{@secondary_pricing_scheme.inspect}, use_site_exchange_rate:"\
       " #{@use_site_exchange_rate.inspect}, tax_included: #{@tax_included.inspect}, interval:"\
       " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, additional_properties:"\
       " #{get_additional_properties}>"

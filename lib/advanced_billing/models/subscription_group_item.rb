@@ -17,35 +17,48 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :reference
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
+    # @return [Integer]
+    attr_accessor :customer_id
+
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [Integer]
     attr_accessor :product_id
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [String]
     attr_accessor :product_handle
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [Integer]
     attr_accessor :product_price_point_id
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [String]
     attr_accessor :product_price_point_handle
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [String]
     attr_accessor :currency
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [String]
     attr_accessor :coupon_code
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [Integer]
     attr_accessor :total_revenue_in_cents
 
-    # TODO: Write general description for this method
+    # The ID of the customer the subscription belongs to. This is the payer
+    # unless the signup request named another customer for the subscription.
     # @return [Integer]
     attr_accessor :balance_in_cents
 
@@ -54,6 +67,7 @@ module AdvancedBilling
       @_hash = {} if @_hash.nil?
       @_hash['id'] = 'id'
       @_hash['reference'] = 'reference'
+      @_hash['customer_id'] = 'customer_id'
       @_hash['product_id'] = 'product_id'
       @_hash['product_handle'] = 'product_handle'
       @_hash['product_price_point_id'] = 'product_price_point_id'
@@ -70,6 +84,7 @@ module AdvancedBilling
       %w[
         id
         reference
+        customer_id
         product_id
         product_handle
         product_price_point_id
@@ -90,8 +105,9 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(id: SKIP, reference: SKIP, product_id: SKIP,
-                   product_handle: SKIP, product_price_point_id: SKIP,
+    def initialize(id: SKIP, reference: SKIP, customer_id: SKIP,
+                   product_id: SKIP, product_handle: SKIP,
+                   product_price_point_id: SKIP,
                    product_price_point_handle: SKIP, currency: SKIP,
                    coupon_code: SKIP, total_revenue_in_cents: SKIP,
                    balance_in_cents: SKIP, additional_properties: {})
@@ -102,6 +118,7 @@ module AdvancedBilling
 
       @id = id unless id == SKIP
       @reference = reference unless reference == SKIP
+      @customer_id = customer_id unless customer_id == SKIP
       @product_id = product_id unless product_id == SKIP
       @product_handle = product_handle unless product_handle == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
@@ -122,6 +139,7 @@ module AdvancedBilling
       # Extract variables from the hash.
       id = hash.key?('id') ? hash['id'] : SKIP
       reference = hash.key?('reference') ? hash['reference'] : SKIP
+      customer_id = hash.key?('customer_id') ? hash['customer_id'] : SKIP
       product_id = hash.key?('product_id') ? hash['product_id'] : SKIP
       product_handle =
         hash.key?('product_handle') ? hash['product_handle'] : SKIP
@@ -142,6 +160,7 @@ module AdvancedBilling
       # Create object from extracted values.
       SubscriptionGroupItem.new(id: id,
                                 reference: reference,
+                                customer_id: customer_id,
                                 product_id: product_id,
                                 product_handle: product_handle,
                                 product_price_point_id: product_price_point_id,
@@ -156,24 +175,24 @@ module AdvancedBilling
     # Provides a human-readable string representation of the object.
     def to_s
       class_name = self.class.name.split('::').last
-      "<#{class_name} id: #{@id}, reference: #{@reference}, product_id: #{@product_id},"\
-      " product_handle: #{@product_handle}, product_price_point_id: #{@product_price_point_id},"\
-      " product_price_point_handle: #{@product_price_point_handle}, currency: #{@currency},"\
-      " coupon_code: #{@coupon_code}, total_revenue_in_cents: #{@total_revenue_in_cents},"\
-      " balance_in_cents: #{@balance_in_cents}, additional_properties:"\
+      "<#{class_name} id: #{@id}, reference: #{@reference}, customer_id: #{@customer_id},"\
+      " product_id: #{@product_id}, product_handle: #{@product_handle}, product_price_point_id:"\
+      " #{@product_price_point_id}, product_price_point_handle: #{@product_price_point_handle},"\
+      " currency: #{@currency}, coupon_code: #{@coupon_code}, total_revenue_in_cents:"\
+      " #{@total_revenue_in_cents}, balance_in_cents: #{@balance_in_cents}, additional_properties:"\
       " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
     def inspect
       class_name = self.class.name.split('::').last
-      "<#{class_name} id: #{@id.inspect}, reference: #{@reference.inspect}, product_id:"\
-      " #{@product_id.inspect}, product_handle: #{@product_handle.inspect},"\
-      " product_price_point_id: #{@product_price_point_id.inspect}, product_price_point_handle:"\
-      " #{@product_price_point_handle.inspect}, currency: #{@currency.inspect}, coupon_code:"\
-      " #{@coupon_code.inspect}, total_revenue_in_cents: #{@total_revenue_in_cents.inspect},"\
-      " balance_in_cents: #{@balance_in_cents.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      "<#{class_name} id: #{@id.inspect}, reference: #{@reference.inspect}, customer_id:"\
+      " #{@customer_id.inspect}, product_id: #{@product_id.inspect}, product_handle:"\
+      " #{@product_handle.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
+      " product_price_point_handle: #{@product_price_point_handle.inspect}, currency:"\
+      " #{@currency.inspect}, coupon_code: #{@coupon_code.inspect}, total_revenue_in_cents:"\
+      " #{@total_revenue_in_cents.inspect}, balance_in_cents: #{@balance_in_cents.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

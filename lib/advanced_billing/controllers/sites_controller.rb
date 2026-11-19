@@ -8,10 +8,10 @@ module AdvancedBilling
   class SitesController < BaseController
     # Retrieves site data.
     # For more information, see
-    # [Sites](https://maxio.zendesk.com/hc/en-us/sections/24250550707085-Sites)
-    # in the product documentation. Specifically, the [Clearing Site
-    # Data](https://maxio.zendesk.com/hc/en-us/articles/24250617028365-Clearing-
-    # Site-Data) section is relevant to this endpoint.
+    # [Sites](https://docs.maxio.com/configuration/advanced-billing/sites/sites-
+    # overview) in the product documentation. Specifically, the [Clearing Site
+    # Data](https://docs.maxio.com/configuration/advanced-billing/sites/clearing
+    # -site-data) section is relevant to this endpoint.
     # #### Relationship invoicing enabled
     # If the site has Relationship invoicing enabled, additional properties are
     # returned in the response:
@@ -21,8 +21,8 @@ module AdvancedBilling
     # "whopays_default_payer": "self"
     # ```
     # For more information, see [Who Pays & Customer
-    # Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Cust
-    # omer-Hierarchies-WhoPays).
+    # Hierarchy](https://docs.maxio.com/billing/subscriptions/customers/understa
+    # nd-customer-hierarchies-and-whopays).
     # @return [SiteResponse] Response from the API call.
     def read_site
       @api_call

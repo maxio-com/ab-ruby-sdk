@@ -20,7 +20,10 @@ module AdvancedBilling
       PREPAID_USAGE_COMPONENT = 'prepaid_usage_component'.freeze,
 
       # TODO: Write general description for EVENT_BASED_COMPONENT
-      EVENT_BASED_COMPONENT = 'event_based_component'.freeze
+      EVENT_BASED_COMPONENT = 'event_based_component'.freeze,
+
+      # TODO: Write general description for WALLET_PRODUCT
+      WALLET_PRODUCT = 'wallet_product'.freeze
     ].freeze
 
     def self.validate(value)
@@ -40,6 +43,7 @@ module AdvancedBilling
       when 'on_off_component' then ON_OFF_COMPONENT
       when 'prepaid_usage_component' then PREPAID_USAGE_COMPONENT
       when 'event_based_component' then EVENT_BASED_COMPONENT
+      when 'wallet_product' then WALLET_PRODUCT
       else
         default_value
       end

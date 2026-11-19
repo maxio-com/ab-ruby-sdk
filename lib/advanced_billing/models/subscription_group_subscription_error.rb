@@ -11,6 +11,10 @@ module AdvancedBilling
 
     # TODO: Write general description for this method
     # @return [Array[String]]
+    attr_accessor :customer
+
+    # TODO: Write general description for this method
+    # @return [Array[String]]
     attr_accessor :product
 
     # TODO: Write general description for this method
@@ -44,6 +48,7 @@ module AdvancedBilling
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['customer'] = 'customer'
       @_hash['product'] = 'product'
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['payment_profile'] = 'payment_profile'
@@ -61,6 +66,7 @@ module AdvancedBilling
     # An array for optional fields
     def self.optionals
       %w[
+        customer
         product
         product_price_point_id
         payment_profile
@@ -77,7 +83,7 @@ module AdvancedBilling
       []
     end
 
-    def initialize(product: SKIP, product_price_point_id: SKIP,
+    def initialize(customer: SKIP, product: SKIP, product_price_point_id: SKIP,
                    payment_profile: SKIP, payment_profile_chargify_token: SKIP,
                    base: SKIP, payment_profile_expiration_month: SKIP,
                    payment_profile_expiration_year: SKIP,
@@ -87,6 +93,7 @@ module AdvancedBilling
         instance_variable_set("@#{_name}", _value)
       end
 
+      @customer = customer unless customer == SKIP
       @product = product unless product == SKIP
       @product_price_point_id = product_price_point_id unless product_price_point_id == SKIP
       @payment_profile = payment_profile unless payment_profile == SKIP
@@ -114,6 +121,7 @@ module AdvancedBilling
       return nil unless hash
 
       # Extract variables from the hash.
+      customer = hash.key?('customer') ? hash['customer'] : SKIP
       product = hash.key?('product') ? hash['product'] : SKIP
       product_price_point_id =
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
@@ -133,7 +141,8 @@ module AdvancedBilling
       additional_properties = hash.reject { |k, _| names.value?(k) }
 
       # Create object from extracted values.
-      SubscriptionGroupSubscriptionError.new(product: product,
+      SubscriptionGroupSubscriptionError.new(customer: customer,
+                                             product: product,
                                              product_price_point_id: product_price_point_id,
                                              payment_profile: payment_profile,
                                              payment_profile_chargify_token: payment_profile_chargify_token,
@@ -147,25 +156,26 @@ module AdvancedBilling
     # Provides a human-readable string representation of the object.
     def to_s
       class_name = self.class.name.split('::').last
-      "<#{class_name} product: #{@product}, product_price_point_id: #{@product_price_point_id},"\
-      " payment_profile: #{@payment_profile}, payment_profile_chargify_token:"\
-      " #{@payment_profile_chargify_token}, base: #{@base}, payment_profile_expiration_month:"\
-      " #{@payment_profile_expiration_month}, payment_profile_expiration_year:"\
-      " #{@payment_profile_expiration_year}, payment_profile_full_number:"\
-      " #{@payment_profile_full_number}, additional_properties: #{get_additional_properties}>"
+      "<#{class_name} customer: #{@customer}, product: #{@product}, product_price_point_id:"\
+      " #{@product_price_point_id}, payment_profile: #{@payment_profile},"\
+      " payment_profile_chargify_token: #{@payment_profile_chargify_token}, base: #{@base},"\
+      " payment_profile_expiration_month: #{@payment_profile_expiration_month},"\
+      " payment_profile_expiration_year: #{@payment_profile_expiration_year},"\
+      " payment_profile_full_number: #{@payment_profile_full_number}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
     def inspect
       class_name = self.class.name.split('::').last
-      "<#{class_name} product: #{@product.inspect}, product_price_point_id:"\
-      " #{@product_price_point_id.inspect}, payment_profile: #{@payment_profile.inspect},"\
-      " payment_profile_chargify_token: #{@payment_profile_chargify_token.inspect}, base:"\
-      " #{@base.inspect}, payment_profile_expiration_month:"\
-      " #{@payment_profile_expiration_month.inspect}, payment_profile_expiration_year:"\
-      " #{@payment_profile_expiration_year.inspect}, payment_profile_full_number:"\
-      " #{@payment_profile_full_number.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      "<#{class_name} customer: #{@customer.inspect}, product: #{@product.inspect},"\
+      " product_price_point_id: #{@product_price_point_id.inspect}, payment_profile:"\
+      " #{@payment_profile.inspect}, payment_profile_chargify_token:"\
+      " #{@payment_profile_chargify_token.inspect}, base: #{@base.inspect},"\
+      " payment_profile_expiration_month: #{@payment_profile_expiration_month.inspect},"\
+      " payment_profile_expiration_year: #{@payment_profile_expiration_year.inspect},"\
+      " payment_profile_full_number: #{@payment_profile_full_number.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

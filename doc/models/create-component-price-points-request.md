@@ -37,10 +37,24 @@ create_component_price_points_request = CreateComponentPricePointsRequest.new(
         )
       ],
       handle: 'handle6',
+      secondary_pricing: SecondaryPricing.new(
+        pricing_scheme: PricingScheme::STAIRSTEP,
+        prices: [
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          ),
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          )
+        ]
+      ),
+      secondary_pricing_scheme: PricingScheme::STAIRSTEP,
       use_site_exchange_rate: false,
-      tax_included: false,
-      interval: 24,
-      interval_unit: IntervalUnit::DAY
+      tax_included: false
     ),
     CreateComponentPricePoint.new(
       name: 'name0',
@@ -63,10 +77,24 @@ create_component_price_points_request = CreateComponentPricePointsRequest.new(
         )
       ],
       handle: 'handle6',
+      secondary_pricing: SecondaryPricing.new(
+        pricing_scheme: PricingScheme::STAIRSTEP,
+        prices: [
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          ),
+          Price.new(
+            starting_quantity: 242,
+            unit_price: 23.26,
+            ending_quantity: 40
+          )
+        ]
+      ),
+      secondary_pricing_scheme: PricingScheme::STAIRSTEP,
       use_site_exchange_rate: false,
-      tax_included: false,
-      interval: 24,
-      interval_unit: IntervalUnit::DAY
+      tax_included: false
     )
   ]
 )

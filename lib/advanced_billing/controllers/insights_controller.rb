@@ -55,8 +55,8 @@ module AdvancedBilling
     # Lists your site's MRR movements.
     # ## Understanding MRR movements
     # This endpoint will aid in accessing your site's [MRR
-    # Report](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-Ana
-    # lytics) data.
+    # Report](https://docs.maxio.com/insights/report-management/reporting-in-gen
+    # eral/understanding-reporting-differences-across-platforms) data.
     # Whenever a subscription event occurs that causes your site's MRR to change
     # (such as a signup or upgrade), we record an MRR movement. These records
     # are accessible via the MRR Movements endpoint.
@@ -65,9 +65,10 @@ module AdvancedBilling
     # configuration at the time of the movement.
     # ### Plan & Usage Breakouts
     # In the MRR Report UI, we support a setting to [include or
-    # exclude](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-An
-    # alytics#displaying-component-based-metered-usage-in-mrr) usage revenue. In
-    # the MRR APIs, responses include `plan` and `usage` breakouts.
+    # exclude](https://docs.maxio.com/insights/report-management/reporting-in-ge
+    # neral/understanding-reporting-differences-across-platforms#mrrarr-treatmen
+    # t-by-revenue-type) usage revenue. In the MRR APIs, responses include
+    # `plan` and `usage` breakouts.
     # Plan includes revenue from:
     # * Products
     # * Quantity-Based Components

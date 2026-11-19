@@ -74,6 +74,14 @@ module AdvancedBilling
     # @return [Array[SegmentPrice]]
     attr_accessor :prices
 
+    # Prices of the segment in the site's non-primary currencies, one entry for
+    # each price and currency. This field is present only when the request
+    # includes `currency_prices=true`. If the price point uses the site exchange
+    # rate, the prices are calculated from the current rate and each `id` is
+    # `null`.
+    # @return [Array[ComponentCurrencyPrice]]
+    attr_accessor :currency_prices
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -90,6 +98,7 @@ module AdvancedBilling
       @_hash['created_at'] = 'created_at'
       @_hash['updated_at'] = 'updated_at'
       @_hash['prices'] = 'prices'
+      @_hash['currency_prices'] = 'currency_prices'
       @_hash
     end
 
@@ -108,6 +117,7 @@ module AdvancedBilling
         created_at
         updated_at
         prices
+        currency_prices
       ]
     end
 
@@ -122,7 +132,8 @@ module AdvancedBilling
                    segment_property_2_value: SKIP,
                    segment_property_3_value: SKIP,
                    segment_property_4_value: SKIP, created_at: SKIP,
-                   updated_at: SKIP, prices: SKIP, additional_properties: {})
+                   updated_at: SKIP, prices: SKIP, currency_prices: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -143,6 +154,7 @@ module AdvancedBilling
       @created_at = created_at unless created_at == SKIP
       @updated_at = updated_at unless updated_at == SKIP
       @prices = prices unless prices == SKIP
+      @currency_prices = currency_prices unless currency_prices == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -190,6 +202,16 @@ module AdvancedBilling
       end
 
       prices = SKIP unless hash.key?('prices')
+      # Parameter is an array, so we need to iterate through it
+      currency_prices = nil
+      unless hash['currency_prices'].nil?
+        currency_prices = []
+        hash['currency_prices'].each do |structure|
+          currency_prices << (ComponentCurrencyPrice.from_hash(structure) if structure)
+        end
+      end
+
+      currency_prices = SKIP unless hash.key?('currency_prices')
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -207,6 +229,7 @@ module AdvancedBilling
                   created_at: created_at,
                   updated_at: updated_at,
                   prices: prices,
+                  currency_prices: currency_prices,
                   additional_properties: additional_properties)
     end
 
@@ -237,7 +260,8 @@ module AdvancedBilling
       " #{@segment_property_1_value}, segment_property_2_value: #{@segment_property_2_value},"\
       " segment_property_3_value: #{@segment_property_3_value}, segment_property_4_value:"\
       " #{@segment_property_4_value}, created_at: #{@created_at}, updated_at: #{@updated_at},"\
-      " prices: #{@prices}, additional_properties: #{get_additional_properties}>"
+      " prices: #{@prices}, currency_prices: #{@currency_prices}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -250,8 +274,8 @@ module AdvancedBilling
       " #{@segment_property_2_value.inspect}, segment_property_3_value:"\
       " #{@segment_property_3_value.inspect}, segment_property_4_value:"\
       " #{@segment_property_4_value.inspect}, created_at: #{@created_at.inspect}, updated_at:"\
-      " #{@updated_at.inspect}, prices: #{@prices.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@updated_at.inspect}, prices: #{@prices.inspect}, currency_prices:"\
+      " #{@currency_prices.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end
