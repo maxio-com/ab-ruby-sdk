@@ -51,6 +51,27 @@ module AdvancedBilling
     # @return [CreditType]
     attr_accessor :upgrade_charge
 
+    # For components using legacy Events Based Billing, changes the attached
+    # site-owned metric. An unchanged metric ID does not change the source.
+    # Sites using Maxio Metering ignore this input. This ID does not identify a
+    # Maxio Metering meter.
+    # @return [Integer]
+    attr_accessor :event_based_billing_metric_id
+
+    # For components using Maxio Metering, changes the attached merchant-owned
+    # meter. Do not supply together with a non-blank metering_formula. Ignored
+    # for components using legacy Events Based Billing; not applicable to other
+    # component kinds.
+    # @return [Integer]
+    attr_accessor :metering_meter_id
+
+    # For components using Maxio Metering, sets an Advanced Formula using meters
+    # available to the site. Supply a non-blank formula; do not supply together
+    # with metering_meter_id. Ignored for components using legacy Events Based
+    # Billing; not applicable to other component kinds.
+    # @return [String]
+    attr_accessor :metering_formula
+
     # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
     # When set, this value is sent as the commodity code on invoice line items
     # for this component instead of the default derived from item_category.
@@ -69,6 +90,10 @@ module AdvancedBilling
       @_hash['item_category'] = 'item_category'
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
       @_hash['upgrade_charge'] = 'upgrade_charge'
+      @_hash['event_based_billing_metric_id'] =
+        'event_based_billing_metric_id'
+      @_hash['metering_meter_id'] = 'metering_meter_id'
+      @_hash['metering_formula'] = 'metering_formula'
       @_hash['unspsc_code'] = 'unspsc_code'
       @_hash
     end
@@ -85,6 +110,9 @@ module AdvancedBilling
         item_category
         display_on_hosted_page
         upgrade_charge
+        event_based_billing_metric_id
+        metering_meter_id
+        metering_formula
         unspsc_code
       ]
     end
@@ -104,8 +132,9 @@ module AdvancedBilling
     def initialize(handle: SKIP, name: SKIP, description: SKIP,
                    accounting_code: SKIP, taxable: SKIP, tax_code: SKIP,
                    item_category: SKIP, display_on_hosted_page: SKIP,
-                   upgrade_charge: SKIP, unspsc_code: SKIP,
-                   additional_properties: {})
+                   upgrade_charge: SKIP, event_based_billing_metric_id: SKIP,
+                   metering_meter_id: SKIP, metering_formula: SKIP,
+                   unspsc_code: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -120,6 +149,12 @@ module AdvancedBilling
       @item_category = item_category unless item_category == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
+      unless event_based_billing_metric_id == SKIP
+        @event_based_billing_metric_id =
+          event_based_billing_metric_id
+      end
+      @metering_meter_id = metering_meter_id unless metering_meter_id == SKIP
+      @metering_formula = metering_formula unless metering_formula == SKIP
       @unspsc_code = unspsc_code unless unspsc_code == SKIP
     end
 
@@ -140,6 +175,12 @@ module AdvancedBilling
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
       upgrade_charge =
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
+      event_based_billing_metric_id =
+        hash.key?('event_based_billing_metric_id') ? hash['event_based_billing_metric_id'] : SKIP
+      metering_meter_id =
+        hash.key?('metering_meter_id') ? hash['metering_meter_id'] : SKIP
+      metering_formula =
+        hash.key?('metering_formula') ? hash['metering_formula'] : SKIP
       unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
 
       # Clean out expected properties from Hash.
@@ -155,6 +196,9 @@ module AdvancedBilling
                           item_category: item_category,
                           display_on_hosted_page: display_on_hosted_page,
                           upgrade_charge: upgrade_charge,
+                          event_based_billing_metric_id: event_based_billing_metric_id,
+                          metering_meter_id: metering_meter_id,
+                          metering_formula: metering_formula,
                           unspsc_code: unspsc_code,
                           additional_properties: additional_properties)
     end
@@ -165,8 +209,10 @@ module AdvancedBilling
       "<#{class_name} handle: #{@handle}, name: #{@name}, description: #{@description},"\
       " accounting_code: #{@accounting_code}, taxable: #{@taxable}, tax_code: #{@tax_code},"\
       " item_category: #{@item_category}, display_on_hosted_page: #{@display_on_hosted_page},"\
-      " upgrade_charge: #{@upgrade_charge}, unspsc_code: #{@unspsc_code}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " upgrade_charge: #{@upgrade_charge}, event_based_billing_metric_id:"\
+      " #{@event_based_billing_metric_id}, metering_meter_id: #{@metering_meter_id},"\
+      " metering_formula: #{@metering_formula}, unspsc_code: #{@unspsc_code},"\
+      " additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -176,8 +222,11 @@ module AdvancedBilling
       " #{@description.inspect}, accounting_code: #{@accounting_code.inspect}, taxable:"\
       " #{@taxable.inspect}, tax_code: #{@tax_code.inspect}, item_category:"\
       " #{@item_category.inspect}, display_on_hosted_page: #{@display_on_hosted_page.inspect},"\
-      " upgrade_charge: #{@upgrade_charge.inspect}, unspsc_code: #{@unspsc_code.inspect},"\
-      " additional_properties: #{get_additional_properties}>"
+      " upgrade_charge: #{@upgrade_charge.inspect}, event_based_billing_metric_id:"\
+      " #{@event_based_billing_metric_id.inspect}, metering_meter_id:"\
+      " #{@metering_meter_id.inspect}, metering_formula: #{@metering_formula.inspect},"\
+      " unspsc_code: #{@unspsc_code.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

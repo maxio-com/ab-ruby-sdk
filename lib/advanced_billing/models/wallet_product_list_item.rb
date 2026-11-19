@@ -164,10 +164,20 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :accounting_code
 
-    # (Only for Event Based Components) This is an ID of a metric attached to
-    # the component. This metric is used to bill upon collected events.
+    # The ID of an attached metric from legacy Events Based Billing. Omitted if
+    # no metric is attached. If the metric is linked to a Maxio Metering meter,
+    # the response can include both event_based_billing_metric_id and
+    # metering_meter_id.
     # @return [Integer]
     attr_accessor :event_based_billing_metric_id
+
+    # The ID of an attached single Maxio Metering meter. Omitted if no single
+    # meter is attached, including when the component uses only an Advanced
+    # Formula. If a legacy Events Based Billing metric is linked to the meter,
+    # the response can include both metering_meter_id and
+    # event_based_billing_metric_id.
+    # @return [Integer]
+    attr_accessor :metering_meter_id
 
     # The numerical interval. e.g., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component’s default price point would
@@ -239,6 +249,7 @@ module AdvancedBilling
       @_hash['accounting_code'] = 'accounting_code'
       @_hash['event_based_billing_metric_id'] =
         'event_based_billing_metric_id'
+      @_hash['metering_meter_id'] = 'metering_meter_id'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['unspsc_code'] = 'unspsc_code'
@@ -284,6 +295,7 @@ module AdvancedBilling
         use_site_exchange_rate
         accounting_code
         event_based_billing_metric_id
+        metering_meter_id
         interval
         interval_unit
         unspsc_code
@@ -334,9 +346,9 @@ module AdvancedBilling
                    hide_date_range_on_invoice: SKIP,
                    allow_fractional_quantities: SKIP, item_category: SKIP,
                    use_site_exchange_rate: SKIP, accounting_code: SKIP,
-                   event_based_billing_metric_id: SKIP, interval: SKIP,
-                   interval_unit: SKIP, unspsc_code: SKIP, features: SKIP,
-                   used_by: SKIP, price_point_summary: SKIP,
+                   event_based_billing_metric_id: SKIP, metering_meter_id: SKIP,
+                   interval: SKIP, interval_unit: SKIP, unspsc_code: SKIP,
+                   features: SKIP, used_by: SKIP, price_point_summary: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -385,6 +397,7 @@ module AdvancedBilling
         @event_based_billing_metric_id =
           event_based_billing_metric_id
       end
+      @metering_meter_id = metering_meter_id unless metering_meter_id == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @unspsc_code = unspsc_code unless unspsc_code == SKIP
@@ -477,6 +490,8 @@ module AdvancedBilling
         hash.key?('accounting_code') ? hash['accounting_code'] : SKIP
       event_based_billing_metric_id =
         hash.key?('event_based_billing_metric_id') ? hash['event_based_billing_metric_id'] : SKIP
+      metering_meter_id =
+        hash.key?('metering_meter_id') ? hash['metering_meter_id'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
@@ -531,6 +546,7 @@ module AdvancedBilling
                                 use_site_exchange_rate: use_site_exchange_rate,
                                 accounting_code: accounting_code,
                                 event_based_billing_metric_id: event_based_billing_metric_id,
+                                metering_meter_id: metering_meter_id,
                                 interval: interval,
                                 interval_unit: interval_unit,
                                 unspsc_code: unspsc_code,
@@ -569,9 +585,10 @@ module AdvancedBilling
       " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities}, item_category: #{@item_category}, use_site_exchange_rate:"\
       " #{@use_site_exchange_rate}, accounting_code: #{@accounting_code},"\
-      " event_based_billing_metric_id: #{@event_based_billing_metric_id}, interval: #{@interval},"\
-      " interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code}, features: #{@features},"\
-      " used_by: #{@used_by}, price_point_summary: #{@price_point_summary}, additional_properties:"\
+      " event_based_billing_metric_id: #{@event_based_billing_metric_id}, metering_meter_id:"\
+      " #{@metering_meter_id}, interval: #{@interval}, interval_unit: #{@interval_unit},"\
+      " unspsc_code: #{@unspsc_code}, features: #{@features}, used_by: #{@used_by},"\
+      " price_point_summary: #{@price_point_summary}, additional_properties:"\
       " #{get_additional_properties}>"
     end
 
@@ -597,7 +614,8 @@ module AdvancedBilling
       " #{@allow_fractional_quantities.inspect}, item_category: #{@item_category.inspect},"\
       " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, accounting_code:"\
       " #{@accounting_code.inspect}, event_based_billing_metric_id:"\
-      " #{@event_based_billing_metric_id.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@event_based_billing_metric_id.inspect}, metering_meter_id:"\
+      " #{@metering_meter_id.inspect}, interval: #{@interval.inspect}, interval_unit:"\
       " #{@interval_unit.inspect}, unspsc_code: #{@unspsc_code.inspect}, features:"\
       " #{@features.inspect}, used_by: #{@used_by.inspect}, price_point_summary:"\
       " #{@price_point_summary.inspect}, additional_properties: #{get_additional_properties}>"
