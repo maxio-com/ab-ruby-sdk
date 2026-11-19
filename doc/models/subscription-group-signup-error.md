@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptions` | [`Hash[String, SubscriptionGroupSubscriptionError]`](../../doc/models/subscription-group-subscription-error.md) | Optional | Object that as key have subscription position in request subscriptions array and as value subscription errors object. |
+| `subscriptions` | [`Hash[String, SubscriptionGroupSubscriptionError]`](../../doc/models/subscription-group-subscription-error.md) | Optional | Subscription errors keyed by the subscription's `reference` from the request, or by its zero-based position in the `subscriptions` array when it has no reference. |
 | `payer_reference` | `String` | Optional | - |
 | `payer` | [`PayerError`](../../doc/models/payer-error.md) | Optional | - |
 | `subscription_group` | `Array[String]` | Optional | - |
@@ -22,6 +22,10 @@
 subscription_group_signup_error = SubscriptionGroupSignupError.new(
   subscriptions: {
     'key0': SubscriptionGroupSubscriptionError.new(
+      customer: [
+        'customer1',
+        'customer2'
+      ],
       product: [
         'product9'
       ],
@@ -33,13 +37,13 @@ subscription_group_signup_error = SubscriptionGroupSignupError.new(
       ],
       payment_profile_chargify_token: [
         'payment_profile.chargify_token6'
-      ],
-      base: [
-        'base5',
-        'base6'
       ]
     ),
     'key1': SubscriptionGroupSubscriptionError.new(
+      customer: [
+        'customer1',
+        'customer2'
+      ],
       product: [
         'product9'
       ],
@@ -51,10 +55,6 @@ subscription_group_signup_error = SubscriptionGroupSignupError.new(
       ],
       payment_profile_chargify_token: [
         'payment_profile.chargify_token6'
-      ],
-      base: [
-        'base5',
-        'base6'
       ]
     )
   },

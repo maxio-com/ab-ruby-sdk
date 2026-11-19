@@ -19,7 +19,6 @@ create_ebb_component = CreateEBBComponent.new(
     name: 'name8',
     unit_name: 'unit_name0',
     pricing_scheme: PricingScheme::STAIRSTEP,
-    event_based_billing_metric_id: 68,
     description: 'description8',
     handle: 'handle4',
     taxable: false,

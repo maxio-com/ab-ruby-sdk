@@ -37,6 +37,12 @@ module AdvancedBilling
       @coupons ||= CouponsController.new @global_configuration
     end
 
+    # Access to component_features controller.
+    # @return [ComponentFeaturesController] Returns the controller instance.
+    def component_features
+      @component_features ||= ComponentFeaturesController.new @global_configuration
+    end
+
     # Access to components controller.
     # @return [ComponentsController] Returns the controller instance.
     def components
@@ -61,6 +67,12 @@ module AdvancedBilling
       @custom_fields ||= CustomFieldsController.new @global_configuration
     end
 
+    # Access to entitlements controller.
+    # @return [EntitlementsController] Returns the controller instance.
+    def entitlements
+      @entitlements ||= EntitlementsController.new @global_configuration
+    end
+
     # Access to events controller.
     # @return [EventsController] Returns the controller instance.
     def events
@@ -71,6 +83,12 @@ module AdvancedBilling
     # @return [EventsBasedBillingSegmentsController] Returns the controller instance.
     def events_based_billing_segments
       @events_based_billing_segments ||= EventsBasedBillingSegmentsController.new @global_configuration
+    end
+
+    # Access to feature_templates controller.
+    # @return [FeatureTemplatesController] Returns the controller instance.
+    def feature_templates
+      @feature_templates ||= FeatureTemplatesController.new @global_configuration
     end
 
     # Access to insights controller.
@@ -101,6 +119,12 @@ module AdvancedBilling
     # @return [ProductFamiliesController] Returns the controller instance.
     def product_families
       @product_families ||= ProductFamiliesController.new @global_configuration
+    end
+
+    # Access to product_features controller.
+    # @return [ProductFeaturesController] Returns the controller instance.
+    def product_features
+      @product_features ||= ProductFeaturesController.new @global_configuration
     end
 
     # Access to products controller.
@@ -203,6 +227,36 @@ module AdvancedBilling
     # @return [SubscriptionStatusController] Returns the controller instance.
     def subscription_status
       @subscription_status ||= SubscriptionStatusController.new @global_configuration
+    end
+
+    # Access to wallets controller.
+    # @return [WalletsController] Returns the controller instance.
+    def wallets
+      @wallets ||= WalletsController.new @global_configuration
+    end
+
+    # Access to wallet_transactions controller.
+    # @return [WalletTransactionsController] Returns the controller instance.
+    def wallet_transactions
+      @wallet_transactions ||= WalletTransactionsController.new @global_configuration
+    end
+
+    # Access to wallet_adjustments controller.
+    # @return [WalletAdjustmentsController] Returns the controller instance.
+    def wallet_adjustments
+      @wallet_adjustments ||= WalletAdjustmentsController.new @global_configuration
+    end
+
+    # Access to wallet_purchases controller.
+    # @return [WalletPurchasesController] Returns the controller instance.
+    def wallet_purchases
+      @wallet_purchases ||= WalletPurchasesController.new @global_configuration
+    end
+
+    # Access to wallet_products controller.
+    # @return [WalletProductsController] Returns the controller instance.
+    def wallet_products
+      @wallet_products ||= WalletProductsController.new @global_configuration
     end
 
     # Access to webhooks controller.

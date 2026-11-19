@@ -23,7 +23,10 @@ module AdvancedBilling
       CUSTOMER_REFERENCE = 'customer_reference'.freeze,
 
       # TODO: Write general description for SUBSCRIPTION_REFERENCE
-      SUBSCRIPTION_REFERENCE = 'subscription_reference'.freeze
+      SUBSCRIPTION_REFERENCE = 'subscription_reference'.freeze,
+
+      # TODO: Write general description for LAST_FOUR
+      LAST_FOUR = 'last_four'.freeze
     ].freeze
 
     def self.validate(value)
@@ -44,6 +47,7 @@ module AdvancedBilling
       when 'organization' then ORGANIZATION
       when 'customer_reference' then CUSTOMER_REFERENCE
       when 'subscription_reference' then SUBSCRIPTION_REFERENCE
+      when 'last_four' then LAST_FOUR
       else
         default_value
       end

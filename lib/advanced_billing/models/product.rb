@@ -200,11 +200,28 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :product_price_point_handle
 
+    # The ID of the catalog price point used as the list price for the
+    # subscription's custom product price. Returned only when list vs sales
+    # pricing is enabled for the site.
+    # @return [Integer]
+    attr_accessor :product_price_point_list_price_point_id
+
+    # The handle of the catalog price point used as the list price for the
+    # subscription's custom product price. Returned only when list vs sales
+    # pricing is enabled for the site.
+    # @return [String]
+    attr_accessor :product_price_point_list_price_point_handle
+
     # (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data.
     # When set, this value is sent as the commodity code on invoice line items
     # for this product instead of the default derived from item_category.
     # @return [String]
     attr_accessor :unspsc_code
+
+    # The active feature catalog items attached to this product. Present only
+    # when the request includes `include_features=true`.
+    # @return [Array[FeatureCatalogItem]]
+    attr_accessor :features
 
     # A mapping from model property names to API property names.
     def self.names
@@ -247,7 +264,12 @@ module AdvancedBilling
       @_hash['item_category'] = 'item_category'
       @_hash['product_price_point_id'] = 'product_price_point_id'
       @_hash['product_price_point_handle'] = 'product_price_point_handle'
+      @_hash['product_price_point_list_price_point_id'] =
+        'product_price_point_list_price_point_id'
+      @_hash['product_price_point_list_price_point_handle'] =
+        'product_price_point_list_price_point_handle'
       @_hash['unspsc_code'] = 'unspsc_code'
+      @_hash['features'] = 'features'
       @_hash
     end
 
@@ -291,7 +313,10 @@ module AdvancedBilling
         item_category
         product_price_point_id
         product_price_point_handle
+        product_price_point_list_price_point_id
+        product_price_point_list_price_point_handle
         unspsc_code
+        features
       ]
     end
 
@@ -316,7 +341,10 @@ module AdvancedBilling
         use_site_exchange_rate
         item_category
         product_price_point_handle
+        product_price_point_list_price_point_id
+        product_price_point_list_price_point_handle
         unspsc_code
+        features
       ]
     end
 
@@ -337,8 +365,10 @@ module AdvancedBilling
                    default_product_price_point_id: SKIP,
                    use_site_exchange_rate: SKIP, item_category: SKIP,
                    product_price_point_id: SKIP,
-                   product_price_point_handle: SKIP, unspsc_code: SKIP,
-                   additional_properties: {})
+                   product_price_point_handle: SKIP,
+                   product_price_point_list_price_point_id: SKIP,
+                   product_price_point_list_price_point_handle: SKIP,
+                   unspsc_code: SKIP, features: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -390,7 +420,16 @@ module AdvancedBilling
         @product_price_point_handle =
           product_price_point_handle
       end
+      unless product_price_point_list_price_point_id == SKIP
+        @product_price_point_list_price_point_id =
+          product_price_point_list_price_point_id
+      end
+      unless product_price_point_list_price_point_handle == SKIP
+        @product_price_point_list_price_point_handle =
+          product_price_point_list_price_point_handle
+      end
       @unspsc_code = unspsc_code unless unspsc_code == SKIP
+      @features = features unless features == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -478,7 +517,21 @@ module AdvancedBilling
         hash.key?('product_price_point_id') ? hash['product_price_point_id'] : SKIP
       product_price_point_handle =
         hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
+      product_price_point_list_price_point_id =
+        hash.key?('product_price_point_list_price_point_id') ? hash['product_price_point_list_price_point_id'] : SKIP
+      product_price_point_list_price_point_handle =
+        hash.key?('product_price_point_list_price_point_handle') ? hash['product_price_point_list_price_point_handle'] : SKIP
       unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
+      # Parameter is an array, so we need to iterate through it
+      features = nil
+      unless hash['features'].nil?
+        features = []
+        hash['features'].each do |structure|
+          features << (FeatureCatalogItem.from_hash(structure) if structure)
+        end
+      end
+
+      features = SKIP unless hash.key?('features')
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -521,7 +574,10 @@ module AdvancedBilling
                   item_category: item_category,
                   product_price_point_id: product_price_point_id,
                   product_price_point_handle: product_price_point_handle,
+                  product_price_point_list_price_point_id: product_price_point_list_price_point_id,
+                  product_price_point_list_price_point_handle: product_price_point_list_price_point_handle,
                   unspsc_code: unspsc_code,
+                  features: features,
                   additional_properties: additional_properties)
     end
 
@@ -558,8 +614,11 @@ module AdvancedBilling
       " tax_code: #{@tax_code}, default_product_price_point_id:"\
       " #{@default_product_price_point_id}, use_site_exchange_rate: #{@use_site_exchange_rate},"\
       " item_category: #{@item_category}, product_price_point_id: #{@product_price_point_id},"\
-      " product_price_point_handle: #{@product_price_point_handle}, unspsc_code: #{@unspsc_code},"\
-      " additional_properties: #{get_additional_properties}>"
+      " product_price_point_handle: #{@product_price_point_handle},"\
+      " product_price_point_list_price_point_id: #{@product_price_point_list_price_point_id},"\
+      ' product_price_point_list_price_point_handle:'\
+      " #{@product_price_point_list_price_point_handle}, unspsc_code: #{@unspsc_code}, features:"\
+      " #{@features}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -588,8 +647,13 @@ module AdvancedBilling
       " default_product_price_point_id: #{@default_product_price_point_id.inspect},"\
       " use_site_exchange_rate: #{@use_site_exchange_rate.inspect}, item_category:"\
       " #{@item_category.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
-      " product_price_point_handle: #{@product_price_point_handle.inspect}, unspsc_code:"\
-      " #{@unspsc_code.inspect}, additional_properties: #{get_additional_properties}>"
+      " product_price_point_handle: #{@product_price_point_handle.inspect},"\
+      ' product_price_point_list_price_point_id:'\
+      " #{@product_price_point_list_price_point_id.inspect},"\
+      ' product_price_point_list_price_point_handle:'\
+      " #{@product_price_point_list_price_point_handle.inspect}, unspsc_code:"\
+      " #{@unspsc_code.inspect}, features: #{@features.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

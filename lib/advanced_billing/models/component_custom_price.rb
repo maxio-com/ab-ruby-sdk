@@ -36,8 +36,9 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :list_price_point_id
 
-    # When true, list price calculations will continue to use the default price
-    # point even when a `custom_price` is supplied.
+    # (Optional) When list vs sales pricing is enabled and `list_price_point_id`
+    # is omitted, the component's default price point is used as the list price
+    # unless this is `false`. Defaults to `true`.
     # @return [TrueClass | FalseClass]
     attr_accessor :use_default_list_price
 
@@ -65,6 +66,28 @@ module AdvancedBilling
     # @return [ExpirationIntervalUnit]
     attr_accessor :expiration_interval_unit
 
+    # Applicable only to segmented event-based components on sites using Maxio
+    # Metering. Per-segment rates for the component: each entry sets the pricing
+    # scheme and prices for one segment of the component's meter, identified by
+    # its property values.
+    # Accepted only by Create Subscription and Update Subscription, which save
+    # the segment rates. Preview Subscription and the signup proforma invoice
+    # endpoints validate segments the same way but do not save them. Every other
+    # endpoint that accepts a component `custom_price` returns `422
+    # Unprocessable Entity` when the `segments` key is present, even when its
+    # value is `null` or an empty array. Omit this property unless you are
+    # setting segment rates.
+    # Saved segment rates take effect as soon as the request succeeds and price
+    # all of the current billing period's usage at the new rates, including
+    # usage recorded before the request. To read them back, take the
+    # `price_point_id` of the subscription's component (for example, from [Read
+    # Subscription
+    # Component]($e/Subscription%20Components/readSubscriptionComponent)) and
+    # call `GET
+    # /components/{component_id}/price_points/{price_point_id}/segments.json`.
+    # @return [Array[SubscriptionComponentCustomPriceSegment]]
+    attr_accessor :segments
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -79,6 +102,7 @@ module AdvancedBilling
       @_hash['rollover_prepaid_remainder'] = 'rollover_prepaid_remainder'
       @_hash['expiration_interval'] = 'expiration_interval'
       @_hash['expiration_interval_unit'] = 'expiration_interval_unit'
+      @_hash['segments'] = 'segments'
       @_hash
     end
 
@@ -95,6 +119,7 @@ module AdvancedBilling
         rollover_prepaid_remainder
         expiration_interval
         expiration_interval_unit
+        segments
       ]
     end
 
@@ -113,7 +138,8 @@ module AdvancedBilling
                    list_price_point_id: SKIP, use_default_list_price: SKIP,
                    renew_prepaid_allocation: SKIP,
                    rollover_prepaid_remainder: SKIP, expiration_interval: SKIP,
-                   expiration_interval_unit: SKIP, additional_properties: {})
+                   expiration_interval_unit: SKIP, segments: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -133,6 +159,7 @@ module AdvancedBilling
       end
       @expiration_interval = expiration_interval unless expiration_interval == SKIP
       @expiration_interval_unit = expiration_interval_unit unless expiration_interval_unit == SKIP
+      @segments = segments unless segments == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -167,6 +194,16 @@ module AdvancedBilling
         hash.key?('expiration_interval') ? hash['expiration_interval'] : SKIP
       expiration_interval_unit =
         hash.key?('expiration_interval_unit') ? hash['expiration_interval_unit'] : SKIP
+      # Parameter is an array, so we need to iterate through it
+      segments = nil
+      unless hash['segments'].nil?
+        segments = []
+        hash['segments'].each do |structure|
+          segments << (SubscriptionComponentCustomPriceSegment.from_hash(structure) if structure)
+        end
+      end
+
+      segments = SKIP unless hash.key?('segments')
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -183,6 +220,7 @@ module AdvancedBilling
                                rollover_prepaid_remainder: rollover_prepaid_remainder,
                                expiration_interval: expiration_interval,
                                expiration_interval_unit: expiration_interval_unit,
+                               segments: segments,
                                additional_properties: additional_properties)
     end
 
@@ -212,8 +250,8 @@ module AdvancedBilling
       " #{@list_price_point_id}, use_default_list_price: #{@use_default_list_price}, prices:"\
       " #{@prices}, renew_prepaid_allocation: #{@renew_prepaid_allocation},"\
       " rollover_prepaid_remainder: #{@rollover_prepaid_remainder}, expiration_interval:"\
-      " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit},"\
-      " additional_properties: #{get_additional_properties}>"
+      " #{@expiration_interval}, expiration_interval_unit: #{@expiration_interval_unit}, segments:"\
+      " #{@segments}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -226,8 +264,8 @@ module AdvancedBilling
       " renew_prepaid_allocation: #{@renew_prepaid_allocation.inspect},"\
       " rollover_prepaid_remainder: #{@rollover_prepaid_remainder.inspect}, expiration_interval:"\
       " #{@expiration_interval.inspect}, expiration_interval_unit:"\
-      " #{@expiration_interval_unit.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@expiration_interval_unit.inspect}, segments: #{@segments.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

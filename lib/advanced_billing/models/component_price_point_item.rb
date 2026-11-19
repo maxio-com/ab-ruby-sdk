@@ -42,6 +42,14 @@ module AdvancedBilling
     # @return [Array[Price]]
     attr_accessor :prices
 
+    # Hybrid Pricing only. Applies only to price points of Quantity-Based and
+    # Metered Components on Sites with Hybrid Pricing enabled; ignored for other
+    # component types and on Sites without Hybrid Pricing. Omit it to create a
+    # normal, non-hybrid price point. See [Hybrid
+    # Pricing](page:introduction/basic-concepts/hybrid-pricing).
+    # @return [SecondaryPricing]
+    attr_accessor :secondary_pricing
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -51,6 +59,7 @@ module AdvancedBilling
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['prices'] = 'prices'
+      @_hash['secondary_pricing'] = 'secondary_pricing'
       @_hash
     end
 
@@ -63,6 +72,7 @@ module AdvancedBilling
         interval
         interval_unit
         prices
+        secondary_pricing
       ]
     end
 
@@ -75,7 +85,7 @@ module AdvancedBilling
 
     def initialize(name: SKIP, handle: SKIP, pricing_scheme: SKIP,
                    interval: SKIP, interval_unit: SKIP, prices: SKIP,
-                   additional_properties: {})
+                   secondary_pricing: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -87,6 +97,7 @@ module AdvancedBilling
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @prices = prices unless prices == SKIP
+      @secondary_pricing = secondary_pricing unless secondary_pricing == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -110,6 +121,8 @@ module AdvancedBilling
       end
 
       prices = SKIP unless hash.key?('prices')
+      secondary_pricing = SecondaryPricing.from_hash(hash['secondary_pricing']) if
+        hash['secondary_pricing']
 
       # Clean out expected properties from Hash.
       additional_properties = hash.reject { |k, _| names.value?(k) }
@@ -121,6 +134,7 @@ module AdvancedBilling
                                   interval: interval,
                                   interval_unit: interval_unit,
                                   prices: prices,
+                                  secondary_pricing: secondary_pricing,
                                   additional_properties: additional_properties)
     end
 
@@ -139,7 +153,8 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name}, handle: #{@handle}, pricing_scheme: #{@pricing_scheme},"\
       " interval: #{@interval}, interval_unit: #{@interval_unit}, prices: #{@prices},"\
-      " additional_properties: #{get_additional_properties}>"
+      " secondary_pricing: #{@secondary_pricing}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -147,8 +162,8 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name.inspect}, handle: #{@handle.inspect}, pricing_scheme:"\
       " #{@pricing_scheme.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, prices: #{@prices.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@interval_unit.inspect}, prices: #{@prices.inspect}, secondary_pricing:"\
+      " #{@secondary_pricing.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

@@ -118,13 +118,26 @@ module AdvancedBilling
     # @return [Integer]
     attr_accessor :price_point_id
 
-    # The price point ID of the component being credited. Will be `nil` for
-    # non-component credits.
+    # The unit price from the list price point, in decimal format
+    # @return [String]
+    attr_accessor :list_unit_price
+
+    # The total amount for the line item at the list price, in decimal format
+    # @return [String]
+    attr_accessor :list_total_amount
+
+    # The ID of the list price point this line item's sales price is compared
+    # against
+    # @return [Integer]
+    attr_accessor :list_price_point_id
+
+    # The ID of the list price point this line item's sales price is compared
+    # against
     # @return [Integer]
     attr_accessor :billing_schedule_item_id
 
-    # The price point ID of the component being credited. Will be `nil` for
-    # non-component credits.
+    # The ID of the list price point this line item's sales price is compared
+    # against
     # @return [TrueClass | FalseClass]
     attr_accessor :custom_item
 
@@ -153,6 +166,9 @@ module AdvancedBilling
       @_hash['product_version'] = 'product_version'
       @_hash['component_id'] = 'component_id'
       @_hash['price_point_id'] = 'price_point_id'
+      @_hash['list_unit_price'] = 'list_unit_price'
+      @_hash['list_total_amount'] = 'list_total_amount'
+      @_hash['list_price_point_id'] = 'list_price_point_id'
       @_hash['billing_schedule_item_id'] = 'billing_schedule_item_id'
       @_hash['custom_item'] = 'custom_item'
       @_hash['prepaid_allocation_expires_at'] =
@@ -180,6 +196,9 @@ module AdvancedBilling
         product_version
         component_id
         price_point_id
+        list_unit_price
+        list_total_amount
+        list_price_point_id
         billing_schedule_item_id
         custom_item
         prepaid_allocation_expires_at
@@ -191,6 +210,9 @@ module AdvancedBilling
       %w[
         component_id
         price_point_id
+        list_unit_price
+        list_total_amount
+        list_price_point_id
         billing_schedule_item_id
         prepaid_allocation_expires_at
       ]
@@ -202,8 +224,10 @@ module AdvancedBilling
                    total_amount: SKIP, tiered_unit_price: SKIP,
                    period_range_start: SKIP, period_range_end: SKIP,
                    product_id: SKIP, product_version: SKIP, component_id: SKIP,
-                   price_point_id: SKIP, billing_schedule_item_id: SKIP,
-                   custom_item: SKIP, prepaid_allocation_expires_at: SKIP,
+                   price_point_id: SKIP, list_unit_price: SKIP,
+                   list_total_amount: SKIP, list_price_point_id: SKIP,
+                   billing_schedule_item_id: SKIP, custom_item: SKIP,
+                   prepaid_allocation_expires_at: SKIP,
                    additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -227,6 +251,9 @@ module AdvancedBilling
       @product_version = product_version unless product_version == SKIP
       @component_id = component_id unless component_id == SKIP
       @price_point_id = price_point_id unless price_point_id == SKIP
+      @list_unit_price = list_unit_price unless list_unit_price == SKIP
+      @list_total_amount = list_total_amount unless list_total_amount == SKIP
+      @list_price_point_id = list_price_point_id unless list_price_point_id == SKIP
       @billing_schedule_item_id = billing_schedule_item_id unless billing_schedule_item_id == SKIP
       @custom_item = custom_item unless custom_item == SKIP
       unless prepaid_allocation_expires_at == SKIP
@@ -264,6 +291,12 @@ module AdvancedBilling
       component_id = hash.key?('component_id') ? hash['component_id'] : SKIP
       price_point_id =
         hash.key?('price_point_id') ? hash['price_point_id'] : SKIP
+      list_unit_price =
+        hash.key?('list_unit_price') ? hash['list_unit_price'] : SKIP
+      list_total_amount =
+        hash.key?('list_total_amount') ? hash['list_total_amount'] : SKIP
+      list_price_point_id =
+        hash.key?('list_price_point_id') ? hash['list_price_point_id'] : SKIP
       billing_schedule_item_id =
         hash.key?('billing_schedule_item_id') ? hash['billing_schedule_item_id'] : SKIP
       custom_item = hash.key?('custom_item') ? hash['custom_item'] : SKIP
@@ -291,6 +324,9 @@ module AdvancedBilling
                              product_version: product_version,
                              component_id: component_id,
                              price_point_id: price_point_id,
+                             list_unit_price: list_unit_price,
+                             list_total_amount: list_total_amount,
+                             list_price_point_id: list_price_point_id,
                              billing_schedule_item_id: billing_schedule_item_id,
                              custom_item: custom_item,
                              prepaid_allocation_expires_at: prepaid_allocation_expires_at,
@@ -316,10 +352,11 @@ module AdvancedBilling
       " #{@tax_included}, total_amount: #{@total_amount}, tiered_unit_price:"\
       " #{@tiered_unit_price}, period_range_start: #{@period_range_start}, period_range_end:"\
       " #{@period_range_end}, product_id: #{@product_id}, product_version: #{@product_version},"\
-      " component_id: #{@component_id}, price_point_id: #{@price_point_id},"\
-      " billing_schedule_item_id: #{@billing_schedule_item_id}, custom_item: #{@custom_item},"\
-      " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " component_id: #{@component_id}, price_point_id: #{@price_point_id}, list_unit_price:"\
+      " #{@list_unit_price}, list_total_amount: #{@list_total_amount}, list_price_point_id:"\
+      " #{@list_price_point_id}, billing_schedule_item_id: #{@billing_schedule_item_id},"\
+      " custom_item: #{@custom_item}, prepaid_allocation_expires_at:"\
+      " #{@prepaid_allocation_expires_at}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -333,7 +370,9 @@ module AdvancedBilling
       " #{@tiered_unit_price.inspect}, period_range_start: #{@period_range_start.inspect},"\
       " period_range_end: #{@period_range_end.inspect}, product_id: #{@product_id.inspect},"\
       " product_version: #{@product_version.inspect}, component_id: #{@component_id.inspect},"\
-      " price_point_id: #{@price_point_id.inspect}, billing_schedule_item_id:"\
+      " price_point_id: #{@price_point_id.inspect}, list_unit_price: #{@list_unit_price.inspect},"\
+      " list_total_amount: #{@list_total_amount.inspect}, list_price_point_id:"\
+      " #{@list_price_point_id.inspect}, billing_schedule_item_id:"\
       " #{@billing_schedule_item_id.inspect}, custom_item: #{@custom_item.inspect},"\
       " prepaid_allocation_expires_at: #{@prepaid_allocation_expires_at.inspect},"\
       " additional_properties: #{get_additional_properties}>"

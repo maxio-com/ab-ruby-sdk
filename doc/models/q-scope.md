@@ -15,10 +15,11 @@
 | `ORGANIZATION` |
 | `CUSTOMER_REFERENCE` |
 | `SUBSCRIPTION_REFERENCE` |
+| `LAST_FOUR` |
 
 ## Example
 
 ```ruby
-q_scope = QScope::LAST_NAME
+q_scope = QScope::SUBSCRIPTION_REFERENCE
 ```
 

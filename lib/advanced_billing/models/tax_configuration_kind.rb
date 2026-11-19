@@ -17,7 +17,22 @@ module AdvancedBilling
       ENUM_LINKED_AVALARA = 'linked avalara'.freeze,
 
       # TODO: Write general description for ENUM_DIGITAL_RIVER
-      ENUM_DIGITAL_RIVER = 'digital river'.freeze
+      ENUM_DIGITAL_RIVER = 'digital river'.freeze,
+
+      # TODO: Write general description for ANROK
+      ANROK = 'anrok'.freeze,
+
+      # TODO: Write general description for TAXJAR
+      TAXJAR = 'taxjar'.freeze,
+
+      # TODO: Write general description for NUMERAL
+      NUMERAL = 'numeral'.freeze,
+
+      # TODO: Write general description for SPHERE
+      SPHERE = 'sphere'.freeze,
+
+      # TODO: Write general description for TAXWIRE
+      TAXWIRE = 'taxwire'.freeze
     ].freeze
 
     def self.validate(value)
@@ -36,6 +51,11 @@ module AdvancedBilling
       when 'enum_managed_avalara' then ENUM_MANAGED_AVALARA
       when 'enum_linked_avalara' then ENUM_LINKED_AVALARA
       when 'enum_digital_river' then ENUM_DIGITAL_RIVER
+      when 'anrok' then ANROK
+      when 'taxjar' then TAXJAR
+      when 'numeral' then NUMERAL
+      when 'sphere' then SPHERE
+      when 'taxwire' then TAXWIRE
       else
         default_value
       end

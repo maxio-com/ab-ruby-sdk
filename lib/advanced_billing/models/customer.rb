@@ -116,9 +116,28 @@ module AdvancedBilling
     # used to determine VAT tax opt out rules. It is not validated when added or
     # updated on a customer record. Instead, it is validated via VIES before
     # calculating taxes. Only valid business identification numbers will allow
-    # for VAT opt out.
+    # for VAT opt out. When the customer holds an entity identifier, this field
+    # returns that identifier's value, whatever its kind.
     # @return [String]
     attr_accessor :vat_number
+
+    # The two-letter ISO 3166-1 country code that qualifies the customer's VAT
+    # number. Set to `null` when an identifier is stored through
+    # `entity_identifier_kind` for a kind that is not tied to a VAT country,
+    # meaning `company_reg`, `gln`, `duns`, or `lei`.
+    # @return [String]
+    attr_accessor :vat_country
+
+    # The kind of tax or business identifier held by the customer. Returned as
+    # `null` when the customer has no entity identifier, including a legacy
+    # customer whose `vat_number` predates entity identifiers.
+    # @return [EntityIdentifierKind]
+    attr_accessor :entity_identifier_kind
+
+    # The value of the customer's tax or business identifier. Returned as `null`
+    # when the customer has no entity identifier.
+    # @return [String]
+    attr_accessor :entity_identifier_value
 
     # The parent ID in Chargify if applicable. Parent is another Customer
     # object.
@@ -185,6 +204,9 @@ module AdvancedBilling
       @_hash['tax_exempt'] = 'tax_exempt'
       @_hash['surcharging'] = 'surcharging'
       @_hash['vat_number'] = 'vat_number'
+      @_hash['vat_country'] = 'vat_country'
+      @_hash['entity_identifier_kind'] = 'entity_identifier_kind'
+      @_hash['entity_identifier_value'] = 'entity_identifier_value'
       @_hash['parent_id'] = 'parent_id'
       @_hash['locale'] = 'locale'
       @_hash['default_subscription_group_uid'] =
@@ -226,6 +248,9 @@ module AdvancedBilling
         tax_exempt
         surcharging
         vat_number
+        vat_country
+        entity_identifier_kind
+        entity_identifier_value
         parent_id
         locale
         default_subscription_group_uid
@@ -257,6 +282,9 @@ module AdvancedBilling
         portal_invite_last_sent_at
         portal_invite_last_accepted_at
         vat_number
+        vat_country
+        entity_identifier_kind
+        entity_identifier_value
         parent_id
         locale
         default_subscription_group_uid
@@ -276,9 +304,11 @@ module AdvancedBilling
                    verified: SKIP, portal_customer_created_at: SKIP,
                    portal_invite_last_sent_at: SKIP,
                    portal_invite_last_accepted_at: SKIP, tax_exempt: SKIP,
-                   surcharging: SKIP, vat_number: SKIP, parent_id: SKIP,
-                   locale: SKIP, default_subscription_group_uid: SKIP,
-                   salesforce_id: SKIP, tax_exempt_reason: SKIP,
+                   surcharging: SKIP, vat_number: SKIP, vat_country: SKIP,
+                   entity_identifier_kind: SKIP, entity_identifier_value: SKIP,
+                   parent_id: SKIP, locale: SKIP,
+                   default_subscription_group_uid: SKIP, salesforce_id: SKIP,
+                   tax_exempt_reason: SKIP,
                    default_auto_renewal_profile_id: SKIP, maxioid: SKIP,
                    branding_theme_id: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
@@ -320,6 +350,9 @@ module AdvancedBilling
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
       @surcharging = surcharging unless surcharging == SKIP
       @vat_number = vat_number unless vat_number == SKIP
+      @vat_country = vat_country unless vat_country == SKIP
+      @entity_identifier_kind = entity_identifier_kind unless entity_identifier_kind == SKIP
+      @entity_identifier_value = entity_identifier_value unless entity_identifier_value == SKIP
       @parent_id = parent_id unless parent_id == SKIP
       @locale = locale unless locale == SKIP
       unless default_subscription_group_uid == SKIP
@@ -386,6 +419,11 @@ module AdvancedBilling
       tax_exempt = hash.key?('tax_exempt') ? hash['tax_exempt'] : SKIP
       surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
+      vat_country = hash.key?('vat_country') ? hash['vat_country'] : SKIP
+      entity_identifier_kind =
+        hash.key?('entity_identifier_kind') ? hash['entity_identifier_kind'] : SKIP
+      entity_identifier_value =
+        hash.key?('entity_identifier_value') ? hash['entity_identifier_value'] : SKIP
       parent_id = hash.key?('parent_id') ? hash['parent_id'] : SKIP
       locale = hash.key?('locale') ? hash['locale'] : SKIP
       default_subscription_group_uid =
@@ -428,6 +466,9 @@ module AdvancedBilling
                    tax_exempt: tax_exempt,
                    surcharging: surcharging,
                    vat_number: vat_number,
+                   vat_country: vat_country,
+                   entity_identifier_kind: entity_identifier_kind,
+                   entity_identifier_value: entity_identifier_value,
                    parent_id: parent_id,
                    locale: locale,
                    default_subscription_group_uid: default_subscription_group_uid,
@@ -480,12 +521,14 @@ module AdvancedBilling
       " verified: #{@verified}, portal_customer_created_at: #{@portal_customer_created_at},"\
       " portal_invite_last_sent_at: #{@portal_invite_last_sent_at},"\
       " portal_invite_last_accepted_at: #{@portal_invite_last_accepted_at}, tax_exempt:"\
-      " #{@tax_exempt}, surcharging: #{@surcharging}, vat_number: #{@vat_number}, parent_id:"\
-      " #{@parent_id}, locale: #{@locale}, default_subscription_group_uid:"\
-      " #{@default_subscription_group_uid}, salesforce_id: #{@salesforce_id}, tax_exempt_reason:"\
-      " #{@tax_exempt_reason}, default_auto_renewal_profile_id:"\
-      " #{@default_auto_renewal_profile_id}, maxioid: #{@maxioid}, branding_theme_id:"\
-      " #{@branding_theme_id}, additional_properties: #{get_additional_properties}>"
+      " #{@tax_exempt}, surcharging: #{@surcharging}, vat_number: #{@vat_number}, vat_country:"\
+      " #{@vat_country}, entity_identifier_kind: #{@entity_identifier_kind},"\
+      " entity_identifier_value: #{@entity_identifier_value}, parent_id: #{@parent_id}, locale:"\
+      " #{@locale}, default_subscription_group_uid: #{@default_subscription_group_uid},"\
+      " salesforce_id: #{@salesforce_id}, tax_exempt_reason: #{@tax_exempt_reason},"\
+      " default_auto_renewal_profile_id: #{@default_auto_renewal_profile_id}, maxioid:"\
+      " #{@maxioid}, branding_theme_id: #{@branding_theme_id}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -502,7 +545,9 @@ module AdvancedBilling
       " #{@portal_customer_created_at.inspect}, portal_invite_last_sent_at:"\
       " #{@portal_invite_last_sent_at.inspect}, portal_invite_last_accepted_at:"\
       " #{@portal_invite_last_accepted_at.inspect}, tax_exempt: #{@tax_exempt.inspect},"\
-      " surcharging: #{@surcharging.inspect}, vat_number: #{@vat_number.inspect}, parent_id:"\
+      " surcharging: #{@surcharging.inspect}, vat_number: #{@vat_number.inspect}, vat_country:"\
+      " #{@vat_country.inspect}, entity_identifier_kind: #{@entity_identifier_kind.inspect},"\
+      " entity_identifier_value: #{@entity_identifier_value.inspect}, parent_id:"\
       " #{@parent_id.inspect}, locale: #{@locale.inspect}, default_subscription_group_uid:"\
       " #{@default_subscription_group_uid.inspect}, salesforce_id: #{@salesforce_id.inspect},"\
       " tax_exempt_reason: #{@tax_exempt_reason.inspect}, default_auto_renewal_profile_id:"\

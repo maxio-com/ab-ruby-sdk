@@ -14,8 +14,8 @@ module AdvancedBilling
     attr_accessor :invoice_id
 
     # The current status of the invoice. See [Invoice
-    # Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advan
-    # ced-Billing-Invoices-Overview#invoice-statuses) for more.
+    # Statuses](https://docs.maxio.com/billing/invoicing/overview/understand-how
+    # -invoices-are-generated#invoice-statuses) for more.
     # @return [InvoiceStatus]
     attr_accessor :status
 

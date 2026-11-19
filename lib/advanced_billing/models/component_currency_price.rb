@@ -9,27 +9,39 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
+    # The ID of the stored currency price. This is `null` when the price point
+    # uses the site exchange rate (`use_site_exchange_rate: true`), because the
+    # price is calculated from the rate and is not stored.
     # @return [Integer]
     attr_accessor :id
 
-    # TODO: Write general description for this method
+    # The ID of the stored currency price. This is `null` when the price point
+    # uses the site exchange rate (`use_site_exchange_rate: true`), because the
+    # price is calculated from the rate and is not stored.
     # @return [String]
     attr_accessor :currency
 
-    # TODO: Write general description for this method
+    # The ID of the stored currency price. This is `null` when the price point
+    # uses the site exchange rate (`use_site_exchange_rate: true`), because the
+    # price is calculated from the rate and is not stored.
     # @return [String]
     attr_accessor :price
 
-    # TODO: Write general description for this method
+    # The ID of the stored currency price. This is `null` when the price point
+    # uses the site exchange rate (`use_site_exchange_rate: true`), because the
+    # price is calculated from the rate and is not stored.
     # @return [String]
     attr_accessor :formatted_price
 
-    # TODO: Write general description for this method
+    # The ID of the stored currency price. This is `null` when the price point
+    # uses the site exchange rate (`use_site_exchange_rate: true`), because the
+    # price is calculated from the rate and is not stored.
     # @return [Integer]
     attr_accessor :price_id
 
-    # TODO: Write general description for this method
+    # The ID of the stored currency price. This is `null` when the price point
+    # uses the site exchange rate (`use_site_exchange_rate: true`), because the
+    # price is calculated from the rate and is not stored.
     # @return [Integer]
     attr_accessor :price_point_id
 
@@ -59,7 +71,9 @@ module AdvancedBilling
 
     # An array for nullable fields
     def self.nullables
-      []
+      %w[
+        id
+      ]
     end
 
     def initialize(id: SKIP, currency: SKIP, price: SKIP, formatted_price: SKIP,
@@ -103,6 +117,16 @@ module AdvancedBilling
                                  price_id: price_id,
                                  price_point_id: price_point_id,
                                  additional_properties: additional_properties)
+    end
+
+    # Validates an instance of the object from a given value.
+    # @param [ComponentCurrencyPrice | Hash] The value against the validation is performed.
+    def self.validate(value)
+      return true if value.instance_of? self
+
+      return false unless value.instance_of? Hash
+
+      true
     end
 
     # Provides a human-readable string representation of the object.

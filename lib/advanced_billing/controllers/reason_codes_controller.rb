@@ -13,8 +13,8 @@ module AdvancedBilling
     # Billing Portal. As your subscribers decide to cancel their subscription,
     # learn why they decided to cancel.
     # For more information, see [Churn Reason
-    # Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Re
-    # ason-Codes).
+    # Codes](https://docs.maxio.com/configuration/advanced-billing/settings/chur
+    # n-reason-codes).
     # @param [CreateReasonCodeRequest] body Optional parameter: TODO: type
     # description here
     # @return [ReasonCodeResponse] Response from the API call.

@@ -82,6 +82,14 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :auto_renewals_enabled
 
+    # Indicates whether the site has list vs sales pricing enabled.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :list_pricing_enabled
+
+    # Indicates whether the site allows subscriptions without a plan.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :planless_subscriptions_enabled
+
     # Whether the Billing Portal is enabled for this site.
     # @return [TrueClass | FalseClass]
     attr_accessor :portal_enabled
@@ -114,6 +122,9 @@ module AdvancedBilling
       @_hash['net_terms'] = 'net_terms'
       @_hash['multi_frequency_enabled'] = 'multi_frequency_enabled'
       @_hash['auto_renewals_enabled'] = 'auto_renewals_enabled'
+      @_hash['list_pricing_enabled'] = 'list_pricing_enabled'
+      @_hash['planless_subscriptions_enabled'] =
+        'planless_subscriptions_enabled'
       @_hash['portal_enabled'] = 'portal_enabled'
       @_hash['test'] = 'test'
       @_hash
@@ -140,6 +151,8 @@ module AdvancedBilling
         net_terms
         multi_frequency_enabled
         auto_renewals_enabled
+        list_pricing_enabled
+        planless_subscriptions_enabled
         portal_enabled
         test
       ]
@@ -159,7 +172,8 @@ module AdvancedBilling
                    default_payment_collection_method: SKIP,
                    organization_address: SKIP, tax_configuration: SKIP,
                    net_terms: SKIP, multi_frequency_enabled: SKIP,
-                   auto_renewals_enabled: SKIP, portal_enabled: SKIP,
+                   auto_renewals_enabled: SKIP, list_pricing_enabled: SKIP,
+                   planless_subscriptions_enabled: SKIP, portal_enabled: SKIP,
                    test: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
@@ -196,6 +210,11 @@ module AdvancedBilling
       @net_terms = net_terms unless net_terms == SKIP
       @multi_frequency_enabled = multi_frequency_enabled unless multi_frequency_enabled == SKIP
       @auto_renewals_enabled = auto_renewals_enabled unless auto_renewals_enabled == SKIP
+      @list_pricing_enabled = list_pricing_enabled unless list_pricing_enabled == SKIP
+      unless planless_subscriptions_enabled == SKIP
+        @planless_subscriptions_enabled =
+          planless_subscriptions_enabled
+      end
       @portal_enabled = portal_enabled unless portal_enabled == SKIP
       @test = test unless test == SKIP
     end
@@ -235,6 +254,10 @@ module AdvancedBilling
         hash.key?('multi_frequency_enabled') ? hash['multi_frequency_enabled'] : SKIP
       auto_renewals_enabled =
         hash.key?('auto_renewals_enabled') ? hash['auto_renewals_enabled'] : SKIP
+      list_pricing_enabled =
+        hash.key?('list_pricing_enabled') ? hash['list_pricing_enabled'] : SKIP
+      planless_subscriptions_enabled =
+        hash.key?('planless_subscriptions_enabled') ? hash['planless_subscriptions_enabled'] : SKIP
       portal_enabled =
         hash.key?('portal_enabled') ? hash['portal_enabled'] : SKIP
       test = hash.key?('test') ? hash['test'] : SKIP
@@ -261,6 +284,8 @@ module AdvancedBilling
                net_terms: net_terms,
                multi_frequency_enabled: multi_frequency_enabled,
                auto_renewals_enabled: auto_renewals_enabled,
+               list_pricing_enabled: list_pricing_enabled,
+               planless_subscriptions_enabled: planless_subscriptions_enabled,
                portal_enabled: portal_enabled,
                test: test,
                additional_properties: additional_properties)
@@ -280,8 +305,9 @@ module AdvancedBilling
       " #{@default_payment_collection_method}, organization_address: #{@organization_address},"\
       " tax_configuration: #{@tax_configuration}, net_terms: #{@net_terms},"\
       " multi_frequency_enabled: #{@multi_frequency_enabled}, auto_renewals_enabled:"\
-      " #{@auto_renewals_enabled}, portal_enabled: #{@portal_enabled}, test: #{@test},"\
-      " additional_properties: #{get_additional_properties}>"
+      " #{@auto_renewals_enabled}, list_pricing_enabled: #{@list_pricing_enabled},"\
+      " planless_subscriptions_enabled: #{@planless_subscriptions_enabled}, portal_enabled:"\
+      " #{@portal_enabled}, test: #{@test}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -300,8 +326,10 @@ module AdvancedBilling
       " #{@organization_address.inspect}, tax_configuration: #{@tax_configuration.inspect},"\
       " net_terms: #{@net_terms.inspect}, multi_frequency_enabled:"\
       " #{@multi_frequency_enabled.inspect}, auto_renewals_enabled:"\
-      " #{@auto_renewals_enabled.inspect}, portal_enabled: #{@portal_enabled.inspect}, test:"\
-      " #{@test.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@auto_renewals_enabled.inspect}, list_pricing_enabled: #{@list_pricing_enabled.inspect},"\
+      " planless_subscriptions_enabled: #{@planless_subscriptions_enabled.inspect},"\
+      " portal_enabled: #{@portal_enabled.inspect}, test: #{@test.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end

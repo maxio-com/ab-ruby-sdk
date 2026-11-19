@@ -11,6 +11,7 @@ Object which contains subscription errors.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
+| `customer` | `Array[String]` | Optional | - |
 | `product` | `Array[String]` | Optional | - |
 | `product_price_point_id` | `Array[String]` | Optional | - |
 | `payment_profile` | `Array[String]` | Optional | - |
@@ -24,6 +25,10 @@ Object which contains subscription errors.
 
 ```ruby
 subscription_group_subscription_error = SubscriptionGroupSubscriptionError.new(
+  customer: [
+    'customer1',
+    'customer2'
+  ],
   product: [
     'product1'
   ],
@@ -35,10 +40,6 @@ subscription_group_subscription_error = SubscriptionGroupSubscriptionError.new(
   ],
   payment_profile_chargify_token: [
     'payment_profile.chargify_token6'
-  ],
-  base: [
-    'base5',
-    'base6'
   ]
 )
 ```

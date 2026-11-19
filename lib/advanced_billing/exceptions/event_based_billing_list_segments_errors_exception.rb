@@ -10,7 +10,7 @@ module AdvancedBilling
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Errors]
+    # @return [Errors1]
     attr_accessor :errors
 
     # The constructor.
@@ -28,7 +28,7 @@ module AdvancedBilling
     def unbox(hash)
       return nil unless hash
 
-      @errors = Errors.from_hash(hash['errors']) if hash['errors']
+      @errors = Errors1.from_hash(hash['errors']) if hash['errors']
     end
 
     # Provides a human-readable string representation of the object.

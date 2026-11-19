@@ -16,10 +16,11 @@ A handle for the component type
 | `ON_OFF_COMPONENT` |
 | `PREPAID_USAGE_COMPONENT` |
 | `EVENT_BASED_COMPONENT` |
+| `WALLET_PRODUCT` |
 
 ## Example
 
 ```ruby
-component_kind = ComponentKind::ON_OFF_COMPONENT
+component_kind = ComponentKind::EVENT_BASED_COMPONENT
 ```
 

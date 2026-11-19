@@ -45,17 +45,17 @@ module AdvancedBilling
 
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
-    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Componen
-    # t-Pricing-Schemes#price-bracket-rules) for an overview of how price
-    # brackets work for different pricing schemes.
+    # Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing
+    # -schemes#price-bracket-rules) for an overview of how price brackets work
+    # for different pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
 
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
-    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Componen
-    # t-Pricing-Schemes#price-bracket-rules) for an overview of how price
-    # brackets work for different pricing schemes.
+    # Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing
+    # -schemes#price-bracket-rules) for an overview of how price brackets work
+    # for different pricing schemes.
     # @return [Array[ComponentPricePointItem]]
     attr_accessor :price_points
 
@@ -77,10 +77,27 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :hide_date_range_on_invoice
 
-    # The ID of an event based billing metric that will be attached to this
-    # component.
+    # ID of a site-owned metric. Required to create a component with legacy
+    # Events Based Billing. During migration, a meter linked to the metric is
+    # attached automatically when present. Sites using Maxio Metering ignore
+    # this input; provide metering_meter_id or metering_formula instead.
     # @return [Integer]
     attr_accessor :event_based_billing_metric_id
+
+    # ID of a merchant-owned Maxio Metering meter. To create a component with
+    # Maxio Metering, provide this ID or metering_formula, but not both. Meter
+    # IDs and legacy metric IDs identify different resources. Sites using Events
+    # Based Billing ignore this input and require event_based_billing_metric_id
+    # instead.
+    # @return [Integer]
+    attr_accessor :metering_meter_id
+
+    # An Advanced Formula using Maxio Metering meters available to the site. To
+    # create a component with Maxio Metering, provide a non-blank formula or
+    # metering_meter_id, but not both. Sites using Events Based Billing ignore
+    # this input and require event_based_billing_metric_id instead.
+    # @return [String]
+    attr_accessor :metering_formula
 
     # The numerical interval. i.e., an interval of ‘30’ coupled with an
     # interval_unit of day would mean this component's default price point would
@@ -117,6 +134,8 @@ module AdvancedBilling
       @_hash['hide_date_range_on_invoice'] = 'hide_date_range_on_invoice'
       @_hash['event_based_billing_metric_id'] =
         'event_based_billing_metric_id'
+      @_hash['metering_meter_id'] = 'metering_meter_id'
+      @_hash['metering_formula'] = 'metering_formula'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash['unspsc_code'] = 'unspsc_code'
@@ -134,6 +153,9 @@ module AdvancedBilling
         unit_price
         tax_code
         hide_date_range_on_invoice
+        event_based_billing_metric_id
+        metering_meter_id
+        metering_formula
         interval
         interval_unit
         unspsc_code
@@ -148,13 +170,13 @@ module AdvancedBilling
       ]
     end
 
-    def initialize(name:, unit_name:, pricing_scheme:,
-                   event_based_billing_metric_id:, description: SKIP,
+    def initialize(name:, unit_name:, pricing_scheme:, description: SKIP,
                    handle: SKIP, taxable: SKIP, prices: SKIP,
                    price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
-                   hide_date_range_on_invoice: SKIP, interval: SKIP,
-                   interval_unit: SKIP, unspsc_code: SKIP,
-                   additional_properties: {})
+                   hide_date_range_on_invoice: SKIP,
+                   event_based_billing_metric_id: SKIP, metering_meter_id: SKIP,
+                   metering_formula: SKIP, interval: SKIP, interval_unit: SKIP,
+                   unspsc_code: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -174,7 +196,12 @@ module AdvancedBilling
         @hide_date_range_on_invoice =
           hide_date_range_on_invoice
       end
-      @event_based_billing_metric_id = event_based_billing_metric_id
+      unless event_based_billing_metric_id == SKIP
+        @event_based_billing_metric_id =
+          event_based_billing_metric_id
+      end
+      @metering_meter_id = metering_meter_id unless metering_meter_id == SKIP
+      @metering_formula = metering_formula unless metering_formula == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
       @unspsc_code = unspsc_code unless unspsc_code == SKIP
@@ -189,8 +216,6 @@ module AdvancedBilling
       unit_name = hash.key?('unit_name') ? hash['unit_name'] : nil
       pricing_scheme =
         hash.key?('pricing_scheme') ? hash['pricing_scheme'] : nil
-      event_based_billing_metric_id =
-        hash.key?('event_based_billing_metric_id') ? hash['event_based_billing_metric_id'] : nil
       description = hash.key?('description') ? hash['description'] : SKIP
       handle = hash.key?('handle') ? hash['handle'] : SKIP
       taxable = hash.key?('taxable') ? hash['taxable'] : SKIP
@@ -220,6 +245,12 @@ module AdvancedBilling
       tax_code = hash.key?('tax_code') ? hash['tax_code'] : SKIP
       hide_date_range_on_invoice =
         hash.key?('hide_date_range_on_invoice') ? hash['hide_date_range_on_invoice'] : SKIP
+      event_based_billing_metric_id =
+        hash.key?('event_based_billing_metric_id') ? hash['event_based_billing_metric_id'] : SKIP
+      metering_meter_id =
+        hash.key?('metering_meter_id') ? hash['metering_meter_id'] : SKIP
+      metering_formula =
+        hash.key?('metering_formula') ? hash['metering_formula'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
       unspsc_code = hash.key?('unspsc_code') ? hash['unspsc_code'] : SKIP
@@ -231,7 +262,6 @@ module AdvancedBilling
       EBBComponent.new(name: name,
                        unit_name: unit_name,
                        pricing_scheme: pricing_scheme,
-                       event_based_billing_metric_id: event_based_billing_metric_id,
                        description: description,
                        handle: handle,
                        taxable: taxable,
@@ -240,6 +270,9 @@ module AdvancedBilling
                        unit_price: unit_price,
                        tax_code: tax_code,
                        hide_date_range_on_invoice: hide_date_range_on_invoice,
+                       event_based_billing_metric_id: event_based_billing_metric_id,
+                       metering_meter_id: metering_meter_id,
+                       metering_formula: metering_formula,
                        interval: interval,
                        interval_unit: interval_unit,
                        unspsc_code: unspsc_code,
@@ -256,9 +289,7 @@ module AdvancedBilling
             APIHelper.valid_type?(value.unit_name,
                                   ->(val) { val.instance_of? String }) and
             APIHelper.valid_type?(value.pricing_scheme,
-                                  ->(val) { PricingScheme.validate(val) }) and
-            APIHelper.valid_type?(value.event_based_billing_metric_id,
-                                  ->(val) { val.instance_of? Integer })
+                                  ->(val) { PricingScheme.validate(val) })
         )
       end
 
@@ -270,9 +301,7 @@ module AdvancedBilling
           APIHelper.valid_type?(value['unit_name'],
                                 ->(val) { val.instance_of? String }) and
           APIHelper.valid_type?(value['pricing_scheme'],
-                                ->(val) { PricingScheme.validate(val) }) and
-          APIHelper.valid_type?(value['event_based_billing_metric_id'],
-                                ->(val) { val.instance_of? Integer })
+                                ->(val) { PricingScheme.validate(val) })
       )
     end
 
@@ -283,7 +312,8 @@ module AdvancedBilling
       " handle: #{@handle}, taxable: #{@taxable}, pricing_scheme: #{@pricing_scheme}, prices:"\
       " #{@prices}, price_points: #{@price_points}, unit_price: #{@unit_price}, tax_code:"\
       " #{@tax_code}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice},"\
-      " event_based_billing_metric_id: #{@event_based_billing_metric_id}, interval: #{@interval},"\
+      " event_based_billing_metric_id: #{@event_based_billing_metric_id}, metering_meter_id:"\
+      " #{@metering_meter_id}, metering_formula: #{@metering_formula}, interval: #{@interval},"\
       " interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code}, additional_properties:"\
       " #{get_additional_properties}>"
     end
@@ -296,9 +326,11 @@ module AdvancedBilling
       " pricing_scheme: #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, price_points:"\
       " #{@price_points.inspect}, unit_price: #{@unit_price.inspect}, tax_code:"\
       " #{@tax_code.inspect}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect},"\
-      " event_based_billing_metric_id: #{@event_based_billing_metric_id.inspect}, interval:"\
-      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, unspsc_code:"\
-      " #{@unspsc_code.inspect}, additional_properties: #{get_additional_properties}>"
+      " event_based_billing_metric_id: #{@event_based_billing_metric_id.inspect},"\
+      " metering_meter_id: #{@metering_meter_id.inspect}, metering_formula:"\
+      " #{@metering_formula.inspect}, interval: #{@interval.inspect}, interval_unit:"\
+      " #{@interval_unit.inspect}, unspsc_code: #{@unspsc_code.inspect}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
   end
 end
