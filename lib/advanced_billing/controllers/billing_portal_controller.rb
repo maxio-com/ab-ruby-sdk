@@ -24,8 +24,8 @@ module AdvancedBilling
     # frequently (such as to display on your website), **do not** make an API
     # request every time.
     # For more information configuring the Billing Portal, see [Billing Portal
-    # Overview](https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billi
-    # ng-Portal-Overview).
+    # Overview](https://docs.maxio.com/billing/billing-portal/overview/understan
+    # d-the-billing-portal).
     # @param [Integer] customer_id Required parameter: The Chargify id of the
     # customer
     # @param [AutoInvite] auto_invite Optional parameter: When set to 1, an

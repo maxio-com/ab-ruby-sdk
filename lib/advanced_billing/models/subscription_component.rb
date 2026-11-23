@@ -162,6 +162,12 @@ module AdvancedBilling
     # @return [TrueClass | FalseClass]
     attr_accessor :display_on_hosted_page
 
+    # The ID of the catalog price point used as the list price for this
+    # component's custom price. Returned only when list vs sales pricing is
+    # enabled for the site.
+    # @return [Integer]
+    attr_accessor :list_price_point_id
+
     # The numerical interval. e.g., an interval of '30' coupled with an
     # interval_unit of day would mean this component price point would renew
     # every 30 days. This property is only available for sites with
@@ -208,6 +214,7 @@ module AdvancedBilling
       @_hash['subscription'] = 'subscription'
       @_hash['historic_usages'] = 'historic_usages'
       @_hash['display_on_hosted_page'] = 'display_on_hosted_page'
+      @_hash['list_price_point_id'] = 'list_price_point_id'
       @_hash['interval'] = 'interval'
       @_hash['interval_unit'] = 'interval_unit'
       @_hash
@@ -246,6 +253,7 @@ module AdvancedBilling
         subscription
         historic_usages
         display_on_hosted_page
+        list_price_point_id
         interval
         interval_unit
       ]
@@ -265,6 +273,7 @@ module AdvancedBilling
         price_point_name
         use_site_exchange_rate
         description
+        list_price_point_id
         interval_unit
       ]
     end
@@ -282,8 +291,8 @@ module AdvancedBilling
                    use_site_exchange_rate: SKIP, description: SKIP,
                    allow_fractional_quantities: SKIP, subscription: SKIP,
                    historic_usages: SKIP, display_on_hosted_page: SKIP,
-                   interval: SKIP, interval_unit: SKIP,
-                   additional_properties: {})
+                   list_price_point_id: SKIP, interval: SKIP,
+                   interval_unit: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -322,6 +331,7 @@ module AdvancedBilling
       @subscription = subscription unless subscription == SKIP
       @historic_usages = historic_usages unless historic_usages == SKIP
       @display_on_hosted_page = display_on_hosted_page unless display_on_hosted_page == SKIP
+      @list_price_point_id = list_price_point_id unless list_price_point_id == SKIP
       @interval = interval unless interval == SKIP
       @interval_unit = interval_unit unless interval_unit == SKIP
     end
@@ -401,6 +411,8 @@ module AdvancedBilling
       historic_usages = SKIP unless hash.key?('historic_usages')
       display_on_hosted_page =
         hash.key?('display_on_hosted_page') ? hash['display_on_hosted_page'] : SKIP
+      list_price_point_id =
+        hash.key?('list_price_point_id') ? hash['list_price_point_id'] : SKIP
       interval = hash.key?('interval') ? hash['interval'] : SKIP
       interval_unit = hash.key?('interval_unit') ? hash['interval_unit'] : SKIP
 
@@ -438,6 +450,7 @@ module AdvancedBilling
                                 subscription: subscription,
                                 historic_usages: historic_usages,
                                 display_on_hosted_page: display_on_hosted_page,
+                                list_price_point_id: list_price_point_id,
                                 interval: interval,
                                 interval_unit: interval_unit,
                                 additional_properties: additional_properties)
@@ -480,9 +493,9 @@ module AdvancedBilling
       " #{@created_at}, updated_at: #{@updated_at}, use_site_exchange_rate:"\
       " #{@use_site_exchange_rate}, description: #{@description}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities}, subscription: #{@subscription}, historic_usages:"\
-      " #{@historic_usages}, display_on_hosted_page: #{@display_on_hosted_page}, interval:"\
-      " #{@interval}, interval_unit: #{@interval_unit}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@historic_usages}, display_on_hosted_page: #{@display_on_hosted_page},"\
+      " list_price_point_id: #{@list_price_point_id}, interval: #{@interval}, interval_unit:"\
+      " #{@interval_unit}, additional_properties: #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -504,8 +517,9 @@ module AdvancedBilling
       " #{@description.inspect}, allow_fractional_quantities:"\
       " #{@allow_fractional_quantities.inspect}, subscription: #{@subscription.inspect},"\
       " historic_usages: #{@historic_usages.inspect}, display_on_hosted_page:"\
-      " #{@display_on_hosted_page.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, additional_properties: #{get_additional_properties}>"
+      " #{@display_on_hosted_page.inspect}, list_price_point_id: #{@list_price_point_id.inspect},"\
+      " interval: #{@interval.inspect}, interval_unit: #{@interval_unit.inspect},"\
+      " additional_properties: #{get_additional_properties}>"
     end
   end
 end

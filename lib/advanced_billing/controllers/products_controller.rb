@@ -14,11 +14,10 @@ module AdvancedBilling
     # an error is returned.
     # For more information, see:
     # + [Products
-    # Overview](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Produ
-    # cts-Overview)
+    # Overview](https://docs.maxio.com/billing/catalog/plans/understand-plans)
     # + [Changing a Subscription's
-    # Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Produc
-    # t-Changes-and-Migrations)
+    # Product](https://docs.maxio.com/billing/subscriptions/management/subscript
+    # ion-actions/understand-upgrade-and-downgrade-scenarios)
     # @param [String] product_family_id Required parameter: Either the product
     # family's id or its handle prefixed with `handle:`
     # @param [CreateOrUpdateProductRequest] body Optional parameter: TODO: type
@@ -51,8 +50,14 @@ module AdvancedBilling
     # Reads the current details of a product.
     # @param [Integer] product_id Required parameter: The Advanced Billing id of
     # the product
+    # @param [TrueClass | FalseClass] include_features Optional parameter: When
+    # `true`, embeds the active feature catalog items for each result in a
+    # `features` array. Default value is `false`. Ignored on sites without
+    # Entitlements enabled: no `features` key is returned and no error is
+    # raised.
     # @return [ProductResponse] Response from the API call.
-    def read_product(product_id)
+    def read_product(product_id,
+                     include_features: false)
       @api_call
         .request(new_request_builder(HttpMethodEnum::GET,
                                      '/products/{product_id}.json',
@@ -60,6 +65,7 @@ module AdvancedBilling
                    .template_param(new_parameter(product_id, key: 'product_id')
                                     .is_required(true)
                                     .should_encode(true))
+                   .query_param(new_parameter(include_features, key: 'include_features'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
@@ -192,6 +198,11 @@ module AdvancedBilling
     # @param [ListProductsInclude] include Optional parameter: Allows including
     # additional data in the response. Use in query
     # `include=prepaid_product_price_point`.
+    # @param [TrueClass | FalseClass] include_features Optional parameter: When
+    # `true`, embeds the active feature catalog items for each result in a
+    # `features` array. Default value is `false`. Ignored on sites without
+    # Entitlements enabled: no `features` key is returned and no error is
+    # raised.
     # @return [Array[ProductResponse]] Response from the API call.
     def list_products(options = {})
       @api_call
@@ -208,6 +219,7 @@ module AdvancedBilling
                    .query_param(new_parameter(options['per_page'], key: 'per_page'))
                    .query_param(new_parameter(options['include_archived'], key: 'include_archived'))
                    .query_param(new_parameter(options['include'], key: 'include'))
+                   .query_param(new_parameter(options['include_features'], key: 'include_features'))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth'))
                    .array_serialization_format(ArraySerializationFormat::CSV))

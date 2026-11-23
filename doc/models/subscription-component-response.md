@@ -18,7 +18,7 @@ subscription_component_response = SubscriptionComponentResponse.new(
   component: SubscriptionComponent.new(
     id: 80,
     name: 'name8',
-    kind: ComponentKind::QUANTITY_BASED_COMPONENT,
+    kind: ComponentKind::EVENT_BASED_COMPONENT,
     unit_name: 'unit_name0',
     enabled: false
   )

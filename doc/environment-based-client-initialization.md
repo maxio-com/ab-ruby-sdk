@@ -34,21 +34,26 @@ client = Client.from_env
 The same method can accept keyword arguments to override any values read from the environment.
 
 ```ruby
-# To override or fill in values that are not set in the environment, pass them
-# as keyword arguments when calling `from_env`
-client = Client.from_env(environment: 'us', timeout: 30)
+require 'advanced_billing'
+include AdvancedBilling
+
+client = Client.from_env(
+  basic_auth_credentials: BasicAuthCredentials.new(
+    username: 'BasicAuthUserName',
+    password: 'BasicAuthPassword'
+  )
+)
 ```
 
 Values provided through arguments take precedence over those defined in environment variables.
+
+Authentication credentials are left out of the example `.env` file below. Keep credentials out of `.env` and configuration files that are committed to source control or shipped with your application, and load them at runtime from a secret manager or your hosting platform's environment instead. Pass them to `from_env` as keyword arguments, as shown above.
 
 ## Example .env File
 
 ```ruby
 SITE='subdomain'
 ENVIRONMENT='us'
-
-USERNAME='username'
-PASSWORD='password'
 
 TIMEOUT=60
 MAX_RETRIES=3
@@ -58,8 +63,6 @@ RETRY_STATUSES=408,413
 RETRY_METHODS=GET,PUT,DELETE
 PROXY_ADDRESS='http://localhost:3000'
 PROXY_PORT=8080
-PROXY_USERNAME='username'
-PROXY_PASSWORD='password'
 ```
 
 ## Note

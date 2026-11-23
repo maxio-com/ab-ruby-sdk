@@ -9,7 +9,7 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
+    # Validation error details for listing segments.
     # @return [Errors]
     attr_accessor :errors
 

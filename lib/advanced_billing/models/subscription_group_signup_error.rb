@@ -9,33 +9,39 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # Object that as key have subscription position in request subscriptions
-    # array and as value subscription errors object.
+    # Subscription errors keyed by the subscription's `reference` from the
+    # request, or by its zero-based position in the `subscriptions` array when
+    # it has no reference.
     # @return [Hash[String, SubscriptionGroupSubscriptionError]]
     attr_accessor :subscriptions
 
-    # Object that as key have subscription position in request subscriptions
-    # array and as value subscription errors object.
+    # Subscription errors keyed by the subscription's `reference` from the
+    # request, or by its zero-based position in the `subscriptions` array when
+    # it has no reference.
     # @return [String]
     attr_accessor :payer_reference
 
-    # Object that as key have subscription position in request subscriptions
-    # array and as value subscription errors object.
+    # Subscription errors keyed by the subscription's `reference` from the
+    # request, or by its zero-based position in the `subscriptions` array when
+    # it has no reference.
     # @return [PayerError]
     attr_accessor :payer
 
-    # Object that as key have subscription position in request subscriptions
-    # array and as value subscription errors object.
+    # Subscription errors keyed by the subscription's `reference` from the
+    # request, or by its zero-based position in the `subscriptions` array when
+    # it has no reference.
     # @return [Array[String]]
     attr_accessor :subscription_group
 
-    # Object that as key have subscription position in request subscriptions
-    # array and as value subscription errors object.
+    # Subscription errors keyed by the subscription's `reference` from the
+    # request, or by its zero-based position in the `subscriptions` array when
+    # it has no reference.
     # @return [String]
     attr_accessor :payment_profile_id
 
-    # Object that as key have subscription position in request subscriptions
-    # array and as value subscription errors object.
+    # Subscription errors keyed by the subscription's `reference` from the
+    # request, or by its zero-based position in the `subscriptions` array when
+    # it has no reference.
     # @return [String]
     attr_accessor :payer_id
 

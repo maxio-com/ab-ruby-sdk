@@ -45,11 +45,20 @@ module AdvancedBilling
 
     # (Not required for ‘per_unit’ pricing schemes) One or more price brackets.
     # See [Price Bracket
-    # Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Componen
-    # t-Pricing-Schemes#price-bracket-rules) for an overview of how price
-    # brackets work for different pricing schemes.
+    # Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing
+    # -schemes#price-bracket-rules) for an overview of how price brackets work
+    # for different pricing schemes.
     # @return [Array[Price]]
     attr_accessor :prices
+
+    # Hybrid Pricing only. The secondary pricing model that takes over once
+    # usage passes the primary model's included threshold. Applies to
+    # Quantity-Based and Metered Components on Sites with Hybrid Pricing
+    # enabled; ignored otherwise. Its `prices` brackets start at `1`, not at the
+    # primary model's highest `ending_quantity`. See [Hybrid
+    # Pricing](page:introduction/basic-concepts/hybrid-pricing).
+    # @return [SecondaryPricing]
+    attr_accessor :secondary_pricing
 
     # The type of credit to be created when upgrading/downgrading. Defaults to
     # the component and then site setting if one is not provided.
@@ -139,6 +148,7 @@ module AdvancedBilling
       @_hash['taxable'] = 'taxable'
       @_hash['pricing_scheme'] = 'pricing_scheme'
       @_hash['prices'] = 'prices'
+      @_hash['secondary_pricing'] = 'secondary_pricing'
       @_hash['upgrade_charge'] = 'upgrade_charge'
       @_hash['downgrade_credit'] = 'downgrade_credit'
       @_hash['price_points'] = 'price_points'
@@ -162,6 +172,7 @@ module AdvancedBilling
         handle
         taxable
         prices
+        secondary_pricing
         upgrade_charge
         downgrade_credit
         price_points
@@ -190,10 +201,10 @@ module AdvancedBilling
 
     def initialize(name:, unit_name:, pricing_scheme:, description: SKIP,
                    handle: SKIP, taxable: SKIP, prices: SKIP,
-                   upgrade_charge: SKIP, downgrade_credit: SKIP,
-                   price_points: SKIP, unit_price: SKIP, tax_code: SKIP,
-                   hide_date_range_on_invoice: SKIP, recurring: SKIP,
-                   display_on_hosted_page: SKIP,
+                   secondary_pricing: SKIP, upgrade_charge: SKIP,
+                   downgrade_credit: SKIP, price_points: SKIP, unit_price: SKIP,
+                   tax_code: SKIP, hide_date_range_on_invoice: SKIP,
+                   recurring: SKIP, display_on_hosted_page: SKIP,
                    allow_fractional_quantities: SKIP,
                    public_signup_page_ids: SKIP, interval: SKIP,
                    interval_unit: SKIP, unspsc_code: SKIP,
@@ -210,6 +221,7 @@ module AdvancedBilling
       @taxable = taxable unless taxable == SKIP
       @pricing_scheme = pricing_scheme
       @prices = prices unless prices == SKIP
+      @secondary_pricing = secondary_pricing unless secondary_pricing == SKIP
       @upgrade_charge = upgrade_charge unless upgrade_charge == SKIP
       @downgrade_credit = downgrade_credit unless downgrade_credit == SKIP
       @price_points = price_points unless price_points == SKIP
@@ -253,6 +265,8 @@ module AdvancedBilling
       end
 
       prices = SKIP unless hash.key?('prices')
+      secondary_pricing = SecondaryPricing.from_hash(hash['secondary_pricing']) if
+        hash['secondary_pricing']
       upgrade_charge =
         hash.key?('upgrade_charge') ? hash['upgrade_charge'] : SKIP
       downgrade_credit =
@@ -295,6 +309,7 @@ module AdvancedBilling
                                  handle: handle,
                                  taxable: taxable,
                                  prices: prices,
+                                 secondary_pricing: secondary_pricing,
                                  upgrade_charge: upgrade_charge,
                                  downgrade_credit: downgrade_credit,
                                  price_points: price_points,
@@ -342,13 +357,14 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name}, unit_name: #{@unit_name}, description: #{@description},"\
       " handle: #{@handle}, taxable: #{@taxable}, pricing_scheme: #{@pricing_scheme}, prices:"\
-      " #{@prices}, upgrade_charge: #{@upgrade_charge}, downgrade_credit: #{@downgrade_credit},"\
-      " price_points: #{@price_points}, unit_price: #{@unit_price}, tax_code: #{@tax_code},"\
-      " hide_date_range_on_invoice: #{@hide_date_range_on_invoice}, recurring: #{@recurring},"\
-      " display_on_hosted_page: #{@display_on_hosted_page}, allow_fractional_quantities:"\
-      " #{@allow_fractional_quantities}, public_signup_page_ids: #{@public_signup_page_ids},"\
-      " interval: #{@interval}, interval_unit: #{@interval_unit}, unspsc_code: #{@unspsc_code},"\
-      " additional_properties: #{get_additional_properties}>"
+      " #{@prices}, secondary_pricing: #{@secondary_pricing}, upgrade_charge: #{@upgrade_charge},"\
+      " downgrade_credit: #{@downgrade_credit}, price_points: #{@price_points}, unit_price:"\
+      " #{@unit_price}, tax_code: #{@tax_code}, hide_date_range_on_invoice:"\
+      " #{@hide_date_range_on_invoice}, recurring: #{@recurring}, display_on_hosted_page:"\
+      " #{@display_on_hosted_page}, allow_fractional_quantities: #{@allow_fractional_quantities},"\
+      " public_signup_page_ids: #{@public_signup_page_ids}, interval: #{@interval}, interval_unit:"\
+      " #{@interval_unit}, unspsc_code: #{@unspsc_code}, additional_properties:"\
+      " #{get_additional_properties}>"
     end
 
     # Provides a debugging-friendly string with detailed object information.
@@ -356,16 +372,16 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} name: #{@name.inspect}, unit_name: #{@unit_name.inspect}, description:"\
       " #{@description.inspect}, handle: #{@handle.inspect}, taxable: #{@taxable.inspect},"\
-      " pricing_scheme: #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, upgrade_charge:"\
-      " #{@upgrade_charge.inspect}, downgrade_credit: #{@downgrade_credit.inspect}, price_points:"\
-      " #{@price_points.inspect}, unit_price: #{@unit_price.inspect}, tax_code:"\
-      " #{@tax_code.inspect}, hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect},"\
-      " recurring: #{@recurring.inspect}, display_on_hosted_page:"\
-      " #{@display_on_hosted_page.inspect}, allow_fractional_quantities:"\
-      " #{@allow_fractional_quantities.inspect}, public_signup_page_ids:"\
-      " #{@public_signup_page_ids.inspect}, interval: #{@interval.inspect}, interval_unit:"\
-      " #{@interval_unit.inspect}, unspsc_code: #{@unspsc_code.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " pricing_scheme: #{@pricing_scheme.inspect}, prices: #{@prices.inspect}, secondary_pricing:"\
+      " #{@secondary_pricing.inspect}, upgrade_charge: #{@upgrade_charge.inspect},"\
+      " downgrade_credit: #{@downgrade_credit.inspect}, price_points: #{@price_points.inspect},"\
+      " unit_price: #{@unit_price.inspect}, tax_code: #{@tax_code.inspect},"\
+      " hide_date_range_on_invoice: #{@hide_date_range_on_invoice.inspect}, recurring:"\
+      " #{@recurring.inspect}, display_on_hosted_page: #{@display_on_hosted_page.inspect},"\
+      " allow_fractional_quantities: #{@allow_fractional_quantities.inspect},"\
+      " public_signup_page_ids: #{@public_signup_page_ids.inspect}, interval:"\
+      " #{@interval.inspect}, interval_unit: #{@interval_unit.inspect}, unspsc_code:"\
+      " #{@unspsc_code.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end

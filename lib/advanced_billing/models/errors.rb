@@ -4,7 +4,7 @@
 # APIMATIC v3.0 ( https://www.apimatic.io ).
 
 module AdvancedBilling
-  # Errors Model.
+  # Validation error details for listing segments.
   class Errors < BaseModel
     SKIP = Object.new
     private_constant :SKIP

@@ -77,8 +77,8 @@ module AdvancedBilling
     # "Parent" invoices do not have lines of their own, but they have subtotals
     # and totals which aggregate the member invoice segments.
     # See also the [invoice consolidation
-    # documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-
-    # Invoice-Consolidation).
+    # documentation](https://docs.maxio.com/billing/invoicing/working-with-invoi
+    # ces/understand-invoice-consolidation).
     # @return [InvoiceConsolidationLevel]
     attr_accessor :consolidation_level
 
@@ -92,8 +92,8 @@ module AdvancedBilling
     # "Parent" invoices do not have lines of their own, but they have subtotals
     # and totals which aggregate the member invoice segments.
     # See also the [invoice consolidation
-    # documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-
-    # Invoice-Consolidation).
+    # documentation](https://docs.maxio.com/billing/invoicing/working-with-invoi
+    # ces/understand-invoice-consolidation).
     # @return [String]
     attr_accessor :product_name
 
@@ -107,8 +107,8 @@ module AdvancedBilling
     # "Parent" invoices do not have lines of their own, but they have subtotals
     # and totals which aggregate the member invoice segments.
     # See also the [invoice consolidation
-    # documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-
-    # Invoice-Consolidation).
+    # documentation](https://docs.maxio.com/billing/invoicing/working-with-invoi
+    # ces/understand-invoice-consolidation).
     # @return [String]
     attr_accessor :product_family_name
 

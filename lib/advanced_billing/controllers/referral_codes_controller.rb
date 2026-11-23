@@ -10,8 +10,8 @@ module AdvancedBilling
     # site. This method is useful for validating referral codes that are entered
     # by a customer.
     # For more information, see [Understanding
-    # Referrals](https://docs.maxio.com/hc/en-us/articles/24286981223693-Underst
-    # anding-Referrals) in the product documentation.
+    # Referrals](https://docs.maxio.com/configuration/advanced-billing/understan
+    # d-referrals) in the product documentation.
     # @param [String] code Required parameter: The referral code you are trying
     # to validate
     # @return [ReferralValidationResponse] Response from the API call.

@@ -17,23 +17,28 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :title
 
-    # TODO: Write general description for this method
+    # The source of the tax. `Tax` is a tax configured in Advanced Billing. The
+    # other values identify the tax service that calculated the tax.
     # @return [ProformaInvoiceTaxSourceType]
     attr_accessor :source_type
 
-    # TODO: Write general description for this method
+    # The source of the tax. `Tax` is a tax configured in Advanced Billing. The
+    # other values identify the tax service that calculated the tax.
     # @return [String]
     attr_accessor :percentage
 
-    # TODO: Write general description for this method
+    # The source of the tax. `Tax` is a tax configured in Advanced Billing. The
+    # other values identify the tax service that calculated the tax.
     # @return [String]
     attr_accessor :taxable_amount
 
-    # TODO: Write general description for this method
+    # The source of the tax. `Tax` is a tax configured in Advanced Billing. The
+    # other values identify the tax service that calculated the tax.
     # @return [String]
     attr_accessor :tax_amount
 
-    # TODO: Write general description for this method
+    # The source of the tax. `Tax` is a tax configured in Advanced Billing. The
+    # other values identify the tax service that calculated the tax.
     # @return [Array[InvoiceTaxBreakout]]
     attr_accessor :line_item_breakouts
 

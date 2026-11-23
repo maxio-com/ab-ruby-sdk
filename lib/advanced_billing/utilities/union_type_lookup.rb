@@ -231,6 +231,24 @@ module AdvancedBilling
           )
         ),
 
+        :AdjustmentAmount => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
+        :AggregatedEntitlementValue => OneOf.new(
+          [
+            AnyOf.new([LeafType.new(TrueClass), LeafType.new(FalseClass)]),
+            LeafType.new(Float),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
         :AllocationQuantity => OneOf.new(
           [
             LeafType.new(Integer),
@@ -307,6 +325,16 @@ module AdvancedBilling
         ),
 
         :ComponentAllocationChangeAllocatedQuantity => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :ComponentPricePointAssignmentComponentId => OneOf.new(
           [
             LeafType.new(Integer),
             LeafType.new(String)
@@ -803,6 +831,13 @@ module AdvancedBilling
           ]
         ),
 
+        :PurchaseQuantity => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
+        ),
+
         :QuantityBasedComponentUnitPrice => OneOf.new(
           [
             LeafType.new(String),
@@ -956,6 +991,116 @@ module AdvancedBilling
           [
             LeafType.new(Integer),
             LeafType.new(String)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty1Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty2Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty3Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty4Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty5Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty6Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty7Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty8Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty9Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :SubscriptionComponentCustomPriceSegmentSegmentProperty10Value => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Float),
+            LeafType.new(Integer)
           ],
           UnionTypeContext.new(
             is_optional: true
@@ -1224,6 +1369,40 @@ module AdvancedBilling
           UnionTypeContext.new(
             is_optional: true
           )
+        ),
+
+        :Wallet1WalletProductId => OneOf.new(
+          [
+            LeafType.new(Integer),
+            LeafType.new(String)
+          ]
+        ),
+
+        :Wallet1ConversionRate => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :Wallet1InitialBalance => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ],
+          UnionTypeContext.new(
+            is_optional: true
+          )
+        ),
+
+        :WalletTransaction1Amount => OneOf.new(
+          [
+            LeafType.new(String),
+            LeafType.new(Integer)
+          ]
         )
       }
     end

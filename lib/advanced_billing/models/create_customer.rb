@@ -69,7 +69,38 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :vat_number
 
-    # Set a specific language on a customer record.
+    # The two-letter ISO 3166-1 country code that qualifies the customer's tax
+    # ID. Required when `entity_identifier_kind` is `vat_eu` or `national_tax`,
+    # and used to derive the kind when only the legacy `vat_number` is sent.
+    # @return [String]
+    attr_accessor :vat_country
+
+    # The kind of tax or business identifier held by the customer:
+    # - `vat_eu`: an EU VAT number. Requires `vat_country` to be an EU member
+    # state code or `GB`.
+    # - `national_tax`: a national tax ID registered outside the EU. Requires
+    # `vat_country` to be one of `AL`, `AM`, `AR`, `AU`, `BR`, `CA`, `CH`, `DZ`,
+    # `IN`, `MX`, `NO`, `NZ`, or `ZA`.
+    # - `company_reg`: a company registration number, such as a French SIREN. No
+    # `vat_country` is required.
+    # - `gln`: a Global Location Number. The value must be 13 digits.
+    # - `duns`: a D-U-N-S Number. The value must be 9 digits.
+    # - `lei`: a Legal Entity Identifier. The value must be 20 characters: 18
+    # letters or digits followed by 2 digits.
+    # A customer holds one identifier at a time. Saving an identifier of a
+    # different kind replaces the existing one.
+    # @return [EntityIdentifierKind]
+    attr_accessor :entity_identifier_kind
+
+    # The customer's tax or business identifier, sent together with
+    # `entity_identifier_kind`. Advanced Billing trims surrounding whitespace
+    # and stores the value in uppercase.
+    # @return [String]
+    attr_accessor :entity_identifier_value
+
+    # The customer's tax or business identifier, sent together with
+    # `entity_identifier_kind`. Advanced Billing trims surrounding whitespace
+    # and stores the value in uppercase.
     # @return [TrueClass | FalseClass]
     attr_accessor :tax_exempt
 
@@ -117,6 +148,9 @@ module AdvancedBilling
       @_hash['phone'] = 'phone'
       @_hash['locale'] = 'locale'
       @_hash['vat_number'] = 'vat_number'
+      @_hash['vat_country'] = 'vat_country'
+      @_hash['entity_identifier_kind'] = 'entity_identifier_kind'
+      @_hash['entity_identifier_value'] = 'entity_identifier_value'
       @_hash['tax_exempt'] = 'tax_exempt'
       @_hash['surcharging'] = 'surcharging'
       @_hash['tax_exempt_reason'] = 'tax_exempt_reason'
@@ -141,6 +175,9 @@ module AdvancedBilling
         phone
         locale
         vat_number
+        vat_country
+        entity_identifier_kind
+        entity_identifier_value
         tax_exempt
         surcharging
         tax_exempt_reason
@@ -163,9 +200,11 @@ module AdvancedBilling
                    organization: SKIP, reference: SKIP, address: SKIP,
                    address_2: SKIP, city: SKIP, state: SKIP, zip: SKIP,
                    country: SKIP, phone: SKIP, locale: SKIP, vat_number: SKIP,
-                   tax_exempt: SKIP, surcharging: SKIP, tax_exempt_reason: SKIP,
-                   parent_id: SKIP, salesforce_id: SKIP,
-                   branding_theme_id: SKIP, additional_properties: {})
+                   vat_country: SKIP, entity_identifier_kind: SKIP,
+                   entity_identifier_value: SKIP, tax_exempt: SKIP,
+                   surcharging: SKIP, tax_exempt_reason: SKIP, parent_id: SKIP,
+                   salesforce_id: SKIP, branding_theme_id: SKIP,
+                   additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -186,6 +225,9 @@ module AdvancedBilling
       @phone = phone unless phone == SKIP
       @locale = locale unless locale == SKIP
       @vat_number = vat_number unless vat_number == SKIP
+      @vat_country = vat_country unless vat_country == SKIP
+      @entity_identifier_kind = entity_identifier_kind unless entity_identifier_kind == SKIP
+      @entity_identifier_value = entity_identifier_value unless entity_identifier_value == SKIP
       @tax_exempt = tax_exempt unless tax_exempt == SKIP
       @surcharging = surcharging unless surcharging == SKIP
       @tax_exempt_reason = tax_exempt_reason unless tax_exempt_reason == SKIP
@@ -214,6 +256,11 @@ module AdvancedBilling
       phone = hash.key?('phone') ? hash['phone'] : SKIP
       locale = hash.key?('locale') ? hash['locale'] : SKIP
       vat_number = hash.key?('vat_number') ? hash['vat_number'] : SKIP
+      vat_country = hash.key?('vat_country') ? hash['vat_country'] : SKIP
+      entity_identifier_kind =
+        hash.key?('entity_identifier_kind') ? hash['entity_identifier_kind'] : SKIP
+      entity_identifier_value =
+        hash.key?('entity_identifier_value') ? hash['entity_identifier_value'] : SKIP
       tax_exempt = hash.key?('tax_exempt') ? hash['tax_exempt'] : SKIP
       surcharging = hash.key?('surcharging') ? hash['surcharging'] : SKIP
       tax_exempt_reason =
@@ -242,6 +289,9 @@ module AdvancedBilling
                          phone: phone,
                          locale: locale,
                          vat_number: vat_number,
+                         vat_country: vat_country,
+                         entity_identifier_kind: entity_identifier_kind,
+                         entity_identifier_value: entity_identifier_value,
                          tax_exempt: tax_exempt,
                          surcharging: surcharging,
                          tax_exempt_reason: tax_exempt_reason,
@@ -258,9 +308,11 @@ module AdvancedBilling
       " cc_emails: #{@cc_emails}, organization: #{@organization}, reference: #{@reference},"\
       " address: #{@address}, address_2: #{@address_2}, city: #{@city}, state: #{@state}, zip:"\
       " #{@zip}, country: #{@country}, phone: #{@phone}, locale: #{@locale}, vat_number:"\
-      " #{@vat_number}, tax_exempt: #{@tax_exempt}, surcharging: #{@surcharging},"\
-      " tax_exempt_reason: #{@tax_exempt_reason}, parent_id: #{@parent_id}, salesforce_id:"\
-      " #{@salesforce_id}, branding_theme_id: #{@branding_theme_id}, additional_properties:"\
+      " #{@vat_number}, vat_country: #{@vat_country}, entity_identifier_kind:"\
+      " #{@entity_identifier_kind}, entity_identifier_value: #{@entity_identifier_value},"\
+      " tax_exempt: #{@tax_exempt}, surcharging: #{@surcharging}, tax_exempt_reason:"\
+      " #{@tax_exempt_reason}, parent_id: #{@parent_id}, salesforce_id: #{@salesforce_id},"\
+      " branding_theme_id: #{@branding_theme_id}, additional_properties:"\
       " #{get_additional_properties}>"
     end
 
@@ -272,7 +324,9 @@ module AdvancedBilling
       " #{@organization.inspect}, reference: #{@reference.inspect}, address: #{@address.inspect},"\
       " address_2: #{@address_2.inspect}, city: #{@city.inspect}, state: #{@state.inspect}, zip:"\
       " #{@zip.inspect}, country: #{@country.inspect}, phone: #{@phone.inspect}, locale:"\
-      " #{@locale.inspect}, vat_number: #{@vat_number.inspect}, tax_exempt:"\
+      " #{@locale.inspect}, vat_number: #{@vat_number.inspect}, vat_country:"\
+      " #{@vat_country.inspect}, entity_identifier_kind: #{@entity_identifier_kind.inspect},"\
+      " entity_identifier_value: #{@entity_identifier_value.inspect}, tax_exempt:"\
       " #{@tax_exempt.inspect}, surcharging: #{@surcharging.inspect}, tax_exempt_reason:"\
       " #{@tax_exempt_reason.inspect}, parent_id: #{@parent_id.inspect}, salesforce_id:"\
       " #{@salesforce_id.inspect}, branding_theme_id: #{@branding_theme_id.inspect},"\

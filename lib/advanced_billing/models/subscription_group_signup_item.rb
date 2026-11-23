@@ -37,6 +37,19 @@ module AdvancedBilling
     # @return [String]
     attr_accessor :reference
 
+    # (Optional) The ID of the customer the subscription belongs to. The
+    # customer must be the payer or a customer below the payer in the customer
+    # hierarchy. If you omit both `customer_id` and `customer_reference`, the
+    # subscription belongs to the payer.
+    # @return [Integer]
+    attr_accessor :customer_id
+
+    # (Optional) The reference of the customer the subscription belongs to,
+    # matched case-insensitively. Use in place of `customer_id`. If you pass
+    # both, `customer_id` is used.
+    # @return [String]
+    attr_accessor :customer_reference
+
     # One of the subscriptions must be marked as primary in the group.
     # @return [TrueClass | FalseClass]
     attr_accessor :primary
@@ -81,6 +94,8 @@ module AdvancedBilling
       @_hash['product_price_point_handle'] = 'product_price_point_handle'
       @_hash['offer_id'] = 'offer_id'
       @_hash['reference'] = 'reference'
+      @_hash['customer_id'] = 'customer_id'
+      @_hash['customer_reference'] = 'customer_reference'
       @_hash['primary'] = 'primary'
       @_hash['currency'] = 'currency'
       @_hash['coupon_codes'] = 'coupon_codes'
@@ -100,6 +115,8 @@ module AdvancedBilling
         product_price_point_handle
         offer_id
         reference
+        customer_id
+        customer_reference
         primary
         currency
         coupon_codes
@@ -118,10 +135,10 @@ module AdvancedBilling
     def initialize(product_handle: SKIP, product_id: SKIP,
                    product_price_point_id: SKIP,
                    product_price_point_handle: SKIP, offer_id: SKIP,
-                   reference: SKIP, primary: SKIP, currency: SKIP,
-                   coupon_codes: SKIP, components: SKIP, custom_price: SKIP,
-                   calendar_billing: SKIP, metafields: SKIP,
-                   additional_properties: {})
+                   reference: SKIP, customer_id: SKIP, customer_reference: SKIP,
+                   primary: SKIP, currency: SKIP, coupon_codes: SKIP,
+                   components: SKIP, custom_price: SKIP, calendar_billing: SKIP,
+                   metafields: SKIP, additional_properties: {})
       # Add additional model properties to the instance.
       additional_properties.each do |_name, _value|
         instance_variable_set("@#{_name}", _value)
@@ -136,6 +153,8 @@ module AdvancedBilling
       end
       @offer_id = offer_id unless offer_id == SKIP
       @reference = reference unless reference == SKIP
+      @customer_id = customer_id unless customer_id == SKIP
+      @customer_reference = customer_reference unless customer_reference == SKIP
       @primary = primary unless primary == SKIP
       @currency = currency unless currency == SKIP
       @coupon_codes = coupon_codes unless coupon_codes == SKIP
@@ -159,6 +178,9 @@ module AdvancedBilling
         hash.key?('product_price_point_handle') ? hash['product_price_point_handle'] : SKIP
       offer_id = hash.key?('offer_id') ? hash['offer_id'] : SKIP
       reference = hash.key?('reference') ? hash['reference'] : SKIP
+      customer_id = hash.key?('customer_id') ? hash['customer_id'] : SKIP
+      customer_reference =
+        hash.key?('customer_reference') ? hash['customer_reference'] : SKIP
       primary = hash.key?('primary') ? hash['primary'] : SKIP
       currency = hash.key?('currency') ? hash['currency'] : SKIP
       coupon_codes = hash.key?('coupon_codes') ? hash['coupon_codes'] : SKIP
@@ -188,6 +210,8 @@ module AdvancedBilling
                                       product_price_point_handle: product_price_point_handle,
                                       offer_id: offer_id,
                                       reference: reference,
+                                      customer_id: customer_id,
+                                      customer_reference: customer_reference,
                                       primary: primary,
                                       currency: currency,
                                       coupon_codes: coupon_codes,
@@ -213,7 +237,8 @@ module AdvancedBilling
       class_name = self.class.name.split('::').last
       "<#{class_name} product_handle: #{@product_handle}, product_id: #{@product_id},"\
       " product_price_point_id: #{@product_price_point_id}, product_price_point_handle:"\
-      " #{@product_price_point_handle}, offer_id: #{@offer_id}, reference: #{@reference}, primary:"\
+      " #{@product_price_point_handle}, offer_id: #{@offer_id}, reference: #{@reference},"\
+      " customer_id: #{@customer_id}, customer_reference: #{@customer_reference}, primary:"\
       " #{@primary}, currency: #{@currency}, coupon_codes: #{@coupon_codes}, components:"\
       " #{@components}, custom_price: #{@custom_price}, calendar_billing: #{@calendar_billing},"\
       " metafields: #{@metafields}, additional_properties: #{get_additional_properties}>"
@@ -225,11 +250,12 @@ module AdvancedBilling
       "<#{class_name} product_handle: #{@product_handle.inspect}, product_id:"\
       " #{@product_id.inspect}, product_price_point_id: #{@product_price_point_id.inspect},"\
       " product_price_point_handle: #{@product_price_point_handle.inspect}, offer_id:"\
-      " #{@offer_id.inspect}, reference: #{@reference.inspect}, primary: #{@primary.inspect},"\
-      " currency: #{@currency.inspect}, coupon_codes: #{@coupon_codes.inspect}, components:"\
-      " #{@components.inspect}, custom_price: #{@custom_price.inspect}, calendar_billing:"\
-      " #{@calendar_billing.inspect}, metafields: #{@metafields.inspect}, additional_properties:"\
-      " #{get_additional_properties}>"
+      " #{@offer_id.inspect}, reference: #{@reference.inspect}, customer_id:"\
+      " #{@customer_id.inspect}, customer_reference: #{@customer_reference.inspect}, primary:"\
+      " #{@primary.inspect}, currency: #{@currency.inspect}, coupon_codes:"\
+      " #{@coupon_codes.inspect}, components: #{@components.inspect}, custom_price:"\
+      " #{@custom_price.inspect}, calendar_billing: #{@calendar_billing.inspect}, metafields:"\
+      " #{@metafields.inspect}, additional_properties: #{get_additional_properties}>"
     end
   end
 end
