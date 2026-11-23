@@ -215,7 +215,7 @@ puts result
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | `APIException` |
+| 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentWriteErrorResponseException`](../../doc/models/event-based-billing-segment-write-error-response-exception.md) |
 
 
 # Delete Segment
@@ -273,7 +273,7 @@ events_based_billing_segments_controller.delete_segment(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `APIException` |
-| 422 | Unprocessable Entity (WebDAV) | [`SegmentPricePointErrorsErrorException`](../../doc/models/segment-price-point-errors-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SegmentPricePointErrorsException`](../../doc/models/segment-price-point-errors-exception.md) |
 
 
 # Bulk Create Segments

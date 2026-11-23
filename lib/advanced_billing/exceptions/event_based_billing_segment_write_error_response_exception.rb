@@ -11,11 +11,8 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # The key of the object would be a number (an index in the request array)
-    # where the error occurred. In the value object, the key represents the
-    # field and the value is an array with error messages. In most cases, this
-    # object would contain just one key.
-    # @return [EventBasedBillingSegmentSingleError]
+    # TODO: Write general description for this method
+    # @return [Hash[String, Object]]
     attr_accessor :errors
 
     # The constructor.
@@ -33,7 +30,7 @@ module AdvancedBilling
     def unbox(hash)
       return nil unless hash
 
-      @errors = EventBasedBillingSegmentSingleError.from_hash(hash['errors']) if hash['errors']
+      @errors = hash.key?('errors') ? hash['errors'] : SKIP
     end
 
     # Provides a human-readable string representation of the object.

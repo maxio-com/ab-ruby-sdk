@@ -9,8 +9,8 @@ module AdvancedBilling
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [Errors1]
+    # Validation error details for listing segments.
+    # @return [Errors]
     attr_accessor :errors
 
     # The constructor.
@@ -28,7 +28,7 @@ module AdvancedBilling
     def unbox(hash)
       return nil unless hash
 
-      @errors = Errors1.from_hash(hash['errors']) if hash['errors']
+      @errors = Errors.from_hash(hash['errors']) if hash['errors']
     end
 
     # Provides a human-readable string representation of the object.

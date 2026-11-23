@@ -257,10 +257,7 @@ require_relative 'advanced_billing/models/enable_webhooks_response'
 require_relative 'advanced_billing/models/endpoint'
 require_relative 'advanced_billing/models/endpoint_response'
 require_relative 'advanced_billing/models/errors'
-require_relative 'advanced_billing/models/errors1'
 require_relative 'advanced_billing/models/event'
-require_relative 'advanced_billing/models/' \
-                 'event_based_billing_segment_single_error'
 require_relative 'advanced_billing/models/event_response'
 require_relative 'advanced_billing/models/failed_payment_event_data'
 require_relative 'advanced_billing/models/feature'
@@ -486,6 +483,7 @@ require_relative 'advanced_billing/models/scheduled_renewal_update_request'
 require_relative 'advanced_billing/models/secondary_pricing'
 require_relative 'advanced_billing/models/segment'
 require_relative 'advanced_billing/models/segment_price'
+require_relative 'advanced_billing/models/segment_price_point_error_details'
 require_relative 'advanced_billing/models/segment_response'
 require_relative 'advanced_billing/models/send_invoice_request'
 require_relative 'advanced_billing/models/send_email'
@@ -782,7 +780,7 @@ require_relative 'advanced_billing/exceptions/' \
 require_relative 'advanced_billing/exceptions/' \
                  'refund_prepayment_base_errors_response_exception'
 require_relative 'advanced_billing/exceptions/' \
-                 'segment_price_point_errors_error_exception'
+                 'segment_price_point_errors_exception'
 require_relative 'advanced_billing/exceptions/single_error_response_exception'
 require_relative 'advanced_billing/exceptions/' \
                  'single_string_error_response_exception'

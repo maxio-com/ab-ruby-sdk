@@ -238,6 +238,7 @@ module AdvancedBilling
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(Single.new('BasicAuth')))
         .response(new_response_handler
+                    .is_nullable_response(true)
                     .deserializer(APIHelper.method(:custom_type_deserializer))
                     .deserialize_into(FeatureCatalogItemResponse.method(:from_hash))
                     .local_error('403',

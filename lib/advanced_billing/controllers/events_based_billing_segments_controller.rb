@@ -178,7 +178,7 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          APIException))
+                                          EventBasedBillingSegmentWriteErrorResponseException))
         .execute
     end
 
@@ -226,7 +226,7 @@ module AdvancedBilling
                     .local_error_template('422',
                                           'HTTP Response Not OK. Status code: {$statusCode}.'\
                                            ' Response: \'{$response.body}\'.',
-                                          SegmentPricePointErrorsErrorException))
+                                          SegmentPricePointErrorsException))
         .execute
     end
 

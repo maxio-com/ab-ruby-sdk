@@ -7,12 +7,12 @@ module AdvancedBilling
   # Returned when a segment write targets a subscription's custom price point.
   # Segments on a custom price point can only be set through `custom_price` on
   # the subscription or component endpoints.
-  class SegmentPricePointErrorsErrorException < APIException
+  class SegmentPricePointErrorsException < APIException
     SKIP = Object.new
     private_constant :SKIP
 
-    # TODO: Write general description for this method
-    # @return [Errors]
+    # Price-point validation error details for segment writes.
+    # @return [SegmentPricePointErrorDetails]
     attr_accessor :errors
 
     # The constructor.
@@ -30,7 +30,7 @@ module AdvancedBilling
     def unbox(hash)
       return nil unless hash
 
-      @errors = Errors.from_hash(hash['errors']) if hash['errors']
+      @errors = SegmentPricePointErrorDetails.from_hash(hash['errors']) if hash['errors']
     end
 
     # Provides a human-readable string representation of the object.
